@@ -69,7 +69,9 @@ func renderNearbyPanel(width int) string {
 		panelItemStyle.Render("  uneasy presence"),
 		panelItemStyle.Render("  cold draft north"),
 		panelItemStyle.Render("  echo from east"),
-		panelItemStyle.Render("  damp smell south"),
+		panelItemStyle.Render("  stone dampness"),
+		panelItemStyle.Render("  dust in torchlight"),
+		panelItemStyle.Render("  deep silence"),
 	}
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
 	return panelBorderStyle.Width(width - 4).Render(content) // -4 for border+padding

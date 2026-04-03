@@ -122,10 +122,20 @@ func TestNearbyPanelContainsTensionWording(t *testing.T) {
 
 func TestNearbyPanelContainsDirectionalCues(t *testing.T) {
 	panel := renderNearbyPanel(sidePanelWidth)
-	directionalPhrases := []string{"north", "east", "south"}
+	directionalPhrases := []string{"north", "east"}
 	for _, phrase := range directionalPhrases {
 		if !strings.Contains(panel, phrase) {
 			t.Fatalf("nearby panel should contain directional cue %q", phrase)
+		}
+	}
+}
+
+func TestNearbyPanelContainsStillnessCues(t *testing.T) {
+	panel := renderNearbyPanel(sidePanelWidth)
+	stillnessPhrases := []string{"stone dampness", "deep silence"}
+	for _, phrase := range stillnessPhrases {
+		if !strings.Contains(panel, phrase) {
+			t.Fatalf("nearby panel should contain stillness cue %q", phrase)
 		}
 	}
 }
