@@ -53,6 +53,43 @@ func TestPlayerMarkerAtCorrectPosition(t *testing.T) {
 	}
 }
 
+func TestRenderMapContainsLandmarks(t *testing.T) {
+	rendered := renderMap()
+	for _, lm := range landmarks {
+		if !strings.ContainsRune(rendered, lm.glyph) {
+			t.Fatalf("renderMap() should contain landmark glyph %c (%s)", lm.glyph, lm.label)
+		}
+	}
+}
+
+func TestLandmarksAtCorrectPositions(t *testing.T) {
+	lines := strings.Split(renderMap(), "\n")
+	for _, lm := range landmarks {
+		if lm.y >= len(lines) {
+			t.Fatalf("landmark %s y=%d out of range", lm.label, lm.y)
+		}
+		runes := []rune(lines[lm.y])
+		if lm.x >= len(runes) {
+			t.Fatalf("landmark %s x=%d out of range", lm.label, lm.x)
+		}
+		// Player marker takes priority, so skip check if player overlaps
+		if lm.x == playerX && lm.y == playerY {
+			continue
+		}
+		if runes[lm.x] != lm.glyph {
+			t.Fatalf("expected landmark %c at (%d,%d), got %c", lm.glyph, lm.x, lm.y, runes[lm.x])
+		}
+	}
+}
+
+func TestRenderMapDeterministic(t *testing.T) {
+	a := renderMap()
+	b := renderMap()
+	if a != b {
+		t.Fatal("renderMap() should produce deterministic output")
+	}
+}
+
 func TestRenderHeaderContainsTitle(t *testing.T) {
 	header := renderHeader(80)
 	if !strings.Contains(header, headerTitle) {

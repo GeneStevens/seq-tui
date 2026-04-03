@@ -8,9 +8,23 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
-// renderMap overlays the player marker onto the static map without mutating it.
+// renderMap overlays landmarks and the player marker onto the static map
+// without mutating the original constant.
 func renderMap() string {
 	lines := strings.Split(staticMap, "\n")
+
+	// Overlay landmarks first
+	for _, lm := range landmarks {
+		if lm.y >= 0 && lm.y < len(lines) {
+			row := []rune(lines[lm.y])
+			if lm.x >= 0 && lm.x < len(row) {
+				row[lm.x] = lm.glyph
+				lines[lm.y] = string(row)
+			}
+		}
+	}
+
+	// Overlay player marker last so it is always visible
 	if playerY >= 0 && playerY < len(lines) {
 		line := []rune(lines[playerY])
 		if playerX >= 0 && playerX < len(line) {
@@ -18,6 +32,7 @@ func renderMap() string {
 			lines[playerY] = string(line)
 		}
 	}
+
 	return strings.Join(lines, "\n")
 }
 
