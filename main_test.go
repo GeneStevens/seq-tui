@@ -208,7 +208,7 @@ func TestRenderHeaderContainsSubtitle(t *testing.T) {
 }
 
 func TestRenderFooterContainsQuitHint(t *testing.T) {
-	footer := renderFooter(80)
+	footer := renderFooter(80, "")
 	if !strings.Contains(footer, "quit") {
 		t.Fatal("footer should contain quit hint")
 	}
@@ -222,7 +222,7 @@ func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40)
+	layout := renderLayout(80, 40, "")
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -235,7 +235,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40)
+	layout := renderLayout(80, 40, "")
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -266,7 +266,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40)
+	layout := renderLayout(120, 40, "")
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -279,7 +279,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30)
+	layout := renderLayout(50, 30, "")
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -290,7 +290,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5)
+	layout := renderLayout(20, 5, "")
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -299,7 +299,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1])
+		layout := renderLayout(sz[0], sz[1], "")
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -309,6 +309,69 @@ func TestRenderLayoutVariousSizes(t *testing.T) {
 		if !strings.Contains(layout, "quit") {
 			t.Fatalf("layout at %dx%d missing footer", sz[0], sz[1])
 		}
+	}
+}
+
+func TestDirectionFromKeyArrows(t *testing.T) {
+	cases := map[string]string{
+		"up": "north", "down": "south", "left": "west", "right": "east",
+	}
+	for key, want := range cases {
+		if got := directionFromKey(key); got != want {
+			t.Fatalf("directionFromKey(%q) = %q, want %q", key, got, want)
+		}
+	}
+}
+
+func TestDirectionFromKeyHJKL(t *testing.T) {
+	cases := map[string]string{
+		"h": "west", "j": "south", "k": "north", "l": "east",
+	}
+	for key, want := range cases {
+		if got := directionFromKey(key); got != want {
+			t.Fatalf("directionFromKey(%q) = %q, want %q", key, got, want)
+		}
+	}
+}
+
+func TestDirectionFromKeyUnrecognized(t *testing.T) {
+	if dir := directionFromKey("x"); dir != "" {
+		t.Fatalf("unrecognized key should return empty, got %q", dir)
+	}
+}
+
+func TestFooterContainsMovementKeys(t *testing.T) {
+	footer := renderFooter(120, "")
+	if !strings.Contains(footer, "move") {
+		t.Fatal("footer should advertise movement keys")
+	}
+	if !strings.Contains(footer, "quit") {
+		t.Fatal("footer should still contain quit hint")
+	}
+}
+
+func TestFooterShowsInputAcknowledgement(t *testing.T) {
+	footer := renderFooter(120, "north (not connected)")
+	if !strings.Contains(footer, "north") {
+		t.Fatal("footer should show input acknowledgement")
+	}
+	if !strings.Contains(footer, "not connected") {
+		t.Fatal("footer should indicate not connected")
+	}
+}
+
+func TestPlayerMarkerUnchangedAfterInput(t *testing.T) {
+	// Simulate: model receives a movement key but position must not change
+	m := model{width: 80, height: 40, lastInput: "north (not connected)"}
+	view := m.View()
+	if !strings.ContainsRune(view, playerMarker) {
+		t.Fatal("player marker should still be present after input")
+	}
+	// Verify the underlying map is unchanged
+	lines := strings.Split(renderMap(), "\n")
+	runes := []rune(lines[playerY])
+	if runes[playerX] != playerMarker {
+		t.Fatal("player position must not change from movement input")
 	}
 }
 

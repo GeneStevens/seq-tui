@@ -7,7 +7,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp     = "q: quit"
+	footerHelp = "hjkl/arrows: move  q: quit"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
@@ -96,15 +96,19 @@ func renderSideColumn(width int) string {
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", status)
 }
 
-// renderFooter returns the footer help strip.
-func renderFooter(width int) string {
-	return footerStyle.Width(width).Render(footerHelp)
+// renderFooter returns the footer help strip with optional input acknowledgement.
+func renderFooter(width int, lastInput string) string {
+	help := footerHelp
+	if lastInput != "" {
+		help = "input: " + lastInput + "  " + footerHelp
+	}
+	return footerStyle.Width(width).Render(help)
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int) string {
+func renderLayout(width, height int, lastInput string) string {
 	header := renderHeader(width)
-	footer := renderFooter(width)
+	footer := renderFooter(width, lastInput)
 	mapPanel := renderMapPanel()
 
 	// Body height is total minus header (1 line) and footer (1 line)

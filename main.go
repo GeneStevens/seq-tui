@@ -86,9 +86,27 @@ func renderStyledMap() string {
 	return result.String()
 }
 
+// directionFromKey maps a movement key to a direction label.
+// Returns empty string if the key is not a movement key.
+func directionFromKey(key string) string {
+	switch key {
+	case "up", "k":
+		return "north"
+	case "down", "j":
+		return "south"
+	case "left", "h":
+		return "west"
+	case "right", "l":
+		return "east"
+	default:
+		return ""
+	}
+}
+
 type model struct {
-	width  int
-	height int
+	width     int
+	height    int
+	lastInput string // most recent inert movement acknowledgement
 }
 
 func (m model) Init() tea.Cmd {
@@ -102,9 +120,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.height = msg.Height
 		return m, nil
 	case tea.KeyMsg:
-		switch msg.String() {
+		key := msg.String()
+		switch key {
 		case "q", "Q", "ctrl+c":
 			return m, tea.Quit
+		default:
+			if dir := directionFromKey(key); dir != "" {
+				m.lastInput = dir + " (not connected)"
+				return m, nil
+			}
 		}
 	}
 	return m, nil
@@ -114,7 +138,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height)
+	return renderLayout(m.width, m.height, m.lastInput)
 }
 
 func main() {
