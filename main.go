@@ -103,10 +103,24 @@ func directionFromKey(key string) string {
 	}
 }
 
+// moveIntent represents a recognized but unsent movement intent.
+// This is a preview only — no backend submission, no position change.
+type moveIntent struct {
+	direction string // "north", "south", "east", "west"
+}
+
+// preview returns the display string for this intent.
+func (i moveIntent) preview() string {
+	if i.direction == "" {
+		return ""
+	}
+	return "intent: move " + i.direction + " (not sent)"
+}
+
 type model struct {
-	width     int
-	height    int
-	lastInput string // most recent inert movement acknowledgement
+	width      int
+	height     int
+	lastIntent moveIntent // most recent inert movement intent preview
 }
 
 func (m model) Init() tea.Cmd {
@@ -126,7 +140,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 		default:
 			if dir := directionFromKey(key); dir != "" {
-				m.lastInput = dir + " (not connected)"
+				m.lastIntent = moveIntent{direction: dir}
 				return m, nil
 			}
 		}
@@ -138,7 +152,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastInput)
+	return renderLayout(m.width, m.height, m.lastIntent.preview())
 }
 
 func main() {

@@ -350,19 +350,41 @@ func TestFooterContainsMovementKeys(t *testing.T) {
 	}
 }
 
-func TestFooterShowsInputAcknowledgement(t *testing.T) {
-	footer := renderFooter(120, "north (not connected)")
-	if !strings.Contains(footer, "north") {
-		t.Fatal("footer should show input acknowledgement")
+func TestFooterShowsIntentPreview(t *testing.T) {
+	preview := moveIntent{direction: "north"}.preview()
+	footer := renderFooter(120, preview)
+	if !strings.Contains(footer, "move north") {
+		t.Fatal("footer should show intent preview with direction")
 	}
-	if !strings.Contains(footer, "not connected") {
-		t.Fatal("footer should indicate not connected")
+	if !strings.Contains(footer, "not sent") {
+		t.Fatal("footer should indicate intent was not sent")
+	}
+}
+
+func TestMoveIntentPreviewEmpty(t *testing.T) {
+	i := moveIntent{}
+	if i.preview() != "" {
+		t.Fatal("empty intent should produce empty preview")
+	}
+}
+
+func TestMoveIntentPreviewFormat(t *testing.T) {
+	i := moveIntent{direction: "west"}
+	p := i.preview()
+	if !strings.Contains(p, "intent") {
+		t.Fatal("preview should contain 'intent'")
+	}
+	if !strings.Contains(p, "move west") {
+		t.Fatal("preview should contain 'move west'")
+	}
+	if !strings.Contains(p, "not sent") {
+		t.Fatal("preview should contain 'not sent'")
 	}
 }
 
 func TestPlayerMarkerUnchangedAfterInput(t *testing.T) {
 	// Simulate: model receives a movement key but position must not change
-	m := model{width: 80, height: 40, lastInput: "north (not connected)"}
+	m := model{width: 80, height: 40, lastIntent: moveIntent{direction: "north"}}
 	view := m.View()
 	if !strings.ContainsRune(view, playerMarker) {
 		t.Fatal("player marker should still be present after input")

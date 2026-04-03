@@ -96,11 +96,11 @@ func renderSideColumn(width int) string {
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", status)
 }
 
-// renderFooter returns the footer help strip with optional input acknowledgement.
-func renderFooter(width int, lastInput string) string {
+// renderFooter returns the footer help strip with optional intent preview.
+func renderFooter(width int, intentPreview string) string {
 	help := footerHelp
-	if lastInput != "" {
-		help = "input: " + lastInput + "  " + footerHelp
+	if intentPreview != "" {
+		help = intentPreview + "  " + footerHelp
 	}
 	return footerStyle.Width(width).Render(help)
 }
