@@ -222,7 +222,7 @@ func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget())
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{})
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -235,7 +235,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget())
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -249,14 +249,14 @@ func TestRenderNearbyPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderStatusPanelContainsTitle(t *testing.T) {
-	panel := renderStatusPanel(sidePanelWidth, defaultTarget())
+	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), zoneReadResult{})
 	if !strings.Contains(panel, statusTitle) {
 		t.Fatal("status panel should contain title")
 	}
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget())
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{})
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -266,7 +266,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "", defaultTarget())
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{})
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -279,7 +279,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget())
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{})
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -290,7 +290,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "", defaultTarget())
+	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -299,7 +299,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "", defaultTarget())
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{})
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -436,7 +436,7 @@ func TestDefaultTargetValues(t *testing.T) {
 
 func TestStatusPanelContainsTargetInfo(t *testing.T) {
 	target := defaultTarget()
-	panel := renderStatusPanel(sidePanelWidth, target)
+	panel := renderStatusPanel(sidePanelWidth, target, zoneReadResult{})
 	if !strings.Contains(panel, "target") {
 		t.Fatal("status panel should contain target label")
 	}
@@ -452,10 +452,65 @@ func TestStatusPanelContainsTargetInfo(t *testing.T) {
 }
 
 func TestStatusPanelDoesNotImplyConnectivity(t *testing.T) {
-	panel := renderStatusPanel(sidePanelWidth, defaultTarget())
+	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), zoneReadResult{})
 	for _, bad := range []string{"connected", "online", "healthy"} {
 		if strings.Contains(strings.ToLower(panel), bad) {
 			t.Fatalf("status panel must not contain %q", bad)
 		}
+	}
+}
+
+func TestZoneStatusURL(t *testing.T) {
+	target := defaultTarget()
+	url := zoneStatusURL(target)
+	if !strings.Contains(url, "9090") {
+		t.Fatal("URL should use port 9090")
+	}
+	if !strings.Contains(url, "/world/zone/crushbone") {
+		t.Fatal("URL should target /world/zone/crushbone")
+	}
+	// Default RT should not add mode query param
+	if strings.Contains(url, "mode=") {
+		t.Fatal("default RT target should not add mode query param")
+	}
+}
+
+func TestZoneStatusURLAsync(t *testing.T) {
+	target := defaultTarget()
+	target.Mode = "ASYNC"
+	url := zoneStatusURL(target)
+	if !strings.Contains(url, "mode=Async") {
+		t.Fatal("ASYNC target should add mode=Async query param")
+	}
+}
+
+func TestZoneReadStateLabels(t *testing.T) {
+	pending := zoneReadResult{State: zoneReadNotAttempted}
+	if !strings.Contains(pending.statusLabel(), "pending") {
+		t.Fatal("not-attempted state should show pending")
+	}
+
+	ok := zoneReadResult{State: zoneReadOK}
+	if !strings.Contains(ok.statusLabel(), "ok") {
+		t.Fatal("success state should show ok")
+	}
+
+	failed := zoneReadResult{State: zoneReadFailed}
+	if !strings.Contains(failed.statusLabel(), "failed") {
+		t.Fatal("failure state should show failed")
+	}
+}
+
+func TestStatusPanelShowsZoneReadState(t *testing.T) {
+	okResult := zoneReadResult{State: zoneReadOK}
+	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), okResult)
+	if !strings.Contains(panel, "ok") {
+		t.Fatal("status panel should show zone read ok state")
+	}
+
+	failResult := zoneReadResult{State: zoneReadFailed}
+	panel2 := renderStatusPanel(sidePanelWidth, defaultTarget(), failResult)
+	if !strings.Contains(panel2, "failed") {
+		t.Fatal("status panel should show zone read failed state")
 	}
 }

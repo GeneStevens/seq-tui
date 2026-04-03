@@ -117,19 +117,32 @@ func (i moveIntent) preview() string {
 	return "intent: move " + i.direction + " (not sent)"
 }
 
+// zoneReadResultMsg carries the result of a zone status read back to the model.
+type zoneReadResultMsg struct {
+	result zoneReadResult
+}
+
 type model struct {
 	width      int
 	height     int
 	lastIntent moveIntent    // most recent inert movement intent preview
-	target     backendTarget // backend target config (local only, no connectivity)
+	target     backendTarget // backend target config
+	zoneRead   zoneReadResult // result of zone status read
 }
 
 func (m model) Init() tea.Cmd {
-	return nil
+	// Perform a single zone status read at startup
+	target := m.target
+	return func() tea.Msg {
+		return zoneReadResultMsg{result: fetchZoneStatus(target)}
+	}
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+	case zoneReadResultMsg:
+		m.zoneRead = msg.result
+		return m, nil
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 		m.height = msg.Height
@@ -153,7 +166,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead)
 }
 
 func main() {
