@@ -414,17 +414,23 @@ func TestViewNonEmptyAfterResize(t *testing.T) {
 
 func TestDefaultTargetValues(t *testing.T) {
 	target := defaultTarget()
-	if target.BaseURL == "" {
-		t.Fatal("default target should have a base URL")
+	if !strings.Contains(target.BaseURL, "9090") {
+		t.Fatal("default target should use port 9090")
 	}
-	if target.Zone == "" {
-		t.Fatal("default target should have a zone")
+	if target.Zone != "crushbone" {
+		t.Fatalf("default zone should be crushbone, got %q", target.Zone)
+	}
+	if target.Mode != "RT" {
+		t.Fatalf("default mode should be RT, got %q", target.Mode)
+	}
+	if target.Visibility != "PUBLIC" {
+		t.Fatalf("default visibility should be PUBLIC, got %q", target.Visibility)
+	}
+	if target.Affinity != "open" {
+		t.Fatalf("default affinity should be open, got %q", target.Affinity)
 	}
 	if target.Player == "" {
 		t.Fatal("default target should have a player")
-	}
-	if target.Mode == "" {
-		t.Fatal("default target should have a mode")
 	}
 }
 
@@ -437,8 +443,11 @@ func TestStatusPanelContainsTargetInfo(t *testing.T) {
 	if !strings.Contains(panel, target.Zone) {
 		t.Fatal("status panel should contain zone name")
 	}
-	if !strings.Contains(panel, target.Mode) {
+	if !strings.Contains(panel, "rt") {
 		t.Fatal("status panel should contain mode")
+	}
+	if !strings.Contains(panel, "public") {
+		t.Fatal("status panel should contain visibility")
 	}
 }
 

@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strings"
+
 	"github.com/charmbracelet/lipgloss"
 )
 
@@ -80,11 +82,13 @@ func renderNearbyPanel(width int) string {
 // renderStatusPanel returns the status panel with target info.
 func renderStatusPanel(width int, target backendTarget) string {
 	title := panelTitleStyle.Render(statusTitle)
+	vis := strings.ToLower(target.Visibility)
 	items := []string{
-		panelItemStyle.Render("  client: thin"),
 		panelItemStyle.Render("  target: local"),
 		panelItemStyle.Render("  zone: " + target.Zone),
-		panelItemStyle.Render("  mode: " + target.Mode),
+		panelItemStyle.Render("  mode: " + strings.ToLower(target.Mode)),
+		panelItemStyle.Render("  visibility: " + vis),
+		panelItemStyle.Render("  client: thin"),
 	}
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
 	return panelBorderStyle.Width(width - 4).Render(content)
