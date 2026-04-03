@@ -101,6 +101,53 @@ func TestRenderLayoutNonEmpty(t *testing.T) {
 	}
 }
 
+func TestRenderNearbyPanelContainsTitle(t *testing.T) {
+	panel := renderNearbyPanel(sidePanelWidth)
+	if !strings.Contains(panel, nearbyTitle) {
+		t.Fatal("nearby panel should contain title")
+	}
+}
+
+func TestRenderStatusPanelContainsTitle(t *testing.T) {
+	panel := renderStatusPanel(sidePanelWidth)
+	if !strings.Contains(panel, statusTitle) {
+		t.Fatal("status panel should contain title")
+	}
+}
+
+func TestRenderSideColumnContainsBothSections(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth)
+	if !strings.Contains(col, nearbyTitle) {
+		t.Fatal("side column should contain nearby title")
+	}
+	if !strings.Contains(col, statusTitle) {
+		t.Fatal("side column should contain status title")
+	}
+}
+
+func TestWideLayoutContainsPanels(t *testing.T) {
+	layout := renderLayout(120, 40)
+	if !strings.Contains(layout, nearbyTitle) {
+		t.Fatal("wide layout should contain nearby panel")
+	}
+	if !strings.Contains(layout, statusTitle) {
+		t.Fatal("wide layout should contain status panel")
+	}
+	if !strings.ContainsRune(layout, playerMarker) {
+		t.Fatal("wide layout should still contain player marker")
+	}
+}
+
+func TestNarrowLayoutOmitsPanels(t *testing.T) {
+	layout := renderLayout(50, 30)
+	if strings.Contains(layout, nearbyTitle) {
+		t.Fatal("narrow layout should not contain nearby panel")
+	}
+	if !strings.ContainsRune(layout, playerMarker) {
+		t.Fatal("narrow layout should still contain player marker")
+	}
+}
+
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
 	layout := renderLayout(20, 5)

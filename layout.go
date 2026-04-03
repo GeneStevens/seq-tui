@@ -8,6 +8,14 @@ const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
 	footerHelp     = "q: quit"
+
+	// Minimum terminal width to show side panels alongside the map.
+	sidePanelMinWidth = 70
+	// Width allocated to the side column.
+	sidePanelWidth = 24
+
+	nearbyTitle = "Nearby"
+	statusTitle = "Status"
 )
 
 var (
@@ -26,6 +34,16 @@ var (
 	footerStyle = lipgloss.NewStyle().
 			Faint(true).
 			Padding(0, 1)
+
+	panelTitleStyle = lipgloss.NewStyle().
+			Bold(true)
+
+	panelBorderStyle = lipgloss.NewStyle().
+				Border(lipgloss.RoundedBorder()).
+				Padding(0, 1)
+
+	panelItemStyle = lipgloss.NewStyle().
+			Faint(true)
 )
 
 // renderHeader returns the header strip.
@@ -40,6 +58,37 @@ func renderHeader(width int) string {
 func renderMapPanel() string {
 	mapContent := renderMap()
 	return mapBorderStyle.Render(mapContent)
+}
+
+// renderNearbyPanel returns the static nearby-awareness panel.
+func renderNearbyPanel(width int) string {
+	title := panelTitleStyle.Render(nearbyTitle)
+	items := []string{
+		panelItemStyle.Render("  quiet corridor"),
+		panelItemStyle.Render("  shadowed arch"),
+		panelItemStyle.Render("  faint movement?"),
+	}
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content) // -4 for border+padding
+}
+
+// renderStatusPanel returns the static status panel.
+func renderStatusPanel(width int) string {
+	title := panelTitleStyle.Render(statusTitle)
+	items := []string{
+		panelItemStyle.Render("  position: fixed"),
+		panelItemStyle.Render("  mode: observational"),
+		panelItemStyle.Render("  client: thin"),
+	}
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
+// renderSideColumn stacks the nearby and status panels vertically.
+func renderSideColumn(width int) string {
+	nearby := renderNearbyPanel(width)
+	status := renderStatusPanel(width)
+	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", status)
 }
 
 // renderFooter returns the footer help strip.
@@ -59,11 +108,22 @@ func renderLayout(width, height int) string {
 		bodyHeight = 1
 	}
 
-	// Center the map panel horizontally and vertically within the body area
-	body := lipgloss.Place(width, bodyHeight,
-		lipgloss.Center, lipgloss.Center,
-		mapPanel,
-	)
+	var body string
+	if width >= sidePanelMinWidth {
+		// Side-by-side: map on left, info panels on right
+		sideCol := renderSideColumn(sidePanelWidth)
+		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
+		body = lipgloss.Place(width, bodyHeight,
+			lipgloss.Center, lipgloss.Center,
+			combined,
+		)
+	} else {
+		// Narrow terminal: map only, centered
+		body = lipgloss.Place(width, bodyHeight,
+			lipgloss.Center, lipgloss.Center,
+			mapPanel,
+		)
+	}
 
 	return header + "\n" + body + "\n" + footer
 }
