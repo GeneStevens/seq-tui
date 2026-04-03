@@ -120,7 +120,8 @@ func (i moveIntent) preview() string {
 type model struct {
 	width      int
 	height     int
-	lastIntent moveIntent // most recent inert movement intent preview
+	lastIntent moveIntent    // most recent inert movement intent preview
+	target     backendTarget // backend target config (local only, no connectivity)
 }
 
 func (m model) Init() tea.Cmd {
@@ -152,11 +153,11 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview())
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target)
 }
 
 func main() {
-	p := tea.NewProgram(model{}, tea.WithAltScreen())
+	p := tea.NewProgram(model{target: defaultTarget()}, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)

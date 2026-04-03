@@ -222,7 +222,7 @@ func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "")
+	layout := renderLayout(80, 40, "", defaultTarget())
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -235,7 +235,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "")
+	layout := renderLayout(80, 40, "", defaultTarget())
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -249,14 +249,14 @@ func TestRenderNearbyPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderStatusPanelContainsTitle(t *testing.T) {
-	panel := renderStatusPanel(sidePanelWidth)
+	panel := renderStatusPanel(sidePanelWidth, defaultTarget())
 	if !strings.Contains(panel, statusTitle) {
 		t.Fatal("status panel should contain title")
 	}
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth)
+	col := renderSideColumn(sidePanelWidth, defaultTarget())
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -266,7 +266,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "")
+	layout := renderLayout(120, 40, "", defaultTarget())
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -279,7 +279,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "")
+	layout := renderLayout(50, 30, "", defaultTarget())
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -290,7 +290,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "")
+	layout := renderLayout(20, 5, "", defaultTarget())
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -299,7 +299,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "")
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget())
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -384,7 +384,7 @@ func TestMoveIntentPreviewFormat(t *testing.T) {
 
 func TestPlayerMarkerUnchangedAfterInput(t *testing.T) {
 	// Simulate: model receives a movement key but position must not change
-	m := model{width: 80, height: 40, lastIntent: moveIntent{direction: "north"}}
+	m := model{width: 80, height: 40, lastIntent: moveIntent{direction: "north"}, target: defaultTarget()}
 	view := m.View()
 	if !strings.ContainsRune(view, playerMarker) {
 		t.Fatal("player marker should still be present after input")
@@ -405,9 +405,48 @@ func TestViewEmptyBeforeResize(t *testing.T) {
 }
 
 func TestViewNonEmptyAfterResize(t *testing.T) {
-	m := model{width: 80, height: 40}
+	m := model{width: 80, height: 40, target: defaultTarget()}
 	view := m.View()
 	if len(view) == 0 {
 		t.Fatal("View() should not be empty after resize")
+	}
+}
+
+func TestDefaultTargetValues(t *testing.T) {
+	target := defaultTarget()
+	if target.BaseURL == "" {
+		t.Fatal("default target should have a base URL")
+	}
+	if target.Zone == "" {
+		t.Fatal("default target should have a zone")
+	}
+	if target.Player == "" {
+		t.Fatal("default target should have a player")
+	}
+	if target.Mode == "" {
+		t.Fatal("default target should have a mode")
+	}
+}
+
+func TestStatusPanelContainsTargetInfo(t *testing.T) {
+	target := defaultTarget()
+	panel := renderStatusPanel(sidePanelWidth, target)
+	if !strings.Contains(panel, "target") {
+		t.Fatal("status panel should contain target label")
+	}
+	if !strings.Contains(panel, target.Zone) {
+		t.Fatal("status panel should contain zone name")
+	}
+	if !strings.Contains(panel, target.Mode) {
+		t.Fatal("status panel should contain mode")
+	}
+}
+
+func TestStatusPanelDoesNotImplyConnectivity(t *testing.T) {
+	panel := renderStatusPanel(sidePanelWidth, defaultTarget())
+	for _, bad := range []string{"connected", "online", "healthy"} {
+		if strings.Contains(strings.ToLower(panel), bad) {
+			t.Fatalf("status panel must not contain %q", bad)
+		}
 	}
 }

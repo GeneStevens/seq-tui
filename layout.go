@@ -77,22 +77,23 @@ func renderNearbyPanel(width int) string {
 	return panelBorderStyle.Width(width - 4).Render(content) // -4 for border+padding
 }
 
-// renderStatusPanel returns the static status panel.
-func renderStatusPanel(width int) string {
+// renderStatusPanel returns the status panel with target info.
+func renderStatusPanel(width int, target backendTarget) string {
 	title := panelTitleStyle.Render(statusTitle)
 	items := []string{
-		panelItemStyle.Render("  position: fixed"),
-		panelItemStyle.Render("  mode: observational"),
 		panelItemStyle.Render("  client: thin"),
+		panelItemStyle.Render("  target: local"),
+		panelItemStyle.Render("  zone: " + target.Zone),
+		panelItemStyle.Render("  mode: " + target.Mode),
 	}
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
 // renderSideColumn stacks the nearby and status panels vertically.
-func renderSideColumn(width int) string {
+func renderSideColumn(width int, target backendTarget) string {
 	nearby := renderNearbyPanel(width)
-	status := renderStatusPanel(width)
+	status := renderStatusPanel(width, target)
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", status)
 }
 
@@ -106,7 +107,7 @@ func renderFooter(width int, intentPreview string) string {
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string) string {
+func renderLayout(width, height int, lastInput string, target backendTarget) string {
 	header := renderHeader(width)
 	footer := renderFooter(width, lastInput)
 	mapPanel := renderMapPanel()
@@ -120,7 +121,7 @@ func renderLayout(width, height int, lastInput string) string {
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth)
+		sideCol := renderSideColumn(sidePanelWidth, target)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,
