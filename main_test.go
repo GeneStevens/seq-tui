@@ -112,10 +112,20 @@ func TestThreatMarkersAtCorrectPositions(t *testing.T) {
 
 func TestNearbyPanelContainsTensionWording(t *testing.T) {
 	panel := renderNearbyPanel(sidePanelWidth)
-	tensionPhrases := []string{"distant scraping", "uneasy presence"}
+	tensionPhrases := []string{"uneasy presence", "faint movement?"}
 	for _, phrase := range tensionPhrases {
 		if !strings.Contains(panel, phrase) {
 			t.Fatalf("nearby panel should contain tension phrase %q", phrase)
+		}
+	}
+}
+
+func TestNearbyPanelContainsDirectionalCues(t *testing.T) {
+	panel := renderNearbyPanel(sidePanelWidth)
+	directionalPhrases := []string{"north", "east", "south"}
+	for _, phrase := range directionalPhrases {
+		if !strings.Contains(panel, phrase) {
+			t.Fatalf("nearby panel should contain directional cue %q", phrase)
 		}
 	}
 }
