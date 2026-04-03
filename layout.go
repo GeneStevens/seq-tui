@@ -54,9 +54,9 @@ func renderHeader(width int) string {
 	return lipgloss.NewStyle().Width(width).Render(line)
 }
 
-// renderMapPanel returns the map inside a bordered panel.
+// renderMapPanel returns the map inside a bordered panel with awareness dimming.
 func renderMapPanel() string {
-	mapContent := renderMap()
+	mapContent := renderStyledMap()
 	return mapBorderStyle.Render(mapContent)
 }
 

@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
 
 // renderMap overlays landmarks and the player marker onto the static map
@@ -34,6 +36,43 @@ func renderMap() string {
 	}
 
 	return strings.Join(lines, "\n")
+}
+
+var dimStyle = lipgloss.NewStyle().Faint(true)
+
+// tileDistance returns the Euclidean distance from the player to (x, y).
+func tileDistance(x, y int) float64 {
+	dx := float64(x - playerX)
+	dy := float64(y - playerY)
+	return math.Sqrt(dx*dx + dy*dy)
+}
+
+// renderStyledMap applies awareness-radius dimming to the plain map output.
+// Tiles outside the radius are rendered faint. Player marker is never dimmed.
+func renderStyledMap() string {
+	plain := renderMap()
+	lines := strings.Split(plain, "\n")
+	var result strings.Builder
+
+	for y, line := range lines {
+		if y > 0 {
+			result.WriteByte('\n')
+		}
+		for x, ch := range line {
+			if x == playerX && y == playerY {
+				// Player marker: always fully visible
+				result.WriteRune(ch)
+			} else if tileDistance(x, y) <= float64(awarenessRadius) {
+				// Inside radius: normal
+				result.WriteRune(ch)
+			} else {
+				// Outside radius: dimmed
+				result.WriteString(dimStyle.Render(string(ch)))
+			}
+		}
+	}
+
+	return result.String()
 }
 
 type model struct {

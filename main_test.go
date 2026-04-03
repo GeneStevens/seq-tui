@@ -90,6 +90,51 @@ func TestRenderMapDeterministic(t *testing.T) {
 	}
 }
 
+func TestStyledMapContainsPlayerMarker(t *testing.T) {
+	styled := renderStyledMap()
+	if !strings.ContainsRune(styled, playerMarker) {
+		t.Fatal("styled map should contain player marker")
+	}
+}
+
+func TestStyledMapDeterministic(t *testing.T) {
+	a := renderStyledMap()
+	b := renderStyledMap()
+	if a != b {
+		t.Fatal("renderStyledMap() should produce deterministic output")
+	}
+}
+
+func TestStyledMapNonEmpty(t *testing.T) {
+	styled := renderStyledMap()
+	if len(styled) == 0 {
+		t.Fatal("styled map should not be empty")
+	}
+}
+
+func TestStyledMapContainsLandmarks(t *testing.T) {
+	styled := renderStyledMap()
+	for _, lm := range landmarks {
+		if !strings.ContainsRune(styled, lm.glyph) {
+			t.Fatalf("styled map should contain landmark glyph %c (%s)", lm.glyph, lm.label)
+		}
+	}
+}
+
+func TestTileDistanceAtPlayer(t *testing.T) {
+	d := tileDistance(playerX, playerY)
+	if d != 0 {
+		t.Fatalf("distance at player position should be 0, got %f", d)
+	}
+}
+
+func TestTileDistancePositive(t *testing.T) {
+	d := tileDistance(playerX+5, playerY+5)
+	if d <= 0 {
+		t.Fatal("distance away from player should be positive")
+	}
+}
+
 func TestRenderHeaderContainsTitle(t *testing.T) {
 	header := renderHeader(80)
 	if !strings.Contains(header, headerTitle) {

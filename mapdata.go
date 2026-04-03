@@ -5,6 +5,10 @@ const (
 	playerMarker = '@'
 	playerX      = 5
 	playerY      = 3
+
+	// awarenessRadius is the visual dimming radius around the player.
+	// Tiles beyond this distance appear faint. Purely aesthetic.
+	awarenessRadius = 8
 )
 
 // landmark represents a static ambient map feature.
