@@ -82,6 +82,44 @@ func TestLandmarksAtCorrectPositions(t *testing.T) {
 	}
 }
 
+func TestRenderMapContainsThreatMarkers(t *testing.T) {
+	rendered := renderMap()
+	for _, tm := range threatMarkers {
+		if !strings.ContainsRune(rendered, tm.glyph) {
+			t.Fatalf("renderMap() should contain threat marker glyph %c (%s)", tm.glyph, tm.label)
+		}
+	}
+}
+
+func TestThreatMarkersAtCorrectPositions(t *testing.T) {
+	lines := strings.Split(renderMap(), "\n")
+	for _, tm := range threatMarkers {
+		if tm.y >= len(lines) {
+			t.Fatalf("threat marker %s y=%d out of range", tm.label, tm.y)
+		}
+		runes := []rune(lines[tm.y])
+		if tm.x >= len(runes) {
+			t.Fatalf("threat marker %s x=%d out of range", tm.label, tm.x)
+		}
+		if tm.x == playerX && tm.y == playerY {
+			continue
+		}
+		if runes[tm.x] != tm.glyph {
+			t.Fatalf("expected threat marker %c at (%d,%d), got %c", tm.glyph, tm.x, tm.y, runes[tm.x])
+		}
+	}
+}
+
+func TestNearbyPanelContainsTensionWording(t *testing.T) {
+	panel := renderNearbyPanel(sidePanelWidth)
+	tensionPhrases := []string{"distant scraping", "uneasy presence"}
+	for _, phrase := range tensionPhrases {
+		if !strings.Contains(panel, phrase) {
+			t.Fatalf("nearby panel should contain tension phrase %q", phrase)
+		}
+	}
+}
+
 func TestRenderMapDeterministic(t *testing.T) {
 	a := renderMap()
 	b := renderMap()

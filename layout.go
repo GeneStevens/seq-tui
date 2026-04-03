@@ -64,9 +64,10 @@ func renderMapPanel() string {
 func renderNearbyPanel(width int) string {
 	title := panelTitleStyle.Render(nearbyTitle)
 	items := []string{
-		panelItemStyle.Render("  quiet corridor"),
 		panelItemStyle.Render("  shadowed arch"),
 		panelItemStyle.Render("  faint movement?"),
+		panelItemStyle.Render("  distant scraping"),
+		panelItemStyle.Render("  uneasy presence"),
 	}
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
 	return panelBorderStyle.Width(width - 4).Render(content) // -4 for border+padding

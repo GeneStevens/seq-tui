@@ -28,6 +28,22 @@ var landmarks = []landmark{
 	{x: 3, y: 18, glyph: '+', label: "shrine"},
 }
 
+// threatMarker represents a static ambient threat-presence cue.
+type threatMarker struct {
+	x     int
+	y     int
+	glyph rune
+	label string
+}
+
+// threatMarkers are hardcoded atmospheric danger cues.
+// These are not authoritative entities — purely presentation.
+var threatMarkers = []threatMarker{
+	{x: 20, y: 4, glyph: '!', label: "uneasy presence"},
+	{x: 7, y: 12, glyph: '?', label: "faint scratching"},
+	{x: 16, y: 17, glyph: '!', label: "distant scraping"},
+}
+
 // staticMap is a hardcoded ASCII map for the initial rendering slice.
 // In the future, map data will come from the backend.
 const staticMap = `##############################

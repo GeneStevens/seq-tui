@@ -26,6 +26,17 @@ func renderMap() string {
 		}
 	}
 
+	// Overlay threat markers
+	for _, tm := range threatMarkers {
+		if tm.y >= 0 && tm.y < len(lines) {
+			row := []rune(lines[tm.y])
+			if tm.x >= 0 && tm.x < len(row) {
+				row[tm.x] = tm.glyph
+				lines[tm.y] = string(row)
+			}
+		}
+	}
+
 	// Overlay player marker last so it is always visible
 	if playerY >= 0 && playerY < len(lines) {
 		line := []rune(lines[playerY])
