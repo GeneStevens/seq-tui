@@ -56,9 +56,15 @@ func renderHeader(width int) string {
 	return lipgloss.NewStyle().Width(width).Render(line)
 }
 
-// renderMapPanel returns the map inside a bordered panel with awareness dimming.
-func renderMapPanel() string {
-	mapContent := renderStyledMap()
+// renderMapPanel returns the map inside a bordered panel.
+// Uses backend-sourced map when available, falls back to placeholder with overlays.
+func renderMapPanel(mr mapReadResult) string {
+	var mapContent string
+	if mr.State == mapReadOK && mr.MapText != "" {
+		mapContent = mr.MapText
+	} else {
+		mapContent = renderStyledMap()
+	}
 	return mapBorderStyle.Render(mapContent)
 }
 
@@ -80,7 +86,7 @@ func renderNearbyPanel(width int) string {
 }
 
 // renderStatusPanel returns the status panel with target and read info.
-func renderStatusPanel(width int, target backendTarget, zr zoneReadResult) string {
+func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr mapReadResult) string {
 	title := panelTitleStyle.Render(statusTitle)
 	vis := strings.ToLower(target.Visibility)
 	items := []string{
@@ -89,6 +95,7 @@ func renderStatusPanel(width int, target backendTarget, zr zoneReadResult) strin
 		panelItemStyle.Render("  mode: " + strings.ToLower(target.Mode)),
 		panelItemStyle.Render("  visibility: " + vis),
 		panelItemStyle.Render("  " + zr.statusLabel()),
+		panelItemStyle.Render("  " + mr.mapStatusLabel()),
 		panelItemStyle.Render("  client: thin"),
 	}
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
@@ -96,9 +103,9 @@ func renderStatusPanel(width int, target backendTarget, zr zoneReadResult) strin
 }
 
 // renderSideColumn stacks the nearby and status panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult) string {
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult) string {
 	nearby := renderNearbyPanel(width)
-	status := renderStatusPanel(width, target, zr)
+	status := renderStatusPanel(width, target, zr, mr)
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", status)
 }
 
@@ -112,10 +119,10 @@ func renderFooter(width int, intentPreview string) string {
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult) string {
 	header := renderHeader(width)
 	footer := renderFooter(width, lastInput)
-	mapPanel := renderMapPanel()
+	mapPanel := renderMapPanel(mr)
 
 	// Body height is total minus header (1 line) and footer (1 line)
 	bodyHeight := height - 2
@@ -126,7 +133,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,

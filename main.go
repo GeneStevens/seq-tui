@@ -122,26 +122,40 @@ type zoneReadResultMsg struct {
 	result zoneReadResult
 }
 
+// mapReadResultMsg carries the result of a map geometry read back to the model.
+type mapReadResultMsg struct {
+	result mapReadResult
+}
+
 type model struct {
 	width      int
 	height     int
-	lastIntent moveIntent    // most recent inert movement intent preview
-	target     backendTarget // backend target config
+	lastIntent moveIntent     // most recent inert movement intent preview
+	target     backendTarget  // backend target config
 	zoneRead   zoneReadResult // result of zone status read
+	mapRead    mapReadResult  // result of map geometry read
 }
 
 func (m model) Init() tea.Cmd {
-	// Perform a single zone status read at startup
+	// Perform zone status and map geometry reads at startup
 	target := m.target
-	return func() tea.Msg {
-		return zoneReadResultMsg{result: fetchZoneStatus(target)}
-	}
+	return tea.Batch(
+		func() tea.Msg {
+			return zoneReadResultMsg{result: fetchZoneStatus(target)}
+		},
+		func() tea.Msg {
+			return mapReadResultMsg{result: fetchZoneMap(target)}
+		},
+	)
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case zoneReadResultMsg:
 		m.zoneRead = msg.result
+		return m, nil
+	case mapReadResultMsg:
+		m.mapRead = msg.result
 		return m, nil
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
@@ -166,7 +180,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead)
 }
 
 func main() {
