@@ -225,12 +225,50 @@ func truncateID(id string, maxLen int) string {
 	return id[:maxLen-2] + ".."
 }
 
-// renderSideColumn stacks the nearby, encounter, and status panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus) string {
+// renderProximityPanel returns a compact panel showing backend-owned proximity data.
+// Read-only, no targeting authority, no gameplay semantics.
+func renderProximityPanel(width int, tc targetConfirmResult) string {
+	title := panelTitleStyle.Render("Proximity")
+
+	var items []string
+
+	switch tc.State {
+	case targetConfirmNone:
+		items = append(items, panelItemStyle.Render("  none"))
+	case targetConfirmFailed:
+		items = append(items, panelItemStyle.Render("  unavailable"))
+	case targetConfirmOK:
+		if tc.MobName != "" {
+			items = append(items, panelItemStyle.Render("  "+truncateID(tc.MobName, width-6)))
+		} else {
+			items = append(items, panelItemStyle.Render("  "+tc.TargetKind+":"+truncateID(tc.TargetID, width-9)))
+		}
+		if tc.Found {
+			items = append(items, panelItemStyle.Render("  found: yes"))
+		} else {
+			items = append(items, panelItemStyle.Render("  found: no"))
+		}
+		if tc.Found {
+			if tc.WithinProximity {
+				items = append(items, panelItemStyle.Render("  within: yes"))
+			} else {
+				items = append(items, panelItemStyle.Render("  within: no"))
+			}
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist: %.1f", tc.Distance)))
+		}
+	}
+
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
+// renderSideColumn stacks the nearby, encounter, proximity, and status panels vertically.
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult) string {
 	nearby := renderNearbyPanel(width)
 	encounter := renderEncounterPanel(width, pr, er, focus)
+	proximity := renderProximityPanel(width, tc)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
-	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", status)
+	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", proximity, "", status)
 }
 
 // renderFooter returns the footer help strip with optional intent preview, focus label, and target label.
@@ -265,7 +303,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, tc)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,

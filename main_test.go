@@ -257,7 +257,7 @@ func TestRenderStatusPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{})
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -1004,7 +1004,7 @@ func TestEncounterPanelActiveButDetailsMissing(t *testing.T) {
 }
 
 func TestSideColumnContainsEncounterPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{})
 	if !strings.Contains(col, encounterTitle) {
 		t.Fatal("side column should contain encounter panel title")
 	}
@@ -1891,5 +1891,117 @@ func TestFooterContainsConfirmHint(t *testing.T) {
 	footer := renderFooter(120, "", "", "")
 	if !strings.Contains(footer, "t: confirm") {
 		t.Fatal("footer should mention t: confirm keybind")
+	}
+}
+
+// --- Proximity Panel Tests (M29) ---
+
+func TestProximityPanelNone(t *testing.T) {
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{})
+	if !strings.Contains(panel, "Proximity") {
+		t.Fatal("proximity panel should contain title")
+	}
+	if !strings.Contains(panel, "none") {
+		t.Fatal("proximity panel should show none when no query")
+	}
+}
+
+func TestProximityPanelUnavailable(t *testing.T) {
+	tc := targetConfirmResult{State: targetConfirmFailed, Error: "HTTP 500"}
+	panel := renderProximityPanel(sidePanelWidth, tc)
+	if !strings.Contains(panel, "unavailable") {
+		t.Fatal("proximity panel should show unavailable on failure")
+	}
+}
+
+func TestProximityPanelFoundWithMobName(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
+		Found: true, WithinProximity: false, Distance: 12.3, MobName: "a_skeleton",
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc)
+	if !strings.Contains(panel, "a_skeleton") {
+		t.Fatal("proximity panel should show mob name")
+	}
+	if !strings.Contains(panel, "found: yes") {
+		t.Fatal("proximity panel should show found: yes")
+	}
+	if !strings.Contains(panel, "within: no") {
+		t.Fatal("proximity panel should show within: no")
+	}
+	if !strings.Contains(panel, "dist: 12.3") {
+		t.Fatal("proximity panel should show distance")
+	}
+}
+
+func TestProximityPanelFoundWithinProximity(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
+		Found: true, WithinProximity: true, Distance: 2.1, MobName: "orc",
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc)
+	if !strings.Contains(panel, "within: yes") {
+		t.Fatal("proximity panel should show within: yes")
+	}
+}
+
+func TestProximityPanelNotFound(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a", Found: false,
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc)
+	if !strings.Contains(panel, "found: no") {
+		t.Fatal("proximity panel should show found: no")
+	}
+}
+
+func TestProximityPanelFallbackID(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
+		Found: true, MobName: "",
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc)
+	if !strings.Contains(panel, "mb:orc-a") {
+		t.Fatal("proximity panel should fall back to kind:id when no mob name")
+	}
+}
+
+func TestProximityPanelDeterministic(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc",
+		Found: true, WithinProximity: true, Distance: 5.0, MobName: "orc",
+	}
+	a := renderProximityPanel(sidePanelWidth, tc)
+	b := renderProximityPanel(sidePanelWidth, tc)
+	if a != b {
+		t.Fatal("proximity panel should be deterministic")
+	}
+}
+
+func TestSideColumnContainsProximityPanel(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{})
+	if !strings.Contains(col, "Proximity") {
+		t.Fatal("side column should contain proximity panel")
+	}
+}
+
+func TestWideLayoutContainsProximityPanel(t *testing.T) {
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{})
+	if !strings.Contains(layout, "Proximity") {
+		t.Fatal("wide layout should contain proximity panel")
+	}
+}
+
+func TestProximityPanelNoGameplayTerms(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc",
+		Found: true, WithinProximity: true, Distance: 2.0, MobName: "orc",
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc)
+	forbidden := []string{"attack", "threat", "aggro", "damage", "hp", "health", "enemy", "range"}
+	for _, word := range forbidden {
+		if strings.Contains(strings.ToLower(panel), word) {
+			t.Fatalf("proximity panel should not contain gameplay term: %s", word)
+		}
 	}
 }
