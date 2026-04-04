@@ -209,7 +209,7 @@ func TestRenderHeaderContainsSubtitle(t *testing.T) {
 }
 
 func TestRenderFooterContainsQuitHint(t *testing.T) {
-	footer := renderFooter(80, "")
+	footer := renderFooter(80, "", "")
 	if !strings.Contains(footer, "quit") {
 		t.Fatal("footer should contain quit hint")
 	}
@@ -342,7 +342,7 @@ func TestDirectionFromKeyUnrecognized(t *testing.T) {
 }
 
 func TestFooterContainsMovementKeys(t *testing.T) {
-	footer := renderFooter(120, "")
+	footer := renderFooter(120, "", "")
 	if !strings.Contains(footer, "move") {
 		t.Fatal("footer should advertise movement keys")
 	}
@@ -353,7 +353,7 @@ func TestFooterContainsMovementKeys(t *testing.T) {
 
 func TestFooterShowsIntentPreview(t *testing.T) {
 	preview := moveIntent{direction: "north"}.preview()
-	footer := renderFooter(120, preview)
+	footer := renderFooter(120, preview, "")
 	if !strings.Contains(footer, "move north") {
 		t.Fatal("footer should show intent preview with direction")
 	}
@@ -1465,7 +1465,7 @@ func TestRosterFocusNoGameplayTerms(t *testing.T) {
 }
 
 func TestFooterContainsRosterHint(t *testing.T) {
-	footer := renderFooter(80, "")
+	footer := renderFooter(80, "", "")
 	if !strings.Contains(footer, "tab") {
 		t.Fatal("footer should mention tab for roster navigation")
 	}
@@ -1619,5 +1619,118 @@ func TestMapPanelFocusNoGameplayTerms(t *testing.T) {
 		if strings.Contains(lower, word) {
 			t.Fatalf("map focus projection should not contain gameplay term: %s", word)
 		}
+	}
+}
+
+// --- Local Target Intent Preview Tests (M27) ---
+
+func TestFocusPreviewLabelNoFocus(t *testing.T) {
+	label := focusPreviewLabel(rosterFocus{index: -1}, nil)
+	if label != "focus: none" {
+		t.Fatalf("expected 'focus: none', got %q", label)
+	}
+}
+
+func TestFocusPreviewLabelEmptyEntries(t *testing.T) {
+	label := focusPreviewLabel(rosterFocus{index: 0}, nil)
+	if label != "focus: none" {
+		t.Fatalf("expected 'focus: none', got %q", label)
+	}
+}
+
+func TestFocusPreviewLabelMob(t *testing.T) {
+	entries := []rosterEntry{{kind: "pc", id: "hero"}, {kind: "mb", id: "orc-a"}}
+	label := focusPreviewLabel(rosterFocus{index: 1}, entries)
+	if label != "focus: mb:orc-a (local)" {
+		t.Fatalf("expected 'focus: mb:orc-a (local)', got %q", label)
+	}
+}
+
+func TestFocusPreviewLabelPlayer(t *testing.T) {
+	entries := []rosterEntry{{kind: "pc", id: "hero-1"}}
+	label := focusPreviewLabel(rosterFocus{index: 0}, entries)
+	if label != "focus: pc:hero-1 (local)" {
+		t.Fatalf("expected 'focus: pc:hero-1 (local)', got %q", label)
+	}
+}
+
+func TestFocusPreviewLabelOutOfRange(t *testing.T) {
+	entries := []rosterEntry{{kind: "mb", id: "m1"}}
+	label := focusPreviewLabel(rosterFocus{index: 5}, entries)
+	if label != "focus: none" {
+		t.Fatalf("expected 'focus: none', got %q", label)
+	}
+}
+
+func TestFooterShowsFocusPreview(t *testing.T) {
+	footer := renderFooter(120, "", "focus: mb:orc-a (local)")
+	if !strings.Contains(footer, "focus: mb:orc-a (local)") {
+		t.Fatal("footer should show focus preview label")
+	}
+	if !strings.Contains(footer, "quit") {
+		t.Fatal("footer should still contain quit hint")
+	}
+}
+
+func TestFooterShowsFocusNone(t *testing.T) {
+	footer := renderFooter(120, "", "focus: none")
+	if !strings.Contains(footer, "focus: none") {
+		t.Fatal("footer should show focus: none when unfocused")
+	}
+}
+
+func TestFooterShowsBothPreviews(t *testing.T) {
+	preview := moveIntent{direction: "north"}.preview()
+	footer := renderFooter(120, preview, "focus: mb:orc (local)")
+	if !strings.Contains(footer, "move north") {
+		t.Fatal("footer should show movement intent")
+	}
+	if !strings.Contains(footer, "focus: mb:orc (local)") {
+		t.Fatal("footer should show focus preview")
+	}
+}
+
+func TestLayoutIncludesFocusPreview(t *testing.T) {
+	entries := []rosterEntry{{kind: "mb", id: "test-mob"}}
+	focus := rosterFocus{index: 0}
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, focus, entries)
+	if !strings.Contains(layout, "focus: mb:test-mob (local)") {
+		t.Fatal("layout should include focus preview in footer")
+	}
+}
+
+func TestLayoutFocusNoneWhenUnfocused(t *testing.T) {
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
+	if !strings.Contains(layout, "focus: none") {
+		t.Fatal("layout should show focus: none when unfocused")
+	}
+}
+
+func TestFocusPreviewDeterministic(t *testing.T) {
+	entries := []rosterEntry{{kind: "mb", id: "orc"}}
+	focus := rosterFocus{index: 0}
+	a := focusPreviewLabel(focus, entries)
+	b := focusPreviewLabel(focus, entries)
+	if a != b {
+		t.Fatal("focus preview label should be deterministic")
+	}
+}
+
+func TestFocusPreviewNoGameplayTerms(t *testing.T) {
+	entries := []rosterEntry{{kind: "mb", id: "orc"}}
+	label := focusPreviewLabel(rosterFocus{index: 0}, entries)
+	forbidden := []string{"target", "select", "attack", "threat", "aggro", "damage", "enemy"}
+	for _, word := range forbidden {
+		if strings.Contains(strings.ToLower(label), word) {
+			t.Fatalf("focus preview should not contain gameplay term: %s", word)
+		}
+	}
+}
+
+func TestFocusPreviewContainsLocalMarker(t *testing.T) {
+	entries := []rosterEntry{{kind: "mb", id: "orc"}}
+	label := focusPreviewLabel(rosterFocus{index: 0}, entries)
+	if !strings.Contains(label, "(local)") {
+		t.Fatal("focus preview must explicitly indicate local-only")
 	}
 }

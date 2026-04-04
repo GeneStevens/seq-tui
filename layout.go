@@ -233,11 +233,14 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", status)
 }
 
-// renderFooter returns the footer help strip with optional intent preview.
-func renderFooter(width int, intentPreview string) string {
+// renderFooter returns the footer help strip with optional intent preview and focus label.
+func renderFooter(width int, intentPreview string, focusLabel string) string {
 	help := footerHelp
 	if intentPreview != "" {
-		help = intentPreview + "  " + footerHelp
+		help = intentPreview + "  " + help
+	}
+	if focusLabel != "" {
+		help = focusLabel + "  " + help
 	}
 	return footerStyle.Width(width).Render(help)
 }
@@ -245,7 +248,8 @@ func renderFooter(width int, intentPreview string) string {
 // renderLayout composes all sections into the full view.
 func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry) string {
 	header := renderHeader(width)
-	footer := renderFooter(width, lastInput)
+	focusLabel := focusPreviewLabel(focus, entries)
+	footer := renderFooter(width, lastInput, focusLabel)
 	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries)
 
 	// Body height is total minus header (1 line) and footer (1 line)

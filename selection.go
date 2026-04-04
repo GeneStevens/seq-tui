@@ -43,6 +43,17 @@ func focusedEntry(f rosterFocus, entries []rosterEntry) *rosterEntry {
 	return &entries[f.index]
 }
 
+// focusPreviewLabel returns a compact, explicitly local-only display string
+// for the current roster focus. Returns "focus: none" when unfocused.
+// Purely presentation-only — no gameplay meaning, no backend authority.
+func focusPreviewLabel(f rosterFocus, entries []rosterEntry) string {
+	fe := focusedEntry(f, entries)
+	if fe == nil {
+		return "focus: none"
+	}
+	return "focus: " + fe.kind + ":" + fe.id + " (local)"
+}
+
 // reconcileFocus adjusts the focus index to remain valid against the current
 // roster entries. If the previously focused entry still exists, focus stays on
 // it by ID. Otherwise focus is clamped to the last entry, or cleared to -1 if
