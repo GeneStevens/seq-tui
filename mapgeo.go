@@ -121,8 +121,9 @@ func fetchZoneMap(target backendTarget) mapReadResult {
 		return mapReadResult{State: mapReadFailed, Error: "map contains no geometry"}
 	}
 
-	// Project and rasterize
-	width, height := 60, 30
+	// Project and rasterize at high internal resolution for viewport cropping.
+	// The full zone is rasterized once; a viewport is extracted at render time.
+	width, height := 200, 100
 	ascii, bounds := projectAndRasterize(mapResp.Result.Lines, width, height)
 
 	return mapReadResult{
@@ -291,6 +292,68 @@ func overlayFocusedPlayer(mapText string, pos playerPosResult, bounds mapBounds,
 		}
 	}
 	return strings.Join(lines, "\n")
+}
+
+// extractViewport extracts a viewport-sized sub-grid from a rasterized map,
+// centered on the given cell position with deterministic edge clamping.
+// Returns the full map unchanged if viewport dimensions exceed the map.
+func extractViewport(mapText string, mapWidth, mapHeight, centerCol, centerRow, vpWidth, vpHeight int) string {
+	if vpWidth >= mapWidth && vpHeight >= mapHeight {
+		return mapText
+	}
+
+	// Compute viewport origin (top-left), centered on target cell
+	left := centerCol - vpWidth/2
+	top := centerRow - vpHeight/2
+
+	// Clamp to map edges
+	if left < 0 {
+		left = 0
+	}
+	if top < 0 {
+		top = 0
+	}
+	if left+vpWidth > mapWidth {
+		left = mapWidth - vpWidth
+	}
+	if top+vpHeight > mapHeight {
+		top = mapHeight - vpHeight
+	}
+	if left < 0 {
+		left = 0
+	}
+	if top < 0 {
+		top = 0
+	}
+
+	// Actual extraction dimensions (when viewport > map)
+	ew := vpWidth
+	if ew > mapWidth {
+		ew = mapWidth
+	}
+	eh := vpHeight
+	if eh > mapHeight {
+		eh = mapHeight
+	}
+
+	lines := strings.Split(mapText, "\n")
+	var sb strings.Builder
+	for r := top; r < top+eh && r < len(lines); r++ {
+		if r > top {
+			sb.WriteByte('\n')
+		}
+		runes := []rune(lines[r])
+		end := left + ew
+		if end > len(runes) {
+			end = len(runes)
+		}
+		start := left
+		if start > len(runes) {
+			start = len(runes)
+		}
+		sb.WriteString(string(runes[start:end]))
+	}
+	return sb.String()
 }
 
 // overlayMobs places mob markers onto an ASCII map string using shared projection bounds.

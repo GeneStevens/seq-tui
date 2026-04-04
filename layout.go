@@ -61,7 +61,10 @@ func renderHeader(width int) string {
 // renderMapPanel returns the map inside a bordered panel.
 // Uses backend-sourced map when available, falls back to placeholder with overlays.
 // Focus projection overlays the focused roster entry's map position purely visually.
-func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry) string {
+// panelWidth and panelHeight are the available space for the bordered panel.
+// When a backend map with valid dimensions is available, a viewport is extracted
+// centered on the player position (or map center if no player).
+func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry, panelWidth, panelHeight int) string {
 	var mapContent string
 	if mr.State == mapReadOK && mr.MapText != "" {
 		mapContent = mr.MapText
@@ -85,6 +88,28 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 					mapContent = overlayFocusedPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
 				}
 			}
+		}
+		// Extract viewport if map has valid dimensions
+		if mr.MapWidth > 0 && mr.MapHeight > 0 {
+			// Viewport content dimensions (inside border + padding)
+			vpWidth := panelWidth - 4 // 2 border + 2 padding
+			vpHeight := panelHeight - 2 // 2 border
+			if vpWidth < 1 {
+				vpWidth = 1
+			}
+			if vpHeight < 1 {
+				vpHeight = 1
+			}
+
+			var centerCol, centerRow int
+			if pr.State == playerReadOK && pr.HasPos {
+				centerCol, centerRow = mr.Bounds.projectToCell(pr.Position.X, pr.Position.Y, mr.MapWidth, mr.MapHeight)
+			} else {
+				// No player — center on map for honest fallback framing
+				centerCol = mr.MapWidth / 2
+				centerRow = mr.MapHeight / 2
+			}
+			mapContent = extractViewport(mapContent, mr.MapWidth, mr.MapHeight, centerCol, centerRow, vpWidth, vpHeight)
 		}
 	} else {
 		mapContent = renderStyledMap()
@@ -465,13 +490,23 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	attackLabel := ar.attackStatusLabel()
 	pickupLabel := pk.pickupStatusLabel()
 	footer := renderFooter(width, lastInput, focusLabel, targetLabel, attackLabel, pickupLabel)
-	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries)
 
 	// Body height is total minus header (1 line) and footer (1 line)
 	bodyHeight := height - 2
 	if bodyHeight < 1 {
 		bodyHeight = 1
 	}
+
+	// Compute available map panel dimensions
+	var mapPanelW, mapPanelH int
+	if width >= sidePanelMinWidth {
+		mapPanelW = width - sidePanelWidth - 2 // 2 = gap between map and side column
+	} else {
+		mapPanelW = width
+	}
+	mapPanelH = bodyHeight
+
+	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries, mapPanelW, mapPanelH)
 
 	var body string
 	if width >= sidePanelMinWidth {
