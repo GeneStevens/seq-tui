@@ -610,10 +610,11 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 	if enc.LootExpired {
 		items = append(items, panelItemStyle.Render("  loot: expired"))
 	} else if !enc.DropsGenerated {
-		items = append(items, panelItemStyle.Render("  drops: none"))
+		items = append(items, panelItemStyle.Render("  loot: none"))
 	} else if len(enc.Drops) == 0 {
-		items = append(items, panelItemStyle.Render("  drops: 0 remaining"))
+		items = append(items, panelItemStyle.Render("  loot: collected"))
 	} else {
+		items = append(items, panelItemStyle.Render("  loot: ready"))
 		items = append(items, panelItemStyle.Render(fmt.Sprintf("  drops: %d", len(enc.Drops))))
 		// Show drop rows with selection indicator
 		maxShow := 3

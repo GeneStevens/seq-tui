@@ -2413,8 +2413,8 @@ func TestLootPanelNoDrops(t *testing.T) {
 		}},
 	}
 	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{}, inventoryReadResult{}, -1, -1)
-	if !strings.Contains(panel, "drops: none") {
-		t.Fatal("loot panel should show drops: none")
+	if !strings.Contains(panel, "loot: none") {
+		t.Fatal("loot panel should show loot: none when no drops generated")
 	}
 }
 
@@ -2467,8 +2467,8 @@ func TestLootPanelDropsAllPickedUp(t *testing.T) {
 		}},
 	}
 	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{}, inventoryReadResult{}, -1, -1)
-	if !strings.Contains(panel, "drops: 0") {
-		t.Fatal("loot panel should show drops: 0 when all picked up")
+	if !strings.Contains(panel, "loot: collected") {
+		t.Fatal("loot panel should show loot: collected when all picked up")
 	}
 }
 
@@ -4911,5 +4911,73 @@ func TestCombatPanelAtkTargetSwitchVisible(t *testing.T) {
 	}
 	if !strings.Contains(stripped2, "atk:orc-2") {
 		t.Fatal("second panel should show orc-2")
+	}
+}
+
+// --- Loot Readiness Visibility Tests (M20260404-10) ---
+
+func TestLootPanelShowsLootReady(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"sword-1", "shield-1"},
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{}, inventoryReadResult{}, -1, -1)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "loot: ready") {
+		t.Fatalf("loot panel should show loot: ready when drops available, got: %s", stripped)
+	}
+}
+
+func TestLootPanelShowsLootCollected(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{},
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{}, inventoryReadResult{}, -1, -1)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "loot: collected") {
+		t.Fatalf("loot panel should show loot: collected when all drops taken, got: %s", stripped)
+	}
+}
+
+func TestLootPanelShowsLootNone(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: false,
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{}, inventoryReadResult{}, -1, -1)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "loot: none") {
+		t.Fatalf("loot panel should show loot: none when no drops generated, got: %s", stripped)
+	}
+}
+
+func TestLootPanelLootReadyHasDropCount(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"item-1", "item-2", "item-3"},
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{}, inventoryReadResult{}, -1, -1)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "loot: ready") {
+		t.Fatal("should show loot: ready")
+	}
+	if !strings.Contains(stripped, "drops: 3") {
+		t.Fatalf("should show drop count after ready line, got: %s", stripped)
 	}
 }
