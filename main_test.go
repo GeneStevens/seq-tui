@@ -4600,7 +4600,7 @@ func TestCombatPanelShowsAtkSent(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "atk:sent") {
+	if !strings.Contains(stripped, "atk:") {
 		t.Fatalf("combat panel should show atk:sent when attack submitted, got: %s", stripped)
 	}
 }
@@ -4656,7 +4656,7 @@ func TestCombatPanelAtkAndResultDistinct(t *testing.T) {
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv)
 	stripped := stripANSI(panel)
 	// All three should be present and distinct
-	if !strings.Contains(stripped, "atk:sent") {
+	if !strings.Contains(stripped, "atk:") {
 		t.Fatal("should show submission status")
 	}
 	if !strings.Contains(stripped, "damage_applied") {
@@ -4863,5 +4863,53 @@ func TestSpatialOverlayOrderDeterministic(t *testing.T) {
 	b := renderMapPanel(mr, mobr, pr, rosterFocus{index: -1}, nil, 80, 40, ar)
 	if a != b {
 		t.Fatal("spatial overlay ordering should be deterministic")
+	}
+}
+
+// --- Target Switching Readback Clarity Tests (M20260404-09) ---
+
+func TestCombatPanelAtkShowsTargetID(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1", "orc-2"}, MobsAlive: 2,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "atk:orc-1") {
+		t.Fatalf("atk line should show target ID, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelAtkTargetSwitchVisible(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1", "orc-2"}, MobsAlive: 2,
+		}},
+	}
+	// First attack targets orc-1
+	ar1 := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	panel1 := renderCombatPanel(sidePanelWidth, ar1, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped1 := stripANSI(panel1)
+	// Second attack targets orc-2
+	ar2 := attackResult{State: attackStateSent, TargetID: "orc-2"}
+	panel2 := renderCombatPanel(sidePanelWidth, ar2, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped2 := stripANSI(panel2)
+	// The panels should differ — showing different target IDs
+	if stripped1 == stripped2 {
+		t.Fatal("panels should differ when attack target changes")
+	}
+	if !strings.Contains(stripped1, "atk:orc-1") {
+		t.Fatal("first panel should show orc-1")
+	}
+	if !strings.Contains(stripped2, "atk:orc-2") {
+		t.Fatal("second panel should show orc-2")
 	}
 }

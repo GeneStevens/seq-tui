@@ -506,9 +506,10 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				}
 			}
 
-			// Attack submission status — distinct from backend result
+			// Attack submission status — includes target ID for target-switch visibility
 			if ar.State == attackStateSent {
-				items = append(items, panelItemStyle.Render("  atk:sent"))
+				label := "  atk:" + truncateID(ar.TargetID, width-8)
+				items = append(items, panelItemStyle.Render(label))
 			} else if ar.State == attackStateFailed {
 				label := "  atk:fail"
 				if ar.Error != "" {
