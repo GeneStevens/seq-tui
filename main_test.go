@@ -3,6 +3,7 @@ package main
 import (
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestStaticMapIsNonempty(t *testing.T) {
@@ -791,5 +792,21 @@ func TestNoLocalPositionMutationWithoutBackend(t *testing.T) {
 	// playerRead position should be zero (unchanged)
 	if m.playerRead.HasPos {
 		t.Fatal("player position should not be set without backend read")
+	}
+}
+
+func TestRefreshIntervalIsReasonable(t *testing.T) {
+	if refreshInterval < 200*time.Millisecond {
+		t.Fatal("refresh interval too fast (< 200ms)")
+	}
+	if refreshInterval > 2*time.Second {
+		t.Fatal("refresh interval too slow (> 2s)")
+	}
+}
+
+func TestScheduleRefreshReturnsNonNil(t *testing.T) {
+	cmd := scheduleRefresh()
+	if cmd == nil {
+		t.Fatal("scheduleRefresh should return a non-nil command")
 	}
 }

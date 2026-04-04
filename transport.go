@@ -321,6 +321,56 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 	}
 }
 
+// readPlayerState reads player state without joining (for refresh cycles).
+func readPlayerState(target backendTarget) playerReadResult {
+	client := &http.Client{Timeout: 3 * time.Second}
+
+	req, err := http.NewRequest("GET", devPlayerStateURL(target), nil)
+	if err != nil {
+		return playerReadResult{State: playerReadFailed, Error: err.Error()}
+	}
+	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return playerReadResult{State: playerReadFailed, Error: err.Error()}
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return playerReadResult{State: playerReadFailed, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return playerReadResult{State: playerReadOK, HasPos: false}
+	}
+
+	var raw struct {
+		Result struct {
+			Position struct {
+				Pos struct {
+					X float64 `json:"X"`
+					Y float64 `json:"Y"`
+					Z float64 `json:"Z"`
+				} `json:"Pos"`
+			} `json:"Position"`
+		} `json:"result"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return playerReadResult{State: playerReadOK, HasPos: false}
+	}
+
+	return playerReadResult{
+		State: playerReadOK,
+		Position: playerPosResult{
+			X: raw.Result.Position.Pos.X,
+			Y: raw.Result.Position.Pos.Y,
+		},
+		HasPos: true,
+	}
+}
+
 // devJoinURL builds the dev player-join endpoint URL.
 func devJoinURL(target backendTarget) string {
 	base := strings.TrimRight(target.BaseURL, "/")

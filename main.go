@@ -5,10 +5,24 @@ import (
 	"math"
 	"os"
 	"strings"
+	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 )
+
+// refreshInterval is the cadence for periodic backend read refresh.
+const refreshInterval = 500 * time.Millisecond
+
+// refreshTickMsg signals that a periodic refresh should occur.
+type refreshTickMsg time.Time
+
+// scheduleRefresh returns a Bubble Tea command that fires a refreshTickMsg.
+func scheduleRefresh() tea.Cmd {
+	return tea.Tick(refreshInterval, func(t time.Time) tea.Msg {
+		return refreshTickMsg(t)
+	})
+}
 
 // renderMap overlays landmarks and the player marker onto the static map
 // without mutating the original constant.
@@ -192,7 +206,7 @@ type model struct {
 }
 
 func (m model) Init() tea.Cmd {
-	// Perform zone status, map geometry, and mob position reads at startup
+	// Perform initial reads at startup + schedule first refresh tick
 	target := m.target
 	return tea.Batch(
 		func() tea.Msg {
@@ -207,11 +221,30 @@ func (m model) Init() tea.Cmd {
 		func() tea.Msg {
 			return playerReadResultMsg{result: joinAndReadPlayer(target)}
 		},
+		scheduleRefresh(),
 	)
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+	case refreshTickMsg:
+		// Periodic refresh: read mobs, player state, zone status; schedule next tick
+		target := m.target
+		return m, tea.Batch(
+			func() tea.Msg {
+				return mobReadResultMsg{result: fetchMobPositions(target)}
+			},
+			func() tea.Msg {
+				if m.playerRead.State == playerReadOK {
+					return playerReadResultMsg{result: readPlayerState(target)}
+				}
+				return nil
+			},
+			func() tea.Msg {
+				return zoneReadResultMsg{result: fetchZoneStatus(target)}
+			},
+			scheduleRefresh(),
+		)
 	case zoneReadResultMsg:
 		m.zoneRead = msg.result
 		return m, nil
