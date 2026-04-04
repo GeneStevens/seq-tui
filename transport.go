@@ -113,8 +113,9 @@ const (
 
 // mobPosition is a conservative partial decode of one mob's position data.
 type mobPosition struct {
-	MobName  string     `json:"mob_name"`
-	Position mobPosVec3 `json:"position"`
+	ProcessID string     // backend process key, preserved for identity matching
+	MobName   string     `json:"mob_name"`
+	Position  mobPosVec3 `json:"position"`
 }
 
 type mobPosVec3 struct {
@@ -182,7 +183,8 @@ func fetchMobPositions(target backendTarget) mobReadResult {
 	}
 
 	mobs := make([]mobPosition, 0, len(raw.Result))
-	for _, m := range raw.Result {
+	for pid, m := range raw.Result {
+		m.ProcessID = pid
 		mobs = append(mobs, m)
 	}
 

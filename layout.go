@@ -60,7 +60,8 @@ func renderHeader(width int) string {
 
 // renderMapPanel returns the map inside a bordered panel.
 // Uses backend-sourced map when available, falls back to placeholder with overlays.
-func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult) string {
+// Focus projection overlays the focused roster entry's map position purely visually.
+func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry) string {
 	var mapContent string
 	if mr.State == mapReadOK && mr.MapText != "" {
 		mapContent = mr.MapText
@@ -71,6 +72,19 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult) s
 		// Overlay player marker from backend position (last, so always visible)
 		if pr.State == playerReadOK && pr.HasPos {
 			mapContent = overlayPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
+		}
+		// Focus projection: highlight the focused roster entry on the map
+		if fe := focusedEntry(focus, entries); fe != nil {
+			switch fe.kind {
+			case "mb":
+				if mobr.State == mobReadOK {
+					mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, mr.Bounds, mr.MapWidth, mr.MapHeight)
+				}
+			case "pc":
+				if pr.State == playerReadOK && pr.HasPos {
+					mapContent = overlayFocusedPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
+				}
+			}
 		}
 	} else {
 		mapContent = renderStyledMap()
@@ -229,10 +243,10 @@ func renderFooter(width int, intentPreview string) string {
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry) string {
 	header := renderHeader(width)
 	footer := renderFooter(width, lastInput)
-	mapPanel := renderMapPanel(mr, mobr, pr)
+	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries)
 
 	// Body height is total minus header (1 line) and footer (1 line)
 	bodyHeight := height - 2

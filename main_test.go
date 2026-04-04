@@ -216,14 +216,14 @@ func TestRenderFooterContainsQuitHint(t *testing.T) {
 }
 
 func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
-	panel := renderMapPanel(mapReadResult{}, mobReadResult{}, playerReadResult{})
+	panel := renderMapPanel(mapReadResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil)
 	if !strings.ContainsRune(panel, playerMarker) {
 		t.Fatal("map panel should contain player marker")
 	}
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -236,7 +236,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -267,7 +267,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -280,7 +280,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -291,7 +291,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -300,7 +300,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -565,7 +565,7 @@ func TestMapPanelUsesBackendMap(t *testing.T) {
 		State:   mapReadOK,
 		MapText: "###\n# #\n###",
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{})
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil)
 	if !strings.Contains(panel, "###") {
 		t.Fatal("map panel should use backend map text when available")
 	}
@@ -573,7 +573,7 @@ func TestMapPanelUsesBackendMap(t *testing.T) {
 
 func TestMapPanelFallsBackToPlaceholder(t *testing.T) {
 	mr := mapReadResult{State: mapReadFailed}
-	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{})
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil)
 	if !strings.ContainsRune(panel, playerMarker) {
 		t.Fatal("map panel should fall back to placeholder with player marker")
 	}
@@ -656,7 +656,7 @@ func TestMapPanelWithMobOverlay(t *testing.T) {
 		Mobs:  []mobPosition{{MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}},
 		Count: 1,
 	}
-	panel := renderMapPanel(mr, mobr, playerReadResult{})
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, rosterFocus{}, nil)
 	if !strings.Contains(panel, "m") {
 		t.Fatal("map panel should contain mob markers when mobs are available")
 	}
@@ -720,7 +720,7 @@ func TestMapPanelWithBackendPlayer(t *testing.T) {
 		HasPos:   true,
 		Position: playerPosResult{X: 50, Y: 50},
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, pr)
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil)
 	if !strings.Contains(panel, "@") {
 		t.Fatal("map panel should contain backend-derived player marker")
 	}
@@ -1017,14 +1017,14 @@ func TestSideColumnContainsEncounterPanel(t *testing.T) {
 }
 
 func TestWideLayoutContainsEncounterPanel(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
 	if !strings.Contains(layout, encounterTitle) {
 		t.Fatal("wide layout should contain encounter panel")
 	}
 }
 
 func TestNarrowLayoutOmitsEncounterPanel(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil)
 	if strings.Contains(layout, encounterTitle) {
 		t.Fatal("narrow layout should not contain encounter panel")
 	}
@@ -1468,5 +1468,156 @@ func TestFooterContainsRosterHint(t *testing.T) {
 	footer := renderFooter(80, "")
 	if !strings.Contains(footer, "tab") {
 		t.Fatal("footer should mention tab for roster navigation")
+	}
+}
+
+// --- Map Focus Projection Tests (M26) ---
+
+func TestFocusedEntryReturnsNilWhenUnfocused(t *testing.T) {
+	entries := []rosterEntry{{kind: "pc", id: "p1"}, {kind: "mb", id: "m1"}}
+	if fe := focusedEntry(rosterFocus{index: -1}, entries); fe != nil {
+		t.Fatal("unfocused should return nil")
+	}
+}
+
+func TestFocusedEntryReturnsCorrectEntry(t *testing.T) {
+	entries := []rosterEntry{{kind: "pc", id: "p1"}, {kind: "mb", id: "m1"}}
+	fe := focusedEntry(rosterFocus{index: 1}, entries)
+	if fe == nil || fe.kind != "mb" || fe.id != "m1" {
+		t.Fatal("should return second entry")
+	}
+}
+
+func TestFocusedEntryOutOfRange(t *testing.T) {
+	entries := []rosterEntry{{kind: "pc", id: "p1"}}
+	if fe := focusedEntry(rosterFocus{index: 5}, entries); fe != nil {
+		t.Fatal("out-of-range should return nil")
+	}
+}
+
+func TestOverlayFocusedMobMarker(t *testing.T) {
+	mapText := "...\n.m.\n..."
+	mobs := []mobPosition{{ProcessID: "mob-1", MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}}
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	result := overlayFocusedMob(mapText, mobs, "mob-1", bounds, 3, 3)
+	if !strings.Contains(result, "M") {
+		t.Fatal("focused mob should be rendered as M")
+	}
+}
+
+func TestOverlayFocusedMobNoMatch(t *testing.T) {
+	mapText := "...\n.m.\n..."
+	mobs := []mobPosition{{ProcessID: "mob-1", MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}}
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	result := overlayFocusedMob(mapText, mobs, "mob-999", bounds, 3, 3)
+	if result != mapText {
+		t.Fatal("non-matching focus should leave map unchanged")
+	}
+}
+
+func TestOverlayFocusedMobEmpty(t *testing.T) {
+	mapText := "...\n...\n..."
+	result := overlayFocusedMob(mapText, nil, "mob-1", mapBounds{}, 3, 3)
+	if result != mapText {
+		t.Fatal("empty mobs should leave map unchanged")
+	}
+}
+
+func TestOverlayFocusedPlayerMarker(t *testing.T) {
+	mapText := "...\n.@.\n..."
+	pos := playerPosResult{X: 50, Y: 50}
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	result := overlayFocusedPlayer(mapText, pos, bounds, 3, 3)
+	if !strings.Contains(result, "&") {
+		t.Fatal("focused player should be rendered as &")
+	}
+}
+
+func TestMapPanelFocusProjectionMob(t *testing.T) {
+	// Create a simple map with a mob
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Z: 0}, To: mapVec3{X: 100, Z: 100}},
+	}
+	ascii, bounds := projectAndRasterize(lines, 10, 5)
+	mr := mapReadResult{State: mapReadOK, MapText: ascii, MapWidth: 10, MapHeight: 5, Bounds: bounds}
+	mobs := []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	entries := []rosterEntry{{kind: "mb", id: "orc-1"}}
+	focus := rosterFocus{index: 0}
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries)
+	if !strings.Contains(panel, "M") {
+		t.Fatal("focused mob should appear as M on map")
+	}
+}
+
+func TestMapPanelNoFocusProjection(t *testing.T) {
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Z: 0}, To: mapVec3{X: 100, Z: 100}},
+	}
+	ascii, bounds := projectAndRasterize(lines, 10, 5)
+	mr := mapReadResult{State: mapReadOK, MapText: ascii, MapWidth: 10, MapHeight: 5, Bounds: bounds}
+	mobs := []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	entries := []rosterEntry{{kind: "mb", id: "orc-1"}}
+	focus := rosterFocus{index: -1} // unfocused
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries)
+	if strings.Contains(panel, "M") {
+		t.Fatal("unfocused should not show M on map")
+	}
+}
+
+func TestMapPanelFocusProjectionDeterministic(t *testing.T) {
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Z: 0}, To: mapVec3{X: 100, Z: 100}},
+	}
+	ascii, bounds := projectAndRasterize(lines, 10, 5)
+	mr := mapReadResult{State: mapReadOK, MapText: ascii, MapWidth: 10, MapHeight: 5, Bounds: bounds}
+	mobs := []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	entries := []rosterEntry{{kind: "mb", id: "orc-1"}}
+	focus := rosterFocus{index: 0}
+	a := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries)
+	b := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries)
+	if a != b {
+		t.Fatal("map focus projection should be deterministic")
+	}
+}
+
+func TestMobPositionPreservesProcessID(t *testing.T) {
+	// Verify ProcessID is populated during decode simulation
+	m := mobPosition{ProcessID: "test-pid", MobName: "orc"}
+	if m.ProcessID != "test-pid" {
+		t.Fatal("ProcessID should be preserved")
+	}
+}
+
+func TestOverlayFocusedMobDeterministic(t *testing.T) {
+	mapText := "...\n.m.\n..."
+	mobs := []mobPosition{{ProcessID: "mob-1", MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}}
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	a := overlayFocusedMob(mapText, mobs, "mob-1", bounds, 3, 3)
+	b := overlayFocusedMob(mapText, mobs, "mob-1", bounds, 3, 3)
+	if a != b {
+		t.Fatal("overlay focused mob should be deterministic")
+	}
+}
+
+func TestMapPanelFocusNoGameplayTerms(t *testing.T) {
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Z: 0}, To: mapVec3{X: 100, Z: 100}},
+	}
+	ascii, bounds := projectAndRasterize(lines, 10, 5)
+	mr := mapReadResult{State: mapReadOK, MapText: ascii, MapWidth: 10, MapHeight: 5, Bounds: bounds}
+	mobs := []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	entries := []rosterEntry{{kind: "mb", id: "orc-1"}}
+	focus := rosterFocus{index: 0}
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries)
+	lower := strings.ToLower(panel)
+	forbidden := []string{"target", "select", "attack", "threat", "aggro", "damage", "hp", "health"}
+	for _, word := range forbidden {
+		if strings.Contains(lower, word) {
+			t.Fatalf("map focus projection should not contain gameplay term: %s", word)
+		}
 	}
 }

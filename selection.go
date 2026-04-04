@@ -35,6 +35,14 @@ func buildRosterEntries(enc *encounterSummary) []rosterEntry {
 	return entries
 }
 
+// focusedEntry returns the currently focused roster entry, or nil if no focus.
+func focusedEntry(f rosterFocus, entries []rosterEntry) *rosterEntry {
+	if f.index < 0 || f.index >= len(entries) {
+		return nil
+	}
+	return &entries[f.index]
+}
+
 // reconcileFocus adjusts the focus index to remain valid against the current
 // roster entries. If the previously focused entry still exists, focus stays on
 // it by ID. Otherwise focus is clamped to the last entry, or cleared to -1 if

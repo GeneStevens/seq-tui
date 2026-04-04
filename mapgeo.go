@@ -248,6 +248,51 @@ func overlayPlayer(mapText string, pos playerPosResult, bounds mapBounds, width,
 	return strings.Join(lines, "\n")
 }
 
+// overlayFocusedMob replaces the mob marker at the focused mob's position with 'M'.
+// Purely visual, non-authoritative. If focusedMobID is empty or not found among mobs,
+// the map is returned unchanged.
+func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, bounds mapBounds, width, height int) string {
+	if focusedMobID == "" || len(mobs) == 0 || width < 1 || height < 1 {
+		return mapText
+	}
+	for _, mob := range mobs {
+		if mob.ProcessID == focusedMobID {
+			col, row := bounds.projectToCell(mob.Position.X, mob.Position.Y, width, height)
+			lines := strings.Split(mapText, "\n")
+			if row >= 0 && row < len(lines) {
+				runes := []rune(lines[row])
+				for len(runes) < width {
+					runes = append(runes, ' ')
+				}
+				if col >= 0 && col < len(runes) {
+					runes[col] = 'M'
+					lines[row] = string(runes)
+				}
+			}
+			return strings.Join(lines, "\n")
+		}
+	}
+	return mapText
+}
+
+// overlayFocusedPlayer replaces the player marker '@' with '&' at the player's position.
+// Purely visual, non-authoritative.
+func overlayFocusedPlayer(mapText string, pos playerPosResult, bounds mapBounds, width, height int) string {
+	col, row := bounds.projectToCell(pos.X, pos.Y, width, height)
+	lines := strings.Split(mapText, "\n")
+	if row >= 0 && row < len(lines) {
+		runes := []rune(lines[row])
+		for len(runes) < width {
+			runes = append(runes, ' ')
+		}
+		if col >= 0 && col < len(runes) {
+			runes[col] = '&'
+			lines[row] = string(runes)
+		}
+	}
+	return strings.Join(lines, "\n")
+}
+
 // overlayMobs places mob markers onto an ASCII map string using shared projection bounds.
 // Mob positions use x,y as ground plane (mob.x → map.X, mob.y → map.Z).
 func overlayMobs(mapText string, mobs []mobPosition, bounds mapBounds, width, height int) string {
