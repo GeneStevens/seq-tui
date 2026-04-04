@@ -233,6 +233,94 @@ func (r playerReadResult) playerStatusLabel() string {
 	}
 }
 
+// devPlayerPositionURL builds the dev player-position endpoint URL.
+func devPlayerPositionURL(target backendTarget) string {
+	base := strings.TrimRight(target.BaseURL, "/")
+	return fmt.Sprintf("%s/world/dev/zone/%s/player/position", base, target.Zone)
+}
+
+// moveResult holds the outcome of a movement submission + readback.
+type moveResult struct {
+	OK       bool
+	Error    string
+	Position playerPosResult
+	HasPos   bool
+}
+
+// submitMoveAndReadback submits a position change and reads back the result.
+// Uses the dev player/position endpoint (direct position set).
+func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx, dy float64) moveResult {
+	client := &http.Client{Timeout: 5 * time.Second}
+
+	// Submit position change
+	newX := currentPos.X + dx
+	newY := currentPos.Y + dy
+	payload := fmt.Sprintf(`{"player_id":"%s","x":%f,"y":%f,"z":0}`, target.Player, newX, newY)
+
+	req, err := http.NewRequest("POST", devPlayerPositionURL(target), strings.NewReader(payload))
+	if err != nil {
+		return moveResult{OK: false, Error: err.Error()}
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return moveResult{OK: false, Error: err.Error()}
+	}
+	resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return moveResult{OK: false, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
+	}
+
+	// Readback player state
+	stateReq, err := http.NewRequest("GET", devPlayerStateURL(target), nil)
+	if err != nil {
+		return moveResult{OK: true, HasPos: false}
+	}
+	stateReq.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	stateResp, err := client.Do(stateReq)
+	if err != nil {
+		return moveResult{OK: true, HasPos: false}
+	}
+	defer stateResp.Body.Close()
+
+	if stateResp.StatusCode != http.StatusOK {
+		return moveResult{OK: true, HasPos: false}
+	}
+
+	body, err := io.ReadAll(stateResp.Body)
+	if err != nil {
+		return moveResult{OK: true, HasPos: false}
+	}
+
+	var raw struct {
+		Result struct {
+			Position struct {
+				Pos struct {
+					X float64 `json:"X"`
+					Y float64 `json:"Y"`
+					Z float64 `json:"Z"`
+				} `json:"Pos"`
+			} `json:"Position"`
+		} `json:"result"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return moveResult{OK: true, HasPos: false}
+	}
+
+	return moveResult{
+		OK: true,
+		Position: playerPosResult{
+			X: raw.Result.Position.Pos.X,
+			Y: raw.Result.Position.Pos.Y,
+		},
+		HasPos: true,
+	}
+}
+
 // devJoinURL builds the dev player-join endpoint URL.
 func devJoinURL(target backendTarget) string {
 	base := strings.TrimRight(target.BaseURL, "/")

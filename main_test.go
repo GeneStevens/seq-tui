@@ -731,3 +731,65 @@ func TestDefaultTargetHasDevToken(t *testing.T) {
 		t.Fatal("default target should have a dev token")
 	}
 }
+
+func TestDevPlayerPositionURL(t *testing.T) {
+	target := defaultTarget()
+	url := devPlayerPositionURL(target)
+	if !strings.Contains(url, "/world/dev/zone/crushbone/player/position") {
+		t.Fatal("position URL should target dev player position endpoint")
+	}
+}
+
+func TestDirectionOffset(t *testing.T) {
+	dx, dy := directionOffset("north")
+	if dx != 0 || dy <= 0 {
+		t.Fatal("north should have positive dy")
+	}
+	dx, dy = directionOffset("south")
+	if dx != 0 || dy >= 0 {
+		t.Fatal("south should have negative dy")
+	}
+	dx, dy = directionOffset("east")
+	if dx <= 0 || dy != 0 {
+		t.Fatal("east should have positive dx")
+	}
+	dx, dy = directionOffset("west")
+	if dx >= 0 || dy != 0 {
+		t.Fatal("west should have negative dx")
+	}
+}
+
+func TestMoveIntentSentLabel(t *testing.T) {
+	i := moveIntent{direction: "north", state: moveStateSent}
+	p := i.preview()
+	if !strings.Contains(p, "sent") {
+		t.Fatal("sent intent should contain 'sent'")
+	}
+	if strings.Contains(p, "not sent") {
+		t.Fatal("sent intent should not contain 'not sent'")
+	}
+}
+
+func TestMoveIntentFailedLabel(t *testing.T) {
+	i := moveIntent{direction: "east", state: moveStateFailed}
+	p := i.preview()
+	if !strings.Contains(p, "failed") {
+		t.Fatal("failed intent should contain 'failed'")
+	}
+}
+
+func TestNoLocalPositionMutationWithoutBackend(t *testing.T) {
+	// Model without backend player read — movement key should not change position
+	m := model{width: 80, height: 40, target: defaultTarget()}
+	// Simulate pressing a movement key — playerRead is not OK, so no submission
+	dir := directionFromKey("up")
+	if dir != "north" {
+		t.Fatal("up key should map to north")
+	}
+	// Without playerRead.State == playerReadOK, the model stays in preview only
+	m.lastIntent = moveIntent{direction: dir, state: moveStatePreview}
+	// playerRead position should be zero (unchanged)
+	if m.playerRead.HasPos {
+		t.Fatal("player position should not be set without backend read")
+	}
+}

@@ -103,10 +103,20 @@ func directionFromKey(key string) string {
 	}
 }
 
-// moveIntent represents a recognized but unsent movement intent.
-// This is a preview only — no backend submission, no position change.
+// moveState tracks whether a movement intent was preview-only or actually sent.
+type moveState int
+
+const (
+	moveStateNone moveState = iota
+	moveStatePreview
+	moveStateSent
+	moveStateFailed
+)
+
+// moveIntent represents a recognized movement intent.
 type moveIntent struct {
-	direction string // "north", "south", "east", "west"
+	direction string    // "north", "south", "east", "west"
+	state     moveState // preview, sent, or failed
 }
 
 // preview returns the display string for this intent.
@@ -114,7 +124,34 @@ func (i moveIntent) preview() string {
 	if i.direction == "" {
 		return ""
 	}
-	return "intent: move " + i.direction + " (not sent)"
+	switch i.state {
+	case moveStateSent:
+		return "intent: move " + i.direction + " (sent)"
+	case moveStateFailed:
+		return "intent: move " + i.direction + " (failed)"
+	default:
+		return "intent: move " + i.direction + " (not sent)"
+	}
+}
+
+// moveStep is the distance in world units for one movement step.
+const moveStep = 20.0
+
+// directionOffset returns world-coordinate deltas for a direction.
+// x = east/west, y = north/south (in backend ground-plane convention).
+func directionOffset(dir string) (dx, dy float64) {
+	switch dir {
+	case "north":
+		return 0, moveStep
+	case "south":
+		return 0, -moveStep
+	case "east":
+		return moveStep, 0
+	case "west":
+		return -moveStep, 0
+	default:
+		return 0, 0
+	}
 }
 
 // zoneReadResultMsg carries the result of a zone status read back to the model.
@@ -135,6 +172,12 @@ type mobReadResultMsg struct {
 // playerReadResultMsg carries the result of a player join/read back to the model.
 type playerReadResultMsg struct {
 	result playerReadResult
+}
+
+// moveResultMsg carries the result of a movement submission + readback.
+type moveResultMsg struct {
+	result    moveResult
+	direction string
 }
 
 type model struct {
@@ -181,6 +224,17 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case playerReadResultMsg:
 		m.playerRead = msg.result
 		return m, nil
+	case moveResultMsg:
+		if msg.result.OK {
+			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateSent}
+			if msg.result.HasPos {
+				m.playerRead.Position = msg.result.Position
+				m.playerRead.HasPos = true
+			}
+		} else {
+			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateFailed}
+		}
+		return m, nil
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 		m.height = msg.Height
@@ -192,7 +246,21 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 		default:
 			if dir := directionFromKey(key); dir != "" {
-				m.lastIntent = moveIntent{direction: dir}
+				// If player is joined with a known position, submit real move
+				if m.playerRead.State == playerReadOK && m.playerRead.HasPos {
+					m.lastIntent = moveIntent{direction: dir, state: moveStatePreview}
+					target := m.target
+					currentPos := m.playerRead.Position
+					dx, dy := directionOffset(dir)
+					return m, func() tea.Msg {
+						return moveResultMsg{
+							result:    submitMoveAndReadback(target, currentPos, dx, dy),
+							direction: dir,
+						}
+					}
+				}
+				// Otherwise, keep as preview only
+				m.lastIntent = moveIntent{direction: dir, state: moveStatePreview}
 				return m, nil
 			}
 		}
