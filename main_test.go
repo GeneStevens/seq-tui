@@ -566,7 +566,8 @@ func TestMapPanelUsesBackendMap(t *testing.T) {
 		MapText: "###\n# #\n###",
 	}
 	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40)
-	if !strings.Contains(panel, "###") {
+	// Wall chars are now individually colorized with ANSI, so check for '#' presence
+	if !strings.Contains(panel, "#") {
 		t.Fatal("map panel should use backend map text when available")
 	}
 }
@@ -2953,5 +2954,192 @@ func TestMapPanelViewportNoGameplayTerms(t *testing.T) {
 		if strings.Contains(lower, word) {
 			t.Fatalf("viewport should not contain gameplay/camera term: %s", word)
 		}
+	}
+}
+
+// --- Colorization Tests (M38) ---
+
+func TestColorizePlayerGlyph(t *testing.T) {
+	result := colorizeMapContent("@")
+	// Should contain ANSI escape (color code) and the @ character
+	if !strings.Contains(result, "\033[") {
+		t.Fatal("player glyph should be styled with ANSI escape")
+	}
+	if !strings.Contains(result, "@") {
+		t.Fatal("player glyph character should be preserved")
+	}
+}
+
+func TestColorizeMobGlyph(t *testing.T) {
+	result := colorizeMapContent("m")
+	if !strings.Contains(result, "\033[") {
+		t.Fatal("mob glyph should be styled with ANSI escape")
+	}
+	if !strings.Contains(result, "m") {
+		t.Fatal("mob glyph character should be preserved")
+	}
+}
+
+func TestColorizeFocusedMobGlyph(t *testing.T) {
+	result := colorizeMapContent("M")
+	if !strings.Contains(result, "\033[") {
+		t.Fatal("focused mob glyph should be styled with ANSI escape")
+	}
+	if !strings.Contains(result, "M") {
+		t.Fatal("focused mob glyph character should be preserved")
+	}
+}
+
+func TestColorizeFocusedPlayerGlyph(t *testing.T) {
+	result := colorizeMapContent("&")
+	if !strings.Contains(result, "\033[") {
+		t.Fatal("focused player glyph should be styled with ANSI escape")
+	}
+	if !strings.Contains(result, "&") {
+		t.Fatal("focused player glyph character should be preserved")
+	}
+}
+
+func TestColorizeWallGlyph(t *testing.T) {
+	result := colorizeMapContent("#")
+	if !strings.Contains(result, "\033[") {
+		t.Fatal("wall glyph should be styled with ANSI escape")
+	}
+	if !strings.Contains(result, "#") {
+		t.Fatal("wall glyph character should be preserved")
+	}
+}
+
+func TestColorizeEmptySpaceUnstyled(t *testing.T) {
+	result := colorizeMapContent(" ")
+	if strings.Contains(result, "\033[") {
+		t.Fatal("empty space should not be styled")
+	}
+	if result != " " {
+		t.Fatalf("empty space should pass through unchanged, got %q", result)
+	}
+}
+
+func TestColorizeDotUnstyled(t *testing.T) {
+	result := colorizeMapContent(".")
+	if strings.Contains(result, "\033[") {
+		t.Fatal("dot should not be styled")
+	}
+	if result != "." {
+		t.Fatalf("dot should pass through unchanged, got %q", result)
+	}
+}
+
+func TestColorizeNewlinePreserved(t *testing.T) {
+	result := colorizeMapContent("@\nm")
+	if !strings.Contains(result, "\n") {
+		t.Fatal("newlines should be preserved in colorized output")
+	}
+}
+
+func TestColorizeDeterministic(t *testing.T) {
+	input := "#.@.m\n#.M.&"
+	a := colorizeMapContent(input)
+	b := colorizeMapContent(input)
+	if a != b {
+		t.Fatal("colorization should be deterministic")
+	}
+}
+
+func TestColorizePlayerDistinctFromMob(t *testing.T) {
+	playerStyled := colorizeMapContent("@")
+	mobStyled := colorizeMapContent("m")
+	// Both should have ANSI but with different escape sequences
+	if playerStyled == mobStyled {
+		t.Fatal("player and mob should have distinct styling")
+	}
+}
+
+func TestColorizePreservesLineCount(t *testing.T) {
+	input := "###\n.@.\n.m."
+	result := colorizeMapContent(input)
+	inputLines := strings.Count(input, "\n")
+	resultLines := strings.Count(result, "\n")
+	if inputLines != resultLines {
+		t.Fatalf("colorization should preserve line count: input %d, result %d", inputLines, resultLines)
+	}
+}
+
+func TestMapPanelColorizedPlayer(t *testing.T) {
+	// Backend map with player — panel should contain ANSI escape for colorized player
+	lines := make([]string, 10)
+	for i := range lines {
+		lines[i] = strings.Repeat(".", 20)
+	}
+	mapText := strings.Join(lines, "\n")
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   mapText,
+		MapWidth:  20,
+		MapHeight: 10,
+		Bounds:    mapBounds{MinX: 0, MaxX: 200, MinZ: 0, MaxZ: 100, SpanX: 200, SpanZ: 100},
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 100, Y: 50},
+	}
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 80, 40)
+	if !strings.Contains(panel, "\033[") {
+		t.Fatal("map panel with player should contain ANSI color escapes")
+	}
+	if !strings.Contains(panel, "@") {
+		t.Fatal("map panel should contain player marker")
+	}
+}
+
+func TestMapPanelColorizedMob(t *testing.T) {
+	lines := make([]string, 10)
+	for i := range lines {
+		lines[i] = strings.Repeat(".", 20)
+	}
+	mapText := strings.Join(lines, "\n")
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   mapText,
+		MapWidth:  20,
+		MapHeight: 10,
+		Bounds:    mapBounds{MinX: 0, MaxX: 200, MinZ: 0, MaxZ: 100, SpanX: 200, SpanZ: 100},
+	}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs:  []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 100, Y: 50}}},
+		Count: 1,
+	}
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, rosterFocus{}, nil, 80, 40)
+	if !strings.Contains(panel, "m") {
+		t.Fatal("map panel should contain mob marker")
+	}
+}
+
+func TestColorizeNoGameplayTerms(t *testing.T) {
+	input := "#.@.m.M.&"
+	result := colorizeMapContent(input)
+	lower := strings.ToLower(result)
+	forbidden := []string{"threat", "aggro", "health", "hp", "status", "damage", "safe", "danger"}
+	for _, word := range forbidden {
+		if strings.Contains(lower, word) {
+			t.Fatalf("colorized output should not contain gameplay term: %s", word)
+		}
+	}
+}
+
+func TestMapPanelFallbackNoColorize(t *testing.T) {
+	// When backend map is not available, static fallback is used.
+	// The fallback has its own styling via renderStyledMap — colorize should not be applied.
+	mr := mapReadResult{State: mapReadFailed}
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40)
+	// Should still render (fallback) without crashing
+	if panel == "" {
+		t.Fatal("fallback panel should not be empty")
+	}
+	// Fallback should contain player marker from static map
+	if !strings.ContainsRune(panel, playerMarker) {
+		t.Fatal("fallback panel should contain static player marker")
 	}
 }

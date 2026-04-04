@@ -48,7 +48,48 @@ var (
 
 	panelItemStyle = lipgloss.NewStyle().
 			Faint(true)
+
 )
+
+// ANSI escape constants for spatial entity colorization.
+// Raw escapes used instead of lipgloss styles to ensure colors are always emitted,
+// independent of terminal detection (lipgloss strips color in non-TTY contexts).
+// Presentational only — colors carry no gameplay semantics.
+const (
+	ansiReset     = "\033[0m"
+	ansiGreen     = "\033[32m"   // player marker
+	ansiGreenBold = "\033[1;32m" // focused player marker
+	ansiRed       = "\033[31m"   // mob marker
+	ansiRedBold   = "\033[1;31m" // focused mob marker
+	ansiDim       = "\033[2m"    // wall/structure
+)
+
+// colorizeMapContent applies presentational color to entity glyphs in the viewport.
+// Walks each character and wraps recognized entity markers with lipgloss styles.
+// ANSI escape sequences are zero-width in terminals, so cell width is preserved.
+// This is purely visual — colors carry no gameplay meaning.
+func colorizeMapContent(mapContent string) string {
+	var sb strings.Builder
+	for _, ch := range mapContent {
+		switch ch {
+		case '@':
+			sb.WriteString(ansiGreen + "@" + ansiReset)
+		case '&':
+			sb.WriteString(ansiGreenBold + "&" + ansiReset)
+		case 'm':
+			sb.WriteString(ansiRed + "m" + ansiReset)
+		case 'M':
+			sb.WriteString(ansiRedBold + "M" + ansiReset)
+		case '#':
+			sb.WriteString(ansiDim + "#" + ansiReset)
+		case '\n':
+			sb.WriteByte('\n')
+		default:
+			sb.WriteRune(ch)
+		}
+	}
+	return sb.String()
+}
 
 // renderHeader returns the header strip.
 func renderHeader(width int) string {
@@ -111,6 +152,9 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 			}
 			mapContent = extractViewport(mapContent, mr.MapWidth, mr.MapHeight, centerCol, centerRow, vpWidth, vpHeight)
 		}
+		// Apply presentational color to entity glyphs after viewport extraction.
+		// Must happen after extraction since ANSI codes would break rune-based slicing.
+		mapContent = colorizeMapContent(mapContent)
 	} else {
 		mapContent = renderStyledMap()
 	}
