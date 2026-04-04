@@ -43,6 +43,7 @@ type mapReadResult struct {
 	MapWidth  int
 	MapHeight int
 	Bounds    mapBounds // shared projection basis
+	Lines     []mapLine // raw geometry for adaptive re-rasterization
 }
 
 // mapStatusLabel returns a calm, honest label for the map read state.
@@ -132,6 +133,7 @@ func fetchZoneMap(target backendTarget) mapReadResult {
 		MapWidth:  width,
 		MapHeight: height,
 		Bounds:    bounds,
+		Lines:     mapResp.Result.Lines,
 	}
 }
 
@@ -354,6 +356,122 @@ func extractViewport(mapText string, mapWidth, mapHeight, centerCol, centerRow, 
 		sb.WriteString(string(runes[start:end]))
 	}
 	return sb.String()
+}
+
+// --- Adaptive viewport rasterization ---
+
+// Adaptive scaling reference dimensions. At these viewport dimensions, the full zone
+// is visible. Smaller viewports show a proportionally tighter local region.
+// Using values larger than the old 200x100 internal canvas means smaller viewports
+// get a tighter view than the old fixed-crop approach.
+const (
+	adaptiveRefWidth  = 240.0
+	adaptiveRefHeight = 120.0
+)
+
+// computeAdaptiveWorldWindow computes a world-space bounding box for adaptive viewport
+// rendering. The world span scales linearly with viewport dimensions relative to
+// reference dimensions, producing tighter local views for smaller viewports.
+// Centered on (centerX, centerZ) with deterministic edge clamping.
+func computeAdaptiveWorldWindow(fullBounds mapBounds, centerX, centerZ float64, vpWidth, vpHeight int) mapBounds {
+	fractionX := float64(vpWidth) / adaptiveRefWidth
+	fractionZ := float64(vpHeight) / adaptiveRefHeight
+	if fractionX > 1.0 {
+		fractionX = 1.0
+	}
+	if fractionZ > 1.0 {
+		fractionZ = 1.0
+	}
+	if fractionX < 0.05 {
+		fractionX = 0.05
+	}
+	if fractionZ < 0.05 {
+		fractionZ = 0.05
+	}
+
+	spanX := fullBounds.SpanX * fractionX
+	spanZ := fullBounds.SpanZ * fractionZ
+
+	minX := centerX - spanX/2
+	maxX := centerX + spanX/2
+	minZ := centerZ - spanZ/2
+	maxZ := centerZ + spanZ/2
+
+	// Clamp to zone bounds
+	if minX < fullBounds.MinX {
+		shift := fullBounds.MinX - minX
+		minX = fullBounds.MinX
+		maxX += shift
+	}
+	if maxX > fullBounds.MaxX {
+		shift := maxX - fullBounds.MaxX
+		maxX = fullBounds.MaxX
+		minX -= shift
+	}
+	if minZ < fullBounds.MinZ {
+		shift := fullBounds.MinZ - minZ
+		minZ = fullBounds.MinZ
+		maxZ += shift
+	}
+	if maxZ > fullBounds.MaxZ {
+		shift := maxZ - fullBounds.MaxZ
+		maxZ = fullBounds.MaxZ
+		minZ -= shift
+	}
+	// Final clamp for edge cases where span exceeds zone
+	if minX < fullBounds.MinX {
+		minX = fullBounds.MinX
+	}
+	if minZ < fullBounds.MinZ {
+		minZ = fullBounds.MinZ
+	}
+
+	return mapBounds{
+		MinX:  minX,
+		MaxX:  maxX,
+		MinZ:  minZ,
+		MaxZ:  maxZ,
+		SpanX: maxX - minX,
+		SpanZ: maxZ - minZ,
+	}
+}
+
+// rasterizeAdaptiveViewport rasterizes zone geometry into a viewport-sized canvas
+// using adaptive world bounds. Returns the ASCII map and the viewport-local bounds
+// for use by overlay functions. The viewport is the final render size — no further
+// cropping is needed.
+func rasterizeAdaptiveViewport(lines []mapLine, fullBounds mapBounds, centerX, centerZ float64, vpWidth, vpHeight int) (string, mapBounds) {
+	if len(lines) == 0 || vpWidth < 1 || vpHeight < 1 {
+		return "", mapBounds{}
+	}
+
+	vpBounds := computeAdaptiveWorldWindow(fullBounds, centerX, centerZ, vpWidth, vpHeight)
+
+	// Initialize canvas
+	canvas := make([][]rune, vpHeight)
+	for r := range canvas {
+		canvas[r] = make([]rune, vpWidth)
+		for c := range canvas[r] {
+			canvas[r][c] = ' '
+		}
+	}
+
+	// Rasterize each line segment using the viewport-local bounds
+	for _, l := range lines {
+		c0, r0 := vpBounds.projectToCell(l.From.X, l.From.Z, vpWidth, vpHeight)
+		c1, r1 := vpBounds.projectToCell(l.To.X, l.To.Z, vpWidth, vpHeight)
+		rasterizeLine(canvas, r0, c0, r1, c1, vpWidth, vpHeight)
+	}
+
+	// Convert canvas to string
+	var sb strings.Builder
+	for r, row := range canvas {
+		if r > 0 {
+			sb.WriteByte('\n')
+		}
+		sb.WriteString(string(row))
+	}
+	return sb.String(), vpBounds
 }
 
 // overlayMobs places mob markers onto an ASCII map string using shared projection bounds.

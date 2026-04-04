@@ -107,52 +107,88 @@ func renderHeader(width int) string {
 func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry, panelWidth, panelHeight int) string {
 	var mapContent string
 	if mr.State == mapReadOK && mr.MapText != "" {
-		mapContent = mr.MapText
-		// Overlay mob positions if available
-		if mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
-			mapContent = overlayMobs(mapContent, mobr.Mobs, mr.Bounds, mr.MapWidth, mr.MapHeight)
+		// Viewport content dimensions (inside border + padding)
+		vpWidth := panelWidth - 4 // 2 border + 2 padding
+		vpHeight := panelHeight - 2 // 2 border
+		if vpWidth < 1 {
+			vpWidth = 1
 		}
-		// Overlay player marker from backend position (last, so always visible)
-		if pr.State == playerReadOK && pr.HasPos {
-			mapContent = overlayPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
+		if vpHeight < 1 {
+			vpHeight = 1
 		}
-		// Focus projection: highlight the focused roster entry on the map
-		if fe := focusedEntry(focus, entries); fe != nil {
-			switch fe.kind {
-			case "mb":
-				if mobr.State == mobReadOK {
-					mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, mr.Bounds, mr.MapWidth, mr.MapHeight)
-				}
-			case "pc":
-				if pr.State == playerReadOK && pr.HasPos {
-					mapContent = overlayFocusedPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
-				}
-			}
-		}
-		// Extract viewport if map has valid dimensions
-		if mr.MapWidth > 0 && mr.MapHeight > 0 {
-			// Viewport content dimensions (inside border + padding)
-			vpWidth := panelWidth - 4 // 2 border + 2 padding
-			vpHeight := panelHeight - 2 // 2 border
-			if vpWidth < 1 {
-				vpWidth = 1
-			}
-			if vpHeight < 1 {
-				vpHeight = 1
-			}
 
-			var centerCol, centerRow int
-			if pr.State == playerReadOK && pr.HasPos {
-				centerCol, centerRow = mr.Bounds.projectToCell(pr.Position.X, pr.Position.Y, mr.MapWidth, mr.MapHeight)
-			} else {
-				// No player — center on map for honest fallback framing
-				centerCol = mr.MapWidth / 2
-				centerRow = mr.MapHeight / 2
-			}
-			mapContent = extractViewport(mapContent, mr.MapWidth, mr.MapHeight, centerCol, centerRow, vpWidth, vpHeight)
+		// Determine center point for viewport
+		var centerX, centerZ float64
+		hasCenter := false
+		if pr.State == playerReadOK && pr.HasPos {
+			centerX = pr.Position.X
+			centerZ = pr.Position.Y // player Y maps to world Z
+			hasCenter = true
 		}
-		// Apply presentational color to entity glyphs after viewport extraction.
-		// Must happen after extraction since ANSI codes would break rune-based slicing.
+
+		if len(mr.Lines) > 0 && vpWidth > 0 && vpHeight > 0 {
+			// Adaptive path: re-rasterize at viewport resolution with adaptive world bounds.
+			// Smaller viewports get a tighter local world window with native-resolution detail.
+			if !hasCenter {
+				centerX = (mr.Bounds.MinX + mr.Bounds.MaxX) / 2
+				centerZ = (mr.Bounds.MinZ + mr.Bounds.MaxZ) / 2
+			}
+			ascii, vpBounds := rasterizeAdaptiveViewport(mr.Lines, mr.Bounds, centerX, centerZ, vpWidth, vpHeight)
+			mapContent = ascii
+
+			// Overlays use viewport-local bounds and dimensions
+			if mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
+				mapContent = overlayMobs(mapContent, mobr.Mobs, vpBounds, vpWidth, vpHeight)
+			}
+			if pr.State == playerReadOK && pr.HasPos {
+				mapContent = overlayPlayer(mapContent, pr.Position, vpBounds, vpWidth, vpHeight)
+			}
+			if fe := focusedEntry(focus, entries); fe != nil {
+				switch fe.kind {
+				case "mb":
+					if mobr.State == mobReadOK {
+						mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, vpBounds, vpWidth, vpHeight)
+					}
+				case "pc":
+					if pr.State == playerReadOK && pr.HasPos {
+						mapContent = overlayFocusedPlayer(mapContent, pr.Position, vpBounds, vpWidth, vpHeight)
+					}
+				}
+			}
+		} else {
+			// Legacy path: overlay on pre-rasterized canvas, then extract viewport
+			mapContent = mr.MapText
+			if mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
+				mapContent = overlayMobs(mapContent, mobr.Mobs, mr.Bounds, mr.MapWidth, mr.MapHeight)
+			}
+			if pr.State == playerReadOK && pr.HasPos {
+				mapContent = overlayPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
+			}
+			if fe := focusedEntry(focus, entries); fe != nil {
+				switch fe.kind {
+				case "mb":
+					if mobr.State == mobReadOK {
+						mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, mr.Bounds, mr.MapWidth, mr.MapHeight)
+					}
+				case "pc":
+					if pr.State == playerReadOK && pr.HasPos {
+						mapContent = overlayFocusedPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
+					}
+				}
+			}
+			if mr.MapWidth > 0 && mr.MapHeight > 0 {
+				var centerCol, centerRow int
+				if hasCenter {
+					centerCol, centerRow = mr.Bounds.projectToCell(centerX, centerZ, mr.MapWidth, mr.MapHeight)
+				} else {
+					centerCol = mr.MapWidth / 2
+					centerRow = mr.MapHeight / 2
+				}
+				mapContent = extractViewport(mapContent, mr.MapWidth, mr.MapHeight, centerCol, centerRow, vpWidth, vpHeight)
+			}
+		}
+		// Apply presentational color after all overlays.
+		// Must happen after rasterization/extraction since ANSI codes would break rune-based slicing.
 		mapContent = colorizeMapContent(mapContent)
 	} else {
 		mapContent = renderStyledMap()

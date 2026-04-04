@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math"
 	"os"
 	"regexp"
 	"strings"
@@ -3232,5 +3233,273 @@ func TestColorizeRoundtripWithStripANSI(t *testing.T) {
 	stripped := stripANSI(styled)
 	if stripped != input {
 		t.Fatalf("stripANSI(colorize(x)) should recover x, got %q", stripped)
+	}
+}
+
+// --- Adaptive Spatial Zoom Tests (M40) ---
+
+// testLines returns simple map geometry for testing: a box from (0,0) to (1000,1000)
+// with cross-lines through the center so any viewport region contains visible walls.
+func testLines() []mapLine {
+	return []mapLine{
+		// Outer box
+		{From: mapVec3{X: 0, Z: 0}, To: mapVec3{X: 1000, Z: 0}},
+		{From: mapVec3{X: 1000, Z: 0}, To: mapVec3{X: 1000, Z: 1000}},
+		{From: mapVec3{X: 1000, Z: 1000}, To: mapVec3{X: 0, Z: 1000}},
+		{From: mapVec3{X: 0, Z: 1000}, To: mapVec3{X: 0, Z: 0}},
+		// Cross-lines through center
+		{From: mapVec3{X: 0, Z: 500}, To: mapVec3{X: 1000, Z: 500}},
+		{From: mapVec3{X: 500, Z: 0}, To: mapVec3{X: 500, Z: 1000}},
+	}
+}
+
+func testFullBounds() mapBounds {
+	return computeBounds(testLines())
+}
+
+func TestComputeAdaptiveWorldWindowCentered(t *testing.T) {
+	full := testFullBounds()
+	win := computeAdaptiveWorldWindow(full, 500, 500, 60, 30)
+	// Window should be centered on (500, 500)
+	midX := (win.MinX + win.MaxX) / 2
+	midZ := (win.MinZ + win.MaxZ) / 2
+	if math.Abs(midX-500) > 1 || math.Abs(midZ-500) > 1 {
+		t.Fatalf("window should be centered on (500,500), got mid=(%f,%f)", midX, midZ)
+	}
+	// Window should be smaller than full zone
+	if win.SpanX >= full.SpanX {
+		t.Fatal("60-cell viewport should show less than full zone width")
+	}
+	if win.SpanZ >= full.SpanZ {
+		t.Fatal("30-cell viewport should show less than full zone height")
+	}
+}
+
+func TestComputeAdaptiveWorldWindowSmallViewportTighter(t *testing.T) {
+	full := testFullBounds()
+	winSmall := computeAdaptiveWorldWindow(full, 500, 500, 30, 15)
+	winLarge := computeAdaptiveWorldWindow(full, 500, 500, 90, 45)
+	// Smaller viewport should show less world
+	if winSmall.SpanX >= winLarge.SpanX {
+		t.Fatalf("smaller viewport should show tighter world: small=%f large=%f", winSmall.SpanX, winLarge.SpanX)
+	}
+	if winSmall.SpanZ >= winLarge.SpanZ {
+		t.Fatalf("smaller viewport should show tighter world: small=%f large=%f", winSmall.SpanZ, winLarge.SpanZ)
+	}
+}
+
+func TestComputeAdaptiveWorldWindowEdgeClampLeft(t *testing.T) {
+	full := testFullBounds()
+	win := computeAdaptiveWorldWindow(full, 0, 500, 60, 30)
+	if win.MinX < full.MinX {
+		t.Fatal("window should not extend below zone MinX")
+	}
+}
+
+func TestComputeAdaptiveWorldWindowEdgeClampRight(t *testing.T) {
+	full := testFullBounds()
+	win := computeAdaptiveWorldWindow(full, 1000, 500, 60, 30)
+	if win.MaxX > full.MaxX+0.01 {
+		t.Fatalf("window should not extend above zone MaxX: %f > %f", win.MaxX, full.MaxX)
+	}
+}
+
+func TestComputeAdaptiveWorldWindowDeterministic(t *testing.T) {
+	full := testFullBounds()
+	a := computeAdaptiveWorldWindow(full, 500, 500, 60, 30)
+	b := computeAdaptiveWorldWindow(full, 500, 500, 60, 30)
+	if a != b {
+		t.Fatal("adaptive world window should be deterministic")
+	}
+}
+
+func TestComputeAdaptiveWorldWindowFullZoneAtRefSize(t *testing.T) {
+	full := testFullBounds()
+	// At reference dimensions (240x120), should show full zone
+	win := computeAdaptiveWorldWindow(full, 500, 500, 240, 120)
+	if math.Abs(win.SpanX-full.SpanX) > 0.01 {
+		t.Fatalf("at reference size, should show full zone width: got %f want %f", win.SpanX, full.SpanX)
+	}
+}
+
+func TestRasterizeAdaptiveViewportProducesCorrectDimensions(t *testing.T) {
+	lines := testLines()
+	full := testFullBounds()
+	ascii, _ := rasterizeAdaptiveViewport(lines, full, 500, 500, 40, 20)
+	rows := strings.Split(ascii, "\n")
+	if len(rows) != 20 {
+		t.Fatalf("expected 20 rows, got %d", len(rows))
+	}
+	if len([]rune(rows[0])) != 40 {
+		t.Fatalf("expected 40 columns, got %d", len([]rune(rows[0])))
+	}
+}
+
+func TestRasterizeAdaptiveViewportContainsWalls(t *testing.T) {
+	lines := testLines()
+	full := testFullBounds()
+	ascii, _ := rasterizeAdaptiveViewport(lines, full, 500, 500, 60, 30)
+	if !strings.Contains(ascii, "#") {
+		t.Fatal("adaptive viewport should contain wall characters from geometry")
+	}
+}
+
+func TestRasterizeAdaptiveViewportDeterministic(t *testing.T) {
+	lines := testLines()
+	full := testFullBounds()
+	a, ba := rasterizeAdaptiveViewport(lines, full, 500, 500, 40, 20)
+	b, bb := rasterizeAdaptiveViewport(lines, full, 500, 500, 40, 20)
+	if a != b {
+		t.Fatal("adaptive rasterization should be deterministic")
+	}
+	if ba != bb {
+		t.Fatal("adaptive bounds should be deterministic")
+	}
+}
+
+func TestRasterizeAdaptiveViewportEmpty(t *testing.T) {
+	full := testFullBounds()
+	ascii, _ := rasterizeAdaptiveViewport(nil, full, 500, 500, 40, 20)
+	if ascii != "" {
+		t.Fatal("empty lines should produce empty output")
+	}
+}
+
+func TestMapPanelAdaptivePathUsedWithLines(t *testing.T) {
+	lines := testLines()
+	full := computeBounds(lines)
+	// Pre-rasterize at 200x100 as fetchZoneMap does
+	ascii, _ := projectAndRasterize(lines, 200, 100)
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  200,
+		MapHeight: 100,
+		Bounds:    full,
+		Lines:     lines,
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 500, Y: 500},
+	}
+	// Small panel to test adaptive tighter view
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 30, 15)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "@") {
+		t.Fatal("adaptive panel should contain player marker")
+	}
+	if !strings.Contains(stripped, "#") {
+		t.Fatal("adaptive panel should contain wall characters")
+	}
+}
+
+func TestMapPanelAdaptiveNoPlayer(t *testing.T) {
+	lines := testLines()
+	full := computeBounds(lines)
+	ascii, _ := projectAndRasterize(lines, 200, 100)
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  200,
+		MapHeight: 100,
+		Bounds:    full,
+		Lines:     lines,
+	}
+	// No player — should center on map midpoint
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "#") {
+		t.Fatal("no-player adaptive panel should contain wall characters")
+	}
+	// Should be deterministic
+	panel2 := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20)
+	if panel != panel2 {
+		t.Fatal("no-player adaptive panel should be deterministic")
+	}
+}
+
+func TestMapPanelAdaptiveMobOverlay(t *testing.T) {
+	lines := testLines()
+	full := computeBounds(lines)
+	ascii, _ := projectAndRasterize(lines, 200, 100)
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  200,
+		MapHeight: 100,
+		Bounds:    full,
+		Lines:     lines,
+	}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs:  []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 500, Y: 500}}},
+		Count: 1,
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 500, Y: 500},
+	}
+	panel := renderMapPanel(mr, mobr, pr, rosterFocus{}, nil, 80, 40)
+	stripped := stripANSI(panel)
+	// Mob might overlap player; check at least one marker is visible
+	if !strings.Contains(stripped, "@") && !strings.Contains(stripped, "m") {
+		t.Fatal("adaptive panel should show player or mob marker")
+	}
+}
+
+func TestMapPanelAdaptiveSmallVsLargeViewport(t *testing.T) {
+	lines := testLines()
+	full := computeBounds(lines)
+	ascii, _ := projectAndRasterize(lines, 200, 100)
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  200,
+		MapHeight: 100,
+		Bounds:    full,
+		Lines:     lines,
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 500, Y: 500},
+	}
+	// Both should produce valid output
+	smallPanel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 20, 10)
+	largePanel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 120, 60)
+	if smallPanel == "" || largePanel == "" {
+		t.Fatal("both small and large panels should produce output")
+	}
+	// Large panel should have more content lines
+	smallLines := strings.Count(smallPanel, "\n")
+	largeLines := strings.Count(largePanel, "\n")
+	if largeLines <= smallLines {
+		t.Fatalf("large panel should have more lines than small: large=%d small=%d", largeLines, smallLines)
+	}
+}
+
+func TestMapPanelAdaptiveColorization(t *testing.T) {
+	lines := testLines()
+	full := computeBounds(lines)
+	ascii, _ := projectAndRasterize(lines, 200, 100)
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  200,
+		MapHeight: 100,
+		Bounds:    full,
+		Lines:     lines,
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 500, Y: 500},
+	}
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 60, 30)
+	// Should contain ANSI escapes from colorization
+	if !strings.Contains(panel, "\033[") {
+		t.Fatal("adaptive panel should have colorized output")
 	}
 }
