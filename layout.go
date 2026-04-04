@@ -463,7 +463,7 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 // renderCombatPanel returns a compact panel showing backend-owned combat readback.
 // Shows encounter state, attack resolution, target status, and mob engagement
 // from backend truth without any client-side combat logic or interpretation.
-func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encounterReadResult, target backendTarget) string {
+func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encounterReadResult, target backendTarget, inv inventoryReadResult) string {
 	title := panelTitleStyle.Render("Combat")
 
 	var items []string
@@ -476,6 +476,20 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 			items = append(items, panelItemStyle.Render("  "+enc.State))
 			items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
 			items = append(items, panelItemStyle.Render(fmt.Sprintf("  alive:%d dead:%d", enc.MobsAlive, enc.MobsDead)))
+
+			// Backend-owned readiness — can the player act right now?
+			// Distinct from submission receipt and attack result.
+			if inv.State == inventoryReadOK && inv.HasLifecycle {
+				if inv.CanAct {
+					items = append(items, panelItemStyle.Render("  ready: yes"))
+				} else {
+					label := "  ready: no"
+					if inv.BlockedReason != "" {
+						label += " (" + truncateID(inv.BlockedReason, width-15) + ")"
+					}
+					items = append(items, panelItemStyle.Render(label))
+				}
+			}
 
 			if enc.CompletedReason != "" {
 				items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
@@ -683,7 +697,7 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	player := renderPlayerPanel(width, pr, inv, rs)
 	encounter := renderEncounterPanel(width, pr, er, focus)
 	proximity := renderProximityPanel(width, tc)
-	combat := renderCombatPanel(width, ar, pr, er, target)
+	combat := renderCombatPanel(width, ar, pr, er, target, inv)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", player, "", encounter, "", proximity, "", combat, "", loot, "", status)

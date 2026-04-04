@@ -2231,7 +2231,7 @@ func TestAttackNoGameplayTermsInLabel(t *testing.T) {
 // --- Combat Readback Panel Tests (M32) ---
 
 func TestCombatPanelNone(t *testing.T) {
-	panel := renderCombatPanel(sidePanelWidth, attackResult{}, playerReadResult{}, encounterReadResult{}, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, playerReadResult{}, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "Combat") {
 		t.Fatal("combat panel should contain title")
 	}
@@ -2242,7 +2242,7 @@ func TestCombatPanelNone(t *testing.T) {
 
 func TestCombatPanelIntentFailed(t *testing.T) {
 	ar := attackResult{State: attackStateFailed, Error: "out of range"}
-	panel := renderCombatPanel(sidePanelWidth, ar, playerReadResult{}, encounterReadResult{}, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, playerReadResult{}, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "intent: failed") {
 		t.Fatal("combat panel should show intent: failed")
 	}
@@ -2251,7 +2251,7 @@ func TestCombatPanelIntentFailed(t *testing.T) {
 func TestCombatPanelIntentAcceptedNoEncounter(t *testing.T) {
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
-	panel := renderCombatPanel(sidePanelWidth, ar, pr, encounterReadResult{}, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "intent: accepted") {
 		t.Fatal("combat panel should show intent: accepted")
 	}
@@ -2270,7 +2270,7 @@ func TestCombatPanelIntentAcceptedWithEncounter(t *testing.T) {
 			MobIDs: []string{"orc-1", "orc-2"}, MobsAlive: 2, MobsDead: 0, ActionIndex: 5,
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "Active") {
 		t.Fatal("combat panel should show encounter state")
 	}
@@ -2299,7 +2299,7 @@ func TestCombatPanelMobGone(t *testing.T) {
 			MobIDs: []string{}, MobsAlive: 0, MobsDead: 1, ActionIndex: 8,
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "gone") {
 		t.Fatal("combat panel should show mob gone when targeted mob left roster")
@@ -2313,7 +2313,7 @@ func TestCombatPanelEncounterUnavailable(t *testing.T) {
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
 	er := encounterReadResult{State: encounterReadFailed}
-	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	// When encounter read fails, falls through to no-encounter path
 	if !strings.Contains(panel, "intent: accepted") {
 		t.Fatal("combat panel should show intent status when encounter unavailable")
@@ -2330,8 +2330,8 @@ func TestCombatPanelDeterministic(t *testing.T) {
 			MobIDs: []string{"orc-1"}, MobsAlive: 1, ActionIndex: 3,
 		}},
 	}
-	a := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
-	b := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	a := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
+	b := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	if a != b {
 		t.Fatal("combat panel should be deterministic")
 	}
@@ -2347,7 +2347,7 @@ func TestCombatPanelNoGameplayTerms(t *testing.T) {
 			MobIDs: []string{"orc-1"}, MobsAlive: 1, ActionIndex: 3,
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	forbidden := []string{"damage", "hit", "miss", "crit", "dps", "health", "landed"}
 	for _, word := range forbidden {
 		if strings.Contains(strings.ToLower(panel), word) {
@@ -3525,7 +3525,7 @@ func TestCombatPanelShowsLatestResult(t *testing.T) {
 			LatestResultTarget:  "orc-1",
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "damage_applied") {
 		t.Fatal("combat panel should show latest result kind")
 	}
@@ -3550,7 +3550,7 @@ func TestCombatPanelShowsAttackMiss(t *testing.T) {
 			LatestResultKind: "attack_miss",
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "attack_miss") {
 		t.Fatal("combat panel should show attack miss result")
 	}
@@ -3571,7 +3571,7 @@ func TestCombatPanelShowsEngagedMobs(t *testing.T) {
 			},
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
 	// Both mobs should be visible with <- suffix indicating engagement
 	if !strings.Contains(stripped, "orc-1") {
@@ -3599,7 +3599,7 @@ func TestCombatPanelNoEngagedWhenOtherTarget(t *testing.T) {
 			},
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
 	if strings.Contains(panel, "engaged") {
 		t.Fatal("combat panel should not show engaged mobs when they target another player")
 	}
@@ -3617,14 +3617,14 @@ func TestCombatPanelShowsTextSummary(t *testing.T) {
 			TextSummaryLatest: "p1 attacks orc-1",
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "p1 attacks") {
 		t.Fatal("combat panel should show backend text summary")
 	}
 }
 
 func TestCombatPanelWithoutEncounterShowsNone(t *testing.T) {
-	panel := renderCombatPanel(sidePanelWidth, attackResult{}, playerReadResult{}, encounterReadResult{}, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, playerReadResult{}, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "none") {
 		t.Fatal("combat panel without encounter should show 'none'")
 	}
@@ -3648,8 +3648,8 @@ func TestCombatPanelDeterministicWithCombatData(t *testing.T) {
 			},
 		}},
 	}
-	a := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
-	b := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	a := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
+	b := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	if a != b {
 		t.Fatal("combat panel with combat data should be deterministic")
 	}
@@ -4187,7 +4187,7 @@ func TestCombatPanelFullRosterIntegration(t *testing.T) {
 			},
 		}},
 	}
-	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
 	// All 4 mobs should be visible
 	if !strings.Contains(stripped, "orc-1") {
@@ -4203,5 +4203,143 @@ func TestCombatPanelFullRosterIntegration(t *testing.T) {
 	// Engaged mobs should have <- suffix
 	if !strings.Contains(stripped, "<-") {
 		t.Fatal("engaged mobs should have <- suffix")
+	}
+}
+
+// --- Combat Cadence and Readiness Readback Tests (M20260404-02) ---
+
+func TestCombatPanelShowsReadyYes(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "ready: yes") {
+		t.Fatalf("combat panel should show ready: yes when can_act is true, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelShowsReadyNo(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "cooldown", HPCurrent: 80, HPMax: 100}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "ready: no") {
+		t.Fatalf("combat panel should show ready: no when blocked, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "cooldown") {
+		t.Fatal("combat panel should show blocked reason")
+	}
+}
+
+func TestCombatPanelShowsReadyNoDead(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "dead", HPCurrent: 0, HPMax: 100}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "ready: no") {
+		t.Fatal("combat panel should show ready: no when dead")
+	}
+	if !strings.Contains(stripped, "dead") {
+		t.Fatal("combat panel should show dead as blocked reason")
+	}
+}
+
+func TestCombatPanelNoReadyWithoutLifecycle(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	// No lifecycle data
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: false}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "ready:") {
+		t.Fatal("combat panel should not show ready when lifecycle data absent")
+	}
+}
+
+func TestCombatPanelReadyDistinctFromResult(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID:      "enc-1", State: "Active",
+			MobIDs:           []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "damage_applied", LatestResultValue: 25,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv)
+	stripped := stripANSI(panel)
+	// Both should be present and distinct
+	if !strings.Contains(stripped, "ready: yes") {
+		t.Fatal("should show readiness")
+	}
+	if !strings.Contains(stripped, "damage_applied") {
+		t.Fatal("should show attack result")
+	}
+}
+
+func TestCombatPanelReadyDeterministic(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "cooldown"}
+	a := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
+	b := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
+	if a != b {
+		t.Fatal("combat panel with readiness should be deterministic")
+	}
+}
+
+func TestCombatPanelReadyNoGameplayTerms(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
+	lower := strings.ToLower(stripANSI(panel))
+	forbidden := []string{"timer", "countdown", "cooldown_remaining", "next attack", "speed"}
+	for _, word := range forbidden {
+		if strings.Contains(lower, word) {
+			t.Fatalf("combat panel should not contain timing term: %s", word)
+		}
 	}
 }
