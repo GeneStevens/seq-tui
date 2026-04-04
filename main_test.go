@@ -3695,3 +3695,145 @@ func TestMobsEngagingPlayerEmptyPlayerID(t *testing.T) {
 		t.Fatal("empty player ID should return nil engaged list")
 	}
 }
+
+// --- Player Death and Recovery Readback Tests (M42) ---
+
+func TestPlayerPanelNotJoined(t *testing.T) {
+	panel := renderPlayerPanel(sidePanelWidth, playerReadResult{}, inventoryReadResult{})
+	if !strings.Contains(panel, "Player") {
+		t.Fatal("player panel should contain title")
+	}
+	if !strings.Contains(panel, "not joined") {
+		t.Fatal("player panel should show 'not joined' when player not joined")
+	}
+}
+
+func TestPlayerPanelEncounterActive(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if !strings.Contains(panel, "enc: active") {
+		t.Fatal("player panel should show enc: active when in encounter")
+	}
+}
+
+func TestPlayerPanelEncounterNone(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if !strings.Contains(panel, "enc: none") {
+		t.Fatal("player panel should show enc: none when not in encounter")
+	}
+}
+
+func TestPlayerPanelShowsHP(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 75, HPMax: 100}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if !strings.Contains(panel, "hp: 75/100") {
+		t.Fatal("player panel should show HP from backend")
+	}
+}
+
+func TestPlayerPanelShowsDead(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if !strings.Contains(panel, "hp: 0/100") {
+		t.Fatal("player panel should show HP 0")
+	}
+	if !strings.Contains(panel, "state: dead") {
+		t.Fatal("player panel should show dead state when HP is 0")
+	}
+	if !strings.Contains(panel, "can act: no") {
+		t.Fatal("player panel should show cannot act")
+	}
+	if !strings.Contains(panel, "player_dead") {
+		t.Fatal("player panel should show blocked reason from backend")
+	}
+}
+
+func TestPlayerPanelCanAct(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if !strings.Contains(panel, "can act: yes") {
+		t.Fatal("player panel should show can act: yes")
+	}
+}
+
+func TestPlayerPanelBlockedWithReason(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "cooldown", HPCurrent: 80, HPMax: 100}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if !strings.Contains(panel, "can act: no") {
+		t.Fatal("player panel should show cannot act")
+	}
+	if !strings.Contains(panel, "cooldown") {
+		t.Fatal("player panel should show blocked reason")
+	}
+}
+
+func TestPlayerPanelGracefulDegradationNoLifecycle(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: false}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	// Should not crash, should show pending status
+	if !strings.Contains(panel, "Player") {
+		t.Fatal("player panel should render with title even without lifecycle data")
+	}
+	// Should not contain HP or can-act when lifecycle not available
+	if strings.Contains(panel, "hp:") {
+		t.Fatal("player panel should not show HP when lifecycle not decoded")
+	}
+}
+
+func TestPlayerPanelStatusUnavailable(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadFailed}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if !strings.Contains(panel, "unavailable") {
+		t.Fatal("player panel should show unavailable when gameplay status fails")
+	}
+}
+
+func TestPlayerPanelDeterministic(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
+	a := renderPlayerPanel(sidePanelWidth, pr, inv)
+	b := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if a != b {
+		t.Fatal("player panel should be deterministic")
+	}
+}
+
+func TestPlayerPanelNoGameplayTerms(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	lower := strings.ToLower(panel)
+	// Panel should not contain terms that imply client-side combat logic
+	forbidden := []string{"respawn", "timer", "countdown", "revive", "resurrect"}
+	for _, word := range forbidden {
+		if strings.Contains(lower, word) {
+			t.Fatalf("player panel should not contain gameplay term: %s", word)
+		}
+	}
+}
+
+func TestSideColumnContainsPlayerPanel(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	if !strings.Contains(col, "Player") {
+		t.Fatal("side column should contain player panel")
+	}
+}
+
+func TestPlayerPanelZeroMaxHP(t *testing.T) {
+	// When HPMax is 0, HP line should not appear (field not populated)
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 0, HPMax: 0}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	if strings.Contains(panel, "hp:") {
+		t.Fatal("player panel should not show HP when HPMax is 0 (field not populated)")
+	}
+}

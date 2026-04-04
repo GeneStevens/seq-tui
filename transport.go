@@ -811,12 +811,21 @@ const (
 	inventoryReadFailed
 )
 
-// inventoryReadResult holds the outcome of a backend inventory read.
+// inventoryReadResult holds the outcome of a backend inventory and lifecycle read.
+// Decoded from the gameplay_status endpoint. Includes both inventory and player
+// lifecycle fields. All values are backend-owned truth — no client inference.
 type inventoryReadResult struct {
 	State inventoryReadState
 	Error string
 	Items []string // backend-owned item IDs
 	Count int
+
+	// Player lifecycle fields — backend-owned, read-only.
+	CanAct        bool   // backend says player can currently act
+	BlockedReason string // backend reason for being unable to act (empty if can act)
+	HPCurrent     int    // backend-owned current HP
+	HPMax         int    // backend-owned max HP
+	HasLifecycle  bool   // true if lifecycle fields were decoded from response
 }
 
 // gameplayStatusURL builds the gameplay status call URL.
@@ -853,8 +862,12 @@ func fetchPlayerInventory(target backendTarget) inventoryReadResult {
 	var envelope struct {
 		Result struct {
 			Players []struct {
-				PlayerID  string   `json:"player_id"`
-				Inventory []string `json:"inventory"`
+				PlayerID      string   `json:"player_id"`
+				Inventory     []string `json:"inventory"`
+				CanAct        bool     `json:"can_act"`
+				BlockedReason string   `json:"blocked_reason"`
+				HPCurrent     int      `json:"hp_current"`
+				HPMax         int      `json:"hp_max"`
 			} `json:"players"`
 		} `json:"result"`
 	}
@@ -866,9 +879,14 @@ func fetchPlayerInventory(target backendTarget) inventoryReadResult {
 	for _, p := range envelope.Result.Players {
 		if p.PlayerID == target.Player {
 			return inventoryReadResult{
-				State: inventoryReadOK,
-				Items: p.Inventory,
-				Count: len(p.Inventory),
+				State:         inventoryReadOK,
+				Items:         p.Inventory,
+				Count:         len(p.Inventory),
+				CanAct:        p.CanAct,
+				BlockedReason: p.BlockedReason,
+				HPCurrent:     p.HPCurrent,
+				HPMax:         p.HPMax,
+				HasLifecycle:  true,
 			}
 		}
 	}

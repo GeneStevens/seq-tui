@@ -563,15 +563,66 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
+// renderPlayerPanel returns a compact panel showing backend-owned player lifecycle state.
+// Displays HP, can-act status, blocked reason, and encounter membership.
+// All values are read-only from backend truth — no client-side inference.
+func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult) string {
+	title := panelTitleStyle.Render("Player")
+
+	var items []string
+
+	if pr.State != playerReadOK {
+		items = append(items, panelItemStyle.Render("  not joined"))
+		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+		return panelBorderStyle.Width(width - 4).Render(content)
+	}
+
+	// Encounter membership from player read
+	if pr.HasActiveEncounter {
+		items = append(items, panelItemStyle.Render("  enc: active"))
+	} else {
+		items = append(items, panelItemStyle.Render("  enc: none"))
+	}
+
+	// Lifecycle fields from gameplay_status (via inventory read)
+	if inv.State == inventoryReadOK && inv.HasLifecycle {
+		// HP display — backend-owned, no client math
+		if inv.HPMax > 0 {
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  hp: %d/%d", inv.HPCurrent, inv.HPMax)))
+			if inv.HPCurrent <= 0 {
+				items = append(items, panelItemStyle.Render("  state: dead"))
+			}
+		}
+
+		// Can-act status — backend-owned
+		if inv.CanAct {
+			items = append(items, panelItemStyle.Render("  can act: yes"))
+		} else {
+			items = append(items, panelItemStyle.Render("  can act: no"))
+			if inv.BlockedReason != "" {
+				items = append(items, panelItemStyle.Render("  reason: "+truncateID(inv.BlockedReason, width-12)))
+			}
+		}
+	} else if inv.State == inventoryReadFailed {
+		items = append(items, panelItemStyle.Render("  status: unavailable"))
+	} else {
+		items = append(items, panelItemStyle.Render("  status: pending"))
+	}
+
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
 // renderSideColumn stacks the side panels vertically.
 func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int) string {
 	nearby := renderNearbyPanel(width)
+	player := renderPlayerPanel(width, pr, inv)
 	encounter := renderEncounterPanel(width, pr, er, focus)
 	proximity := renderProximityPanel(width, tc)
 	combat := renderCombatPanel(width, ar, pr, er, target)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
-	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", proximity, "", combat, "", loot, "", status)
+	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", player, "", encounter, "", proximity, "", combat, "", loot, "", status)
 }
 
 // renderFooter returns the footer help strip with status labels.
