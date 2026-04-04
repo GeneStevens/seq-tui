@@ -257,7 +257,7 @@ func TestRenderStatusPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{})
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -1004,7 +1004,7 @@ func TestEncounterPanelActiveButDetailsMissing(t *testing.T) {
 }
 
 func TestSideColumnContainsEncounterPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{})
 	if !strings.Contains(col, encounterTitle) {
 		t.Fatal("side column should contain encounter panel title")
 	}
@@ -1979,7 +1979,7 @@ func TestProximityPanelDeterministic(t *testing.T) {
 }
 
 func TestSideColumnContainsProximityPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{})
 	if !strings.Contains(col, "Proximity") {
 		t.Fatal("side column should contain proximity panel")
 	}
@@ -2202,5 +2202,144 @@ func TestAttackNoGameplayTermsInLabel(t *testing.T) {
 		if strings.Contains(strings.ToLower(label), word) {
 			t.Fatalf("attack label should not contain combat resolution term: %s", word)
 		}
+	}
+}
+
+// --- Combat Readback Panel Tests (M32) ---
+
+func TestCombatPanelNone(t *testing.T) {
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, playerReadResult{}, encounterReadResult{})
+	if !strings.Contains(panel, "Combat") {
+		t.Fatal("combat panel should contain title")
+	}
+	if !strings.Contains(panel, "none") {
+		t.Fatal("combat panel should show none before any attack")
+	}
+}
+
+func TestCombatPanelIntentFailed(t *testing.T) {
+	ar := attackResult{State: attackStateFailed, Error: "out of range"}
+	panel := renderCombatPanel(sidePanelWidth, ar, playerReadResult{}, encounterReadResult{})
+	if !strings.Contains(panel, "intent: failed") {
+		t.Fatal("combat panel should show intent: failed")
+	}
+}
+
+func TestCombatPanelIntentAcceptedNoEncounter(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, encounterReadResult{})
+	if !strings.Contains(panel, "intent: accepted") {
+		t.Fatal("combat panel should show intent: accepted")
+	}
+	if !strings.Contains(panel, "enc: none") {
+		t.Fatal("combat panel should show enc: none when no active encounter")
+	}
+}
+
+func TestCombatPanelIntentAcceptedWithEncounter(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1", "orc-2"}, MobsAlive: 2, MobsDead: 0, ActionIndex: 5,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er)
+	if !strings.Contains(panel, "intent: accepted") {
+		t.Fatal("combat panel should show intent: accepted")
+	}
+	if !strings.Contains(panel, "Active") {
+		t.Fatal("combat panel should show encounter state")
+	}
+	if !strings.Contains(panel, "act:5") {
+		t.Fatal("combat panel should show action index")
+	}
+	if !strings.Contains(panel, "alive:2") {
+		t.Fatal("combat panel should show alive count")
+	}
+	if !strings.Contains(panel, "mob: in roster") {
+		t.Fatal("combat panel should show targeted mob still in roster")
+	}
+}
+
+func TestCombatPanelMobGone(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+			MobIDs: []string{}, MobsAlive: 0, MobsDead: 1, ActionIndex: 8,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er)
+	if !strings.Contains(panel, "mob: gone") {
+		t.Fatal("combat panel should show mob: gone when targeted mob left roster")
+	}
+	if !strings.Contains(panel, "all_mobs_dead") {
+		t.Fatal("combat panel should show completion reason")
+	}
+}
+
+func TestCombatPanelEncounterUnavailable(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{State: encounterReadFailed}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er)
+	if !strings.Contains(panel, "enc: unavailable") {
+		t.Fatal("combat panel should show enc: unavailable on read failure")
+	}
+}
+
+func TestCombatPanelDeterministic(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1, ActionIndex: 3,
+		}},
+	}
+	a := renderCombatPanel(sidePanelWidth, ar, pr, er)
+	b := renderCombatPanel(sidePanelWidth, ar, pr, er)
+	if a != b {
+		t.Fatal("combat panel should be deterministic")
+	}
+}
+
+func TestCombatPanelNoGameplayTerms(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1, ActionIndex: 3,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er)
+	forbidden := []string{"damage", "hit", "miss", "crit", "dps", "health", "landed"}
+	for _, word := range forbidden {
+		if strings.Contains(strings.ToLower(panel), word) {
+			t.Fatalf("combat panel should not contain combat resolution term: %s", word)
+		}
+	}
+}
+
+func TestSideColumnContainsCombatPanel(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{})
+	if !strings.Contains(col, "Combat") {
+		t.Fatal("side column should contain combat panel")
+	}
+}
+
+func TestWideLayoutContainsCombatPanel(t *testing.T) {
+	layout := renderLayout(120, 80, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	if !strings.Contains(layout, "Combat") {
+		t.Fatal("wide layout should contain combat panel")
 	}
 }

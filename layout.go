@@ -262,13 +262,86 @@ func renderProximityPanel(width int, tc targetConfirmResult) string {
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
-// renderSideColumn stacks the nearby, encounter, proximity, and status panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult) string {
+// renderCombatPanel returns a compact panel showing backend-owned combat readback.
+// Only populated after an attack has been submitted. Shows encounter state changes
+// from backend truth without any client-side combat logic or interpretation.
+func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encounterReadResult) string {
+	title := panelTitleStyle.Render("Combat")
+
+	var items []string
+
+	if ar.State == attackStateNone {
+		items = append(items, panelItemStyle.Render("  none"))
+		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+		return panelBorderStyle.Width(width - 4).Render(content)
+	}
+
+	// Show submission result
+	if ar.State == attackStateSent {
+		items = append(items, panelItemStyle.Render("  intent: accepted"))
+	} else {
+		items = append(items, panelItemStyle.Render("  intent: failed"))
+		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+		return panelBorderStyle.Width(width - 4).Render(content)
+	}
+
+	// Show backend-owned encounter readback
+	if !pr.HasActiveEncounter {
+		items = append(items, panelItemStyle.Render("  enc: none"))
+		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+		return panelBorderStyle.Width(width - 4).Render(content)
+	}
+
+	if er.State != encounterReadOK {
+		items = append(items, panelItemStyle.Render("  enc: unavailable"))
+		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+		return panelBorderStyle.Width(width - 4).Render(content)
+	}
+
+	enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID)
+	if enc == nil {
+		items = append(items, panelItemStyle.Render("  enc: no details"))
+		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+		return panelBorderStyle.Width(width - 4).Render(content)
+	}
+
+	// Backend-owned encounter facts
+	items = append(items, panelItemStyle.Render("  "+enc.State))
+	items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
+	items = append(items, panelItemStyle.Render(fmt.Sprintf("  alive:%d dead:%d", enc.MobsAlive, enc.MobsDead)))
+
+	if enc.CompletedReason != "" {
+		items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
+	}
+
+	// Check if the attacked mob is still in the encounter roster
+	if ar.TargetID != "" {
+		mobPresent := false
+		for _, mid := range enc.MobIDs {
+			if mid == ar.TargetID {
+				mobPresent = true
+				break
+			}
+		}
+		if mobPresent {
+			items = append(items, panelItemStyle.Render("  mob: in roster"))
+		} else {
+			items = append(items, panelItemStyle.Render("  mob: gone"))
+		}
+	}
+
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
+// renderSideColumn stacks the nearby, encounter, proximity, combat, and status panels vertically.
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult) string {
 	nearby := renderNearbyPanel(width)
 	encounter := renderEncounterPanel(width, pr, er, focus)
 	proximity := renderProximityPanel(width, tc)
+	combat := renderCombatPanel(width, ar, pr, er)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
-	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", proximity, "", status)
+	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", proximity, "", combat, "", status)
 }
 
 // renderFooter returns the footer help strip with optional intent preview, focus label, target label, and attack label.
@@ -307,7 +380,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, tc)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, tc, ar)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,
