@@ -4585,3 +4585,84 @@ func TestEncounterPanelCompactDeterministic(t *testing.T) {
 		t.Fatal("encounter panel should be deterministic")
 	}
 }
+
+// --- Attack Attempt Feedback Tightening Tests (M20260404-06) ---
+
+func TestCombatPanelShowsAtkSent(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "atk:sent") {
+		t.Fatalf("combat panel should show atk:sent when attack submitted, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelShowsAtkFail(t *testing.T) {
+	ar := attackResult{State: attackStateFailed, Error: "no mob"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "atk:fail") {
+		t.Fatalf("combat panel should show atk:fail in encounter, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "no mob") {
+		t.Fatal("combat panel should show failure reason")
+	}
+}
+
+func TestCombatPanelNoAtkWithoutAttack(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "atk:") {
+		t.Fatal("combat panel should not show atk: when no attack submitted")
+	}
+}
+
+func TestCombatPanelAtkAndResultDistinct(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID:      "enc-1", State: "Active",
+			MobIDs:           []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "damage_applied", LatestResultValue: 30,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv)
+	stripped := stripANSI(panel)
+	// All three should be present and distinct
+	if !strings.Contains(stripped, "atk:sent") {
+		t.Fatal("should show submission status")
+	}
+	if !strings.Contains(stripped, "damage_applied") {
+		t.Fatal("should show backend result")
+	}
+	if !strings.Contains(stripped, "rdy:yes") {
+		t.Fatal("should show readiness")
+	}
+}

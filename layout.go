@@ -501,6 +501,17 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				}
 			}
 
+			// Attack submission status — distinct from backend result
+			if ar.State == attackStateSent {
+				items = append(items, panelItemStyle.Render("  atk:sent"))
+			} else if ar.State == attackStateFailed {
+				label := "  atk:fail"
+				if ar.Error != "" {
+					label += " " + truncateID(ar.Error, width-14)
+				}
+				items = append(items, panelItemStyle.Render(label))
+			}
+
 			if enc.CompletedReason != "" {
 				items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
 			}
