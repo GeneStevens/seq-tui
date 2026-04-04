@@ -972,6 +972,82 @@ func submitPickupItem(target backendTarget, encounterID, itemID string) pickupRe
 	return pickupResult{State: pickupStateSent, EncounterID: encounterID, ItemID: itemID}
 }
 
+// --- Respawn intent submission ---
+
+// respawnState represents the outcome of a Respawn intent submission.
+type respawnState int
+
+const (
+	respawnStateNone respawnState = iota
+	respawnStateSent
+	respawnStateFailed
+)
+
+// respawnResult holds the outcome of a Respawn intent submission.
+// Purely a submission receipt — backend-confirmed restoration is shown
+// through lifecycle readback (HP, can-act), not through this result.
+type respawnResult struct {
+	State respawnState
+	Error string
+}
+
+// respawnStatusLabel returns a compact display label for the respawn submission state.
+func (r respawnResult) respawnStatusLabel() string {
+	switch r.State {
+	case respawnStateSent:
+		return "respawn: sent"
+	case respawnStateFailed:
+		return "respawn: failed"
+	default:
+		return ""
+	}
+}
+
+// submitRespawn submits a Respawn intent via the dev intent endpoint.
+// Returns a submission receipt only — recovery confirmation comes from lifecycle readback.
+func submitRespawn(target backendTarget) respawnResult {
+	url := devIntentURL(target)
+	payload := fmt.Sprintf(`{"player_id":"%s","intent_kind":"Respawn","target":{"kind":"none"}}`,
+		target.Player)
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	req, err := http.NewRequest("POST", url, strings.NewReader(payload))
+	if err != nil {
+		return respawnResult{State: respawnStateFailed, Error: err.Error()}
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return respawnResult{State: respawnStateFailed, Error: err.Error()}
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return respawnResult{State: respawnStateFailed, Error: "failed to read body"}
+	}
+
+	var raw struct {
+		OK    bool   `json:"ok"`
+		Error string `json:"error"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return respawnResult{State: respawnStateFailed, Error: "failed to decode response"}
+	}
+
+	if !raw.OK {
+		errMsg := raw.Error
+		if errMsg == "" {
+			errMsg = fmt.Sprintf("HTTP %d", resp.StatusCode)
+		}
+		return respawnResult{State: respawnStateFailed, Error: errMsg}
+	}
+
+	return respawnResult{State: respawnStateSent}
+}
+
 // devJoinURL builds the dev player-join endpoint URL.
 func devJoinURL(target backendTarget) string {
 	base := strings.TrimRight(target.BaseURL, "/")

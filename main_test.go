@@ -245,7 +245,7 @@ func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -258,7 +258,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -279,7 +279,7 @@ func TestRenderStatusPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -289,7 +289,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -302,7 +302,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -313,7 +313,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -322,7 +322,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -1027,7 +1027,7 @@ func TestEncounterPanelActiveButDetailsMissing(t *testing.T) {
 }
 
 func TestSideColumnContainsEncounterPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(col, encounterTitle) {
 		t.Fatal("side column should contain encounter panel title")
 	}
@@ -1040,14 +1040,14 @@ func TestSideColumnContainsEncounterPanel(t *testing.T) {
 }
 
 func TestWideLayoutContainsEncounterPanel(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, encounterTitle) {
 		t.Fatal("wide layout should contain encounter panel")
 	}
 }
 
 func TestNarrowLayoutOmitsEncounterPanel(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if strings.Contains(layout, encounterTitle) {
 		t.Fatal("narrow layout should not contain encounter panel")
 	}
@@ -1716,14 +1716,14 @@ func TestFooterShowsBothPreviews(t *testing.T) {
 func TestLayoutIncludesFocusPreview(t *testing.T) {
 	entries := []rosterEntry{{kind: "mb", id: "test-mob"}}
 	focus := rosterFocus{index: 0}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, focus, entries, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, focus, entries, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, "focus: mb:test-mob (local)") {
 		t.Fatal("layout should include focus preview in footer")
 	}
 }
 
 func TestLayoutFocusNoneWhenUnfocused(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, "focus: none") {
 		t.Fatal("layout should show focus: none when unfocused")
 	}
@@ -1888,14 +1888,14 @@ func TestFooterShowsAllThreeLabels(t *testing.T) {
 
 func TestLayoutIncludesTargetLabel(t *testing.T) {
 	tc := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a", Found: true, MobName: "orc"}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, tc, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, tc, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, "(backend)") {
 		t.Fatal("layout should include backend target label")
 	}
 }
 
 func TestLayoutTargetNoneByDefault(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, "target: none") {
 		t.Fatal("layout should show target: none by default")
 	}
@@ -2002,14 +2002,14 @@ func TestProximityPanelDeterministic(t *testing.T) {
 }
 
 func TestSideColumnContainsProximityPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(col, "Proximity") {
 		t.Fatal("side column should contain proximity panel")
 	}
 }
 
 func TestWideLayoutContainsProximityPanel(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, "Proximity") {
 		t.Fatal("wide layout should contain proximity panel")
 	}
@@ -2195,14 +2195,14 @@ func TestFooterShowsAttackKeybind(t *testing.T) {
 
 func TestLayoutIncludesAttackLabel(t *testing.T) {
 	ar := attackResult{State: attackStateSent, TargetID: "orc"}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, ar, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, ar, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, "attack: sent") {
 		t.Fatal("layout should include attack label when sent")
 	}
 }
 
 func TestLayoutNoAttackLabelByDefault(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if strings.Contains(layout, "attack:") {
 		t.Fatal("layout should not show attack label by default")
 	}
@@ -2355,14 +2355,14 @@ func TestCombatPanelNoGameplayTerms(t *testing.T) {
 }
 
 func TestSideColumnContainsCombatPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(col, "Combat") {
 		t.Fatal("side column should contain combat panel")
 	}
 }
 
 func TestWideLayoutContainsCombatPanel(t *testing.T) {
-	layout := renderLayout(120, 80, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	layout := renderLayout(120, 80, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(layout, "Combat") {
 		t.Fatal("wide layout should contain combat panel")
 	}
@@ -2537,7 +2537,7 @@ func TestPickupStatusLabelFailed(t *testing.T) {
 }
 
 func TestSideColumnContainsLootPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(col, "Loot") {
 		t.Fatal("side column should contain loot panel")
 	}
@@ -3699,7 +3699,7 @@ func TestMobsEngagingPlayerEmptyPlayerID(t *testing.T) {
 // --- Player Death and Recovery Readback Tests (M42) ---
 
 func TestPlayerPanelNotJoined(t *testing.T) {
-	panel := renderPlayerPanel(sidePanelWidth, playerReadResult{}, inventoryReadResult{})
+	panel := renderPlayerPanel(sidePanelWidth, playerReadResult{}, inventoryReadResult{}, respawnResult{})
 	if !strings.Contains(panel, "Player") {
 		t.Fatal("player panel should contain title")
 	}
@@ -3711,7 +3711,7 @@ func TestPlayerPanelNotJoined(t *testing.T) {
 func TestPlayerPanelEncounterActive(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if !strings.Contains(panel, "enc: active") {
 		t.Fatal("player panel should show enc: active when in encounter")
 	}
@@ -3720,7 +3720,7 @@ func TestPlayerPanelEncounterActive(t *testing.T) {
 func TestPlayerPanelEncounterNone(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if !strings.Contains(panel, "enc: none") {
 		t.Fatal("player panel should show enc: none when not in encounter")
 	}
@@ -3729,7 +3729,7 @@ func TestPlayerPanelEncounterNone(t *testing.T) {
 func TestPlayerPanelShowsHP(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 75, HPMax: 100}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if !strings.Contains(panel, "hp: 75/100") {
 		t.Fatal("player panel should show HP from backend")
 	}
@@ -3738,7 +3738,7 @@ func TestPlayerPanelShowsHP(t *testing.T) {
 func TestPlayerPanelShowsDead(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if !strings.Contains(panel, "hp: 0/100") {
 		t.Fatal("player panel should show HP 0")
 	}
@@ -3756,7 +3756,7 @@ func TestPlayerPanelShowsDead(t *testing.T) {
 func TestPlayerPanelCanAct(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if !strings.Contains(panel, "can act: yes") {
 		t.Fatal("player panel should show can act: yes")
 	}
@@ -3765,7 +3765,7 @@ func TestPlayerPanelCanAct(t *testing.T) {
 func TestPlayerPanelBlockedWithReason(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "cooldown", HPCurrent: 80, HPMax: 100}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if !strings.Contains(panel, "can act: no") {
 		t.Fatal("player panel should show cannot act")
 	}
@@ -3777,7 +3777,7 @@ func TestPlayerPanelBlockedWithReason(t *testing.T) {
 func TestPlayerPanelGracefulDegradationNoLifecycle(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: false}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	// Should not crash, should show pending status
 	if !strings.Contains(panel, "Player") {
 		t.Fatal("player panel should render with title even without lifecycle data")
@@ -3791,7 +3791,7 @@ func TestPlayerPanelGracefulDegradationNoLifecycle(t *testing.T) {
 func TestPlayerPanelStatusUnavailable(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadFailed}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if !strings.Contains(panel, "unavailable") {
 		t.Fatal("player panel should show unavailable when gameplay status fails")
 	}
@@ -3800,8 +3800,8 @@ func TestPlayerPanelStatusUnavailable(t *testing.T) {
 func TestPlayerPanelDeterministic(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
-	a := renderPlayerPanel(sidePanelWidth, pr, inv)
-	b := renderPlayerPanel(sidePanelWidth, pr, inv)
+	a := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
+	b := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if a != b {
 		t.Fatal("player panel should be deterministic")
 	}
@@ -3810,7 +3810,7 @@ func TestPlayerPanelDeterministic(t *testing.T) {
 func TestPlayerPanelNoGameplayTerms(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	lower := strings.ToLower(panel)
 	// Panel should not contain terms that imply client-side combat logic
 	forbidden := []string{"respawn", "timer", "countdown", "revive", "resurrect"}
@@ -3822,7 +3822,7 @@ func TestPlayerPanelNoGameplayTerms(t *testing.T) {
 }
 
 func TestSideColumnContainsPlayerPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
 	if !strings.Contains(col, "Player") {
 		t.Fatal("side column should contain player panel")
 	}
@@ -3832,8 +3832,110 @@ func TestPlayerPanelZeroMaxHP(t *testing.T) {
 	// When HPMax is 0, HP line should not appear (field not populated)
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 0, HPMax: 0}
-	panel := renderPlayerPanel(sidePanelWidth, pr, inv)
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
 	if strings.Contains(panel, "hp:") {
 		t.Fatal("player panel should not show HP when HPMax is 0 (field not populated)")
+	}
+}
+
+// --- Respawn Action and Confirmation Readback Tests (M43) ---
+
+func TestRespawnStatusLabelNone(t *testing.T) {
+	rs := respawnResult{State: respawnStateNone}
+	if rs.respawnStatusLabel() != "" {
+		t.Fatal("respawnStateNone should produce empty label")
+	}
+}
+
+func TestRespawnStatusLabelSent(t *testing.T) {
+	rs := respawnResult{State: respawnStateSent}
+	if rs.respawnStatusLabel() != "respawn: sent" {
+		t.Fatalf("expected 'respawn: sent', got %q", rs.respawnStatusLabel())
+	}
+}
+
+func TestRespawnStatusLabelFailed(t *testing.T) {
+	rs := respawnResult{State: respawnStateFailed, Error: "not dead"}
+	if rs.respawnStatusLabel() != "respawn: failed" {
+		t.Fatalf("expected 'respawn: failed', got %q", rs.respawnStatusLabel())
+	}
+}
+
+func TestPlayerPanelRespawnSent(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
+	rs := respawnResult{State: respawnStateSent}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, rs)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "respawn: sent") {
+		t.Fatal("player panel should show respawn: sent when submitted but not yet restored")
+	}
+	if strings.Contains(stripped, "restored") {
+		t.Fatal("player panel should not show restored while still dead")
+	}
+}
+
+func TestPlayerPanelRespawnRestored(t *testing.T) {
+	// After respawn: backend shows HP restored and can_act=true
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	rs := respawnResult{State: respawnStateSent}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, rs)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "restored") {
+		t.Fatalf("player panel should show restored when backend confirms recovery, got: %q", stripped)
+	}
+}
+
+func TestPlayerPanelRespawnFailed(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
+	rs := respawnResult{State: respawnStateFailed, Error: "not dead"}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, rs)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "respawn: failed") {
+		t.Fatal("player panel should show respawn: failed")
+	}
+}
+
+func TestPlayerPanelNoRespawnStatusWhenNone(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	rs := respawnResult{State: respawnStateNone}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, rs)
+	if strings.Contains(panel, "respawn") {
+		t.Fatal("player panel should not show respawn status when no respawn submitted")
+	}
+}
+
+func TestPlayerPanelRespawnDeterministic(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
+	rs := respawnResult{State: respawnStateSent}
+	a := renderPlayerPanel(sidePanelWidth, pr, inv, rs)
+	b := renderPlayerPanel(sidePanelWidth, pr, inv, rs)
+	if a != b {
+		t.Fatal("player panel with respawn should be deterministic")
+	}
+}
+
+func TestPlayerPanelRespawnNoGameplayTerms(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, HPCurrent: 0, HPMax: 100}
+	rs := respawnResult{State: respawnStateSent}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, rs)
+	lower := strings.ToLower(panel)
+	forbidden := []string{"timer", "countdown", "auto", "resurrect", "graveyard"}
+	for _, word := range forbidden {
+		if strings.Contains(lower, word) {
+			t.Fatalf("player panel should not contain gameplay term: %s", word)
+		}
+	}
+}
+
+func TestFooterContainsRespawnHint(t *testing.T) {
+	footer := renderFooter(120, "", "", "", "", "")
+	if !strings.Contains(footer, "r: respawn") {
+		t.Fatal("footer should mention r: respawn keybind")
 	}
 }

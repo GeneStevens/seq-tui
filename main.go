@@ -219,6 +219,11 @@ type inventoryReadResultMsg struct {
 	result inventoryReadResult
 }
 
+// respawnResultMsg carries the result of a Respawn intent submission.
+type respawnResultMsg struct {
+	result respawnResult
+}
+
 // proximityNeedsRefresh returns true if there is an active proximity confirmation
 // and either the player position or the focused entry has changed since it was queried.
 // Returns false if no proximity query has been made yet (State == targetConfirmNone).
@@ -260,6 +265,7 @@ type model struct {
 	inventoryRead    inventoryReadResult // backend-owned player inventory
 	invCountAtPickup int                 // inventory count when last pickup was submitted (-1 = no pickup yet)
 	lootFocus        int                 // local selection index into encounter Drops; -1 = none
+	lastRespawn      respawnResult       // result of most recent Respawn intent submission
 }
 
 // currentDrops returns the current drop list from the active encounter, or nil.
@@ -404,6 +410,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case inventoryReadResultMsg:
 		m.inventoryRead = msg.result
 		return m, nil
+	case respawnResultMsg:
+		m.lastRespawn = msg.result
+		return m, nil
 	case moveResultMsg:
 		if msg.result.OK {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateSent}
@@ -477,6 +486,16 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, func() tea.Msg {
 				return pickupResultMsg{result: submitPickupItem(bt, encID, itemID)}
 			}
+		case "r":
+			// Submit Respawn intent via existing backend dev surface
+			if m.playerRead.State != playerReadOK {
+				m.lastRespawn = respawnResult{State: respawnStateFailed, Error: "no player"}
+				return m, nil
+			}
+			bt := m.target
+			return m, func() tea.Msg {
+				return respawnResultMsg{result: submitRespawn(bt)}
+			}
 		case "a":
 			// Submit BasicAttack intent against focused mob
 			if m.playerRead.State != playerReadOK {
@@ -536,7 +555,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus, m.lastRespawn)
 }
 
 func main() {

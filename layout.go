@@ -10,7 +10,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp = "hjkl: move  tab: roster  []: loot  t: confirm  a: attack  p: pickup  q: quit"
+	footerHelp = "hjkl: move  tab: roster  []: loot  t: confirm  a: attack  p: pickup  r: respawn  q: quit"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
@@ -566,7 +566,7 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 // renderPlayerPanel returns a compact panel showing backend-owned player lifecycle state.
 // Displays HP, can-act status, blocked reason, and encounter membership.
 // All values are read-only from backend truth — no client-side inference.
-func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult) string {
+func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, rs respawnResult) string {
 	title := panelTitleStyle.Render("Player")
 
 	var items []string
@@ -603,6 +603,19 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult) 
 				items = append(items, panelItemStyle.Render("  reason: "+truncateID(inv.BlockedReason, width-12)))
 			}
 		}
+
+		// Respawn submission status — distinct from backend-confirmed recovery.
+		// "respawn: sent" means submission accepted, NOT that player is restored.
+		// Backend-confirmed restoration is shown above via HP/can-act changes.
+		if rs.State == respawnStateSent {
+			if inv.HPCurrent > 0 && inv.CanAct {
+				items = append(items, panelItemStyle.Render("  respawn: restored"))
+			} else {
+				items = append(items, panelItemStyle.Render("  respawn: sent"))
+			}
+		} else if rs.State == respawnStateFailed {
+			items = append(items, panelItemStyle.Render("  respawn: failed"))
+		}
 	} else if inv.State == inventoryReadFailed {
 		items = append(items, panelItemStyle.Render("  status: unavailable"))
 	} else {
@@ -614,9 +627,9 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult) 
 }
 
 // renderSideColumn stacks the side panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int) string {
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult) string {
 	nearby := renderNearbyPanel(width)
-	player := renderPlayerPanel(width, pr, inv)
+	player := renderPlayerPanel(width, pr, inv, rs)
 	encounter := renderEncounterPanel(width, pr, er, focus)
 	proximity := renderProximityPanel(width, tc)
 	combat := renderCombatPanel(width, ar, pr, er, target)
@@ -647,7 +660,7 @@ func renderFooter(width int, intentPreview string, focusLabel string, targetLabe
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult) string {
 	header := renderHeader(width)
 	focusLabel := focusPreviewLabel(focus, entries)
 	targetLabel := tc.targetStatusLabel()
@@ -675,7 +688,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, tc, ar, pk, inv, invAtPickup, lootFocus)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, tc, ar, pk, inv, invAtPickup, lootFocus, rs)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,
