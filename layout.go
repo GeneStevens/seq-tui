@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -16,8 +17,9 @@ const (
 	// Width allocated to the side column.
 	sidePanelWidth = 24
 
-	nearbyTitle = "Nearby"
-	statusTitle = "Status"
+	nearbyTitle    = "Nearby"
+	statusTitle    = "Status"
+	encounterTitle = "Encounter"
 )
 
 var (
@@ -112,11 +114,51 @@ func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr ma
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
-// renderSideColumn stacks the nearby and status panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult) string {
+// renderEncounterPanel returns the encounter status panel based on backend-owned facts.
+func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult) string {
+	title := panelTitleStyle.Render(encounterTitle)
+
+	var items []string
+
+	if pr.State != playerReadOK {
+		items = append(items, panelItemStyle.Render("  no player"))
+	} else if er.State == encounterReadFailed {
+		items = append(items, panelItemStyle.Render("  unavailable"))
+	} else if er.State == encounterReadNotAttempted {
+		items = append(items, panelItemStyle.Render("  pending"))
+	} else {
+		// encounterReadOK — show zone encounter count
+		items = append(items, panelItemStyle.Render(fmt.Sprintf("  zone: %d enc", er.Count)))
+
+		if pr.HasActiveEncounter {
+			items = append(items, panelItemStyle.Render("  active: yes"))
+			// Find matching encounter summary for detail
+			if enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID); enc != nil {
+				items = append(items, panelItemStyle.Render("  "+enc.State))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  pcs:%d mobs:%d", enc.PlayerCount, enc.MobCount)))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  alive:%d dead:%d", enc.MobsAlive, enc.MobsDead)))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
+				if enc.CompletedReason != "" {
+					items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
+				}
+			} else {
+				items = append(items, panelItemStyle.Render("  no details"))
+			}
+		} else {
+			items = append(items, panelItemStyle.Render("  active: no"))
+		}
+	}
+
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
+// renderSideColumn stacks the nearby, encounter, and status panels vertically.
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult) string {
 	nearby := renderNearbyPanel(width)
+	encounter := renderEncounterPanel(width, pr, er)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
-	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", status)
+	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", status)
 }
 
 // renderFooter returns the footer help strip with optional intent preview.
@@ -129,7 +171,7 @@ func renderFooter(width int, intentPreview string) string {
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult) string {
 	header := renderHeader(width)
 	footer := renderFooter(width, lastInput)
 	mapPanel := renderMapPanel(mr, mobr, pr)
@@ -143,7 +185,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,

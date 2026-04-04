@@ -212,10 +212,12 @@ type playerPosResult struct {
 
 // playerReadResult holds the outcome of a player join + state read.
 type playerReadResult struct {
-	State    playerReadState
-	Error    string
-	Position playerPosResult
-	HasPos   bool // true if position was successfully decoded
+	State               playerReadState
+	Error               string
+	Position            playerPosResult
+	HasPos              bool   // true if position was successfully decoded
+	ActiveEncounterID   string // backend-owned encounter ID, empty if none
+	HasActiveEncounter  bool   // true if player is in an encounter
 }
 
 // playerStatusLabel returns a calm, honest label.
@@ -321,6 +323,54 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 	}
 }
 
+// decodePlayerState is a shared helper for conservative partial decode of
+// the dev player state response. It extracts position and active encounter ID.
+func decodePlayerState(body []byte, baseState playerReadState) playerReadResult {
+	var raw struct {
+		Result struct {
+			Player struct {
+				Position struct {
+					X float64 `json:"x"`
+					Y float64 `json:"y"`
+					Z float64 `json:"z"`
+				} `json:"position"`
+				ActiveEncounterID string `json:"active_encounter_id"`
+			} `json:"player"`
+			Position struct {
+				Pos struct {
+					X float64 `json:"X"`
+					Y float64 `json:"Y"`
+					Z float64 `json:"Z"`
+				} `json:"Pos"`
+			} `json:"Position"`
+		} `json:"result"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return playerReadResult{State: baseState, HasPos: false}
+	}
+
+	// Use player.position (new shape) if available, fall back to Position.Pos (legacy shape)
+	posX := raw.Result.Player.Position.X
+	posY := raw.Result.Player.Position.Y
+	if posX == 0 && posY == 0 {
+		posX = raw.Result.Position.Pos.X
+		posY = raw.Result.Position.Pos.Y
+	}
+
+	encID := raw.Result.Player.ActiveEncounterID
+
+	return playerReadResult{
+		State: baseState,
+		Position: playerPosResult{
+			X: posX,
+			Y: posY,
+		},
+		HasPos:             true,
+		ActiveEncounterID:  encID,
+		HasActiveEncounter: encID != "",
+	}
+}
+
 // readPlayerState reads player state without joining (for refresh cycles).
 func readPlayerState(target backendTarget) playerReadResult {
 	client := &http.Client{Timeout: 3 * time.Second}
@@ -346,29 +396,145 @@ func readPlayerState(target backendTarget) playerReadResult {
 		return playerReadResult{State: playerReadOK, HasPos: false}
 	}
 
-	var raw struct {
-		Result struct {
-			Position struct {
-				Pos struct {
-					X float64 `json:"X"`
-					Y float64 `json:"Y"`
-					Z float64 `json:"Z"`
-				} `json:"Pos"`
-			} `json:"Position"`
-		} `json:"result"`
+	return decodePlayerState(body, playerReadOK)
+}
+
+// --- Encounter read ---
+
+// encounterReadState represents the outcome of an encounter read.
+type encounterReadState int
+
+const (
+	encounterReadNotAttempted encounterReadState = iota
+	encounterReadOK
+	encounterReadFailed
+)
+
+// encounterSummary is a conservative partial decode of one encounter summary.
+// Only backend-owned facts needed for display are decoded.
+type encounterSummary struct {
+	EncounterID     string `json:"encounter_id"`
+	State           string `json:"state"`
+	CompletedReason string `json:"completed_reason"`
+	PlayerCount     int    // derived from len(PlayerIDs)
+	MobCount        int    // derived from len(MobIDs)
+	MobsAlive       int    `json:"mobs_alive_count"`
+	MobsDead        int    `json:"mobs_dead_count"`
+	ActionIndex     uint64 `json:"action_index"`
+	TimelineLength  int    `json:"timeline_length"`
+}
+
+// encounterReadResult holds the outcome of a zone encounter read.
+type encounterReadResult struct {
+	State      encounterReadState
+	Error      string
+	Encounters []encounterSummary
+	Count      int
+}
+
+// encounterStatusLabel returns an honest label for the encounter read state.
+func (r encounterReadResult) encounterStatusLabel() string {
+	switch r.State {
+	case encounterReadOK:
+		return fmt.Sprintf("encounters: %d", r.Count)
+	case encounterReadFailed:
+		return "encounters: unavailable"
+	default:
+		return "encounters: pending"
 	}
-	if err := json.Unmarshal(body, &raw); err != nil {
-		return playerReadResult{State: playerReadOK, HasPos: false}
+}
+
+// zoneEncountersURL builds the zone encounters call URL.
+func zoneEncountersURL(target backendTarget) string {
+	base := strings.TrimRight(target.BaseURL, "/")
+	url := fmt.Sprintf("%s/world/call/%s?message=encounters", base, target.Zone)
+	if strings.EqualFold(target.Mode, "ASYNC") {
+		url += "&mode=Async"
+	}
+	return url
+}
+
+// fetchZoneEncounters performs a single GET to read encounter summaries.
+func fetchZoneEncounters(target backendTarget) encounterReadResult {
+	url := zoneEncountersURL(target)
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	resp, err := client.Get(url)
+	if err != nil {
+		return encounterReadResult{State: encounterReadFailed, Error: err.Error()}
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return encounterReadResult{State: encounterReadFailed, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
 	}
 
-	return playerReadResult{
-		State: playerReadOK,
-		Position: playerPosResult{
-			X: raw.Result.Position.Pos.X,
-			Y: raw.Result.Position.Pos.Y,
-		},
-		HasPos: true,
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return encounterReadResult{State: encounterReadFailed, Error: "failed to read response body"}
 	}
+
+	// Response shape: {"result": [...encounter summaries...], "process_name": "...", "message": "encounters"}
+	var envelope struct {
+		Result []struct {
+			EncounterID     string   `json:"encounter_id"`
+			State           string   `json:"state"`
+			CompletedReason string   `json:"completed_reason"`
+			PlayerIDs       []string `json:"player_ids"`
+			MobIDs          []string `json:"mob_ids"`
+			MobsAliveCount  int      `json:"mobs_alive_count"`
+			MobsDeadCount   int      `json:"mobs_dead_count"`
+			ActionIndex     uint64   `json:"action_index"`
+			TimelineLength  int      `json:"timeline_length"`
+		} `json:"result"`
+		Error string `json:"error"`
+	}
+	if err := json.Unmarshal(body, &envelope); err != nil {
+		// Payload received but couldn't decode
+		return encounterReadResult{
+			State: encounterReadOK,
+			Count: 0,
+		}
+	}
+
+	if envelope.Error != "" {
+		return encounterReadResult{State: encounterReadFailed, Error: envelope.Error}
+	}
+
+	summaries := make([]encounterSummary, 0, len(envelope.Result))
+	for _, e := range envelope.Result {
+		summaries = append(summaries, encounterSummary{
+			EncounterID:     e.EncounterID,
+			State:           e.State,
+			CompletedReason: e.CompletedReason,
+			PlayerCount:     len(e.PlayerIDs),
+			MobCount:        len(e.MobIDs),
+			MobsAlive:       e.MobsAliveCount,
+			MobsDead:        e.MobsDeadCount,
+			ActionIndex:     e.ActionIndex,
+			TimelineLength:  e.TimelineLength,
+		})
+	}
+
+	return encounterReadResult{
+		State:      encounterReadOK,
+		Encounters: summaries,
+		Count:      len(summaries),
+	}
+}
+
+// findPlayerEncounter returns the encounter matching the player's active encounter ID.
+// Returns nil if not found or no active encounter.
+func findPlayerEncounter(encounters []encounterSummary, activeEncounterID string) *encounterSummary {
+	if activeEncounterID == "" {
+		return nil
+	}
+	for i := range encounters {
+		if encounters[i].EncounterID == activeEncounterID {
+			return &encounters[i]
+		}
+	}
+	return nil
 }
 
 // devJoinURL builds the dev player-join endpoint URL.
@@ -430,27 +596,5 @@ func joinAndReadPlayer(target backendTarget) playerReadResult {
 	}
 
 	// Conservative partial decode of player state
-	var raw struct {
-		Result struct {
-			Position struct {
-				Pos struct {
-					X float64 `json:"X"`
-					Y float64 `json:"Y"`
-					Z float64 `json:"Z"`
-				} `json:"Pos"`
-			} `json:"Position"`
-		} `json:"result"`
-	}
-	if err := json.Unmarshal(body, &raw); err != nil {
-		return playerReadResult{State: playerReadOK, HasPos: false}
-	}
-
-	return playerReadResult{
-		State: playerReadOK,
-		Position: playerPosResult{
-			X: raw.Result.Position.Pos.X,
-			Y: raw.Result.Position.Pos.Y,
-		},
-		HasPos: true,
-	}
+	return decodePlayerState(body, playerReadOK)
 }

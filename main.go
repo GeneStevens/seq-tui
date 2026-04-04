@@ -188,6 +188,11 @@ type playerReadResultMsg struct {
 	result playerReadResult
 }
 
+// encounterReadResultMsg carries the result of an encounter read back to the model.
+type encounterReadResultMsg struct {
+	result encounterReadResult
+}
+
 // moveResultMsg carries the result of a movement submission + readback.
 type moveResultMsg struct {
 	result    moveResult
@@ -195,14 +200,15 @@ type moveResultMsg struct {
 }
 
 type model struct {
-	width      int
-	height     int
-	lastIntent moveIntent       // most recent inert movement intent preview
-	target     backendTarget    // backend target config
-	zoneRead   zoneReadResult   // result of zone status read
-	mapRead    mapReadResult    // result of map geometry read
-	mobRead    mobReadResult    // result of mob-position read
-	playerRead playerReadResult // result of player join + state read
+	width         int
+	height        int
+	lastIntent    moveIntent          // most recent inert movement intent preview
+	target        backendTarget       // backend target config
+	zoneRead      zoneReadResult      // result of zone status read
+	mapRead       mapReadResult       // result of map geometry read
+	mobRead       mobReadResult       // result of mob-position read
+	playerRead    playerReadResult    // result of player join + state read
+	encounterRead encounterReadResult // result of zone encounter read
 }
 
 func (m model) Init() tea.Cmd {
@@ -221,6 +227,9 @@ func (m model) Init() tea.Cmd {
 		func() tea.Msg {
 			return playerReadResultMsg{result: joinAndReadPlayer(target)}
 		},
+		func() tea.Msg {
+			return encounterReadResultMsg{result: fetchZoneEncounters(target)}
+		},
 		scheduleRefresh(),
 	)
 }
@@ -228,7 +237,7 @@ func (m model) Init() tea.Cmd {
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case refreshTickMsg:
-		// Periodic refresh: read mobs, player state, zone status; schedule next tick
+		// Periodic refresh: read mobs, player state, zone status, encounters; schedule next tick
 		target := m.target
 		return m, tea.Batch(
 			func() tea.Msg {
@@ -243,6 +252,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			func() tea.Msg {
 				return zoneReadResultMsg{result: fetchZoneStatus(target)}
 			},
+			func() tea.Msg {
+				return encounterReadResultMsg{result: fetchZoneEncounters(target)}
+			},
 			scheduleRefresh(),
 		)
 	case zoneReadResultMsg:
@@ -256,6 +268,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case playerReadResultMsg:
 		m.playerRead = msg.result
+		return m, nil
+	case encounterReadResultMsg:
+		m.encounterRead = msg.result
 		return m, nil
 	case moveResultMsg:
 		if msg.result.OK {
@@ -305,7 +320,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead)
 }
 
 func main() {

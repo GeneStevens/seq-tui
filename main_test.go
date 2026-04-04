@@ -223,7 +223,7 @@ func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -236,7 +236,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -257,7 +257,7 @@ func TestRenderStatusPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -267,7 +267,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{})
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -280,7 +280,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{})
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -291,7 +291,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{})
+	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -300,7 +300,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{})
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -808,5 +808,313 @@ func TestScheduleRefreshReturnsNonNil(t *testing.T) {
 	cmd := scheduleRefresh()
 	if cmd == nil {
 		t.Fatal("scheduleRefresh should return a non-nil command")
+	}
+}
+
+// --- Encounter read shell tests ---
+
+func TestEncounterReadStateLabels(t *testing.T) {
+	pending := encounterReadResult{State: encounterReadNotAttempted}
+	if !strings.Contains(pending.encounterStatusLabel(), "pending") {
+		t.Fatal("not-attempted state should show pending")
+	}
+	ok := encounterReadResult{State: encounterReadOK, Count: 3}
+	if !strings.Contains(ok.encounterStatusLabel(), "3") {
+		t.Fatal("success state should show count")
+	}
+	failed := encounterReadResult{State: encounterReadFailed}
+	if !strings.Contains(failed.encounterStatusLabel(), "unavailable") {
+		t.Fatal("failure state should show unavailable")
+	}
+}
+
+func TestZoneEncountersURL(t *testing.T) {
+	target := defaultTarget()
+	url := zoneEncountersURL(target)
+	if !strings.Contains(url, "/world/call/crushbone") {
+		t.Fatal("URL should target /world/call/crushbone")
+	}
+	if !strings.Contains(url, "message=encounters") {
+		t.Fatal("URL should include message=encounters")
+	}
+	// Default RT should not add mode query param
+	if strings.Contains(url, "mode=") {
+		t.Fatal("default RT target should not add mode query param")
+	}
+}
+
+func TestZoneEncountersURLAsync(t *testing.T) {
+	target := defaultTarget()
+	target.Mode = "ASYNC"
+	url := zoneEncountersURL(target)
+	if !strings.Contains(url, "mode=Async") {
+		t.Fatal("ASYNC target should add mode=Async query param")
+	}
+}
+
+func TestFindPlayerEncounterMatch(t *testing.T) {
+	encounters := []encounterSummary{
+		{EncounterID: "enc-1", State: "Active", PlayerCount: 1, MobCount: 2},
+		{EncounterID: "enc-2", State: "Completed", PlayerCount: 2, MobCount: 3},
+	}
+	found := findPlayerEncounter(encounters, "enc-2")
+	if found == nil {
+		t.Fatal("should find matching encounter")
+	}
+	if found.State != "Completed" {
+		t.Fatalf("expected Completed, got %q", found.State)
+	}
+}
+
+func TestFindPlayerEncounterNoMatch(t *testing.T) {
+	encounters := []encounterSummary{
+		{EncounterID: "enc-1", State: "Active"},
+	}
+	found := findPlayerEncounter(encounters, "enc-99")
+	if found != nil {
+		t.Fatal("should not find non-existent encounter")
+	}
+}
+
+func TestFindPlayerEncounterEmptyID(t *testing.T) {
+	encounters := []encounterSummary{
+		{EncounterID: "enc-1", State: "Active"},
+	}
+	found := findPlayerEncounter(encounters, "")
+	if found != nil {
+		t.Fatal("empty encounter ID should return nil")
+	}
+}
+
+func TestEncounterPanelPlayerNotJoined(t *testing.T) {
+	panel := renderEncounterPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{})
+	if !strings.Contains(panel, encounterTitle) {
+		t.Fatal("encounter panel should contain title")
+	}
+	if !strings.Contains(panel, "no player") {
+		t.Fatal("encounter panel should show no player when player state is not OK")
+	}
+}
+
+func TestEncounterPanelDataUnavailable(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasPos: true}
+	er := encounterReadResult{State: encounterReadFailed}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	if !strings.Contains(panel, "unavailable") {
+		t.Fatal("encounter panel should show unavailable when encounter read failed")
+	}
+}
+
+func TestEncounterPanelDataPending(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasPos: true}
+	er := encounterReadResult{State: encounterReadNotAttempted}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	if !strings.Contains(panel, "pending") {
+		t.Fatal("encounter panel should show pending when encounter read not attempted")
+	}
+}
+
+func TestEncounterPanelNoEncounter(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasPos: true}
+	er := encounterReadResult{State: encounterReadOK, Count: 0}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	if !strings.Contains(panel, "active: no") {
+		t.Fatal("encounter panel should show not in encounter when no active encounter")
+	}
+	if !strings.Contains(panel, "0 enc") {
+		t.Fatal("encounter panel should show zone encounter count")
+	}
+}
+
+func TestEncounterPanelActiveEncounterWithDetails(t *testing.T) {
+	pr := playerReadResult{
+		State:              playerReadOK,
+		HasPos:             true,
+		ActiveEncounterID:  "enc-42",
+		HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK,
+		Count: 2,
+		Encounters: []encounterSummary{
+			{EncounterID: "enc-42", State: "Active", PlayerCount: 1, MobCount: 3, MobsAlive: 2, ActionIndex: 7},
+			{EncounterID: "enc-41", State: "Completed", CompletedReason: "all_mobs_dead"},
+		},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	if !strings.Contains(panel, "active: yes") {
+		t.Fatal("encounter panel should show active encounter")
+	}
+	if !strings.Contains(panel, "Active") {
+		t.Fatal("encounter panel should show encounter state")
+	}
+	if !strings.Contains(panel, "pcs:1") {
+		t.Fatal("encounter panel should show player count")
+	}
+	if !strings.Contains(panel, "mobs:3") {
+		t.Fatal("encounter panel should show mob count")
+	}
+	if !strings.Contains(panel, "alive:2") {
+		t.Fatal("encounter panel should show mobs alive")
+	}
+	if !strings.Contains(panel, "act:7") {
+		t.Fatal("encounter panel should show action index")
+	}
+}
+
+func TestEncounterPanelCompletedEncounter(t *testing.T) {
+	pr := playerReadResult{
+		State:              playerReadOK,
+		HasPos:             true,
+		ActiveEncounterID:  "enc-done",
+		HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK,
+		Count: 1,
+		Encounters: []encounterSummary{
+			{EncounterID: "enc-done", State: "Completed", CompletedReason: "all_mobs_dead", PlayerCount: 1, MobCount: 2, MobsDead: 2},
+		},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	if !strings.Contains(panel, "all_mobs_dead") {
+		t.Fatal("encounter panel should show completion reason")
+	}
+}
+
+func TestEncounterPanelActiveButDetailsMissing(t *testing.T) {
+	pr := playerReadResult{
+		State:              playerReadOK,
+		HasPos:             true,
+		ActiveEncounterID:  "enc-unknown",
+		HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State:      encounterReadOK,
+		Count:      1,
+		Encounters: []encounterSummary{{EncounterID: "enc-other"}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	if !strings.Contains(panel, "active: yes") {
+		t.Fatal("encounter panel should show active encounter")
+	}
+	if !strings.Contains(panel, "no details") {
+		t.Fatal("encounter panel should show no details when encounter not found in summaries")
+	}
+}
+
+func TestSideColumnContainsEncounterPanel(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	if !strings.Contains(col, encounterTitle) {
+		t.Fatal("side column should contain encounter panel title")
+	}
+	if !strings.Contains(col, nearbyTitle) {
+		t.Fatal("side column should still contain nearby title")
+	}
+	if !strings.Contains(col, statusTitle) {
+		t.Fatal("side column should still contain status title")
+	}
+}
+
+func TestWideLayoutContainsEncounterPanel(t *testing.T) {
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	if !strings.Contains(layout, encounterTitle) {
+		t.Fatal("wide layout should contain encounter panel")
+	}
+}
+
+func TestNarrowLayoutOmitsEncounterPanel(t *testing.T) {
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	if strings.Contains(layout, encounterTitle) {
+		t.Fatal("narrow layout should not contain encounter panel")
+	}
+}
+
+func TestEncounterPanelDoesNotImplyGameplayLogic(t *testing.T) {
+	pr := playerReadResult{
+		State:              playerReadOK,
+		HasPos:             true,
+		ActiveEncounterID:  "enc-1",
+		HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State:      encounterReadOK,
+		Count:      1,
+		Encounters: []encounterSummary{{EncounterID: "enc-1", State: "Active", MobCount: 2, MobsAlive: 2}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	for _, bad := range []string{"attack", "target", "threat", "aggro", "danger", "dps", "heal"} {
+		if strings.Contains(strings.ToLower(panel), bad) {
+			t.Fatalf("encounter panel must not contain gameplay term %q", bad)
+		}
+	}
+}
+
+func TestDecodePlayerStateWithEncounterID(t *testing.T) {
+	body := []byte(`{"result":{"player":{"position":{"x":10,"y":20,"z":0},"active_encounter_id":"enc-abc"}}}`)
+	result := decodePlayerState(body, playerReadOK)
+	if result.State != playerReadOK {
+		t.Fatal("decode should succeed")
+	}
+	if !result.HasPos {
+		t.Fatal("should have position")
+	}
+	if result.Position.X != 10 || result.Position.Y != 20 {
+		t.Fatalf("position mismatch: got (%f, %f)", result.Position.X, result.Position.Y)
+	}
+	if !result.HasActiveEncounter {
+		t.Fatal("should have active encounter")
+	}
+	if result.ActiveEncounterID != "enc-abc" {
+		t.Fatalf("expected enc-abc, got %q", result.ActiveEncounterID)
+	}
+}
+
+func TestDecodePlayerStateWithoutEncounterID(t *testing.T) {
+	body := []byte(`{"result":{"player":{"position":{"x":5,"y":15,"z":0}}}}`)
+	result := decodePlayerState(body, playerReadOK)
+	if result.HasActiveEncounter {
+		t.Fatal("should not have active encounter when field absent")
+	}
+	if result.ActiveEncounterID != "" {
+		t.Fatal("encounter ID should be empty")
+	}
+}
+
+func TestDecodePlayerStateLegacyShape(t *testing.T) {
+	body := []byte(`{"result":{"Position":{"Pos":{"X":30,"Y":40,"Z":0}}}}`)
+	result := decodePlayerState(body, playerReadOK)
+	if !result.HasPos {
+		t.Fatal("should have position from legacy shape")
+	}
+	if result.Position.X != 30 || result.Position.Y != 40 {
+		t.Fatalf("position mismatch: got (%f, %f)", result.Position.X, result.Position.Y)
+	}
+	if result.HasActiveEncounter {
+		t.Fatal("legacy shape should not have encounter")
+	}
+}
+
+func TestDecodePlayerStateBadJSON(t *testing.T) {
+	body := []byte(`{invalid`)
+	result := decodePlayerState(body, playerReadOK)
+	if result.HasPos {
+		t.Fatal("bad JSON should not produce position")
+	}
+	if result.HasActiveEncounter {
+		t.Fatal("bad JSON should not produce encounter")
+	}
+}
+
+func TestEncounterPanelDeterministic(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasPos: true, ActiveEncounterID: "enc-1", HasActiveEncounter: true}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{EncounterID: "enc-1", State: "Active", PlayerCount: 1, MobCount: 2, MobsAlive: 2}},
+	}
+	a := renderEncounterPanel(sidePanelWidth, pr, er)
+	b := renderEncounterPanel(sidePanelWidth, pr, er)
+	if a != b {
+		t.Fatal("encounter panel should be deterministic")
 	}
 }
