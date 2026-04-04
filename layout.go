@@ -10,7 +10,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp = "hjkl/arrows: move  tab/S-tab: roster  t: confirm  a: attack  p: pickup  q: quit"
+	footerHelp = "hjkl: move  tab: roster  []: loot  t: confirm  a: attack  p: pickup  q: quit"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
@@ -337,7 +337,7 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 // renderLootPanel returns a compact panel showing backend-owned loot readback.
 // Read-only display of drop state from encounter summary, plus pickup submission result.
 // No loot logic, no inventory simulation, no reward interpretation.
-func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk pickupResult, inv inventoryReadResult, invAtPickup int) string {
+func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int) string {
 	title := panelTitleStyle.Render("Loot")
 
 	var items []string
@@ -390,13 +390,17 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 		items = append(items, panelItemStyle.Render("  drops: 0 remaining"))
 	} else {
 		items = append(items, panelItemStyle.Render(fmt.Sprintf("  drops: %d", len(enc.Drops))))
-		// Show up to 3 item IDs compactly
+		// Show drop rows with selection indicator
 		maxShow := 3
 		if len(enc.Drops) < maxShow {
 			maxShow = len(enc.Drops)
 		}
 		for i := 0; i < maxShow; i++ {
-			items = append(items, panelItemStyle.Render("  "+truncateID(enc.Drops[i], width-6)))
+			prefix := "  "
+			if lootFocus == i {
+				prefix = "> "
+			}
+			items = append(items, panelItemStyle.Render(prefix+truncateID(enc.Drops[i], width-6)))
 		}
 		if len(enc.Drops) > 3 {
 			items = append(items, panelItemStyle.Render(fmt.Sprintf("  +%d more", len(enc.Drops)-3)))
@@ -422,12 +426,12 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 }
 
 // renderSideColumn stacks the side panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int) string {
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int) string {
 	nearby := renderNearbyPanel(width)
 	encounter := renderEncounterPanel(width, pr, er, focus)
 	proximity := renderProximityPanel(width, tc)
 	combat := renderCombatPanel(width, ar, pr, er)
-	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup)
+	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", proximity, "", combat, "", loot, "", status)
 }
@@ -454,7 +458,7 @@ func renderFooter(width int, intentPreview string, focusLabel string, targetLabe
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int) string {
 	header := renderHeader(width)
 	focusLabel := focusPreviewLabel(focus, entries)
 	targetLabel := tc.targetStatusLabel()
@@ -472,7 +476,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, tc, ar, pk, inv, invAtPickup)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, tc, ar, pk, inv, invAtPickup, lootFocus)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,

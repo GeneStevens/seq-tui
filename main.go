@@ -259,6 +259,45 @@ type model struct {
 	lastPickup       pickupResult        // result of most recent pickup_item submission
 	inventoryRead    inventoryReadResult // backend-owned player inventory
 	invCountAtPickup int                 // inventory count when last pickup was submitted (-1 = no pickup yet)
+	lootFocus        int                 // local selection index into encounter Drops; -1 = none
+}
+
+// currentDrops returns the current drop list from the active encounter, or nil.
+func currentDrops(m *model) []string {
+	if !m.playerRead.HasActiveEncounter || m.encounterRead.State != encounterReadOK {
+		return nil
+	}
+	enc := findPlayerEncounter(m.encounterRead.Encounters, m.playerRead.ActiveEncounterID)
+	if enc == nil {
+		return nil
+	}
+	return enc.Drops
+}
+
+// reconcileLootFocus adjusts the loot selection index against the current drop list.
+// If the previously selected item ID is still present, focus follows it.
+// If it disappeared, clamp to last item or -1 if empty.
+func reconcileLootFocus(oldFocus int, oldDrops, newDrops []string) int {
+	if len(newDrops) == 0 {
+		return -1
+	}
+	if oldFocus < 0 {
+		return -1 // stay unfocused
+	}
+	// Try to find the previously selected item by ID
+	if oldFocus < len(oldDrops) {
+		prevID := oldDrops[oldFocus]
+		for i, id := range newDrops {
+			if id == prevID {
+				return i
+			}
+		}
+	}
+	// Previously selected item disappeared — clamp
+	if oldFocus >= len(newDrops) {
+		return len(newDrops) - 1
+	}
+	return oldFocus
 }
 
 // maybeRefreshProximity checks if a proximity re-query is needed and, if so,
@@ -339,6 +378,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.playerRead = msg.result
 		return m, nil
 	case encounterReadResultMsg:
+		oldDrops := currentDrops(&m)
 		m.encounterRead = msg.result
 		// Reconcile local roster focus against new backend data
 		var enc *encounterSummary
@@ -348,6 +388,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		newEntries := buildRosterEntries(enc)
 		m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
 		m.rosterEntries = newEntries
+		// Reconcile loot focus against new backend drops
+		newDrops := currentDrops(&m)
+		m.lootFocus = reconcileLootFocus(m.lootFocus, oldDrops, newDrops)
 		return m, nil
 	case targetConfirmMsg:
 		m.targetConfirm = msg.result
@@ -388,8 +431,23 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "shift+tab":
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
 			return m, maybeRefreshProximity(&m)
+		case "[":
+			// Move loot selection up
+			if m.lootFocus > 0 {
+				m.lootFocus--
+			}
+			return m, nil
+		case "]":
+			// Move loot selection down
+			drops := currentDrops(&m)
+			if m.lootFocus < len(drops)-1 {
+				m.lootFocus++
+			} else if m.lootFocus < 0 && len(drops) > 0 {
+				m.lootFocus = 0
+			}
+			return m, nil
 		case "p":
-			// Submit pickup_item intent for first available drop in active encounter
+			// Submit pickup_item intent for the selected drop
 			if m.playerRead.State != playerReadOK || !m.playerRead.HasActiveEncounter {
 				m.lastPickup = pickupResult{State: pickupStateFailed, Error: "no encounter"}
 				return m, nil
@@ -407,10 +465,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.lastPickup = pickupResult{State: pickupStateFailed, Error: "loot expired"}
 				return m, nil
 			}
+			// Use selected drop, fall back to first if no selection
+			idx := m.lootFocus
+			if idx < 0 || idx >= len(enc.Drops) {
+				idx = 0
+			}
 			encID := enc.EncounterID
-			itemID := enc.Drops[0] // pick up first available drop
+			itemID := enc.Drops[idx]
 			bt := m.target
-			m.invCountAtPickup = m.inventoryRead.Count // snapshot for delta display
+			m.invCountAtPickup = m.inventoryRead.Count
 			return m, func() tea.Msg {
 				return pickupResultMsg{result: submitPickupItem(bt, encID, itemID)}
 			}
@@ -473,7 +536,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus)
 }
 
 func main() {
