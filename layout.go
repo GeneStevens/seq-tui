@@ -139,53 +139,51 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 			ascii, vpBounds := rasterizeAdaptiveViewport(mr.Lines, mr.Bounds, centerX, centerZ, vpWidth, vpHeight)
 			mapContent = ascii
 
-			// Overlays use viewport-local bounds and dimensions
+			// Overlays use viewport-local bounds and dimensions.
+			// Ordering: mobs → focused mob → attack target → player (last, always visible)
 			if mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
 				mapContent = overlayMobs(mapContent, mobr.Mobs, vpBounds, vpWidth, vpHeight)
 			}
+			if fe := focusedEntry(focus, entries); fe != nil {
+				if fe.kind == "mb" && mobr.State == mobReadOK {
+					mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, vpBounds, vpWidth, vpHeight)
+				}
+			}
+			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
+				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, vpBounds, vpWidth, vpHeight)
+			}
+			// Player marker last — always visible, never hidden by mob overlays
 			if pr.State == playerReadOK && pr.HasPos {
 				mapContent = overlayPlayer(mapContent, pr.Position, vpBounds, vpWidth, vpHeight)
 			}
 			if fe := focusedEntry(focus, entries); fe != nil {
-				switch fe.kind {
-				case "mb":
-					if mobr.State == mobReadOK {
-						mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, vpBounds, vpWidth, vpHeight)
-					}
-				case "pc":
-					if pr.State == playerReadOK && pr.HasPos {
-						mapContent = overlayFocusedPlayer(mapContent, pr.Position, vpBounds, vpWidth, vpHeight)
-					}
+				if fe.kind == "pc" && pr.State == playerReadOK && pr.HasPos {
+					mapContent = overlayFocusedPlayer(mapContent, pr.Position, vpBounds, vpWidth, vpHeight)
 				}
-			}
-			// Attack target highlight — after focus overlay, before player
-			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
-				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, vpBounds, vpWidth, vpHeight)
 			}
 		} else {
 			// Legacy path: overlay on pre-rasterized canvas, then extract viewport
+			// Ordering: mobs → focused mob → attack target → player (last, always visible)
 			mapContent = mr.MapText
 			if mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
 				mapContent = overlayMobs(mapContent, mobr.Mobs, mr.Bounds, mr.MapWidth, mr.MapHeight)
 			}
+			if fe := focusedEntry(focus, entries); fe != nil {
+				if fe.kind == "mb" && mobr.State == mobReadOK {
+					mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, mr.Bounds, mr.MapWidth, mr.MapHeight)
+				}
+			}
+			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
+				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, mr.Bounds, mr.MapWidth, mr.MapHeight)
+			}
+			// Player marker last — always visible
 			if pr.State == playerReadOK && pr.HasPos {
 				mapContent = overlayPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
 			}
 			if fe := focusedEntry(focus, entries); fe != nil {
-				switch fe.kind {
-				case "mb":
-					if mobr.State == mobReadOK {
-						mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, mr.Bounds, mr.MapWidth, mr.MapHeight)
-					}
-				case "pc":
-					if pr.State == playerReadOK && pr.HasPos {
-						mapContent = overlayFocusedPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
-					}
+				if fe.kind == "pc" && pr.State == playerReadOK && pr.HasPos {
+					mapContent = overlayFocusedPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
 				}
-			}
-			// Attack target highlight — legacy path
-			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
-				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, mr.Bounds, mr.MapWidth, mr.MapHeight)
 			}
 			if mr.MapWidth > 0 && mr.MapHeight > 0 {
 				var centerCol, centerRow int

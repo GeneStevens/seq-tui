@@ -4733,3 +4733,135 @@ func TestMobRosterTargetPresentNoGoneLabel(t *testing.T) {
 		t.Fatal("target still in roster should not have gone/dead label")
 	}
 }
+
+// --- Joined-Player Spatial Centering Sanity Tests (M20260404-08) ---
+
+func TestPlayerMarkerWinsOverAttackTarget(t *testing.T) {
+	// When player and attack target mob are at the same position,
+	// the player marker @ should be visible (not overwritten by X)
+	lines := make([]string, 10)
+	for i := range lines {
+		lines[i] = strings.Repeat(".", 20)
+	}
+	mapText := strings.Join(lines, "\n")
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   mapText,
+		MapWidth:  20,
+		MapHeight: 10,
+		Bounds:    mapBounds{MinX: 0, MaxX: 200, MinZ: 0, MaxZ: 100, SpanX: 200, SpanZ: 100},
+	}
+	// Mob and player at same position
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs:  []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 100, Y: 50}}},
+		Count: 1,
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 100, Y: 50}, // same as mob
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	panel := renderMapPanel(mr, mobr, pr, rosterFocus{index: -1}, nil, 80, 40, ar)
+	stripped := stripANSI(panel)
+	// Player @ should be visible (not hidden by X)
+	if !strings.Contains(stripped, "@") {
+		t.Fatalf("player marker should be visible when overlapping with attack target, got: %s", stripped)
+	}
+}
+
+func TestPlayerMarkerWinsOverRegularMob(t *testing.T) {
+	lines := make([]string, 10)
+	for i := range lines {
+		lines[i] = strings.Repeat(".", 20)
+	}
+	mapText := strings.Join(lines, "\n")
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   mapText,
+		MapWidth:  20,
+		MapHeight: 10,
+		Bounds:    mapBounds{MinX: 0, MaxX: 200, MinZ: 0, MaxZ: 100, SpanX: 200, SpanZ: 100},
+	}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs:  []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 100, Y: 50}}},
+		Count: 1,
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 100, Y: 50}, // same as mob
+	}
+	panel := renderMapPanel(mr, mobr, pr, rosterFocus{index: -1}, nil, 80, 40, attackResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "@") {
+		t.Fatal("player marker should be visible when overlapping with mob")
+	}
+}
+
+func TestPlayerCenteredInViewport(t *testing.T) {
+	// Player should be near the center of the viewport when not edge-clamped
+	tl := testLines()
+	full := computeBounds(tl)
+	ascii, _ := projectAndRasterize(tl, 200, 100)
+	mr := mapReadResult{
+		State: mapReadOK, MapText: ascii,
+		MapWidth: 200, MapHeight: 100,
+		Bounds: full, Lines: tl,
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 500, Y: 500}, // center of 0-1000 zone
+	}
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{index: -1}, nil, 40, 20, attackResult{})
+	stripped := stripANSI(panel)
+	// Find the @ position — it should be roughly in the middle rows
+	panelLines := strings.Split(stripped, "\n")
+	playerRow := -1
+	for i, line := range panelLines {
+		if strings.Contains(line, "@") {
+			playerRow = i
+			break
+		}
+	}
+	if playerRow < 0 {
+		t.Fatal("player should be visible in viewport")
+	}
+	// Player should be in the middle third of the panel (roughly centered)
+	middleStart := len(panelLines) / 3
+	middleEnd := len(panelLines) * 2 / 3
+	if playerRow < middleStart || playerRow > middleEnd {
+		t.Fatalf("player should be roughly centered, found at row %d of %d", playerRow, len(panelLines))
+	}
+}
+
+func TestSpatialOverlayOrderDeterministic(t *testing.T) {
+	lines := make([]string, 10)
+	for i := range lines {
+		lines[i] = strings.Repeat(".", 20)
+	}
+	mapText := strings.Join(lines, "\n")
+	mr := mapReadResult{
+		State: mapReadOK, MapText: mapText,
+		MapWidth: 20, MapHeight: 10,
+		Bounds: mapBounds{MinX: 0, MaxX: 200, MinZ: 0, MaxZ: 100, SpanX: 200, SpanZ: 100},
+	}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs:  []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 100, Y: 50}}},
+		Count: 1,
+	}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position: playerPosResult{X: 100, Y: 50},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	a := renderMapPanel(mr, mobr, pr, rosterFocus{index: -1}, nil, 80, 40, ar)
+	b := renderMapPanel(mr, mobr, pr, rosterFocus{index: -1}, nil, 80, 40, ar)
+	if a != b {
+		t.Fatal("spatial overlay ordering should be deterministic")
+	}
+}
