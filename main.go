@@ -209,6 +209,8 @@ type model struct {
 	mobRead       mobReadResult       // result of mob-position read
 	playerRead    playerReadResult    // result of player join + state read
 	encounterRead encounterReadResult // result of zone encounter read
+	rosterFocus   rosterFocus         // purely local, non-authoritative roster focus
+	rosterEntries []rosterEntry       // current flat roster for focus navigation
 }
 
 func (m model) Init() tea.Cmd {
@@ -271,6 +273,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case encounterReadResultMsg:
 		m.encounterRead = msg.result
+		// Reconcile local roster focus against new backend data
+		var enc *encounterSummary
+		if m.playerRead.HasActiveEncounter {
+			enc = findPlayerEncounter(msg.result.Encounters, m.playerRead.ActiveEncounterID)
+		}
+		newEntries := buildRosterEntries(enc)
+		m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
+		m.rosterEntries = newEntries
 		return m, nil
 	case moveResultMsg:
 		if msg.result.OK {
@@ -292,6 +302,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch key {
 		case "q", "Q", "ctrl+c":
 			return m, tea.Quit
+		case "tab":
+			m.rosterFocus = moveFocusDown(m.rosterFocus, len(m.rosterEntries))
+			return m, nil
+		case "shift+tab":
+			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
+			return m, nil
 		default:
 			if dir := directionFromKey(key); dir != "" {
 				// If player is joined with a known position, submit real move
@@ -320,7 +336,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus)
 }
 
 func main() {

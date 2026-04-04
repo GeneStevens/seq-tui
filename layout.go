@@ -10,7 +10,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp = "hjkl/arrows: move  q: quit"
+	footerHelp = "hjkl/arrows: move  tab/S-tab: roster  q: quit"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
@@ -115,7 +115,7 @@ func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr ma
 }
 
 // renderEncounterPanel returns the encounter status panel based on backend-owned facts.
-func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult) string {
+func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult, focus rosterFocus) string {
 	title := panelTitleStyle.Render(encounterTitle)
 
 	var items []string
@@ -141,8 +141,8 @@ func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult
 				if enc.CompletedReason != "" {
 					items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
 				}
-				// Roster: backend-owned participant lists
-				items = append(items, renderRosterSection(enc, width)...)
+				// Roster: backend-owned participant lists with local focus
+				items = append(items, renderRosterSection(enc, width, focus)...)
 			} else {
 				items = append(items, panelItemStyle.Render("  no details"))
 			}
@@ -157,8 +157,9 @@ func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult
 
 // renderRosterSection returns roster lines for the encounter panel.
 // Shows backend-owned player and mob IDs, truncated for panel width.
-// Read-only, no selection or gameplay semantics.
-func renderRosterSection(enc *encounterSummary, panelWidth int) []string {
+// Local focus indicator (>) shown on the focused entry. Read-only,
+// no selection with gameplay meaning.
+func renderRosterSection(enc *encounterSummary, panelWidth int, focus rosterFocus) []string {
 	var lines []string
 	// Available width inside the panel: panelWidth - border(2) - padding(2) - indent(2)
 	maxIDWidth := panelWidth - 6
@@ -173,13 +174,24 @@ func renderRosterSection(enc *encounterSummary, panelWidth int) []string {
 		return lines
 	}
 
+	entryIdx := 0
 	for _, pid := range enc.PlayerIDs {
-		label := "  pc:" + truncateID(pid, maxIDWidth-4)
+		prefix := "  "
+		if focus.index == entryIdx {
+			prefix = "> "
+		}
+		label := prefix + "pc:" + truncateID(pid, maxIDWidth-4)
 		lines = append(lines, panelItemStyle.Render(label))
+		entryIdx++
 	}
 	for _, mid := range enc.MobIDs {
-		label := "  mb:" + truncateID(mid, maxIDWidth-4)
+		prefix := "  "
+		if focus.index == entryIdx {
+			prefix = "> "
+		}
+		label := prefix + "mb:" + truncateID(mid, maxIDWidth-4)
 		lines = append(lines, panelItemStyle.Render(label))
+		entryIdx++
 	}
 
 	return lines
@@ -200,9 +212,9 @@ func truncateID(id string, maxLen int) string {
 }
 
 // renderSideColumn stacks the nearby, encounter, and status panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult) string {
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus) string {
 	nearby := renderNearbyPanel(width)
-	encounter := renderEncounterPanel(width, pr, er)
+	encounter := renderEncounterPanel(width, pr, er, focus)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", status)
 }
@@ -217,7 +229,7 @@ func renderFooter(width int, intentPreview string) string {
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus) string {
 	header := renderHeader(width)
 	footer := renderFooter(width, lastInput)
 	mapPanel := renderMapPanel(mr, mobr, pr)
@@ -231,7 +243,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,

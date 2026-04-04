@@ -223,7 +223,7 @@ func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -236,7 +236,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -257,7 +257,7 @@ func TestRenderStatusPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -267,7 +267,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -280,7 +280,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -291,7 +291,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -300,7 +300,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -887,7 +887,7 @@ func TestFindPlayerEncounterEmptyID(t *testing.T) {
 }
 
 func TestEncounterPanelPlayerNotJoined(t *testing.T) {
-	panel := renderEncounterPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{})
+	panel := renderEncounterPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if !strings.Contains(panel, encounterTitle) {
 		t.Fatal("encounter panel should contain title")
 	}
@@ -899,7 +899,7 @@ func TestEncounterPanelPlayerNotJoined(t *testing.T) {
 func TestEncounterPanelDataUnavailable(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasPos: true}
 	er := encounterReadResult{State: encounterReadFailed}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if !strings.Contains(panel, "unavailable") {
 		t.Fatal("encounter panel should show unavailable when encounter read failed")
 	}
@@ -908,7 +908,7 @@ func TestEncounterPanelDataUnavailable(t *testing.T) {
 func TestEncounterPanelDataPending(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasPos: true}
 	er := encounterReadResult{State: encounterReadNotAttempted}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if !strings.Contains(panel, "pending") {
 		t.Fatal("encounter panel should show pending when encounter read not attempted")
 	}
@@ -917,7 +917,7 @@ func TestEncounterPanelDataPending(t *testing.T) {
 func TestEncounterPanelNoEncounter(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasPos: true}
 	er := encounterReadResult{State: encounterReadOK, Count: 0}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if !strings.Contains(panel, "active: no") {
 		t.Fatal("encounter panel should show not in encounter when no active encounter")
 	}
@@ -941,7 +941,7 @@ func TestEncounterPanelActiveEncounterWithDetails(t *testing.T) {
 			{EncounterID: "enc-41", State: "Completed", CompletedReason: "all_mobs_dead"},
 		},
 	}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if !strings.Contains(panel, "active: yes") {
 		t.Fatal("encounter panel should show active encounter")
 	}
@@ -976,7 +976,7 @@ func TestEncounterPanelCompletedEncounter(t *testing.T) {
 			{EncounterID: "enc-done", State: "Completed", CompletedReason: "all_mobs_dead", PlayerCount: 1, MobCount: 2, MobsDead: 2},
 		},
 	}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if !strings.Contains(panel, "all_mobs_dead") {
 		t.Fatal("encounter panel should show completion reason")
 	}
@@ -994,7 +994,7 @@ func TestEncounterPanelActiveButDetailsMissing(t *testing.T) {
 		Count:      1,
 		Encounters: []encounterSummary{{EncounterID: "enc-other"}},
 	}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if !strings.Contains(panel, "active: yes") {
 		t.Fatal("encounter panel should show active encounter")
 	}
@@ -1004,7 +1004,7 @@ func TestEncounterPanelActiveButDetailsMissing(t *testing.T) {
 }
 
 func TestSideColumnContainsEncounterPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if !strings.Contains(col, encounterTitle) {
 		t.Fatal("side column should contain encounter panel title")
 	}
@@ -1017,14 +1017,14 @@ func TestSideColumnContainsEncounterPanel(t *testing.T) {
 }
 
 func TestWideLayoutContainsEncounterPanel(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if !strings.Contains(layout, encounterTitle) {
 		t.Fatal("wide layout should contain encounter panel")
 	}
 }
 
 func TestNarrowLayoutOmitsEncounterPanel(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{})
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{})
 	if strings.Contains(layout, encounterTitle) {
 		t.Fatal("narrow layout should not contain encounter panel")
 	}
@@ -1042,7 +1042,7 @@ func TestEncounterPanelDoesNotImplyGameplayLogic(t *testing.T) {
 		Count:      1,
 		Encounters: []encounterSummary{{EncounterID: "enc-1", State: "Active", MobCount: 2, MobsAlive: 2}},
 	}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	for _, bad := range []string{"attack", "target", "threat", "aggro", "danger", "dps", "heal"} {
 		if strings.Contains(strings.ToLower(panel), bad) {
 			t.Fatalf("encounter panel must not contain gameplay term %q", bad)
@@ -1112,8 +1112,8 @@ func TestEncounterPanelDeterministic(t *testing.T) {
 		State: encounterReadOK, Count: 1,
 		Encounters: []encounterSummary{{EncounterID: "enc-1", State: "Active", PlayerIDs: []string{"p1"}, MobIDs: []string{"m1", "m2"}, PlayerCount: 1, MobCount: 2, MobsAlive: 2}},
 	}
-	a := renderEncounterPanel(sidePanelWidth, pr, er)
-	b := renderEncounterPanel(sidePanelWidth, pr, er)
+	a := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
+	b := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if a != b {
 		t.Fatal("encounter panel should be deterministic")
 	}
@@ -1132,7 +1132,7 @@ func TestRosterSectionShowsPlayerAndMobIDs(t *testing.T) {
 			PlayerCount: 2, MobCount: 2, MobsAlive: 2,
 		}},
 	}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if !strings.Contains(panel, "---roster---") {
 		t.Fatal("encounter panel should contain roster header")
 	}
@@ -1162,7 +1162,7 @@ func TestRosterSectionNoRosterData(t *testing.T) {
 			PlayerCount: 0, MobCount: 0,
 		}},
 	}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
 	if !strings.Contains(panel, "---roster---") {
 		t.Fatal("encounter panel should contain roster header even when empty")
 	}
@@ -1205,7 +1205,7 @@ func TestRosterSectionTruncatesLongIDs(t *testing.T) {
 		PlayerIDs: []string{"a-very-long-player-identifier"},
 		MobIDs:    []string{"a-very-long-mob-identifier"},
 	}
-	lines := renderRosterSection(enc, 20)
+	lines := renderRosterSection(enc, 20, rosterFocus{})
 	for _, line := range lines {
 		// Each rendered line should not be excessively long
 		if len(line) > 60 {
@@ -1218,8 +1218,8 @@ func TestRosterSectionDeterministic(t *testing.T) {
 	enc := &encounterSummary{
 		PlayerIDs: []string{"p1", "p2"}, MobIDs: []string{"m1"},
 	}
-	a := renderRosterSection(enc, sidePanelWidth)
-	b := renderRosterSection(enc, sidePanelWidth)
+	a := renderRosterSection(enc, sidePanelWidth, rosterFocus{})
+	b := renderRosterSection(enc, sidePanelWidth, rosterFocus{})
 	if len(a) != len(b) {
 		t.Fatal("roster section should be deterministic")
 	}
@@ -1243,11 +1243,230 @@ func TestEncounterPanelRosterDoesNotImplyGameplayLogic(t *testing.T) {
 			PlayerCount: 1, MobCount: 1, MobsAlive: 1,
 		}},
 	}
-	panel := renderEncounterPanel(sidePanelWidth, pr, er)
-	forbidden := []string{"target", "select", "attack", "threat", "aggro", "focus", "damage", "hp", "health"}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{})
+	forbidden := []string{"target", "select", "attack", "threat", "aggro", "damage", "hp", "health"}
 	for _, word := range forbidden {
 		if strings.Contains(strings.ToLower(panel), word) {
 			t.Fatalf("encounter panel roster should not contain gameplay term: %s", word)
 		}
+	}
+}
+
+// --- Local Selection Shell Tests (M25) ---
+
+func TestBuildRosterEntriesNilEncounter(t *testing.T) {
+	entries := buildRosterEntries(nil)
+	if entries != nil {
+		t.Fatal("nil encounter should return nil entries")
+	}
+}
+
+func TestBuildRosterEntriesEmpty(t *testing.T) {
+	enc := &encounterSummary{}
+	entries := buildRosterEntries(enc)
+	if entries != nil {
+		t.Fatal("empty encounter should return nil entries")
+	}
+}
+
+func TestBuildRosterEntriesOrder(t *testing.T) {
+	enc := &encounterSummary{
+		PlayerIDs: []string{"p1", "p2"},
+		MobIDs:    []string{"m1"},
+	}
+	entries := buildRosterEntries(enc)
+	if len(entries) != 3 {
+		t.Fatalf("expected 3 entries, got %d", len(entries))
+	}
+	if entries[0].kind != "pc" || entries[0].id != "p1" {
+		t.Fatalf("entry 0 wrong: %+v", entries[0])
+	}
+	if entries[1].kind != "pc" || entries[1].id != "p2" {
+		t.Fatalf("entry 1 wrong: %+v", entries[1])
+	}
+	if entries[2].kind != "mb" || entries[2].id != "m1" {
+		t.Fatalf("entry 2 wrong: %+v", entries[2])
+	}
+}
+
+func TestMoveFocusDownFromUnfocused(t *testing.T) {
+	f := moveFocusDown(rosterFocus{index: -1}, 3)
+	if f.index != 0 {
+		t.Fatalf("expected focus 0, got %d", f.index)
+	}
+}
+
+func TestMoveFocusDownClamps(t *testing.T) {
+	f := moveFocusDown(rosterFocus{index: 2}, 3)
+	if f.index != 2 {
+		t.Fatalf("expected focus 2, got %d", f.index)
+	}
+}
+
+func TestMoveFocusDownEmpty(t *testing.T) {
+	f := moveFocusDown(rosterFocus{index: -1}, 0)
+	if f.index != -1 {
+		t.Fatalf("expected focus -1, got %d", f.index)
+	}
+}
+
+func TestMoveFocusUpFromUnfocused(t *testing.T) {
+	f := moveFocusUp(rosterFocus{index: -1}, 3)
+	if f.index != 2 {
+		t.Fatalf("expected focus 2, got %d", f.index)
+	}
+}
+
+func TestMoveFocusUpClamps(t *testing.T) {
+	f := moveFocusUp(rosterFocus{index: 0}, 3)
+	if f.index != 0 {
+		t.Fatalf("expected focus 0, got %d", f.index)
+	}
+}
+
+func TestMoveFocusUpEmpty(t *testing.T) {
+	f := moveFocusUp(rosterFocus{index: -1}, 0)
+	if f.index != -1 {
+		t.Fatalf("expected focus -1, got %d", f.index)
+	}
+}
+
+func TestReconcileFocusStableEntry(t *testing.T) {
+	old := []rosterEntry{{kind: "pc", id: "p1"}, {kind: "mb", id: "m1"}}
+	new := []rosterEntry{{kind: "pc", id: "p1"}, {kind: "mb", id: "m1"}}
+	f := reconcileFocus(rosterFocus{index: 1}, old, new)
+	if f.index != 1 {
+		t.Fatalf("expected focus 1, got %d", f.index)
+	}
+}
+
+func TestReconcileFocusEntryMoved(t *testing.T) {
+	old := []rosterEntry{{kind: "pc", id: "p1"}, {kind: "mb", id: "m1"}}
+	// m1 is now first because p1 left
+	newEntries := []rosterEntry{{kind: "mb", id: "m1"}}
+	f := reconcileFocus(rosterFocus{index: 1}, old, newEntries)
+	if f.index != 0 {
+		t.Fatalf("expected focus 0 (m1 moved to index 0), got %d", f.index)
+	}
+}
+
+func TestReconcileFocusEntryDisappeared(t *testing.T) {
+	old := []rosterEntry{{kind: "pc", id: "p1"}, {kind: "mb", id: "m1"}}
+	// focused on m1 (index 1), but m1 is gone
+	newEntries := []rosterEntry{{kind: "pc", id: "p1"}}
+	f := reconcileFocus(rosterFocus{index: 1}, old, newEntries)
+	// should clamp to last entry
+	if f.index != 0 {
+		t.Fatalf("expected focus 0 (clamped), got %d", f.index)
+	}
+}
+
+func TestReconcileFocusEmptyNew(t *testing.T) {
+	old := []rosterEntry{{kind: "pc", id: "p1"}}
+	f := reconcileFocus(rosterFocus{index: 0}, old, nil)
+	if f.index != -1 {
+		t.Fatalf("expected focus -1, got %d", f.index)
+	}
+}
+
+func TestReconcileFocusNoFocusStaysUnfocused(t *testing.T) {
+	old := []rosterEntry{{kind: "pc", id: "p1"}}
+	newEntries := []rosterEntry{{kind: "pc", id: "p1"}, {kind: "mb", id: "m1"}}
+	f := reconcileFocus(rosterFocus{index: -1}, old, newEntries)
+	if f.index != -1 {
+		t.Fatalf("expected focus -1, got %d", f.index)
+	}
+}
+
+func TestRosterFocusIndicatorRendered(t *testing.T) {
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		ActiveEncounterID: "enc-f1", HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-f1", State: "Active",
+			PlayerIDs: []string{"hero"}, MobIDs: []string{"orc-a", "orc-b"},
+			PlayerCount: 1, MobCount: 2, MobsAlive: 2,
+		}},
+	}
+	// Focus on second entry (orc-a, index 1)
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{index: 1})
+	if !strings.Contains(panel, "> mb:orc-a") {
+		t.Fatal("focused entry should have > indicator")
+	}
+	// Non-focused entries should not have >
+	if strings.Contains(panel, "> pc:hero") {
+		t.Fatal("non-focused entry should not have > indicator")
+	}
+}
+
+func TestRosterNoFocusIndicatorWhenUnfocused(t *testing.T) {
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		ActiveEncounterID: "enc-f2", HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-f2", State: "Active",
+			PlayerIDs: []string{"hero"}, MobIDs: []string{"orc"},
+			PlayerCount: 1, MobCount: 1, MobsAlive: 1,
+		}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{index: -1})
+	if strings.Contains(panel, "> pc:") || strings.Contains(panel, "> mb:") {
+		t.Fatal("unfocused roster should not show > indicator")
+	}
+}
+
+func TestRosterFocusDeterministic(t *testing.T) {
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		ActiveEncounterID: "enc-d1", HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-d1", State: "Active",
+			PlayerIDs: []string{"p1"}, MobIDs: []string{"m1"},
+			PlayerCount: 1, MobCount: 1, MobsAlive: 1,
+		}},
+	}
+	focus := rosterFocus{index: 0}
+	a := renderEncounterPanel(sidePanelWidth, pr, er, focus)
+	b := renderEncounterPanel(sidePanelWidth, pr, er, focus)
+	if a != b {
+		t.Fatal("roster focus rendering should be deterministic")
+	}
+}
+
+func TestRosterFocusNoGameplayTerms(t *testing.T) {
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		ActiveEncounterID: "enc-ng", HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-ng", State: "Active",
+			PlayerIDs: []string{"hero"}, MobIDs: []string{"orc"},
+			PlayerCount: 1, MobCount: 1, MobsAlive: 1,
+		}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{index: 0})
+	forbidden := []string{"target", "select", "attack", "threat", "aggro", "damage", "hp", "health", "enemy"}
+	for _, word := range forbidden {
+		if strings.Contains(strings.ToLower(panel), word) {
+			t.Fatalf("roster focus should not contain gameplay term: %s", word)
+		}
+	}
+}
+
+func TestFooterContainsRosterHint(t *testing.T) {
+	footer := renderFooter(80, "")
+	if !strings.Contains(footer, "tab") {
+		t.Fatal("footer should mention tab for roster navigation")
 	}
 }
