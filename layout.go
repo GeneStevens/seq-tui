@@ -51,17 +51,16 @@ var (
 
 )
 
-// ANSI escape constants for spatial entity colorization.
-// Raw escapes used instead of lipgloss styles to ensure colors are always emitted,
-// independent of terminal detection (lipgloss strips color in non-TTY contexts).
-// Presentational only — colors carry no gameplay semantics.
-const (
-	ansiReset     = "\033[0m"
-	ansiGreen     = "\033[32m"   // player marker
-	ansiGreenBold = "\033[1;32m" // focused player marker
-	ansiRed       = "\033[31m"   // mob marker
-	ansiRedBold   = "\033[1;31m" // focused mob marker
-	ansiDim       = "\033[2m"    // wall/structure
+// Spatial entity glyph styles — presentational only, no gameplay semantics.
+// Player green does not imply health/safety. Mob red does not imply threat/aggro.
+// Uses lipgloss styles with the default renderer. Tests must force a stable color
+// profile via lipgloss.SetColorProfile() to get deterministic ANSI output.
+var (
+	playerGlyphStyle        = lipgloss.NewStyle().Foreground(lipgloss.Color("2"))            // green
+	focusedPlayerGlyphStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("2")).Bold(true)  // green bold
+	mobGlyphStyle           = lipgloss.NewStyle().Foreground(lipgloss.Color("1"))             // red
+	focusedMobGlyphStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("1")).Bold(true)  // red bold
+	wallGlyphStyle          = lipgloss.NewStyle().Faint(true)                                // dim
 )
 
 // colorizeMapContent applies presentational color to entity glyphs in the viewport.
@@ -73,15 +72,15 @@ func colorizeMapContent(mapContent string) string {
 	for _, ch := range mapContent {
 		switch ch {
 		case '@':
-			sb.WriteString(ansiGreen + "@" + ansiReset)
+			sb.WriteString(playerGlyphStyle.Render("@"))
 		case '&':
-			sb.WriteString(ansiGreenBold + "&" + ansiReset)
+			sb.WriteString(focusedPlayerGlyphStyle.Render("&"))
 		case 'm':
-			sb.WriteString(ansiRed + "m" + ansiReset)
+			sb.WriteString(mobGlyphStyle.Render("m"))
 		case 'M':
-			sb.WriteString(ansiRedBold + "M" + ansiReset)
+			sb.WriteString(focusedMobGlyphStyle.Render("M"))
 		case '#':
-			sb.WriteString(ansiDim + "#" + ansiReset)
+			sb.WriteString(wallGlyphStyle.Render("#"))
 		case '\n':
 			sb.WriteByte('\n')
 		default:

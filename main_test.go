@@ -1,10 +1,31 @@
 package main
 
 import (
+	"os"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/charmbracelet/lipgloss"
+	"github.com/muesli/termenv"
 )
+
+// TestMain forces a stable lipgloss color profile for deterministic test output.
+// Without this, lipgloss detects non-TTY and strips all ANSI color codes.
+func TestMain(m *testing.M) {
+	lipgloss.SetColorProfile(termenv.ANSI256)
+	os.Exit(m.Run())
+}
+
+// ansiPattern matches ANSI escape sequences (SGR and others).
+var ansiPattern = regexp.MustCompile(`\x1b\[[0-9;]*m`)
+
+// stripANSI removes all ANSI escape sequences from a string.
+// Use in tests that verify semantic content without caring about styling.
+func stripANSI(s string) string {
+	return ansiPattern.ReplaceAllString(s, "")
+}
 
 func TestStaticMapIsNonempty(t *testing.T) {
 	if len(staticMap) == 0 {
@@ -566,8 +587,8 @@ func TestMapPanelUsesBackendMap(t *testing.T) {
 		MapText: "###\n# #\n###",
 	}
 	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40)
-	// Wall chars are now individually colorized with ANSI, so check for '#' presence
-	if !strings.Contains(panel, "#") {
+	// Strip ANSI to check semantic content — wall chars are individually styled
+	if !strings.Contains(stripANSI(panel), "###") {
 		t.Fatal("map panel should use backend map text when available")
 	}
 }
@@ -3141,5 +3162,75 @@ func TestMapPanelFallbackNoColorize(t *testing.T) {
 	// Fallback should contain player marker from static map
 	if !strings.ContainsRune(panel, playerMarker) {
 		t.Fatal("fallback panel should contain static player marker")
+	}
+}
+
+// --- Styling Abstraction Tests (M39) ---
+
+func TestStripANSIRemovesEscapes(t *testing.T) {
+	styled := colorizeMapContent("@")
+	if !strings.Contains(styled, "\033[") {
+		t.Fatal("styled output should contain ANSI escapes")
+	}
+	stripped := stripANSI(styled)
+	if stripped != "@" {
+		t.Fatalf("stripANSI should leave plain glyph, got %q", stripped)
+	}
+}
+
+func TestStripANSIPreservesPlainText(t *testing.T) {
+	plain := "hello world"
+	if stripANSI(plain) != plain {
+		t.Fatal("stripANSI should not alter plain text")
+	}
+}
+
+func TestStripANSIMixedContent(t *testing.T) {
+	styled := colorizeMapContent("#.@.m")
+	stripped := stripANSI(styled)
+	if stripped != "#.@.m" {
+		t.Fatalf("stripANSI should recover original glyphs, got %q", stripped)
+	}
+}
+
+func TestLipglossStyleProducesANSI(t *testing.T) {
+	// With forced ANSI256 profile, lipgloss styles should produce ANSI escapes
+	result := playerGlyphStyle.Render("@")
+	if !strings.Contains(result, "\033[") {
+		t.Fatal("lipgloss style should produce ANSI with forced color profile")
+	}
+	if !strings.Contains(result, "@") {
+		t.Fatal("lipgloss style should preserve the character")
+	}
+}
+
+func TestLipglossStyleDeterministic(t *testing.T) {
+	a := playerGlyphStyle.Render("@")
+	b := playerGlyphStyle.Render("@")
+	if a != b {
+		t.Fatal("lipgloss style rendering should be deterministic")
+	}
+}
+
+func TestLipglossPlayerDistinctFromMob(t *testing.T) {
+	player := playerGlyphStyle.Render("@")
+	mob := mobGlyphStyle.Render("m")
+	// Extract just the ANSI codes (not the glyph) to compare styling
+	playerCodes := ansiPattern.FindAllString(player, -1)
+	mobCodes := ansiPattern.FindAllString(mob, -1)
+	if len(playerCodes) == 0 || len(mobCodes) == 0 {
+		t.Fatal("both styles should produce ANSI codes")
+	}
+	if playerCodes[0] == mobCodes[0] {
+		t.Fatal("player and mob should have distinct ANSI color codes")
+	}
+}
+
+func TestColorizeRoundtripWithStripANSI(t *testing.T) {
+	input := "#.@.m\n.M.&."
+	styled := colorizeMapContent(input)
+	stripped := stripANSI(styled)
+	if stripped != input {
+		t.Fatalf("stripANSI(colorize(x)) should recover x, got %q", stripped)
 	}
 }
