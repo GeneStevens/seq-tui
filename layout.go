@@ -381,6 +381,85 @@ func mobsEngagingPlayer(enc *encounterSummary, playerID string) []string {
 	return engaged
 }
 
+// isMobEngagingPlayer returns true if the given mob is targeting the given player
+// according to backend mob_threat data. No threat inference.
+func isMobEngagingPlayer(enc *encounterSummary, mobID, playerID string) bool {
+	if enc == nil || playerID == "" {
+		return false
+	}
+	for _, mt := range enc.MobThreat {
+		if mt.MobID == mobID && mt.SelectedTargetPlayerID == playerID {
+			return true
+		}
+	}
+	return false
+}
+
+// renderCombatMobRoster returns lines showing per-mob status in the encounter.
+// Uses backend MobIDs order (deterministic). Indicators:
+//   - `>` prefix = your current attack target (from ar.TargetID)
+//   - `<-` suffix = mob is engaging/targeting you (from mob_threat)
+//
+// Read-only from backend truth. No threat calculation.
+func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID string, maxWidth int) []string {
+	if enc == nil {
+		return nil
+	}
+
+	// If no mobs in roster but attack target exists, show it as gone
+	if len(enc.MobIDs) == 0 {
+		if ar.State == attackStateSent && ar.TargetID != "" {
+			idWidth := maxWidth - 7
+			if idWidth < 4 {
+				idWidth = 4
+			}
+			return []string{
+				panelItemStyle.Render("  ---mobs---"),
+				panelItemStyle.Render("> " + truncateID(ar.TargetID, idWidth) + " (gone)"),
+			}
+		}
+		return nil
+	}
+
+	var lines []string
+	lines = append(lines, panelItemStyle.Render("  ---mobs---"))
+
+	// Max ID width: maxWidth - prefix(2) - suffix(3) - padding(2) = maxWidth-7
+	idWidth := maxWidth - 7
+	if idWidth < 4 {
+		idWidth = 4
+	}
+
+	for _, mid := range enc.MobIDs {
+		prefix := "  "
+		if ar.State == attackStateSent && ar.TargetID == mid {
+			prefix = "> "
+		}
+		suffix := ""
+		if isMobEngagingPlayer(enc, mid, playerID) {
+			suffix = " <-"
+		}
+		label := prefix + truncateID(mid, idWidth) + suffix
+		lines = append(lines, panelItemStyle.Render(label))
+	}
+
+	// If attack target is no longer in the roster, show it explicitly
+	if ar.State == attackStateSent && ar.TargetID != "" {
+		found := false
+		for _, mid := range enc.MobIDs {
+			if mid == ar.TargetID {
+				found = true
+				break
+			}
+		}
+		if !found {
+			lines = append(lines, panelItemStyle.Render("> "+truncateID(ar.TargetID, idWidth)+" (gone)"))
+		}
+	}
+
+	return lines
+}
+
 // renderCombatPanel returns a compact panel showing backend-owned combat readback.
 // Shows encounter state, attack resolution, target status, and mob engagement
 // from backend truth without any client-side combat logic or interpretation.
@@ -416,41 +495,13 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				}
 			}
 
-			// Backend-owned mob engagement — which mobs are targeting the player
-			engaged := mobsEngagingPlayer(enc, target.Player)
-			if len(engaged) > 0 {
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  engaged:%d", len(engaged))))
-				maxShow := 2
-				if len(engaged) < maxShow {
-					maxShow = len(engaged)
-				}
-				for i := 0; i < maxShow; i++ {
-					items = append(items, panelItemStyle.Render("  <-"+truncateID(engaged[i], width-7)))
-				}
-				if len(engaged) > 2 {
-					items = append(items, panelItemStyle.Render(fmt.Sprintf("  +%d more", len(engaged)-2)))
-				}
-			}
+			// Per-mob roster with engagement and target indicators
+			rosterLines := renderCombatMobRoster(enc, ar, target.Player, width-4)
+			items = append(items, rosterLines...)
 
 			// Backend-owned text summary of latest event
 			if enc.TextSummaryLatest != "" {
 				items = append(items, panelItemStyle.Render("  "+truncateID(enc.TextSummaryLatest, width-6)))
-			}
-
-			// Attack submission target status
-			if ar.State == attackStateSent && ar.TargetID != "" {
-				mobPresent := false
-				for _, mid := range enc.MobIDs {
-					if mid == ar.TargetID {
-						mobPresent = true
-						break
-					}
-				}
-				if mobPresent {
-					items = append(items, panelItemStyle.Render("  atk:"+truncateID(ar.TargetID, width-8)+" (roster)"))
-				} else {
-					items = append(items, panelItemStyle.Render("  atk:"+truncateID(ar.TargetID, width-8)+" (gone)"))
-				}
 			}
 
 			content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)

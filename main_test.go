@@ -2283,8 +2283,9 @@ func TestCombatPanelIntentAcceptedWithEncounter(t *testing.T) {
 	if !strings.Contains(panel, "orc-1") {
 		t.Fatal("combat panel should show attack target ID")
 	}
-	if !strings.Contains(panel, "roster") {
-		t.Fatal("combat panel should show targeted mob still in roster")
+	// Attack target should be in the mob roster with > prefix
+	if !strings.Contains(stripANSI(panel), "> orc-1") {
+		t.Fatal("combat panel should show attack target with > prefix")
 	}
 }
 
@@ -2299,10 +2300,11 @@ func TestCombatPanelMobGone(t *testing.T) {
 		}},
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
-	if !strings.Contains(panel, "gone") {
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "gone") {
 		t.Fatal("combat panel should show mob gone when targeted mob left roster")
 	}
-	if !strings.Contains(panel, "all_mobs_dead") {
+	if !strings.Contains(stripped, "all_mobs_dead") {
 		t.Fatal("combat panel should show completion reason")
 	}
 }
@@ -3570,11 +3572,16 @@ func TestCombatPanelShowsEngagedMobs(t *testing.T) {
 		}},
 	}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget())
-	if !strings.Contains(panel, "engaged:2") {
-		t.Fatal("combat panel should show count of mobs engaging the player")
-	}
-	if !strings.Contains(panel, "orc-1") {
+	stripped := stripANSI(panel)
+	// Both mobs should be visible with <- suffix indicating engagement
+	if !strings.Contains(stripped, "orc-1") {
 		t.Fatal("combat panel should show first engaged mob ID")
+	}
+	if !strings.Contains(stripped, "orc-2") {
+		t.Fatal("combat panel should show second engaged mob ID")
+	}
+	if !strings.Contains(stripped, "<-") {
+		t.Fatal("combat panel should show engagement indicator")
 	}
 }
 
@@ -3937,5 +3944,264 @@ func TestFooterContainsRespawnHint(t *testing.T) {
 	footer := renderFooter(120, "", "", "", "", "")
 	if !strings.Contains(footer, "r: respawn") {
 		t.Fatal("footer should mention r: respawn keybind")
+	}
+}
+
+// --- Multi-Mob Combat Roster Clarity Tests (M20260404-01) ---
+
+func TestRenderCombatMobRosterBasic(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc-1", "orc-2", "orc-3"},
+	}
+	lines := renderCombatMobRoster(enc, attackResult{}, "p1", 20)
+	if len(lines) == 0 {
+		t.Fatal("roster should produce output with mobs")
+	}
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "orc-1") {
+		t.Fatal("roster should show first mob")
+	}
+	if !strings.Contains(joined, "orc-2") {
+		t.Fatal("roster should show second mob")
+	}
+	if !strings.Contains(joined, "orc-3") {
+		t.Fatal("roster should show third mob")
+	}
+}
+
+func TestRenderCombatMobRosterAttackTarget(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc-1", "orc-2"},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-2"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 20)
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "> orc-2") {
+		t.Fatal("roster should mark attack target with > prefix")
+	}
+	// orc-1 should NOT have > prefix
+	if strings.Contains(joined, "> orc-1") {
+		t.Fatal("non-target mob should not have > prefix")
+	}
+}
+
+func TestRenderCombatMobRosterEngagement(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc-1", "orc-2", "orc-3"},
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc-1", SelectedTargetPlayerID: "p1"},
+			{MobID: "orc-3", SelectedTargetPlayerID: "p1"},
+		},
+	}
+	lines := renderCombatMobRoster(enc, attackResult{}, "p1", 20)
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	// orc-1 and orc-3 should have <- suffix
+	if !strings.Contains(joined, "orc-1 <-") {
+		t.Fatalf("engaging mob should have <- suffix, got: %s", joined)
+	}
+	if !strings.Contains(joined, "orc-3 <-") {
+		t.Fatal("engaging mob should have <- suffix")
+	}
+	// orc-2 should NOT have <- suffix
+	for _, l := range lines {
+		s := stripANSI(l)
+		if strings.Contains(s, "orc-2") && strings.Contains(s, "<-") {
+			t.Fatal("non-engaging mob should not have <- suffix")
+		}
+	}
+}
+
+func TestRenderCombatMobRosterTargetAndEngaged(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc-1"},
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc-1", SelectedTargetPlayerID: "p1"},
+		},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 20)
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	// Should have both > prefix and <- suffix
+	if !strings.Contains(joined, "> orc-1") {
+		t.Fatal("target mob should have > prefix")
+	}
+	if !strings.Contains(joined, "<-") {
+		t.Fatal("engaging mob should have <- suffix")
+	}
+}
+
+func TestRenderCombatMobRosterTargetGone(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc-2"}, // orc-1 no longer in roster
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 20)
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "orc-1") {
+		t.Fatal("gone target should still appear in roster")
+	}
+	if !strings.Contains(joined, "(gone)") {
+		t.Fatal("gone target should be marked (gone)")
+	}
+}
+
+func TestRenderCombatMobRosterEmptyNoTarget(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{},
+	}
+	lines := renderCombatMobRoster(enc, attackResult{}, "p1", 20)
+	if lines != nil {
+		t.Fatal("empty roster with no target should return nil")
+	}
+}
+
+func TestRenderCombatMobRosterEmptyWithGoneTarget(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 20)
+	if lines == nil {
+		t.Fatal("empty roster with gone target should still show the gone target")
+	}
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "(gone)") {
+		t.Fatal("gone target should be marked")
+	}
+}
+
+func TestRenderCombatMobRosterNilEncounter(t *testing.T) {
+	lines := renderCombatMobRoster(nil, attackResult{}, "p1", 20)
+	if lines != nil {
+		t.Fatal("nil encounter should return nil")
+	}
+}
+
+func TestRenderCombatMobRosterDeterministic(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc-1", "orc-2", "orc-3"},
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc-1", SelectedTargetPlayerID: "p1"},
+		},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-2"}
+	a := renderCombatMobRoster(enc, ar, "p1", 20)
+	b := renderCombatMobRoster(enc, ar, "p1", 20)
+	if len(a) != len(b) {
+		t.Fatal("mob roster should be deterministic")
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			t.Fatal("mob roster should be deterministic")
+		}
+	}
+}
+
+func TestRenderCombatMobRosterBackendOrder(t *testing.T) {
+	// Verify mobs appear in backend MobIDs order, not sorted
+	enc := &encounterSummary{
+		MobIDs: []string{"zebra-mob", "alpha-mob", "mid-mob"},
+	}
+	lines := renderCombatMobRoster(enc, attackResult{}, "p1", 20)
+	var mobOrder []string
+	for _, l := range lines {
+		s := stripANSI(l)
+		if strings.Contains(s, "mob") && !strings.Contains(s, "---") {
+			mobOrder = append(mobOrder, s)
+		}
+	}
+	if len(mobOrder) != 3 {
+		t.Fatalf("expected 3 mob lines, got %d", len(mobOrder))
+	}
+	if !strings.Contains(mobOrder[0], "zebra") {
+		t.Fatal("first mob should be zebra (backend order)")
+	}
+	if !strings.Contains(mobOrder[1], "alpha") {
+		t.Fatal("second mob should be alpha (backend order)")
+	}
+	if !strings.Contains(mobOrder[2], "mid") {
+		t.Fatal("third mob should be mid (backend order)")
+	}
+}
+
+func TestIsMobEngagingPlayerTrue(t *testing.T) {
+	enc := &encounterSummary{
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc-1", SelectedTargetPlayerID: "p1"},
+		},
+	}
+	if !isMobEngagingPlayer(enc, "orc-1", "p1") {
+		t.Fatal("orc-1 should be engaging p1")
+	}
+}
+
+func TestIsMobEngagingPlayerFalse(t *testing.T) {
+	enc := &encounterSummary{
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc-1", SelectedTargetPlayerID: "p2"},
+		},
+	}
+	if isMobEngagingPlayer(enc, "orc-1", "p1") {
+		t.Fatal("orc-1 should not be engaging p1")
+	}
+}
+
+func TestIsMobEngagingPlayerNil(t *testing.T) {
+	if isMobEngagingPlayer(nil, "orc-1", "p1") {
+		t.Fatal("nil encounter should return false")
+	}
+}
+
+func TestCombatPanelFullRosterIntegration(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-2"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1",
+			State:       "Active",
+			MobIDs:      []string{"orc-1", "orc-2", "orc-3", "orc-4"},
+			MobsAlive:   4,
+			MobThreat: []mobThreatEntry{
+				{MobID: "orc-1", SelectedTargetPlayerID: "p1"},
+				{MobID: "orc-2", SelectedTargetPlayerID: "p1"},
+				{MobID: "orc-4", SelectedTargetPlayerID: "p1"},
+			},
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget())
+	stripped := stripANSI(panel)
+	// All 4 mobs should be visible
+	if !strings.Contains(stripped, "orc-1") {
+		t.Fatal("all mobs should be visible")
+	}
+	if !strings.Contains(stripped, "orc-4") {
+		t.Fatal("all mobs should be visible (no +N more cutoff)")
+	}
+	// Attack target should have > prefix
+	if !strings.Contains(stripped, "> orc-2") {
+		t.Fatal("attack target should have > prefix")
+	}
+	// Engaged mobs should have <- suffix
+	if !strings.Contains(stripped, "<-") {
+		t.Fatal("engaged mobs should have <- suffix")
 	}
 }
