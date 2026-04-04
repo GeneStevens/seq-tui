@@ -204,6 +204,11 @@ type targetConfirmMsg struct {
 	result targetConfirmResult
 }
 
+// attackResultMsg carries the result of a BasicAttack intent submission.
+type attackResultMsg struct {
+	result attackResult
+}
+
 // proximityNeedsRefresh returns true if there is an active proximity confirmation
 // and either the player position or the focused entry has changed since it was queried.
 // Returns false if no proximity query has been made yet (State == targetConfirmNone).
@@ -240,6 +245,7 @@ type model struct {
 	targetConfirm    targetConfirmResult // backend-authoritative target confirmation
 	lastProximityPos playerPosResult     // player position at last proximity query
 	lastProximityID  string              // roster entry ID at last proximity query
+	lastAttack       attackResult        // result of most recent BasicAttack submission
 }
 
 // maybeRefreshProximity checks if a proximity re-query is needed and, if so,
@@ -330,6 +336,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case targetConfirmMsg:
 		m.targetConfirm = msg.result
 		return m, nil
+	case attackResultMsg:
+		m.lastAttack = msg.result
+		return m, nil
 	case moveResultMsg:
 		if msg.result.OK {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateSent}
@@ -357,6 +366,22 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "shift+tab":
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
 			return m, maybeRefreshProximity(&m)
+		case "a":
+			// Submit BasicAttack intent against focused mob
+			if m.playerRead.State != playerReadOK {
+				m.lastAttack = attackResult{State: attackStateFailed, Error: "no player"}
+				return m, nil
+			}
+			fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+			if fe == nil || fe.kind != "mb" {
+				m.lastAttack = attackResult{State: attackStateFailed, Error: "no mob focused"}
+				return m, nil
+			}
+			entry := *fe
+			bt := m.target
+			return m, func() tea.Msg {
+				return attackResultMsg{result: submitBasicAttack(bt, entry.id)}
+			}
 		case "t":
 			// Submit target confirmation for the focused roster entry
 			if fe := focusedEntry(m.rosterFocus, m.rosterEntries); fe != nil {
@@ -400,7 +425,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack)
 }
 
 func main() {

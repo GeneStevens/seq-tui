@@ -658,6 +658,93 @@ func queryTargetProximity(target backendTarget, entry rosterEntry) targetConfirm
 	}
 }
 
+// --- BasicAttack intent submission ---
+
+// attackState represents the outcome of a BasicAttack intent submission.
+type attackState int
+
+const (
+	attackStateNone attackState = iota
+	attackStateSent
+	attackStateFailed
+)
+
+// attackResult holds the outcome of a BasicAttack intent submission.
+// Purely a submission receipt — no combat logic, no damage tracking.
+type attackResult struct {
+	State    attackState
+	Error    string
+	TargetID string // mob ID that was targeted
+}
+
+// attackStatusLabel returns a compact display label for the attack submission state.
+func (r attackResult) attackStatusLabel() string {
+	switch r.State {
+	case attackStateSent:
+		return "attack: sent"
+	case attackStateFailed:
+		return "attack: failed"
+	default:
+		return ""
+	}
+}
+
+// devIntentURL builds the dev intent submission endpoint URL.
+func devIntentURL(target backendTarget) string {
+	base := strings.TrimRight(target.BaseURL, "/")
+	url := fmt.Sprintf("%s/world/dev/zone/%s/intent", base, target.Zone)
+	if strings.EqualFold(target.Mode, "ASYNC") {
+		url += "?mode=Async"
+	}
+	return url
+}
+
+// submitBasicAttack submits a BasicAttack intent against the specified mob.
+// Returns a submission receipt only — no combat logic or damage tracking.
+func submitBasicAttack(target backendTarget, mobID string) attackResult {
+	url := devIntentURL(target)
+	payload := fmt.Sprintf(`{"player_id":"%s","intent_kind":"BasicAttack","target":{"kind":"Mob","id":"%s"}}`,
+		target.Player, mobID)
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	req, err := http.NewRequest("POST", url, strings.NewReader(payload))
+	if err != nil {
+		return attackResult{State: attackStateFailed, Error: err.Error(), TargetID: mobID}
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return attackResult{State: attackStateFailed, Error: err.Error(), TargetID: mobID}
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return attackResult{State: attackStateFailed, Error: "failed to read body", TargetID: mobID}
+	}
+
+	// Check for backend success/failure
+	var raw struct {
+		OK    bool   `json:"ok"`
+		Error string `json:"error"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return attackResult{State: attackStateFailed, Error: "failed to decode response", TargetID: mobID}
+	}
+
+	if !raw.OK {
+		errMsg := raw.Error
+		if errMsg == "" {
+			errMsg = fmt.Sprintf("HTTP %d", resp.StatusCode)
+		}
+		return attackResult{State: attackStateFailed, Error: errMsg, TargetID: mobID}
+	}
+
+	return attackResult{State: attackStateSent, TargetID: mobID}
+}
+
 // devJoinURL builds the dev player-join endpoint URL.
 func devJoinURL(target backendTarget) string {
 	base := strings.TrimRight(target.BaseURL, "/")

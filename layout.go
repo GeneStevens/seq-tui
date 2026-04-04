@@ -10,7 +10,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp = "hjkl/arrows: move  tab/S-tab: roster  t: confirm  q: quit"
+	footerHelp = "hjkl/arrows: move  tab/S-tab: roster  t: confirm  a: attack  q: quit"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
@@ -271,11 +271,14 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", proximity, "", status)
 }
 
-// renderFooter returns the footer help strip with optional intent preview, focus label, and target label.
-func renderFooter(width int, intentPreview string, focusLabel string, targetLabel string) string {
+// renderFooter returns the footer help strip with optional intent preview, focus label, target label, and attack label.
+func renderFooter(width int, intentPreview string, focusLabel string, targetLabel string, attackLabel string) string {
 	help := footerHelp
 	if intentPreview != "" {
 		help = intentPreview + "  " + help
+	}
+	if attackLabel != "" {
+		help = attackLabel + "  " + help
 	}
 	if targetLabel != "" {
 		help = targetLabel + "  " + help
@@ -287,11 +290,12 @@ func renderFooter(width int, intentPreview string, focusLabel string, targetLabe
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult) string {
 	header := renderHeader(width)
 	focusLabel := focusPreviewLabel(focus, entries)
 	targetLabel := tc.targetStatusLabel()
-	footer := renderFooter(width, lastInput, focusLabel, targetLabel)
+	attackLabel := ar.attackStatusLabel()
+	footer := renderFooter(width, lastInput, focusLabel, targetLabel, attackLabel)
 	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries)
 
 	// Body height is total minus header (1 line) and footer (1 line)
