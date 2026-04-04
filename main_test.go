@@ -2290,8 +2290,8 @@ func TestCombatPanelMobGone(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "gone") {
-		t.Fatal("combat panel should show mob gone when targeted mob left roster")
+	if !strings.Contains(stripped, "(dead)") {
+		t.Fatalf("combat panel should show (dead) when all_mobs_dead, got: %s", stripped)
 	}
 	if !strings.Contains(stripped, "all_mobs_dead") {
 		t.Fatal("combat panel should show completion reason")
@@ -4664,5 +4664,72 @@ func TestCombatPanelAtkAndResultDistinct(t *testing.T) {
 	}
 	if !strings.Contains(stripped, "rdy:yes") {
 		t.Fatal("should show readiness")
+	}
+}
+
+// --- Defeated Target Aftermath Clarity Tests (M20260404-07) ---
+
+func TestMobRosterTargetGoneShowsDead(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs:          []string{},
+		CompletedReason: "all_mobs_dead",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 20)
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "(dead)") {
+		t.Fatalf("target gone + all_mobs_dead should show (dead), got: %s", joined)
+	}
+}
+
+func TestMobRosterTargetGoneShowsGoneWhenActive(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc-2"}, // orc-1 gone but encounter still active
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 20)
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "(gone)") {
+		t.Fatalf("target gone + active encounter should show (gone), got: %s", joined)
+	}
+	if strings.Contains(joined, "(dead)") {
+		t.Fatal("should not show (dead) when encounter is still active")
+	}
+}
+
+func TestMobRosterTargetGoneShowsDeadWithPartialRoster(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs:          []string{"orc-2"}, // orc-1 gone, orc-2 still alive
+		CompletedReason: "all_mobs_dead",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 20)
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "(dead)") {
+		t.Fatalf("target gone + all_mobs_dead should show (dead), got: %s", joined)
+	}
+}
+
+func TestMobRosterTargetPresentNoGoneLabel(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc-1"},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 20)
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if strings.Contains(joined, "(gone)") || strings.Contains(joined, "(dead)") {
+		t.Fatal("target still in roster should not have gone/dead label")
 	}
 }

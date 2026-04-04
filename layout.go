@@ -419,7 +419,14 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 		return nil
 	}
 
-	// If no mobs in roster but attack target exists, show it as gone
+	// Determine the label for a target no longer in the roster.
+	// Uses backend encounter state — no inference.
+	goneLabel := "(gone)"
+	if enc.CompletedReason == "all_mobs_dead" {
+		goneLabel = "(dead)"
+	}
+
+	// If no mobs in roster but attack target exists, show it
 	if len(enc.MobIDs) == 0 {
 		if ar.State == attackStateSent && ar.TargetID != "" {
 			idWidth := maxWidth - 7
@@ -427,7 +434,7 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 				idWidth = 4
 			}
 			return []string{
-				panelItemStyle.Render("> " + truncateID(ar.TargetID, idWidth) + " (gone)"),
+				panelItemStyle.Render("> " + truncateID(ar.TargetID, idWidth) + " " + goneLabel),
 			}
 		}
 		return nil
@@ -464,7 +471,7 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 			}
 		}
 		if !found {
-			lines = append(lines, panelItemStyle.Render("> "+truncateID(ar.TargetID, idWidth)+" (gone)"))
+			lines = append(lines, panelItemStyle.Render("> "+truncateID(ar.TargetID, idWidth)+" "+goneLabel))
 		}
 	}
 
