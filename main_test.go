@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"os"
 	"regexp"
@@ -4979,5 +4980,112 @@ func TestLootPanelLootReadyHasDropCount(t *testing.T) {
 	}
 	if !strings.Contains(stripped, "drops: 3") {
 		t.Fatalf("should show drop count after ready line, got: %s", stripped)
+	}
+}
+
+// --- Multi-Mob Spatial Disambiguation Tests (M20260404-11) ---
+
+func TestOverlayMobsSingleMob(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}}}
+	result := overlayMobs(mapText, mobs, bounds, 5, 3)
+	if !strings.Contains(result, "m") {
+		t.Fatal("single mob should show m")
+	}
+}
+
+func TestOverlayMobsTwoSameCell(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{
+		{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}},
+		{ProcessID: "orc-2", Position: mobPosVec3{X: 50, Y: 50}}, // same position
+	}
+	result := overlayMobs(mapText, mobs, bounds, 5, 3)
+	if !strings.Contains(result, "2") {
+		t.Fatalf("two mobs at same cell should show 2, got: %q", result)
+	}
+}
+
+func TestOverlayMobsThreeSameCell(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{
+		{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}},
+		{ProcessID: "orc-2", Position: mobPosVec3{X: 50, Y: 50}},
+		{ProcessID: "orc-3", Position: mobPosVec3{X: 50, Y: 50}},
+	}
+	result := overlayMobs(mapText, mobs, bounds, 5, 3)
+	if !strings.Contains(result, "3") {
+		t.Fatalf("three mobs at same cell should show 3, got: %q", result)
+	}
+}
+
+func TestOverlayMobsMixedCells(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{
+		{ProcessID: "orc-1", Position: mobPosVec3{X: 25, Y: 50}}, // one cell
+		{ProcessID: "orc-2", Position: mobPosVec3{X: 75, Y: 50}}, // different cell
+		{ProcessID: "orc-3", Position: mobPosVec3{X: 75, Y: 50}}, // same cell as orc-2
+	}
+	result := overlayMobs(mapText, mobs, bounds, 5, 3)
+	if !strings.Contains(result, "m") {
+		t.Fatal("single mob cell should show m")
+	}
+	if !strings.Contains(result, "2") {
+		t.Fatal("double mob cell should show 2")
+	}
+}
+
+func TestOverlayMobsTenPlusShowsPlus(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	var mobs []mobPosition
+	for i := 0; i < 12; i++ {
+		mobs = append(mobs, mobPosition{ProcessID: fmt.Sprintf("orc-%d", i), Position: mobPosVec3{X: 50, Y: 50}})
+	}
+	result := overlayMobs(mapText, mobs, bounds, 5, 3)
+	if !strings.Contains(result, "+") {
+		t.Fatalf("10+ mobs at same cell should show +, got: %q", result)
+	}
+}
+
+func TestColorizeCountDigit(t *testing.T) {
+	result := colorizeMapContent("3")
+	if !strings.Contains(result, "\033[") {
+		t.Fatal("count digit should be styled")
+	}
+	if !strings.Contains(result, "3") {
+		t.Fatal("digit character should be preserved")
+	}
+}
+
+func TestColorizeCountDigitSameStyleAsMob(t *testing.T) {
+	mobStyled := colorizeMapContent("m")
+	digitStyled := colorizeMapContent("3")
+	// Extract ANSI codes — both should use mob color
+	mobCodes := ansiPattern.FindAllString(mobStyled, -1)
+	digitCodes := ansiPattern.FindAllString(digitStyled, -1)
+	if len(mobCodes) == 0 || len(digitCodes) == 0 {
+		t.Fatal("both should have ANSI codes")
+	}
+	if mobCodes[0] != digitCodes[0] {
+		t.Fatal("count digit should use same color as regular mob")
+	}
+}
+
+func TestOverlayMobsDeterministicWithClusters(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{
+		{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}},
+		{ProcessID: "orc-2", Position: mobPosVec3{X: 50, Y: 50}},
+	}
+	a := overlayMobs(mapText, mobs, bounds, 5, 3)
+	b := overlayMobs(mapText, mobs, bounds, 5, 3)
+	if a != b {
+		t.Fatal("mob overlay with clusters should be deterministic")
 	}
 }

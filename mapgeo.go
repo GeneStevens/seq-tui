@@ -502,32 +502,43 @@ func rasterizeAdaptiveViewport(lines []mapLine, fullBounds mapBounds, centerX, c
 }
 
 // overlayMobs places mob markers onto an ASCII map string using shared projection bounds.
-// Mob positions use x,y as ground plane (mob.x → map.X, mob.y → map.Z).
+// When multiple mobs project to the same cell, shows a count digit (2-9) or '+' (10+)
+// instead of 'm'. Single mobs remain 'm'. Deterministic — uses backend mob order.
 func overlayMobs(mapText string, mobs []mobPosition, bounds mapBounds, width, height int) string {
 	if len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
 	}
 
+	// Count mobs per cell
+	type cellKey struct{ col, row int }
+	counts := make(map[cellKey]int)
+	for _, mob := range mobs {
+		col, row := bounds.projectToCell(mob.Position.X, mob.Position.Y, width, height)
+		if row >= 0 && row < height && col >= 0 && col < width {
+			counts[cellKey{col, row}]++
+		}
+	}
+
 	lines := strings.Split(mapText, "\n")
-	// Ensure we have enough lines
 	for len(lines) < height {
 		lines = append(lines, strings.Repeat(" ", width))
 	}
 
-	for _, mob := range mobs {
-		// mob.Position.X → map X (column), mob.Position.Y → map Z (row)
-		col, row := bounds.projectToCell(mob.Position.X, mob.Position.Y, width, height)
-		if row >= 0 && row < len(lines) {
-			runes := []rune(lines[row])
-			// Pad if needed
-			for len(runes) < width {
-				runes = append(runes, ' ')
-			}
-			if col >= 0 && col < len(runes) {
-				runes[col] = 'm'
-				lines[row] = string(runes)
-			}
+	for cell, count := range counts {
+		runes := []rune(lines[cell.row])
+		for len(runes) < width {
+			runes = append(runes, ' ')
 		}
+		var glyph rune
+		if count == 1 {
+			glyph = 'm'
+		} else if count <= 9 {
+			glyph = rune('0' + count) // '2' through '9'
+		} else {
+			glyph = '+'
+		}
+		runes[cell.col] = glyph
+		lines[cell.row] = string(runes)
 	}
 
 	return strings.Join(lines, "\n")

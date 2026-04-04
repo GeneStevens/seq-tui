@@ -82,6 +82,9 @@ func colorizeMapContent(mapContent string) string {
 			sb.WriteString(focusedMobGlyphStyle.Render("M"))
 		case 'X':
 			sb.WriteString(attackTargetGlyphStyle.Render("X"))
+		case '2', '3', '4', '5', '6', '7', '8', '9', '+':
+			// Multi-mob count glyphs — same color as regular mobs
+			sb.WriteString(mobGlyphStyle.Render(string(ch)))
 		case '#':
 			sb.WriteString(wallGlyphStyle.Render("#"))
 		case '\n':
