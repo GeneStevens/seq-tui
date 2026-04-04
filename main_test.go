@@ -209,7 +209,7 @@ func TestRenderHeaderContainsSubtitle(t *testing.T) {
 }
 
 func TestRenderFooterContainsQuitHint(t *testing.T) {
-	footer := renderFooter(80, "", "", "", "")
+	footer := renderFooter(80, "", "", "", "", "")
 	if !strings.Contains(footer, "quit") {
 		t.Fatal("footer should contain quit hint")
 	}
@@ -223,7 +223,7 @@ func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -236,7 +236,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -257,7 +257,7 @@ func TestRenderStatusPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -267,7 +267,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -280,7 +280,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -291,7 +291,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -300,7 +300,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -342,7 +342,7 @@ func TestDirectionFromKeyUnrecognized(t *testing.T) {
 }
 
 func TestFooterContainsMovementKeys(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "")
 	if !strings.Contains(footer, "move") {
 		t.Fatal("footer should advertise movement keys")
 	}
@@ -353,7 +353,7 @@ func TestFooterContainsMovementKeys(t *testing.T) {
 
 func TestFooterShowsIntentPreview(t *testing.T) {
 	preview := moveIntent{direction: "north"}.preview()
-	footer := renderFooter(120, preview, "", "", "")
+	footer := renderFooter(120, preview, "", "", "", "")
 	if !strings.Contains(footer, "move north") {
 		t.Fatal("footer should show intent preview with direction")
 	}
@@ -1004,7 +1004,7 @@ func TestEncounterPanelActiveButDetailsMissing(t *testing.T) {
 }
 
 func TestSideColumnContainsEncounterPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(col, encounterTitle) {
 		t.Fatal("side column should contain encounter panel title")
 	}
@@ -1017,14 +1017,14 @@ func TestSideColumnContainsEncounterPanel(t *testing.T) {
 }
 
 func TestWideLayoutContainsEncounterPanel(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, encounterTitle) {
 		t.Fatal("wide layout should contain encounter panel")
 	}
 }
 
 func TestNarrowLayoutOmitsEncounterPanel(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if strings.Contains(layout, encounterTitle) {
 		t.Fatal("narrow layout should not contain encounter panel")
 	}
@@ -1465,7 +1465,7 @@ func TestRosterFocusNoGameplayTerms(t *testing.T) {
 }
 
 func TestFooterContainsRosterHint(t *testing.T) {
-	footer := renderFooter(80, "", "", "", "")
+	footer := renderFooter(80, "", "", "", "", "")
 	if !strings.Contains(footer, "tab") {
 		t.Fatal("footer should mention tab for roster navigation")
 	}
@@ -1663,7 +1663,7 @@ func TestFocusPreviewLabelOutOfRange(t *testing.T) {
 }
 
 func TestFooterShowsFocusPreview(t *testing.T) {
-	footer := renderFooter(120, "", "focus: mb:orc-a (local)", "", "")
+	footer := renderFooter(120, "", "focus: mb:orc-a (local)", "", "", "")
 	if !strings.Contains(footer, "focus: mb:orc-a (local)") {
 		t.Fatal("footer should show focus preview label")
 	}
@@ -1673,7 +1673,7 @@ func TestFooterShowsFocusPreview(t *testing.T) {
 }
 
 func TestFooterShowsFocusNone(t *testing.T) {
-	footer := renderFooter(120, "", "focus: none", "", "")
+	footer := renderFooter(120, "", "focus: none", "", "", "")
 	if !strings.Contains(footer, "focus: none") {
 		t.Fatal("footer should show focus: none when unfocused")
 	}
@@ -1681,7 +1681,7 @@ func TestFooterShowsFocusNone(t *testing.T) {
 
 func TestFooterShowsBothPreviews(t *testing.T) {
 	preview := moveIntent{direction: "north"}.preview()
-	footer := renderFooter(120, preview, "focus: mb:orc (local)", "", "")
+	footer := renderFooter(120, preview, "focus: mb:orc (local)", "", "", "")
 	if !strings.Contains(footer, "move north") {
 		t.Fatal("footer should show movement intent")
 	}
@@ -1693,14 +1693,14 @@ func TestFooterShowsBothPreviews(t *testing.T) {
 func TestLayoutIncludesFocusPreview(t *testing.T) {
 	entries := []rosterEntry{{kind: "mb", id: "test-mob"}}
 	focus := rosterFocus{index: 0}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, focus, entries, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, focus, entries, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, "focus: mb:test-mob (local)") {
 		t.Fatal("layout should include focus preview in footer")
 	}
 }
 
 func TestLayoutFocusNoneWhenUnfocused(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, "focus: none") {
 		t.Fatal("layout should show focus: none when unfocused")
 	}
@@ -1843,7 +1843,7 @@ func TestQueryTargetProximityPlayerKind(t *testing.T) {
 }
 
 func TestFooterShowsTargetLabel(t *testing.T) {
-	footer := renderFooter(120, "", "", "target: orc (backend)", "")
+	footer := renderFooter(120, "", "", "target: orc (backend)", "", "")
 	if !strings.Contains(footer, "target: orc (backend)") {
 		t.Fatal("footer should show target label")
 	}
@@ -1851,7 +1851,7 @@ func TestFooterShowsTargetLabel(t *testing.T) {
 
 func TestFooterShowsAllThreeLabels(t *testing.T) {
 	preview := moveIntent{direction: "north"}.preview()
-	footer := renderFooter(120, preview, "focus: mb:orc (local)", "target: orc (backend)", "")
+	footer := renderFooter(120, preview, "focus: mb:orc (local)", "target: orc (backend)", "", "")
 	if !strings.Contains(footer, "move north") {
 		t.Fatal("footer should show movement intent")
 	}
@@ -1865,14 +1865,14 @@ func TestFooterShowsAllThreeLabels(t *testing.T) {
 
 func TestLayoutIncludesTargetLabel(t *testing.T) {
 	tc := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a", Found: true, MobName: "orc"}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, tc, attackResult{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, tc, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, "(backend)") {
 		t.Fatal("layout should include backend target label")
 	}
 }
 
 func TestLayoutTargetNoneByDefault(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, "target: none") {
 		t.Fatal("layout should show target: none by default")
 	}
@@ -1888,7 +1888,7 @@ func TestTargetConfirmDeterministic(t *testing.T) {
 }
 
 func TestFooterContainsConfirmHint(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "")
 	if !strings.Contains(footer, "t: confirm") {
 		t.Fatal("footer should mention t: confirm keybind")
 	}
@@ -1979,14 +1979,14 @@ func TestProximityPanelDeterministic(t *testing.T) {
 }
 
 func TestSideColumnContainsProximityPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(col, "Proximity") {
 		t.Fatal("side column should contain proximity panel")
 	}
 }
 
 func TestWideLayoutContainsProximityPanel(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, "Proximity") {
 		t.Fatal("wide layout should contain proximity panel")
 	}
@@ -2157,14 +2157,14 @@ func TestDevIntentURLAsync(t *testing.T) {
 }
 
 func TestFooterShowsAttackLabel(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "attack: sent")
+	footer := renderFooter(120, "", "", "", "attack: sent", "")
 	if !strings.Contains(footer, "attack: sent") {
 		t.Fatal("footer should show attack label")
 	}
 }
 
 func TestFooterShowsAttackKeybind(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "")
 	if !strings.Contains(footer, "a: attack") {
 		t.Fatal("footer should mention a: attack keybind")
 	}
@@ -2172,14 +2172,14 @@ func TestFooterShowsAttackKeybind(t *testing.T) {
 
 func TestLayoutIncludesAttackLabel(t *testing.T) {
 	ar := attackResult{State: attackStateSent, TargetID: "orc"}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, ar)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, ar, pickupResult{})
 	if !strings.Contains(layout, "attack: sent") {
 		t.Fatal("layout should include attack label when sent")
 	}
 }
 
 func TestLayoutNoAttackLabelByDefault(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if strings.Contains(layout, "attack:") {
 		t.Fatal("layout should not show attack label by default")
 	}
@@ -2331,15 +2331,197 @@ func TestCombatPanelNoGameplayTerms(t *testing.T) {
 }
 
 func TestSideColumnContainsCombatPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(col, "Combat") {
 		t.Fatal("side column should contain combat panel")
 	}
 }
 
 func TestWideLayoutContainsCombatPanel(t *testing.T) {
-	layout := renderLayout(120, 80, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{})
+	layout := renderLayout(120, 80, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{})
 	if !strings.Contains(layout, "Combat") {
 		t.Fatal("wide layout should contain combat panel")
+	}
+}
+
+// --- Loot Readback and Pickup Tests (M34) ---
+
+func TestLootPanelNone(t *testing.T) {
+	panel := renderLootPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{}, pickupResult{})
+	if !strings.Contains(panel, "Loot") {
+		t.Fatal("loot panel should contain title")
+	}
+	if !strings.Contains(panel, "none") {
+		t.Fatal("loot panel should show none when no encounter")
+	}
+}
+
+func TestLootPanelEncounterActive(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{EncounterID: "enc-1", State: "Active"}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{})
+	if !strings.Contains(panel, "enc: Active") {
+		t.Fatal("loot panel should show encounter active state")
+	}
+}
+
+func TestLootPanelDropsAvailable(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+			DropsGenerated: true, Drops: []string{"item-1", "item-2"},
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{})
+	if !strings.Contains(panel, "drops: 2") {
+		t.Fatal("loot panel should show drop count")
+	}
+	if !strings.Contains(panel, "item-1") {
+		t.Fatal("loot panel should show first item ID")
+	}
+	if !strings.Contains(panel, "item-2") {
+		t.Fatal("loot panel should show second item ID")
+	}
+}
+
+func TestLootPanelNoDrops(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: false,
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{})
+	if !strings.Contains(panel, "drops: none") {
+		t.Fatal("loot panel should show drops: none")
+	}
+}
+
+func TestLootPanelExpired(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"item-1"}, LootExpired: true,
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{})
+	if !strings.Contains(panel, "loot: expired") {
+		t.Fatal("loot panel should show loot: expired")
+	}
+}
+
+func TestLootPanelPickupAccepted(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"item-1"},
+		}},
+	}
+	pk := pickupResult{State: pickupStateSent, EncounterID: "enc-1", ItemID: "item-1"}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pk)
+	if !strings.Contains(panel, "pickup: accepted") {
+		t.Fatal("loot panel should show pickup: accepted")
+	}
+}
+
+func TestLootPanelPickupFailed(t *testing.T) {
+	pk := pickupResult{State: pickupStateFailed, Error: "loot expired"}
+	panel := renderLootPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{}, pk)
+	if !strings.Contains(panel, "pickup: failed") {
+		t.Fatal("loot panel should show pickup: failed")
+	}
+}
+
+func TestLootPanelDropsAllPickedUp(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{},
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{})
+	if !strings.Contains(panel, "drops: 0") {
+		t.Fatal("loot panel should show drops: 0 when all picked up")
+	}
+}
+
+func TestLootPanelDeterministic(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"item-1"},
+		}},
+	}
+	a := renderLootPanel(sidePanelWidth, pr, er, pickupResult{})
+	b := renderLootPanel(sidePanelWidth, pr, er, pickupResult{})
+	if a != b {
+		t.Fatal("loot panel should be deterministic")
+	}
+}
+
+func TestLootPanelNoGameplayTerms(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"item-1"},
+		}},
+	}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{})
+	forbidden := []string{"rarity", "epic", "legendary", "value", "gold", "reward", "victory"}
+	for _, word := range forbidden {
+		if strings.Contains(strings.ToLower(panel), word) {
+			t.Fatalf("loot panel should not contain reward term: %s", word)
+		}
+	}
+}
+
+func TestPickupStatusLabelNone(t *testing.T) {
+	r := pickupResult{}
+	if r.pickupStatusLabel() != "" {
+		t.Fatal("empty pickup should return empty label")
+	}
+}
+
+func TestPickupStatusLabelSent(t *testing.T) {
+	r := pickupResult{State: pickupStateSent}
+	if r.pickupStatusLabel() != "pickup: accepted" {
+		t.Fatalf("expected 'pickup: accepted', got %q", r.pickupStatusLabel())
+	}
+}
+
+func TestPickupStatusLabelFailed(t *testing.T) {
+	r := pickupResult{State: pickupStateFailed}
+	if r.pickupStatusLabel() != "pickup: failed" {
+		t.Fatalf("expected 'pickup: failed', got %q", r.pickupStatusLabel())
+	}
+}
+
+func TestSideColumnContainsLootPanel(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, targetConfirmResult{}, attackResult{}, pickupResult{})
+	if !strings.Contains(col, "Loot") {
+		t.Fatal("side column should contain loot panel")
+	}
+}
+
+func TestFooterContainsPickupHint(t *testing.T) {
+	footer := renderFooter(120, "", "", "", "", "")
+	if !strings.Contains(footer, "p: pickup") {
+		t.Fatal("footer should mention p: pickup keybind")
 	}
 }

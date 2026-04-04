@@ -209,6 +209,11 @@ type attackResultMsg struct {
 	result attackResult
 }
 
+// pickupResultMsg carries the result of a pickup_item intent submission.
+type pickupResultMsg struct {
+	result pickupResult
+}
+
 // proximityNeedsRefresh returns true if there is an active proximity confirmation
 // and either the player position or the focused entry has changed since it was queried.
 // Returns false if no proximity query has been made yet (State == targetConfirmNone).
@@ -246,6 +251,7 @@ type model struct {
 	lastProximityPos playerPosResult     // player position at last proximity query
 	lastProximityID  string              // roster entry ID at last proximity query
 	lastAttack       attackResult        // result of most recent BasicAttack submission
+	lastPickup       pickupResult        // result of most recent pickup_item submission
 }
 
 // maybeRefreshProximity checks if a proximity re-query is needed and, if so,
@@ -339,6 +345,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case attackResultMsg:
 		m.lastAttack = msg.result
 		return m, nil
+	case pickupResultMsg:
+		m.lastPickup = msg.result
+		return m, nil
 	case moveResultMsg:
 		if msg.result.OK {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateSent}
@@ -366,6 +375,31 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "shift+tab":
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
 			return m, maybeRefreshProximity(&m)
+		case "p":
+			// Submit pickup_item intent for first available drop in active encounter
+			if m.playerRead.State != playerReadOK || !m.playerRead.HasActiveEncounter {
+				m.lastPickup = pickupResult{State: pickupStateFailed, Error: "no encounter"}
+				return m, nil
+			}
+			if m.encounterRead.State != encounterReadOK {
+				m.lastPickup = pickupResult{State: pickupStateFailed, Error: "encounter unavailable"}
+				return m, nil
+			}
+			enc := findPlayerEncounter(m.encounterRead.Encounters, m.playerRead.ActiveEncounterID)
+			if enc == nil || !enc.DropsGenerated || len(enc.Drops) == 0 {
+				m.lastPickup = pickupResult{State: pickupStateFailed, Error: "no drops"}
+				return m, nil
+			}
+			if enc.LootExpired {
+				m.lastPickup = pickupResult{State: pickupStateFailed, Error: "loot expired"}
+				return m, nil
+			}
+			encID := enc.EncounterID
+			itemID := enc.Drops[0] // pick up first available drop
+			bt := m.target
+			return m, func() tea.Msg {
+				return pickupResultMsg{result: submitPickupItem(bt, encID, itemID)}
+			}
 		case "a":
 			// Submit BasicAttack intent against focused mob
 			if m.playerRead.State != playerReadOK {
@@ -425,7 +459,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup)
 }
 
 func main() {

@@ -426,6 +426,9 @@ type encounterSummary struct {
 	MobsDead        int      `json:"mobs_dead_count"`
 	ActionIndex     uint64   `json:"action_index"`
 	TimelineLength  int      `json:"timeline_length"`
+	DropsGenerated  bool     // backend says drops have been generated
+	Drops           []string // backend-owned available drop item IDs
+	LootExpired     bool     // backend says loot window has expired
 }
 
 // encounterReadResult holds the outcome of a zone encounter read.
@@ -490,6 +493,9 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			MobsDeadCount   int      `json:"mobs_dead_count"`
 			ActionIndex     uint64   `json:"action_index"`
 			TimelineLength  int      `json:"timeline_length"`
+			DropsGenerated  bool     `json:"drops_generated"`
+			Drops           []string `json:"drops"`
+			LootExpired     bool     `json:"loot_expired"`
 		} `json:"result"`
 		Error string `json:"error"`
 	}
@@ -519,6 +525,9 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			MobsDead:        e.MobsDeadCount,
 			ActionIndex:     e.ActionIndex,
 			TimelineLength:  e.TimelineLength,
+			DropsGenerated:  e.DropsGenerated,
+			Drops:           e.Drops,
+			LootExpired:     e.LootExpired,
 		})
 	}
 
@@ -743,6 +752,83 @@ func submitBasicAttack(target backendTarget, mobID string) attackResult {
 	}
 
 	return attackResult{State: attackStateSent, TargetID: mobID}
+}
+
+// --- Pickup intent submission ---
+
+// pickupState represents the outcome of a pickup_item intent submission.
+type pickupState int
+
+const (
+	pickupStateNone pickupState = iota
+	pickupStateSent
+	pickupStateFailed
+)
+
+// pickupResult holds the outcome of a pickup_item intent submission.
+// Purely a submission receipt — no inventory simulation.
+type pickupResult struct {
+	State       pickupState
+	Error       string
+	EncounterID string
+	ItemID      string
+}
+
+// pickupStatusLabel returns a compact display label for the pickup submission state.
+func (r pickupResult) pickupStatusLabel() string {
+	switch r.State {
+	case pickupStateSent:
+		return "pickup: accepted"
+	case pickupStateFailed:
+		return "pickup: failed"
+	default:
+		return ""
+	}
+}
+
+// submitPickupItem submits a pickup_item intent for the specified encounter and item.
+// Returns a submission receipt only — no inventory simulation.
+func submitPickupItem(target backendTarget, encounterID, itemID string) pickupResult {
+	url := devIntentURL(target)
+	payload := fmt.Sprintf(`{"player_id":"%s","intent_kind":"pickup_item","encounter_id":"%s","item_id":"%s"}`,
+		target.Player, encounterID, itemID)
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	req, err := http.NewRequest("POST", url, strings.NewReader(payload))
+	if err != nil {
+		return pickupResult{State: pickupStateFailed, Error: err.Error(), EncounterID: encounterID, ItemID: itemID}
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return pickupResult{State: pickupStateFailed, Error: err.Error(), EncounterID: encounterID, ItemID: itemID}
+	}
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return pickupResult{State: pickupStateFailed, Error: "failed to read body", EncounterID: encounterID, ItemID: itemID}
+	}
+
+	var raw struct {
+		OK    bool   `json:"ok"`
+		Error string `json:"error"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return pickupResult{State: pickupStateFailed, Error: "failed to decode response", EncounterID: encounterID, ItemID: itemID}
+	}
+
+	if !raw.OK {
+		errMsg := raw.Error
+		if errMsg == "" {
+			errMsg = fmt.Sprintf("HTTP %d", resp.StatusCode)
+		}
+		return pickupResult{State: pickupStateFailed, Error: errMsg, EncounterID: encounterID, ItemID: itemID}
+	}
+
+	return pickupResult{State: pickupStateSent, EncounterID: encounterID, ItemID: itemID}
 }
 
 // devJoinURL builds the dev player-join endpoint URL.
