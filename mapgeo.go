@@ -19,13 +19,30 @@ const (
 	mapReadFailed
 )
 
+// mapBounds holds the bounding box used for projection.
+// Shared between map rasterization and mob position projection.
+type mapBounds struct {
+	MinX, MaxX float64
+	MinZ, MaxZ float64
+	SpanX, SpanZ float64
+}
+
+// projectToCell projects a world coordinate (x maps to col, z maps to row)
+// into canvas cell coordinates using the shared bounding box.
+func (b mapBounds) projectToCell(worldX, worldZ float64, width, height int) (col, row int) {
+	col = int(math.Round(float64(width-1) * (worldX - b.MinX) / b.SpanX))
+	row = int(math.Round(float64(height-1) * (1.0 - (worldZ-b.MinZ)/b.SpanZ)))
+	return col, row
+}
+
 // mapReadResult holds the outcome of a map geometry read.
 type mapReadResult struct {
-	State    mapReadState
-	Error    string
-	MapText  string // projected ASCII map (populated on success)
-	MapWidth int
+	State     mapReadState
+	Error     string
+	MapText   string // projected ASCII map (populated on success)
+	MapWidth  int
 	MapHeight int
+	Bounds    mapBounds // shared projection basis
 }
 
 // mapStatusLabel returns a calm, honest label for the map read state.
@@ -106,27 +123,21 @@ func fetchZoneMap(target backendTarget) mapReadResult {
 
 	// Project and rasterize
 	width, height := 60, 30
-	ascii := projectAndRasterize(mapResp.Result.Lines, width, height)
+	ascii, bounds := projectAndRasterize(mapResp.Result.Lines, width, height)
 
 	return mapReadResult{
 		State:     mapReadOK,
 		MapText:   ascii,
 		MapWidth:  width,
 		MapHeight: height,
+		Bounds:    bounds,
 	}
 }
 
 // --- Projection and rasterization ---
 
-// projectAndRasterize converts 3D line segments into a 2D ASCII map.
-// Uses top-down projection (X, Z plane; Y/elevation ignored).
-// Normalizes coordinates into a fixed-size ASCII canvas.
-func projectAndRasterize(lines []mapLine, width, height int) string {
-	if len(lines) == 0 || width < 1 || height < 1 {
-		return ""
-	}
-
-	// Find bounding box in X,Z plane
+// computeBounds calculates the bounding box for map line geometry.
+func computeBounds(lines []mapLine) mapBounds {
 	minX, maxX := lines[0].From.X, lines[0].From.X
 	minZ, maxZ := lines[0].From.Z, lines[0].From.Z
 	for _, l := range lines {
@@ -137,11 +148,22 @@ func projectAndRasterize(lines []mapLine, width, height int) string {
 			if p.Z > maxZ { maxZ = p.Z }
 		}
 	}
-
 	spanX := maxX - minX
 	spanZ := maxZ - minZ
 	if spanX == 0 { spanX = 1 }
 	if spanZ == 0 { spanZ = 1 }
+	return mapBounds{MinX: minX, MaxX: maxX, MinZ: minZ, MaxZ: maxZ, SpanX: spanX, SpanZ: spanZ}
+}
+
+// projectAndRasterize converts 3D line segments into a 2D ASCII map.
+// Uses top-down projection (X, Z plane; Y/elevation ignored).
+// Returns the ASCII string and the bounding box used for projection.
+func projectAndRasterize(lines []mapLine, width, height int) (string, mapBounds) {
+	if len(lines) == 0 || width < 1 || height < 1 {
+		return "", mapBounds{}
+	}
+
+	bounds := computeBounds(lines)
 
 	// Initialize canvas with empty space
 	canvas := make([][]rune, height)
@@ -154,13 +176,8 @@ func projectAndRasterize(lines []mapLine, width, height int) string {
 
 	// Rasterize each line segment using Bresenham's algorithm
 	for _, l := range lines {
-		// Project 3D to 2D canvas coordinates
-		// X maps to column, Z maps to row (inverted so north is up)
-		c0 := int(math.Round(float64(width-1) * (l.From.X - minX) / spanX))
-		r0 := int(math.Round(float64(height-1) * (1.0 - (l.From.Z-minZ)/spanZ)))
-		c1 := int(math.Round(float64(width-1) * (l.To.X - minX) / spanX))
-		r1 := int(math.Round(float64(height-1) * (1.0 - (l.To.Z-minZ)/spanZ)))
-
+		c0, r0 := bounds.projectToCell(l.From.X, l.From.Z, width, height)
+		c1, r1 := bounds.projectToCell(l.To.X, l.To.Z, width, height)
 		rasterizeLine(canvas, r0, c0, r1, c1, width, height)
 	}
 
@@ -172,7 +189,7 @@ func projectAndRasterize(lines []mapLine, width, height int) string {
 		}
 		sb.WriteString(string(row))
 	}
-	return sb.String()
+	return sb.String(), bounds
 }
 
 // rasterizeLine draws a line on the canvas using Bresenham's algorithm.
@@ -209,4 +226,38 @@ func abs(x int) int {
 		return -x
 	}
 	return x
+}
+
+// --- Mob overlay ---
+
+// overlayMobs places mob markers onto an ASCII map string using shared projection bounds.
+// Mob positions use x,y as ground plane (mob.x → map.X, mob.y → map.Z).
+func overlayMobs(mapText string, mobs []mobPosition, bounds mapBounds, width, height int) string {
+	if len(mobs) == 0 || width < 1 || height < 1 {
+		return mapText
+	}
+
+	lines := strings.Split(mapText, "\n")
+	// Ensure we have enough lines
+	for len(lines) < height {
+		lines = append(lines, strings.Repeat(" ", width))
+	}
+
+	for _, mob := range mobs {
+		// mob.Position.X → map X (column), mob.Position.Y → map Z (row)
+		col, row := bounds.projectToCell(mob.Position.X, mob.Position.Y, width, height)
+		if row >= 0 && row < len(lines) {
+			runes := []rune(lines[row])
+			// Pad if needed
+			for len(runes) < width {
+				runes = append(runes, ' ')
+			}
+			if col >= 0 && col < len(runes) {
+				runes[col] = 'm'
+				lines[row] = string(runes)
+			}
+		}
+	}
+
+	return strings.Join(lines, "\n")
 }

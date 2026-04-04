@@ -99,3 +99,96 @@ func fetchZoneStatus(target backendTarget) zoneReadResult {
 		Summary: summary,
 	}
 }
+
+// --- Mob positions ---
+
+// mobReadState represents the outcome of a mob-position read.
+type mobReadState int
+
+const (
+	mobReadNotAttempted mobReadState = iota
+	mobReadOK
+	mobReadFailed
+)
+
+// mobPosition is a conservative partial decode of one mob's position data.
+type mobPosition struct {
+	MobName  string     `json:"mob_name"`
+	Position mobPosVec3 `json:"position"`
+}
+
+type mobPosVec3 struct {
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
+	Z float64 `json:"z"`
+}
+
+// mobReadResult holds the outcome of a mob-position read.
+type mobReadResult struct {
+	State mobReadState
+	Error string
+	Mobs  []mobPosition
+	Count int
+}
+
+// mobStatusLabel returns a calm, honest label for the mob read state.
+func (r mobReadResult) mobStatusLabel() string {
+	switch r.State {
+	case mobReadOK:
+		return fmt.Sprintf("mobs: %d loaded", r.Count)
+	case mobReadFailed:
+		return "mobs: unavailable"
+	default:
+		return "mobs: pending"
+	}
+}
+
+// zoneMobPositionsURL builds the mob-positions endpoint URL.
+func zoneMobPositionsURL(target backendTarget) string {
+	base := strings.TrimRight(target.BaseURL, "/")
+	url := fmt.Sprintf("%s/world/zone/%s/mob_positions", base, target.Zone)
+	if strings.EqualFold(target.Mode, "ASYNC") {
+		url += "?mode=Async"
+	}
+	return url
+}
+
+// fetchMobPositions performs a single GET for mob positions.
+func fetchMobPositions(target backendTarget) mobReadResult {
+	url := zoneMobPositionsURL(target)
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	resp, err := client.Get(url)
+	if err != nil {
+		return mobReadResult{State: mobReadFailed, Error: err.Error()}
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return mobReadResult{State: mobReadFailed, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return mobReadResult{State: mobReadFailed, Error: "failed to read response body"}
+	}
+
+	// Response shape: {"result": {"<pid>": {...mob data...}, ...}, "process_name": "...", "message": "..."}
+	var raw struct {
+		Result map[string]mobPosition `json:"result"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return mobReadResult{State: mobReadFailed, Error: "failed to decode mob positions"}
+	}
+
+	mobs := make([]mobPosition, 0, len(raw.Result))
+	for _, m := range raw.Result {
+		mobs = append(mobs, m)
+	}
+
+	return mobReadResult{
+		State: mobReadOK,
+		Mobs:  mobs,
+		Count: len(mobs),
+	}
+}

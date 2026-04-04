@@ -215,14 +215,14 @@ func TestRenderFooterContainsQuitHint(t *testing.T) {
 }
 
 func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
-	panel := renderMapPanel(mapReadResult{})
+	panel := renderMapPanel(mapReadResult{}, mobReadResult{})
 	if !strings.ContainsRune(panel, playerMarker) {
 		t.Fatal("map panel should contain player marker")
 	}
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -235,7 +235,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{})
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -249,14 +249,14 @@ func TestRenderNearbyPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderStatusPanelContainsTitle(t *testing.T) {
-	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{})
+	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	if !strings.Contains(panel, statusTitle) {
 		t.Fatal("status panel should contain title")
 	}
 }
 
 func TestRenderSideColumnContainsBothSections(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{})
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	if !strings.Contains(col, nearbyTitle) {
 		t.Fatal("side column should contain nearby title")
 	}
@@ -266,7 +266,7 @@ func TestRenderSideColumnContainsBothSections(t *testing.T) {
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{})
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	if !strings.Contains(layout, nearbyTitle) {
 		t.Fatal("wide layout should contain nearby panel")
 	}
@@ -279,7 +279,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{})
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	if strings.Contains(layout, nearbyTitle) {
 		t.Fatal("narrow layout should not contain nearby panel")
 	}
@@ -290,7 +290,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{})
+	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -299,7 +299,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{})
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -436,7 +436,7 @@ func TestDefaultTargetValues(t *testing.T) {
 
 func TestStatusPanelContainsTargetInfo(t *testing.T) {
 	target := defaultTarget()
-	panel := renderStatusPanel(sidePanelWidth, target, zoneReadResult{}, mapReadResult{})
+	panel := renderStatusPanel(sidePanelWidth, target, zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	if !strings.Contains(panel, "target") {
 		t.Fatal("status panel should contain target label")
 	}
@@ -452,7 +452,7 @@ func TestStatusPanelContainsTargetInfo(t *testing.T) {
 }
 
 func TestStatusPanelDoesNotImplyConnectivity(t *testing.T) {
-	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{})
+	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{})
 	for _, bad := range []string{"connected", "online", "healthy"} {
 		if strings.Contains(strings.ToLower(panel), bad) {
 			t.Fatalf("status panel must not contain %q", bad)
@@ -517,8 +517,8 @@ func TestProjectAndRasterizeDeterministic(t *testing.T) {
 		{From: mapVec3{X: 0, Z: 0}, To: mapVec3{X: 100, Z: 0}},
 		{From: mapVec3{X: 0, Z: 0}, To: mapVec3{X: 0, Z: 100}},
 	}
-	a := projectAndRasterize(lines, 20, 10)
-	b := projectAndRasterize(lines, 20, 10)
+	a, _ := projectAndRasterize(lines, 20, 10)
+	b, _ := projectAndRasterize(lines, 20, 10)
 	if a != b {
 		t.Fatal("projection should be deterministic")
 	}
@@ -528,7 +528,7 @@ func TestProjectAndRasterizeNonEmpty(t *testing.T) {
 	lines := []mapLine{
 		{From: mapVec3{X: 0, Z: 0}, To: mapVec3{X: 100, Z: 100}},
 	}
-	result := projectAndRasterize(lines, 20, 10)
+	result, _ := projectAndRasterize(lines, 20, 10)
 	if len(result) == 0 {
 		t.Fatal("rasterized output should not be empty")
 	}
@@ -538,7 +538,7 @@ func TestProjectAndRasterizeNonEmpty(t *testing.T) {
 }
 
 func TestProjectAndRasterizeEmpty(t *testing.T) {
-	result := projectAndRasterize(nil, 20, 10)
+	result, _ := projectAndRasterize(nil, 20, 10)
 	if result != "" {
 		t.Fatal("empty geometry should produce empty output")
 	}
@@ -564,7 +564,7 @@ func TestMapPanelUsesBackendMap(t *testing.T) {
 		State:   mapReadOK,
 		MapText: "###\n# #\n###",
 	}
-	panel := renderMapPanel(mr)
+	panel := renderMapPanel(mr, mobReadResult{})
 	if !strings.Contains(panel, "###") {
 		t.Fatal("map panel should use backend map text when available")
 	}
@@ -572,7 +572,7 @@ func TestMapPanelUsesBackendMap(t *testing.T) {
 
 func TestMapPanelFallsBackToPlaceholder(t *testing.T) {
 	mr := mapReadResult{State: mapReadFailed}
-	panel := renderMapPanel(mr)
+	panel := renderMapPanel(mr, mobReadResult{})
 	if !strings.ContainsRune(panel, playerMarker) {
 		t.Fatal("map panel should fall back to placeholder with player marker")
 	}
@@ -580,14 +580,83 @@ func TestMapPanelFallsBackToPlaceholder(t *testing.T) {
 
 func TestStatusPanelShowsZoneReadState(t *testing.T) {
 	okResult := zoneReadResult{State: zoneReadOK}
-	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), okResult, mapReadResult{})
+	panel := renderStatusPanel(sidePanelWidth, defaultTarget(), okResult, mapReadResult{}, mobReadResult{})
 	if !strings.Contains(panel, "ok") {
 		t.Fatal("status panel should show zone read ok state")
 	}
 
 	failResult := zoneReadResult{State: zoneReadFailed}
-	panel2 := renderStatusPanel(sidePanelWidth, defaultTarget(), failResult, mapReadResult{})
+	panel2 := renderStatusPanel(sidePanelWidth, defaultTarget(), failResult, mapReadResult{}, mobReadResult{})
 	if !strings.Contains(panel2, "failed") {
 		t.Fatal("status panel should show zone read failed state")
+	}
+}
+
+func TestZoneMobPositionsURL(t *testing.T) {
+	target := defaultTarget()
+	url := zoneMobPositionsURL(target)
+	if !strings.Contains(url, "9090") {
+		t.Fatal("URL should use port 9090")
+	}
+	if !strings.Contains(url, "/world/zone/crushbone/mob_positions") {
+		t.Fatal("URL should target /world/zone/crushbone/mob_positions")
+	}
+}
+
+func TestMobReadStateLabels(t *testing.T) {
+	pending := mobReadResult{State: mobReadNotAttempted}
+	if !strings.Contains(pending.mobStatusLabel(), "pending") {
+		t.Fatal("not-attempted state should show pending")
+	}
+	ok := mobReadResult{State: mobReadOK, Count: 42}
+	if !strings.Contains(ok.mobStatusLabel(), "42") {
+		t.Fatal("success state should show count")
+	}
+	failed := mobReadResult{State: mobReadFailed}
+	if !strings.Contains(failed.mobStatusLabel(), "unavailable") {
+		t.Fatal("failure state should show unavailable")
+	}
+}
+
+func TestOverlayMobsDeterministic(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{
+		{MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}},
+	}
+	a := overlayMobs(mapText, mobs, bounds, 5, 3)
+	b := overlayMobs(mapText, mobs, bounds, 5, 3)
+	if a != b {
+		t.Fatal("mob overlay should be deterministic")
+	}
+	if !strings.Contains(a, "m") {
+		t.Fatal("mob overlay should contain mob marker")
+	}
+}
+
+func TestOverlayMobsEmptyMobs(t *testing.T) {
+	mapText := "#####"
+	result := overlayMobs(mapText, nil, mapBounds{}, 5, 1)
+	if result != mapText {
+		t.Fatal("empty mobs should return map unchanged")
+	}
+}
+
+func TestMapPanelWithMobOverlay(t *testing.T) {
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   "     \n     \n     ",
+		MapWidth:  5,
+		MapHeight: 3,
+		Bounds:    mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100},
+	}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs:  []mobPosition{{MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}},
+		Count: 1,
+	}
+	panel := renderMapPanel(mr, mobr)
+	if !strings.Contains(panel, "m") {
+		t.Fatal("map panel should contain mob markers when mobs are available")
 	}
 }
