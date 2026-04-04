@@ -10,6 +10,7 @@ type backendTarget struct {
 	Visibility string // Instance visibility: "PUBLIC" or "PRIVATE"
 	Affinity   string // Instance affinity key (e.g., "open" for public)
 	Player     string // Player identifier for dev integration
+	DevToken   string // Dev API token (required for dev endpoints)
 }
 
 // defaultTarget returns local-dev defaults for the backend target.
@@ -22,5 +23,6 @@ func defaultTarget() backendTarget {
 		Visibility: "PUBLIC",
 		Affinity:   "open",
 		Player:     "p1",
+		DevToken:   "abc",
 	}
 }

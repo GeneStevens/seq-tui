@@ -58,13 +58,17 @@ func renderHeader(width int) string {
 
 // renderMapPanel returns the map inside a bordered panel.
 // Uses backend-sourced map when available, falls back to placeholder with overlays.
-func renderMapPanel(mr mapReadResult, mobr mobReadResult) string {
+func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult) string {
 	var mapContent string
 	if mr.State == mapReadOK && mr.MapText != "" {
 		mapContent = mr.MapText
 		// Overlay mob positions if available
 		if mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
 			mapContent = overlayMobs(mapContent, mobr.Mobs, mr.Bounds, mr.MapWidth, mr.MapHeight)
+		}
+		// Overlay player marker from backend position (last, so always visible)
+		if pr.State == playerReadOK && pr.HasPos {
+			mapContent = overlayPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
 		}
 	} else {
 		mapContent = renderStyledMap()
@@ -90,7 +94,7 @@ func renderNearbyPanel(width int) string {
 }
 
 // renderStatusPanel returns the status panel with target and read info.
-func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult) string {
+func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult) string {
 	title := panelTitleStyle.Render(statusTitle)
 	vis := strings.ToLower(target.Visibility)
 	items := []string{
@@ -101,6 +105,7 @@ func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr ma
 		panelItemStyle.Render("  " + zr.statusLabel()),
 		panelItemStyle.Render("  " + mr.mapStatusLabel()),
 		panelItemStyle.Render("  " + mobr.mobStatusLabel()),
+		panelItemStyle.Render("  " + pr.playerStatusLabel()),
 		panelItemStyle.Render("  client: thin"),
 	}
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
@@ -108,9 +113,9 @@ func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr ma
 }
 
 // renderSideColumn stacks the nearby and status panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult) string {
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult) string {
 	nearby := renderNearbyPanel(width)
-	status := renderStatusPanel(width, target, zr, mr, mobr)
+	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", status)
 }
 
@@ -124,10 +129,10 @@ func renderFooter(width int, intentPreview string) string {
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult) string {
 	header := renderHeader(width)
 	footer := renderFooter(width, lastInput)
-	mapPanel := renderMapPanel(mr, mobr)
+	mapPanel := renderMapPanel(mr, mobr, pr)
 
 	// Body height is total minus header (1 line) and footer (1 line)
 	bodyHeight := height - 2
@@ -138,7 +143,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,

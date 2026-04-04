@@ -230,6 +230,24 @@ func abs(x int) int {
 
 // --- Mob overlay ---
 
+// overlayPlayer places the player marker onto an ASCII map string using shared projection bounds.
+// Player position uses x,y as ground plane (same as mobs).
+func overlayPlayer(mapText string, pos playerPosResult, bounds mapBounds, width, height int) string {
+	col, row := bounds.projectToCell(pos.X, pos.Y, width, height)
+	lines := strings.Split(mapText, "\n")
+	if row >= 0 && row < len(lines) {
+		runes := []rune(lines[row])
+		for len(runes) < width {
+			runes = append(runes, ' ')
+		}
+		if col >= 0 && col < len(runes) {
+			runes[col] = '@'
+			lines[row] = string(runes)
+		}
+	}
+	return strings.Join(lines, "\n")
+}
+
 // overlayMobs places mob markers onto an ASCII map string using shared projection bounds.
 // Mob positions use x,y as ground plane (mob.x → map.X, mob.y → map.Z).
 func overlayMobs(mapText string, mobs []mobPosition, bounds mapBounds, width, height int) string {

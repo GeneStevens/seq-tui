@@ -192,3 +192,127 @@ func fetchMobPositions(target backendTarget) mobReadResult {
 		Count: len(mobs),
 	}
 }
+
+// --- Player join and state ---
+
+// playerReadState represents the outcome of a player join/read flow.
+type playerReadState int
+
+const (
+	playerReadNotAttempted playerReadState = iota
+	playerReadOK
+	playerReadFailed
+)
+
+// playerPosResult holds the player's backend-owned position.
+type playerPosResult struct {
+	X float64
+	Y float64
+}
+
+// playerReadResult holds the outcome of a player join + state read.
+type playerReadResult struct {
+	State    playerReadState
+	Error    string
+	Position playerPosResult
+	HasPos   bool // true if position was successfully decoded
+}
+
+// playerStatusLabel returns a calm, honest label.
+func (r playerReadResult) playerStatusLabel() string {
+	switch r.State {
+	case playerReadOK:
+		if r.HasPos {
+			return "player: joined"
+		}
+		return "player: joined (no pos)"
+	case playerReadFailed:
+		return "player: unavailable"
+	default:
+		return "player: pending"
+	}
+}
+
+// devJoinURL builds the dev player-join endpoint URL.
+func devJoinURL(target backendTarget) string {
+	base := strings.TrimRight(target.BaseURL, "/")
+	return fmt.Sprintf("%s/world/dev/zone/%s/player/join", base, target.Zone)
+}
+
+// devPlayerStateURL builds the dev player-state endpoint URL.
+func devPlayerStateURL(target backendTarget) string {
+	base := strings.TrimRight(target.BaseURL, "/")
+	return fmt.Sprintf("%s/world/dev/zone/%s/player/%s", base, target.Zone, target.Player)
+}
+
+// joinAndReadPlayer performs the dev join + player state read sequence.
+func joinAndReadPlayer(target backendTarget) playerReadResult {
+	client := &http.Client{Timeout: 5 * time.Second}
+
+	// Step 1: Join player into zone
+	joinBody := fmt.Sprintf(`{"player_id":"%s"}`, target.Player)
+	req, err := http.NewRequest("POST", devJoinURL(target), strings.NewReader(joinBody))
+	if err != nil {
+		return playerReadResult{State: playerReadFailed, Error: err.Error()}
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return playerReadResult{State: playerReadFailed, Error: err.Error()}
+	}
+	resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return playerReadResult{State: playerReadFailed, Error: fmt.Sprintf("join HTTP %d", resp.StatusCode)}
+	}
+
+	// Step 2: Read player state
+	stateReq, err := http.NewRequest("GET", devPlayerStateURL(target), nil)
+	if err != nil {
+		return playerReadResult{State: playerReadFailed, Error: err.Error()}
+	}
+	stateReq.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	stateResp, err := client.Do(stateReq)
+	if err != nil {
+		return playerReadResult{State: playerReadFailed, Error: err.Error()}
+	}
+	defer stateResp.Body.Close()
+
+	if stateResp.StatusCode != http.StatusOK {
+		// Join succeeded but state read failed — still report join as OK
+		return playerReadResult{State: playerReadOK, HasPos: false}
+	}
+
+	body, err := io.ReadAll(stateResp.Body)
+	if err != nil {
+		return playerReadResult{State: playerReadOK, HasPos: false}
+	}
+
+	// Conservative partial decode of player state
+	var raw struct {
+		Result struct {
+			Position struct {
+				Pos struct {
+					X float64 `json:"X"`
+					Y float64 `json:"Y"`
+					Z float64 `json:"Z"`
+				} `json:"Pos"`
+			} `json:"Position"`
+		} `json:"result"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return playerReadResult{State: playerReadOK, HasPos: false}
+	}
+
+	return playerReadResult{
+		State: playerReadOK,
+		Position: playerPosResult{
+			X: raw.Result.Position.Pos.X,
+			Y: raw.Result.Position.Pos.Y,
+		},
+		HasPos: true,
+	}
+}

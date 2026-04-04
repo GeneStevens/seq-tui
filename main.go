@@ -132,14 +132,20 @@ type mobReadResultMsg struct {
 	result mobReadResult
 }
 
+// playerReadResultMsg carries the result of a player join/read back to the model.
+type playerReadResultMsg struct {
+	result playerReadResult
+}
+
 type model struct {
 	width      int
 	height     int
-	lastIntent moveIntent     // most recent inert movement intent preview
-	target     backendTarget  // backend target config
-	zoneRead   zoneReadResult // result of zone status read
-	mapRead    mapReadResult  // result of map geometry read
-	mobRead    mobReadResult  // result of mob-position read
+	lastIntent moveIntent       // most recent inert movement intent preview
+	target     backendTarget    // backend target config
+	zoneRead   zoneReadResult   // result of zone status read
+	mapRead    mapReadResult    // result of map geometry read
+	mobRead    mobReadResult    // result of mob-position read
+	playerRead playerReadResult // result of player join + state read
 }
 
 func (m model) Init() tea.Cmd {
@@ -155,6 +161,9 @@ func (m model) Init() tea.Cmd {
 		func() tea.Msg {
 			return mobReadResultMsg{result: fetchMobPositions(target)}
 		},
+		func() tea.Msg {
+			return playerReadResultMsg{result: joinAndReadPlayer(target)}
+		},
 	)
 }
 
@@ -168,6 +177,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case mobReadResultMsg:
 		m.mobRead = msg.result
+		return m, nil
+	case playerReadResultMsg:
+		m.playerRead = msg.result
 		return m, nil
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
@@ -192,7 +204,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead)
 }
 
 func main() {
