@@ -244,7 +244,8 @@ func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr ma
 }
 
 // renderEncounterPanel returns the encounter status panel based on backend-owned facts.
-func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult, focus rosterFocus) string {
+// playerID is used to mark self in the roster with `*` suffix.
+func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult, focus rosterFocus, playerID string) string {
 	title := panelTitleStyle.Render(encounterTitle)
 
 	var items []string
@@ -260,20 +261,19 @@ func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult
 		items = append(items, panelItemStyle.Render(fmt.Sprintf("  zone: %d enc", er.Count)))
 
 		if pr.HasActiveEncounter {
-			items = append(items, panelItemStyle.Render("  active: yes"))
 			// Find matching encounter summary for detail
 			if enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID); enc != nil {
-				items = append(items, panelItemStyle.Render("  "+enc.State))
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  pcs:%d mobs:%d", enc.PlayerCount, enc.MobCount)))
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  alive:%d dead:%d", enc.MobsAlive, enc.MobsDead)))
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
+				// Compact: state + counts on one line
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %s %dp/%dm", enc.State, enc.PlayerCount, enc.MobCount)))
+				// Compact: alive/dead + action index on one line
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %da/%dd act:%d", enc.MobsAlive, enc.MobsDead, enc.ActionIndex)))
 				if enc.CompletedReason != "" {
 					items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
 				}
 				// Roster: backend-owned participant lists with local focus
-				items = append(items, renderRosterSection(enc, width, focus)...)
+				items = append(items, renderRosterSection(enc, width, focus, playerID)...)
 			} else {
-				items = append(items, panelItemStyle.Render("  no details"))
+				items = append(items, panelItemStyle.Render("  no enc details"))
 			}
 		} else {
 			items = append(items, panelItemStyle.Render("  active: no"))
@@ -286,17 +286,15 @@ func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult
 
 // renderRosterSection returns roster lines for the encounter panel.
 // Shows backend-owned player and mob IDs, truncated for panel width.
-// Local focus indicator (>) shown on the focused entry. Read-only,
-// no selection with gameplay meaning.
-func renderRosterSection(enc *encounterSummary, panelWidth int, focus rosterFocus) []string {
+// Local focus indicator (>) shown on the focused entry. Self marked with `*`.
+// Read-only, no selection with gameplay meaning.
+func renderRosterSection(enc *encounterSummary, panelWidth int, focus rosterFocus, playerID string) []string {
 	var lines []string
-	// Available width inside the panel: panelWidth - border(2) - padding(2) - indent(2)
-	maxIDWidth := panelWidth - 6
+	// Available width inside the panel: panelWidth - border(2) - padding(2) - indent(2) - self marker(1)
+	maxIDWidth := panelWidth - 7
 	if maxIDWidth < 4 {
 		maxIDWidth = 4
 	}
-
-	lines = append(lines, panelItemStyle.Render("  ---roster---"))
 
 	if len(enc.PlayerIDs) == 0 && len(enc.MobIDs) == 0 {
 		lines = append(lines, panelItemStyle.Render("  no roster data"))
@@ -309,7 +307,11 @@ func renderRosterSection(enc *encounterSummary, panelWidth int, focus rosterFocu
 		if focus.index == entryIdx {
 			prefix = "> "
 		}
-		label := prefix + "pc:" + truncateID(pid, maxIDWidth-4)
+		suffix := ""
+		if pid == playerID {
+			suffix = "*"
+		}
+		label := prefix + "pc:" + truncateID(pid, maxIDWidth-4) + suffix
 		lines = append(lines, panelItemStyle.Render(label))
 		entryIdx++
 	}
@@ -698,7 +700,7 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult) string {
 	nearby := renderNearbyPanel(width)
 	player := renderPlayerPanel(width, pr, inv, rs)
-	encounter := renderEncounterPanel(width, pr, er, focus)
+	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
 	proximity := renderProximityPanel(width, tc)
 	combat := renderCombatPanel(width, ar, pr, er, target, inv)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
