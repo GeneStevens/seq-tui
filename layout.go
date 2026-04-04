@@ -414,7 +414,6 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 				idWidth = 4
 			}
 			return []string{
-				panelItemStyle.Render("  ---mobs---"),
 				panelItemStyle.Render("> " + truncateID(ar.TargetID, idWidth) + " (gone)"),
 			}
 		}
@@ -422,7 +421,6 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 	}
 
 	var lines []string
-	lines = append(lines, panelItemStyle.Render("  ---mobs---"))
 
 	// Max ID width: maxWidth - prefix(2) - suffix(3) - padding(2) = maxWidth-7
 	idWidth := maxWidth - 7
@@ -473,19 +471,18 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 	if pr.State == playerReadOK && pr.HasActiveEncounter && er.State == encounterReadOK {
 		enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID)
 		if enc != nil {
-			items = append(items, panelItemStyle.Render("  "+enc.State))
-			items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
+			// Compact state + action index on one line
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  %s act:%d", enc.State, enc.ActionIndex)))
 			items = append(items, panelItemStyle.Render(fmt.Sprintf("  alive:%d dead:%d", enc.MobsAlive, enc.MobsDead)))
 
-			// Backend-owned readiness — can the player act right now?
-			// Distinct from submission receipt and attack result.
+			// Backend-owned readiness — compact form
 			if inv.State == inventoryReadOK && inv.HasLifecycle {
 				if inv.CanAct {
-					items = append(items, panelItemStyle.Render("  ready: yes"))
+					items = append(items, panelItemStyle.Render("  rdy:yes"))
 				} else {
-					label := "  ready: no"
+					label := "  rdy:no"
 					if inv.BlockedReason != "" {
-						label += " (" + truncateID(inv.BlockedReason, width-15) + ")"
+						label += " " + truncateID(inv.BlockedReason, width-12)
 					}
 					items = append(items, panelItemStyle.Render(label))
 				}
@@ -495,21 +492,16 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
 			}
 
-			// Backend-owned latest attack result — read-only display
+			// Backend-owned latest attack result — compact one-line form
 			if enc.LatestResultKind != "" {
-				resultLabel := "  " + enc.LatestResultKind
+				resultLabel := "  " + truncateID(enc.LatestResultKind, width-8)
 				if enc.LatestResultValue > 0 {
 					resultLabel += fmt.Sprintf(" %d", enc.LatestResultValue)
 				}
 				items = append(items, panelItemStyle.Render(resultLabel))
-
-				// Show target of latest result
-				if enc.LatestResultTarget != "" {
-					items = append(items, panelItemStyle.Render("  target:"+truncateID(enc.LatestResultTarget, width-10)))
-				}
 			}
 
-			// Per-mob roster with engagement and target indicators
+			// Per-mob roster — no header, indicators are self-evident
 			rosterLines := renderCombatMobRoster(enc, ar, target.Player, width-4)
 			items = append(items, rosterLines...)
 

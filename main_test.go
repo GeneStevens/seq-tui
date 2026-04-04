@@ -3526,14 +3526,15 @@ func TestCombatPanelShowsLatestResult(t *testing.T) {
 		}},
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
-	if !strings.Contains(panel, "damage_applied") {
-		t.Fatal("combat panel should show latest result kind")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "damage_applied") {
+		t.Fatal("combat panel should show latest result kind with res: prefix")
 	}
-	if !strings.Contains(panel, "25") {
+	if !strings.Contains(stripped, "25") {
 		t.Fatal("combat panel should show latest result value")
 	}
-	if !strings.Contains(panel, "orc-1") {
-		t.Fatal("combat panel should show latest result target")
+	if !strings.Contains(stripped, "orc-1") {
+		t.Fatal("combat panel should show target in mob roster")
 	}
 }
 
@@ -3551,8 +3552,9 @@ func TestCombatPanelShowsAttackMiss(t *testing.T) {
 		}},
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
-	if !strings.Contains(panel, "attack_miss") {
-		t.Fatal("combat panel should show attack miss result")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "attack_miss") {
+		t.Fatal("combat panel should show attack miss result with res: prefix")
 	}
 }
 
@@ -4221,7 +4223,7 @@ func TestCombatPanelShowsReadyYes(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv)
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "ready: yes") {
+	if !strings.Contains(stripped, "rdy:yes") {
 		t.Fatalf("combat panel should show ready: yes when can_act is true, got: %s", stripped)
 	}
 }
@@ -4238,7 +4240,7 @@ func TestCombatPanelShowsReadyNo(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "cooldown", HPCurrent: 80, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "ready: no") {
+	if !strings.Contains(stripped, "rdy:no") {
 		t.Fatalf("combat panel should show ready: no when blocked, got: %s", stripped)
 	}
 	if !strings.Contains(stripped, "cooldown") {
@@ -4258,7 +4260,7 @@ func TestCombatPanelShowsReadyNoDead(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "dead", HPCurrent: 0, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "ready: no") {
+	if !strings.Contains(stripped, "rdy:no") {
 		t.Fatal("combat panel should show ready: no when dead")
 	}
 	if !strings.Contains(stripped, "dead") {
@@ -4279,7 +4281,7 @@ func TestCombatPanelNoReadyWithoutLifecycle(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: false}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv)
 	stripped := stripANSI(panel)
-	if strings.Contains(stripped, "ready:") {
+	if strings.Contains(stripped, "rdy:") {
 		t.Fatal("combat panel should not show ready when lifecycle data absent")
 	}
 }
@@ -4299,11 +4301,11 @@ func TestCombatPanelReadyDistinctFromResult(t *testing.T) {
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv)
 	stripped := stripANSI(panel)
 	// Both should be present and distinct
-	if !strings.Contains(stripped, "ready: yes") {
+	if !strings.Contains(stripped, "rdy:yes") {
 		t.Fatal("should show readiness")
 	}
 	if !strings.Contains(stripped, "damage_applied") {
-		t.Fatal("should show attack result")
+		t.Fatal("should show attack result with res: prefix")
 	}
 }
 
