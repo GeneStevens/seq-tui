@@ -2005,3 +2005,110 @@ func TestProximityPanelNoGameplayTerms(t *testing.T) {
 		}
 	}
 }
+
+// --- Proximity Refresh Tests (M30) ---
+
+func TestProximityNeedsRefreshNoQuery(t *testing.T) {
+	// No prior proximity query — should not need refresh
+	tc := targetConfirmResult{State: targetConfirmNone}
+	entry := &rosterEntry{kind: "mb", id: "orc-1"}
+	if proximityNeedsRefresh(tc, playerPosResult{}, "", playerPosResult{X: 10}, entry) {
+		t.Fatal("should not need refresh when no prior query exists")
+	}
+}
+
+func TestProximityNeedsRefreshPositionChanged(t *testing.T) {
+	tc := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1"}
+	entry := &rosterEntry{kind: "mb", id: "orc-1"}
+	lastPos := playerPosResult{X: 100, Y: 200}
+	newPos := playerPosResult{X: 120, Y: 200}
+	if !proximityNeedsRefresh(tc, lastPos, "orc-1", newPos, entry) {
+		t.Fatal("should need refresh when position changed")
+	}
+}
+
+func TestProximityNeedsRefreshFocusChanged(t *testing.T) {
+	tc := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1"}
+	entry := &rosterEntry{kind: "mb", id: "orc-2"} // different from last
+	pos := playerPosResult{X: 100, Y: 200}
+	if !proximityNeedsRefresh(tc, pos, "orc-1", pos, entry) {
+		t.Fatal("should need refresh when focused entry changed")
+	}
+}
+
+func TestProximityNeedsRefreshNoChange(t *testing.T) {
+	tc := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1"}
+	entry := &rosterEntry{kind: "mb", id: "orc-1"}
+	pos := playerPosResult{X: 100, Y: 200}
+	if proximityNeedsRefresh(tc, pos, "orc-1", pos, entry) {
+		t.Fatal("should not need refresh when nothing changed")
+	}
+}
+
+func TestProximityNeedsRefreshNilEntry(t *testing.T) {
+	tc := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1"}
+	pos := playerPosResult{X: 100, Y: 200}
+	if proximityNeedsRefresh(tc, pos, "orc-1", pos, nil) {
+		t.Fatal("should not need refresh when no focused entry")
+	}
+}
+
+func TestProximityNeedsRefreshFailedState(t *testing.T) {
+	// Even failed queries count as active (should refresh when state changes)
+	tc := targetConfirmResult{State: targetConfirmFailed, TargetKind: "mb", TargetID: "orc-1"}
+	entry := &rosterEntry{kind: "mb", id: "orc-1"}
+	lastPos := playerPosResult{X: 100, Y: 200}
+	newPos := playerPosResult{X: 120, Y: 200}
+	if !proximityNeedsRefresh(tc, lastPos, "orc-1", newPos, entry) {
+		t.Fatal("should refresh even for failed state when position changed")
+	}
+}
+
+func TestMaybeRefreshProximityNoActive(t *testing.T) {
+	m := model{
+		target:        defaultTarget(),
+		rosterFocus:   rosterFocus{index: 0},
+		rosterEntries: []rosterEntry{{kind: "mb", id: "orc-1"}},
+		targetConfirm: targetConfirmResult{State: targetConfirmNone},
+	}
+	cmd := maybeRefreshProximity(&m)
+	if cmd != nil {
+		t.Fatal("should not return cmd when no active proximity")
+	}
+}
+
+func TestMaybeRefreshProximityTriggersOnChange(t *testing.T) {
+	m := model{
+		target:           defaultTarget(),
+		playerRead:       playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 120, Y: 200}},
+		rosterFocus:      rosterFocus{index: 0},
+		rosterEntries:    []rosterEntry{{kind: "mb", id: "orc-1"}},
+		targetConfirm:    targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1"},
+		lastProximityPos: playerPosResult{X: 100, Y: 200},
+		lastProximityID:  "orc-1",
+	}
+	cmd := maybeRefreshProximity(&m)
+	if cmd == nil {
+		t.Fatal("should return cmd when position changed with active proximity")
+	}
+	// Verify tracking state was updated
+	if m.lastProximityPos.X != 120 {
+		t.Fatal("lastProximityPos should be updated after refresh")
+	}
+}
+
+func TestMaybeRefreshProximityNoChangeNoop(t *testing.T) {
+	m := model{
+		target:           defaultTarget(),
+		playerRead:       playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 100, Y: 200}},
+		rosterFocus:      rosterFocus{index: 0},
+		rosterEntries:    []rosterEntry{{kind: "mb", id: "orc-1"}},
+		targetConfirm:    targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1"},
+		lastProximityPos: playerPosResult{X: 100, Y: 200},
+		lastProximityID:  "orc-1",
+	}
+	cmd := maybeRefreshProximity(&m)
+	if cmd != nil {
+		t.Fatal("should not return cmd when nothing changed")
+	}
+}

@@ -204,19 +204,58 @@ type targetConfirmMsg struct {
 	result targetConfirmResult
 }
 
+// proximityNeedsRefresh returns true if there is an active proximity confirmation
+// and either the player position or the focused entry has changed since it was queried.
+// Returns false if no proximity query has been made yet (State == targetConfirmNone).
+func proximityNeedsRefresh(tc targetConfirmResult, lastPos playerPosResult, lastID string, currentPos playerPosResult, currentEntry *rosterEntry) bool {
+	if tc.State == targetConfirmNone {
+		return false
+	}
+	// Check if focused entry changed
+	if currentEntry == nil {
+		return false // nothing to refresh for
+	}
+	if currentEntry.id != lastID {
+		return true
+	}
+	// Check if player position changed
+	if currentPos.X != lastPos.X || currentPos.Y != lastPos.Y {
+		return true
+	}
+	return false
+}
+
 type model struct {
-	width         int
-	height        int
-	lastIntent    moveIntent          // most recent inert movement intent preview
-	target        backendTarget       // backend target config
-	zoneRead      zoneReadResult      // result of zone status read
-	mapRead       mapReadResult       // result of map geometry read
-	mobRead       mobReadResult       // result of mob-position read
-	playerRead    playerReadResult    // result of player join + state read
-	encounterRead encounterReadResult  // result of zone encounter read
-	rosterFocus   rosterFocus          // purely local, non-authoritative roster focus
-	rosterEntries []rosterEntry        // current flat roster for focus navigation
-	targetConfirm targetConfirmResult  // backend-authoritative target confirmation
+	width            int
+	height           int
+	lastIntent       moveIntent          // most recent inert movement intent preview
+	target           backendTarget       // backend target config
+	zoneRead         zoneReadResult      // result of zone status read
+	mapRead          mapReadResult       // result of map geometry read
+	mobRead          mobReadResult       // result of mob-position read
+	playerRead       playerReadResult    // result of player join + state read
+	encounterRead    encounterReadResult // result of zone encounter read
+	rosterFocus      rosterFocus         // purely local, non-authoritative roster focus
+	rosterEntries    []rosterEntry       // current flat roster for focus navigation
+	targetConfirm    targetConfirmResult // backend-authoritative target confirmation
+	lastProximityPos playerPosResult     // player position at last proximity query
+	lastProximityID  string              // roster entry ID at last proximity query
+}
+
+// maybeRefreshProximity checks if a proximity re-query is needed and, if so,
+// updates the model's tracking state and returns a Cmd. Returns nil Cmd if no refresh needed.
+func maybeRefreshProximity(m *model) tea.Cmd {
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if !proximityNeedsRefresh(m.targetConfirm, m.lastProximityPos, m.lastProximityID, m.playerRead.Position, fe) {
+		return nil
+	}
+	entry := *fe
+	bt := m.target
+	m.lastProximityPos = m.playerRead.Position
+	m.lastProximityID = entry.id
+	return func() tea.Msg {
+		return targetConfirmMsg{result: queryTargetProximity(bt, entry)}
+	}
 }
 
 func (m model) Init() tea.Cmd {
@@ -301,7 +340,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		} else {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateFailed}
 		}
-		return m, nil
+		// Re-query proximity if active and position changed
+		return m, maybeRefreshProximity(&m)
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 		m.height = msg.Height
@@ -313,21 +353,24 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 		case "tab":
 			m.rosterFocus = moveFocusDown(m.rosterFocus, len(m.rosterEntries))
-			return m, nil
+			return m, maybeRefreshProximity(&m)
 		case "shift+tab":
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
-			return m, nil
+			return m, maybeRefreshProximity(&m)
 		case "t":
 			// Submit target confirmation for the focused roster entry
 			if fe := focusedEntry(m.rosterFocus, m.rosterEntries); fe != nil {
 				entry := *fe
 				bt := m.target
+				m.lastProximityPos = m.playerRead.Position
+				m.lastProximityID = entry.id
 				return m, func() tea.Msg {
 					return targetConfirmMsg{result: queryTargetProximity(bt, entry)}
 				}
 			}
 			// No focused entry — clear target honestly
 			m.targetConfirm = targetConfirmResult{State: targetConfirmNone}
+			m.lastProximityID = ""
 			return m, nil
 		default:
 			if dir := directionFromKey(key); dir != "" {
