@@ -937,7 +937,7 @@ func TestEncounterPanelActiveEncounterWithDetails(t *testing.T) {
 		State: encounterReadOK,
 		Count: 2,
 		Encounters: []encounterSummary{
-			{EncounterID: "enc-42", State: "Active", PlayerCount: 1, MobCount: 3, MobsAlive: 2, ActionIndex: 7},
+			{EncounterID: "enc-42", State: "Active", PlayerIDs: []string{"player-1"}, MobIDs: []string{"mob-a", "mob-b", "mob-c"}, PlayerCount: 1, MobCount: 3, MobsAlive: 2, ActionIndex: 7},
 			{EncounterID: "enc-41", State: "Completed", CompletedReason: "all_mobs_dead"},
 		},
 	}
@@ -1110,11 +1110,144 @@ func TestEncounterPanelDeterministic(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasPos: true, ActiveEncounterID: "enc-1", HasActiveEncounter: true}
 	er := encounterReadResult{
 		State: encounterReadOK, Count: 1,
-		Encounters: []encounterSummary{{EncounterID: "enc-1", State: "Active", PlayerCount: 1, MobCount: 2, MobsAlive: 2}},
+		Encounters: []encounterSummary{{EncounterID: "enc-1", State: "Active", PlayerIDs: []string{"p1"}, MobIDs: []string{"m1", "m2"}, PlayerCount: 1, MobCount: 2, MobsAlive: 2}},
 	}
 	a := renderEncounterPanel(sidePanelWidth, pr, er)
 	b := renderEncounterPanel(sidePanelWidth, pr, er)
 	if a != b {
 		t.Fatal("encounter panel should be deterministic")
+	}
+}
+
+func TestRosterSectionShowsPlayerAndMobIDs(t *testing.T) {
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		ActiveEncounterID: "enc-r1", HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-r1", State: "Active",
+			PlayerIDs: []string{"hero-1", "hero-2"}, MobIDs: []string{"orc-a", "orc-b"},
+			PlayerCount: 2, MobCount: 2, MobsAlive: 2,
+		}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	if !strings.Contains(panel, "---roster---") {
+		t.Fatal("encounter panel should contain roster header")
+	}
+	if !strings.Contains(panel, "pc:hero-1") {
+		t.Fatal("encounter panel should show first player ID")
+	}
+	if !strings.Contains(panel, "pc:hero-2") {
+		t.Fatal("encounter panel should show second player ID")
+	}
+	if !strings.Contains(panel, "mb:orc-a") {
+		t.Fatal("encounter panel should show first mob ID")
+	}
+	if !strings.Contains(panel, "mb:orc-b") {
+		t.Fatal("encounter panel should show second mob ID")
+	}
+}
+
+func TestRosterSectionNoRosterData(t *testing.T) {
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		ActiveEncounterID: "enc-empty", HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-empty", State: "Active",
+			PlayerCount: 0, MobCount: 0,
+		}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	if !strings.Contains(panel, "---roster---") {
+		t.Fatal("encounter panel should contain roster header even when empty")
+	}
+	if !strings.Contains(panel, "no roster data") {
+		t.Fatal("encounter panel should honestly show no roster data")
+	}
+}
+
+func TestTruncateIDShort(t *testing.T) {
+	if got := truncateID("abc", 10); got != "abc" {
+		t.Fatalf("expected abc, got %s", got)
+	}
+}
+
+func TestTruncateIDExact(t *testing.T) {
+	if got := truncateID("abcde", 5); got != "abcde" {
+		t.Fatalf("expected abcde, got %s", got)
+	}
+}
+
+func TestTruncateIDLong(t *testing.T) {
+	got := truncateID("a-very-long-mob-identifier", 10)
+	if len(got) > 10 {
+		t.Fatalf("truncated ID too long: %s", got)
+	}
+	if !strings.HasSuffix(got, "..") {
+		t.Fatalf("truncated ID should end with ..: %s", got)
+	}
+}
+
+func TestTruncateIDTiny(t *testing.T) {
+	got := truncateID("abcdef", 2)
+	if len(got) > 2 {
+		t.Fatalf("truncated ID too long: %s", got)
+	}
+}
+
+func TestRosterSectionTruncatesLongIDs(t *testing.T) {
+	enc := &encounterSummary{
+		PlayerIDs: []string{"a-very-long-player-identifier"},
+		MobIDs:    []string{"a-very-long-mob-identifier"},
+	}
+	lines := renderRosterSection(enc, 20)
+	for _, line := range lines {
+		// Each rendered line should not be excessively long
+		if len(line) > 60 {
+			t.Fatalf("roster line too long: %s", line)
+		}
+	}
+}
+
+func TestRosterSectionDeterministic(t *testing.T) {
+	enc := &encounterSummary{
+		PlayerIDs: []string{"p1", "p2"}, MobIDs: []string{"m1"},
+	}
+	a := renderRosterSection(enc, sidePanelWidth)
+	b := renderRosterSection(enc, sidePanelWidth)
+	if len(a) != len(b) {
+		t.Fatal("roster section should be deterministic")
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			t.Fatal("roster section should be deterministic")
+		}
+	}
+}
+
+func TestEncounterPanelRosterDoesNotImplyGameplayLogic(t *testing.T) {
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		ActiveEncounterID: "enc-g1", HasActiveEncounter: true,
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-g1", State: "Active",
+			PlayerIDs: []string{"hero"}, MobIDs: []string{"orc"},
+			PlayerCount: 1, MobCount: 1, MobsAlive: 1,
+		}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er)
+	forbidden := []string{"target", "select", "attack", "threat", "aggro", "focus", "damage", "hp", "health"}
+	for _, word := range forbidden {
+		if strings.Contains(strings.ToLower(panel), word) {
+			t.Fatalf("encounter panel roster should not contain gameplay term: %s", word)
+		}
 	}
 }

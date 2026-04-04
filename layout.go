@@ -141,6 +141,8 @@ func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult
 				if enc.CompletedReason != "" {
 					items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
 				}
+				// Roster: backend-owned participant lists
+				items = append(items, renderRosterSection(enc, width)...)
 			} else {
 				items = append(items, panelItemStyle.Render("  no details"))
 			}
@@ -151,6 +153,50 @@ func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult
 
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
 	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
+// renderRosterSection returns roster lines for the encounter panel.
+// Shows backend-owned player and mob IDs, truncated for panel width.
+// Read-only, no selection or gameplay semantics.
+func renderRosterSection(enc *encounterSummary, panelWidth int) []string {
+	var lines []string
+	// Available width inside the panel: panelWidth - border(2) - padding(2) - indent(2)
+	maxIDWidth := panelWidth - 6
+	if maxIDWidth < 4 {
+		maxIDWidth = 4
+	}
+
+	lines = append(lines, panelItemStyle.Render("  ---roster---"))
+
+	if len(enc.PlayerIDs) == 0 && len(enc.MobIDs) == 0 {
+		lines = append(lines, panelItemStyle.Render("  no roster data"))
+		return lines
+	}
+
+	for _, pid := range enc.PlayerIDs {
+		label := "  pc:" + truncateID(pid, maxIDWidth-4)
+		lines = append(lines, panelItemStyle.Render(label))
+	}
+	for _, mid := range enc.MobIDs {
+		label := "  mb:" + truncateID(mid, maxIDWidth-4)
+		lines = append(lines, panelItemStyle.Render(label))
+	}
+
+	return lines
+}
+
+// truncateID shortens an ID string to fit within maxLen characters.
+func truncateID(id string, maxLen int) string {
+	if maxLen < 1 {
+		maxLen = 1
+	}
+	if len(id) <= maxLen {
+		return id
+	}
+	if maxLen <= 2 {
+		return id[:maxLen]
+	}
+	return id[:maxLen-2] + ".."
 }
 
 // renderSideColumn stacks the nearby, encounter, and status panels vertically.

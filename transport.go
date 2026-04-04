@@ -413,15 +413,17 @@ const (
 // encounterSummary is a conservative partial decode of one encounter summary.
 // Only backend-owned facts needed for display are decoded.
 type encounterSummary struct {
-	EncounterID     string `json:"encounter_id"`
-	State           string `json:"state"`
-	CompletedReason string `json:"completed_reason"`
-	PlayerCount     int    // derived from len(PlayerIDs)
-	MobCount        int    // derived from len(MobIDs)
-	MobsAlive       int    `json:"mobs_alive_count"`
-	MobsDead        int    `json:"mobs_dead_count"`
-	ActionIndex     uint64 `json:"action_index"`
-	TimelineLength  int    `json:"timeline_length"`
+	EncounterID     string   `json:"encounter_id"`
+	State           string   `json:"state"`
+	CompletedReason string   `json:"completed_reason"`
+	PlayerIDs       []string // backend-owned participant IDs for roster display
+	MobIDs          []string // backend-owned mob IDs for roster display
+	PlayerCount     int      // derived from len(PlayerIDs)
+	MobCount        int      // derived from len(MobIDs)
+	MobsAlive       int      `json:"mobs_alive_count"`
+	MobsDead        int      `json:"mobs_dead_count"`
+	ActionIndex     uint64   `json:"action_index"`
+	TimelineLength  int      `json:"timeline_length"`
 }
 
 // encounterReadResult holds the outcome of a zone encounter read.
@@ -507,6 +509,8 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			EncounterID:     e.EncounterID,
 			State:           e.State,
 			CompletedReason: e.CompletedReason,
+			PlayerIDs:       e.PlayerIDs,
+			MobIDs:          e.MobIDs,
 			PlayerCount:     len(e.PlayerIDs),
 			MobCount:        len(e.MobIDs),
 			MobsAlive:       e.MobsAliveCount,
