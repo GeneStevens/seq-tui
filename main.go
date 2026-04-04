@@ -214,6 +214,11 @@ type pickupResultMsg struct {
 	result pickupResult
 }
 
+// inventoryReadResultMsg carries the result of an inventory read.
+type inventoryReadResultMsg struct {
+	result inventoryReadResult
+}
+
 // proximityNeedsRefresh returns true if there is an active proximity confirmation
 // and either the player position or the focused entry has changed since it was queried.
 // Returns false if no proximity query has been made yet (State == targetConfirmNone).
@@ -252,6 +257,8 @@ type model struct {
 	lastProximityID  string              // roster entry ID at last proximity query
 	lastAttack       attackResult        // result of most recent BasicAttack submission
 	lastPickup       pickupResult        // result of most recent pickup_item submission
+	inventoryRead    inventoryReadResult // backend-owned player inventory
+	invCountAtPickup int                 // inventory count when last pickup was submitted (-1 = no pickup yet)
 }
 
 // maybeRefreshProximity checks if a proximity re-query is needed and, if so,
@@ -296,7 +303,7 @@ func (m model) Init() tea.Cmd {
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case refreshTickMsg:
-		// Periodic refresh: read mobs, player state, zone status, encounters; schedule next tick
+		// Periodic refresh: read mobs, player state, zone status, encounters, inventory; schedule next tick
 		target := m.target
 		return m, tea.Batch(
 			func() tea.Msg {
@@ -313,6 +320,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			},
 			func() tea.Msg {
 				return encounterReadResultMsg{result: fetchZoneEncounters(target)}
+			},
+			func() tea.Msg {
+				return inventoryReadResultMsg{result: fetchPlayerInventory(target)}
 			},
 			scheduleRefresh(),
 		)
@@ -347,6 +357,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case pickupResultMsg:
 		m.lastPickup = msg.result
+		return m, nil
+	case inventoryReadResultMsg:
+		m.inventoryRead = msg.result
 		return m, nil
 	case moveResultMsg:
 		if msg.result.OK {
@@ -397,6 +410,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			encID := enc.EncounterID
 			itemID := enc.Drops[0] // pick up first available drop
 			bt := m.target
+			m.invCountAtPickup = m.inventoryRead.Count // snapshot for delta display
 			return m, func() tea.Msg {
 				return pickupResultMsg{result: submitPickupItem(bt, encID, itemID)}
 			}
@@ -459,7 +473,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup)
 }
 
 func main() {

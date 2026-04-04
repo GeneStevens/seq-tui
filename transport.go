@@ -754,6 +754,83 @@ func submitBasicAttack(target backendTarget, mobID string) attackResult {
 	return attackResult{State: attackStateSent, TargetID: mobID}
 }
 
+// --- Player inventory readback ---
+
+// inventoryReadState represents the outcome of an inventory read.
+type inventoryReadState int
+
+const (
+	inventoryReadNotAttempted inventoryReadState = iota
+	inventoryReadOK
+	inventoryReadFailed
+)
+
+// inventoryReadResult holds the outcome of a backend inventory read.
+type inventoryReadResult struct {
+	State inventoryReadState
+	Error string
+	Items []string // backend-owned item IDs
+	Count int
+}
+
+// gameplayStatusURL builds the gameplay status call URL.
+func gameplayStatusURL(target backendTarget) string {
+	base := strings.TrimRight(target.BaseURL, "/")
+	url := fmt.Sprintf("%s/world/call/%s?message=gameplay_status", base, target.Zone)
+	if strings.EqualFold(target.Mode, "ASYNC") {
+		url += "&mode=Async"
+	}
+	return url
+}
+
+// fetchPlayerInventory reads the player's inventory from the gameplay_status call surface.
+// Returns backend-owned inventory truth only — no simulation.
+func fetchPlayerInventory(target backendTarget) inventoryReadResult {
+	url := gameplayStatusURL(target)
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	resp, err := client.Get(url)
+	if err != nil {
+		return inventoryReadResult{State: inventoryReadFailed, Error: err.Error()}
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return inventoryReadResult{State: inventoryReadFailed, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return inventoryReadResult{State: inventoryReadFailed, Error: "failed to read body"}
+	}
+
+	var envelope struct {
+		Result struct {
+			Players []struct {
+				PlayerID  string   `json:"player_id"`
+				Inventory []string `json:"inventory"`
+			} `json:"players"`
+		} `json:"result"`
+	}
+	if err := json.Unmarshal(body, &envelope); err != nil {
+		return inventoryReadResult{State: inventoryReadFailed, Error: "failed to decode"}
+	}
+
+	// Find our player in the players array
+	for _, p := range envelope.Result.Players {
+		if p.PlayerID == target.Player {
+			return inventoryReadResult{
+				State: inventoryReadOK,
+				Items: p.Inventory,
+				Count: len(p.Inventory),
+			}
+		}
+	}
+
+	// Player not found in gameplay status — return OK with empty inventory
+	return inventoryReadResult{State: inventoryReadOK, Count: 0}
+}
+
 // --- Pickup intent submission ---
 
 // pickupState represents the outcome of a pickup_item intent submission.
