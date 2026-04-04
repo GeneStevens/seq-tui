@@ -238,7 +238,7 @@ func TestRenderFooterContainsQuitHint(t *testing.T) {
 }
 
 func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
-	panel := renderMapPanel(mapReadResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mapReadResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40, attackResult{})
 	if !strings.ContainsRune(panel, playerMarker) {
 		t.Fatal("map panel should contain player marker")
 	}
@@ -587,7 +587,7 @@ func TestMapPanelUsesBackendMap(t *testing.T) {
 		State:   mapReadOK,
 		MapText: "###\n# #\n###",
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40, attackResult{})
 	// Strip ANSI to check semantic content — wall chars are individually styled
 	if !strings.Contains(stripANSI(panel), "###") {
 		t.Fatal("map panel should use backend map text when available")
@@ -596,7 +596,7 @@ func TestMapPanelUsesBackendMap(t *testing.T) {
 
 func TestMapPanelFallsBackToPlaceholder(t *testing.T) {
 	mr := mapReadResult{State: mapReadFailed}
-	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40, attackResult{})
 	if !strings.ContainsRune(panel, playerMarker) {
 		t.Fatal("map panel should fall back to placeholder with player marker")
 	}
@@ -679,7 +679,7 @@ func TestMapPanelWithMobOverlay(t *testing.T) {
 		Mobs:  []mobPosition{{MobName: "orc", Position: mobPosVec3{X: 50, Y: 50}}},
 		Count: 1,
 	}
-	panel := renderMapPanel(mr, mobr, playerReadResult{}, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, rosterFocus{}, nil, 80, 40, attackResult{})
 	if !strings.Contains(panel, "m") {
 		t.Fatal("map panel should contain mob markers when mobs are available")
 	}
@@ -743,7 +743,7 @@ func TestMapPanelWithBackendPlayer(t *testing.T) {
 		HasPos:   true,
 		Position: playerPosResult{X: 50, Y: 50},
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 80, 40, attackResult{})
 	if !strings.Contains(panel, "@") {
 		t.Fatal("map panel should contain backend-derived player marker")
 	}
@@ -1567,7 +1567,7 @@ func TestMapPanelFocusProjectionMob(t *testing.T) {
 	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
 	entries := []rosterEntry{{kind: "mb", id: "orc-1"}}
 	focus := rosterFocus{index: 0}
-	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40)
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40, attackResult{})
 	if !strings.Contains(panel, "M") {
 		t.Fatal("focused mob should appear as M on map")
 	}
@@ -1583,7 +1583,7 @@ func TestMapPanelNoFocusProjection(t *testing.T) {
 	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
 	entries := []rosterEntry{{kind: "mb", id: "orc-1"}}
 	focus := rosterFocus{index: -1} // unfocused
-	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40)
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40, attackResult{})
 	if strings.Contains(panel, "M") {
 		t.Fatal("unfocused should not show M on map")
 	}
@@ -1599,8 +1599,8 @@ func TestMapPanelFocusProjectionDeterministic(t *testing.T) {
 	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
 	entries := []rosterEntry{{kind: "mb", id: "orc-1"}}
 	focus := rosterFocus{index: 0}
-	a := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40)
-	b := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40)
+	a := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40, attackResult{})
+	b := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40, attackResult{})
 	if a != b {
 		t.Fatal("map focus projection should be deterministic")
 	}
@@ -1635,7 +1635,7 @@ func TestMapPanelFocusNoGameplayTerms(t *testing.T) {
 	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
 	entries := []rosterEntry{{kind: "mb", id: "orc-1"}}
 	focus := rosterFocus{index: 0}
-	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40)
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, focus, entries, 80, 40, attackResult{})
 	lower := strings.ToLower(panel)
 	forbidden := []string{"target", "select", "attack", "threat", "aggro", "damage", "hp", "health"}
 	for _, word := range forbidden {
@@ -2890,7 +2890,7 @@ func TestMapPanelViewportCenteredOnPlayer(t *testing.T) {
 		HasPos:   true,
 		Position: playerPosResult{X: 500, Y: 250}, // center of world
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 40, 20)
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 40, 20, attackResult{})
 	// Panel should contain the player marker
 	if !strings.Contains(panel, "@") {
 		t.Fatal("viewport should contain player marker when centered on player")
@@ -2911,12 +2911,12 @@ func TestMapPanelNoPlayerFallbackStable(t *testing.T) {
 		MapHeight: 50,
 		Bounds:    mapBounds{MinX: 0, MaxX: 1000, MinZ: 0, MaxZ: 500, SpanX: 1000, SpanZ: 500},
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20)
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20, attackResult{})
 	if !strings.Contains(panel, "#") {
 		t.Fatal("no-player viewport should still show map content")
 	}
 	// Should be deterministic
-	panel2 := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20)
+	panel2 := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20, attackResult{})
 	if panel != panel2 {
 		t.Fatal("no-player viewport should be deterministic")
 	}
@@ -2946,7 +2946,7 @@ func TestMapPanelViewportSmallerThanFullMap(t *testing.T) {
 		Position: playerPosResult{X: 500, Y: 250},
 	}
 	// Small panel — viewport should be much smaller than 100x50
-	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 30, 15)
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 30, 15, attackResult{})
 	panelLines := strings.Split(panel, "\n")
 	// The panel (including border) should be shorter than the full map
 	if len(panelLines) >= 50 {
@@ -2972,7 +2972,7 @@ func TestMapPanelViewportNoGameplayTerms(t *testing.T) {
 		HasPos:   true,
 		Position: playerPosResult{X: 200, Y: 100},
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 30, 15)
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 30, 15, attackResult{})
 	lower := strings.ToLower(panel)
 	forbidden := []string{"fog", "vision", "los", "field of view", "camera", "zoom", "smooth"}
 	for _, word := range forbidden {
@@ -3109,7 +3109,7 @@ func TestMapPanelColorizedPlayer(t *testing.T) {
 		HasPos:   true,
 		Position: playerPosResult{X: 100, Y: 50},
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 80, 40, attackResult{})
 	if !strings.Contains(panel, "\033[") {
 		t.Fatal("map panel with player should contain ANSI color escapes")
 	}
@@ -3136,7 +3136,7 @@ func TestMapPanelColorizedMob(t *testing.T) {
 		Mobs:  []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 100, Y: 50}}},
 		Count: 1,
 	}
-	panel := renderMapPanel(mr, mobr, playerReadResult{}, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, rosterFocus{}, nil, 80, 40, attackResult{})
 	if !strings.Contains(panel, "m") {
 		t.Fatal("map panel should contain mob marker")
 	}
@@ -3158,7 +3158,7 @@ func TestMapPanelFallbackNoColorize(t *testing.T) {
 	// When backend map is not available, static fallback is used.
 	// The fallback has its own styling via renderStyledMap — colorize should not be applied.
 	mr := mapReadResult{State: mapReadFailed}
-	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 80, 40, attackResult{})
 	// Should still render (fallback) without crashing
 	if panel == "" {
 		t.Fatal("fallback panel should not be empty")
@@ -3387,7 +3387,7 @@ func TestMapPanelAdaptivePathUsedWithLines(t *testing.T) {
 		Position: playerPosResult{X: 500, Y: 500},
 	}
 	// Small panel to test adaptive tighter view
-	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 30, 15)
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 30, 15, attackResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "@") {
 		t.Fatal("adaptive panel should contain player marker")
@@ -3410,13 +3410,13 @@ func TestMapPanelAdaptiveNoPlayer(t *testing.T) {
 		Lines:     lines,
 	}
 	// No player — should center on map midpoint
-	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20)
+	panel := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20, attackResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "#") {
 		t.Fatal("no-player adaptive panel should contain wall characters")
 	}
 	// Should be deterministic
-	panel2 := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20)
+	panel2 := renderMapPanel(mr, mobReadResult{}, playerReadResult{}, rosterFocus{}, nil, 40, 20, attackResult{})
 	if panel != panel2 {
 		t.Fatal("no-player adaptive panel should be deterministic")
 	}
@@ -3444,7 +3444,7 @@ func TestMapPanelAdaptiveMobOverlay(t *testing.T) {
 		HasPos:   true,
 		Position: playerPosResult{X: 500, Y: 500},
 	}
-	panel := renderMapPanel(mr, mobr, pr, rosterFocus{}, nil, 80, 40)
+	panel := renderMapPanel(mr, mobr, pr, rosterFocus{}, nil, 80, 40, attackResult{})
 	stripped := stripANSI(panel)
 	// Mob might overlap player; check at least one marker is visible
 	if !strings.Contains(stripped, "@") && !strings.Contains(stripped, "m") {
@@ -3470,8 +3470,8 @@ func TestMapPanelAdaptiveSmallVsLargeViewport(t *testing.T) {
 		Position: playerPosResult{X: 500, Y: 500},
 	}
 	// Both should produce valid output
-	smallPanel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 20, 10)
-	largePanel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 120, 60)
+	smallPanel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 20, 10, attackResult{})
+	largePanel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 120, 60, attackResult{})
 	if smallPanel == "" || largePanel == "" {
 		t.Fatal("both small and large panels should produce output")
 	}
@@ -3500,7 +3500,7 @@ func TestMapPanelAdaptiveColorization(t *testing.T) {
 		HasPos:   true,
 		Position: playerPosResult{X: 500, Y: 500},
 	}
-	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 60, 30)
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 60, 30, attackResult{})
 	// Should contain ANSI escapes from colorization
 	if !strings.Contains(panel, "\033[") {
 		t.Fatal("adaptive panel should have colorized output")
@@ -4343,5 +4343,129 @@ func TestCombatPanelReadyNoGameplayTerms(t *testing.T) {
 		if strings.Contains(lower, word) {
 			t.Fatalf("combat panel should not contain timing term: %s", word)
 		}
+	}
+}
+
+// --- Active Target Spatial Highlight Tests (M20260404-04) ---
+
+func TestOverlayAttackTargetPlacesX(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}}}
+	result := overlayAttackTarget(mapText, mobs, "orc-1", bounds, 5, 3)
+	if !strings.Contains(result, "X") {
+		t.Fatal("attack target overlay should place X on map")
+	}
+}
+
+func TestOverlayAttackTargetNoMatch(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}}}
+	result := overlayAttackTarget(mapText, mobs, "orc-99", bounds, 5, 3)
+	if strings.Contains(result, "X") {
+		t.Fatal("attack target overlay should not place X when target not in mobs")
+	}
+}
+
+func TestOverlayAttackTargetEmpty(t *testing.T) {
+	mapText := "#####"
+	result := overlayAttackTarget(mapText, nil, "orc-1", mapBounds{}, 5, 1)
+	if result != mapText {
+		t.Fatal("empty mobs should return map unchanged")
+	}
+}
+
+func TestOverlayAttackTargetEmptyID(t *testing.T) {
+	mapText := "#####"
+	mobs := []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}}}
+	result := overlayAttackTarget(mapText, mobs, "", mapBounds{SpanX: 100, SpanZ: 100}, 5, 1)
+	if result != mapText {
+		t.Fatal("empty target ID should return map unchanged")
+	}
+}
+
+func TestColorizeAttackTargetGlyph(t *testing.T) {
+	result := colorizeMapContent("X")
+	if !strings.Contains(result, "\033[") {
+		t.Fatal("attack target glyph should be styled with ANSI")
+	}
+	if !strings.Contains(result, "X") {
+		t.Fatal("attack target glyph character should be preserved")
+	}
+}
+
+func TestColorizeAttackTargetDistinctFromMob(t *testing.T) {
+	targetStyled := colorizeMapContent("X")
+	mobStyled := colorizeMapContent("m")
+	if targetStyled == mobStyled {
+		t.Fatal("attack target should have distinct styling from regular mob")
+	}
+}
+
+func TestMapPanelWithAttackTarget(t *testing.T) {
+	lines := make([]string, 10)
+	for i := range lines {
+		lines[i] = strings.Repeat(".", 20)
+	}
+	mapText := strings.Join(lines, "\n")
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   mapText,
+		MapWidth:  20,
+		MapHeight: 10,
+		Bounds:    mapBounds{MinX: 0, MaxX: 200, MinZ: 0, MaxZ: 100, SpanX: 200, SpanZ: 100},
+	}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs:  []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 100, Y: 50}}},
+		Count: 1,
+	}
+	pr := playerReadResult{
+		State:    playerReadOK,
+		HasPos:   true,
+		Position: playerPosResult{X: 80, Y: 50},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	panel := renderMapPanel(mr, mobr, pr, rosterFocus{}, nil, 80, 40, ar)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "X") {
+		t.Fatal("map panel should show X for attack target")
+	}
+}
+
+func TestMapPanelNoAttackTargetWithoutAttack(t *testing.T) {
+	lines := make([]string, 10)
+	for i := range lines {
+		lines[i] = strings.Repeat(".", 20)
+	}
+	mapText := strings.Join(lines, "\n")
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   mapText,
+		MapWidth:  20,
+		MapHeight: 10,
+		Bounds:    mapBounds{MinX: 0, MaxX: 200, MinZ: 0, MaxZ: 100, SpanX: 200, SpanZ: 100},
+	}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs:  []mobPosition{{ProcessID: "orc-1", MobName: "orc", Position: mobPosVec3{X: 100, Y: 50}}},
+		Count: 1,
+	}
+	panel := renderMapPanel(mr, mobr, playerReadResult{}, rosterFocus{}, nil, 80, 40, attackResult{})
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "X") {
+		t.Fatal("map panel should not show X when no attack submitted")
+	}
+}
+
+func TestOverlayAttackTargetDeterministic(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	mobs := []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}}}
+	a := overlayAttackTarget(mapText, mobs, "orc-1", bounds, 5, 3)
+	b := overlayAttackTarget(mapText, mobs, "orc-1", bounds, 5, 3)
+	if a != b {
+		t.Fatal("attack target overlay should be deterministic")
 	}
 }

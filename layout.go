@@ -61,6 +61,7 @@ var (
 	mobGlyphStyle           = lipgloss.NewStyle().Foreground(lipgloss.Color("1"))             // red
 	focusedMobGlyphStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("1")).Bold(true)  // red bold
 	wallGlyphStyle          = lipgloss.NewStyle().Faint(true)                                // dim
+	attackTargetGlyphStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("3")).Bold(true)  // yellow bold
 )
 
 // colorizeMapContent applies presentational color to entity glyphs in the viewport.
@@ -79,6 +80,8 @@ func colorizeMapContent(mapContent string) string {
 			sb.WriteString(mobGlyphStyle.Render("m"))
 		case 'M':
 			sb.WriteString(focusedMobGlyphStyle.Render("M"))
+		case 'X':
+			sb.WriteString(attackTargetGlyphStyle.Render("X"))
 		case '#':
 			sb.WriteString(wallGlyphStyle.Render("#"))
 		case '\n':
@@ -104,7 +107,7 @@ func renderHeader(width int) string {
 // panelWidth and panelHeight are the available space for the bordered panel.
 // When a backend map with valid dimensions is available, a viewport is extracted
 // centered on the player position (or map center if no player).
-func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry, panelWidth, panelHeight int) string {
+func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry, panelWidth, panelHeight int, ar attackResult) string {
 	var mapContent string
 	if mr.State == mapReadOK && mr.MapText != "" {
 		// Viewport content dimensions (inside border + padding)
@@ -155,6 +158,10 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 					}
 				}
 			}
+			// Attack target highlight — after focus overlay, before player
+			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
+				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, vpBounds, vpWidth, vpHeight)
+			}
 		} else {
 			// Legacy path: overlay on pre-rasterized canvas, then extract viewport
 			mapContent = mr.MapText
@@ -175,6 +182,10 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 						mapContent = overlayFocusedPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
 					}
 				}
+			}
+			// Attack target highlight — legacy path
+			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
+				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, mr.Bounds, mr.MapWidth, mr.MapHeight)
 			}
 			if mr.MapWidth > 0 && mr.MapHeight > 0 {
 				var centerCol, centerRow int
@@ -740,7 +751,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	}
 	mapPanelH = bodyHeight
 
-	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries, mapPanelW, mapPanelH)
+	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries, mapPanelW, mapPanelH, ar)
 
 	var body string
 	if width >= sidePanelMinWidth {
