@@ -366,72 +366,106 @@ func renderProximityPanel(width int, tc targetConfirmResult) string {
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
+// mobsEngagingPlayer returns the IDs of mobs whose selected target is the given player.
+// Purely a read of backend-owned mob_threat data. No threat inference.
+func mobsEngagingPlayer(enc *encounterSummary, playerID string) []string {
+	if enc == nil || playerID == "" {
+		return nil
+	}
+	var engaged []string
+	for _, mt := range enc.MobThreat {
+		if mt.SelectedTargetPlayerID == playerID {
+			engaged = append(engaged, mt.MobID)
+		}
+	}
+	return engaged
+}
+
 // renderCombatPanel returns a compact panel showing backend-owned combat readback.
-// Only populated after an attack has been submitted. Shows encounter state changes
+// Shows encounter state, attack resolution, target status, and mob engagement
 // from backend truth without any client-side combat logic or interpretation.
-func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encounterReadResult) string {
+func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encounterReadResult, target backendTarget) string {
 	title := panelTitleStyle.Render("Combat")
 
 	var items []string
 
+	// Show encounter-level combat readback if player is in an active encounter,
+	// regardless of whether an attack has been submitted
+	if pr.State == playerReadOK && pr.HasActiveEncounter && er.State == encounterReadOK {
+		enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID)
+		if enc != nil {
+			items = append(items, panelItemStyle.Render("  "+enc.State))
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  alive:%d dead:%d", enc.MobsAlive, enc.MobsDead)))
+
+			if enc.CompletedReason != "" {
+				items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
+			}
+
+			// Backend-owned latest attack result — read-only display
+			if enc.LatestResultKind != "" {
+				resultLabel := "  " + enc.LatestResultKind
+				if enc.LatestResultValue > 0 {
+					resultLabel += fmt.Sprintf(" %d", enc.LatestResultValue)
+				}
+				items = append(items, panelItemStyle.Render(resultLabel))
+
+				// Show target of latest result
+				if enc.LatestResultTarget != "" {
+					items = append(items, panelItemStyle.Render("  target:"+truncateID(enc.LatestResultTarget, width-10)))
+				}
+			}
+
+			// Backend-owned mob engagement — which mobs are targeting the player
+			engaged := mobsEngagingPlayer(enc, target.Player)
+			if len(engaged) > 0 {
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  engaged:%d", len(engaged))))
+				maxShow := 2
+				if len(engaged) < maxShow {
+					maxShow = len(engaged)
+				}
+				for i := 0; i < maxShow; i++ {
+					items = append(items, panelItemStyle.Render("  <-"+truncateID(engaged[i], width-7)))
+				}
+				if len(engaged) > 2 {
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  +%d more", len(engaged)-2)))
+				}
+			}
+
+			// Backend-owned text summary of latest event
+			if enc.TextSummaryLatest != "" {
+				items = append(items, panelItemStyle.Render("  "+truncateID(enc.TextSummaryLatest, width-6)))
+			}
+
+			// Attack submission target status
+			if ar.State == attackStateSent && ar.TargetID != "" {
+				mobPresent := false
+				for _, mid := range enc.MobIDs {
+					if mid == ar.TargetID {
+						mobPresent = true
+						break
+					}
+				}
+				if mobPresent {
+					items = append(items, panelItemStyle.Render("  atk:"+truncateID(ar.TargetID, width-8)+" (roster)"))
+				} else {
+					items = append(items, panelItemStyle.Render("  atk:"+truncateID(ar.TargetID, width-8)+" (gone)"))
+				}
+			}
+
+			content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+			return panelBorderStyle.Width(width - 4).Render(content)
+		}
+	}
+
+	// No active encounter — show attack submission state if any
 	if ar.State == attackStateNone {
 		items = append(items, panelItemStyle.Render("  none"))
-		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
-		return panelBorderStyle.Width(width - 4).Render(content)
-	}
-
-	// Show submission result
-	if ar.State == attackStateSent {
+	} else if ar.State == attackStateSent {
 		items = append(items, panelItemStyle.Render("  intent: accepted"))
+		items = append(items, panelItemStyle.Render("  enc: none"))
 	} else {
 		items = append(items, panelItemStyle.Render("  intent: failed"))
-		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
-		return panelBorderStyle.Width(width - 4).Render(content)
-	}
-
-	// Show backend-owned encounter readback
-	if !pr.HasActiveEncounter {
-		items = append(items, panelItemStyle.Render("  enc: none"))
-		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
-		return panelBorderStyle.Width(width - 4).Render(content)
-	}
-
-	if er.State != encounterReadOK {
-		items = append(items, panelItemStyle.Render("  enc: unavailable"))
-		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
-		return panelBorderStyle.Width(width - 4).Render(content)
-	}
-
-	enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID)
-	if enc == nil {
-		items = append(items, panelItemStyle.Render("  enc: no details"))
-		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
-		return panelBorderStyle.Width(width - 4).Render(content)
-	}
-
-	// Backend-owned encounter facts
-	items = append(items, panelItemStyle.Render("  "+enc.State))
-	items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
-	items = append(items, panelItemStyle.Render(fmt.Sprintf("  alive:%d dead:%d", enc.MobsAlive, enc.MobsDead)))
-
-	if enc.CompletedReason != "" {
-		items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
-	}
-
-	// Check if the attacked mob is still in the encounter roster
-	if ar.TargetID != "" {
-		mobPresent := false
-		for _, mid := range enc.MobIDs {
-			if mid == ar.TargetID {
-				mobPresent = true
-				break
-			}
-		}
-		if mobPresent {
-			items = append(items, panelItemStyle.Render("  mob: in roster"))
-		} else {
-			items = append(items, panelItemStyle.Render("  mob: gone"))
-		}
 	}
 
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
@@ -534,7 +568,7 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	nearby := renderNearbyPanel(width)
 	encounter := renderEncounterPanel(width, pr, er, focus)
 	proximity := renderProximityPanel(width, tc)
-	combat := renderCombatPanel(width, ar, pr, er)
+	combat := renderCombatPanel(width, ar, pr, er, target)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
 	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", encounter, "", proximity, "", combat, "", loot, "", status)

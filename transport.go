@@ -429,6 +429,26 @@ type encounterSummary struct {
 	DropsGenerated  bool     // backend says drops have been generated
 	Drops           []string // backend-owned available drop item IDs
 	LootExpired     bool     // backend says loot window has expired
+
+	// Combat readback — backend-owned attack resolution and engagement data.
+	// Read-only display, no client inference.
+	LatestResultKind    string // "damage_applied", "attack_miss", "heal_applied", etc.
+	LatestResultActor   string // attacker/caster ID
+	LatestResultTarget  string // defender/target ID
+	LatestResultValue   int    // damage or heal amount
+	LatestResultSummary string // human-readable one-line summary from backend
+	TextSummaryLatest   string // backend-composed latest event description
+
+	// Mob engagement — which mobs are targeting which players.
+	// Populated from backend mob_threat array. Read-only, no threat logic.
+	MobThreat []mobThreatEntry
+}
+
+// mobThreatEntry holds one mob's backend-owned targeting and threat data.
+// Read-only — no client-side threat calculation or inference.
+type mobThreatEntry struct {
+	MobID                  string
+	SelectedTargetPlayerID string
 }
 
 // encounterReadResult holds the outcome of a zone encounter read.
@@ -496,6 +516,18 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			DropsGenerated  bool     `json:"drops_generated"`
 			Drops           []string `json:"drops"`
 			LootExpired     bool     `json:"loot_expired"`
+			// Combat readback fields
+			LatestResultKind    string `json:"latest_result_kind"`
+			LatestResultActor   string `json:"latest_result_actor"`
+			LatestResultTarget  string `json:"latest_result_target"`
+			LatestResultValue   int    `json:"latest_result_value"`
+			LatestResultSummary string `json:"latest_result_summary"`
+			TextSummaryLatest   string `json:"text_summary_latest"`
+			// Mob engagement
+			MobThreat []struct {
+				MobID                  string `json:"mob_id"`
+				SelectedTargetPlayerID string `json:"selected_target_player_id"`
+			} `json:"mob_threat"`
 		} `json:"result"`
 		Error string `json:"error"`
 	}
@@ -513,21 +545,35 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 
 	summaries := make([]encounterSummary, 0, len(envelope.Result))
 	for _, e := range envelope.Result {
+		var threat []mobThreatEntry
+		for _, mt := range e.MobThreat {
+			threat = append(threat, mobThreatEntry{
+				MobID:                  mt.MobID,
+				SelectedTargetPlayerID: mt.SelectedTargetPlayerID,
+			})
+		}
 		summaries = append(summaries, encounterSummary{
-			EncounterID:     e.EncounterID,
-			State:           e.State,
-			CompletedReason: e.CompletedReason,
-			PlayerIDs:       e.PlayerIDs,
-			MobIDs:          e.MobIDs,
-			PlayerCount:     len(e.PlayerIDs),
-			MobCount:        len(e.MobIDs),
-			MobsAlive:       e.MobsAliveCount,
-			MobsDead:        e.MobsDeadCount,
-			ActionIndex:     e.ActionIndex,
-			TimelineLength:  e.TimelineLength,
-			DropsGenerated:  e.DropsGenerated,
-			Drops:           e.Drops,
-			LootExpired:     e.LootExpired,
+			EncounterID:         e.EncounterID,
+			State:               e.State,
+			CompletedReason:     e.CompletedReason,
+			PlayerIDs:           e.PlayerIDs,
+			MobIDs:              e.MobIDs,
+			PlayerCount:         len(e.PlayerIDs),
+			MobCount:            len(e.MobIDs),
+			MobsAlive:           e.MobsAliveCount,
+			MobsDead:            e.MobsDeadCount,
+			ActionIndex:         e.ActionIndex,
+			TimelineLength:      e.TimelineLength,
+			DropsGenerated:      e.DropsGenerated,
+			Drops:               e.Drops,
+			LootExpired:         e.LootExpired,
+			LatestResultKind:    e.LatestResultKind,
+			LatestResultActor:   e.LatestResultActor,
+			LatestResultTarget:  e.LatestResultTarget,
+			LatestResultValue:   e.LatestResultValue,
+			LatestResultSummary: e.LatestResultSummary,
+			TextSummaryLatest:   e.TextSummaryLatest,
+			MobThreat:           threat,
 		})
 	}
 
