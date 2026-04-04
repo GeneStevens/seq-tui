@@ -543,6 +543,121 @@ func findPlayerEncounter(encounters []encounterSummary, activeEncounterID string
 	return nil
 }
 
+// --- Target proximity ---
+
+// targetConfirmState represents the outcome of a target confirmation query.
+type targetConfirmState int
+
+const (
+	targetConfirmNone targetConfirmState = iota
+	targetConfirmOK
+	targetConfirmFailed
+)
+
+// targetConfirmResult holds the outcome of a backend target proximity query.
+// This is purely a backend-owned read result, not local state.
+type targetConfirmResult struct {
+	State           targetConfirmState
+	Error           string
+	TargetKind      string  // "mb" or "pc" — mirrors roster entry kind
+	TargetID        string  // backend-owned ID
+	Found           bool    // backend says target exists
+	WithinProximity bool    // backend says target is within action proximity
+	Distance        float64 // backend-owned 2D distance
+	MobName         string  // backend-owned mob display name
+}
+
+// targetStatusLabel returns a compact display label for the target confirmation state.
+// Explicitly distinguishes from local focus by using "(backend)" marker.
+func (r targetConfirmResult) targetStatusLabel() string {
+	switch r.State {
+	case targetConfirmOK:
+		if !r.Found {
+			return "target: not found (backend)"
+		}
+		label := "target: " + r.TargetKind + ":" + r.TargetID
+		if r.MobName != "" {
+			label = "target: " + r.MobName
+		}
+		return label + " (backend)"
+	case targetConfirmFailed:
+		return "target: unavailable"
+	default:
+		return "target: none"
+	}
+}
+
+// devTargetProximityURL builds the dev target proximity endpoint URL.
+func devTargetProximityURL(target backendTarget, actorPid string) string {
+	base := strings.TrimRight(target.BaseURL, "/")
+	return fmt.Sprintf("%s/world/dev/zone/%s/player/%s/target/%s/proximity",
+		base, target.Zone, target.Player, actorPid)
+}
+
+// queryTargetProximity performs a single GET to the backend target proximity endpoint.
+// Returns backend-owned truth about the target relationship. No writes.
+func queryTargetProximity(target backendTarget, entry rosterEntry) targetConfirmResult {
+	if entry.kind != "mb" {
+		// Proximity endpoint is designed for mob targets; for PCs, report honestly
+		return targetConfirmResult{
+			State:      targetConfirmFailed,
+			Error:      "proximity query supports mob targets only",
+			TargetKind: entry.kind,
+			TargetID:   entry.id,
+		}
+	}
+
+	url := devTargetProximityURL(target, entry.id)
+	client := &http.Client{Timeout: 5 * time.Second}
+
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return targetConfirmResult{State: targetConfirmFailed, Error: err.Error(), TargetKind: entry.kind, TargetID: entry.id}
+	}
+	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return targetConfirmResult{State: targetConfirmFailed, Error: err.Error(), TargetKind: entry.kind, TargetID: entry.id}
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return targetConfirmResult{
+			State:      targetConfirmFailed,
+			Error:      fmt.Sprintf("HTTP %d", resp.StatusCode),
+			TargetKind: entry.kind,
+			TargetID:   entry.id,
+		}
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return targetConfirmResult{State: targetConfirmFailed, Error: "failed to read body", TargetKind: entry.kind, TargetID: entry.id}
+	}
+
+	var raw struct {
+		Found           bool    `json:"found"`
+		WithinProximity bool    `json:"within_proximity"`
+		Distance2D      float64 `json:"distance_2d"`
+		TargetMobName   string  `json:"target_mob_name"`
+		TargetMobID     string  `json:"target_mob_id"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return targetConfirmResult{State: targetConfirmFailed, Error: "failed to decode proximity", TargetKind: entry.kind, TargetID: entry.id}
+	}
+
+	return targetConfirmResult{
+		State:           targetConfirmOK,
+		TargetKind:      entry.kind,
+		TargetID:        entry.id,
+		Found:           raw.Found,
+		WithinProximity: raw.WithinProximity,
+		Distance:        raw.Distance2D,
+		MobName:         raw.TargetMobName,
+	}
+}
+
 // devJoinURL builds the dev player-join endpoint URL.
 func devJoinURL(target backendTarget) string {
 	base := strings.TrimRight(target.BaseURL, "/")

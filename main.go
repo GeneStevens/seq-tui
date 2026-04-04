@@ -199,6 +199,11 @@ type moveResultMsg struct {
 	direction string
 }
 
+// targetConfirmMsg carries the result of a backend target proximity query.
+type targetConfirmMsg struct {
+	result targetConfirmResult
+}
+
 type model struct {
 	width         int
 	height        int
@@ -208,9 +213,10 @@ type model struct {
 	mapRead       mapReadResult       // result of map geometry read
 	mobRead       mobReadResult       // result of mob-position read
 	playerRead    playerReadResult    // result of player join + state read
-	encounterRead encounterReadResult // result of zone encounter read
-	rosterFocus   rosterFocus         // purely local, non-authoritative roster focus
-	rosterEntries []rosterEntry       // current flat roster for focus navigation
+	encounterRead encounterReadResult  // result of zone encounter read
+	rosterFocus   rosterFocus          // purely local, non-authoritative roster focus
+	rosterEntries []rosterEntry        // current flat roster for focus navigation
+	targetConfirm targetConfirmResult  // backend-authoritative target confirmation
 }
 
 func (m model) Init() tea.Cmd {
@@ -282,6 +288,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
 		m.rosterEntries = newEntries
 		return m, nil
+	case targetConfirmMsg:
+		m.targetConfirm = msg.result
+		return m, nil
 	case moveResultMsg:
 		if msg.result.OK {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateSent}
@@ -307,6 +316,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		case "shift+tab":
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
+			return m, nil
+		case "t":
+			// Submit target confirmation for the focused roster entry
+			if fe := focusedEntry(m.rosterFocus, m.rosterEntries); fe != nil {
+				entry := *fe
+				bt := m.target
+				return m, func() tea.Msg {
+					return targetConfirmMsg{result: queryTargetProximity(bt, entry)}
+				}
+			}
+			// No focused entry — clear target honestly
+			m.targetConfirm = targetConfirmResult{State: targetConfirmNone}
 			return m, nil
 		default:
 			if dir := directionFromKey(key); dir != "" {
@@ -336,7 +357,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm)
 }
 
 func main() {
