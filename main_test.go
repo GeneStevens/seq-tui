@@ -1633,45 +1633,45 @@ func TestMapPanelFocusNoGameplayTerms(t *testing.T) {
 
 func TestFocusPreviewLabelNoFocus(t *testing.T) {
 	label := focusPreviewLabel(rosterFocus{index: -1}, nil)
-	if label != "focus: none" {
-		t.Fatalf("expected 'focus: none', got %q", label)
+	if label != "" {
+		t.Fatalf("expected empty, got %q", label)
 	}
 }
 
 func TestFocusPreviewLabelEmptyEntries(t *testing.T) {
 	label := focusPreviewLabel(rosterFocus{index: 0}, nil)
-	if label != "focus: none" {
-		t.Fatalf("expected 'focus: none', got %q", label)
+	if label != "" {
+		t.Fatalf("expected empty, got %q", label)
 	}
 }
 
 func TestFocusPreviewLabelMob(t *testing.T) {
 	entries := []rosterEntry{{kind: "pc", id: "hero"}, {kind: "mb", id: "orc-a"}}
 	label := focusPreviewLabel(rosterFocus{index: 1}, entries)
-	if label != "focus: mb:orc-a (local)" {
-		t.Fatalf("expected 'focus: mb:orc-a (local)', got %q", label)
+	if label != "~mb:orc-a" {
+		t.Fatalf("expected '~mb:orc-a', got %q", label)
 	}
 }
 
 func TestFocusPreviewLabelPlayer(t *testing.T) {
 	entries := []rosterEntry{{kind: "pc", id: "hero-1"}}
 	label := focusPreviewLabel(rosterFocus{index: 0}, entries)
-	if label != "focus: pc:hero-1 (local)" {
-		t.Fatalf("expected 'focus: pc:hero-1 (local)', got %q", label)
+	if label != "~pc:hero-1" {
+		t.Fatalf("expected '~pc:hero-1', got %q", label)
 	}
 }
 
 func TestFocusPreviewLabelOutOfRange(t *testing.T) {
 	entries := []rosterEntry{{kind: "mb", id: "m1"}}
 	label := focusPreviewLabel(rosterFocus{index: 5}, entries)
-	if label != "focus: none" {
-		t.Fatalf("expected 'focus: none', got %q", label)
+	if label != "" {
+		t.Fatalf("expected empty, got %q", label)
 	}
 }
 
 func TestFooterShowsFocusPreview(t *testing.T) {
-	footer := renderFooter(120, "", "focus: mb:orc-a (local)", "", "", "", true, inventoryReadResult{})
-	if !strings.Contains(footer, "focus: mb:orc-a (local)") {
+	footer := renderFooter(120, "", "~mb:orc-a", "", "", "", true, inventoryReadResult{})
+	if !strings.Contains(footer, "~mb:orc-a") {
 		t.Fatal("footer should show focus preview label")
 	}
 	if !strings.Contains(footer, " q") {
@@ -1680,19 +1680,20 @@ func TestFooterShowsFocusPreview(t *testing.T) {
 }
 
 func TestFooterShowsFocusNone(t *testing.T) {
-	footer := renderFooter(120, "", "focus: none", "", "", "", true, inventoryReadResult{})
-	if !strings.Contains(footer, "focus: none") {
-		t.Fatal("footer should show focus: none when unfocused")
+	// When unfocused, focusPreviewLabel returns "" — footer should not contain stale focus label
+	footer := renderFooter(120, "", "", "", "", "", true, inventoryReadResult{})
+	if strings.Contains(footer, "~") {
+		t.Fatal("footer should not show focus marker when unfocused")
 	}
 }
 
 func TestFooterShowsBothPreviews(t *testing.T) {
 	preview := moveIntent{direction: "north"}.preview()
-	footer := renderFooter(120, preview, "focus: mb:orc (local)", "", "", "", true, inventoryReadResult{})
+	footer := renderFooter(120, preview, "~mb:orc", "", "", "", true, inventoryReadResult{})
 	if !strings.Contains(footer, "move north") {
 		t.Fatal("footer should show movement intent")
 	}
-	if !strings.Contains(footer, "focus: mb:orc (local)") {
+	if !strings.Contains(footer, "~mb:orc") {
 		t.Fatal("footer should show focus preview")
 	}
 }
@@ -1701,15 +1702,16 @@ func TestLayoutIncludesFocusPreview(t *testing.T) {
 	entries := []rosterEntry{{kind: "mb", id: "test-mob"}}
 	focus := rosterFocus{index: 0}
 	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, focus, entries, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
-	if !strings.Contains(layout, "focus: mb:test-mob (local)") {
+	if !strings.Contains(layout, "~mb:test-mob") {
 		t.Fatal("layout should include focus preview in footer")
 	}
 }
 
 func TestLayoutFocusNoneWhenUnfocused(t *testing.T) {
 	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
-	if !strings.Contains(layout, "focus: none") {
-		t.Fatal("layout should show focus: none when unfocused")
+	// When unfocused, no ~ marker should appear in footer
+	if strings.Contains(stripANSI(layout), "~mb:") || strings.Contains(stripANSI(layout), "~pc:") {
+		t.Fatal("layout should not show focus marker when unfocused")
 	}
 }
 
@@ -1734,11 +1736,11 @@ func TestFocusPreviewNoGameplayTerms(t *testing.T) {
 	}
 }
 
-func TestFocusPreviewContainsLocalMarker(t *testing.T) {
+func TestFocusPreviewContainsTildeMarker(t *testing.T) {
 	entries := []rosterEntry{{kind: "mb", id: "orc"}}
 	label := focusPreviewLabel(rosterFocus{index: 0}, entries)
-	if !strings.Contains(label, "(local)") {
-		t.Fatal("focus preview must explicitly indicate local-only")
+	if !strings.HasPrefix(label, "~") {
+		t.Fatal("focus preview must start with ~ marker")
 	}
 }
 
@@ -1818,8 +1820,8 @@ func TestTargetConfirmBackendMarkerDistinctFromLocal(t *testing.T) {
 	}
 	targetLabel := targetResult.targetStatusLabel()
 
-	if !strings.Contains(focusLabel, "(local)") {
-		t.Fatal("focus label must say (local)")
+	if !strings.HasPrefix(focusLabel, "~") {
+		t.Fatal("focus label must start with ~")
 	}
 	if !strings.Contains(targetLabel, "(backend)") {
 		t.Fatal("target label must say (backend)")
