@@ -5089,3 +5089,69 @@ func TestOverlayMobsDeterministicWithClusters(t *testing.T) {
 		t.Fatal("mob overlay with clusters should be deterministic")
 	}
 }
+
+// --- Combat Loot Phase Cross-Link Clarity Tests (M20260404-12) ---
+
+func TestCombatPanelShowsPhaseLoot(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+			MobIDs: []string{}, DropsGenerated: true, Drops: []string{"item-1"},
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "phase:loot") {
+		t.Fatalf("combat panel should show phase:loot when drops available, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelShowsPhaseDone(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+			MobIDs: []string{}, DropsGenerated: false,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "phase:done") {
+		t.Fatalf("combat panel should show phase:done when no drops, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelShowsPhaseDoneExpired(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			DropsGenerated: true, Drops: []string{"item-1"}, LootExpired: true,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "phase:done") {
+		t.Fatalf("should show phase:done when loot expired, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelNoPhaseWhenActive(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "phase:") {
+		t.Fatal("combat panel should not show phase indicator during active combat")
+	}
+}

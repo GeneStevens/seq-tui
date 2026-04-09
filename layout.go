@@ -525,6 +525,15 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
 			}
 
+			// Phase indicator — shows when encounter has transitioned to loot phase
+			if enc.State == "Completed" {
+				if enc.DropsGenerated && len(enc.Drops) > 0 && !enc.LootExpired {
+					items = append(items, panelItemStyle.Render("  phase:loot"))
+				} else {
+					items = append(items, panelItemStyle.Render("  phase:done"))
+				}
+			}
+
 			// Backend-owned latest attack result — compact one-line form
 			if enc.LatestResultKind != "" {
 				resultLabel := "  " + truncateID(enc.LatestResultKind, width-8)
