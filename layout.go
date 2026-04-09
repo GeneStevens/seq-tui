@@ -413,6 +413,29 @@ func isMobEngagingPlayer(enc *encounterSummary, mobID, playerID string) bool {
 	return false
 }
 
+// compactResultKind maps backend result kind strings to compact labels.
+// Unknown kinds are returned as-is (preserves backend truth).
+func compactResultKind(kind string) string {
+	switch kind {
+	case "damage_applied":
+		return "dmg"
+	case "attack_miss":
+		return "miss"
+	case "heal_applied":
+		return "heal"
+	case "out_of_range":
+		return "oor"
+	case "cooldown_set":
+		return "cd"
+	case "blocked_wounded":
+		return "blocked"
+	case "invalid_target":
+		return "bad_tgt"
+	default:
+		return kind
+	}
+}
+
 // renderCombatMobRoster returns lines showing per-mob status in the encounter.
 // Uses backend MobIDs order (deterministic). Indicators:
 //   - `>` prefix = your current attack target (from ar.TargetID)
@@ -555,9 +578,10 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					items = append(items, panelItemStyle.Render(label))
 				}
 
-				// Backend-owned latest attack result
+				// Backend-owned latest attack result — compact wording
 				if enc.LatestResultKind != "" {
-					resultLabel := "  " + truncateID(enc.LatestResultKind, width-8)
+					kind := compactResultKind(enc.LatestResultKind)
+					resultLabel := "  res:" + kind
 					if enc.LatestResultValue > 0 {
 						resultLabel += fmt.Sprintf(" %d", enc.LatestResultValue)
 					}

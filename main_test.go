@@ -3516,7 +3516,7 @@ func TestCombatPanelShowsLatestResult(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "damage_applied") {
+	if !strings.Contains(stripped, "dmg") {
 		t.Fatal("combat panel should show latest result kind with res: prefix")
 	}
 	if !strings.Contains(stripped, "25") {
@@ -3542,8 +3542,8 @@ func TestCombatPanelShowsAttackMiss(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "attack_miss") {
-		t.Fatal("combat panel should show attack miss result with res: prefix")
+	if !strings.Contains(stripped, "res:miss") {
+		t.Fatalf("combat panel should show res:miss, got: %s", stripped)
 	}
 }
 
@@ -4315,7 +4315,7 @@ func TestCombatPanelReadyDistinctFromResult(t *testing.T) {
 	if !strings.Contains(stripped, "rdy:yes") {
 		t.Fatal("should show readiness")
 	}
-	if !strings.Contains(stripped, "damage_applied") {
+	if !strings.Contains(stripped, "dmg") {
 		t.Fatal("should show attack result with res: prefix")
 	}
 }
@@ -4681,7 +4681,7 @@ func TestCombatPanelAtkAndResultDistinct(t *testing.T) {
 	if !strings.Contains(stripped, "atk:") {
 		t.Fatal("should show submission status")
 	}
-	if !strings.Contains(stripped, "damage_applied") {
+	if !strings.Contains(stripped, "dmg") {
 		t.Fatal("should show backend result")
 	}
 	if !strings.Contains(stripped, "rdy:yes") {
@@ -5499,7 +5499,7 @@ func TestCombatPanelCompletedSuppressesStaleLines(t *testing.T) {
 	if strings.Contains(stripped, "atk:") {
 		t.Fatal("atk: should be suppressed for completed encounter")
 	}
-	if strings.Contains(stripped, "damage_applied") {
+	if strings.Contains(stripped, "dmg") {
 		t.Fatal("result should be suppressed for completed encounter")
 	}
 	// Completion info should still show
@@ -5531,7 +5531,7 @@ func TestCombatPanelActiveKeepsAllLines(t *testing.T) {
 	if !strings.Contains(stripped, "atk:") {
 		t.Fatal("active encounter should show attack status")
 	}
-	if !strings.Contains(stripped, "damage_applied") {
+	if !strings.Contains(stripped, "dmg") {
 		t.Fatal("active encounter should show result")
 	}
 }
@@ -5839,5 +5839,67 @@ func TestMobRosterEmptyRosterGoneWithHint(t *testing.T) {
 	}
 	if !strings.Contains(joined, "tab>a") {
 		t.Fatalf("empty roster gone target should show hint, got: %s", joined)
+	}
+}
+
+// --- Combat Result Wording Compactness Tests (M20260409-16) ---
+
+func TestCompactResultKindDamage(t *testing.T) {
+	if compactResultKind("damage_applied") != "dmg" {
+		t.Fatal("damage_applied should compact to dmg")
+	}
+}
+
+func TestCompactResultKindMiss(t *testing.T) {
+	if compactResultKind("attack_miss") != "miss" {
+		t.Fatal("attack_miss should compact to miss")
+	}
+}
+
+func TestCompactResultKindHeal(t *testing.T) {
+	if compactResultKind("heal_applied") != "heal" {
+		t.Fatal("heal_applied should compact to heal")
+	}
+}
+
+func TestCompactResultKindUnknown(t *testing.T) {
+	if compactResultKind("some_new_thing") != "some_new_thing" {
+		t.Fatal("unknown kinds should pass through unchanged")
+	}
+}
+
+func TestCombatPanelResultHasResPrefix(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID:       "enc-1", State: "Active",
+			MobIDs:            []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind:  "damage_applied",
+			LatestResultValue: 42,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "res:dmg 42") {
+		t.Fatalf("should show res:dmg 42, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelResultMissNoValue(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID:      "enc-1", State: "Active",
+			MobIDs:           []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "attack_miss",
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "res:miss") {
+		t.Fatalf("should show res:miss, got: %s", stripped)
 	}
 }
