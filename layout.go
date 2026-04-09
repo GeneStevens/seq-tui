@@ -432,15 +432,21 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 		goneLabel = "(dead)"
 	}
 
+	// Hint for retargeting when target is gone during active combat
+	retargetHint := ""
+	if enc.State != "Completed" {
+		retargetHint = " tab>a"
+	}
+
 	// If no mobs in roster but attack target exists, show it
 	if len(enc.MobIDs) == 0 {
 		if ar.State == attackStateSent && ar.TargetID != "" {
-			idWidth := maxWidth - 7
+			idWidth := maxWidth - 12
 			if idWidth < 4 {
 				idWidth = 4
 			}
 			return []string{
-				panelItemStyle.Render("> " + truncateID(ar.TargetID, idWidth) + " " + goneLabel),
+				panelItemStyle.Render("> " + truncateID(ar.TargetID, idWidth) + " " + goneLabel + retargetHint),
 			}
 		}
 		return nil
@@ -483,7 +489,7 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 			}
 		}
 		if !found {
-			lines = append(lines, panelItemStyle.Render("> "+truncateID(ar.TargetID, idWidth)+" "+goneLabel))
+			lines = append(lines, panelItemStyle.Render("> "+truncateID(ar.TargetID, idWidth)+" "+goneLabel+retargetHint))
 		}
 	}
 

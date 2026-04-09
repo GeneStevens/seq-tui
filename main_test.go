@@ -5785,3 +5785,57 @@ func TestFooterNotJoinedNoDeadHint(t *testing.T) {
 		t.Fatal("not-joined footer should show joining hint")
 	}
 }
+
+// --- Target Loss Recovery Clarity Tests (M20260409-14) ---
+
+func TestMobRosterGoneTargetShowsRetargetHintDuringActive(t *testing.T) {
+	enc := &encounterSummary{
+		State:  "Active",
+		MobIDs: []string{"orc-2"}, // orc-1 gone
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 24, "")
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "tab>a") {
+		t.Fatalf("gone target during active should show tab>a hint, got: %s", joined)
+	}
+}
+
+func TestMobRosterGoneTargetNoHintWhenCompleted(t *testing.T) {
+	enc := &encounterSummary{
+		State:           "Completed",
+		CompletedReason: "all_mobs_dead",
+		MobIDs:          []string{},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 24, "")
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if strings.Contains(joined, "tab>a") {
+		t.Fatal("gone target during completed should not show retarget hint")
+	}
+}
+
+func TestMobRosterEmptyRosterGoneWithHint(t *testing.T) {
+	enc := &encounterSummary{
+		State:  "Active",
+		MobIDs: []string{},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	lines := renderCombatMobRoster(enc, ar, "p1", 24, "")
+	joined := ""
+	for _, l := range lines {
+		joined += stripANSI(l) + "\n"
+	}
+	if !strings.Contains(joined, "(gone)") {
+		t.Fatal("should show gone marker")
+	}
+	if !strings.Contains(joined, "tab>a") {
+		t.Fatalf("empty roster gone target should show hint, got: %s", joined)
+	}
+}
