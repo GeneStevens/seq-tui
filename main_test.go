@@ -1062,7 +1062,8 @@ func TestEncounterPanelDoesNotImplyGameplayLogic(t *testing.T) {
 }
 
 func TestDecodePlayerStateWithEncounterID(t *testing.T) {
-	body := []byte(`{"result":{"player":{"position":{"x":10,"y":20,"z":0},"active_encounter_id":"enc-abc"}}}`)
+	// Backend shape: {"found":true,"player":{"position":{"x":10,"y":20,"z":0},"active_encounter_id":"enc-abc"}}
+	body := []byte(`{"found":true,"player":{"position":{"x":10,"y":20,"z":0},"active_encounter_id":"enc-abc"}}`)
 	result := decodePlayerState(body, playerReadOK)
 	if result.State != playerReadOK {
 		t.Fatal("decode should succeed")
@@ -1082,7 +1083,7 @@ func TestDecodePlayerStateWithEncounterID(t *testing.T) {
 }
 
 func TestDecodePlayerStateWithoutEncounterID(t *testing.T) {
-	body := []byte(`{"result":{"player":{"position":{"x":5,"y":15,"z":0}}}}`)
+	body := []byte(`{"found":true,"player":{"position":{"x":5,"y":15,"z":0}}}`)
 	result := decodePlayerState(body, playerReadOK)
 	if result.HasActiveEncounter {
 		t.Fatal("should not have active encounter when field absent")
@@ -1092,17 +1093,26 @@ func TestDecodePlayerStateWithoutEncounterID(t *testing.T) {
 	}
 }
 
-func TestDecodePlayerStateLegacyShape(t *testing.T) {
-	body := []byte(`{"result":{"Position":{"Pos":{"X":30,"Y":40,"Z":0}}}}`)
+func TestDecodePlayerStateNotFound(t *testing.T) {
+	body := []byte(`{"found":false,"player_id":"p1"}`)
+	result := decodePlayerState(body, playerReadOK)
+	if result.HasPos {
+		t.Fatal("should not have position when not found")
+	}
+}
+
+func TestDecodePlayerStateNonZeroPosition(t *testing.T) {
+	// This is the proof test: backend returns non-zero coords, TUI must decode them correctly
+	body := []byte(`{"found":true,"player":{"position":{"x":120.5,"y":340.2,"z":0}}}`)
 	result := decodePlayerState(body, playerReadOK)
 	if !result.HasPos {
-		t.Fatal("should have position from legacy shape")
+		t.Fatal("should have position")
 	}
-	if result.Position.X != 30 || result.Position.Y != 40 {
-		t.Fatalf("position mismatch: got (%f, %f)", result.Position.X, result.Position.Y)
+	if result.Position.X != 120.5 {
+		t.Fatalf("expected X=120.5, got %f", result.Position.X)
 	}
-	if result.HasActiveEncounter {
-		t.Fatal("legacy shape should not have encounter")
+	if result.Position.Y != 340.2 {
+		t.Fatalf("expected Y=340.2, got %f", result.Position.Y)
 	}
 }
 

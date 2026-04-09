@@ -346,26 +346,29 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 		return moveResult{OK: true, HasPos: false}
 	}
 
+	// Backend returns: {"found":true,"player":{"position":{"x":20,"y":0,"z":0},...}}
 	var raw struct {
-		Result struct {
+		Found  bool `json:"found"`
+		Player struct {
 			Position struct {
-				Pos struct {
-					X float64 `json:"X"`
-					Y float64 `json:"Y"`
-					Z float64 `json:"Z"`
-				} `json:"Pos"`
-			} `json:"Position"`
-		} `json:"result"`
+				X float64 `json:"x"`
+				Y float64 `json:"y"`
+				Z float64 `json:"z"`
+			} `json:"position"`
+		} `json:"player"`
 	}
 	if err := json.Unmarshal(body, &raw); err != nil {
+		return moveResult{OK: true, HasPos: false}
+	}
+	if !raw.Found {
 		return moveResult{OK: true, HasPos: false}
 	}
 
 	result := moveResult{
 		OK: true,
 		Position: playerPosResult{
-			X: raw.Result.Position.Pos.X,
-			Y: raw.Result.Position.Pos.Y,
+			X: raw.Player.Position.X,
+			Y: raw.Player.Position.Y,
 		},
 		HasPos: true,
 	}
@@ -375,45 +378,38 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 
 // decodePlayerState is a shared helper for conservative partial decode of
 // the dev player state response. It extracts position and active encounter ID.
+// The backend dev player snapshot endpoint returns:
+//
+//	{"found":true,"player":{"position":{"x":20,"y":0,"z":0},"active_encounter_id":"...",...}}
+//
+// No "result" wrapper — the map is returned directly.
 func decodePlayerState(body []byte, baseState playerReadState) playerReadResult {
 	var raw struct {
-		Result struct {
-			Player struct {
-				Position struct {
-					X float64 `json:"x"`
-					Y float64 `json:"y"`
-					Z float64 `json:"z"`
-				} `json:"position"`
-				ActiveEncounterID string `json:"active_encounter_id"`
-			} `json:"player"`
+		Found  bool `json:"found"`
+		Player struct {
 			Position struct {
-				Pos struct {
-					X float64 `json:"X"`
-					Y float64 `json:"Y"`
-					Z float64 `json:"Z"`
-				} `json:"Pos"`
-			} `json:"Position"`
-		} `json:"result"`
+				X float64 `json:"x"`
+				Y float64 `json:"y"`
+				Z float64 `json:"z"`
+			} `json:"position"`
+			ActiveEncounterID string `json:"active_encounter_id"`
+		} `json:"player"`
 	}
 	if err := json.Unmarshal(body, &raw); err != nil {
 		return playerReadResult{State: baseState, HasPos: false}
 	}
 
-	// Use player.position (new shape) if available, fall back to Position.Pos (legacy shape)
-	posX := raw.Result.Player.Position.X
-	posY := raw.Result.Player.Position.Y
-	if posX == 0 && posY == 0 {
-		posX = raw.Result.Position.Pos.X
-		posY = raw.Result.Position.Pos.Y
+	if !raw.Found {
+		return playerReadResult{State: baseState, HasPos: false}
 	}
 
-	encID := raw.Result.Player.ActiveEncounterID
+	encID := raw.Player.ActiveEncounterID
 
 	return playerReadResult{
 		State: baseState,
 		Position: playerPosResult{
-			X: posX,
-			Y: posY,
+			X: raw.Player.Position.X,
+			Y: raw.Player.Position.Y,
 		},
 		HasPos:             true,
 		ActiveEncounterID:  encID,

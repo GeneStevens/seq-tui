@@ -29,7 +29,7 @@ func TestSubmitMoveSuccess(t *testing.T) {
 	})
 	mux.HandleFunc("/world/dev/zone/testzone/player/p1", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte(`{"result":{"Position":{"Pos":{"X":120.0,"Y":200.0,"Z":0}}}}`))
+		w.Write([]byte(`{"found":true,"player":{"position":{"x":120.0,"y":200.0,"z":0}}}`))
 	})
 	srv := httptest.NewServer(mux)
 	defer srv.Close()
@@ -203,7 +203,7 @@ func TestSubmitMoveNoTokenInLog(t *testing.T) {
 	})
 	mux.HandleFunc("/world/dev/zone/testzone/player/p1", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte(`{"result":{"Position":{"Pos":{"X":120,"Y":200,"Z":0}}}}`))
+		w.Write([]byte(`{"found":true,"player":{"position":{"x":120,"y":200,"z":0}}}`))
 	})
 	srv := httptest.NewServer(mux)
 	defer srv.Close()
