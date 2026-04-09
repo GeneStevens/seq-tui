@@ -2287,11 +2287,12 @@ func TestCombatPanelMobGone(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "(dead)") {
-		t.Fatalf("combat panel should show (dead) when all_mobs_dead, got: %s", stripped)
-	}
 	if !strings.Contains(stripped, "all_mobs_dead") {
-		t.Fatal("combat panel should show completion reason")
+		t.Fatalf("combat panel should show completion reason, got: %s", stripped)
+	}
+	// Mob roster and atk lines suppressed for completed encounters
+	if strings.Contains(stripped, "atk:") {
+		t.Fatal("atk line should be suppressed for completed encounter")
 	}
 }
 
@@ -5470,5 +5471,86 @@ func TestLayoutNotJoinedFooter(t *testing.T) {
 	stripped := stripANSI(layout)
 	if !strings.Contains(stripped, "joining") {
 		t.Fatalf("not-joined layout should show joining hint in footer, got last line: %s", stripped[len(stripped)-100:])
+	}
+}
+
+// --- Combat Loot Respawn Precedence Polish Tests (M20260409-09) ---
+
+func TestCombatPanelCompletedSuppressesStaleLines(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+			DropsGenerated: true, Drops: []string{"item-1"},
+			LatestResultKind: "damage_applied", LatestResultValue: 25,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv)
+	stripped := stripANSI(panel)
+	// Stale lines should be suppressed
+	if strings.Contains(stripped, "rdy:") {
+		t.Fatal("rdy: should be suppressed for completed encounter")
+	}
+	if strings.Contains(stripped, "atk:") {
+		t.Fatal("atk: should be suppressed for completed encounter")
+	}
+	if strings.Contains(stripped, "damage_applied") {
+		t.Fatal("result should be suppressed for completed encounter")
+	}
+	// Completion info should still show
+	if !strings.Contains(stripped, "all_mobs_dead") {
+		t.Fatal("completion reason should still show")
+	}
+	if !strings.Contains(stripped, "/L") {
+		t.Fatal("loot indicator should still show")
+	}
+}
+
+func TestCombatPanelActiveKeepsAllLines(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID:      "enc-1", State: "Active",
+			MobIDs:           []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "damage_applied", LatestResultValue: 10,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "rdy:yes") {
+		t.Fatal("active encounter should show readiness")
+	}
+	if !strings.Contains(stripped, "atk:") {
+		t.Fatal("active encounter should show attack status")
+	}
+	if !strings.Contains(stripped, "damage_applied") {
+		t.Fatal("active encounter should show result")
+	}
+}
+
+func TestCombatPanelCompletedIsCompact(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	encActive := encounterSummary{
+		EncounterID: "enc-1", State: "Active",
+		MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		LatestResultKind: "damage_applied", LatestResultValue: 10,
+	}
+	encCompleted := encounterSummary{
+		EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true}
+	activePanel := renderCombatPanel(sidePanelWidth, ar, pr, encounterReadResult{State: encounterReadOK, Count: 1, Encounters: []encounterSummary{encActive}}, defaultTarget(), inv)
+	completedPanel := renderCombatPanel(sidePanelWidth, ar, pr, encounterReadResult{State: encounterReadOK, Count: 1, Encounters: []encounterSummary{encCompleted}}, defaultTarget(), inv)
+	activeLines := strings.Count(stripANSI(activePanel), "\n")
+	completedLines := strings.Count(stripANSI(completedPanel), "\n")
+	if completedLines >= activeLines {
+		t.Fatalf("completed panel should be shorter than active: active=%d completed=%d", activeLines, completedLines)
 	}
 }

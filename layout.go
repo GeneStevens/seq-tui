@@ -514,21 +514,23 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
 			}
 
-			// Backend-owned readiness — compact form
-			if inv.State == inventoryReadOK && inv.HasLifecycle {
-				if inv.CanAct {
-					items = append(items, panelItemStyle.Render("  rdy:yes"))
-				} else {
-					label := "  rdy:no"
-					if inv.BlockedReason != "" {
-						label += " " + truncateID(inv.BlockedReason, width-12)
-					}
-					items = append(items, panelItemStyle.Render(label))
-				}
-			}
-
-			// Attack submission status — suppress when encounter is completed (combat over)
+			// Active-only sections: readiness, attack status, result, roster, summary
+			// Suppressed when encounter is Completed (combat over — these are stale)
 			if enc.State != "Completed" {
+				// Backend-owned readiness — compact form
+				if inv.State == inventoryReadOK && inv.HasLifecycle {
+					if inv.CanAct {
+						items = append(items, panelItemStyle.Render("  rdy:yes"))
+					} else {
+						label := "  rdy:no"
+						if inv.BlockedReason != "" {
+							label += " " + truncateID(inv.BlockedReason, width-12)
+						}
+						items = append(items, panelItemStyle.Render(label))
+					}
+				}
+
+				// Attack submission status
 				if ar.State == attackStateSent {
 					label := "  atk:" + truncateID(ar.TargetID, width-8)
 					items = append(items, panelItemStyle.Render(label))
@@ -539,24 +541,24 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					}
 					items = append(items, panelItemStyle.Render(label))
 				}
-			}
 
-			// Backend-owned latest attack result — compact one-line form
-			if enc.LatestResultKind != "" {
-				resultLabel := "  " + truncateID(enc.LatestResultKind, width-8)
-				if enc.LatestResultValue > 0 {
-					resultLabel += fmt.Sprintf(" %d", enc.LatestResultValue)
+				// Backend-owned latest attack result
+				if enc.LatestResultKind != "" {
+					resultLabel := "  " + truncateID(enc.LatestResultKind, width-8)
+					if enc.LatestResultValue > 0 {
+						resultLabel += fmt.Sprintf(" %d", enc.LatestResultValue)
+					}
+					items = append(items, panelItemStyle.Render(resultLabel))
 				}
-				items = append(items, panelItemStyle.Render(resultLabel))
-			}
 
-			// Per-mob roster — no header, indicators are self-evident
-			rosterLines := renderCombatMobRoster(enc, ar, target.Player, width-4)
-			items = append(items, rosterLines...)
+				// Per-mob roster
+				rosterLines := renderCombatMobRoster(enc, ar, target.Player, width-4)
+				items = append(items, rosterLines...)
 
-			// Backend-owned text summary of latest event
-			if enc.TextSummaryLatest != "" {
-				items = append(items, panelItemStyle.Render("  "+truncateID(enc.TextSummaryLatest, width-6)))
+				// Backend-owned text summary
+				if enc.TextSummaryLatest != "" {
+					items = append(items, panelItemStyle.Render("  "+truncateID(enc.TextSummaryLatest, width-6)))
+				}
 			}
 
 			content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
