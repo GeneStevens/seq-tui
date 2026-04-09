@@ -417,9 +417,10 @@ func isMobEngagingPlayer(enc *encounterSummary, mobID, playerID string) bool {
 // Uses backend MobIDs order (deterministic). Indicators:
 //   - `>` prefix = your current attack target (from ar.TargetID)
 //   - `<-` suffix = mob is engaging/targeting you (from mob_threat)
+//   - `~` suffix = tab-focused mob (from focusedMobID)
 //
 // Read-only from backend truth. No threat calculation.
-func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID string, maxWidth int) []string {
+func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID string, maxWidth int, focusedMobID string) []string {
 	if enc == nil {
 		return nil
 	}
@@ -459,8 +460,14 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 			prefix = "> "
 		}
 		suffix := ""
+		if focusedMobID == mid {
+			suffix = "~"
+		}
 		if isMobEngagingPlayer(enc, mid, playerID) {
-			suffix = " <-"
+			suffix += "<-"
+		}
+		if suffix != "" {
+			suffix = " " + suffix
 		}
 		label := prefix + truncateID(mid, idWidth) + suffix
 		lines = append(lines, panelItemStyle.Render(label))
@@ -486,7 +493,7 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 // renderCombatPanel returns a compact panel showing backend-owned combat readback.
 // Shows encounter state, attack resolution, target status, and mob engagement
 // from backend truth without any client-side combat logic or interpretation.
-func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encounterReadResult, target backendTarget, inv inventoryReadResult) string {
+func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encounterReadResult, target backendTarget, inv inventoryReadResult, focusedMobID string) string {
 	title := panelTitleStyle.Render("Combat")
 
 	var items []string
@@ -552,7 +559,7 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				}
 
 				// Per-mob roster
-				rosterLines := renderCombatMobRoster(enc, ar, target.Player, width-4)
+				rosterLines := renderCombatMobRoster(enc, ar, target.Player, width-4, focusedMobID)
 				items = append(items, rosterLines...)
 
 				// Backend-owned text summary
@@ -750,11 +757,16 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 }
 
 // renderSideColumn stacks the side panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult) string {
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult) string {
 	// Panel ordering: most important first for small terminals.
 	// No blank-line separators — borders provide visual separation.
 	player := renderPlayerPanel(width, pr, inv, rs)
-	combat := renderCombatPanel(width, ar, pr, er, target, inv)
+	// Compute focused mob ID for combat roster coherence
+	fmID := ""
+	if fe := focusedEntry(focus, entries); fe != nil && fe.kind == "mb" {
+		fmID = fe.id
+	}
+	combat := renderCombatPanel(width, ar, pr, er, target, inv, fmID)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
 	proximity := renderProximityPanel(width, tc, ar)
@@ -817,7 +829,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, tc, ar, pk, inv, invAtPickup, lootFocus, rs)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, invAtPickup, lootFocus, rs)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,
