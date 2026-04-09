@@ -579,11 +579,16 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 
 	var items []string
 
-	// Show pickup submission result if any
+	// Show pickup submission result — compact, with item ID when available
 	if pk.State == pickupStateSent {
-		items = append(items, panelItemStyle.Render("  pickup: accepted"))
+		label := "  pk:" + truncateID(pk.ItemID, width-7)
+		items = append(items, panelItemStyle.Render(label))
 	} else if pk.State == pickupStateFailed {
-		items = append(items, panelItemStyle.Render("  pickup: failed"))
+		label := "  pk:fail"
+		if pk.Error != "" {
+			label += " " + truncateID(pk.Error, width-13)
+		}
+		items = append(items, panelItemStyle.Render(label))
 	}
 
 	// Find active encounter for loot readback
@@ -645,14 +650,14 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 		}
 	}
 
-	// Show backend-owned inventory confirmation
+	// Show backend-owned inventory confirmation — compact form
 	if inv.State == inventoryReadOK {
 		if pk.State == pickupStateSent && invAtPickup >= 0 {
 			delta := inv.Count - invAtPickup
 			if delta > 0 {
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  inv: +%d confirmed", delta)))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  inv:+%d", delta)))
 			} else {
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  inv: %d (pending)", inv.Count)))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  inv:%d pending", inv.Count)))
 			}
 		} else {
 			items = append(items, panelItemStyle.Render(fmt.Sprintf("  inv: %d", inv.Count)))

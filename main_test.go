@@ -2445,16 +2445,18 @@ func TestLootPanelPickupAccepted(t *testing.T) {
 	}
 	pk := pickupResult{State: pickupStateSent, EncounterID: "enc-1", ItemID: "item-1"}
 	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inventoryReadResult{}, -1, -1)
-	if !strings.Contains(panel, "pickup: accepted") {
-		t.Fatal("loot panel should show pickup: accepted")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "pk:item-1") {
+		t.Fatalf("loot panel should show pk:item-id, got: %s", stripped)
 	}
 }
 
 func TestLootPanelPickupFailed(t *testing.T) {
 	pk := pickupResult{State: pickupStateFailed, Error: "loot expired"}
 	panel := renderLootPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{}, pk, inventoryReadResult{}, -1, -1)
-	if !strings.Contains(panel, "pickup: failed") {
-		t.Fatal("loot panel should show pickup: failed")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "pk:fail") {
+		t.Fatalf("loot panel should show pk:fail, got: %s", stripped)
 	}
 }
 
@@ -2515,16 +2517,16 @@ func TestPickupStatusLabelNone(t *testing.T) {
 }
 
 func TestPickupStatusLabelSent(t *testing.T) {
-	r := pickupResult{State: pickupStateSent}
-	if r.pickupStatusLabel() != "pickup: accepted" {
-		t.Fatalf("expected 'pickup: accepted', got %q", r.pickupStatusLabel())
+	r := pickupResult{State: pickupStateSent, ItemID: "sword-1"}
+	if r.pickupStatusLabel() != "pk:sword-1" {
+		t.Fatalf("expected 'pk:sword-1', got %q", r.pickupStatusLabel())
 	}
 }
 
 func TestPickupStatusLabelFailed(t *testing.T) {
 	r := pickupResult{State: pickupStateFailed}
-	if r.pickupStatusLabel() != "pickup: failed" {
-		t.Fatalf("expected 'pickup: failed', got %q", r.pickupStatusLabel())
+	if r.pickupStatusLabel() != "pk:fail" {
+		t.Fatalf("expected 'pk:fail', got %q", r.pickupStatusLabel())
 	}
 }
 
@@ -2590,11 +2592,9 @@ func TestLootPanelShowsInventoryDeltaAfterPickup(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, Count: 4}
 	pk := pickupResult{State: pickupStateSent, EncounterID: "enc-1", ItemID: "item-1"}
 	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inv, 3, -1) // was 3, now 4
-	if !strings.Contains(panel, "inv: +1") {
-		t.Fatal("loot panel should show inventory delta after pickup")
-	}
-	if !strings.Contains(panel, "confirmed") {
-		t.Fatal("loot panel should say confirmed when delta is positive")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "inv:+1") {
+		t.Fatalf("loot panel should show compact inventory delta, got: %s", stripped)
 	}
 }
 
@@ -5153,5 +5153,62 @@ func TestCombatPanelNoPhaseWhenActive(t *testing.T) {
 	stripped := stripANSI(panel)
 	if strings.Contains(stripped, "phase:") {
 		t.Fatal("combat panel should not show phase indicator during active combat")
+	}
+}
+
+// --- Pickup Feedback Tightening Tests (M20260404-13) ---
+
+func TestLootPanelCompactPickupSent(t *testing.T) {
+	pk := pickupResult{State: pickupStateSent, ItemID: "sword-1"}
+	panel := renderLootPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{}, pk, inventoryReadResult{}, -1, -1)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "pk:sword-1") {
+		t.Fatalf("should show pk:item-id, got: %s", stripped)
+	}
+}
+
+func TestLootPanelCompactPickupFail(t *testing.T) {
+	pk := pickupResult{State: pickupStateFailed, Error: "expired"}
+	panel := renderLootPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{}, pk, inventoryReadResult{}, -1, -1)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "pk:fail") {
+		t.Fatalf("should show pk:fail, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "expired") {
+		t.Fatal("should show failure reason")
+	}
+}
+
+func TestLootPanelCompactInventoryDelta(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true, Drops: []string{},
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, Count: 5}
+	pk := pickupResult{State: pickupStateSent, ItemID: "item-1"}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inv, 3, -1) // delta = 5 - 3 = +2
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "inv:+2") {
+		t.Fatalf("should show compact inv:+N, got: %s", stripped)
+	}
+}
+
+func TestLootPanelCompactInventoryPending(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true, Drops: []string{},
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, Count: 3}
+	pk := pickupResult{State: pickupStateSent, ItemID: "item-1"}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inv, 3, -1) // delta = 0, still pending
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "inv:3 pending") {
+		t.Fatalf("should show inv:N pending, got: %s", stripped)
 	}
 }

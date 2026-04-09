@@ -919,9 +919,9 @@ type pickupResult struct {
 func (r pickupResult) pickupStatusLabel() string {
 	switch r.State {
 	case pickupStateSent:
-		return "pickup: accepted"
+		return "pk:" + r.ItemID
 	case pickupStateFailed:
-		return "pickup: failed"
+		return "pk:fail"
 	default:
 		return ""
 	}
