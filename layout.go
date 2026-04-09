@@ -751,14 +751,16 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 
 // renderSideColumn stacks the side panels vertically.
 func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult) string {
-	nearby := renderNearbyPanel(width)
+	// Panel ordering: most important first for small terminals.
+	// No blank-line separators — borders provide visual separation.
 	player := renderPlayerPanel(width, pr, inv, rs)
-	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
-	proximity := renderProximityPanel(width, tc, ar)
 	combat := renderCombatPanel(width, ar, pr, er, target, inv)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
+	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
+	proximity := renderProximityPanel(width, tc, ar)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
-	return lipgloss.JoinVertical(lipgloss.Left, nearby, "", player, "", encounter, "", proximity, "", combat, "", loot, "", status)
+	nearby := renderNearbyPanel(width)
+	return lipgloss.JoinVertical(lipgloss.Left, player, combat, loot, encounter, proximity, status, nearby)
 }
 
 // renderFooter returns the footer help strip with status labels.

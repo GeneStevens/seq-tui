@@ -5554,3 +5554,53 @@ func TestCombatPanelCompletedIsCompact(t *testing.T) {
 		t.Fatalf("completed panel should be shorter than active: active=%d completed=%d", activeLines, completedLines)
 	}
 }
+
+// --- Small Terminal Panel Ordering Sanity Tests (M20260409-10) ---
+
+func TestSideColumnPlayerBeforeCombat(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
+	stripped := stripANSI(col)
+	playerIdx := strings.Index(stripped, "Player")
+	combatIdx := strings.Index(stripped, "Combat")
+	if playerIdx < 0 || combatIdx < 0 {
+		t.Fatal("side column should contain Player and Combat panels")
+	}
+	if playerIdx > combatIdx {
+		t.Fatal("Player panel should appear before Combat panel")
+	}
+}
+
+func TestSideColumnCombatBeforeLoot(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
+	stripped := stripANSI(col)
+	combatIdx := strings.Index(stripped, "Combat")
+	lootIdx := strings.Index(stripped, "Loot")
+	if combatIdx < 0 || lootIdx < 0 {
+		t.Fatal("side column should contain Combat and Loot panels")
+	}
+	if combatIdx > lootIdx {
+		t.Fatal("Combat panel should appear before Loot panel")
+	}
+}
+
+func TestSideColumnNearbyIsLast(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
+	stripped := stripANSI(col)
+	nearbyIdx := strings.Index(stripped, "Nearby")
+	statusIdx := strings.Index(stripped, "Status")
+	if nearbyIdx < 0 || statusIdx < 0 {
+		t.Fatal("side column should contain Nearby and Status panels")
+	}
+	if nearbyIdx < statusIdx {
+		t.Fatal("Nearby should appear after Status (last panel)")
+	}
+}
+
+func TestSideColumnNoBlankLineSeparators(t *testing.T) {
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
+	stripped := stripANSI(col)
+	// Should not have double newlines (blank line separators removed)
+	if strings.Contains(stripped, "\n\n\n") {
+		t.Fatal("side column should not have triple newlines (removed blank separators)")
+	}
+}
