@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -347,14 +348,28 @@ func truncateID(id string, maxLen int) string {
 // renderProximityPanel returns a compact panel showing backend-owned proximity data.
 // Read-only, no targeting authority, no gameplay semantics.
 // Shows [atk] marker when proximity target matches the current attack target.
-func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult) string {
+// When no proximity query is active, shows nearest mob from mob positions.
+func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mobr mobReadResult, pr playerReadResult) string {
 	title := panelTitleStyle.Render("Proximity")
 
 	var items []string
 
 	switch tc.State {
 	case targetConfirmNone:
-		items = append(items, panelItemStyle.Render("  none"))
+		// No proximity query — show nearest mob as orientation aid
+		if pr.State == playerReadOK && pr.HasPos && mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
+			nearID, nearDist := nearestMob(pr.Position, mobr.Mobs)
+			if nearID != "" {
+				items = append(items, panelItemStyle.Render("  nearest:"))
+				items = append(items, panelItemStyle.Render("  "+truncateID(nearID, width-6)))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f", nearDist)))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  mobs:%d", len(mobr.Mobs))))
+			} else {
+				items = append(items, panelItemStyle.Render("  no mobs"))
+			}
+		} else {
+			items = append(items, panelItemStyle.Render("  none"))
+		}
 	case targetConfirmFailed:
 		items = append(items, panelItemStyle.Render("  unavailable"))
 	case targetConfirmOK:
@@ -382,6 +397,26 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult) st
 
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
 	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
+// nearestMob returns the ID and distance of the nearest mob to the player position.
+// Pure read of mob positions — no gameplay inference, no targeting authority.
+func nearestMob(playerPos playerPosResult, mobs []mobPosition) (string, float64) {
+	if len(mobs) == 0 {
+		return "", 0
+	}
+	bestID := ""
+	bestDist := math.MaxFloat64
+	for _, mob := range mobs {
+		dx := mob.Position.X - playerPos.X
+		dy := mob.Position.Y - playerPos.Y
+		dist := math.Sqrt(dx*dx + dy*dy)
+		if dist < bestDist {
+			bestDist = dist
+			bestID = mob.ProcessID
+		}
+	}
+	return bestID, bestDist
 }
 
 // mobsEngagingPlayer returns the IDs of mobs whose selected target is the given player.
@@ -804,7 +839,7 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	combat := renderCombatPanel(width, ar, pr, er, target, inv, fmID)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
-	proximity := renderProximityPanel(width, tc, ar)
+	proximity := renderProximityPanel(width, tc, ar, mobr, pr)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
 	nearby := renderNearbyPanel(width)
 	return lipgloss.JoinVertical(lipgloss.Left, player, combat, loot, encounter, proximity, status, nearby)

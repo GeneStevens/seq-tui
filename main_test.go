@@ -1912,7 +1912,7 @@ func TestFooterContainsConfirmHint(t *testing.T) {
 // --- Proximity Panel Tests (M29) ---
 
 func TestProximityPanelNone(t *testing.T) {
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobReadResult{}, playerReadResult{})
 	if !strings.Contains(panel, "Proximity") {
 		t.Fatal("proximity panel should contain title")
 	}
@@ -1923,7 +1923,7 @@ func TestProximityPanelNone(t *testing.T) {
 
 func TestProximityPanelUnavailable(t *testing.T) {
 	tc := targetConfirmResult{State: targetConfirmFailed, Error: "HTTP 500"}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	if !strings.Contains(panel, "unavailable") {
 		t.Fatal("proximity panel should show unavailable on failure")
 	}
@@ -1934,7 +1934,7 @@ func TestProximityPanelFoundWithMobName(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, WithinProximity: false, Distance: 12.3, MobName: "a_skeleton",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	if !strings.Contains(panel, "a_skeleton") {
 		t.Fatal("proximity panel should show mob name")
 	}
@@ -1952,7 +1952,7 @@ func TestProximityPanelFoundWithinProximity(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, WithinProximity: true, Distance: 2.1, MobName: "orc",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "in range") {
 		t.Fatalf("proximity panel should show in-range indicator, got: %s", stripped)
@@ -1963,7 +1963,7 @@ func TestProximityPanelNotFound(t *testing.T) {
 	tc := targetConfirmResult{
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a", Found: false,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "not found") {
 		t.Fatalf("proximity panel should show not found, got: %s", stripped)
@@ -1975,7 +1975,7 @@ func TestProximityPanelFallbackID(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, MobName: "",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	if !strings.Contains(panel, "mb:orc-a") {
 		t.Fatal("proximity panel should fall back to kind:id when no mob name")
 	}
@@ -1986,8 +1986,8 @@ func TestProximityPanelDeterministic(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc",
 		Found: true, WithinProximity: true, Distance: 5.0, MobName: "orc",
 	}
-	a := renderProximityPanel(sidePanelWidth, tc, attackResult{})
-	b := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	a := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
+	b := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	if a != b {
 		t.Fatal("proximity panel should be deterministic")
 	}
@@ -2012,7 +2012,7 @@ func TestProximityPanelNoGameplayTerms(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc",
 		Found: true, WithinProximity: true, Distance: 2.0, MobName: "orc",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	forbidden := []string{"attack", "threat", "aggro", "damage", "hp", "health", "enemy"}
 	for _, word := range forbidden {
 		if strings.Contains(strings.ToLower(panel), word) {
@@ -5334,7 +5334,7 @@ func TestProximityPanelAtkMarker(t *testing.T) {
 		Found: true, WithinProximity: true, Distance: 3.0, MobName: "orc",
 	}
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
-	panel := renderProximityPanel(sidePanelWidth, tc, ar)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, playerReadResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "[atk]") {
 		t.Fatalf("should show [atk] when proximity target matches attack target, got: %s", stripped)
@@ -5347,7 +5347,7 @@ func TestProximityPanelNoAtkMarkerDifferentTarget(t *testing.T) {
 		Found: true, WithinProximity: true, Distance: 3.0, MobName: "orc",
 	}
 	ar := attackResult{State: attackStateSent, TargetID: "orc-2"} // different
-	panel := renderProximityPanel(sidePanelWidth, tc, ar)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, playerReadResult{})
 	stripped := stripANSI(panel)
 	if strings.Contains(stripped, "[atk]") {
 		t.Fatal("should not show [atk] when targets differ")
@@ -5359,7 +5359,7 @@ func TestProximityPanelCompactInRange(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
 		Found: true, WithinProximity: true, Distance: 2.0,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "in range") {
 		t.Fatalf("should show compact in-range, got: %s", stripped)
@@ -5371,7 +5371,7 @@ func TestProximityPanelCompactOutOfRange(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
 		Found: true, WithinProximity: false, Distance: 15.0,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "out") {
 		t.Fatalf("should show compact out-of-range, got: %s", stripped)
@@ -5907,5 +5907,62 @@ func TestCombatPanelResultMissNoValue(t *testing.T) {
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "res:miss") {
 		t.Fatalf("should show res:miss, got: %s", stripped)
+	}
+}
+
+// --- Proximity Derivation and Attack Key Instrumentation Tests (M20260409-26) ---
+
+func TestNearestMobBasic(t *testing.T) {
+	pos := playerPosResult{X: 0, Y: 0}
+	mobs := []mobPosition{
+		{ProcessID: "orc-far", Position: mobPosVec3{X: 100, Y: 100}},
+		{ProcessID: "orc-near", Position: mobPosVec3{X: 10, Y: 10}},
+	}
+	id, dist := nearestMob(pos, mobs)
+	if id != "orc-near" {
+		t.Fatalf("expected nearest=orc-near, got %s", id)
+	}
+	if dist < 10 || dist > 20 {
+		t.Fatalf("expected dist ~14, got %f", dist)
+	}
+}
+
+func TestNearestMobEmpty(t *testing.T) {
+	pos := playerPosResult{X: 0, Y: 0}
+	id, _ := nearestMob(pos, nil)
+	if id != "" {
+		t.Fatal("expected empty ID for no mobs")
+	}
+}
+
+func TestProximityPanelShowsNearestMob(t *testing.T) {
+	tc := targetConfirmResult{State: targetConfirmNone}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs: []mobPosition{
+			{ProcessID: "orc-1", Position: mobPosVec3{X: 50, Y: 50}},
+		},
+		Count: 1,
+	}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "nearest") {
+		t.Fatalf("should show nearest mob, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "orc-1") {
+		t.Fatalf("should show mob ID, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "dist:") {
+		t.Fatalf("should show distance, got: %s", stripped)
+	}
+}
+
+func TestProximityPanelNoneWithoutMobs(t *testing.T) {
+	tc := targetConfirmResult{State: targetConfirmNone}
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "none") {
+		t.Fatalf("should show none without player/mobs, got: %s", stripped)
 	}
 }

@@ -439,6 +439,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 		case "tab":
 			m.rosterFocus = moveFocusDown(m.rosterFocus, len(m.rosterEntries))
+			fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+			if fe != nil {
+				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": fe.kind, "focus_id": fe.id, "roster_len": len(m.rosterEntries)})
+			} else {
+				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": "none", "roster_len": len(m.rosterEntries), "has_encounter": m.playerRead.HasActiveEncounter})
+			}
 			return m, maybeRefreshProximity(&m)
 		case "shift+tab":
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
@@ -502,17 +508,25 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return respawnResultMsg{result: submitRespawn(bt)}
 			}
 		case "a":
-			m.slog.LogIntent("attack", nil)
 			// Submit BasicAttack intent against focused mob
 			if m.playerRead.State != playerReadOK {
+				m.slog.LogState(map[string]any{"name": "attack_skip", "reason": "no_player"})
 				m.lastAttack = attackResult{State: attackStateFailed, Error: "no player"}
 				return m, nil
 			}
 			fe := focusedEntry(m.rosterFocus, m.rosterEntries)
 			if fe == nil || fe.kind != "mb" {
+				reason := "no_mob_focused"
+				if fe == nil {
+					reason = fmt.Sprintf("no_focus roster_len=%d has_enc=%v", len(m.rosterEntries), m.playerRead.HasActiveEncounter)
+				} else {
+					reason = fmt.Sprintf("focus_not_mob kind=%s id=%s", fe.kind, fe.id)
+				}
+				m.slog.LogState(map[string]any{"name": "attack_skip", "reason": reason, "roster_len": len(m.rosterEntries)})
 				m.lastAttack = attackResult{State: attackStateFailed, Error: "no mob focused"}
 				return m, nil
 			}
+			m.slog.LogIntent("attack", map[string]any{"target": fe.id})
 			entry := *fe
 			bt := m.target
 			return m, func() tea.Msg {
