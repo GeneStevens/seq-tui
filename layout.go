@@ -527,16 +527,18 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				}
 			}
 
-			// Attack submission status — includes target ID for target-switch visibility
-			if ar.State == attackStateSent {
-				label := "  atk:" + truncateID(ar.TargetID, width-8)
-				items = append(items, panelItemStyle.Render(label))
-			} else if ar.State == attackStateFailed {
-				label := "  atk:fail"
-				if ar.Error != "" {
-					label += " " + truncateID(ar.Error, width-14)
+			// Attack submission status — suppress when encounter is completed (combat over)
+			if enc.State != "Completed" {
+				if ar.State == attackStateSent {
+					label := "  atk:" + truncateID(ar.TargetID, width-8)
+					items = append(items, panelItemStyle.Render(label))
+				} else if ar.State == attackStateFailed {
+					label := "  atk:fail"
+					if ar.Error != "" {
+						label += " " + truncateID(ar.Error, width-14)
+					}
+					items = append(items, panelItemStyle.Render(label))
 				}
-				items = append(items, panelItemStyle.Render(label))
 			}
 
 			// Backend-owned latest attack result — compact one-line form
@@ -584,8 +586,9 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 
 	var items []string
 
-	// Show pickup submission result — compact, with item ID when available
-	if pk.State == pickupStateSent {
+	// Show pickup submission result — suppress when inventory delta already confirmed
+	pickupConfirmed := pk.State == pickupStateSent && inv.State == inventoryReadOK && invAtPickup >= 0 && inv.Count > invAtPickup
+	if pk.State == pickupStateSent && !pickupConfirmed {
 		label := "  pk:" + truncateID(pk.ItemID, width-7)
 		items = append(items, panelItemStyle.Render(label))
 	} else if pk.State == pickupStateFailed {
@@ -714,13 +717,10 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 			}
 		}
 
-		// Respawn submission status — distinct from backend-confirmed recovery.
-		// "respawn: sent" means submission accepted, NOT that player is restored.
-		// Backend-confirmed restoration is shown above via HP/can-act changes.
+		// Respawn submission status — suppress "restored" (stale once backend confirms).
+		// Only show "sent" while awaiting confirmation, or "failed" on error.
 		if rs.State == respawnStateSent {
-			if inv.HPCurrent > 0 && inv.CanAct {
-				items = append(items, panelItemStyle.Render("  respawn: restored"))
-			} else {
+			if !(inv.HPCurrent > 0 && inv.CanAct) {
 				items = append(items, panelItemStyle.Render("  respawn: sent"))
 			}
 		} else if rs.State == respawnStateFailed {

@@ -3868,15 +3868,19 @@ func TestPlayerPanelRespawnSent(t *testing.T) {
 	}
 }
 
-func TestPlayerPanelRespawnRestored(t *testing.T) {
-	// After respawn: backend shows HP restored and can_act=true
+func TestPlayerPanelRespawnRestoredSuppressed(t *testing.T) {
+	// After respawn: backend shows HP restored — respawn line suppressed (stale)
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
 	rs := respawnResult{State: respawnStateSent}
 	panel := renderPlayerPanel(sidePanelWidth, pr, inv, rs)
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "restored") {
-		t.Fatalf("player panel should show restored when backend confirms recovery, got: %q", stripped)
+	if strings.Contains(stripped, "respawn") {
+		t.Fatalf("player panel should suppress stale respawn line once restored, got: %q", stripped)
+	}
+	// HP and can-act should still confirm recovery
+	if !strings.Contains(stripped, "hp: 100/100") {
+		t.Fatal("HP should still show recovery")
 	}
 }
 
@@ -5342,5 +5346,76 @@ func TestProximityPanelCompactOutOfRange(t *testing.T) {
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "out") {
 		t.Fatalf("should show compact out-of-range, got: %s", stripped)
+	}
+}
+
+// --- Stale Action State Reset Clarity Tests (M20260409-04) ---
+
+func TestCombatPanelAtkSuppressedOnCompleted(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "atk:") {
+		t.Fatalf("atk line should be suppressed on completed encounter, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelAtkShownDuringActive(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "atk:") {
+		t.Fatal("atk line should still show during active combat")
+	}
+}
+
+func TestLootPanelPkSuppressedAfterConfirmation(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true, Drops: []string{},
+		}},
+	}
+	pk := pickupResult{State: pickupStateSent, ItemID: "item-1"}
+	inv := inventoryReadResult{State: inventoryReadOK, Count: 4}
+	// invAtPickup=3, Count=4 → delta confirmed
+	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inv, 3, -1)
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "pk:item-1") {
+		t.Fatalf("pk line should be suppressed after inventory confirmation, got: %s", stripped)
+	}
+}
+
+func TestLootPanelPkShownWhilePending(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true, Drops: []string{"item-1"},
+		}},
+	}
+	pk := pickupResult{State: pickupStateSent, ItemID: "item-1"}
+	inv := inventoryReadResult{State: inventoryReadOK, Count: 3}
+	// invAtPickup=3, Count=3 → no delta yet
+	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inv, 3, -1)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "pk:item-1") {
+		t.Fatalf("pk line should show while pending, got: %s", stripped)
 	}
 }
