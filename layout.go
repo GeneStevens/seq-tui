@@ -667,7 +667,12 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 			if lootFocus == i {
 				prefix = "> "
 			}
-			items = append(items, panelItemStyle.Render(prefix+truncateID(enc.Drops[i], width-6)))
+			dropLabel := truncateID(enc.Drops[i], width-10)
+			// Mark the item that was submitted for pickup (suppress once confirmed)
+			if pk.State == pickupStateSent && !pickupConfirmed && pk.ItemID == enc.Drops[i] {
+				dropLabel += " [pk]"
+			}
+			items = append(items, panelItemStyle.Render(prefix+dropLabel))
 		}
 		if len(enc.Drops) > 3 {
 			items = append(items, panelItemStyle.Render(fmt.Sprintf("  +%d more", len(enc.Drops)-3)))

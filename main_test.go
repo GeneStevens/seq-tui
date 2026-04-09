@@ -5681,3 +5681,61 @@ func TestMobRosterNoFocus(t *testing.T) {
 		t.Fatal("should not show ~ when no focus")
 	}
 }
+
+// --- Loot Selection and Pickup Coherence Tests (M20260409-12) ---
+
+func TestLootDropRowShowsPkMarker(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"sword-1", "shield-1"},
+		}},
+	}
+	pk := pickupResult{State: pickupStateSent, ItemID: "sword-1"}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inventoryReadResult{}, -1, 0)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "[pk]") {
+		t.Fatalf("drop row should show [pk] marker for submitted item, got: %s", stripped)
+	}
+}
+
+func TestLootDropRowNoPkMarkerOtherItem(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"sword-1", "shield-1"},
+		}},
+	}
+	pk := pickupResult{State: pickupStateSent, ItemID: "shield-1"}
+	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inventoryReadResult{}, -1, 0)
+	stripped := stripANSI(panel)
+	// sword-1 should NOT have [pk]
+	lines := strings.Split(stripped, "\n")
+	for _, line := range lines {
+		if strings.Contains(line, "sword") && strings.Contains(line, "[pk]") {
+			t.Fatal("non-submitted item should not have [pk] marker")
+		}
+	}
+}
+
+func TestLootDropRowPkMarkerSuppressedAfterConfirmation(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", DropsGenerated: true,
+			Drops: []string{"sword-1"},
+		}},
+	}
+	pk := pickupResult{State: pickupStateSent, ItemID: "sword-1"}
+	inv := inventoryReadResult{State: inventoryReadOK, Count: 5} // delta confirmed (invAtPickup=4)
+	panel := renderLootPanel(sidePanelWidth, pr, er, pk, inv, 4, 0)
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "[pk]") {
+		t.Fatal("[pk] should be suppressed after inventory confirmation")
+	}
+}
