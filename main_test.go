@@ -232,7 +232,7 @@ func TestRenderHeaderContainsSubtitle(t *testing.T) {
 }
 
 func TestRenderFooterContainsQuitHint(t *testing.T) {
-	footer := renderFooter(80, "", "", "", "", "")
+	footer := renderFooter(80, "", "", "", "", "", true)
 	if !strings.Contains(footer, " q") {
 		t.Fatal("footer should contain quit hint")
 	}
@@ -365,7 +365,7 @@ func TestDirectionFromKeyUnrecognized(t *testing.T) {
 }
 
 func TestFooterContainsMovementKeys(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "", true)
 	if !strings.Contains(footer, "hjkl:mv") {
 		t.Fatal("footer should advertise movement keys")
 	}
@@ -376,7 +376,7 @@ func TestFooterContainsMovementKeys(t *testing.T) {
 
 func TestFooterShowsIntentPreview(t *testing.T) {
 	preview := moveIntent{direction: "north"}.preview()
-	footer := renderFooter(120, preview, "", "", "", "")
+	footer := renderFooter(120, preview, "", "", "", "", true)
 	if !strings.Contains(footer, "move north") {
 		t.Fatal("footer should show intent preview with direction")
 	}
@@ -1472,7 +1472,7 @@ func TestRosterFocusNoGameplayTerms(t *testing.T) {
 }
 
 func TestFooterContainsRosterHint(t *testing.T) {
-	footer := renderFooter(80, "", "", "", "", "")
+	footer := renderFooter(80, "", "", "", "", "", true)
 	if !strings.Contains(footer, "tab") {
 		t.Fatal("footer should mention tab for roster navigation")
 	}
@@ -1670,7 +1670,7 @@ func TestFocusPreviewLabelOutOfRange(t *testing.T) {
 }
 
 func TestFooterShowsFocusPreview(t *testing.T) {
-	footer := renderFooter(120, "", "focus: mb:orc-a (local)", "", "", "")
+	footer := renderFooter(120, "", "focus: mb:orc-a (local)", "", "", "", true)
 	if !strings.Contains(footer, "focus: mb:orc-a (local)") {
 		t.Fatal("footer should show focus preview label")
 	}
@@ -1680,7 +1680,7 @@ func TestFooterShowsFocusPreview(t *testing.T) {
 }
 
 func TestFooterShowsFocusNone(t *testing.T) {
-	footer := renderFooter(120, "", "focus: none", "", "", "")
+	footer := renderFooter(120, "", "focus: none", "", "", "", true)
 	if !strings.Contains(footer, "focus: none") {
 		t.Fatal("footer should show focus: none when unfocused")
 	}
@@ -1688,7 +1688,7 @@ func TestFooterShowsFocusNone(t *testing.T) {
 
 func TestFooterShowsBothPreviews(t *testing.T) {
 	preview := moveIntent{direction: "north"}.preview()
-	footer := renderFooter(120, preview, "focus: mb:orc (local)", "", "", "")
+	footer := renderFooter(120, preview, "focus: mb:orc (local)", "", "", "", true)
 	if !strings.Contains(footer, "move north") {
 		t.Fatal("footer should show movement intent")
 	}
@@ -1850,7 +1850,7 @@ func TestQueryTargetProximityPlayerKind(t *testing.T) {
 }
 
 func TestFooterShowsTargetLabel(t *testing.T) {
-	footer := renderFooter(120, "", "", "target: orc (backend)", "", "")
+	footer := renderFooter(120, "", "", "target: orc (backend)", "", "", true)
 	if !strings.Contains(footer, "target: orc (backend)") {
 		t.Fatal("footer should show target label")
 	}
@@ -1858,7 +1858,7 @@ func TestFooterShowsTargetLabel(t *testing.T) {
 
 func TestFooterShowsAllThreeLabels(t *testing.T) {
 	preview := moveIntent{direction: "north"}.preview()
-	footer := renderFooter(120, preview, "focus: mb:orc (local)", "target: orc (backend)", "", "")
+	footer := renderFooter(120, preview, "focus: mb:orc (local)", "target: orc (backend)", "", "", true)
 	if !strings.Contains(footer, "move north") {
 		t.Fatal("footer should show movement intent")
 	}
@@ -1895,7 +1895,7 @@ func TestTargetConfirmDeterministic(t *testing.T) {
 }
 
 func TestFooterContainsConfirmHint(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "", true)
 	if !strings.Contains(footer, "t:prx") {
 		t.Fatal("footer should mention t: confirm keybind")
 	}
@@ -2164,14 +2164,14 @@ func TestDevIntentURLAsync(t *testing.T) {
 }
 
 func TestFooterShowsAttackLabel(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "attack: sent", "")
+	footer := renderFooter(120, "", "", "", "attack: sent", "", true)
 	if !strings.Contains(footer, "attack: sent") {
 		t.Fatal("footer should show attack label")
 	}
 }
 
 func TestFooterShowsAttackKeybind(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "", true)
 	if !strings.Contains(footer, "a:atk") {
 		t.Fatal("footer should mention a: attack keybind")
 	}
@@ -2532,7 +2532,7 @@ func TestSideColumnContainsLootPanel(t *testing.T) {
 }
 
 func TestFooterContainsPickupHint(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "", true)
 	if !strings.Contains(footer, "p:pk") {
 		t.Fatal("footer should mention p: pickup keybind")
 	}
@@ -2731,7 +2731,7 @@ func TestCurrentDropsReturnsDrops(t *testing.T) {
 }
 
 func TestFooterContainsLootHint(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "", true)
 	if !strings.Contains(footer, "[]:lt") {
 		t.Fatal("footer should mention []: loot keybind")
 	}
@@ -3931,7 +3931,7 @@ func TestPlayerPanelRespawnNoGameplayTerms(t *testing.T) {
 }
 
 func TestFooterContainsRespawnHint(t *testing.T) {
-	footer := renderFooter(120, "", "", "", "", "")
+	footer := renderFooter(120, "", "", "", "", "", true)
 	if !strings.Contains(footer, "r:res") {
 		t.Fatal("footer should mention r: respawn keybind")
 	}
@@ -5417,5 +5417,38 @@ func TestLootPanelPkShownWhilePending(t *testing.T) {
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "pk:item-1") {
 		t.Fatalf("pk line should show while pending, got: %s", stripped)
+	}
+}
+
+// --- Joined Interaction Clarity Tests (M20260409-05) ---
+
+func TestFooterNotJoinedShowsReduced(t *testing.T) {
+	footer := renderFooter(120, "", "", "", "", "", false)
+	stripped := stripANSI(footer)
+	if !strings.Contains(stripped, "joining") {
+		t.Fatalf("not-joined footer should show joining hint, got: %s", stripped)
+	}
+	if strings.Contains(stripped, "a:atk") {
+		t.Fatal("not-joined footer should not show attack keybind")
+	}
+}
+
+func TestFooterJoinedShowsFull(t *testing.T) {
+	footer := renderFooter(120, "", "", "", "", "", true)
+	stripped := stripANSI(footer)
+	if !strings.Contains(stripped, "a:atk") {
+		t.Fatal("joined footer should show full keybind set")
+	}
+	if strings.Contains(stripped, "joining") {
+		t.Fatal("joined footer should not show joining hint")
+	}
+}
+
+func TestLayoutNotJoinedFooter(t *testing.T) {
+	// When player not joined, layout footer should show reduced hints
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{})
+	stripped := stripANSI(layout)
+	if !strings.Contains(stripped, "joining") {
+		t.Fatalf("not-joined layout should show joining hint in footer, got last line: %s", stripped[len(stripped)-100:])
 	}
 }
