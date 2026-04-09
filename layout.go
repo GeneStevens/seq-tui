@@ -264,12 +264,19 @@ func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult
 		if pr.HasActiveEncounter {
 			// Find matching encounter summary for detail
 			if enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID); enc != nil {
-				// Compact: state + counts on one line
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %s %dp/%dm", enc.State, enc.PlayerCount, enc.MobCount)))
-				// Compact: alive/dead + action index on one line
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %da/%dd act:%d", enc.MobsAlive, enc.MobsDead, enc.ActionIndex)))
-				if enc.CompletedReason != "" {
-					items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
+				if enc.State == "Completed" {
+					// Compact one-line completion summary
+					reason := enc.CompletedReason
+					if reason == "" {
+						reason = "completed"
+					}
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  done:%s", truncateID(reason, width-9))))
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  %dp/%dm %da/%dd", enc.PlayerCount, enc.MobCount, enc.MobsAlive, enc.MobsDead)))
+				} else {
+					// Active encounter: state + counts on one line
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  %s %dp/%dm", enc.State, enc.PlayerCount, enc.MobCount)))
+					// Compact: alive/dead + action index on one line
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  %da/%dd act:%d", enc.MobsAlive, enc.MobsDead, enc.ActionIndex)))
 				}
 				// Roster: backend-owned participant lists with local focus
 				items = append(items, renderRosterSection(enc, width, focus, playerID)...)

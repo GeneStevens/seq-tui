@@ -5212,3 +5212,86 @@ func TestLootPanelCompactInventoryPending(t *testing.T) {
 		t.Fatalf("should show inv:N pending, got: %s", stripped)
 	}
 }
+
+// --- Encounter Completion Summary Compactness Tests (M20260404-14) ---
+
+func TestEncounterPanelCompletedSummary(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+			PlayerIDs: []string{"p1"}, MobIDs: []string{},
+			PlayerCount: 1, MobCount: 2, MobsAlive: 0, MobsDead: 2,
+		}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{index: -1}, "p1")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "done:all_mobs_dead") {
+		t.Fatalf("completed encounter should show done:reason, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "1p/2m") {
+		t.Fatalf("should show compact counts, got: %s", stripped)
+	}
+}
+
+func TestEncounterPanelCompletedNoReason(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			PlayerCount: 1, MobCount: 1,
+		}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{index: -1}, "p1")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "done:completed") {
+		t.Fatalf("completed encounter without reason should show done:completed, got: %s", stripped)
+	}
+}
+
+func TestEncounterPanelActiveNotCompacted(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			PlayerIDs: []string{"p1"}, MobIDs: []string{"orc-1"},
+			PlayerCount: 1, MobCount: 1, MobsAlive: 1, ActionIndex: 3,
+		}},
+	}
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, rosterFocus{index: -1}, "p1")
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "done:") {
+		t.Fatal("active encounter should not show done: prefix")
+	}
+	if !strings.Contains(stripped, "Active") {
+		t.Fatal("active encounter should show Active state")
+	}
+	if !strings.Contains(stripped, "act:3") {
+		t.Fatal("active encounter should show action index")
+	}
+}
+
+func TestEncounterPanelCompletedFewerLines(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	encActive := encounterSummary{
+		EncounterID: "enc-1", State: "Active",
+		PlayerIDs: []string{"p1"}, MobIDs: []string{"orc-1"},
+		PlayerCount: 1, MobCount: 1, MobsAlive: 1, ActionIndex: 5,
+	}
+	encCompleted := encounterSummary{
+		EncounterID: "enc-1", State: "Completed", CompletedReason: "all_mobs_dead",
+		PlayerIDs: []string{"p1"}, MobIDs: []string{},
+		PlayerCount: 1, MobCount: 1, MobsAlive: 0, MobsDead: 1,
+	}
+	activePanel := renderEncounterPanel(sidePanelWidth, pr, encounterReadResult{State: encounterReadOK, Count: 1, Encounters: []encounterSummary{encActive}}, rosterFocus{index: -1}, "p1")
+	completedPanel := renderEncounterPanel(sidePanelWidth, pr, encounterReadResult{State: encounterReadOK, Count: 1, Encounters: []encounterSummary{encCompleted}}, rosterFocus{index: -1}, "p1")
+	activeLines := strings.Count(stripANSI(activePanel), "\n")
+	completedLines := strings.Count(stripANSI(completedPanel), "\n")
+	// Completed should use same or fewer lines (no separate CompletedReason line)
+	if completedLines > activeLines+1 {
+		t.Fatalf("completed panel should not be significantly larger: active=%d completed=%d", activeLines, completedLines)
+	}
+}
