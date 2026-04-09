@@ -266,6 +266,7 @@ type model struct {
 	invCountAtPickup int                 // inventory count when last pickup was submitted (-1 = no pickup yet)
 	lootFocus        int                 // local selection index into encounter Drops; -1 = none
 	lastRespawn      respawnResult       // result of most recent Respawn intent submission
+	slog             *sessionLogger      // developer-facing session event log (nil-safe)
 }
 
 // currentDrops returns the current drop list from the active encounter, or nil.
@@ -382,8 +383,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case playerReadResultMsg:
 		m.playerRead = msg.result
+		m.slog.LogPoll("player_state", msg.result.State == playerReadOK)
 		return m, nil
 	case encounterReadResultMsg:
+		m.slog.LogPoll("encounters", msg.result.State == encounterReadOK)
 		oldDrops := currentDrops(&m)
 		m.encounterRead = msg.result
 		// Reconcile local roster focus against new backend data
@@ -403,6 +406,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case attackResultMsg:
 		m.lastAttack = msg.result
+		m.slog.LogPoll("attack_result", msg.result.State == attackStateSent)
 		return m, nil
 	case pickupResultMsg:
 		m.lastPickup = msg.result
@@ -414,6 +418,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.lastRespawn = msg.result
 		return m, nil
 	case moveResultMsg:
+		m.slog.LogPoll("move_result", msg.result.OK)
 		if msg.result.OK {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateSent}
 			if msg.result.HasPos {
@@ -431,6 +436,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case tea.KeyMsg:
 		key := msg.String()
+		m.slog.LogKey(key)
 		switch key {
 		case "q", "Q", "ctrl+c":
 			return m, tea.Quit
@@ -456,6 +462,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			return m, nil
 		case "p":
+			m.slog.LogIntent("pickup", nil)
 			// Submit pickup_item intent for the selected drop
 			if m.playerRead.State != playerReadOK || !m.playerRead.HasActiveEncounter {
 				m.lastPickup = pickupResult{State: pickupStateFailed, Error: "no encounter"}
@@ -487,6 +494,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return pickupResultMsg{result: submitPickupItem(bt, encID, itemID)}
 			}
 		case "r":
+			m.slog.LogIntent("respawn", nil)
 			// Submit Respawn intent via existing backend dev surface
 			if m.playerRead.State != playerReadOK {
 				m.lastRespawn = respawnResult{State: respawnStateFailed, Error: "no player"}
@@ -497,6 +505,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return respawnResultMsg{result: submitRespawn(bt)}
 			}
 		case "a":
+			m.slog.LogIntent("attack", nil)
 			// Submit BasicAttack intent against focused mob
 			if m.playerRead.State != playerReadOK {
 				m.lastAttack = attackResult{State: attackStateFailed, Error: "no player"}
@@ -529,6 +538,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		default:
 			if dir := directionFromKey(key); dir != "" {
+				m.slog.LogIntent("move", map[string]any{"dir": dir})
 				// If player is joined with a known position, submit real move
 				if m.playerRead.State == playerReadOK && m.playerRead.HasPos {
 					m.lastIntent = moveIntent{direction: dir, state: moveStatePreview}
@@ -559,7 +569,10 @@ func (m model) View() string {
 }
 
 func main() {
-	p := tea.NewProgram(model{target: defaultTarget()}, tea.WithAltScreen())
+	slog := newSessionLogger()
+	globalSessionLog = slog
+	defer slog.Close()
+	p := tea.NewProgram(model{target: defaultTarget(), slog: slog}, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)

@@ -59,6 +59,8 @@ func zoneStatusURL(target backendTarget) string {
 // Returns a zoneReadResult — never panics.
 func fetchZoneStatus(target backendTarget) zoneReadResult {
 	url := zoneStatusURL(target)
+	start := time.Now()
+	globalSessionLog.LogRequest("zone_status", "GET", url)
 
 	client := &http.Client{Timeout: 5 * time.Second}
 	resp, err := client.Get(url)
@@ -94,6 +96,7 @@ func fetchZoneStatus(target backendTarget) zoneReadResult {
 		}
 	}
 
+	globalSessionLog.LogResponse("zone_status", resp.StatusCode, true, time.Since(start).Milliseconds())
 	return zoneReadResult{
 		State:   zoneReadOK,
 		Summary: summary,
@@ -758,6 +761,8 @@ func devIntentURL(target backendTarget) string {
 // Returns a submission receipt only — no combat logic or damage tracking.
 func submitBasicAttack(target backendTarget, mobID string) attackResult {
 	url := devIntentURL(target)
+	start := time.Now()
+	globalSessionLog.LogRequest("basic_attack", "POST", url)
 	payload := fmt.Sprintf(`{"player_id":"%s","intent_kind":"BasicAttack","target":{"kind":"Mob","id":"%s"}}`,
 		target.Player, mobID)
 
@@ -797,6 +802,7 @@ func submitBasicAttack(target backendTarget, mobID string) attackResult {
 		return attackResult{State: attackStateFailed, Error: errMsg, TargetID: mobID}
 	}
 
+	globalSessionLog.LogResponse("basic_attack", resp.StatusCode, true, time.Since(start).Milliseconds())
 	return attackResult{State: attackStateSent, TargetID: mobID}
 }
 
