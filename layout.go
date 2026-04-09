@@ -349,7 +349,8 @@ func truncateID(id string, maxLen int) string {
 
 // renderProximityPanel returns a compact panel showing backend-owned proximity data.
 // Read-only, no targeting authority, no gameplay semantics.
-func renderProximityPanel(width int, tc targetConfirmResult) string {
+// Shows [atk] marker when proximity target matches the current attack target.
+func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult) string {
 	title := panelTitleStyle.Render("Proximity")
 
 	var items []string
@@ -360,23 +361,25 @@ func renderProximityPanel(width int, tc targetConfirmResult) string {
 	case targetConfirmFailed:
 		items = append(items, panelItemStyle.Render("  unavailable"))
 	case targetConfirmOK:
+		// Target name/ID with optional [atk] marker
+		nameLabel := ""
 		if tc.MobName != "" {
-			items = append(items, panelItemStyle.Render("  "+truncateID(tc.MobName, width-6)))
+			nameLabel = truncateID(tc.MobName, width-11)
 		} else {
-			items = append(items, panelItemStyle.Render("  "+tc.TargetKind+":"+truncateID(tc.TargetID, width-9)))
+			nameLabel = tc.TargetKind + ":" + truncateID(tc.TargetID, width-14)
 		}
-		if tc.Found {
-			items = append(items, panelItemStyle.Render("  found: yes"))
+		if ar.State == attackStateSent && ar.TargetID == tc.TargetID {
+			nameLabel += " [atk]"
+		}
+		items = append(items, panelItemStyle.Render("  "+nameLabel))
+
+		// Compact found + proximity + distance on one line
+		if !tc.Found {
+			items = append(items, panelItemStyle.Render("  not found"))
+		} else if tc.WithinProximity {
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  in range %.0f", tc.Distance)))
 		} else {
-			items = append(items, panelItemStyle.Render("  found: no"))
-		}
-		if tc.Found {
-			if tc.WithinProximity {
-				items = append(items, panelItemStyle.Render("  within: yes"))
-			} else {
-				items = append(items, panelItemStyle.Render("  within: no"))
-			}
-			items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist: %.1f", tc.Distance)))
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  out %.0f", tc.Distance)))
 		}
 	}
 
@@ -741,7 +744,7 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	nearby := renderNearbyPanel(width)
 	player := renderPlayerPanel(width, pr, inv, rs)
 	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
-	proximity := renderProximityPanel(width, tc)
+	proximity := renderProximityPanel(width, tc, ar)
 	combat := renderCombatPanel(width, ar, pr, er, target, inv)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)

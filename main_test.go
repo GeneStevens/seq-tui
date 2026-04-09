@@ -1907,7 +1907,7 @@ func TestFooterContainsConfirmHint(t *testing.T) {
 // --- Proximity Panel Tests (M29) ---
 
 func TestProximityPanelNone(t *testing.T) {
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{})
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{})
 	if !strings.Contains(panel, "Proximity") {
 		t.Fatal("proximity panel should contain title")
 	}
@@ -1918,7 +1918,7 @@ func TestProximityPanelNone(t *testing.T) {
 
 func TestProximityPanelUnavailable(t *testing.T) {
 	tc := targetConfirmResult{State: targetConfirmFailed, Error: "HTTP 500"}
-	panel := renderProximityPanel(sidePanelWidth, tc)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
 	if !strings.Contains(panel, "unavailable") {
 		t.Fatal("proximity panel should show unavailable on failure")
 	}
@@ -1929,17 +1929,15 @@ func TestProximityPanelFoundWithMobName(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, WithinProximity: false, Distance: 12.3, MobName: "a_skeleton",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
 	if !strings.Contains(panel, "a_skeleton") {
 		t.Fatal("proximity panel should show mob name")
 	}
-	if !strings.Contains(panel, "found: yes") {
-		t.Fatal("proximity panel should show found: yes")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "out") {
+		t.Fatal("proximity panel should show out-of-range indicator")
 	}
-	if !strings.Contains(panel, "within: no") {
-		t.Fatal("proximity panel should show within: no")
-	}
-	if !strings.Contains(panel, "dist: 12.3") {
+	if !strings.Contains(stripped, "12") {
 		t.Fatal("proximity panel should show distance")
 	}
 }
@@ -1949,9 +1947,10 @@ func TestProximityPanelFoundWithinProximity(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, WithinProximity: true, Distance: 2.1, MobName: "orc",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc)
-	if !strings.Contains(panel, "within: yes") {
-		t.Fatal("proximity panel should show within: yes")
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "in range") {
+		t.Fatalf("proximity panel should show in-range indicator, got: %s", stripped)
 	}
 }
 
@@ -1959,9 +1958,10 @@ func TestProximityPanelNotFound(t *testing.T) {
 	tc := targetConfirmResult{
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a", Found: false,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc)
-	if !strings.Contains(panel, "found: no") {
-		t.Fatal("proximity panel should show found: no")
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "not found") {
+		t.Fatalf("proximity panel should show not found, got: %s", stripped)
 	}
 }
 
@@ -1970,7 +1970,7 @@ func TestProximityPanelFallbackID(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, MobName: "",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
 	if !strings.Contains(panel, "mb:orc-a") {
 		t.Fatal("proximity panel should fall back to kind:id when no mob name")
 	}
@@ -1981,8 +1981,8 @@ func TestProximityPanelDeterministic(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc",
 		Found: true, WithinProximity: true, Distance: 5.0, MobName: "orc",
 	}
-	a := renderProximityPanel(sidePanelWidth, tc)
-	b := renderProximityPanel(sidePanelWidth, tc)
+	a := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	b := renderProximityPanel(sidePanelWidth, tc, attackResult{})
 	if a != b {
 		t.Fatal("proximity panel should be deterministic")
 	}
@@ -2007,8 +2007,8 @@ func TestProximityPanelNoGameplayTerms(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc",
 		Found: true, WithinProximity: true, Distance: 2.0, MobName: "orc",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc)
-	forbidden := []string{"attack", "threat", "aggro", "damage", "hp", "health", "enemy", "range"}
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	forbidden := []string{"attack", "threat", "aggro", "damage", "hp", "health", "enemy"}
 	for _, word := range forbidden {
 		if strings.Contains(strings.ToLower(panel), word) {
 			t.Fatalf("proximity panel should not contain gameplay term: %s", word)
@@ -5293,5 +5293,57 @@ func TestEncounterPanelCompletedFewerLines(t *testing.T) {
 	// Completed should use same or fewer lines (no separate CompletedReason line)
 	if completedLines > activeLines+1 {
 		t.Fatalf("completed panel should not be significantly larger: active=%d completed=%d", activeLines, completedLines)
+	}
+}
+
+// --- Proximity and Combat Coordination Clarity Tests (M20260409-02) ---
+
+func TestProximityPanelAtkMarker(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: true, Distance: 3.0, MobName: "orc",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	panel := renderProximityPanel(sidePanelWidth, tc, ar)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "[atk]") {
+		t.Fatalf("should show [atk] when proximity target matches attack target, got: %s", stripped)
+	}
+}
+
+func TestProximityPanelNoAtkMarkerDifferentTarget(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: true, Distance: 3.0, MobName: "orc",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-2"} // different
+	panel := renderProximityPanel(sidePanelWidth, tc, ar)
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "[atk]") {
+		t.Fatal("should not show [atk] when targets differ")
+	}
+}
+
+func TestProximityPanelCompactInRange(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: true, Distance: 2.0,
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "in range") {
+		t.Fatalf("should show compact in-range, got: %s", stripped)
+	}
+}
+
+func TestProximityPanelCompactOutOfRange(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: false, Distance: 15.0,
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "out") {
+		t.Fatalf("should show compact out-of-range, got: %s", stripped)
 	}
 }
