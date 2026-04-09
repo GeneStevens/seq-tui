@@ -3732,17 +3732,12 @@ func TestPlayerPanelShowsDead(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
 	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
-	if !strings.Contains(panel, "hp: 0/100") {
-		t.Fatal("player panel should show HP 0")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "DEAD") {
+		t.Fatalf("player panel should show DEAD prominently, got: %s", stripped)
 	}
-	if !strings.Contains(panel, "state: dead") {
-		t.Fatal("player panel should show dead state when HP is 0")
-	}
-	if !strings.Contains(panel, "can act: no") {
-		t.Fatal("player panel should show cannot act")
-	}
-	if !strings.Contains(panel, "player_dead") {
-		t.Fatal("player panel should show blocked reason from backend")
+	if !strings.Contains(stripped, "0/100") {
+		t.Fatal("player panel should show HP 0/100")
 	}
 }
 
@@ -3750,8 +3745,13 @@ func TestPlayerPanelCanAct(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
 	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
-	if !strings.Contains(panel, "can act: yes") {
-		t.Fatal("player panel should show can act: yes")
+	stripped := stripANSI(panel)
+	// Alive + can act: should show HP, no DEAD/blocked
+	if !strings.Contains(stripped, "hp: 100/100") {
+		t.Fatalf("player panel should show HP when alive, got: %s", stripped)
+	}
+	if strings.Contains(stripped, "DEAD") || strings.Contains(stripped, "blocked") {
+		t.Fatal("player panel should not show DEAD or blocked when alive and can act")
 	}
 }
 
@@ -3759,10 +3759,11 @@ func TestPlayerPanelBlockedWithReason(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "cooldown", HPCurrent: 80, HPMax: 100}
 	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
-	if !strings.Contains(panel, "can act: no") {
-		t.Fatal("player panel should show cannot act")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "blocked") {
+		t.Fatalf("player panel should show blocked status, got: %s", stripped)
 	}
-	if !strings.Contains(panel, "cooldown") {
+	if !strings.Contains(stripped, "cooldown") {
 		t.Fatal("player panel should show blocked reason")
 	}
 }

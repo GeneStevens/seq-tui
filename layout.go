@@ -690,45 +690,49 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 		return panelBorderStyle.Width(width - 4).Render(content)
 	}
 
-	// Encounter membership from player read
-	if pr.HasActiveEncounter {
-		items = append(items, panelItemStyle.Render("  enc: active"))
-	} else {
-		items = append(items, panelItemStyle.Render("  enc: none"))
-	}
-
-	// Lifecycle fields from gameplay_status (via inventory read)
+	// Lifecycle fields from gameplay_status — most important state first
 	if inv.State == inventoryReadOK && inv.HasLifecycle {
-		// HP display — backend-owned, no client math
-		if inv.HPMax > 0 {
-			items = append(items, panelItemStyle.Render(fmt.Sprintf("  hp: %d/%d", inv.HPCurrent, inv.HPMax)))
-			if inv.HPCurrent <= 0 {
-				items = append(items, panelItemStyle.Render("  state: dead"))
-			}
-		}
-
-		// Can-act status — backend-owned
-		if inv.CanAct {
-			items = append(items, panelItemStyle.Render("  can act: yes"))
-		} else {
-			items = append(items, panelItemStyle.Render("  can act: no"))
-			if inv.BlockedReason != "" {
-				items = append(items, panelItemStyle.Render("  reason: "+truncateID(inv.BlockedReason, width-12)))
-			}
-		}
-
-		// Respawn submission status — suppress "restored" (stale once backend confirms).
-		// Only show "sent" while awaiting confirmation, or "failed" on error.
-		if rs.State == respawnStateSent {
-			if !(inv.HPCurrent > 0 && inv.CanAct) {
+		// State precedence: dead → blocked → alive
+		if inv.HPMax > 0 && inv.HPCurrent <= 0 {
+			// Dead: highest priority — show prominently with HP
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  DEAD %d/%d", inv.HPCurrent, inv.HPMax)))
+			if rs.State == respawnStateSent {
 				items = append(items, panelItemStyle.Render("  respawn: sent"))
+			} else if rs.State == respawnStateFailed {
+				items = append(items, panelItemStyle.Render("  respawn: failed"))
 			}
-		} else if rs.State == respawnStateFailed {
-			items = append(items, panelItemStyle.Render("  respawn: failed"))
+		} else if !inv.CanAct {
+			// Blocked but alive: show reason prominently
+			label := "  blocked"
+			if inv.BlockedReason != "" {
+				label += ":" + truncateID(inv.BlockedReason, width-12)
+			}
+			items = append(items, panelItemStyle.Render(label))
+			if inv.HPMax > 0 {
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  hp: %d/%d", inv.HPCurrent, inv.HPMax)))
+			}
+		} else {
+			// Alive and can act: normal display
+			if inv.HPMax > 0 {
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  hp: %d/%d", inv.HPCurrent, inv.HPMax)))
+			}
+		}
+
+		// Encounter membership
+		if pr.HasActiveEncounter {
+			items = append(items, panelItemStyle.Render("  enc: active"))
+		} else {
+			items = append(items, panelItemStyle.Render("  enc: none"))
 		}
 	} else if inv.State == inventoryReadFailed {
 		items = append(items, panelItemStyle.Render("  status: unavailable"))
 	} else {
+		// No lifecycle yet — show enc membership from player read
+		if pr.HasActiveEncounter {
+			items = append(items, panelItemStyle.Render("  enc: active"))
+		} else {
+			items = append(items, panelItemStyle.Render("  enc: none"))
+		}
 		items = append(items, panelItemStyle.Render("  status: pending"))
 	}
 
