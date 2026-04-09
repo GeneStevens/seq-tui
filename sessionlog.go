@@ -136,6 +136,19 @@ func (sl *sessionLogger) LogRequest(name, method, path string) {
 	})
 }
 
+// LogRequestWith records an outbound HTTP request with compact payload summary (no secrets).
+func (sl *sessionLogger) LogRequestWith(name, method, path string, extra map[string]any) {
+	fields := map[string]any{
+		"name":   name,
+		"method": method,
+		"path":   scrubPath(path),
+	}
+	for k, v := range extra {
+		fields[k] = v
+	}
+	sl.logEvent("request", fields)
+}
+
 // LogResponse records an inbound HTTP response.
 func (sl *sessionLogger) LogResponse(name string, status int, ok bool, latencyMs int64) {
 	sl.logEvent("response", map[string]any{
@@ -144,6 +157,33 @@ func (sl *sessionLogger) LogResponse(name string, status int, ok bool, latencyMs
 		"ok":         ok,
 		"latency_ms": latencyMs,
 	})
+}
+
+// LogResponseWith records an inbound HTTP response with extra summary fields.
+func (sl *sessionLogger) LogResponseWith(name string, status int, ok bool, latencyMs int64, extra map[string]any) {
+	fields := map[string]any{
+		"name":       name,
+		"status":     status,
+		"ok":         ok,
+		"latency_ms": latencyMs,
+	}
+	for k, v := range extra {
+		fields[k] = v
+	}
+	sl.logEvent("response", fields)
+}
+
+// LogPlayerSnapshot records a compact player-state snapshot from polled data.
+func (sl *sessionLogger) LogPlayerSnapshot(name string, joined bool, hasPos bool, x, y float64, hasEnc bool) {
+	fields := map[string]any{
+		"name":          name,
+		"player_joined": joined,
+	}
+	if hasPos {
+		fields["player_pos"] = []float64{x, y}
+	}
+	fields["has_active_encounter"] = hasEnc
+	sl.logEvent("state", fields)
 }
 
 // LogPoll records a periodic poll read result.

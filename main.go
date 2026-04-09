@@ -384,6 +384,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case playerReadResultMsg:
 		m.playerRead = msg.result
 		m.slog.LogPoll("player_state", msg.result.State == playerReadOK)
+		if msg.result.State == playerReadOK {
+			m.slog.LogPlayerSnapshot("player_state",
+				true, msg.result.HasPos,
+				msg.result.Position.X, msg.result.Position.Y,
+				msg.result.HasActiveEncounter)
+		}
 		return m, nil
 	case encounterReadResultMsg:
 		m.slog.LogPoll("encounters", msg.result.State == encounterReadOK)
@@ -428,6 +434,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		} else {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateFailed}
 		}
+		// Render-observable state snapshot after move processing
+		m.slog.LogState(map[string]any{
+			"name":       "render_player",
+			"move_ok":    msg.result.OK,
+			"move_dir":   msg.direction,
+			"player_pos": []float64{m.playerRead.Position.X, m.playerRead.Position.Y},
+			"has_pos":    m.playerRead.HasPos,
+		})
 		// Re-query proximity if active and position changed
 		return m, maybeRefreshProximity(&m)
 	case tea.WindowSizeMsg:

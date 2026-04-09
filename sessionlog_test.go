@@ -218,3 +218,159 @@ func TestSessionLoggerNoSecretInTokenFields(t *testing.T) {
 		t.Fatal("session log should not contain secret token values")
 	}
 }
+
+// --- Movement Path Observability Tests (M20260409-18) ---
+
+func TestLogRequestWithPayload(t *testing.T) {
+	f, err := os.CreateTemp(t.TempDir(), "session-*.jsonl")
+	if err != nil {
+		t.Fatal(err)
+	}
+	sl := newSessionLoggerTo(f)
+	sl.LogRequestWith("submit_move", "POST", "/world/dev/zone/cb/position?token=abc", map[string]any{
+		"action": "move",
+		"from":   []float64{100, 200},
+		"to":     []float64{120, 200},
+	})
+	sl.Close()
+
+	content, err := os.ReadFile(f.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+	s := string(content)
+	// Check shape
+	var entry map[string]any
+	lines := strings.Split(strings.TrimSpace(s), "\n")
+	json.Unmarshal([]byte(lines[0]), &entry)
+	if entry["type"] != "request" {
+		t.Fatal("should be request type")
+	}
+	if entry["name"] != "submit_move" {
+		t.Fatal("should have name submit_move")
+	}
+	if entry["action"] != "move" {
+		t.Fatal("should have action field")
+	}
+	// Token should be scrubbed
+	path := entry["path"].(string)
+	if strings.Contains(path, "token") {
+		t.Fatalf("path should be scrubbed: %s", path)
+	}
+}
+
+func TestLogResponseWithExtra(t *testing.T) {
+	f, err := os.CreateTemp(t.TempDir(), "session-*.jsonl")
+	if err != nil {
+		t.Fatal(err)
+	}
+	sl := newSessionLoggerTo(f)
+	sl.LogResponseWith("submit_move", 200, true, 24, map[string]any{"result": "accepted"})
+	sl.Close()
+
+	content, err := os.ReadFile(f.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+	lines := strings.Split(strings.TrimSpace(string(content)), "\n")
+	var entry map[string]any
+	json.Unmarshal([]byte(lines[0]), &entry)
+	if entry["type"] != "response" {
+		t.Fatal("should be response type")
+	}
+	if entry["result"] != "accepted" {
+		t.Fatal("should have extra result field")
+	}
+}
+
+func TestLogPlayerSnapshot(t *testing.T) {
+	f, err := os.CreateTemp(t.TempDir(), "session-*.jsonl")
+	if err != nil {
+		t.Fatal(err)
+	}
+	sl := newSessionLoggerTo(f)
+	sl.LogPlayerSnapshot("player_state", true, true, 123.4, 456.7, false)
+	sl.LogPlayerSnapshot("player_state", true, false, 0, 0, true)
+	sl.Close()
+
+	content, err := os.ReadFile(f.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+	lines := strings.Split(strings.TrimSpace(string(content)), "\n")
+
+	// First: with position
+	var e1 map[string]any
+	json.Unmarshal([]byte(lines[0]), &e1)
+	if e1["type"] != "state" {
+		t.Fatal("should be state type")
+	}
+	if e1["name"] != "player_state" {
+		t.Fatal("should have name")
+	}
+	if e1["player_joined"] != true {
+		t.Fatal("should show joined")
+	}
+	pos := e1["player_pos"].([]any)
+	if len(pos) != 2 {
+		t.Fatal("player_pos should be [x, y]")
+	}
+
+	// Second: without position
+	var e2 map[string]any
+	json.Unmarshal([]byte(lines[1]), &e2)
+	if _, hasPosField := e2["player_pos"]; hasPosField {
+		t.Fatal("should not have player_pos when hasPos is false")
+	}
+	if e2["has_active_encounter"] != true {
+		t.Fatal("should show encounter status")
+	}
+}
+
+func TestMovementChainEventTypes(t *testing.T) {
+	// Simulate a full movement chain through the logger
+	f, err := os.CreateTemp(t.TempDir(), "session-*.jsonl")
+	if err != nil {
+		t.Fatal(err)
+	}
+	sl := newSessionLoggerTo(f)
+
+	// 1. Key
+	sl.LogKey("k")
+	// 2. Intent
+	sl.LogIntent("move", map[string]any{"dir": "north"})
+	// 3. Request
+	sl.LogRequestWith("submit_move", "POST", "/world/dev/zone/cb/position", map[string]any{
+		"action": "move", "from": []float64{100, 200}, "to": []float64{100, 220},
+	})
+	// 4. Response
+	sl.LogResponse("submit_move", 200, true, 24)
+	// 5. Poll
+	sl.LogPoll("player_state", true)
+	// 6. State snapshot
+	sl.LogPlayerSnapshot("player_state", true, true, 100, 220, false)
+	// 7. Render state
+	sl.LogState(map[string]any{
+		"name": "render_player", "move_ok": true, "move_dir": "north",
+		"player_pos": []float64{100, 220}, "has_pos": true,
+	})
+	sl.Close()
+
+	content, err := os.ReadFile(f.Name())
+	if err != nil {
+		t.Fatal(err)
+	}
+	lines := strings.Split(strings.TrimSpace(string(content)), "\n")
+
+	expectedTypes := []string{"key", "intent", "request", "response", "poll", "state", "state"}
+	if len(lines) < len(expectedTypes) {
+		t.Fatalf("expected at least %d lines, got %d", len(expectedTypes), len(lines))
+	}
+	for i, et := range expectedTypes {
+		var entry map[string]any
+		json.Unmarshal([]byte(lines[i]), &entry)
+		if entry["type"] != et {
+			t.Fatalf("line %d: expected type %q, got %q", i, et, entry["type"])
+		}
+	}
+}

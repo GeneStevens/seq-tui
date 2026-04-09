@@ -258,14 +258,23 @@ type moveResult struct {
 // Uses the dev player/position endpoint (direct position set).
 func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx, dy float64) moveResult {
 	client := &http.Client{Timeout: 5 * time.Second}
+	start := time.Now()
 
 	// Submit position change
 	newX := currentPos.X + dx
 	newY := currentPos.Y + dy
+
+	globalSessionLog.LogRequestWith("submit_move", "POST", devPlayerPositionURL(target), map[string]any{
+		"action": "move",
+		"from":   []float64{currentPos.X, currentPos.Y},
+		"to":     []float64{newX, newY},
+	})
+
 	payload := fmt.Sprintf(`{"player_id":"%s","x":%f,"y":%f,"z":0}`, target.Player, newX, newY)
 
 	req, err := http.NewRequest("POST", devPlayerPositionURL(target), strings.NewReader(payload))
 	if err != nil {
+		globalSessionLog.LogResponseWith("submit_move", 0, false, time.Since(start).Milliseconds(), map[string]any{"error": "request_create"})
 		return moveResult{OK: false, Error: err.Error()}
 	}
 	req.Header.Set("Content-Type", "application/json")
@@ -273,13 +282,17 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 
 	resp, err := client.Do(req)
 	if err != nil {
+		globalSessionLog.LogResponseWith("submit_move", 0, false, time.Since(start).Milliseconds(), map[string]any{"error": "network"})
 		return moveResult{OK: false, Error: err.Error()}
 	}
 	resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
+		globalSessionLog.LogResponse("submit_move", resp.StatusCode, false, time.Since(start).Milliseconds())
 		return moveResult{OK: false, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
 	}
+
+	globalSessionLog.LogResponse("submit_move", resp.StatusCode, true, time.Since(start).Milliseconds())
 
 	// Readback player state
 	stateReq, err := http.NewRequest("GET", devPlayerStateURL(target), nil)
@@ -318,7 +331,7 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 		return moveResult{OK: true, HasPos: false}
 	}
 
-	return moveResult{
+	result := moveResult{
 		OK: true,
 		Position: playerPosResult{
 			X: raw.Result.Position.Pos.X,
@@ -326,6 +339,8 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 		},
 		HasPos: true,
 	}
+	globalSessionLog.LogPlayerSnapshot("move_readback", true, true, result.Position.X, result.Position.Y, false)
+	return result
 }
 
 // decodePlayerState is a shared helper for conservative partial decode of
