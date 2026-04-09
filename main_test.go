@@ -2215,7 +2215,8 @@ func TestAttackNoGameplayTermsInLabel(t *testing.T) {
 // --- Combat Readback Panel Tests (M32) ---
 
 func TestCombatPanelNone(t *testing.T) {
-	panel := renderCombatPanel(sidePanelWidth, attackResult{}, playerReadResult{}, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
+	pr := playerReadResult{State: playerReadOK}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "Combat") {
 		t.Fatal("combat panel should contain title")
 	}
@@ -2226,7 +2227,8 @@ func TestCombatPanelNone(t *testing.T) {
 
 func TestCombatPanelIntentFailed(t *testing.T) {
 	ar := attackResult{State: attackStateFailed, Error: "out of range"}
-	panel := renderCombatPanel(sidePanelWidth, ar, playerReadResult{}, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
+	pr := playerReadResult{State: playerReadOK}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "intent: failed") {
 		t.Fatal("combat panel should show intent: failed")
 	}
@@ -2357,7 +2359,7 @@ func TestWideLayoutContainsCombatPanel(t *testing.T) {
 // --- Loot Readback and Pickup Tests (M34) ---
 
 func TestLootPanelNone(t *testing.T) {
-	panel := renderLootPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	panel := renderLootPanel(sidePanelWidth, playerReadResult{State: playerReadOK}, encounterReadResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
 	if !strings.Contains(panel, "Loot") {
 		t.Fatal("loot panel should contain title")
 	}
@@ -3610,9 +3612,26 @@ func TestCombatPanelShowsTextSummary(t *testing.T) {
 }
 
 func TestCombatPanelWithoutEncounterShowsNone(t *testing.T) {
-	panel := renderCombatPanel(sidePanelWidth, attackResult{}, playerReadResult{}, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
+	pr := playerReadResult{State: playerReadOK}
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
 	if !strings.Contains(panel, "none") {
 		t.Fatal("combat panel without encounter should show 'none'")
+	}
+}
+
+func TestCombatPanelNotJoined(t *testing.T) {
+	panel := renderCombatPanel(sidePanelWidth, attackResult{}, playerReadResult{}, encounterReadResult{}, defaultTarget(), inventoryReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "not joined") {
+		t.Fatalf("combat panel should show 'not joined' when player not joined, got: %s", stripped)
+	}
+}
+
+func TestLootPanelNotJoined(t *testing.T) {
+	panel := renderLootPanel(sidePanelWidth, playerReadResult{}, encounterReadResult{}, pickupResult{}, inventoryReadResult{}, -1, -1)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "not joined") {
+		t.Fatalf("loot panel should show 'not joined' when player not joined, got: %s", stripped)
 	}
 }
 

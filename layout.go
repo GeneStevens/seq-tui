@@ -564,8 +564,10 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 		}
 	}
 
-	// No active encounter — show attack submission state if any
-	if ar.State == attackStateNone {
+	// No active encounter — show joined status or attack submission state
+	if pr.State != playerReadOK {
+		items = append(items, panelItemStyle.Render("  not joined"))
+	} else if ar.State == attackStateNone {
 		items = append(items, panelItemStyle.Render("  none"))
 	} else if ar.State == attackStateSent {
 		items = append(items, panelItemStyle.Render("  intent: accepted"))
@@ -600,6 +602,11 @@ func renderLootPanel(width int, pr playerReadResult, er encounterReadResult, pk 
 	}
 
 	// Find active encounter for loot readback
+	if pr.State != playerReadOK {
+		items = append(items, panelItemStyle.Render("  not joined"))
+		content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+		return panelBorderStyle.Width(width - 4).Render(content)
+	}
 	if !pr.HasActiveEncounter {
 		if len(items) == 0 {
 			items = append(items, panelItemStyle.Render("  none"))
