@@ -782,10 +782,14 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 
 // renderFooter returns the footer help strip with status labels.
 // When playerJoined is false, shows a reduced hint set since most actions require joining.
-func renderFooter(width int, intentPreview string, focusLabel string, targetLabel string, attackLabel string, pickupLabel string, playerJoined bool) string {
+func renderFooter(width int, intentPreview string, focusLabel string, targetLabel string, attackLabel string, pickupLabel string, playerJoined bool, inv inventoryReadResult) string {
 	help := footerHelp
 	if !playerJoined {
 		help = "hjkl:mv q  (joining...)"
+	} else if inv.State == inventoryReadOK && inv.HasLifecycle && inv.HPMax > 0 && inv.HPCurrent <= 0 {
+		help = "[r:respawn]  " + help
+	} else if inv.State == inventoryReadOK && inv.HasLifecycle && !inv.CanAct {
+		help = "[blocked]  " + help
 	}
 	if intentPreview != "" {
 		help = intentPreview + "  " + help
@@ -812,7 +816,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	targetLabel := tc.targetStatusLabel()
 	attackLabel := ar.attackStatusLabel()
 	pickupLabel := pk.pickupStatusLabel()
-	footer := renderFooter(width, lastInput, focusLabel, targetLabel, attackLabel, pickupLabel, pr.State == playerReadOK)
+	footer := renderFooter(width, lastInput, focusLabel, targetLabel, attackLabel, pickupLabel, pr.State == playerReadOK, inv)
 
 	// Body height is total minus header (1 line) and footer (1 line)
 	bodyHeight := height - 2
