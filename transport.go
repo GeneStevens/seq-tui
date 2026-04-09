@@ -285,14 +285,44 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 		globalSessionLog.LogResponseWith("submit_move", 0, false, time.Since(start).Milliseconds(), map[string]any{"error": "network"})
 		return moveResult{OK: false, Error: err.Error()}
 	}
-	resp.Body.Close()
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		globalSessionLog.LogResponse("submit_move", resp.StatusCode, false, time.Since(start).Milliseconds())
 		return moveResult{OK: false, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
 	}
 
-	globalSessionLog.LogResponse("submit_move", resp.StatusCode, true, time.Since(start).Milliseconds())
+	// Decode typed response body — backend returns {"ok": bool, "error": "..."}
+	moveBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		globalSessionLog.LogResponseWith("submit_move", resp.StatusCode, false, time.Since(start).Milliseconds(), map[string]any{"error": "read_body"})
+		return moveResult{OK: false, Error: "failed to read move response body"}
+	}
+
+	var moveResp struct {
+		OK    bool   `json:"ok"`
+		Error string `json:"error"`
+	}
+	if err := json.Unmarshal(moveBody, &moveResp); err != nil {
+		globalSessionLog.LogResponseWith("submit_move", resp.StatusCode, false, time.Since(start).Milliseconds(), map[string]any{"error": "decode_body"})
+		return moveResult{OK: false, Error: "failed to decode move response"}
+	}
+
+	if !moveResp.OK {
+		errMsg := moveResp.Error
+		if errMsg == "" {
+			errMsg = "move rejected by backend"
+		}
+		globalSessionLog.LogResponseWith("submit_move", resp.StatusCode, false, time.Since(start).Milliseconds(), map[string]any{
+			"body_ok": false,
+			"error":   errMsg,
+		})
+		return moveResult{OK: false, Error: errMsg}
+	}
+
+	globalSessionLog.LogResponseWith("submit_move", resp.StatusCode, true, time.Since(start).Milliseconds(), map[string]any{
+		"body_ok": true,
+	})
 
 	// Readback player state
 	stateReq, err := http.NewRequest("GET", devPlayerStateURL(target), nil)
