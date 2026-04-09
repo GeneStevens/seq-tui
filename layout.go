@@ -258,9 +258,6 @@ func renderEncounterPanel(width int, pr playerReadResult, er encounterReadResult
 	} else if er.State == encounterReadNotAttempted {
 		items = append(items, panelItemStyle.Render("  pending"))
 	} else {
-		// encounterReadOK — show zone encounter count
-		items = append(items, panelItemStyle.Render(fmt.Sprintf("  zone: %d enc", er.Count)))
-
 		if pr.HasActiveEncounter {
 			// Find matching encounter summary for detail
 			if enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID); enc != nil {
@@ -499,9 +496,23 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 	if pr.State == playerReadOK && pr.HasActiveEncounter && er.State == encounterReadOK {
 		enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID)
 		if enc != nil {
-			// Compact state + action index on one line
-			items = append(items, panelItemStyle.Render(fmt.Sprintf("  %s act:%d", enc.State, enc.ActionIndex)))
-			items = append(items, panelItemStyle.Render(fmt.Sprintf("  alive:%d dead:%d", enc.MobsAlive, enc.MobsDead)))
+			// Compact state line with alive/dead counts merged
+			if enc.State == "Completed" {
+				// Completion: compact one-line with phase suffix
+				reason := enc.CompletedReason
+				if reason == "" {
+					reason = "done"
+				}
+				if enc.DropsGenerated && len(enc.Drops) > 0 && !enc.LootExpired {
+					items = append(items, panelItemStyle.Render("  "+truncateID(reason, width-8)+"/L"))
+				} else {
+					items = append(items, panelItemStyle.Render("  "+truncateID(reason, width-6)))
+				}
+			} else {
+				// Active: state + action + alive/dead on one line
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %s %da/%dd", enc.State, enc.MobsAlive, enc.MobsDead)))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
+			}
 
 			// Backend-owned readiness — compact form
 			if inv.State == inventoryReadOK && inv.HasLifecycle {
@@ -526,19 +537,6 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					label += " " + truncateID(ar.Error, width-14)
 				}
 				items = append(items, panelItemStyle.Render(label))
-			}
-
-			if enc.CompletedReason != "" {
-				items = append(items, panelItemStyle.Render("  "+enc.CompletedReason))
-			}
-
-			// Phase indicator — shows when encounter has transitioned to loot phase
-			if enc.State == "Completed" {
-				if enc.DropsGenerated && len(enc.Drops) > 0 && !enc.LootExpired {
-					items = append(items, panelItemStyle.Render("  phase:loot"))
-				} else {
-					items = append(items, panelItemStyle.Render("  phase:done"))
-				}
 			}
 
 			// Backend-owned latest attack result — compact one-line form

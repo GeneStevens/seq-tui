@@ -945,9 +945,6 @@ func TestEncounterPanelNoEncounter(t *testing.T) {
 	if !strings.Contains(panel, "active: no") {
 		t.Fatal("encounter panel should show not in encounter when no active encounter")
 	}
-	if !strings.Contains(panel, "0 enc") {
-		t.Fatal("encounter panel should show zone encounter count")
-	}
 }
 
 func TestEncounterPanelActiveEncounterWithDetails(t *testing.T) {
@@ -2267,7 +2264,7 @@ func TestCombatPanelIntentAcceptedWithEncounter(t *testing.T) {
 	if !strings.Contains(panel, "act:5") {
 		t.Fatal("combat panel should show action index")
 	}
-	if !strings.Contains(panel, "alive:2") {
+	if !strings.Contains(stripANSI(panel), "2a/") {
 		t.Fatal("combat panel should show alive count")
 	}
 	if !strings.Contains(panel, "orc-1") {
@@ -5103,12 +5100,12 @@ func TestCombatPanelShowsPhaseLoot(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "phase:loot") {
-		t.Fatalf("combat panel should show phase:loot when drops available, got: %s", stripped)
+	if !strings.Contains(stripped, "/L") {
+		t.Fatalf("combat panel should show /L suffix when drops available, got: %s", stripped)
 	}
 }
 
-func TestCombatPanelShowsPhaseDone(t *testing.T) {
+func TestCombatPanelCompletedNoDrop(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
 	er := encounterReadResult{
 		State: encounterReadOK, Count: 1,
@@ -5119,12 +5116,15 @@ func TestCombatPanelShowsPhaseDone(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "phase:done") {
-		t.Fatalf("combat panel should show phase:done when no drops, got: %s", stripped)
+	if !strings.Contains(stripped, "all_mobs_dead") {
+		t.Fatalf("combat panel should show completion reason, got: %s", stripped)
+	}
+	if strings.Contains(stripped, "/L") {
+		t.Fatal("should not show /L when no drops")
 	}
 }
 
-func TestCombatPanelShowsPhaseDoneExpired(t *testing.T) {
+func TestCombatPanelCompletedExpired(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
 	er := encounterReadResult{
 		State: encounterReadOK, Count: 1,
@@ -5135,8 +5135,8 @@ func TestCombatPanelShowsPhaseDoneExpired(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "phase:done") {
-		t.Fatalf("should show phase:done when loot expired, got: %s", stripped)
+	if strings.Contains(stripped, "/L") {
+		t.Fatal("should not show /L when loot expired")
 	}
 }
 
@@ -5151,7 +5151,7 @@ func TestCombatPanelNoPhaseWhenActive(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{})
 	stripped := stripANSI(panel)
-	if strings.Contains(stripped, "phase:") {
+	if strings.Contains(stripped, "/L") {
 		t.Fatal("combat panel should not show phase indicator during active combat")
 	}
 }
