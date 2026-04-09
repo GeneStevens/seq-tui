@@ -148,25 +148,8 @@ func (i moveIntent) preview() string {
 	}
 }
 
-// moveStep is the distance in world units for one movement step.
-const moveStep = 20.0
-
-// directionOffset returns world-coordinate deltas for a direction.
-// x = east/west, y = north/south (in backend ground-plane convention).
-func directionOffset(dir string) (dx, dy float64) {
-	switch dir {
-	case "north":
-		return 0, moveStep
-	case "south":
-		return 0, -moveStep
-	case "east":
-		return moveStep, 0
-	case "west":
-		return -moveStep, 0
-	default:
-		return 0, 0
-	}
-}
+// Movement step size is now owned by the backend (PlayerMoveStep = 5.0).
+// The TUI only sends directional move requests via submitDirectionalMove.
 
 // zoneReadResultMsg carries the result of a zone status read back to the model.
 type zoneReadResultMsg struct {
@@ -553,15 +536,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		default:
 			if dir := directionFromKey(key); dir != "" {
 				m.slog.LogIntent("move", map[string]any{"dir": dir})
-				// If player is joined with a known position, submit real move
-				if m.playerRead.State == playerReadOK && m.playerRead.HasPos {
+				// If player is joined, submit backend-authoritative directional move
+				if m.playerRead.State == playerReadOK {
 					m.lastIntent = moveIntent{direction: dir, state: moveStatePreview}
 					target := m.target
-					currentPos := m.playerRead.Position
-					dx, dy := directionOffset(dir)
 					return m, func() tea.Msg {
 						return moveResultMsg{
-							result:    submitMoveAndReadback(target, currentPos, dx, dy),
+							result:    submitDirectionalMove(target, dir),
 							direction: dir,
 						}
 					}

@@ -754,30 +754,26 @@ func TestDefaultTargetHasDevToken(t *testing.T) {
 	}
 }
 
-func TestDevPlayerPositionURL(t *testing.T) {
+func TestDevPlayerMoveURL(t *testing.T) {
 	target := defaultTarget()
-	url := devPlayerPositionURL(target)
-	if !strings.Contains(url, "/world/dev/zone/crushbone/player/position") {
-		t.Fatal("position URL should target dev player position endpoint")
+	url := devPlayerMoveURL(target)
+	if !strings.Contains(url, "/world/dev/zone/crushbone/player/move") {
+		t.Fatalf("move URL should target dev player move endpoint, got: %s", url)
 	}
 }
 
-func TestDirectionOffset(t *testing.T) {
-	dx, dy := directionOffset("north")
-	if dx != 0 || dy <= 0 {
-		t.Fatal("north should have positive dy")
+func TestDirectionToBackend(t *testing.T) {
+	cases := map[string]string{
+		"north": "up",
+		"south": "down",
+		"east":  "right",
+		"west":  "left",
 	}
-	dx, dy = directionOffset("south")
-	if dx != 0 || dy >= 0 {
-		t.Fatal("south should have negative dy")
-	}
-	dx, dy = directionOffset("east")
-	if dx <= 0 || dy != 0 {
-		t.Fatal("east should have positive dx")
-	}
-	dx, dy = directionOffset("west")
-	if dx >= 0 || dy != 0 {
-		t.Fatal("west should have negative dx")
+	for tui, backend := range cases {
+		got := directionToBackend(tui)
+		if got != backend {
+			t.Fatalf("directionToBackend(%q) = %q, want %q", tui, got, backend)
+		}
 	}
 }
 

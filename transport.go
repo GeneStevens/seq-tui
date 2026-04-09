@@ -240,13 +240,30 @@ func (r playerReadResult) playerStatusLabel() string {
 	}
 }
 
-// devPlayerPositionURL builds the dev player-position endpoint URL.
-func devPlayerPositionURL(target backendTarget) string {
+// devPlayerMoveURL builds the backend-authoritative directional move endpoint URL.
+func devPlayerMoveURL(target backendTarget) string {
 	base := strings.TrimRight(target.BaseURL, "/")
-	return fmt.Sprintf("%s/world/dev/zone/%s/player/position", base, target.Zone)
+	return fmt.Sprintf("%s/world/dev/zone/%s/player/move", base, target.Zone)
 }
 
-// moveResult holds the outcome of a movement submission + readback.
+// directionToBackend maps TUI direction names to backend direction names.
+// TUI uses north/south/east/west; backend uses up/down/right/left.
+func directionToBackend(dir string) string {
+	switch dir {
+	case "north":
+		return "up"
+	case "south":
+		return "down"
+	case "east":
+		return "right"
+	case "west":
+		return "left"
+	default:
+		return dir
+	}
+}
+
+// moveResult holds the outcome of a movement submission.
 type moveResult struct {
 	OK       bool
 	Error    string
@@ -254,25 +271,24 @@ type moveResult struct {
 	HasPos   bool
 }
 
-// submitMoveAndReadback submits a position change and reads back the result.
-// Uses the dev player/position endpoint (direct position set).
-func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx, dy float64) moveResult {
-	client := &http.Client{Timeout: 5 * time.Second}
+// submitDirectionalMove submits a backend-authoritative directional move.
+// Uses POST /world/dev/zone/:zone/player/move with {player_id, direction}.
+// The backend owns step size and coordinate computation.
+// Response: {"ok":true,"x":N,"y":N,"z":N} or {"ok":false,"error":"..."}.
+func submitDirectionalMove(target backendTarget, direction string) moveResult {
+	backendDir := directionToBackend(direction)
+	url := devPlayerMoveURL(target)
 	start := time.Now()
 
-	// Submit position change
-	newX := currentPos.X + dx
-	newY := currentPos.Y + dy
-
-	globalSessionLog.LogRequestWith("submit_move", "POST", devPlayerPositionURL(target), map[string]any{
-		"action": "move",
-		"from":   []float64{currentPos.X, currentPos.Y},
-		"to":     []float64{newX, newY},
+	globalSessionLog.LogRequestWith("submit_move", "POST", url, map[string]any{
+		"action":    "move",
+		"direction": backendDir,
 	})
 
-	payload := fmt.Sprintf(`{"player_id":"%s","x":%f,"y":%f,"z":0}`, target.Player, newX, newY)
+	payload := fmt.Sprintf(`{"player_id":"%s","direction":"%s"}`, target.Player, backendDir)
 
-	req, err := http.NewRequest("POST", devPlayerPositionURL(target), strings.NewReader(payload))
+	client := &http.Client{Timeout: 5 * time.Second}
+	req, err := http.NewRequest("POST", url, strings.NewReader(payload))
 	if err != nil {
 		globalSessionLog.LogResponseWith("submit_move", 0, false, time.Since(start).Milliseconds(), map[string]any{"error": "request_create"})
 		return moveResult{OK: false, Error: err.Error()}
@@ -292,7 +308,7 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 		return moveResult{OK: false, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
 	}
 
-	// Decode typed response body — backend returns {"ok": bool, "error": "..."}
+	// Decode typed response: {"ok":true,"x":N,"y":N,"z":N} or {"ok":false,"error":"..."}
 	moveBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		globalSessionLog.LogResponseWith("submit_move", resp.StatusCode, false, time.Since(start).Milliseconds(), map[string]any{"error": "read_body"})
@@ -300,8 +316,11 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 	}
 
 	var moveResp struct {
-		OK    bool   `json:"ok"`
-		Error string `json:"error"`
+		OK    bool    `json:"ok"`
+		Error string  `json:"error"`
+		X     float64 `json:"x"`
+		Y     float64 `json:"y"`
+		Z     float64 `json:"z"`
 	}
 	if err := json.Unmarshal(moveBody, &moveResp); err != nil {
 		globalSessionLog.LogResponseWith("submit_move", resp.StatusCode, false, time.Since(start).Milliseconds(), map[string]any{"error": "decode_body"})
@@ -322,57 +341,18 @@ func submitMoveAndReadback(target backendTarget, currentPos playerPosResult, dx,
 
 	globalSessionLog.LogResponseWith("submit_move", resp.StatusCode, true, time.Since(start).Milliseconds(), map[string]any{
 		"body_ok": true,
+		"pos":     []float64{moveResp.X, moveResp.Y},
 	})
-
-	// Readback player state
-	stateReq, err := http.NewRequest("GET", devPlayerStateURL(target), nil)
-	if err != nil {
-		return moveResult{OK: true, HasPos: false}
-	}
-	stateReq.Header.Set("X-Seq-Dev-Token", target.DevToken)
-
-	stateResp, err := client.Do(stateReq)
-	if err != nil {
-		return moveResult{OK: true, HasPos: false}
-	}
-	defer stateResp.Body.Close()
-
-	if stateResp.StatusCode != http.StatusOK {
-		return moveResult{OK: true, HasPos: false}
-	}
-
-	body, err := io.ReadAll(stateResp.Body)
-	if err != nil {
-		return moveResult{OK: true, HasPos: false}
-	}
-
-	// Backend returns: {"found":true,"player":{"position":{"x":20,"y":0,"z":0},...}}
-	var raw struct {
-		Found  bool `json:"found"`
-		Player struct {
-			Position struct {
-				X float64 `json:"x"`
-				Y float64 `json:"y"`
-				Z float64 `json:"z"`
-			} `json:"position"`
-		} `json:"player"`
-	}
-	if err := json.Unmarshal(body, &raw); err != nil {
-		return moveResult{OK: true, HasPos: false}
-	}
-	if !raw.Found {
-		return moveResult{OK: true, HasPos: false}
-	}
 
 	result := moveResult{
 		OK: true,
 		Position: playerPosResult{
-			X: raw.Player.Position.X,
-			Y: raw.Player.Position.Y,
+			X: moveResp.X,
+			Y: moveResp.Y,
 		},
 		HasPos: true,
 	}
-	globalSessionLog.LogPlayerSnapshot("move_readback", true, true, result.Position.X, result.Position.Y, false)
+	globalSessionLog.LogPlayerSnapshot("move_result", true, true, result.Position.X, result.Position.Y, false)
 	return result
 }
 
