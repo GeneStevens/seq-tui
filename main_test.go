@@ -233,7 +233,7 @@ func TestRenderHeaderContainsSubtitle(t *testing.T) {
 
 func TestRenderFooterContainsQuitHint(t *testing.T) {
 	footer := renderFooter(80, "", "", "", "", "")
-	if !strings.Contains(footer, "quit") {
+	if !strings.Contains(footer, " q") {
 		t.Fatal("footer should contain quit hint")
 	}
 }
@@ -253,7 +253,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 	if !strings.ContainsRune(layout, playerMarker) {
 		t.Fatal("layout should contain player marker")
 	}
-	if !strings.Contains(layout, "quit") {
+	if !strings.Contains(layout, " q") {
 		t.Fatal("layout should contain quit hint")
 	}
 }
@@ -330,7 +330,7 @@ func TestRenderLayoutVariousSizes(t *testing.T) {
 		if !strings.ContainsRune(layout, playerMarker) {
 			t.Fatalf("layout at %dx%d missing player marker", sz[0], sz[1])
 		}
-		if !strings.Contains(layout, "quit") {
+		if !strings.Contains(layout, " q") {
 			t.Fatalf("layout at %dx%d missing footer", sz[0], sz[1])
 		}
 	}
@@ -366,10 +366,10 @@ func TestDirectionFromKeyUnrecognized(t *testing.T) {
 
 func TestFooterContainsMovementKeys(t *testing.T) {
 	footer := renderFooter(120, "", "", "", "", "")
-	if !strings.Contains(footer, "move") {
+	if !strings.Contains(footer, "hjkl:mv") {
 		t.Fatal("footer should advertise movement keys")
 	}
-	if !strings.Contains(footer, "quit") {
+	if !strings.Contains(footer, " q") {
 		t.Fatal("footer should still contain quit hint")
 	}
 }
@@ -461,9 +461,6 @@ func TestDefaultTargetValues(t *testing.T) {
 func TestStatusPanelContainsTargetInfo(t *testing.T) {
 	target := defaultTarget()
 	panel := renderStatusPanel(sidePanelWidth, target, zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{})
-	if !strings.Contains(panel, "target") {
-		t.Fatal("status panel should contain target label")
-	}
 	if !strings.Contains(panel, target.Zone) {
 		t.Fatal("status panel should contain zone name")
 	}
@@ -1677,7 +1674,7 @@ func TestFooterShowsFocusPreview(t *testing.T) {
 	if !strings.Contains(footer, "focus: mb:orc-a (local)") {
 		t.Fatal("footer should show focus preview label")
 	}
-	if !strings.Contains(footer, "quit") {
+	if !strings.Contains(footer, " q") {
 		t.Fatal("footer should still contain quit hint")
 	}
 }
@@ -1899,7 +1896,7 @@ func TestTargetConfirmDeterministic(t *testing.T) {
 
 func TestFooterContainsConfirmHint(t *testing.T) {
 	footer := renderFooter(120, "", "", "", "", "")
-	if !strings.Contains(footer, "t: confirm") {
+	if !strings.Contains(footer, "t:prx") {
 		t.Fatal("footer should mention t: confirm keybind")
 	}
 }
@@ -2175,7 +2172,7 @@ func TestFooterShowsAttackLabel(t *testing.T) {
 
 func TestFooterShowsAttackKeybind(t *testing.T) {
 	footer := renderFooter(120, "", "", "", "", "")
-	if !strings.Contains(footer, "a: attack") {
+	if !strings.Contains(footer, "a:atk") {
 		t.Fatal("footer should mention a: attack keybind")
 	}
 }
@@ -2536,7 +2533,7 @@ func TestSideColumnContainsLootPanel(t *testing.T) {
 
 func TestFooterContainsPickupHint(t *testing.T) {
 	footer := renderFooter(120, "", "", "", "", "")
-	if !strings.Contains(footer, "p: pickup") {
+	if !strings.Contains(footer, "p:pk") {
 		t.Fatal("footer should mention p: pickup keybind")
 	}
 }
@@ -2735,7 +2732,7 @@ func TestCurrentDropsReturnsDrops(t *testing.T) {
 
 func TestFooterContainsLootHint(t *testing.T) {
 	footer := renderFooter(120, "", "", "", "", "")
-	if !strings.Contains(footer, "[]: loot") {
+	if !strings.Contains(footer, "[]:lt") {
 		t.Fatal("footer should mention []: loot keybind")
 	}
 }
@@ -3931,7 +3928,7 @@ func TestPlayerPanelRespawnNoGameplayTerms(t *testing.T) {
 
 func TestFooterContainsRespawnHint(t *testing.T) {
 	footer := renderFooter(120, "", "", "", "", "")
-	if !strings.Contains(footer, "r: respawn") {
+	if !strings.Contains(footer, "r:res") {
 		t.Fatal("footer should mention r: respawn keybind")
 	}
 }

@@ -10,7 +10,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp = "hjkl: move  tab: roster  []: loot  t: confirm  a: attack  p: pickup  r: respawn  q: quit"
+	footerHelp = "hjkl:mv tab:ros []:lt t:prx a:atk p:pk r:res q"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
@@ -230,15 +230,12 @@ func renderStatusPanel(width int, target backendTarget, zr zoneReadResult, mr ma
 	title := panelTitleStyle.Render(statusTitle)
 	vis := strings.ToLower(target.Visibility)
 	items := []string{
-		panelItemStyle.Render("  target: local"),
-		panelItemStyle.Render("  zone: " + target.Zone),
-		panelItemStyle.Render("  mode: " + strings.ToLower(target.Mode)),
-		panelItemStyle.Render("  visibility: " + vis),
+		panelItemStyle.Render("  " + target.Zone),
+		panelItemStyle.Render("  " + strings.ToLower(target.Mode) + "/" + vis),
 		panelItemStyle.Render("  " + zr.statusLabel()),
 		panelItemStyle.Render("  " + mr.mapStatusLabel()),
 		panelItemStyle.Render("  " + mobr.mobStatusLabel()),
 		panelItemStyle.Render("  " + pr.playerStatusLabel()),
-		panelItemStyle.Render("  client: thin"),
 	}
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
 	return panelBorderStyle.Width(width - 4).Render(content)
