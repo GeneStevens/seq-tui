@@ -460,6 +460,8 @@ func compactResultKind(kind string) string {
 		return "heal"
 	case "out_of_range":
 		return "oor"
+	case "los_blocked":
+		return "los"
 	case "cooldown_set":
 		return "cd"
 	case "blocked_wounded":
@@ -468,6 +470,18 @@ func compactResultKind(kind string) string {
 		return "bad_tgt"
 	default:
 		return kind
+	}
+}
+
+// isDenialResult returns true if the backend result kind represents an action
+// denial (target not reachable / not valid) rather than combat resolution.
+// Used to distinguish "encounter active, action denied" from "combat resolving".
+func isDenialResult(kind string) bool {
+	switch kind {
+	case "out_of_range", "los_blocked", "invalid_target":
+		return true
+	default:
+		return false
 	}
 }
 
@@ -613,10 +627,16 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					items = append(items, panelItemStyle.Render(label))
 				}
 
-				// Backend-owned latest attack result — compact wording
+				// Backend-owned latest attack result — compact wording.
+				// Denial results (oor, los, bad_tgt) use "deny:" prefix to
+				// distinguish "action blocked" from "combat resolving" (res:).
 				if enc.LatestResultKind != "" {
 					kind := compactResultKind(enc.LatestResultKind)
-					resultLabel := "  res:" + kind
+					prefix := "res"
+					if isDenialResult(enc.LatestResultKind) {
+						prefix = "deny"
+					}
+					resultLabel := fmt.Sprintf("  %s:%s", prefix, kind)
 					if enc.LatestResultValue > 0 {
 						resultLabel += fmt.Sprintf(" %d", enc.LatestResultValue)
 					}
@@ -644,10 +664,15 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 	} else if ar.State == attackStateNone {
 		items = append(items, panelItemStyle.Render("  none"))
 	} else if ar.State == attackStateSent {
-		items = append(items, panelItemStyle.Render("  intent: accepted"))
-		items = append(items, panelItemStyle.Render("  enc: none"))
+		// Attack accepted but encounter read hasn't arrived yet.
+		// "opening" signals that an encounter is expected imminently.
+		items = append(items, panelItemStyle.Render("  atk:"+truncateID(ar.TargetID, width-8)))
+		items = append(items, panelItemStyle.Render("  enc: opening"))
 	} else {
-		items = append(items, panelItemStyle.Render("  intent: failed"))
+		items = append(items, panelItemStyle.Render("  atk:fail"))
+		if ar.Error != "" {
+			items = append(items, panelItemStyle.Render("  "+truncateID(ar.Error, width-6)))
+		}
 	}
 
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
