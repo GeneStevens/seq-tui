@@ -7830,3 +7830,315 @@ func TestProximityPanelRaceAfterMoveBeforeRead(t *testing.T) {
 		t.Fatalf("race: proximity must NOT infer in-range from stale data, got: %s", stripped)
 	}
 }
+
+// --- Selected-target next-action legibility tests (M20260410-11) ---
+
+func TestCombatPanelDenialToSuccessTransition(t *testing.T) {
+	// Scenario: first attack was denied (oor), player moved closer, second attack
+	// succeeded. The combat panel must show res:dmg from the new backend truth,
+	// not residual deny:oor.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 22, Y: 5},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+
+	// Phase 1: denial
+	erDeny := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	panelDeny := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erDeny, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panelDeny, "deny:oor") {
+		t.Fatalf("phase 1 must show deny:oor, got: %s", panelDeny)
+	}
+
+	// Phase 2: success (backend truth updated after move + re-attack)
+	erSuccess := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex:       1,
+			LatestResultKind:  "damage_applied",
+			LatestResultValue: 14,
+		}},
+	}
+	panelSuccess := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erSuccess, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panelSuccess, "res:dmg") {
+		t.Fatalf("phase 2 must show res:dmg, got: %s", panelSuccess)
+	}
+	if !strings.Contains(panelSuccess, "14") {
+		t.Fatalf("phase 2 must show damage value, got: %s", panelSuccess)
+	}
+	if strings.Contains(panelSuccess, "deny:") {
+		t.Fatalf("phase 2 must NOT contain deny: residue, got: %s", panelSuccess)
+	}
+
+	// Panels must differ
+	if panelDeny == panelSuccess {
+		t.Fatal("denial and success panels must be visually distinct")
+	}
+}
+
+func TestCombatPanelDenialToDifferentDenialTransition(t *testing.T) {
+	// Scenario: first attack denied (oor), player moves but LOS now blocked,
+	// second attack denied (los). Panel must show the new denial, not the old.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 18, Y: 3},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+
+	// Phase 1: oor denial
+	erOOR := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	p1 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erOOR, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(p1, "deny:oor") {
+		t.Fatalf("phase 1 must show deny:oor, got: %s", p1)
+	}
+
+	// Phase 2: LOS denial
+	erLOS := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "los_blocked",
+		}},
+	}
+	p2 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erLOS, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(p2, "deny:los") {
+		t.Fatalf("phase 2 must show deny:los, got: %s", p2)
+	}
+	if strings.Contains(p2, "deny:oor") {
+		t.Fatalf("phase 2 must NOT show residual deny:oor, got: %s", p2)
+	}
+}
+
+func TestCombatPanelFocusedMobWithDenyAndRes(t *testing.T) {
+	// The focused mob ID affects the roster display. The ">" prefix on the
+	// attack target and the "~" suffix on the focused mob must compose
+	// correctly alongside deny: and res: labels.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 20, Y: 5},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+
+	// Denial with focused mob
+	erDeny := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1", "orc-2"}, MobsAlive: 2,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	panelDeny := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erDeny, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panelDeny, "> orc-1") {
+		t.Fatalf("attack target must show > prefix during denial, got: %s", panelDeny)
+	}
+	if !strings.Contains(panelDeny, "deny:oor") {
+		t.Fatalf("must show deny:oor, got: %s", panelDeny)
+	}
+
+	// Resolution with focused mob
+	erRes := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1", "orc-2"}, MobsAlive: 2,
+			ActionIndex:       1,
+			LatestResultKind:  "damage_applied",
+			LatestResultValue: 10,
+		}},
+	}
+	panelRes := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erRes, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panelRes, "> orc-1") {
+		t.Fatalf("attack target must show > prefix during resolution, got: %s", panelRes)
+	}
+	if !strings.Contains(panelRes, "res:dmg") {
+		t.Fatalf("must show res:dmg, got: %s", panelRes)
+	}
+}
+
+func TestProximityCombatTransitionOutToInRange(t *testing.T) {
+	// Cross-panel transition: proximity goes from "out" to "in range" while
+	// combat goes from "deny:oor" to "res:dmg". Both must update consistently.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	mobr := mobReadResult{}
+
+	// Phase 1: out of range
+	tcOut := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: false, Distance: 35, MobName: "an orc",
+	}
+	erDeny := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	prox1 := stripANSI(renderProximityPanel(sidePanelWidth, tcOut, ar, mobr, pr))
+	combat1 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erDeny, defaultTarget(), inventoryReadResult{}, "orc-1"))
+
+	if !strings.Contains(prox1, "out 35") {
+		t.Fatalf("phase 1 proximity must show 'out 35', got: %s", prox1)
+	}
+	if !strings.Contains(combat1, "deny:oor") {
+		t.Fatalf("phase 1 combat must show 'deny:oor', got: %s", combat1)
+	}
+
+	// Phase 2: in range
+	tcIn := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: true, Distance: 6, MobName: "an orc",
+	}
+	erRes := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 12,
+		}},
+	}
+	prox2 := stripANSI(renderProximityPanel(sidePanelWidth, tcIn, ar, mobr, pr))
+	combat2 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erRes, defaultTarget(), inventoryReadResult{}, "orc-1"))
+
+	if !strings.Contains(prox2, "in range 6") {
+		t.Fatalf("phase 2 proximity must show 'in range 6', got: %s", prox2)
+	}
+	if !strings.Contains(combat2, "res:dmg") {
+		t.Fatalf("phase 2 combat must show 'res:dmg', got: %s", combat2)
+	}
+
+	// Phases must differ
+	if prox1 == prox2 {
+		t.Fatal("proximity panels must differ between out and in range")
+	}
+	if combat1 == combat2 {
+		t.Fatal("combat panels must differ between denial and success")
+	}
+}
+
+func TestProximityNotFoundWhileCombatDenial(t *testing.T) {
+	// Edge case: proximity says target not found, combat shows denial.
+	// Both are backend truth — the panels must render independently.
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: false,
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "invalid_target",
+		}},
+	}
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr))
+	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, ""))
+
+	if !strings.Contains(proxPanel, "not found") {
+		t.Fatalf("proximity must show 'not found', got: %s", proxPanel)
+	}
+	if !strings.Contains(combatPanel, "deny:bad_tgt") {
+		t.Fatalf("combat must show 'deny:bad_tgt', got: %s", combatPanel)
+	}
+}
+
+func TestStaleProximityDuringCombatSuccess(t *testing.T) {
+	// Race: proximity re-query hasn't returned after move, but combat panel
+	// already shows res:dmg from the attack. Proximity must show stale data
+	// honestly, not invent "in range" to match combat.
+	tcStale := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: false, Distance: 30, MobName: "an orc",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 22, Y: 5},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 15,
+		}},
+	}
+
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tcStale, ar, mobReadResult{}, pr))
+	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "orc-1"))
+
+	// Proximity shows stale data — this is honest
+	if !strings.Contains(proxPanel, "out 30") {
+		t.Fatalf("stale proximity must show 'out 30', got: %s", proxPanel)
+	}
+	// Combat shows fresh backend truth
+	if !strings.Contains(combatPanel, "res:dmg") {
+		t.Fatalf("combat must show 'res:dmg', got: %s", combatPanel)
+	}
+	// The panels may be temporarily inconsistent — this is correct thin-client
+	// behavior. Neither panel invents data to match the other.
+}
+
+func TestCombatRosterTargetPrefixThroughDenyResTransition(t *testing.T) {
+	// The ">" prefix on the attack target in the combat mob roster must persist
+	// through deny→res transitions within the same encounter.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+
+	for _, tc := range []struct {
+		name string
+		kind string
+	}{
+		{"denial", "out_of_range"},
+		{"resolution", "damage_applied"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			er := encounterReadResult{
+				State: encounterReadOK, Count: 1,
+				Encounters: []encounterSummary{{
+					EncounterID: "enc-1", State: "Active",
+					MobIDs: []string{"orc-1", "orc-2"}, MobsAlive: 2,
+					LatestResultKind: tc.kind,
+				}},
+			}
+			panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "orc-1"))
+			if !strings.Contains(panel, "> orc-1") {
+				t.Fatalf("%s: attack target must show '> orc-1', got: %s", tc.name, panel)
+			}
+		})
+	}
+}
