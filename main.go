@@ -458,7 +458,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 				m.slog.LogState(map[string]any{"name": "tab_focus", "source": source, "focus_kind": fe.kind, "focus_id": fe.id, "roster_len": len(m.rosterEntries)})
 				if fe.kind == "mb" {
-					m.slog.LogState(map[string]any{"name": "canonical_target_set", "mob_id": fe.id, "source": source})
+					m.slog.LogState(map[string]any{"name": "canonical_target_set", "mob_id": fe.id, "canonical": fe.canonicalMobID, "source": source})
 				}
 			} else {
 				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": "none", "roster_len": len(m.rosterEntries), "has_encounter": m.playerRead.HasActiveEncounter, "mob_count": m.mobRead.Count})
@@ -549,7 +549,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.lastAttack = attackResult{State: attackStateFailed, Error: "no mob focused"}
 				return m, nil
 			}
-			m.slog.LogIntent("attack", map[string]any{"target": fe.id})
+			// Fail closed: refuse to submit attack if focused mob lacks canonical mob_id
+			if !fe.canonicalMobID {
+				m.slog.LogState(map[string]any{"name": "attack_skip", "reason": "no_canonical_mob_id", "focus_id": fe.id})
+				m.lastAttack = attackResult{State: attackStateFailed, Error: "no mob_id"}
+				return m, nil
+			}
+			m.slog.LogIntent("attack", map[string]any{"target": fe.id, "canonical": true})
 			m.slog.LogState(map[string]any{"name": "attack_submit", "mob_id": fe.id, "has_encounter": m.playerRead.HasActiveEncounter})
 			entry := *fe
 			bt := m.target

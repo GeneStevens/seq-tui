@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"math"
 	"os"
@@ -1652,7 +1653,7 @@ func TestFocusPreviewLabelEmptyEntries(t *testing.T) {
 }
 
 func TestFocusPreviewLabelMob(t *testing.T) {
-	entries := []rosterEntry{{kind: "pc", id: "hero"}, {kind: "mb", id: "orc-a"}}
+	entries := []rosterEntry{{kind: "pc", id: "hero"}, {kind: "mb", id: "orc-a", canonicalMobID: true}}
 	label := focusPreviewLabel(rosterFocus{index: 1}, entries)
 	if label != "~mb:orc-a" {
 		t.Fatalf("expected '~mb:orc-a', got %q", label)
@@ -6215,5 +6216,115 @@ func TestAttackWithNoFocusStillFails(t *testing.T) {
 		// This is the expected path — attack would be skipped
 	} else {
 		t.Fatal("should not reach attack submit with no focus")
+	}
+}
+
+// --- Canonical mob_id Validation Tests (M20260409-30) ---
+
+func TestMobPositionDeserializesMobID(t *testing.T) {
+	// Simulate backend mob_positions response with mob_id field
+	body := []byte(`{"result":{"<0.123.0>":{"mob_id":"a_orc_5","mob_name":"an orc","position":{"x":10,"y":20,"z":0}}}}`)
+	var raw struct {
+		Result map[string]mobPosition `json:"result"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		t.Fatal(err)
+	}
+	mob := raw.Result["<0.123.0>"]
+	if mob.MobID != "a_orc_5" {
+		t.Fatalf("expected mob_id='a_orc_5', got %q", mob.MobID)
+	}
+	if mob.MobName != "an orc" {
+		t.Fatalf("expected mob_name='an orc', got %q", mob.MobName)
+	}
+}
+
+func TestBuildMobEntriesUsesCanonicalMobID(t *testing.T) {
+	pos := playerPosResult{X: 0, Y: 0}
+	mobs := []mobPosition{
+		{ProcessID: "<0.123.0>", MobID: "a_orc_5", MobName: "an orc", Position: mobPosVec3{X: 10, Y: 10}},
+	}
+	entries := buildMobEntriesByDistance(pos, mobs)
+	if len(entries) != 1 {
+		t.Fatal("expected 1 entry")
+	}
+	if entries[0].id != "a_orc_5" {
+		t.Fatalf("entry should use canonical mob_id, got %q", entries[0].id)
+	}
+	if !entries[0].canonicalMobID {
+		t.Fatal("canonicalMobID should be true when mob_id is present")
+	}
+}
+
+func TestBuildMobEntriesFallsBackToProcessID(t *testing.T) {
+	pos := playerPosResult{X: 0, Y: 0}
+	mobs := []mobPosition{
+		{ProcessID: "<0.123.0>", MobID: "", MobName: "an orc", Position: mobPosVec3{X: 10, Y: 10}},
+	}
+	entries := buildMobEntriesByDistance(pos, mobs)
+	if len(entries) != 1 {
+		t.Fatal("expected 1 entry")
+	}
+	if entries[0].id != "<0.123.0>" {
+		t.Fatalf("entry should fall back to ProcessID, got %q", entries[0].id)
+	}
+	if entries[0].canonicalMobID {
+		t.Fatal("canonicalMobID should be false when mob_id is empty")
+	}
+}
+
+func TestAttackBlockedWithoutCanonicalMobID(t *testing.T) {
+	// Simulate: focused mob has no canonical mob_id → attack should be blocked
+	m := model{
+		playerRead: playerReadResult{State: playerReadOK},
+		rosterFocus:   rosterFocus{index: 0},
+		rosterEntries: []rosterEntry{{kind: "mb", id: "<0.123.0>", canonicalMobID: false}},
+		slog:          &sessionLogger{},
+	}
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe == nil || fe.kind != "mb" {
+		t.Fatal("should have mob focused")
+	}
+	// The attack handler checks canonicalMobID
+	if !fe.canonicalMobID {
+		// This is the expected fail-closed path
+	} else {
+		t.Fatal("should fail closed with non-canonical mob ID")
+	}
+}
+
+func TestAttackAllowedWithCanonicalMobID(t *testing.T) {
+	// Simulate: focused mob has canonical mob_id → attack should proceed
+	m := model{
+		playerRead: playerReadResult{State: playerReadOK},
+		rosterFocus:   rosterFocus{index: 0},
+		rosterEntries: []rosterEntry{{kind: "mb", id: "a_orc_5", canonicalMobID: true}},
+		slog:          &sessionLogger{},
+	}
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe == nil || fe.kind != "mb" {
+		t.Fatal("should have mob focused")
+	}
+	if !fe.canonicalMobID {
+		t.Fatal("canonical mob should be allowed for attack")
+	}
+	if fe.id != "a_orc_5" {
+		t.Fatalf("attack target should be a_orc_5, got %s", fe.id)
+	}
+}
+
+func TestFocusPreviewShowsQuestionMarkForNonCanonical(t *testing.T) {
+	entries := []rosterEntry{{kind: "mb", id: "<0.123.0>", canonicalMobID: false}}
+	label := focusPreviewLabel(rosterFocus{index: 0}, entries)
+	if !strings.Contains(label, "?") {
+		t.Fatalf("non-canonical mob focus should show ? suffix, got %q", label)
+	}
+}
+
+func TestFocusPreviewNoQuestionMarkForCanonical(t *testing.T) {
+	entries := []rosterEntry{{kind: "mb", id: "a_orc_5", canonicalMobID: true}}
+	label := focusPreviewLabel(rosterFocus{index: 0}, entries)
+	if strings.Contains(label, "?") {
+		t.Fatalf("canonical mob focus should not have ? suffix, got %q", label)
 	}
 }

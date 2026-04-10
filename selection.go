@@ -15,8 +15,9 @@ type rosterFocus struct {
 // rosterEntry is one entry in the flat roster list used for focus navigation.
 // The kind prefix ("pc" or "mb") is stored alongside the ID for display.
 type rosterEntry struct {
-	kind string // "pc" or "mb"
-	id   string // backend-owned ID, displayed as-is
+	kind           string // "pc" or "mb"
+	id             string // backend-owned ID used for attack targeting
+	canonicalMobID bool   // true when id is canonical mob_id (not actor PID)
 }
 
 // buildRosterEntries returns the flat, deterministic list of roster entries
@@ -32,10 +33,10 @@ func buildRosterEntries(enc *encounterSummary) []rosterEntry {
 	}
 	entries := make([]rosterEntry, 0, total)
 	for _, pid := range enc.PlayerIDs {
-		entries = append(entries, rosterEntry{kind: "pc", id: pid})
+		entries = append(entries, rosterEntry{kind: "pc", id: pid, canonicalMobID: false})
 	}
 	for _, mid := range enc.MobIDs {
-		entries = append(entries, rosterEntry{kind: "mb", id: mid})
+		entries = append(entries, rosterEntry{kind: "mb", id: mid, canonicalMobID: true})
 	}
 	return entries
 }
@@ -56,7 +57,11 @@ func focusPreviewLabel(f rosterFocus, entries []rosterEntry) string {
 	if fe == nil {
 		return ""
 	}
-	return "~" + fe.kind + ":" + fe.id
+	label := "~" + fe.kind + ":" + fe.id
+	if fe.kind == "mb" && !fe.canonicalMobID {
+		label += "?"
+	}
+	return label
 }
 
 // reconcileFocus adjusts the focus index to remain valid against the current
@@ -132,11 +137,16 @@ func buildMobEntriesByDistance(playerPos playerPosResult, mobs []mobPosition) []
 	}
 	ranked := make([]mobDist, 0, len(mobs))
 	for _, mob := range mobs {
+		// Use canonical mob_id for attack targeting; fall back to ProcessID for display only
+		mobID := mob.MobID
+		if mobID == "" {
+			mobID = mob.ProcessID // fallback — will be caught by attack validation
+		}
 		dx := mob.Position.X - playerPos.X
 		dy := mob.Position.Y - playerPos.Y
 		d := math.Sqrt(dx*dx + dy*dy)
 		ranked = append(ranked, mobDist{
-			entry: rosterEntry{kind: "mb", id: mob.ProcessID},
+			entry: rosterEntry{kind: "mb", id: mobID, canonicalMobID: mob.MobID != ""},
 			dist:  d,
 		})
 	}

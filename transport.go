@@ -116,7 +116,8 @@ const (
 
 // mobPosition is a conservative partial decode of one mob's position data.
 type mobPosition struct {
-	ProcessID string     // backend process key, preserved for identity matching
+	ProcessID string     // backend actor PID (map key) — NOT the canonical attack target ID
+	MobID     string     `json:"mob_id"`  // canonical mob identity for attack submission
 	MobName   string     `json:"mob_name"`
 	Position  mobPosVec3 `json:"position"`
 }
