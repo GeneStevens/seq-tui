@@ -7315,3 +7315,264 @@ func TestMoveThenAttackAllSixStatesDistinct(t *testing.T) {
 		}
 	}
 }
+
+// --- Repeated movement approach legibility tests (M20260410-09) ---
+
+func TestRepeatedMovesEachTriggerRefresh(t *testing.T) {
+	// Each move in a repeated sequence must independently trigger immediate refresh.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+
+	positions := []playerPosResult{
+		{X: 5, Y: 0},
+		{X: 10, Y: 0},
+		{X: 15, Y: 0},
+	}
+
+	for i, pos := range positions {
+		msg := moveResultMsg{
+			result:    moveResult{OK: true, HasPos: true, Position: pos},
+			direction: "east",
+		}
+		updated, cmd := m.Update(msg)
+		if cmd == nil {
+			t.Fatalf("move %d: must trigger immediate refresh", i+1)
+		}
+		m = updated.(model)
+	}
+}
+
+func TestRepeatedMovesChainBackendPosition(t *testing.T) {
+	// Position must chain from each backend response — no local prediction.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+
+	steps := []struct {
+		dir  string
+		pos  playerPosResult
+	}{
+		{"east", playerPosResult{X: 5, Y: 0}},
+		{"east", playerPosResult{X: 10, Y: 0}},
+		{"south", playerPosResult{X: 10, Y: 5}},
+	}
+
+	for i, step := range steps {
+		msg := moveResultMsg{
+			result:    moveResult{OK: true, HasPos: true, Position: step.pos},
+			direction: step.dir,
+		}
+		updated, _ := m.Update(msg)
+		m = updated.(model)
+
+		if m.playerRead.Position.X != step.pos.X || m.playerRead.Position.Y != step.pos.Y {
+			t.Fatalf("step %d: position must be (%.0f,%.0f), got (%.0f,%.0f)",
+				i+1, step.pos.X, step.pos.Y, m.playerRead.Position.X, m.playerRead.Position.Y)
+		}
+	}
+}
+
+func TestRepeatedMovesDeniedMovePreservesPosition(t *testing.T) {
+	// A blocked/denied move must not alter position. Position stays at last
+	// successful backend response — no local prediction.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+
+	// First move succeeds
+	msg1 := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 5, Y: 0}},
+		direction: "east",
+	}
+	updated, _ := m.Update(msg1)
+	m = updated.(model)
+
+	// Second move fails (wall / boundary)
+	msg2 := moveResultMsg{
+		result:    moveResult{OK: false, Error: "boundary"},
+		direction: "east",
+	}
+	updated, _ = m.Update(msg2)
+	m = updated.(model)
+
+	// Position must still be at last successful move
+	if m.playerRead.Position.X != 5 || m.playerRead.Position.Y != 0 {
+		t.Fatalf("denied move must not alter position: expected (5,0), got (%.0f,%.0f)",
+			m.playerRead.Position.X, m.playerRead.Position.Y)
+	}
+	if m.lastIntent.state != moveStateFailed {
+		t.Fatal("denied move must set intent to failed")
+	}
+}
+
+func TestRepeatedMovesThenAttackStillOutOfRange(t *testing.T) {
+	// Move twice but still out of range — attack denial must be visible.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 10, Y: 0}, // two moves east, still far
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "deny:oor") {
+		t.Fatalf("repeated moves still out of range must show deny:oor, got: %s", stripped)
+	}
+}
+
+func TestRepeatedMovesThenAttackInRange(t *testing.T) {
+	// Move multiple times to close range, then attack — backend resolution visible.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 20, Y: 5}, // close enough after repeated moves
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1, MobsDead: 0,
+			ActionIndex:       1,
+			LatestResultKind:  "damage_applied",
+			LatestResultValue: 15,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "res:dmg") {
+		t.Fatalf("in-range attack after repeated moves must show res:dmg, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "15") {
+		t.Fatalf("must show damage value, got: %s", stripped)
+	}
+	if strings.Contains(stripped, "enc: opening") {
+		t.Fatalf("must not show enc:opening when encounter details present, got: %s", stripped)
+	}
+}
+
+func TestRepeatedMovesRaceAttackBeforeReadsArrive(t *testing.T) {
+	// Race: player moves multiple times, then attacks before the latest
+	// move's immediate reads have returned. The combat panel must show
+	// enc:opening, not regress to "none".
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 15, Y: 0}, // from move response
+		HasActiveEncounter: false,                         // reads not arrived yet
+	}
+	er := encounterReadResult{State: encounterReadOK, Count: 0} // stale
+
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "enc: opening") {
+		t.Fatalf("race after repeated moves must show enc:opening, got: %s", stripped)
+	}
+	if strings.Contains(stripped, "  none") {
+		t.Fatalf("must not regress to bare 'none' during race, got: %s", stripped)
+	}
+}
+
+func TestRepeatedMovesSixStatesPreserved(t *testing.T) {
+	// All six combat panel states must remain distinct after repeated moves.
+	bt := defaultTarget()
+	inv := inventoryReadResult{}
+	// Position after three successive moves
+	pos := playerPosResult{X: 15, Y: 0}
+	prBase := playerReadResult{State: playerReadOK, HasPos: true, Position: pos}
+
+	// State 1: idle / none
+	p1 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{}, prBase,
+		encounterReadResult{State: encounterReadOK}, bt, inv, ""))
+
+	// State 2: enc:opening
+	p2 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"}, prBase,
+		encounterReadResult{State: encounterReadOK}, bt, inv, ""))
+
+	// State 3: denial
+	prEnc := prBase
+	prEnc.HasActiveEncounter = true
+	prEnc.ActiveEncounterID = "enc-1"
+	p3 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"}, prEnc,
+		encounterReadResult{State: encounterReadOK, Count: 1, Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}}}, bt, inv, ""))
+
+	// State 4: resolution
+	p4 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"}, prEnc,
+		encounterReadResult{State: encounterReadOK, Count: 1, Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "damage_applied", LatestResultValue: 10,
+		}}}, bt, inv, ""))
+
+	// State 5: failed submit
+	p5 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateFailed, Error: "no mob focused"}, prBase,
+		encounterReadResult{State: encounterReadOK}, bt, inv, ""))
+
+	// State 6: read-gap
+	prGap := prBase
+	prGap.HasActiveEncounter = true
+	prGap.ActiveEncounterID = "enc-new"
+	p6 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"}, prGap,
+		encounterReadResult{State: encounterReadOK, Count: 0}, bt, inv, ""))
+
+	// Verify markers
+	if !strings.Contains(p1, "none") {
+		t.Fatalf("idle must contain 'none', got: %s", p1)
+	}
+	if !strings.Contains(p2, "enc: opening") {
+		t.Fatalf("opening must contain 'enc: opening', got: %s", p2)
+	}
+	if !strings.Contains(p3, "deny:oor") {
+		t.Fatalf("denial must contain 'deny:oor', got: %s", p3)
+	}
+	if !strings.Contains(p4, "res:dmg") {
+		t.Fatalf("resolution must contain 'res:dmg', got: %s", p4)
+	}
+	if !strings.Contains(p5, "atk:fail") {
+		t.Fatalf("failed must contain 'atk:fail', got: %s", p5)
+	}
+	if !strings.Contains(p6, "enc: opening") {
+		t.Fatalf("read-gap must contain 'enc: opening', got: %s", p6)
+	}
+
+	// Pairwise distinct (opening/read-gap may match)
+	panels := map[string]string{
+		"idle": p1, "opening": p2, "denial": p3,
+		"resolution": p4, "failed": p5, "read-gap": p6,
+	}
+	for a, pa := range panels {
+		for b, pb := range panels {
+			if a >= b {
+				continue
+			}
+			if (a == "opening" && b == "read-gap") || (a == "read-gap" && b == "opening") {
+				continue
+			}
+			if pa == pb {
+				t.Fatalf("states %s and %s must differ after repeated moves", a, b)
+			}
+		}
+	}
+}
