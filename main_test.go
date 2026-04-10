@@ -8626,3 +8626,313 @@ func TestFooterContainsAttackHint(t *testing.T) {
 		t.Fatalf("footer must contain a:atk hint, got: %s", stripANSI(footer))
 	}
 }
+
+// --- g/a loop legibility tests (M20260410-14) ---
+
+func TestGALoopRepeatedApproachThenAttack(t *testing.T) {
+	// Full loop: g, g, g, then a — position chains and attack fires correctly.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	// Three g presses with move results
+	positions := []playerPosResult{{X: 5, Y: 0}, {X: 10, Y: 0}, {X: 15, Y: 0}}
+	for i, pos := range positions {
+		updated, gCmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+		if gCmd == nil {
+			t.Fatalf("g press %d must trigger command", i+1)
+		}
+		m = updated.(model)
+		moveMsg := moveResultMsg{
+			result:    moveResult{OK: true, HasPos: true, Position: pos},
+			direction: "east",
+		}
+		updated2, _ := m.Update(moveMsg)
+		m = updated2.(model)
+	}
+
+	// Position must be at last move result
+	if m.playerRead.Position.X != 15 {
+		t.Fatalf("after 3 g presses position must be X=15, got %.0f", m.playerRead.Position.X)
+	}
+
+	// a press
+	_, aCmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if aCmd == nil {
+		t.Fatal("a after repeated g must trigger attack")
+	}
+}
+
+func TestGALoopBlockedGotoThenAttack(t *testing.T) {
+	// g fails (wall), then a — attack still fires against focused mob.
+	// Combat panel shows denial from backend, not local wall inference.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 10, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	// g press
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	m = updated.(model)
+
+	// Move fails
+	moveMsg := moveResultMsg{
+		result:    moveResult{OK: false, Error: "boundary"},
+		direction: "east",
+	}
+	updated2, _ := m.Update(moveMsg)
+	m = updated2.(model)
+
+	// Position unchanged
+	if m.playerRead.Position.X != 10 {
+		t.Fatalf("blocked g must not change position, got X=%.0f", m.playerRead.Position.X)
+	}
+	if m.lastIntent.state != moveStateFailed {
+		t.Fatal("blocked g must set intent to failed")
+	}
+
+	// a press still works
+	_, aCmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if aCmd == nil {
+		t.Fatal("a after blocked g must still trigger attack")
+	}
+}
+
+func TestGALoopDenialThenSuccessTransition(t *testing.T) {
+	// Full denial→success loop: g, a (deny:oor), g, a (res:dmg).
+	// Combat panel must transition cleanly.
+	bt := defaultTarget()
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+
+	// Phase 1: after first g+a — still out of range
+	pr.Position = playerPosResult{X: 5, Y: 0}
+	erDeny := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	panelDeny := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erDeny, bt, inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panelDeny, "deny:oor") {
+		t.Fatalf("phase 1 must show deny:oor, got: %s", panelDeny)
+	}
+
+	// Phase 2: after second g+a — now in range
+	pr.Position = playerPosResult{X: 18, Y: 0}
+	erSuccess := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 12,
+		}},
+	}
+	panelSuccess := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erSuccess, bt, inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panelSuccess, "res:dmg") {
+		t.Fatalf("phase 2 must show res:dmg, got: %s", panelSuccess)
+	}
+	if !strings.Contains(panelSuccess, "12") {
+		t.Fatalf("phase 2 must show damage value, got: %s", panelSuccess)
+	}
+	if strings.Contains(panelSuccess, "deny:") {
+		t.Fatalf("phase 2 must not contain deny: residue, got: %s", panelSuccess)
+	}
+
+	// Panels must differ
+	if panelDeny == panelSuccess {
+		t.Fatal("denial and success panels must be visually distinct")
+	}
+}
+
+func TestGALoopRepeatedAttacksDuringEncounter(t *testing.T) {
+	// Active encounter: a, a — action index increments, both show res:dmg.
+	bt := defaultTarget()
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true, Position: playerPosResult{X: 20, Y: 0},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+
+	// First attack result
+	er1 := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 10,
+		}},
+	}
+	p1 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er1, bt, inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(p1, "act:1") {
+		t.Fatalf("first attack must show act:1, got: %s", p1)
+	}
+
+	// Second attack result
+	er2 := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex: 2, LatestResultKind: "damage_applied", LatestResultValue: 8,
+		}},
+	}
+	p2 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er2, bt, inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(p2, "act:2") {
+		t.Fatalf("second attack must show act:2, got: %s", p2)
+	}
+	if !strings.Contains(p2, "8") {
+		t.Fatalf("second attack must show new damage value, got: %s", p2)
+	}
+
+	// Both must show res:dmg
+	if !strings.Contains(p1, "res:dmg") || !strings.Contains(p2, "res:dmg") {
+		t.Fatal("both attacks must show res:dmg")
+	}
+
+	// Panels must differ (different action index and damage)
+	if p1 == p2 {
+		t.Fatal("successive attack panels must differ")
+	}
+}
+
+func TestGALoopMoveDuringEncounterThenAttack(t *testing.T) {
+	// g during active encounter then a — move and attack both compose through Update.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{
+		State: playerReadOK, HasPos: true, Position: playerPosResult{X: 18, Y: 0},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+	m.encounterRead = encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+
+	// g during encounter
+	updated, gCmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	if gCmd == nil {
+		t.Fatal("g during encounter must trigger move")
+	}
+	m = updated.(model)
+
+	// Move result
+	moveMsg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 19, Y: 0}},
+		direction: "east",
+	}
+	updated2, _ := m.Update(moveMsg)
+	m = updated2.(model)
+
+	// a during encounter
+	_, aCmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if aCmd == nil {
+		t.Fatal("a during encounter after g must trigger attack")
+	}
+}
+
+func TestGALoopRaceAttackBeforeMoveReads(t *testing.T) {
+	// Race: g fires, move result updates position, but user presses a before
+	// encounter reads arrive. Combat panel must show enc:opening, not stale.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	// g press + move result (position updated, but encounter reads still in flight)
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	m = updated.(model)
+	moveMsg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 5, Y: 0}},
+		direction: "east",
+	}
+	updated2, _ := m.Update(moveMsg)
+	m = updated2.(model)
+
+	// a press — submits attack, gets result
+	_, _ = m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	// Simulate attack result arriving
+	attackMsg := attackResultMsg{result: attackResult{State: attackStateSent, TargetID: "orc-1"}}
+	updated3, _ := m.Update(attackMsg)
+	m = updated3.(model)
+
+	// Render combat panel — encounter reads from g haven't arrived yet
+	// HasActiveEncounter is false (stale), encounter list empty
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, m.lastAttack, m.playerRead, m.encounterRead, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panel, "enc: opening") {
+		t.Fatalf("race: must show enc:opening before reads arrive, got: %s", panel)
+	}
+}
+
+func TestGALoopFocusPreservedAcrossLoop(t *testing.T) {
+	// Roster focus must stay on the same mob across g and a presses.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+		{MobID: "orc-2", Position: mobPosVec3{X: 30, Y: 0}},
+	}, Count: 2}
+	m.rosterEntries = []rosterEntry{
+		{kind: "mb", id: "orc-1", canonicalMobID: true},
+		{kind: "mb", id: "orc-2", canonicalMobID: true},
+	}
+	m.rosterFocus = rosterFocus{index: 0} // focused on orc-1
+
+	// g press
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	m = updated.(model)
+	if m.rosterFocus.index != 0 {
+		t.Fatalf("g must not change focus, got index %d", m.rosterFocus.index)
+	}
+
+	// Move result
+	moveMsg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 5, Y: 0}},
+		direction: "east",
+	}
+	updated2, _ := m.Update(moveMsg)
+	m = updated2.(model)
+	if m.rosterFocus.index != 0 {
+		t.Fatalf("move result must not change focus, got index %d", m.rosterFocus.index)
+	}
+
+	// a press
+	updated3, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	m = updated3.(model)
+	if m.rosterFocus.index != 0 {
+		t.Fatalf("a must not change focus, got index %d", m.rosterFocus.index)
+	}
+
+	// Focused entry is still orc-1
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe == nil || fe.id != "orc-1" {
+		t.Fatal("focus must remain on orc-1 through g/a loop")
+	}
+}
