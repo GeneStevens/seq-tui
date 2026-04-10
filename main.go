@@ -117,6 +117,41 @@ func directionFromKey(key string) string {
 	}
 }
 
+// directionTowardMob returns the dominant cardinal direction from player to mob
+// using backend-owned positions. Returns the axis with the larger absolute delta.
+// Ties break to the horizontal axis (east/west). Returns empty string if
+// positions are identical. Purely presentation logic — no pathfinding.
+func directionTowardMob(playerPos playerPosResult, mobPos mobPosVec3) string {
+	dx := mobPos.X - playerPos.X
+	dy := mobPos.Y - playerPos.Y
+	if dx == 0 && dy == 0 {
+		return ""
+	}
+	absDX := math.Abs(dx)
+	absDY := math.Abs(dy)
+	if absDX >= absDY {
+		if dx > 0 {
+			return "east"
+		}
+		return "west"
+	}
+	if dy > 0 {
+		return "south"
+	}
+	return "north"
+}
+
+// findMobPosition returns the position of a mob by its canonical mob_id.
+// Returns nil if not found. Read-only from backend-owned mob position data.
+func findMobPosition(mobs []mobPosition, mobID string) *mobPosVec3 {
+	for i := range mobs {
+		if mobs[i].MobID == mobID {
+			return &mobs[i].Position
+		}
+	}
+	return nil
+}
+
 // moveState tracks whether a movement intent was preview-only or actually sent.
 type moveState int
 
@@ -594,6 +629,42 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			bt := m.target
 			return m, func() tea.Msg {
 				return attackResultMsg{result: submitBasicAttack(bt, entry.id)}
+			}
+		case "g":
+			// Step toward focused mob — compute dominant cardinal direction from
+			// backend-owned player and mob positions, then submit via existing
+			// directional move. One press = one step. No pathfinding.
+			if m.playerRead.State != playerReadOK || !m.playerRead.HasPos {
+				m.slog.LogState(map[string]any{"name": "goto_skip", "reason": "no_player_pos"})
+				return m, nil
+			}
+			fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+			if fe == nil || fe.kind != "mb" {
+				m.slog.LogState(map[string]any{"name": "goto_skip", "reason": "no_mob_focused"})
+				return m, nil
+			}
+			if m.mobRead.State != mobReadOK {
+				m.slog.LogState(map[string]any{"name": "goto_skip", "reason": "no_mob_data"})
+				return m, nil
+			}
+			mobPos := findMobPosition(m.mobRead.Mobs, fe.id)
+			if mobPos == nil {
+				m.slog.LogState(map[string]any{"name": "goto_skip", "reason": "mob_not_found", "mob_id": fe.id})
+				return m, nil
+			}
+			dir := directionTowardMob(m.playerRead.Position, *mobPos)
+			if dir == "" {
+				m.slog.LogState(map[string]any{"name": "goto_skip", "reason": "already_at_mob"})
+				return m, nil
+			}
+			m.slog.LogIntent("goto", map[string]any{"mob_id": fe.id, "dir": dir})
+			m.lastIntent = moveIntent{direction: dir, state: moveStatePreview}
+			target := m.target
+			return m, func() tea.Msg {
+				return moveResultMsg{
+					result:    submitDirectionalMove(target, dir),
+					direction: dir,
+				}
 			}
 		case "t":
 			// Submit target confirmation for the focused roster entry

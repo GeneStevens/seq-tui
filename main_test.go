@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/muesli/termenv"
 )
@@ -8140,5 +8141,255 @@ func TestCombatRosterTargetPrefixThroughDenyResTransition(t *testing.T) {
 				t.Fatalf("%s: attack target must show '> orc-1', got: %s", tc.name, panel)
 			}
 		})
+	}
+}
+
+// --- Step toward selected target tests (M20260410-12) ---
+
+func TestDirectionTowardMobEast(t *testing.T) {
+	player := playerPosResult{X: 0, Y: 0}
+	mob := mobPosVec3{X: 10, Y: 0}
+	if dir := directionTowardMob(player, mob); dir != "east" {
+		t.Fatalf("mob to the east should produce 'east', got: %s", dir)
+	}
+}
+
+func TestDirectionTowardMobWest(t *testing.T) {
+	player := playerPosResult{X: 10, Y: 0}
+	mob := mobPosVec3{X: 0, Y: 0}
+	if dir := directionTowardMob(player, mob); dir != "west" {
+		t.Fatalf("mob to the west should produce 'west', got: %s", dir)
+	}
+}
+
+func TestDirectionTowardMobSouth(t *testing.T) {
+	player := playerPosResult{X: 0, Y: 0}
+	mob := mobPosVec3{X: 0, Y: 10}
+	if dir := directionTowardMob(player, mob); dir != "south" {
+		t.Fatalf("mob to the south should produce 'south', got: %s", dir)
+	}
+}
+
+func TestDirectionTowardMobNorth(t *testing.T) {
+	player := playerPosResult{X: 0, Y: 10}
+	mob := mobPosVec3{X: 0, Y: 0}
+	if dir := directionTowardMob(player, mob); dir != "north" {
+		t.Fatalf("mob to the north should produce 'north', got: %s", dir)
+	}
+}
+
+func TestDirectionTowardMobDiagonalEast(t *testing.T) {
+	// Diagonal with larger X delta — should pick east
+	player := playerPosResult{X: 0, Y: 0}
+	mob := mobPosVec3{X: 10, Y: 5}
+	if dir := directionTowardMob(player, mob); dir != "east" {
+		t.Fatalf("mob northeast with larger X delta should produce 'east', got: %s", dir)
+	}
+}
+
+func TestDirectionTowardMobDiagonalSouth(t *testing.T) {
+	// Diagonal with larger Y delta — should pick south
+	player := playerPosResult{X: 0, Y: 0}
+	mob := mobPosVec3{X: 3, Y: 10}
+	if dir := directionTowardMob(player, mob); dir != "south" {
+		t.Fatalf("mob southeast with larger Y delta should produce 'south', got: %s", dir)
+	}
+}
+
+func TestDirectionTowardMobTieBreaksHorizontal(t *testing.T) {
+	// Equal deltas — tie breaks to horizontal (east/west)
+	player := playerPosResult{X: 0, Y: 0}
+	mob := mobPosVec3{X: 5, Y: 5}
+	dir := directionTowardMob(player, mob)
+	if dir != "east" {
+		t.Fatalf("equal deltas should tie-break to east, got: %s", dir)
+	}
+}
+
+func TestDirectionTowardMobSamePosition(t *testing.T) {
+	player := playerPosResult{X: 5, Y: 5}
+	mob := mobPosVec3{X: 5, Y: 5}
+	if dir := directionTowardMob(player, mob); dir != "" {
+		t.Fatalf("same position should produce empty direction, got: %s", dir)
+	}
+}
+
+func TestFindMobPositionFound(t *testing.T) {
+	mobs := []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 10, Y: 20}},
+		{MobID: "orc-2", Position: mobPosVec3{X: 30, Y: 40}},
+	}
+	pos := findMobPosition(mobs, "orc-2")
+	if pos == nil {
+		t.Fatal("should find orc-2")
+	}
+	if pos.X != 30 || pos.Y != 40 {
+		t.Fatalf("orc-2 position should be (30,40), got (%.0f,%.0f)", pos.X, pos.Y)
+	}
+}
+
+func TestFindMobPositionNotFound(t *testing.T) {
+	mobs := []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 10, Y: 20}},
+	}
+	pos := findMobPosition(mobs, "orc-99")
+	if pos != nil {
+		t.Fatal("should not find orc-99")
+	}
+}
+
+func TestGotoKeyTriggersMove(t *testing.T) {
+	// `g` key with a focused mob should trigger a move via moveResultMsg
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	_, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	if cmd == nil {
+		t.Fatal("g key with focused mob must trigger a move command")
+	}
+}
+
+func TestGotoKeyNoFocusNoAction(t *testing.T) {
+	// `g` key without a focused mob must not trigger a move
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.rosterFocus = rosterFocus{index: -1}
+
+	_, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	if cmd != nil {
+		t.Fatal("g key without focused mob must not trigger action")
+	}
+}
+
+func TestGotoKeyNoPlayerNoAction(t *testing.T) {
+	// `g` key without player state must not trigger a move
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	_, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	if cmd != nil {
+		t.Fatal("g key without player must not trigger action")
+	}
+}
+
+func TestGotoKeyMobNotInPositions(t *testing.T) {
+	// `g` key when focused mob is not in mob positions must not trigger a move
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-99", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	_, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	if cmd != nil {
+		t.Fatal("g key when mob not in positions must not trigger action")
+	}
+}
+
+func TestGotoKeySetsPreviewDirection(t *testing.T) {
+	// After `g` key, lastIntent should reflect the computed direction
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	um := updated.(model)
+	if um.lastIntent.direction != "east" {
+		t.Fatalf("goto toward mob at (20,0) from (0,0) should set direction east, got: %s", um.lastIntent.direction)
+	}
+	if um.lastIntent.state != moveStatePreview {
+		t.Fatal("goto should set intent state to preview before move response arrives")
+	}
+}
+
+func TestGotoRepeatedDoesNotBecomeAutonomous(t *testing.T) {
+	// Two manual `g` presses produce two independent move commands.
+	// Each returns a cmd but does not chain automatically.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	// First g press
+	updated, cmd1 := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	if cmd1 == nil {
+		t.Fatal("first g must trigger command")
+	}
+
+	// Simulate move result (position updated by backend)
+	m2 := updated.(model)
+	moveMsg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 5, Y: 0}},
+		direction: "east",
+	}
+	updated2, _ := m2.Update(moveMsg)
+	m3 := updated2.(model)
+
+	// Second g press (manual, not automatic)
+	_, cmd2 := m3.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	if cmd2 == nil {
+		t.Fatal("second manual g must trigger command")
+	}
+}
+
+func TestGotoThenAttackComposition(t *testing.T) {
+	// goto → move result → attack composes cleanly
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	// g press
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	m2 := updated.(model)
+
+	// Move result
+	moveMsg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 5, Y: 0}},
+		direction: "east",
+	}
+	updated2, moveCmd := m2.Update(moveMsg)
+	m3 := updated2.(model)
+	if moveCmd == nil {
+		t.Fatal("move result must trigger immediate refresh")
+	}
+
+	// Attack
+	attackMsg := attackResultMsg{result: attackResult{State: attackStateSent, TargetID: "orc-1"}}
+	_, attackCmd := m3.Update(attackMsg)
+	if attackCmd == nil {
+		t.Fatal("attack after goto must trigger immediate refresh")
+	}
+}
+
+func TestFooterContainsGotoHint(t *testing.T) {
+	footer := renderFooter(80, "", "", "", "", "", true, inventoryReadResult{})
+	if !strings.Contains(footer, "g:go") {
+		t.Fatalf("footer must contain g:go hint, got: %s", stripANSI(footer))
 	}
 }

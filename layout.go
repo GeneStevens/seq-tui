@@ -11,7 +11,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp = "hjkl:mv tab:ros []:lt t:prx a:atk p:pk r:res q"
+	footerHelp = "hjkl:mv g:go tab:ros []:lt t:prx a:atk p:pk r:res q"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
