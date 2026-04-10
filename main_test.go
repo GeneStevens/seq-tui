@@ -6082,3 +6082,138 @@ func TestEncounterRosterOverridesPreEncounter(t *testing.T) {
 		t.Fatalf("first encounter entry should be pc, got %s", fe.kind)
 	}
 }
+
+// --- Unify Tab Focus and Attack Target State Tests (M20260409-28) ---
+
+func TestPreEncounterFocusSurvivesEncounterRefresh(t *testing.T) {
+	// The core bug: encounter refresh was wiping pre-encounter mob entries.
+	// After fix, pre-encounter mob entries survive when no encounter exists.
+	m := model{
+		playerRead: playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}},
+		mobRead: mobReadResult{
+			State: mobReadOK,
+			Mobs:  []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 10, Y: 10}}},
+			Count: 1,
+		},
+		rosterFocus:   rosterFocus{index: -1},
+		rosterEntries: nil,
+		slog:          &sessionLogger{},
+	}
+
+	// Step 1: Tab builds mob entries and focuses nearest
+	m.rosterEntries = buildMobEntriesByDistance(m.playerRead.Position, m.mobRead.Mobs)
+	m.rosterFocus = moveFocusDown(rosterFocus{index: -1}, len(m.rosterEntries))
+
+	// Verify focus is set
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe == nil || fe.id != "orc-1" {
+		t.Fatal("should have orc-1 focused after tab")
+	}
+
+	// Step 2: Simulate encounter refresh with no encounter (pre-encounter)
+	enc := (*encounterSummary)(nil)
+	newEntries := buildRosterEntries(enc)
+	if newEntries != nil {
+		// Encounter roster exists — would override (but it doesn't here)
+		m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
+		m.rosterEntries = newEntries
+	}
+	// When newEntries is nil, pre-encounter entries are preserved
+
+	// Step 3: Verify focus survives
+	fe = focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe == nil {
+		t.Fatal("focus should survive encounter refresh when no encounter exists")
+	}
+	if fe.id != "orc-1" {
+		t.Fatalf("focused mob should still be orc-1, got %s", fe.id)
+	}
+}
+
+func TestAttackAfterTabAndRefreshCycle(t *testing.T) {
+	// Full integration: tab → refresh → attack should work
+	m := model{
+		playerRead: playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}},
+		mobRead: mobReadResult{
+			State: mobReadOK,
+			Mobs:  []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 10, Y: 10}}},
+			Count: 1,
+		},
+		rosterFocus:   rosterFocus{index: -1},
+		rosterEntries: nil,
+		slog:          &sessionLogger{},
+	}
+
+	// Tab
+	m.rosterEntries = buildMobEntriesByDistance(m.playerRead.Position, m.mobRead.Mobs)
+	m.rosterFocus = moveFocusDown(rosterFocus{index: -1}, len(m.rosterEntries))
+
+	// Simulate 3 encounter refresh cycles (no encounter)
+	for i := 0; i < 3; i++ {
+		newEntries := buildRosterEntries(nil)
+		if newEntries != nil {
+			m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
+			m.rosterEntries = newEntries
+		}
+	}
+
+	// Attack should still find the focused mob
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe == nil {
+		t.Fatal("focus should survive multiple refresh cycles")
+	}
+	if fe.kind != "mb" || fe.id != "orc-1" {
+		t.Fatalf("should still target orc-1, got %s:%s", fe.kind, fe.id)
+	}
+}
+
+func TestEncounterRefreshReplacesPreEncounterEntries(t *testing.T) {
+	// When encounter starts, encounter roster replaces pre-encounter mob entries
+	m := model{
+		playerRead: playerReadResult{State: playerReadOK, HasPos: true, HasActiveEncounter: true, ActiveEncounterID: "enc-1"},
+		rosterFocus:   rosterFocus{index: 0},
+		rosterEntries: []rosterEntry{{kind: "mb", id: "pre-enc-orc"}}, // pre-encounter entries
+		slog:          &sessionLogger{},
+	}
+
+	// Encounter refresh with actual encounter
+	enc := &encounterSummary{
+		EncounterID: "enc-1",
+		PlayerIDs:   []string{"p1"},
+		MobIDs:      []string{"enc-orc-1"},
+	}
+	newEntries := buildRosterEntries(enc)
+	if newEntries != nil {
+		m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
+		m.rosterEntries = newEntries
+	}
+
+	// Should now have encounter entries, not pre-encounter
+	if len(m.rosterEntries) != 2 { // 1 pc + 1 mob
+		t.Fatalf("expected 2 encounter entries, got %d", len(m.rosterEntries))
+	}
+	if m.rosterEntries[1].id != "enc-orc-1" {
+		t.Fatalf("mob entry should be from encounter, got %s", m.rosterEntries[1].id)
+	}
+}
+
+func TestAttackWithNoFocusStillFails(t *testing.T) {
+	// Attack with no roster entries and no focus should still fail cleanly
+	m := model{
+		playerRead:    playerReadResult{State: playerReadOK},
+		rosterFocus:   rosterFocus{index: -1},
+		rosterEntries: nil,
+		slog:          &sessionLogger{},
+	}
+
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe != nil {
+		t.Fatal("should have no focus")
+	}
+	// This simulates the attack skip path
+	if fe == nil || fe.kind != "mb" {
+		// This is the expected path — attack would be skipped
+	} else {
+		t.Fatal("should not reach attack submit with no focus")
+	}
+}

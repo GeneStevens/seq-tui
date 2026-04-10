@@ -384,8 +384,14 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			enc = findPlayerEncounter(msg.result.Encounters, m.playerRead.ActiveEncounterID)
 		}
 		newEntries := buildRosterEntries(enc)
-		m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
-		m.rosterEntries = newEntries
+		if newEntries != nil {
+			// Encounter roster exists — use it (overrides pre-encounter mob entries)
+			m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
+			m.rosterEntries = newEntries
+		}
+		// When newEntries is nil (no encounter), preserve any pre-encounter mob entries
+		// that tab built from mob_positions. This prevents the 500ms refresh from
+		// wiping focus state between tab and attack.
 		// Reconcile loot focus against new backend drops
 		newDrops := currentDrops(&m)
 		m.lootFocus = reconcileLootFocus(m.lootFocus, oldDrops, newDrops)
@@ -451,6 +457,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					source = "nearest_mob"
 				}
 				m.slog.LogState(map[string]any{"name": "tab_focus", "source": source, "focus_kind": fe.kind, "focus_id": fe.id, "roster_len": len(m.rosterEntries)})
+				if fe.kind == "mb" {
+					m.slog.LogState(map[string]any{"name": "canonical_target_set", "mob_id": fe.id, "source": source})
+				}
 			} else {
 				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": "none", "roster_len": len(m.rosterEntries), "has_encounter": m.playerRead.HasActiveEncounter, "mob_count": m.mobRead.Count})
 			}
@@ -541,6 +550,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return m, nil
 			}
 			m.slog.LogIntent("attack", map[string]any{"target": fe.id})
+			m.slog.LogState(map[string]any{"name": "attack_submit", "mob_id": fe.id, "has_encounter": m.playerRead.HasActiveEncounter})
 			entry := *fe
 			bt := m.target
 			return m, func() tea.Msg {
