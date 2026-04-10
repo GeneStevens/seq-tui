@@ -8393,3 +8393,236 @@ func TestFooterContainsGotoHint(t *testing.T) {
 		t.Fatalf("footer must contain g:go hint, got: %s", stripANSI(footer))
 	}
 }
+
+// --- Attack key handler tests (M20260410-13) ---
+
+func TestAttackKeyWithFocusedMobTriggersAttack(t *testing.T) {
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	_, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if cmd == nil {
+		t.Fatal("a key with focused mob must trigger attack (non-nil Cmd)")
+	}
+}
+
+func TestAttackKeyNoPlayerSetsFailure(t *testing.T) {
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	// playerRead.State is playerReadNotAttempted (zero value)
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	updated, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if cmd != nil {
+		t.Fatal("a key without player must not trigger action")
+	}
+	um := updated.(model)
+	if um.lastAttack.State != attackStateFailed {
+		t.Fatal("a key without player must set attackStateFailed")
+	}
+}
+
+func TestAttackKeyNoFocusSetsFailure(t *testing.T) {
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK}
+	m.rosterFocus = rosterFocus{index: -1}
+
+	updated, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if cmd != nil {
+		t.Fatal("a key without focus must not trigger action")
+	}
+	um := updated.(model)
+	if um.lastAttack.State != attackStateFailed {
+		t.Fatal("a key without focus must set attackStateFailed")
+	}
+}
+
+func TestAttackKeyFocusedPCNoAction(t *testing.T) {
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK}
+	m.rosterEntries = []rosterEntry{{kind: "pc", id: "p2"}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	updated, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if cmd != nil {
+		t.Fatal("a key with focused PC must not trigger attack")
+	}
+	um := updated.(model)
+	if um.lastAttack.State != attackStateFailed {
+		t.Fatal("a key with focused PC must set attackStateFailed")
+	}
+}
+
+func TestAttackKeyNonCanonicalMobNoAction(t *testing.T) {
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: false}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	updated, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if cmd != nil {
+		t.Fatal("a key with non-canonical mob_id must not trigger attack")
+	}
+	um := updated.(model)
+	if um.lastAttack.State != attackStateFailed {
+		t.Fatal("a key with non-canonical mob_id must set attackStateFailed")
+	}
+}
+
+func TestAttackKeyPreservesTargetID(t *testing.T) {
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-42", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	// The a key sets up the attack cmd — simulate the result arriving
+	_, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if cmd == nil {
+		t.Fatal("must trigger attack")
+	}
+	// Simulate the attack result arriving
+	attackMsg := attackResultMsg{result: attackResult{State: attackStateSent, TargetID: "orc-42"}}
+	updated, _ := m.Update(attackMsg)
+	um := updated.(model)
+	if um.lastAttack.TargetID != "orc-42" {
+		t.Fatalf("lastAttack.TargetID must be orc-42, got: %s", um.lastAttack.TargetID)
+	}
+}
+
+func TestAttackKeyRepeatedManualNotAutonomous(t *testing.T) {
+	// Two manual a presses produce two independent commands.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	// First a press
+	_, cmd1 := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if cmd1 == nil {
+		t.Fatal("first a must trigger command")
+	}
+
+	// Simulate attack result
+	attackMsg := attackResultMsg{result: attackResult{State: attackStateSent, TargetID: "orc-1"}}
+	updated, _ := m.Update(attackMsg)
+	m2 := updated.(model)
+
+	// Second a press (manual)
+	_, cmd2 := m2.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if cmd2 == nil {
+		t.Fatal("second manual a must trigger command")
+	}
+}
+
+func TestGotoThenAttackKeyComposition(t *testing.T) {
+	// g (goto) then a (attack) compose cleanly through the Update handler
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.mobRead = mobReadResult{State: mobReadOK, Mobs: []mobPosition{
+		{MobID: "orc-1", Position: mobPosVec3{X: 20, Y: 0}},
+	}, Count: 1}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+
+	// g press
+	updated, gotoCmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'g'}})
+	if gotoCmd == nil {
+		t.Fatal("g must trigger move")
+	}
+	m2 := updated.(model)
+
+	// Simulate move result
+	moveMsg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 5, Y: 0}},
+		direction: "east",
+	}
+	updated2, _ := m2.Update(moveMsg)
+	m3 := updated2.(model)
+
+	// a press
+	_, atkCmd := m3.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
+	if atkCmd == nil {
+		t.Fatal("a after g must trigger attack")
+	}
+}
+
+func TestAttackKeyCombatPanelDenyAfterSubmit(t *testing.T) {
+	// After a key triggers attack and backend returns denial,
+	// combat panel must show deny:oor, not enc:opening.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panel, "deny:oor") {
+		t.Fatalf("combat panel must show deny:oor after attack denial, got: %s", panel)
+	}
+}
+
+func TestAttackKeyCombatPanelSuccessAfterSubmit(t *testing.T) {
+	// After a key triggers attack and backend returns success,
+	// combat panel must show res:dmg.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 15,
+		}},
+	}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panel, "res:dmg") {
+		t.Fatalf("combat panel must show res:dmg after attack success, got: %s", panel)
+	}
+	if !strings.Contains(panel, "15") {
+		t.Fatalf("combat panel must show damage value, got: %s", panel)
+	}
+}
+
+func TestAttackKeyCombatPanelLOSBlockedAfterSubmit(t *testing.T) {
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "los_blocked",
+		}},
+	}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "orc-1"))
+	if !strings.Contains(panel, "deny:los") {
+		t.Fatalf("combat panel must show deny:los, got: %s", panel)
+	}
+}
+
+func TestFooterContainsAttackHint(t *testing.T) {
+	footer := renderFooter(80, "", "", "", "", "", true, inventoryReadResult{})
+	if !strings.Contains(footer, "a:atk") {
+		t.Fatalf("footer must contain a:atk hint, got: %s", stripANSI(footer))
+	}
+}
