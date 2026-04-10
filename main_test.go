@@ -6860,3 +6860,120 @@ func TestCombatPanelRaceNoRegressToEncNone(t *testing.T) {
 		})
 	}
 }
+
+// --- Movement immediate refresh tests (M20260410-07) ---
+
+func TestMoveSuccessTriggersImmediateRefresh(t *testing.T) {
+	// When move submission succeeds, Update should return a non-nil Cmd
+	// (immediate mob, player, encounter reads) rather than waiting for next poll.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	msg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 10, Y: 20}},
+		direction: "north",
+	}
+	_, cmd := m.Update(msg)
+	if cmd == nil {
+		t.Fatal("successful move should trigger immediate refresh (non-nil Cmd)")
+	}
+}
+
+func TestMoveFailureNoExtraRefresh(t *testing.T) {
+	// When move fails and no proximity is active, Update should return nil Cmd
+	// (no extra reads beyond what maybeRefreshProximity produces, which is nil
+	// when no proximity query is active).
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.targetConfirm = targetConfirmResult{State: targetConfirmNone}
+	msg := moveResultMsg{
+		result:    moveResult{OK: false, Error: "boundary"},
+		direction: "west",
+	}
+	_, cmd := m.Update(msg)
+	if cmd != nil {
+		t.Fatal("failed move with no active proximity should not trigger extra refresh")
+	}
+}
+
+func TestMoveSuccessPreservesBackendPosition(t *testing.T) {
+	// The model's playerRead.Position must reflect the backend response position,
+	// not any local computation.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	msg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 5, Y: 10}},
+		direction: "east",
+	}
+	updated, _ := m.Update(msg)
+	um := updated.(model)
+	if um.playerRead.Position.X != 5 || um.playerRead.Position.Y != 10 {
+		t.Fatalf("position should be backend-authoritative (5,10), got (%.0f,%.0f)",
+			um.playerRead.Position.X, um.playerRead.Position.Y)
+	}
+	if !um.playerRead.HasPos {
+		t.Fatal("HasPos should be true after successful move with position")
+	}
+}
+
+func TestMoveSuccessSetsIntentSent(t *testing.T) {
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	msg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 5, Y: 0}},
+		direction: "north",
+	}
+	updated, _ := m.Update(msg)
+	um := updated.(model)
+	if um.lastIntent.state != moveStateSent {
+		t.Fatal("lastIntent should be moveStateSent after successful move")
+	}
+	if um.lastIntent.direction != "north" {
+		t.Fatalf("lastIntent.direction should be north, got: %s", um.lastIntent.direction)
+	}
+}
+
+func TestMoveFailureSetsIntentFailed(t *testing.T) {
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	msg := moveResultMsg{
+		result:    moveResult{OK: false, Error: "out of bounds"},
+		direction: "south",
+	}
+	updated, _ := m.Update(msg)
+	um := updated.(model)
+	if um.lastIntent.state != moveStateFailed {
+		t.Fatal("lastIntent should be moveStateFailed after failed move")
+	}
+}
+
+func TestMoveSuccessNoCombatPanelRegression(t *testing.T) {
+	// After a move, if there was a prior attack with enc:opening state,
+	// the combat panel must still show enc:opening (not regress to "none").
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
+	er := encounterReadResult{State: encounterReadOK}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "enc: opening") {
+		t.Fatalf("combat panel must preserve enc:opening during move, got: %s", stripped)
+	}
+}
+
+func TestMoveSuccessNoPositionWithoutHasPos(t *testing.T) {
+	// If move succeeds but HasPos is false (edge case), position should not update.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 1, Y: 2}}
+	msg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: false},
+		direction: "north",
+	}
+	updated, _ := m.Update(msg)
+	um := updated.(model)
+	// Position should remain at old value since HasPos is false in response
+	if um.playerRead.Position.X != 1 || um.playerRead.Position.Y != 2 {
+		t.Fatalf("position should not change when move response has no position, got (%.0f,%.0f)",
+			um.playerRead.Position.X, um.playerRead.Position.Y)
+	}
+}

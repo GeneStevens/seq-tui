@@ -445,7 +445,26 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			"player_pos": []float64{m.playerRead.Position.X, m.playerRead.Position.Y},
 			"has_pos":    m.playerRead.HasPos,
 		})
-		// Re-query proximity if active and position changed
+		if msg.result.OK {
+			// Immediate refresh: reduce spatial context staleness by reading
+			// mob positions, player state, and encounters right after successful
+			// move submit. Purely transport — no movement prediction.
+			target := m.target
+			proxCmd := maybeRefreshProximity(&m)
+			return m, tea.Batch(
+				func() tea.Msg {
+					return mobReadResultMsg{result: fetchMobPositions(target)}
+				},
+				func() tea.Msg {
+					return playerReadResultMsg{result: readPlayerState(target)}
+				},
+				func() tea.Msg {
+					return encounterReadResultMsg{result: fetchZoneEncounters(target)}
+				},
+				proxCmd,
+			)
+		}
+		// Re-query proximity if active and position changed (failed moves only)
 		return m, maybeRefreshProximity(&m)
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
