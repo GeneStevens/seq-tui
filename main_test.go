@@ -6520,3 +6520,343 @@ func TestCombatPanelThreeStatesDistinguishable(t *testing.T) {
 		t.Fatalf("resolving state should contain res:, got: %s", panel3)
 	}
 }
+
+// --- Post-attack immediate refresh tests ---
+
+func TestAttackSuccessTriggersImmediateRefresh(t *testing.T) {
+	// When attack submission succeeds, Update should return a non-nil Cmd
+	// (immediate encounter + player read) rather than waiting for the next poll.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	msg := attackResultMsg{result: attackResult{State: attackStateSent, TargetID: "orc-1"}}
+	_, cmd := m.Update(msg)
+	if cmd == nil {
+		t.Fatal("successful attack should trigger immediate refresh (non-nil Cmd)")
+	}
+}
+
+func TestAttackFailureDoesNotTriggerRefresh(t *testing.T) {
+	// When attack submission fails, Update should return nil Cmd (no extra reads).
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	msg := attackResultMsg{result: attackResult{State: attackStateFailed, Error: "no mob", TargetID: "orc-1"}}
+	_, cmd := m.Update(msg)
+	if cmd != nil {
+		t.Fatal("failed attack should not trigger immediate refresh")
+	}
+}
+
+func TestAttackNoneDoesNotTriggerRefresh(t *testing.T) {
+	// Default/no-attack state should return nil Cmd.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	msg := attackResultMsg{result: attackResult{State: attackStateNone}}
+	_, cmd := m.Update(msg)
+	if cmd != nil {
+		t.Fatal("no-attack state should not trigger immediate refresh")
+	}
+}
+
+func TestAttackSuccessPreservesLastAttackState(t *testing.T) {
+	// The model's lastAttack must be set before the refresh Cmds are returned.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	msg := attackResultMsg{result: attackResult{State: attackStateSent, TargetID: "orc-1"}}
+	updated, _ := m.Update(msg)
+	um := updated.(model)
+	if um.lastAttack.State != attackStateSent {
+		t.Fatal("lastAttack should be set to sent after successful attack")
+	}
+	if um.lastAttack.TargetID != "orc-1" {
+		t.Fatalf("lastAttack.TargetID should be orc-1, got: %s", um.lastAttack.TargetID)
+	}
+}
+
+// --- Combat panel state contract tests (M20260410-06) ---
+// These tests protect the complete visible contract for the combat panel.
+// Each distinct state must produce unique, identifiable output.
+
+func TestCombatPanelStateContractAllSixStates(t *testing.T) {
+	// The combat panel has six distinct visible states.
+	// Each must be identifiable by its content and distinguishable from the others.
+	bt := defaultTarget()
+	inv := inventoryReadResult{}
+
+	// State 1: idle / none — no attack, no encounter
+	panel1 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{},
+		playerReadResult{State: playerReadOK},
+		encounterReadResult{State: encounterReadOK},
+		bt, inv, ""))
+	if !strings.Contains(panel1, "none") {
+		t.Fatalf("idle state must show 'none', got: %s", panel1)
+	}
+
+	// State 2: attack submitted, encounter opening
+	panel2 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"},
+		playerReadResult{State: playerReadOK},
+		encounterReadResult{State: encounterReadOK},
+		bt, inv, ""))
+	if !strings.Contains(panel2, "enc: opening") {
+		t.Fatalf("opening state must show 'enc: opening', got: %s", panel2)
+	}
+	if !strings.Contains(panel2, "atk:orc-1") {
+		t.Fatalf("opening state must show atk target, got: %s", panel2)
+	}
+
+	// State 3: denial from backend truth
+	panel3 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"},
+		playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"},
+		encounterReadResult{State: encounterReadOK, Count: 1, Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}}},
+		bt, inv, ""))
+	if !strings.Contains(panel3, "deny:oor") {
+		t.Fatalf("denial state must show 'deny:oor', got: %s", panel3)
+	}
+
+	// State 4: combat resolution from backend truth
+	panel4 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"},
+		playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"},
+		encounterReadResult{State: encounterReadOK, Count: 1, Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "damage_applied", LatestResultValue: 10,
+		}}},
+		bt, inv, ""))
+	if !strings.Contains(panel4, "res:dmg") {
+		t.Fatalf("resolution state must show 'res:dmg', got: %s", panel4)
+	}
+	if !strings.Contains(panel4, "10") {
+		t.Fatalf("resolution state must show damage value, got: %s", panel4)
+	}
+
+	// State 5: failed submit
+	panel5 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateFailed, Error: "no mob", TargetID: "orc-1"},
+		playerReadResult{State: playerReadOK},
+		encounterReadResult{State: encounterReadOK},
+		bt, inv, ""))
+	if !strings.Contains(panel5, "atk:fail") {
+		t.Fatalf("failed state must show 'atk:fail', got: %s", panel5)
+	}
+
+	// State 6: read-gap (attack sent, player has encounter, but encounter read stale)
+	panel6 := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"},
+		playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-new"},
+		encounterReadResult{State: encounterReadOK, Count: 0},
+		bt, inv, ""))
+	if !strings.Contains(panel6, "enc: opening") {
+		t.Fatalf("read-gap state must show 'enc: opening', got: %s", panel6)
+	}
+
+	// All six panels must be mutually distinguishable from the non-gap states
+	panels := map[string]string{
+		"idle": panel1, "opening": panel2, "denial": panel3,
+		"resolution": panel4, "failed": panel5, "read-gap": panel6,
+	}
+	// opening and read-gap may be identical (both show enc:opening) — that's correct
+	for nameA, pA := range panels {
+		for nameB, pB := range panels {
+			if nameA >= nameB {
+				continue
+			}
+			if nameA == "opening" && nameB == "read-gap" {
+				continue // these are allowed to match
+			}
+			if nameA == "read-gap" && nameB == "opening" {
+				continue
+			}
+			if pA == pB {
+				t.Fatalf("states %s and %s must differ but are identical", nameA, nameB)
+			}
+		}
+	}
+}
+
+func TestCombatPanelStateContractDenyRequiresBackend(t *testing.T) {
+	// deny: prefix must only appear when backend encounter has a denial LatestResultKind.
+	// Without backend encounter data, deny: must NOT appear.
+	panel := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"},
+		playerReadResult{State: playerReadOK},
+		encounterReadResult{State: encounterReadOK},
+		defaultTarget(), inventoryReadResult{}, ""))
+	if strings.Contains(panel, "deny:") {
+		t.Fatalf("deny: must not appear without backend encounter truth, got: %s", panel)
+	}
+}
+
+func TestCombatPanelStateContractResRequiresBackend(t *testing.T) {
+	// res: prefix must only appear when backend encounter has a resolution LatestResultKind.
+	panel := stripANSI(renderCombatPanel(sidePanelWidth,
+		attackResult{State: attackStateSent, TargetID: "orc-1"},
+		playerReadResult{State: playerReadOK},
+		encounterReadResult{State: encounterReadOK},
+		defaultTarget(), inventoryReadResult{}, ""))
+	if strings.Contains(panel, "res:") {
+		t.Fatalf("res: must not appear without backend encounter truth, got: %s", panel)
+	}
+}
+
+// --- Attack read-race hardening tests (M20260410-05) ---
+
+func TestCombatPanelRacePlayerHasEncounterButReadStale(t *testing.T) {
+	// Race: player read says HasActiveEncounter=true, but encounter read
+	// doesn't contain the encounter yet (stale encounter list).
+	// Combat panel must show enc:opening, not "none" or "no enc details".
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-new"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 0, Encounters: nil,
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "enc: opening") {
+		t.Fatalf("race: player has encounter but read stale — must show enc: opening, got: %s", stripped)
+	}
+	if strings.Contains(stripped, "none") {
+		t.Fatalf("race: must not show 'none' during attack read gap, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelRaceEncounterReadFailed(t *testing.T) {
+	// Race: attack succeeded, immediate encounter read failed.
+	// Combat panel must show enc:opening, not "unavailable".
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
+	er := encounterReadResult{State: encounterReadFailed, Error: "timeout"}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "enc: opening") {
+		t.Fatalf("race: encounter read failed — must show enc: opening, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelRaceEncounterReadNotAttempted(t *testing.T) {
+	// Race: attack succeeded, encounter read hasn't arrived yet.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
+	er := encounterReadResult{State: encounterReadNotAttempted}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "enc: opening") {
+		t.Fatalf("race: encounter read pending — must show enc: opening, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelRacePlayerHasEncounterDetailsPresent(t *testing.T) {
+	// No race: player has encounter AND encounter read contains it.
+	// Combat panel must show encounter details, NOT enc:opening.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1, MobsDead: 0, ActionIndex: 1,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "enc: opening") {
+		t.Fatalf("no race: encounter details present — must NOT show enc: opening, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "Active") {
+		t.Fatalf("no race: must show Active encounter state, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelRaceDenialVisibleFromBackend(t *testing.T) {
+	// After immediate read: encounter is present with a denial result.
+	// Must show deny: prefix, not enc:opening.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1, MobsDead: 0,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "deny:oor") {
+		t.Fatalf("race: denial must show deny:oor, got: %s", stripped)
+	}
+	if strings.Contains(stripped, "enc: opening") {
+		t.Fatalf("race: denial visible — must not show enc: opening, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelRaceResolutionVisibleFromBackend(t *testing.T) {
+	// After immediate read: encounter is present with a resolution result.
+	// Must show res: prefix, not enc:opening.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1, MobsDead: 0,
+			LatestResultKind: "damage_applied", LatestResultValue: 15,
+		}},
+	}
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "res:dmg") {
+		t.Fatalf("race: resolution must show res:dmg, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "15") {
+		t.Fatalf("race: resolution must show damage value, got: %s", stripped)
+	}
+}
+
+func TestCombatPanelRaceNoRegressToEncNone(t *testing.T) {
+	// Critical contract: when lastAttack is sent, combat panel must NEVER
+	// show just "none" without context. It must show enc:opening or encounter details.
+	testCases := []struct {
+		name string
+		pr   playerReadResult
+		er   encounterReadResult
+	}{
+		{
+			name: "no encounter, read ok",
+			pr:   playerReadResult{State: playerReadOK, HasActiveEncounter: false},
+			er:   encounterReadResult{State: encounterReadOK},
+		},
+		{
+			name: "no encounter, read failed",
+			pr:   playerReadResult{State: playerReadOK, HasActiveEncounter: false},
+			er:   encounterReadResult{State: encounterReadFailed},
+		},
+		{
+			name: "no encounter, read pending",
+			pr:   playerReadResult{State: playerReadOK, HasActiveEncounter: false},
+			er:   encounterReadResult{State: encounterReadNotAttempted},
+		},
+		{
+			name: "has encounter, read stale",
+			pr:   playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-x"},
+			er:   encounterReadResult{State: encounterReadOK, Count: 0},
+		},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			panel := renderCombatPanel(sidePanelWidth, ar, tc.pr, tc.er, defaultTarget(), inventoryReadResult{}, "")
+			stripped := stripANSI(panel)
+			// Must contain enc:opening when attack is sent and no encounter details visible
+			if !strings.Contains(stripped, "enc: opening") {
+				t.Fatalf("must show enc: opening during read gap (%s), got: %s", tc.name, stripped)
+			}
+		})
+	}
+}

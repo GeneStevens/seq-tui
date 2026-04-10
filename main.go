@@ -402,6 +402,20 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case attackResultMsg:
 		m.lastAttack = msg.result
 		m.slog.LogPoll("attack_result", msg.result.State == attackStateSent)
+		if msg.result.State == attackStateSent {
+			// Immediate refresh: reduce enc:opening dwell by reading
+			// encounter and player state right after successful attack submit.
+			// Purely transport — no gameplay inference.
+			target := m.target
+			return m, tea.Batch(
+				func() tea.Msg {
+					return encounterReadResultMsg{result: fetchZoneEncounters(target)}
+				},
+				func() tea.Msg {
+					return playerReadResultMsg{result: readPlayerState(target)}
+				},
+			)
+		}
 		return m, nil
 	case pickupResultMsg:
 		m.lastPickup = msg.result
