@@ -438,15 +438,29 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "q", "Q", "ctrl+c":
 			return m, tea.Quit
 		case "tab":
+			// If no encounter roster, build mob entries from visible mob positions
+			if len(m.rosterEntries) == 0 && m.playerRead.State == playerReadOK && m.playerRead.HasPos && m.mobRead.State == mobReadOK {
+				m.rosterEntries = buildMobEntriesByDistance(m.playerRead.Position, m.mobRead.Mobs)
+				m.rosterFocus = rosterFocus{index: -1}
+			}
 			m.rosterFocus = moveFocusDown(m.rosterFocus, len(m.rosterEntries))
 			fe := focusedEntry(m.rosterFocus, m.rosterEntries)
 			if fe != nil {
-				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": fe.kind, "focus_id": fe.id, "roster_len": len(m.rosterEntries)})
+				source := "encounter_roster"
+				if !m.playerRead.HasActiveEncounter {
+					source = "nearest_mob"
+				}
+				m.slog.LogState(map[string]any{"name": "tab_focus", "source": source, "focus_kind": fe.kind, "focus_id": fe.id, "roster_len": len(m.rosterEntries)})
 			} else {
-				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": "none", "roster_len": len(m.rosterEntries), "has_encounter": m.playerRead.HasActiveEncounter})
+				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": "none", "roster_len": len(m.rosterEntries), "has_encounter": m.playerRead.HasActiveEncounter, "mob_count": m.mobRead.Count})
 			}
 			return m, maybeRefreshProximity(&m)
 		case "shift+tab":
+			// Same pre-encounter mob entry building for shift+tab
+			if len(m.rosterEntries) == 0 && m.playerRead.State == playerReadOK && m.playerRead.HasPos && m.mobRead.State == mobReadOK {
+				m.rosterEntries = buildMobEntriesByDistance(m.playerRead.Position, m.mobRead.Mobs)
+				m.rosterFocus = rosterFocus{index: -1}
+			}
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
 			return m, maybeRefreshProximity(&m)
 		case "[":

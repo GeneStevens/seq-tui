@@ -5966,3 +5966,119 @@ func TestProximityPanelNoneWithoutMobs(t *testing.T) {
 		t.Fatalf("should show none without player/mobs, got: %s", stripped)
 	}
 }
+
+// --- Pre-Encounter Target Focus Tests (M20260409-27) ---
+
+func TestBuildMobEntriesByDistance(t *testing.T) {
+	pos := playerPosResult{X: 0, Y: 0}
+	mobs := []mobPosition{
+		{ProcessID: "far-orc", Position: mobPosVec3{X: 100, Y: 100}},
+		{ProcessID: "near-orc", Position: mobPosVec3{X: 5, Y: 5}},
+		{ProcessID: "mid-orc", Position: mobPosVec3{X: 30, Y: 30}},
+	}
+	entries := buildMobEntriesByDistance(pos, mobs)
+	if len(entries) != 3 {
+		t.Fatalf("expected 3 entries, got %d", len(entries))
+	}
+	if entries[0].id != "near-orc" {
+		t.Fatalf("first entry should be nearest mob, got %s", entries[0].id)
+	}
+	if entries[0].kind != "mb" {
+		t.Fatal("entries should have kind 'mb'")
+	}
+	if entries[2].id != "far-orc" {
+		t.Fatalf("last entry should be farthest mob, got %s", entries[2].id)
+	}
+}
+
+func TestBuildMobEntriesByDistanceEmpty(t *testing.T) {
+	entries := buildMobEntriesByDistance(playerPosResult{}, nil)
+	if entries != nil {
+		t.Fatal("empty mobs should return nil")
+	}
+}
+
+func TestPreEncounterTabSelectsNearestMob(t *testing.T) {
+	// Simulate model with no encounter but visible mobs
+	m := model{
+		playerRead: playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}},
+		mobRead: mobReadResult{
+			State: mobReadOK,
+			Mobs: []mobPosition{
+				{ProcessID: "far-mob", Position: mobPosVec3{X: 100, Y: 100}},
+				{ProcessID: "near-mob", Position: mobPosVec3{X: 5, Y: 5}},
+			},
+			Count: 2,
+		},
+		rosterFocus:   rosterFocus{index: -1},
+		rosterEntries: nil, // no encounter roster
+		slog:          &sessionLogger{}, // disabled logger
+	}
+
+	// Simulate tab press — build mob entries and focus first (nearest)
+	if len(m.rosterEntries) == 0 && m.playerRead.State == playerReadOK && m.playerRead.HasPos && m.mobRead.State == mobReadOK {
+		m.rosterEntries = buildMobEntriesByDistance(m.playerRead.Position, m.mobRead.Mobs)
+		m.rosterFocus = rosterFocus{index: -1}
+	}
+	m.rosterFocus = moveFocusDown(m.rosterFocus, len(m.rosterEntries))
+
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe == nil {
+		t.Fatal("should have a focused entry after tab")
+	}
+	if fe.id != "near-mob" {
+		t.Fatalf("should focus nearest mob, got %s", fe.id)
+	}
+	if fe.kind != "mb" {
+		t.Fatalf("should be mob kind, got %s", fe.kind)
+	}
+}
+
+func TestPreEncounterAttackAfterTab(t *testing.T) {
+	// After tab selects a mob, attack should find it
+	m := model{
+		playerRead: playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}},
+		mobRead: mobReadResult{
+			State: mobReadOK,
+			Mobs:  []mobPosition{{ProcessID: "orc-1", Position: mobPosVec3{X: 10, Y: 10}}},
+			Count: 1,
+		},
+		rosterFocus:   rosterFocus{index: -1},
+		rosterEntries: nil,
+		slog:          &sessionLogger{},
+	}
+
+	// Simulate tab
+	m.rosterEntries = buildMobEntriesByDistance(m.playerRead.Position, m.mobRead.Mobs)
+	m.rosterFocus = moveFocusDown(rosterFocus{index: -1}, len(m.rosterEntries))
+
+	// Simulate attack key check
+	fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+	if fe == nil || fe.kind != "mb" {
+		t.Fatal("should have mob focused for attack")
+	}
+	if fe.id != "orc-1" {
+		t.Fatalf("attack target should be orc-1, got %s", fe.id)
+	}
+}
+
+func TestEncounterRosterOverridesPreEncounter(t *testing.T) {
+	// When encounter exists, encounter roster is used (not mob positions)
+	enc := &encounterSummary{
+		PlayerIDs: []string{"p1"},
+		MobIDs:    []string{"enc-orc-1", "enc-orc-2"},
+	}
+	entries := buildRosterEntries(enc)
+	if len(entries) != 3 {
+		t.Fatalf("expected 3 encounter entries, got %d", len(entries))
+	}
+	// Focus should use encounter entries, not mob positions
+	f := moveFocusDown(rosterFocus{index: -1}, len(entries))
+	fe := focusedEntry(f, entries)
+	if fe == nil {
+		t.Fatal("should have encounter focus")
+	}
+	if fe.kind != "pc" {
+		t.Fatalf("first encounter entry should be pc, got %s", fe.kind)
+	}
+}

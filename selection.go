@@ -1,5 +1,10 @@
 package main
 
+import (
+	"math"
+	"sort"
+)
+
 // rosterFocus holds purely local, non-authoritative focus state for the
 // encounter roster. It has no gameplay meaning, triggers no backend writes,
 // and exists only to let the user place visual attention on a roster entry.
@@ -111,4 +116,37 @@ func moveFocusUp(f rosterFocus, entryCount int) rosterFocus {
 		next = 0
 	}
 	return rosterFocus{index: next}
+}
+
+// buildMobEntriesByDistance returns roster entries from visible mob positions,
+// sorted by distance to the player. Used for pre-encounter tab targeting.
+// Purely local, non-authoritative — the backend decides if an attack is valid.
+func buildMobEntriesByDistance(playerPos playerPosResult, mobs []mobPosition) []rosterEntry {
+	if len(mobs) == 0 {
+		return nil
+	}
+
+	type mobDist struct {
+		entry rosterEntry
+		dist  float64
+	}
+	ranked := make([]mobDist, 0, len(mobs))
+	for _, mob := range mobs {
+		dx := mob.Position.X - playerPos.X
+		dy := mob.Position.Y - playerPos.Y
+		d := math.Sqrt(dx*dx + dy*dy)
+		ranked = append(ranked, mobDist{
+			entry: rosterEntry{kind: "mb", id: mob.ProcessID},
+			dist:  d,
+		})
+	}
+	sort.Slice(ranked, func(i, j int) bool {
+		return ranked[i].dist < ranked[j].dist
+	})
+
+	entries := make([]rosterEntry, len(ranked))
+	for i, r := range ranked {
+		entries[i] = r.entry
+	}
+	return entries
 }
