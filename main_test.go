@@ -7576,3 +7576,257 @@ func TestRepeatedMovesSixStatesPreserved(t *testing.T) {
 		}
 	}
 }
+
+// --- Selected-target approach legibility tests (M20260410-10) ---
+
+func TestProximityPanelOutOfRangeAfterMove(t *testing.T) {
+	// After moving but still out of range, the proximity panel must show
+	// backend-owned "out" distance label. No local inference.
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: false, Distance: 45,
+		MobName: "an orc",
+	}
+	ar := attackResult{}
+	mobr := mobReadResult{}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 10, Y: 0}}
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr)
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "out 45") {
+		t.Fatalf("proximity must show 'out 45' when target still distant, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "an orc") {
+		t.Fatalf("proximity must show mob name, got: %s", stripped)
+	}
+}
+
+func TestProximityPanelInRangeAfterMove(t *testing.T) {
+	// After closing range via repeated moves, the proximity panel must show
+	// "in range" with backend-owned distance.
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: true, Distance: 8,
+		MobName: "an orc",
+	}
+	ar := attackResult{}
+	mobr := mobReadResult{}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 20, Y: 5}}
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr)
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "in range 8") {
+		t.Fatalf("proximity must show 'in range 8' when close, got: %s", stripped)
+	}
+}
+
+func TestProximityPanelAtkMarkerAfterMoveAndAttack(t *testing.T) {
+	// After moving into range and attacking, the proximity panel must show
+	// [atk] marker on the target when attack target matches proximity target.
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: true, Distance: 5,
+		MobName: "an orc",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	mobr := mobReadResult{}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 22, Y: 5}}
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr)
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "[atk]") {
+		t.Fatalf("proximity must show [atk] marker when attack target matches, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "in range") {
+		t.Fatalf("proximity must show in range alongside atk marker, got: %s", stripped)
+	}
+}
+
+func TestProximityPanelNoAtkMarkerOnDifferentTarget(t *testing.T) {
+	// [atk] marker must NOT appear when proximity target differs from attack target.
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-2",
+		Found: true, WithinProximity: true, Distance: 5,
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, playerReadResult{})
+	stripped := stripANSI(panel)
+
+	if strings.Contains(stripped, "[atk]") {
+		t.Fatalf("proximity must NOT show [atk] for different target, got: %s", stripped)
+	}
+}
+
+func TestProximityRefreshTriggersAfterEachMove(t *testing.T) {
+	// When a target is selected (proximity state is active), each successive
+	// move must trigger a proximity re-query because position has changed.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
+	m.rosterFocus = rosterFocus{index: 0}
+	// Set up active proximity state so maybeRefreshProximity will fire
+	m.targetConfirm = targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1", Found: true}
+	m.lastProximityPos = playerPosResult{X: 0, Y: 0}
+	m.lastProximityID = "orc-1"
+
+	moves := []playerPosResult{{X: 5, Y: 0}, {X: 10, Y: 0}, {X: 15, Y: 0}}
+
+	for i, pos := range moves {
+		msg := moveResultMsg{
+			result:    moveResult{OK: true, HasPos: true, Position: pos},
+			direction: "east",
+		}
+		updated, cmd := m.Update(msg)
+		if cmd == nil {
+			t.Fatalf("move %d with selected target must trigger refresh", i+1)
+		}
+		m = updated.(model)
+		// Update lastProximityPos to simulate the proximity query returning
+		// (in real code this happens when targetConfirmMsg arrives)
+		m.lastProximityPos = pos
+	}
+}
+
+func TestProximityNeedsRefreshAfterRepeatedMoves(t *testing.T) {
+	// After multiple position changes, proximityNeedsRefresh must report true
+	// when the current position differs from the last queried position.
+	tc := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1"}
+	entry := &rosterEntry{kind: "mb", id: "orc-1"}
+	lastPos := playerPosResult{X: 0, Y: 0}
+	currentPos := playerPosResult{X: 15, Y: 0} // after 3 moves east
+
+	if !proximityNeedsRefresh(tc, lastPos, "orc-1", currentPos, entry) {
+		t.Fatal("proximity must need refresh when position changed across moves")
+	}
+}
+
+func TestBlockedMovePreservesProximityState(t *testing.T) {
+	// A blocked/denied move must not alter the proximity tracking state.
+	// The last known proximity result and position must remain unchanged.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 10, Y: 0}}
+	m.targetConfirm = targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: false, Distance: 30,
+	}
+	m.lastProximityPos = playerPosResult{X: 10, Y: 0}
+	m.lastProximityID = "orc-1"
+
+	// Failed move — wall/boundary
+	msg := moveResultMsg{
+		result:    moveResult{OK: false, Error: "boundary"},
+		direction: "east",
+	}
+	updated, _ := m.Update(msg)
+	um := updated.(model)
+
+	// Position must not change
+	if um.playerRead.Position.X != 10 || um.playerRead.Position.Y != 0 {
+		t.Fatalf("blocked move must preserve position, got (%.0f,%.0f)",
+			um.playerRead.Position.X, um.playerRead.Position.Y)
+	}
+	// Proximity state must not change
+	if um.targetConfirm.TargetID != "orc-1" {
+		t.Fatal("blocked move must preserve proximity target ID")
+	}
+	if um.targetConfirm.Distance != 30 {
+		t.Fatalf("blocked move must preserve proximity distance, got %.0f", um.targetConfirm.Distance)
+	}
+}
+
+func TestProximityAndCombatPanelComposeOutOfRange(t *testing.T) {
+	// Proximity shows "out 40" while combat shows "deny:oor" — both panels
+	// must be internally consistent, showing the same selected target.
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: false, Distance: 40,
+		MobName: "an orc",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true, Position: playerPosResult{X: 5, Y: 0},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr))
+	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, ""))
+
+	if !strings.Contains(proxPanel, "out 40") {
+		t.Fatalf("proximity panel must show 'out 40', got: %s", proxPanel)
+	}
+	if !strings.Contains(combatPanel, "deny:oor") {
+		t.Fatalf("combat panel must show 'deny:oor', got: %s", combatPanel)
+	}
+}
+
+func TestProximityAndCombatPanelComposeInRange(t *testing.T) {
+	// Proximity shows "in range 8" while combat shows "res:dmg" — both panels
+	// must be internally consistent after closing range.
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: true, Distance: 8,
+		MobName: "an orc",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true, Position: playerPosResult{X: 20, Y: 5},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind:  "damage_applied",
+			LatestResultValue: 12,
+		}},
+	}
+
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr))
+	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, ""))
+
+	if !strings.Contains(proxPanel, "in range 8") {
+		t.Fatalf("proximity panel must show 'in range 8', got: %s", proxPanel)
+	}
+	if !strings.Contains(proxPanel, "[atk]") {
+		t.Fatalf("proximity panel must show [atk] marker, got: %s", proxPanel)
+	}
+	if !strings.Contains(combatPanel, "res:dmg") {
+		t.Fatalf("combat panel must show 'res:dmg', got: %s", combatPanel)
+	}
+}
+
+func TestProximityPanelRaceAfterMoveBeforeRead(t *testing.T) {
+	// Race: player moved but proximity re-query hasn't returned yet.
+	// The proximity panel must show the *stale* proximity data honestly —
+	// the old distance, not an invented closer one.
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: false, Distance: 50, // stale — before move
+		MobName: "an orc",
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	// Player has moved but proximity hasn't refreshed yet
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 15, Y: 0}}
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr)
+	stripped := stripANSI(panel)
+
+	// Panel shows the stale (last known) distance — this is honest
+	if !strings.Contains(stripped, "out 50") {
+		t.Fatalf("race: proximity must show stale distance 'out 50', got: %s", stripped)
+	}
+	// Must not show "in range" — that would be local inference
+	if strings.Contains(stripped, "in range") {
+		t.Fatalf("race: proximity must NOT infer in-range from stale data, got: %s", stripped)
+	}
+}
