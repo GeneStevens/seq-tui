@@ -117,6 +117,37 @@ func directionFromKey(key string) string {
 	}
 }
 
+// eventTextForResult returns a human-readable event text for a backend combat result.
+// Maps internal result kinds to compact readable forms for the event stream.
+// This is purely presentational — no gameplay inference.
+func eventTextForResult(kind string, value int) string {
+	var text string
+	switch kind {
+	case "damage_applied":
+		text = fmt.Sprintf("hit %d", value)
+	case "attack_miss":
+		text = "miss"
+	case "heal_applied":
+		text = fmt.Sprintf("heal %d", value)
+	case "out_of_range":
+		text = "deny range"
+	case "los_blocked":
+		text = "deny los"
+	case "invalid_target":
+		text = "deny target"
+	case "cooldown_set":
+		text = "cooldown"
+	case "blocked_wounded":
+		text = "blocked"
+	default:
+		text = kind
+		if value > 0 {
+			text += fmt.Sprintf(" %d", value)
+		}
+	}
+	return text
+}
+
 // eventEntry is one line in the event stream panel.
 // Kind classifies the source; text is the compact display string.
 type eventEntry struct {
@@ -125,7 +156,7 @@ type eventEntry struct {
 }
 
 // eventLogMax is the maximum number of entries kept in the event stream.
-const eventLogMax = 8
+const eventLogMax = 12
 
 // eventLog is a bounded FIFO of recent event entries.
 // Newest entries are appended at the end. When full, the oldest is dropped.
@@ -472,7 +503,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if enc != nil {
 			// Encounter lifecycle: new encounter or state change
 			if enc.EncounterID != m.lastSeenEncID {
-				m.events.append(eventEntry{kind: "enc", text: "enc opened"})
+				m.events.append(eventEntry{kind: "enc", text: "encounter opened"})
 				m.lastSeenEncID = enc.EncounterID
 				m.lastSeenEncState = enc.State
 				m.lastSeenActIdx = enc.ActionIndex
@@ -481,20 +512,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				if reason == "" {
 					reason = "done"
 				}
-				m.events.append(eventEntry{kind: "enc", text: "enc:" + reason})
+				m.events.append(eventEntry{kind: "enc", text: "encounter complete"})
 				m.lastSeenEncState = enc.State
 			}
 			// Combat event: ActionIndex advanced
 			if enc.ActionIndex > m.lastSeenActIdx {
-				kind := compactResultKind(enc.LatestResultKind)
-				prefix := "res"
-				if isDenialResult(enc.LatestResultKind) {
-					prefix = "deny"
-				}
-				text := prefix + ":" + kind
-				if enc.LatestResultValue > 0 {
-					text += fmt.Sprintf(" %d", enc.LatestResultValue)
-				}
+				text := eventTextForResult(enc.LatestResultKind, enc.LatestResultValue)
 				m.events.append(eventEntry{kind: "combat", text: text})
 				m.lastSeenActIdx = enc.ActionIndex
 			}
@@ -508,9 +531,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.slog.LogPoll("attack_result", msg.result.State == attackStateSent)
 		// Event stream: attack submission result
 		if msg.result.State == attackStateSent {
-			m.events.append(eventEntry{kind: "atk", text: "atk:" + truncateID(msg.result.TargetID, 12)})
+			m.events.append(eventEntry{kind: "atk", text: "attack"})
 		} else if msg.result.State == attackStateFailed {
-			m.events.append(eventEntry{kind: "atk", text: "atk:fail"})
+			m.events.append(eventEntry{kind: "atk", text: "attack failed"})
 		}
 		if msg.result.State == attackStateSent {
 			// Immediate refresh: reduce enc:opening dwell by reading
@@ -544,10 +567,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.playerRead.Position = msg.result.Position
 				m.playerRead.HasPos = true
 			}
-			m.events.append(eventEntry{kind: "move", text: "mv:" + msg.direction})
+			m.events.append(eventEntry{kind: "move", text: "move " + msg.direction})
 		} else {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateFailed}
-			m.events.append(eventEntry{kind: "move", text: "mv:fail " + msg.direction})
+			m.events.append(eventEntry{kind: "move", text: "move blocked " + msg.direction})
 		}
 		// Render-observable state snapshot after move processing
 		m.slog.LogState(map[string]any{
@@ -605,7 +628,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				if fe.kind == "mb" {
 					m.slog.LogState(map[string]any{"name": "canonical_target_set", "mob_id": fe.id, "canonical": fe.canonicalMobID, "source": source})
 				}
-				m.events.append(eventEntry{kind: "focus", text: "focus:" + fe.kind + ":" + truncateID(fe.id, 10)})
+				focusLabel := "focus"
+				if fe.kind == "mb" {
+					focusLabel = "focus mob"
+				} else {
+					focusLabel = "focus " + fe.kind
+				}
+				m.events.append(eventEntry{kind: "focus", text: focusLabel})
 			} else {
 				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": "none", "roster_len": len(m.rosterEntries), "has_encounter": m.playerRead.HasActiveEncounter, "mob_count": m.mobRead.Count})
 			}

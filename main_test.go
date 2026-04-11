@@ -9180,7 +9180,7 @@ func TestReadinessCompactLabelValues(t *testing.T) {
 
 func TestEventLogAppendAndBound(t *testing.T) {
 	var log eventLog
-	for i := 0; i < 12; i++ {
+	for i := 0; i < 16; i++ {
 		log.append(eventEntry{kind: "test", text: fmt.Sprintf("entry-%d", i)})
 	}
 	if log.len() != eventLogMax {
@@ -9191,8 +9191,8 @@ func TestEventLogAppendAndBound(t *testing.T) {
 	if entries[0].text != "entry-4" {
 		t.Fatalf("oldest entry should be entry-4 after overflow, got: %s", entries[0].text)
 	}
-	if entries[len(entries)-1].text != "entry-11" {
-		t.Fatalf("newest entry should be entry-11, got: %s", entries[len(entries)-1].text)
+	if entries[len(entries)-1].text != "entry-15" {
+		t.Fatalf("newest entry should be entry-15, got: %s", entries[len(entries)-1].text)
 	}
 }
 
@@ -9219,14 +9219,14 @@ func TestEventPanelRendersEmpty(t *testing.T) {
 
 func TestEventPanelRendersEntries(t *testing.T) {
 	var log eventLog
-	log.append(eventEntry{kind: "move", text: "mv:east"})
-	log.append(eventEntry{kind: "combat", text: "res:dmg 15"})
+	log.append(eventEntry{kind: "move", text: "move east"})
+	log.append(eventEntry{kind: "combat", text: "hit 15"})
 	panel := renderEventPanel(sidePanelWidth, log)
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "mv:east") {
+	if !strings.Contains(stripped, "move east") {
 		t.Fatalf("event panel must show move entry, got: %s", stripped)
 	}
-	if !strings.Contains(stripped, "res:dmg 15") {
+	if !strings.Contains(stripped, "hit 15") {
 		t.Fatalf("event panel must show combat entry, got: %s", stripped)
 	}
 }
@@ -9254,8 +9254,8 @@ func TestEventStreamCombatEventOnActionIndexAdvance(t *testing.T) {
 	if m.events.len() != 1 {
 		t.Fatalf("should have 1 event after ActionIndex advance, got %d", m.events.len())
 	}
-	if m.events.recent()[0].text != "res:dmg 12" {
-		t.Fatalf("event text should be 'res:dmg 12', got: %s", m.events.recent()[0].text)
+	if m.events.recent()[0].text != "hit 12" {
+		t.Fatalf("event text should be 'hit 12', got: %s", m.events.recent()[0].text)
 	}
 }
 
@@ -9298,8 +9298,8 @@ func TestEventStreamMoveAppends(t *testing.T) {
 	if m.events.len() != 1 {
 		t.Fatalf("move result should append 1 event, got %d", m.events.len())
 	}
-	if m.events.recent()[0].text != "mv:east" {
-		t.Fatalf("move event text should be 'mv:east', got: %s", m.events.recent()[0].text)
+	if m.events.recent()[0].text != "move east" {
+		t.Fatalf("move event text should be 'move east', got: %s", m.events.recent()[0].text)
 	}
 }
 
@@ -9317,8 +9317,8 @@ func TestEventStreamBlockedMoveAppends(t *testing.T) {
 	if m.events.len() != 1 {
 		t.Fatalf("blocked move should append 1 event, got %d", m.events.len())
 	}
-	if !strings.Contains(m.events.recent()[0].text, "mv:fail") {
-		t.Fatalf("blocked move event should contain 'mv:fail', got: %s", m.events.recent()[0].text)
+	if !strings.Contains(m.events.recent()[0].text, "move blocked") {
+		t.Fatalf("blocked move event should contain 'move blocked', got: %s", m.events.recent()[0].text)
 	}
 }
 
@@ -9358,11 +9358,11 @@ func TestEventStreamDenialThenSuccessOrdered(t *testing.T) {
 		t.Fatalf("should have 2 events, got %d", m.events.len())
 	}
 	entries := m.events.recent()
-	if entries[0].text != "deny:oor" {
-		t.Fatalf("first event should be 'deny:oor', got: %s", entries[0].text)
+	if entries[0].text != "deny range" {
+		t.Fatalf("first event should be 'deny range', got: %s", entries[0].text)
 	}
-	if entries[1].text != "res:dmg 10" {
-		t.Fatalf("second event should be 'res:dmg 10', got: %s", entries[1].text)
+	if entries[1].text != "hit 10" {
+		t.Fatalf("second event should be 'hit 10', got: %s", entries[1].text)
 	}
 }
 
@@ -9381,8 +9381,8 @@ func TestEventStreamFocusChange(t *testing.T) {
 	if m.events.len() != 1 {
 		t.Fatalf("tab focus should append 1 event, got %d", m.events.len())
 	}
-	if !strings.Contains(m.events.recent()[0].text, "focus:") {
-		t.Fatalf("focus event should contain 'focus:', got: %s", m.events.recent()[0].text)
+	if m.events.recent()[0].text != "focus mob" {
+		t.Fatalf("focus event should be 'focus mob', got: %s", m.events.recent()[0].text)
 	}
 }
 
@@ -9404,8 +9404,8 @@ func TestEventStreamEncounterOpened(t *testing.T) {
 	if m.events.len() != 1 {
 		t.Fatalf("new encounter should append 1 event, got %d", m.events.len())
 	}
-	if m.events.recent()[0].text != "enc opened" {
-		t.Fatalf("event should be 'enc opened', got: %s", m.events.recent()[0].text)
+	if m.events.recent()[0].text != "encounter opened" {
+		t.Fatalf("event should be 'encounter opened', got: %s", m.events.recent()[0].text)
 	}
 }
 
@@ -9432,24 +9432,24 @@ func TestEventStreamEncounterCompleted(t *testing.T) {
 	// Should have completion event
 	found := false
 	for _, e := range m.events.recent() {
-		if strings.Contains(e.text, "all_mobs_dead") {
+		if e.text == "encounter complete" {
 			found = true
 		}
 	}
 	if !found {
-		t.Fatalf("should have completion event with all_mobs_dead, got: %v", m.events.recent())
+		t.Fatalf("should have completion event 'encounter complete', got: %v", m.events.recent())
 	}
 }
 
 func TestEventStreamSideColumnContainsPanel(t *testing.T) {
 	var log eventLog
-	log.append(eventEntry{kind: "move", text: "mv:east"})
+	log.append(eventEntry{kind: "move", text: "move east"})
 	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, log)
 	stripped := stripANSI(col)
 	if !strings.Contains(stripped, "Events") {
 		t.Fatal("side column must contain Events panel")
 	}
-	if !strings.Contains(stripped, "mv:east") {
+	if !strings.Contains(stripped, "move east") {
 		t.Fatal("side column must contain event entry")
 	}
 }
