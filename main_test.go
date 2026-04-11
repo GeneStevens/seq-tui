@@ -8936,3 +8936,242 @@ func TestGALoopFocusPreservedAcrossLoop(t *testing.T) {
 		t.Fatal("focus must remain on orc-1 through g/a loop")
 	}
 }
+
+// --- Attack readiness legibility tests (M20260411-01) ---
+
+func TestReadinessCooldownResultDistinctFromSpatialDenial(t *testing.T) {
+	// res:cd (cooldown result) must be distinct from deny:oor (spatial denial).
+	// Both are valid backend result kinds but have different prefixes.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	bt := defaultTarget()
+	inv := inventoryReadResult{}
+
+	// Cooldown result
+	erCD := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "cooldown_set",
+		}},
+	}
+	panelCD := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erCD, bt, inv, ""))
+	if !strings.Contains(panelCD, "res:cd") {
+		t.Fatalf("cooldown result must show 'res:cd', got: %s", panelCD)
+	}
+	if strings.Contains(panelCD, "deny:cd") {
+		t.Fatalf("cooldown result must NOT use deny: prefix, got: %s", panelCD)
+	}
+
+	// Spatial denial for comparison
+	erOOR := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "out_of_range",
+		}},
+	}
+	panelOOR := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erOOR, bt, inv, ""))
+	if !strings.Contains(panelOOR, "deny:oor") {
+		t.Fatalf("spatial denial must show 'deny:oor', got: %s", panelOOR)
+	}
+
+	// They must be visually distinct
+	if panelCD == panelOOR {
+		t.Fatal("cooldown result and spatial denial must be visually distinct")
+	}
+}
+
+func TestReadinessBlockedWoundedDistinctFromSpatialDenial(t *testing.T) {
+	// res:blocked (wounded block result) must be distinct from deny:oor.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	erBlocked := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			LatestResultKind: "blocked_wounded",
+		}},
+	}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erBlocked, defaultTarget(), inventoryReadResult{}, ""))
+	if !strings.Contains(panel, "res:blocked") {
+		t.Fatalf("wounded block must show 'res:blocked', got: %s", panel)
+	}
+	if strings.Contains(panel, "deny:blocked") {
+		t.Fatalf("wounded block must NOT use deny: prefix, got: %s", panel)
+	}
+}
+
+func TestReadinessYesAndNoDistinct(t *testing.T) {
+	// rdy:yes and rdy:no must produce visually distinct panels.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	bt := defaultTarget()
+
+	invReady := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panelReady := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, bt, invReady, ""))
+
+	invBlocked := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_wounded", HPCurrent: 10, HPMax: 100}
+	panelBlocked := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, bt, invBlocked, ""))
+
+	if !strings.Contains(panelReady, "rdy:yes") {
+		t.Fatalf("ready panel must show rdy:yes, got: %s", panelReady)
+	}
+	if !strings.Contains(panelBlocked, "rdy:no") {
+		t.Fatalf("blocked panel must show rdy:no, got: %s", panelBlocked)
+	}
+	if panelReady == panelBlocked {
+		t.Fatal("rdy:yes and rdy:no panels must be visually distinct")
+	}
+}
+
+func TestReadinessWoundedBlockedReason(t *testing.T) {
+	// player_wounded blocked reason must be visible in the rdy: line.
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_wounded"}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv, ""))
+	if !strings.Contains(panel, "rdy:no") {
+		t.Fatalf("wounded must show rdy:no, got: %s", panel)
+	}
+	if !strings.Contains(panel, "player_wou") {
+		t.Fatalf("wounded reason must be visible (may be truncated), got: %s", panel)
+	}
+}
+
+func TestReadinessSuppressedOnCompletedEncounter(t *testing.T) {
+	// When encounter is Completed, readiness line must be suppressed
+	// (combat is over — readiness is stale).
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead",
+			MobIDs: []string{"orc-1"}, MobsAlive: 0, MobsDead: 1,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv, ""))
+	if strings.Contains(panel, "rdy:") {
+		t.Fatalf("readiness must be suppressed on Completed encounter, got: %s", panel)
+	}
+}
+
+func TestReadinessAfterGotoThenAttack(t *testing.T) {
+	// After g → move → a, the combat panel must show readiness alongside
+	// the attack result. Both must be visible.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 18, Y: 0},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 12,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 90, HPMax: 100}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "orc-1"))
+
+	if !strings.Contains(panel, "rdy:yes") {
+		t.Fatalf("readiness must be visible after g→a, got: %s", panel)
+	}
+	if !strings.Contains(panel, "res:dmg") {
+		t.Fatalf("attack result must be visible after g→a, got: %s", panel)
+	}
+	if !strings.Contains(panel, "12") {
+		t.Fatalf("damage value must be visible, got: %s", panel)
+	}
+}
+
+func TestReadinessStaleRaceHonest(t *testing.T) {
+	// Race: inventory read is stale (no lifecycle yet), but encounter shows
+	// active combat. Readiness line must not appear — stale data is honest.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{
+		State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 10,
+		}},
+	}
+	// Lifecycle not yet available
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: false}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, ""))
+	if strings.Contains(panel, "rdy:") {
+		t.Fatalf("readiness must not appear when lifecycle data absent (stale), got: %s", panel)
+	}
+	// Attack result must still show
+	if !strings.Contains(panel, "res:dmg") {
+		t.Fatalf("attack result must still show during stale readiness, got: %s", panel)
+	}
+}
+
+func TestReadinessDenialDoesNotMisrenderAsCooldown(t *testing.T) {
+	// deny:oor must not be confused with res:cd.
+	// Both should be present simultaneously when they co-occur in state.
+	// Here we just verify they render with correct prefixes in isolation.
+	if isDenialResult("cooldown_set") {
+		t.Fatal("cooldown_set must NOT be classified as denial")
+	}
+	if isDenialResult("blocked_wounded") {
+		t.Fatal("blocked_wounded must NOT be classified as denial")
+	}
+	if !isDenialResult("out_of_range") {
+		t.Fatal("out_of_range must be classified as denial")
+	}
+	if !isDenialResult("los_blocked") {
+		t.Fatal("los_blocked must be classified as denial")
+	}
+	if !isDenialResult("invalid_target") {
+		t.Fatal("invalid_target must be classified as denial")
+	}
+}
+
+func TestReadinessCompactLabelValues(t *testing.T) {
+	// Verify compact result kind labels for readiness-related result kinds.
+	if got := compactResultKind("cooldown_set"); got != "cd" {
+		t.Fatalf("cooldown_set should compact to 'cd', got: %s", got)
+	}
+	if got := compactResultKind("blocked_wounded"); got != "blocked" {
+		t.Fatalf("blocked_wounded should compact to 'blocked', got: %s", got)
+	}
+	if got := compactResultKind("damage_applied"); got != "dmg" {
+		t.Fatalf("damage_applied should compact to 'dmg', got: %s", got)
+	}
+}
