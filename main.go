@@ -117,6 +117,40 @@ func directionFromKey(key string) string {
 	}
 }
 
+// eventEntry is one line in the event stream panel.
+// Kind classifies the source; text is the compact display string.
+type eventEntry struct {
+	kind string // "combat", "move", "atk", "focus", "enc"
+	text string
+}
+
+// eventLogMax is the maximum number of entries kept in the event stream.
+const eventLogMax = 8
+
+// eventLog is a bounded FIFO of recent event entries.
+// Newest entries are appended at the end. When full, the oldest is dropped.
+type eventLog struct {
+	entries []eventEntry
+}
+
+// append adds an entry, dropping the oldest if the log is full.
+func (l *eventLog) append(e eventEntry) {
+	l.entries = append(l.entries, e)
+	if len(l.entries) > eventLogMax {
+		l.entries = l.entries[len(l.entries)-eventLogMax:]
+	}
+}
+
+// recent returns the most recent entries, newest last.
+func (l *eventLog) recent() []eventEntry {
+	return l.entries
+}
+
+// len returns the number of entries in the log.
+func (l *eventLog) len() int {
+	return len(l.entries)
+}
+
 // directionTowardMob returns the dominant cardinal direction from player to mob
 // using backend-owned positions. Returns the axis with the larger absolute delta.
 // Ties break to the horizontal axis (east/west). Returns empty string if
@@ -284,6 +318,10 @@ type model struct {
 	invCountAtPickup int                 // inventory count when last pickup was submitted (-1 = no pickup yet)
 	lootFocus        int                 // local selection index into encounter Drops; -1 = none
 	lastRespawn      respawnResult       // result of most recent Respawn intent submission
+	events           eventLog            // bounded event stream for right-rail panel
+	lastSeenActIdx   uint64              // last seen encounter ActionIndex for event dedup
+	lastSeenEncID    string              // last seen encounter ID for lifecycle events
+	lastSeenEncState string              // last seen encounter state for completion detection
 	slog             *sessionLogger      // developer-facing session event log (nil-safe)
 }
 
@@ -430,6 +468,37 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// Reconcile loot focus against new backend drops
 		newDrops := currentDrops(&m)
 		m.lootFocus = reconcileLootFocus(m.lootFocus, oldDrops, newDrops)
+		// Event stream: detect encounter lifecycle and combat event progression
+		if enc != nil {
+			// Encounter lifecycle: new encounter or state change
+			if enc.EncounterID != m.lastSeenEncID {
+				m.events.append(eventEntry{kind: "enc", text: "enc opened"})
+				m.lastSeenEncID = enc.EncounterID
+				m.lastSeenEncState = enc.State
+				m.lastSeenActIdx = enc.ActionIndex
+			} else if enc.State == "Completed" && m.lastSeenEncState != "Completed" {
+				reason := enc.CompletedReason
+				if reason == "" {
+					reason = "done"
+				}
+				m.events.append(eventEntry{kind: "enc", text: "enc:" + reason})
+				m.lastSeenEncState = enc.State
+			}
+			// Combat event: ActionIndex advanced
+			if enc.ActionIndex > m.lastSeenActIdx {
+				kind := compactResultKind(enc.LatestResultKind)
+				prefix := "res"
+				if isDenialResult(enc.LatestResultKind) {
+					prefix = "deny"
+				}
+				text := prefix + ":" + kind
+				if enc.LatestResultValue > 0 {
+					text += fmt.Sprintf(" %d", enc.LatestResultValue)
+				}
+				m.events.append(eventEntry{kind: "combat", text: text})
+				m.lastSeenActIdx = enc.ActionIndex
+			}
+		}
 		return m, nil
 	case targetConfirmMsg:
 		m.targetConfirm = msg.result
@@ -437,6 +506,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case attackResultMsg:
 		m.lastAttack = msg.result
 		m.slog.LogPoll("attack_result", msg.result.State == attackStateSent)
+		// Event stream: attack submission result
+		if msg.result.State == attackStateSent {
+			m.events.append(eventEntry{kind: "atk", text: "atk:" + truncateID(msg.result.TargetID, 12)})
+		} else if msg.result.State == attackStateFailed {
+			m.events.append(eventEntry{kind: "atk", text: "atk:fail"})
+		}
 		if msg.result.State == attackStateSent {
 			// Immediate refresh: reduce enc:opening dwell by reading
 			// encounter and player state right after successful attack submit.
@@ -469,8 +544,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.playerRead.Position = msg.result.Position
 				m.playerRead.HasPos = true
 			}
+			m.events.append(eventEntry{kind: "move", text: "mv:" + msg.direction})
 		} else {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateFailed}
+			m.events.append(eventEntry{kind: "move", text: "mv:fail " + msg.direction})
 		}
 		// Render-observable state snapshot after move processing
 		m.slog.LogState(map[string]any{
@@ -528,6 +605,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				if fe.kind == "mb" {
 					m.slog.LogState(map[string]any{"name": "canonical_target_set", "mob_id": fe.id, "canonical": fe.canonicalMobID, "source": source})
 				}
+				m.events.append(eventEntry{kind: "focus", text: "focus:" + fe.kind + ":" + truncateID(fe.id, 10)})
 			} else {
 				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": "none", "roster_len": len(m.rosterEntries), "has_encounter": m.playerRead.HasActiveEncounter, "mob_count": m.mobRead.Count})
 			}
@@ -708,7 +786,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus, m.lastRespawn)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus, m.lastRespawn, m.events)
 }
 
 func main() {

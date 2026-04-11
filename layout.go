@@ -851,8 +851,33 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
+// renderEventPanel returns a compact panel showing recent gameplay events.
+// Entries are appended from backend-confirmed events and local presentational
+// events. Newest entries are at the bottom. Read-only, no gameplay inference.
+func renderEventPanel(width int, events eventLog) string {
+	title := panelTitleStyle.Render("Events")
+
+	entries := events.recent()
+	if len(entries) == 0 {
+		content := title + "\n" + panelItemStyle.Render("  (none)")
+		return panelBorderStyle.Width(width - 4).Render(content)
+	}
+
+	var items []string
+	maxTextWidth := width - 6 // border(2) + padding(2) + indent(2)
+	if maxTextWidth < 4 {
+		maxTextWidth = 4
+	}
+	for _, e := range entries {
+		items = append(items, panelItemStyle.Render("  "+truncateID(e.text, maxTextWidth)))
+	}
+
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
 // renderSideColumn stacks the side panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult) string {
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog) string {
 	// Panel ordering: most important first for small terminals.
 	// No blank-line separators — borders provide visual separation.
 	player := renderPlayerPanel(width, pr, inv, rs)
@@ -862,12 +887,13 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 		fmID = fe.id
 	}
 	combat := renderCombatPanel(width, ar, pr, er, target, inv, fmID)
+	eventsPanel := renderEventPanel(width, events)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
 	proximity := renderProximityPanel(width, tc, ar, mobr, pr)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
 	nearby := renderNearbyPanel(width)
-	return lipgloss.JoinVertical(lipgloss.Left, player, combat, loot, encounter, proximity, status, nearby)
+	return lipgloss.JoinVertical(lipgloss.Left, player, combat, eventsPanel, loot, encounter, proximity, status, nearby)
 }
 
 // renderFooter returns the footer help strip with status labels.
@@ -900,7 +926,7 @@ func renderFooter(width int, intentPreview string, focusLabel string, targetLabe
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog) string {
 	header := renderHeader(width)
 	focusLabel := focusPreviewLabel(focus, entries)
 	targetLabel := tc.targetStatusLabel()
@@ -928,7 +954,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, invAtPickup, lootFocus, rs)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, invAtPickup, lootFocus, rs, events)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,
