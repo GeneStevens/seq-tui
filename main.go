@@ -186,14 +186,20 @@ func (l *eventLog) len() int {
 // using backend-owned positions. Returns the axis with the larger absolute delta.
 // Ties break to the horizontal axis (east/west). Returns empty string if
 // positions are identical. Purely presentation logic — no pathfinding.
+// directionEpsilon is the minimum distance threshold for directionTowardMob.
+// If the player is within this distance of the mob, they are treated as co-located
+// and no movement direction is returned. Prevents floating-point near-zero deltas
+// from causing spurious movement when positions render to the same screen cell.
+const directionEpsilon = 0.5
+
 func directionTowardMob(playerPos playerPosResult, mobPos mobPosVec3) string {
 	dx := mobPos.X - playerPos.X
 	dy := mobPos.Y - playerPos.Y
-	if dx == 0 && dy == 0 {
-		return ""
-	}
 	absDX := math.Abs(dx)
 	absDY := math.Abs(dy)
+	if absDX < directionEpsilon && absDY < directionEpsilon {
+		return ""
+	}
 	if absDX >= absDY {
 		if dx > 0 {
 			return "east"
@@ -786,6 +792,17 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return m, nil
 			}
 			dir := directionTowardMob(m.playerRead.Position, *mobPos)
+			m.slog.LogState(map[string]any{
+				"name":       "goto_trace",
+				"player_x":  m.playerRead.Position.X,
+				"player_y":  m.playerRead.Position.Y,
+				"mob_x":     mobPos.X,
+				"mob_y":     mobPos.Y,
+				"dx":        mobPos.X - m.playerRead.Position.X,
+				"dy":        mobPos.Y - m.playerRead.Position.Y,
+				"direction":  dir,
+				"mob_id":    fe.id,
+			})
 			if dir == "" {
 				m.slog.LogState(map[string]any{"name": "goto_skip", "reason": "already_at_mob"})
 				return m, nil
