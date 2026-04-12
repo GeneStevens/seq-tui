@@ -508,11 +508,22 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.lastSeenEncState = enc.State
 				m.lastSeenActIdx = enc.ActionIndex
 			} else if enc.State == "Completed" && m.lastSeenEncState != "Completed" {
-				reason := enc.CompletedReason
-				if reason == "" {
-					reason = "done"
+				// Outcome label
+				outcomeLabel := "encounter complete"
+				if enc.CompletedReason == "all_mobs_dead" {
+					outcomeLabel = "victory"
+				} else if enc.CompletedReason == "all_players_dead" {
+					outcomeLabel = "defeat"
 				}
-				m.events.append(eventEntry{kind: "enc", text: "encounter complete"})
+				m.events.append(eventEntry{kind: "enc", text: outcomeLabel})
+				// XP payoff — backend-owned, no client computation
+				if enc.XPAwarded > 0 {
+					m.events.append(eventEntry{kind: "enc", text: fmt.Sprintf("xp +%d", enc.XPAwarded)})
+				}
+				// Loot availability
+				if enc.DropsGenerated && len(enc.Drops) > 0 && !enc.LootExpired {
+					m.events.append(eventEntry{kind: "enc", text: fmt.Sprintf("loot %d items", len(enc.Drops))})
+				}
 				m.lastSeenEncState = enc.State
 			}
 			// Combat event: ActionIndex advanced

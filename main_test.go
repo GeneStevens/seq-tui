@@ -9429,15 +9429,15 @@ func TestEventStreamEncounterCompleted(t *testing.T) {
 	updated, _ := m.Update(msg)
 	m = updated.(model)
 
-	// Should have completion event
+	// Should have victory event (all_mobs_dead → "victory")
 	found := false
 	for _, e := range m.events.recent() {
-		if e.text == "encounter complete" {
+		if e.text == "victory" {
 			found = true
 		}
 	}
 	if !found {
-		t.Fatalf("should have completion event 'encounter complete', got: %v", m.events.recent())
+		t.Fatalf("should have 'victory' event for all_mobs_dead, got: %v", m.events.recent())
 	}
 }
 
@@ -9451,5 +9451,247 @@ func TestEventStreamSideColumnContainsPanel(t *testing.T) {
 	}
 	if !strings.Contains(stripped, "move east") {
 		t.Fatal("side column must contain event entry")
+	}
+}
+
+// --- Post-combat outcome panel tests (M20260412-01) ---
+
+func TestOutcomePanelVictory(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead",
+			XPAwarded: 50, DropsGenerated: true, Drops: []string{"item-1"},
+		}},
+	}
+	panel := renderOutcomePanel(sidePanelWidth, pr, er)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "Outcome") {
+		t.Fatalf("outcome panel must show title, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "victory") {
+		t.Fatalf("all_mobs_dead must show 'victory', got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "xp +50") {
+		t.Fatalf("must show xp awarded, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "loot 1 items") {
+		t.Fatalf("must show loot count, got: %s", stripped)
+	}
+}
+
+func TestOutcomePanelDefeat(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_players_dead",
+			XPAwarded: 0,
+		}},
+	}
+	panel := renderOutcomePanel(sidePanelWidth, pr, er)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "defeat") {
+		t.Fatalf("all_players_dead must show 'defeat', got: %s", stripped)
+	}
+	if strings.Contains(stripped, "xp") {
+		t.Fatalf("defeat must not show xp line (0 awarded), got: %s", stripped)
+	}
+}
+
+func TestOutcomePanelNotShownDuringActiveEncounter(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	panel := renderOutcomePanel(sidePanelWidth, pr, er)
+	if panel != "" {
+		t.Fatalf("outcome panel must not appear during active encounter, got: %s", stripANSI(panel))
+	}
+}
+
+func TestOutcomePanelNotShownWithoutEncounter(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
+	er := encounterReadResult{State: encounterReadOK, Count: 0}
+	panel := renderOutcomePanel(sidePanelWidth, pr, er)
+	if panel != "" {
+		t.Fatal("outcome panel must not appear without encounter")
+	}
+}
+
+func TestOutcomePanelLootExpired(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead",
+			XPAwarded: 50, DropsGenerated: true, LootExpired: true,
+		}},
+	}
+	panel := renderOutcomePanel(sidePanelWidth, pr, er)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "loot expired") {
+		t.Fatalf("expired loot must show 'loot expired', got: %s", stripped)
+	}
+}
+
+func TestOutcomePanelLootCollected(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead",
+			XPAwarded: 50, DropsGenerated: true, Drops: nil,
+		}},
+	}
+	panel := renderOutcomePanel(sidePanelWidth, pr, er)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "loot collected") {
+		t.Fatalf("empty drops must show 'loot collected', got: %s", stripped)
+	}
+}
+
+func TestOutcomePanelVictoryAndDefeatDistinct(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	erVictory := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 50,
+		}},
+	}
+	erDefeat := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_players_dead",
+		}},
+	}
+	panelV := stripANSI(renderOutcomePanel(sidePanelWidth, pr, erVictory))
+	panelD := stripANSI(renderOutcomePanel(sidePanelWidth, pr, erDefeat))
+	if panelV == panelD {
+		t.Fatal("victory and defeat panels must be visually distinct")
+	}
+}
+
+func TestEventStreamVictoryPayoff(t *testing.T) {
+	// Encounter completing as all_mobs_dead with XP and loot should produce
+	// victory + xp + loot events in the stream.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	m.lastSeenEncID = "enc-1"
+	m.lastSeenEncState = "Active"
+	m.lastSeenActIdx = 5
+
+	msg := encounterReadResultMsg{result: encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead",
+			XPAwarded: 100, DropsGenerated: true,
+			Drops: []string{"sword-1", "shield-1"},
+			ActionIndex: 5,
+		}},
+	}}
+	updated, _ := m.Update(msg)
+	m = updated.(model)
+
+	entries := m.events.recent()
+	if len(entries) < 3 {
+		t.Fatalf("should have at least 3 events (victory, xp, loot), got %d: %v", len(entries), entries)
+	}
+	// Check content
+	texts := make([]string, len(entries))
+	for i, e := range entries {
+		texts[i] = e.text
+	}
+	joined := strings.Join(texts, " | ")
+	if !strings.Contains(joined, "victory") {
+		t.Fatalf("must contain 'victory', got: %s", joined)
+	}
+	if !strings.Contains(joined, "xp +100") {
+		t.Fatalf("must contain 'xp +100', got: %s", joined)
+	}
+	if !strings.Contains(joined, "loot 2 items") {
+		t.Fatalf("must contain 'loot 2 items', got: %s", joined)
+	}
+}
+
+func TestEventStreamDefeatNoPayoff(t *testing.T) {
+	// Defeat should produce defeat event but no xp or loot events.
+	m := model{target: defaultTarget(), slog: newSessionLogger()}
+	defer m.slog.Close()
+	m.playerRead = playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	m.lastSeenEncID = "enc-1"
+	m.lastSeenEncState = "Active"
+	m.lastSeenActIdx = 3
+
+	msg := encounterReadResultMsg{result: encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_players_dead",
+			ActionIndex: 3,
+		}},
+	}}
+	updated, _ := m.Update(msg)
+	m = updated.(model)
+
+	entries := m.events.recent()
+	if len(entries) != 1 {
+		t.Fatalf("defeat should produce exactly 1 event, got %d: %v", len(entries), entries)
+	}
+	if entries[0].text != "defeat" {
+		t.Fatalf("defeat event should be 'defeat', got: %s", entries[0].text)
+	}
+}
+
+func TestOutcomePanelInSideColumn(t *testing.T) {
+	// Side column must include outcome panel when encounter is completed.
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 30,
+		}},
+	}
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, pr, er, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{})
+	stripped := stripANSI(col)
+	if !strings.Contains(stripped, "Outcome") {
+		t.Fatal("side column must contain Outcome panel for completed encounter")
+	}
+	if !strings.Contains(stripped, "victory") {
+		t.Fatal("side column must show victory")
+	}
+	if !strings.Contains(stripped, "xp +30") {
+		t.Fatal("side column must show xp")
+	}
+}
+
+func TestOutcomePanelNotInSideColumnDuringActive(t *testing.T) {
+	// Side column must NOT include outcome panel during active encounter.
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, pr, er, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{})
+	stripped := stripANSI(col)
+	if strings.Contains(stripped, "Outcome") {
+		t.Fatal("side column must NOT contain Outcome panel during active encounter")
 	}
 }

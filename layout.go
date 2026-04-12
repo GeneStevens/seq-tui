@@ -851,6 +851,56 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
+// renderOutcomePanel returns a compact post-combat outcome summary.
+// Only rendered when the player's encounter is completed. Shows victory/defeat,
+// XP awarded, and loot status from backend truth only. Returns empty string
+// when there is no completed encounter to summarize.
+func renderOutcomePanel(width int, pr playerReadResult, er encounterReadResult) string {
+	if pr.State != playerReadOK || !pr.HasActiveEncounter || er.State != encounterReadOK {
+		return ""
+	}
+	enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID)
+	if enc == nil || enc.State != "Completed" {
+		return ""
+	}
+
+	title := panelTitleStyle.Render("Outcome")
+	var items []string
+
+	// Victory / defeat label from backend completion reason
+	switch enc.CompletedReason {
+	case "all_mobs_dead":
+		items = append(items, panelItemStyle.Render("  victory"))
+	case "all_players_dead":
+		items = append(items, panelItemStyle.Render("  defeat"))
+	default:
+		reason := enc.CompletedReason
+		if reason == "" {
+			reason = "complete"
+		}
+		items = append(items, panelItemStyle.Render("  "+truncateID(reason, width-6)))
+	}
+
+	// XP awarded — backend-owned, no client computation
+	if enc.XPAwarded > 0 {
+		items = append(items, panelItemStyle.Render(fmt.Sprintf("  xp +%d", enc.XPAwarded)))
+	}
+
+	// Loot status from backend truth
+	if enc.DropsGenerated {
+		if enc.LootExpired {
+			items = append(items, panelItemStyle.Render("  loot expired"))
+		} else if len(enc.Drops) > 0 {
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  loot %d items", len(enc.Drops))))
+		} else {
+			items = append(items, panelItemStyle.Render("  loot collected"))
+		}
+	}
+
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
 // renderEventPanel returns a compact panel showing recent gameplay events.
 // Entries are appended from backend-confirmed events and local presentational
 // events. Newest entries are at the bottom. Read-only, no gameplay inference.
@@ -887,13 +937,20 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 		fmID = fe.id
 	}
 	combat := renderCombatPanel(width, ar, pr, er, target, inv, fmID)
+	outcome := renderOutcomePanel(width, pr, er)
 	eventsPanel := renderEventPanel(width, events)
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
 	proximity := renderProximityPanel(width, tc, ar, mobr, pr)
 	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
 	nearby := renderNearbyPanel(width)
-	return lipgloss.JoinVertical(lipgloss.Left, player, combat, eventsPanel, loot, encounter, proximity, status, nearby)
+	// Outcome panel only appears when a completed encounter exists
+	panels := []string{player, combat}
+	if outcome != "" {
+		panels = append(panels, outcome)
+	}
+	panels = append(panels, eventsPanel, loot, encounter, proximity, status, nearby)
+	return lipgloss.JoinVertical(lipgloss.Left, panels...)
 }
 
 // renderFooter returns the footer help strip with status labels.

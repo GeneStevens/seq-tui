@@ -451,6 +451,7 @@ type encounterSummary struct {
 	MobsDead        int      `json:"mobs_dead_count"`
 	ActionIndex     uint64   `json:"action_index"`
 	TimelineLength  int      `json:"timeline_length"`
+	XPAwarded       int      // backend-owned XP awarded on completion (0 if none/wipe)
 	DropsGenerated  bool     // backend says drops have been generated
 	Drops           []string // backend-owned available drop item IDs
 	LootExpired     bool     // backend says loot window has expired
@@ -538,6 +539,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			MobsDeadCount   int      `json:"mobs_dead_count"`
 			ActionIndex     uint64   `json:"action_index"`
 			TimelineLength  int      `json:"timeline_length"`
+			XPAwarded       int      `json:"xp_awarded"`
 			DropsGenerated  bool     `json:"drops_generated"`
 			Drops           []string `json:"drops"`
 			LootExpired     bool     `json:"loot_expired"`
@@ -589,6 +591,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			MobsDead:            e.MobsDeadCount,
 			ActionIndex:         e.ActionIndex,
 			TimelineLength:      e.TimelineLength,
+			XPAwarded:           e.XPAwarded,
 			DropsGenerated:      e.DropsGenerated,
 			Drops:               e.Drops,
 			LootExpired:         e.LootExpired,
