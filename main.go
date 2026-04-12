@@ -200,10 +200,11 @@ func directionTowardMob(playerPos playerPosResult, mobPos mobPosVec3) string {
 		}
 		return "west"
 	}
+	// dy > 0 means mob is at higher Y → move "north" (backend "up" = +Y)
 	if dy > 0 {
-		return "south"
+		return "north"
 	}
-	return "north"
+	return "south"
 }
 
 // findMobPosition returns the position of a mob by its canonical mob_id.

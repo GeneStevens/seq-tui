@@ -8155,19 +8155,21 @@ func TestDirectionTowardMobWest(t *testing.T) {
 	}
 }
 
-func TestDirectionTowardMobSouth(t *testing.T) {
+func TestDirectionTowardMobNorthHigherY(t *testing.T) {
+	// Mob at higher Y → "north" (backend "up" = +Y)
 	player := playerPosResult{X: 0, Y: 0}
 	mob := mobPosVec3{X: 0, Y: 10}
-	if dir := directionTowardMob(player, mob); dir != "south" {
-		t.Fatalf("mob to the south should produce 'south', got: %s", dir)
+	if dir := directionTowardMob(player, mob); dir != "north" {
+		t.Fatalf("mob at higher Y should produce 'north', got: %s", dir)
 	}
 }
 
-func TestDirectionTowardMobNorth(t *testing.T) {
+func TestDirectionTowardMobSouthLowerY(t *testing.T) {
+	// Mob at lower Y → "south" (backend "down" = -Y)
 	player := playerPosResult{X: 0, Y: 10}
 	mob := mobPosVec3{X: 0, Y: 0}
-	if dir := directionTowardMob(player, mob); dir != "north" {
-		t.Fatalf("mob to the north should produce 'north', got: %s", dir)
+	if dir := directionTowardMob(player, mob); dir != "south" {
+		t.Fatalf("mob at lower Y should produce 'south', got: %s", dir)
 	}
 }
 
@@ -8180,12 +8182,12 @@ func TestDirectionTowardMobDiagonalEast(t *testing.T) {
 	}
 }
 
-func TestDirectionTowardMobDiagonalSouth(t *testing.T) {
-	// Diagonal with larger Y delta — should pick south
+func TestDirectionTowardMobDiagonalNorth(t *testing.T) {
+	// Diagonal with larger Y delta toward higher Y — should pick north
 	player := playerPosResult{X: 0, Y: 0}
 	mob := mobPosVec3{X: 3, Y: 10}
-	if dir := directionTowardMob(player, mob); dir != "south" {
-		t.Fatalf("mob southeast with larger Y delta should produce 'south', got: %s", dir)
+	if dir := directionTowardMob(player, mob); dir != "north" {
+		t.Fatalf("mob northeast with larger Y delta should produce 'north', got: %s", dir)
 	}
 }
 
