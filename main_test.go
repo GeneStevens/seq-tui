@@ -2260,8 +2260,8 @@ func TestCombatPanelIntentAcceptedWithEncounter(t *testing.T) {
 		}},
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
-	if !strings.Contains(panel, "Active") {
-		t.Fatal("combat panel should show encounter state")
+	if !strings.Contains(panel, "act:") {
+		t.Fatal("combat panel should show compact state line")
 	}
 	if !strings.Contains(panel, "act:5") {
 		t.Fatal("combat panel should show action index")
@@ -4236,8 +4236,8 @@ func TestCombatPanelShowsReadyYes(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "rdy:yes") {
-		t.Fatalf("combat panel should show ready: yes when can_act is true, got: %s", stripped)
+	if !strings.Contains(stripped, "You") {
+		t.Fatalf("combat panel should show player HP line when can_act is true, got: %s", stripped)
 	}
 }
 
@@ -4253,11 +4253,12 @@ func TestCombatPanelShowsReadyNo(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "cooldown", HPCurrent: 80, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "rdy:no") {
-		t.Fatalf("combat panel should show ready: no when blocked, got: %s", stripped)
+	// Blocked state is now shown in the Player panel; combat panel shows HP frame
+	if !strings.Contains(stripped, "You") {
+		t.Fatalf("combat panel should show player HP line when blocked, got: %s", stripped)
 	}
-	if !strings.Contains(stripped, "cooldown") {
-		t.Fatal("combat panel should show blocked reason")
+	if !strings.Contains(stripped, "act:") {
+		t.Fatalf("combat panel should show compact state line when blocked, got: %s", stripped)
 	}
 }
 
@@ -4273,11 +4274,12 @@ func TestCombatPanelShowsReadyNoDead(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "dead", HPCurrent: 0, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "rdy:no") {
-		t.Fatal("combat panel should show ready: no when dead")
+	// Blocked/dead state is now shown in the Player panel; combat panel shows HP frame
+	if !strings.Contains(stripped, "You") {
+		t.Fatalf("combat panel should show player HP line when dead, got: %s", stripped)
 	}
-	if !strings.Contains(stripped, "dead") {
-		t.Fatal("combat panel should show dead as blocked reason")
+	if !strings.Contains(stripped, "act:") {
+		t.Fatalf("combat panel should show compact state line when dead, got: %s", stripped)
 	}
 }
 
@@ -4313,9 +4315,9 @@ func TestCombatPanelReadyDistinctFromResult(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "")
 	stripped := stripANSI(panel)
-	// Both should be present and distinct
-	if !strings.Contains(stripped, "rdy:yes") {
-		t.Fatal("should show readiness")
+	// Both player HP line and result should be present and distinct
+	if !strings.Contains(stripped, "You") {
+		t.Fatal("should show player HP line")
 	}
 	if !strings.Contains(stripped, "dmg") {
 		t.Fatal("should show attack result with res: prefix")
@@ -4676,7 +4678,7 @@ func TestCombatPanelAtkAndResultDistinct(t *testing.T) {
 			LatestResultKind: "damage_applied", LatestResultValue: 30,
 		}},
 	}
-	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "")
 	stripped := stripANSI(panel)
 	// All three should be present and distinct
@@ -4686,8 +4688,8 @@ func TestCombatPanelAtkAndResultDistinct(t *testing.T) {
 	if !strings.Contains(stripped, "dmg") {
 		t.Fatal("should show backend result")
 	}
-	if !strings.Contains(stripped, "rdy:yes") {
-		t.Fatal("should show readiness")
+	if !strings.Contains(stripped, "You") {
+		t.Fatal("should show player HP line")
 	}
 }
 
@@ -5524,11 +5526,11 @@ func TestCombatPanelActiveKeepsAllLines(t *testing.T) {
 			LatestResultKind: "damage_applied", LatestResultValue: 10,
 		}},
 	}
-	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "rdy:yes") {
-		t.Fatal("active encounter should show readiness")
+	if !strings.Contains(stripped, "You") {
+		t.Fatal("active encounter should show player HP line")
 	}
 	if !strings.Contains(stripped, "atk:") {
 		t.Fatal("active encounter should show attack status")
@@ -6760,8 +6762,8 @@ func TestCombatPanelRacePlayerHasEncounterDetailsPresent(t *testing.T) {
 	if strings.Contains(stripped, "enc: opening") {
 		t.Fatalf("no race: encounter details present — must NOT show enc: opening, got: %s", stripped)
 	}
-	if !strings.Contains(stripped, "Active") {
-		t.Fatalf("no race: must show Active encounter state, got: %s", stripped)
+	if !strings.Contains(stripped, "act:") {
+		t.Fatalf("no race: must show compact state line, got: %s", stripped)
 	}
 }
 
@@ -7055,8 +7057,8 @@ func TestMoveIntoRangeThenAttackOpensEncounter(t *testing.T) {
 	if strings.Contains(stripped, "enc: opening") {
 		t.Fatalf("should show active encounter, not enc:opening, got: %s", stripped)
 	}
-	if !strings.Contains(stripped, "Active") {
-		t.Fatalf("should show Active state, got: %s", stripped)
+	if !strings.Contains(stripped, "act:") {
+		t.Fatalf("should show compact state line, got: %s", stripped)
 	}
 	if !strings.Contains(stripped, "res:dmg") {
 		t.Fatalf("should show res:dmg from backend truth, got: %s", stripped)
@@ -7118,8 +7120,8 @@ func TestMoveDuringEncounterThenAttackPanelConsistent(t *testing.T) {
 	stripped := stripANSI(panel)
 
 	// Must show active encounter consistently
-	if !strings.Contains(stripped, "Active") {
-		t.Fatalf("must show Active encounter state during movement, got: %s", stripped)
+	if !strings.Contains(stripped, "act:") {
+		t.Fatalf("must show compact state line during movement, got: %s", stripped)
 	}
 	if !strings.Contains(stripped, "2a/0d") {
 		t.Fatalf("must show alive/dead counts, got: %s", stripped)
@@ -9021,14 +9023,15 @@ func TestReadinessYesAndNoDistinct(t *testing.T) {
 	invBlocked := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_wounded", HPCurrent: 10, HPMax: 100}
 	panelBlocked := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, bt, invBlocked, ""))
 
-	if !strings.Contains(panelReady, "rdy:yes") {
-		t.Fatalf("ready panel must show rdy:yes, got: %s", panelReady)
+	// Both panels should show player HP line (different HP values make them distinct)
+	if !strings.Contains(panelReady, "You") {
+		t.Fatalf("ready panel must show player HP line, got: %s", panelReady)
 	}
-	if !strings.Contains(panelBlocked, "rdy:no") {
-		t.Fatalf("blocked panel must show rdy:no, got: %s", panelBlocked)
+	if !strings.Contains(panelBlocked, "You") {
+		t.Fatalf("blocked panel must show player HP line, got: %s", panelBlocked)
 	}
 	if panelReady == panelBlocked {
-		t.Fatal("rdy:yes and rdy:no panels must be visually distinct")
+		t.Fatal("ready and blocked panels must be visually distinct")
 	}
 }
 
@@ -9044,13 +9047,14 @@ func TestReadinessWoundedBlockedReason(t *testing.T) {
 			MobIDs: []string{"orc-1"}, MobsAlive: 1,
 		}},
 	}
-	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_wounded"}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_wounded", HPCurrent: 10, HPMax: 100}
 	panel := stripANSI(renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv, ""))
-	if !strings.Contains(panel, "rdy:no") {
-		t.Fatalf("wounded must show rdy:no, got: %s", panel)
+	// Blocked reason is now shown in the Player panel; combat panel shows HP frame
+	if !strings.Contains(panel, "You") {
+		t.Fatalf("wounded player must show HP line, got: %s", panel)
 	}
-	if !strings.Contains(panel, "player_wou") {
-		t.Fatalf("wounded reason must be visible (may be truncated), got: %s", panel)
+	if !strings.Contains(panel, "act:") {
+		t.Fatalf("wounded player must show compact state line, got: %s", panel)
 	}
 }
 
@@ -9095,8 +9099,8 @@ func TestReadinessAfterGotoThenAttack(t *testing.T) {
 	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 90, HPMax: 100}
 	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "orc-1"))
 
-	if !strings.Contains(panel, "rdy:yes") {
-		t.Fatalf("readiness must be visible after g→a, got: %s", panel)
+	if !strings.Contains(panel, "You") {
+		t.Fatalf("player HP line must be visible after g→a, got: %s", panel)
 	}
 	if !strings.Contains(panel, "res:dmg") {
 		t.Fatalf("attack result must be visible after g→a, got: %s", panel)
@@ -10389,5 +10393,153 @@ func TestNoInteractionGlyphWithoutAttack(t *testing.T) {
 	stripped := stripANSI(panel)
 	if strings.Contains(stripped, "!") || strings.Contains(stripped, "?") || strings.Contains(stripped, "X") {
 		t.Fatalf("no attack should produce no interaction glyphs, got: %s", stripped)
+	}
+}
+
+// --- Combat HP frame tests (M20260412-10) ---
+
+func TestRenderHPBar(t *testing.T) {
+	bar := renderHPBar(80, 100, 10)
+	if !strings.Contains(bar, "80/100") {
+		t.Fatalf("HP bar must contain numbers, got: %s", bar)
+	}
+	if !strings.Contains(bar, "█") {
+		t.Fatalf("HP bar must contain filled chars, got: %s", bar)
+	}
+	if !strings.Contains(bar, "·") {
+		t.Fatalf("HP bar must contain empty chars for partial HP, got: %s", bar)
+	}
+}
+
+func TestRenderHPBarFull(t *testing.T) {
+	bar := renderHPBar(100, 100, 10)
+	if strings.Contains(bar, "·") {
+		t.Fatalf("full HP bar must not contain empty chars, got: %s", bar)
+	}
+	if !strings.Contains(bar, "100/100") {
+		t.Fatalf("full HP bar must show 100/100, got: %s", bar)
+	}
+}
+
+func TestRenderHPBarZero(t *testing.T) {
+	bar := renderHPBar(0, 100, 10)
+	if strings.Contains(bar, "█") {
+		t.Fatalf("zero HP bar must not contain filled chars, got: %s", bar)
+	}
+	if !strings.Contains(bar, "0/100") {
+		t.Fatalf("zero HP bar must show 0/100, got: %s", bar)
+	}
+}
+
+func TestFindMobThreatHP(t *testing.T) {
+	enc := &encounterSummary{
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc-1", HPCurrent: 80, HPMax: 120},
+			{MobID: "orc-2", HPCurrent: 0, HPMax: 120},
+		},
+	}
+	hpC, hpM := findMobThreatHP(enc, "orc-1")
+	if hpC != 80 || hpM != 120 {
+		t.Fatalf("expected 80/120, got %d/%d", hpC, hpM)
+	}
+	hpC2, hpM2 := findMobThreatHP(enc, "orc-2")
+	if hpC2 != 0 || hpM2 != 120 {
+		t.Fatalf("expected 0/120, got %d/%d", hpC2, hpM2)
+	}
+	hpC3, hpM3 := findMobThreatHP(enc, "orc-99")
+	if hpC3 != 0 || hpM3 != 0 {
+		t.Fatalf("not found should return 0/0, got %d/%d", hpC3, hpM3)
+	}
+}
+
+func TestCombatFramePlayerHP(t *testing.T) {
+	// Active encounter with player HP should show "You" line
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			MobThreat: []mobThreatEntry{{MobID: "orc-1", HPCurrent: 90, HPMax: 120}},
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 85, HPMax: 100}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "orc-1"))
+
+	if !strings.Contains(panel, "You") {
+		t.Fatalf("combat frame must show 'You' HP line, got: %s", panel)
+	}
+	if !strings.Contains(panel, "85/100") {
+		t.Fatalf("combat frame must show player HP, got: %s", panel)
+	}
+}
+
+func TestCombatFrameTargetHP(t *testing.T) {
+	// Active encounter with mob HP from mob_threat
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			MobThreat: []mobThreatEntry{{MobID: "orc-1", HPCurrent: 45, HPMax: 120}},
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "orc-1"))
+
+	if !strings.Contains(panel, "45/120") {
+		t.Fatalf("combat frame must show target HP, got: %s", panel)
+	}
+}
+
+func TestCombatFrameNoEncounter(t *testing.T) {
+	// No active encounter — no HP frame
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, attackResult{}, pr, encounterReadResult{State: encounterReadOK}, defaultTarget(), inventoryReadResult{}, ""))
+
+	if strings.Contains(panel, "You") {
+		t.Fatalf("no HP frame without active encounter, got: %s", panel)
+	}
+}
+
+func TestCombatFrameNoTargetHP(t *testing.T) {
+	// Active encounter but mob HP not in mob_threat — degrade cleanly
+	ar := attackResult{State: attackStateSent, TargetID: "orc-99"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			MobThreat: []mobThreatEntry{{MobID: "orc-1", HPCurrent: 120, HPMax: 120}},
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, ""))
+
+	// Player HP should still show
+	if !strings.Contains(panel, "You") {
+		t.Fatalf("player HP should show even without target HP match, got: %s", panel)
+	}
+}
+
+func TestCombatFrameCompletedNoHPFrame(t *testing.T) {
+	// Completed encounter should not show HP frame
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 50,
+		}},
+	}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+	panel := stripANSI(renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inv, ""))
+
+	if strings.Contains(panel, "You") {
+		t.Fatalf("completed encounter should not show HP frame, got: %s", panel)
 	}
 }

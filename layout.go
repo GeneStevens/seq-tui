@@ -602,6 +602,41 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 	return lines
 }
 
+// findMobThreatHP returns hp_current, hp_max for a mob from the encounter's mob_threat
+// entries. Returns 0, 0 if not found. Backend truth only.
+func findMobThreatHP(enc *encounterSummary, mobID string) (int, int) {
+	if enc == nil || mobID == "" {
+		return 0, 0
+	}
+	for _, mt := range enc.MobThreat {
+		if mt.MobID == mobID {
+			return mt.HPCurrent, mt.HPMax
+		}
+	}
+	return 0, 0
+}
+
+// renderHPBar returns a compact ASCII bar representation of hp/max.
+// Example: [████████  ] 80/100
+// Width is the total available characters including the bar and numbers.
+func renderHPBar(current, max, barWidth int) string {
+	if max <= 0 || barWidth < 4 {
+		return fmt.Sprintf("%d/%d", current, max)
+	}
+	filled := 0
+	if max > 0 && current > 0 {
+		filled = (current * barWidth) / max
+		if filled < 1 && current > 0 {
+			filled = 1
+		}
+	}
+	if filled > barWidth {
+		filled = barWidth
+	}
+	bar := strings.Repeat("█", filled) + strings.Repeat("·", barWidth-filled)
+	return fmt.Sprintf("%s %d/%d", bar, current, max)
+}
+
 // renderCombatPanel returns a compact panel showing backend-owned combat readback.
 // Shows encounter state, attack resolution, target status, and mob engagement
 // from backend truth without any client-side combat logic or interpretation.
@@ -628,26 +663,39 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					items = append(items, panelItemStyle.Render("  "+truncateID(reason, width-6)))
 				}
 			} else {
-				// Active: state + action + alive/dead on one line
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %s %da/%dd", enc.State, enc.MobsAlive, enc.MobsDead)))
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  act:%d", enc.ActionIndex)))
-			}
+				// Active encounter: compact HP combat frame
+				barW := width - 14 // space for label + numbers
+				if barW < 3 {
+					barW = 3
+				}
 
-			// Active-only sections: readiness, attack status, result, roster, summary
-			// Suppressed when encounter is Completed (combat over — these are stale)
-			if enc.State != "Completed" {
-				// Backend-owned readiness — compact form
-				if inv.State == inventoryReadOK && inv.HasLifecycle {
-					if inv.CanAct {
-						items = append(items, panelItemStyle.Render("  rdy:yes"))
-					} else {
-						label := "  rdy:no"
-						if inv.BlockedReason != "" {
-							label += " " + truncateID(inv.BlockedReason, width-12)
-						}
-						items = append(items, panelItemStyle.Render(label))
+				// Player HP line
+				if inv.State == inventoryReadOK && inv.HasLifecycle && inv.HPMax > 0 {
+					items = append(items, eventStrongStyle.Render("  You "+renderHPBar(inv.HPCurrent, inv.HPMax, barW)))
+				}
+
+				// Target HP line — use attack target or focused mob
+				targetMobID := ""
+				if ar.State == attackStateSent && ar.TargetID != "" {
+					targetMobID = ar.TargetID
+				} else if focusedMobID != "" {
+					targetMobID = focusedMobID
+				}
+				if targetMobID != "" {
+					hpC, hpM := findMobThreatHP(enc, targetMobID)
+					if hpM > 0 {
+						mobLabel := truncateID(targetMobID, 6)
+						items = append(items, panelItemStyle.Render("  "+mobLabel+" "+renderHPBar(hpC, hpM, barW)))
 					}
 				}
+
+				// Compact state line
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %da/%dd act:%d", enc.MobsAlive, enc.MobsDead, enc.ActionIndex)))
+			}
+
+			// Active-only sections: attack status, result, roster, summary
+			// Suppressed when encounter is Completed (combat over — these are stale)
+			if enc.State != "Completed" {
 
 				// Attack submission status
 				if ar.State == attackStateSent {

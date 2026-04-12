@@ -470,11 +470,13 @@ type encounterSummary struct {
 	MobThreat []mobThreatEntry
 }
 
-// mobThreatEntry holds one mob's backend-owned targeting and threat data.
+// mobThreatEntry holds one mob's backend-owned targeting, threat, and HP data.
 // Read-only — no client-side threat calculation or inference.
 type mobThreatEntry struct {
 	MobID                  string
 	SelectedTargetPlayerID string
+	HPCurrent              int
+	HPMax                  int
 }
 
 // encounterReadResult holds the outcome of a zone encounter read.
@@ -550,10 +552,12 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			LatestResultValue   int    `json:"latest_result_value"`
 			LatestResultSummary string `json:"latest_result_summary"`
 			TextSummaryLatest   string `json:"text_summary_latest"`
-			// Mob engagement
+			// Mob engagement + HP
 			MobThreat []struct {
 				MobID                  string `json:"mob_id"`
 				SelectedTargetPlayerID string `json:"selected_target_player_id"`
+				HPCurrent              int    `json:"hp_current"`
+				HPMax                  int    `json:"hp_max"`
 			} `json:"mob_threat"`
 		} `json:"result"`
 		Error string `json:"error"`
@@ -577,6 +581,8 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			threat = append(threat, mobThreatEntry{
 				MobID:                  mt.MobID,
 				SelectedTargetPlayerID: mt.SelectedTargetPlayerID,
+				HPCurrent:              mt.HPCurrent,
+				HPMax:                  mt.HPMax,
 			})
 		}
 		summaries = append(summaries, encounterSummary{
