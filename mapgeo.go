@@ -283,11 +283,12 @@ func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, 
 	return mapText
 }
 
-// overlayAttackTarget replaces the mob marker at the attack target's position with 'X'.
-// Purely visual, non-authoritative. Shows which mob the player last attacked.
-// Matches by canonical MobID (used by attack system). Falls back to ProcessID.
-// If targetID is empty or not found among mobs, the map is returned unchanged.
-func overlayAttackTarget(mapText string, mobs []mobPosition, targetID string, bounds mapBounds, width, height int) string {
+// overlayAttackTarget replaces the mob marker at the attack target's position with
+// the given glyph. Purely visual, non-authoritative. Shows which mob the player
+// last attacked and what happened (hit/deny/pending). Matches by canonical MobID
+// (used by attack system). Falls back to ProcessID. If targetID is empty or not
+// found among mobs, the map is returned unchanged.
+func overlayAttackTarget(mapText string, mobs []mobPosition, targetID string, bounds mapBounds, width, height int, glyph rune) string {
 	if targetID == "" || len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
 	}
@@ -301,7 +302,7 @@ func overlayAttackTarget(mapText string, mobs []mobPosition, targetID string, bo
 					runes = append(runes, ' ')
 				}
 				if col >= 0 && col < len(runes) {
-					runes[col] = 'X'
+					runes[col] = glyph
 					lines[row] = string(runes)
 				}
 			}

@@ -74,6 +74,8 @@ var (
 	focusedMobGlyphStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("1")).Bold(true)  // red bold
 	wallGlyphStyle          = lipgloss.NewStyle().Faint(true)                                // dim
 	attackTargetGlyphStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("3")).Bold(true)  // yellow bold
+	hitTargetGlyphStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("15")).Bold(true) // bright white bold — hit impact
+	denyTargetGlyphStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("1")).Faint(true) // red dim — denied
 	playerCombatGlyphStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("6")).Bold(true)  // cyan bold — in encounter
 )
 
@@ -97,6 +99,10 @@ func colorizeMapContent(mapContent string) string {
 			sb.WriteString(focusedMobGlyphStyle.Render("M"))
 		case 'X':
 			sb.WriteString(attackTargetGlyphStyle.Render("X"))
+		case '!':
+			sb.WriteString(hitTargetGlyphStyle.Render("!"))
+		case '?':
+			sb.WriteString(denyTargetGlyphStyle.Render("?"))
 		case '2', '3', '4', '5', '6', '7', '8', '9', '+':
 			// Multi-mob count glyphs — same color as regular mobs
 			sb.WriteString(mobGlyphStyle.Render(string(ch)))
@@ -119,13 +125,27 @@ func renderHeader(width int) string {
 	return lipgloss.NewStyle().Width(width).Render(line)
 }
 
+// attackTargetGlyph returns the glyph to use for the attack target based on
+// the latest combat result. Uses backend encounter truth to differentiate
+// hit impact from attack submission from denial. Purely presentational.
+func attackTargetGlyph(latestResultKind string) rune {
+	switch {
+	case latestResultKind == "damage_applied" || latestResultKind == "heal_applied":
+		return '!' // hit/heal impact
+	case isDenialResult(latestResultKind):
+		return '?' // denied
+	default:
+		return 'X' // attack submitted or other
+	}
+}
+
 // renderMapPanel returns the map inside a bordered panel.
 // Uses backend-sourced map when available, falls back to placeholder with overlays.
 // Focus projection overlays the focused roster entry's map position purely visually.
 // panelWidth and panelHeight are the available space for the bordered panel.
 // When a backend map with valid dimensions is available, a viewport is extracted
 // centered on the player position (or map center if no player).
-func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry, panelWidth, panelHeight int, ar attackResult) string {
+func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry, panelWidth, panelHeight int, ar attackResult, latestResultKind string) string {
 	var mapContent string
 	if mr.State == mapReadOK && mr.MapText != "" {
 		// Viewport content dimensions (inside border + padding)
@@ -168,7 +188,7 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 				}
 			}
 			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
-				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, vpBounds, vpWidth, vpHeight)
+				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, vpBounds, vpWidth, vpHeight, attackTargetGlyph(latestResultKind))
 			}
 			// Player marker last — always visible, never hidden by mob overlays
 			if pr.State == playerReadOK && pr.HasPos {
@@ -192,7 +212,7 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 				}
 			}
 			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
-				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, mr.Bounds, mr.MapWidth, mr.MapHeight)
+				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, mr.Bounds, mr.MapWidth, mr.MapHeight, attackTargetGlyph(latestResultKind))
 			}
 			// Player marker last — always visible
 			if pr.State == playerReadOK && pr.HasPos {
@@ -1129,7 +1149,14 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	}
 	mapPanelH = bodyHeight
 
-	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries, mapPanelW, mapPanelH, ar)
+	// Extract latest combat result kind for spatial interaction emphasis
+	latestResultKind := ""
+	if pr.HasActiveEncounter && er.State == encounterReadOK {
+		if enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID); enc != nil {
+			latestResultKind = enc.LatestResultKind
+		}
+	}
+	mapPanel := renderMapPanel(mr, mobr, pr, focus, entries, mapPanelW, mapPanelH, ar, latestResultKind)
 
 	var body string
 	if width >= sidePanelMinWidth {
