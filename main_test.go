@@ -9980,3 +9980,149 @@ func TestEventStreamOrderingPreservedWithHeader(t *testing.T) {
 		t.Fatal("resolved header must appear before event entries")
 	}
 }
+
+// --- Event moment emphasis tests (M20260412-06) ---
+
+func TestEventEmphasisClassification(t *testing.T) {
+	cases := []struct {
+		text     string
+		expected string
+	}{
+		{"hit 12", "strong"},
+		{"hit 0", "strong"},
+		{"heal 5", "strong"},
+		{"victory", "strong"},
+		{"defeat", "strong"},
+		{"encounter opened", "strong"},
+		{"encounter complete", "strong"},
+		{"miss", "strong"},
+		{"attack", "medium"},
+		{"attack failed", "medium"},
+		{"deny range", "medium"},
+		{"deny los", "medium"},
+		{"deny target", "medium"},
+		{"cooldown", "medium"},
+		{"blocked", "medium"},
+		{"move east", "dim"},
+		{"move blocked south", "dim"},
+		{"focus mob", "dim"},
+		{"focus pc", "dim"},
+		{"something unknown", "dim"},
+	}
+	for _, tc := range cases {
+		got := eventEmphasis(tc.text)
+		if got != tc.expected {
+			t.Errorf("eventEmphasis(%q) = %q, want %q", tc.text, got, tc.expected)
+		}
+	}
+}
+
+func TestLatestEventHasPrefix(t *testing.T) {
+	// The latest event must have a ">" prefix marker.
+	line := stripANSI(renderEventLine("hit 12", 16, true))
+	if !strings.HasPrefix(line, ">") {
+		t.Fatalf("latest event must start with '>', got: %q", line)
+	}
+	if !strings.Contains(line, "hit 12") {
+		t.Fatalf("latest event must contain text, got: %q", line)
+	}
+}
+
+func TestOlderEventNoPrefix(t *testing.T) {
+	// Older events must NOT have ">" prefix.
+	line := stripANSI(renderEventLine("hit 12", 16, false))
+	if strings.HasPrefix(line, ">") {
+		t.Fatalf("older event must not start with '>', got: %q", line)
+	}
+}
+
+func TestEventPanelLatestMarker(t *testing.T) {
+	// In a rendered event panel, only the newest entry should have ">".
+	var log eventLog
+	log.append(eventEntry{kind: "move", text: "move east"})
+	log.append(eventEntry{kind: "combat", text: "hit 12"})
+	panel := stripANSI(renderEventPanel(sidePanelWidth, log, playerReadResult{}, encounterReadResult{}))
+
+	// The latest entry "hit 12" should have ">"
+	if !strings.Contains(panel, "> hit 12") {
+		t.Fatalf("latest event must show '> hit 12', got: %s", panel)
+	}
+}
+
+func TestEventPanelOlderNoPrefixMarker(t *testing.T) {
+	var log eventLog
+	log.append(eventEntry{kind: "move", text: "move east"})
+	log.append(eventEntry{kind: "combat", text: "hit 12"})
+	panel := stripANSI(renderEventPanel(sidePanelWidth, log, playerReadResult{}, encounterReadResult{}))
+
+	// "move east" should NOT have ">" prefix
+	if strings.Contains(panel, "> move east") {
+		t.Fatalf("older event must not have '>' prefix, got: %s", panel)
+	}
+	// But should still contain the text
+	if !strings.Contains(panel, "move east") {
+		t.Fatalf("older event must still contain text, got: %s", panel)
+	}
+}
+
+func TestHitEventStrongerThanMove(t *testing.T) {
+	// Hit events must classify as strong, movement as dim.
+	if eventEmphasis("hit 12") != "strong" {
+		t.Fatal("hit must be strong")
+	}
+	if eventEmphasis("move east") != "dim" {
+		t.Fatal("move must be dim")
+	}
+}
+
+func TestResolvedHeaderStillRenders(t *testing.T) {
+	// Resolved header must still render with updated styling.
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 25,
+		}},
+	}
+	header := stripANSI(resolvedHeader(40, pr, er))
+	if !strings.Contains(header, "victory") {
+		t.Fatalf("header must contain victory, got: %s", header)
+	}
+	if !strings.Contains(header, "==") {
+		t.Fatalf("header must have delimiters, got: %s", header)
+	}
+}
+
+func TestEventOrderingUnchanged(t *testing.T) {
+	// Event entries must appear in chronological order (oldest first, newest last).
+	var log eventLog
+	log.append(eventEntry{kind: "move", text: "move east"})
+	log.append(eventEntry{kind: "atk", text: "attack"})
+	log.append(eventEntry{kind: "combat", text: "hit 15"})
+	panel := stripANSI(renderEventPanel(sidePanelWidth, log, playerReadResult{}, encounterReadResult{}))
+
+	moveIdx := strings.Index(panel, "move east")
+	attackIdx := strings.Index(panel, "attack")
+	hitIdx := strings.Index(panel, "hit 15")
+	if moveIdx < 0 || attackIdx < 0 || hitIdx < 0 {
+		t.Fatalf("all events must be present, got: %s", panel)
+	}
+	if !(moveIdx < attackIdx && attackIdx < hitIdx) {
+		t.Fatal("events must appear in chronological order: move < attack < hit")
+	}
+}
+
+func TestEventContentPreserved(t *testing.T) {
+	// Emphasis styling must not alter event text content.
+	var log eventLog
+	log.append(eventEntry{kind: "combat", text: "deny range"})
+	log.append(eventEntry{kind: "combat", text: "hit 42"})
+	panel := stripANSI(renderEventPanel(sidePanelWidth, log, playerReadResult{}, encounterReadResult{}))
+	if !strings.Contains(panel, "deny range") {
+		t.Fatalf("event text must be preserved, got: %s", panel)
+	}
+	if !strings.Contains(panel, "hit 42") {
+		t.Fatalf("event text must be preserved, got: %s", panel)
+	}
+}

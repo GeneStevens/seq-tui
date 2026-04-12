@@ -50,6 +50,17 @@ var (
 	panelItemStyle = lipgloss.NewStyle().
 			Faint(true)
 
+	// Event stream emphasis styles — presentational only, no gameplay semantics.
+	// Strong: combat results (hits, victory, defeat) — the "what just happened" signal.
+	// Medium: actions and denials — player-initiated events.
+	// Dim: movement and focus — routine navigational events.
+	eventStrongStyle = lipgloss.NewStyle().Bold(true)
+	eventMediumStyle = lipgloss.NewStyle()
+	eventDimStyle    = lipgloss.NewStyle().Faint(true)
+	// Latest event marker — visually strongest, uses bold + ">" prefix.
+	eventLatestStyle = lipgloss.NewStyle().Bold(true)
+	// Resolved header style — state anchor, slightly stronger than dim.
+	resolvedHeaderStyle = lipgloss.NewStyle().Bold(true).Faint(true)
 )
 
 // Spatial entity glyph styles — presentational only, no gameplay semantics.
@@ -901,6 +912,46 @@ func renderOutcomePanel(width int, pr playerReadResult, er encounterReadResult) 
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
+// eventEmphasis classifies an event text into strong/medium/dim based on
+// simple string prefix checks. Purely presentational — no gameplay semantics.
+func eventEmphasis(text string) string {
+	switch {
+	case strings.HasPrefix(text, "hit "),
+		strings.HasPrefix(text, "heal "),
+		text == "victory",
+		text == "defeat",
+		text == "encounter opened",
+		text == "encounter complete",
+		text == "miss":
+		return "strong"
+	case strings.HasPrefix(text, "attack"),
+		strings.HasPrefix(text, "deny "),
+		text == "cooldown",
+		text == "blocked":
+		return "medium"
+	default:
+		// move, focus, and anything else
+		return "dim"
+	}
+}
+
+// renderEventLine renders a single event entry with emphasis-based styling.
+// The latest event (isLatest=true) gets a ">" prefix and bold treatment.
+func renderEventLine(text string, maxWidth int, isLatest bool) string {
+	if isLatest {
+		return eventLatestStyle.Render("> " + truncateID(text, maxWidth-2))
+	}
+	emphasis := eventEmphasis(text)
+	switch emphasis {
+	case "strong":
+		return eventStrongStyle.Render("  " + truncateID(text, maxWidth))
+	case "medium":
+		return eventMediumStyle.Render("  " + truncateID(text, maxWidth))
+	default:
+		return eventDimStyle.Render("  " + truncateID(text, maxWidth))
+	}
+}
+
 // resolvedHeader returns a compact one-line outcome summary for display at
 // the top of the Events panel when an encounter is completed. Returns empty
 // string when no completed encounter exists. Backend truth only.
@@ -940,7 +991,7 @@ func resolvedHeader(width int, pr playerReadResult, er encounterReadResult) stri
 	if contentW < 6 {
 		contentW = 6
 	}
-	return dimStyle.Render("== " + truncateID(summary, contentW) + " ==")
+	return resolvedHeaderStyle.Render("== " + truncateID(summary, contentW) + " ==")
 }
 
 // renderEventPanel returns a compact panel showing recent gameplay events.
@@ -966,8 +1017,9 @@ func renderEventPanel(width int, events eventLog, pr playerReadResult, er encoun
 	if maxTextWidth < 4 {
 		maxTextWidth = 4
 	}
-	for _, e := range entries {
-		items = append(items, panelItemStyle.Render("  "+truncateID(e.text, maxTextWidth)))
+	for i, e := range entries {
+		isLatest := i == len(entries)-1 // newest entry is last
+		items = append(items, renderEventLine(e.text, maxTextWidth, isLatest))
 	}
 
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
