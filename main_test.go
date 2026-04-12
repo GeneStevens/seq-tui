@@ -9198,7 +9198,7 @@ func TestEventLogEmptyRecent(t *testing.T) {
 }
 
 func TestEventPanelRendersEmpty(t *testing.T) {
-	panel := renderEventPanel(sidePanelWidth, eventLog{})
+	panel := renderEventPanel(sidePanelWidth, eventLog{}, playerReadResult{}, encounterReadResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "Events") {
 		t.Fatalf("event panel must show title, got: %s", stripped)
@@ -9212,7 +9212,7 @@ func TestEventPanelRendersEntries(t *testing.T) {
 	var log eventLog
 	log.append(eventEntry{kind: "move", text: "move east"})
 	log.append(eventEntry{kind: "combat", text: "hit 15"})
-	panel := renderEventPanel(sidePanelWidth, log)
+	panel := renderEventPanel(sidePanelWidth, log, playerReadResult{}, encounterReadResult{})
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "move east") {
 		t.Fatalf("event panel must show move entry, got: %s", stripped)
@@ -9785,5 +9785,198 @@ func TestDiagCollapsedSideColumnShorter(t *testing.T) {
 	collapsedLines := strings.Count(collapsed, "\n")
 	if collapsedLines >= expandedLines {
 		t.Fatalf("collapsed side column must be shorter: expanded=%d collapsed=%d", expandedLines, collapsedLines)
+	}
+}
+
+// --- Resolved header tests (M20260412-05) ---
+
+func TestResolvedHeaderVictory(t *testing.T) {
+	// Use a wider width (40) to verify full content without truncation.
+	// The real sidePanelWidth (24) will truncate — that's expected and tested separately.
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 50,
+			DropsGenerated: true, Drops: []string{"item-1", "item-2"},
+		}},
+	}
+	header := stripANSI(resolvedHeader(40, pr, er))
+	if !strings.Contains(header, "victory") {
+		t.Fatalf("header must contain 'victory', got: %s", header)
+	}
+	if !strings.Contains(header, "+50xp") {
+		t.Fatalf("header must contain '+50xp', got: %s", header)
+	}
+	if !strings.Contains(header, "2loot") {
+		t.Fatalf("header must contain '2loot', got: %s", header)
+	}
+	if !strings.Contains(header, "==") {
+		t.Fatalf("header must have == delimiters, got: %s", header)
+	}
+}
+
+func TestResolvedHeaderTruncatesAtNarrowWidth(t *testing.T) {
+	// At sidePanelWidth (24), the header truncates gracefully
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 50,
+			DropsGenerated: true, Drops: []string{"item-1", "item-2"},
+		}},
+	}
+	header := stripANSI(resolvedHeader(sidePanelWidth, pr, er))
+	// Must still show victory and have delimiters even when truncated
+	if !strings.Contains(header, "victory") {
+		t.Fatalf("narrow header must still show victory, got: %s", header)
+	}
+	if !strings.Contains(header, "==") {
+		t.Fatalf("narrow header must still have == delimiters, got: %s", header)
+	}
+}
+
+func TestResolvedHeaderDefeat(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_players_dead",
+		}},
+	}
+	header := stripANSI(resolvedHeader(sidePanelWidth, pr, er))
+	if !strings.Contains(header, "defeat") {
+		t.Fatalf("header must contain 'defeat', got: %s", header)
+	}
+	if strings.Contains(header, "xp") {
+		t.Fatalf("defeat header must not contain xp, got: %s", header)
+	}
+}
+
+func TestResolvedHeaderAbsentDuringActive(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	header := resolvedHeader(sidePanelWidth, pr, er)
+	if header != "" {
+		t.Fatalf("header must be empty during active encounter, got: %s", stripANSI(header))
+	}
+}
+
+func TestResolvedHeaderAbsentNoEncounter(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
+	er := encounterReadResult{State: encounterReadOK}
+	header := resolvedHeader(sidePanelWidth, pr, er)
+	if header != "" {
+		t.Fatal("header must be empty when no encounter")
+	}
+}
+
+func TestResolvedHeaderNoXP(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 0,
+		}},
+	}
+	header := stripANSI(resolvedHeader(sidePanelWidth, pr, er))
+	if !strings.Contains(header, "victory") {
+		t.Fatalf("header must contain 'victory', got: %s", header)
+	}
+	if strings.Contains(header, "xp") || strings.Contains(header, "+0") {
+		t.Fatalf("header must not contain xp when 0, got: %s", header)
+	}
+}
+
+func TestResolvedHeaderNoLoot(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 25,
+			DropsGenerated: false,
+		}},
+	}
+	header := stripANSI(resolvedHeader(sidePanelWidth, pr, er))
+	if strings.Contains(header, "loot") {
+		t.Fatalf("header must not contain loot when no drops, got: %s", header)
+	}
+}
+
+func TestResolvedHeaderInEventPanel(t *testing.T) {
+	// The resolved header must appear inside the Events panel when encounter is completed.
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 30,
+		}},
+	}
+	var log eventLog
+	log.append(eventEntry{kind: "combat", text: "hit 10"})
+	panel := renderEventPanel(sidePanelWidth, log, pr, er)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "victory") {
+		t.Fatalf("Events panel must contain resolved header, got: %s", stripped)
+	}
+	if !strings.Contains(stripped, "hit 10") {
+		t.Fatalf("Events panel must still contain event entries, got: %s", stripped)
+	}
+}
+
+func TestResolvedHeaderNotInEventPanelDuringActive(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+		}},
+	}
+	var log eventLog
+	log.append(eventEntry{kind: "combat", text: "hit 10"})
+	panel := renderEventPanel(sidePanelWidth, log, pr, er)
+	stripped := stripANSI(panel)
+	if strings.Contains(stripped, "victory") || strings.Contains(stripped, "defeat") {
+		t.Fatalf("Events panel must not contain resolved header during active, got: %s", stripped)
+	}
+}
+
+func TestEventStreamOrderingPreservedWithHeader(t *testing.T) {
+	// Event entries must appear in order after the header.
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Completed",
+			CompletedReason: "all_mobs_dead", XPAwarded: 10,
+		}},
+	}
+	var log eventLog
+	log.append(eventEntry{kind: "combat", text: "hit 5"})
+	log.append(eventEntry{kind: "enc", text: "victory"})
+	panel := renderEventPanel(sidePanelWidth, log, pr, er)
+	stripped := stripANSI(panel)
+
+	// Header should appear before event entries
+	headerIdx := strings.Index(stripped, "==")
+	hitIdx := strings.Index(stripped, "hit 5")
+	if headerIdx < 0 || hitIdx < 0 {
+		t.Fatalf("both header and event must be present, got: %s", stripped)
+	}
+	if headerIdx > hitIdx {
+		t.Fatal("resolved header must appear before event entries")
 	}
 }

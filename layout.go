@@ -901,19 +901,67 @@ func renderOutcomePanel(width int, pr playerReadResult, er encounterReadResult) 
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
+// resolvedHeader returns a compact one-line outcome summary for display at
+// the top of the Events panel when an encounter is completed. Returns empty
+// string when no completed encounter exists. Backend truth only.
+func resolvedHeader(width int, pr playerReadResult, er encounterReadResult) string {
+	if pr.State != playerReadOK || !pr.HasActiveEncounter || er.State != encounterReadOK {
+		return ""
+	}
+	enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID)
+	if enc == nil || enc.State != "Completed" {
+		return ""
+	}
+
+	// Build compact summary using tight separators for narrow panels
+	var parts []string
+	switch enc.CompletedReason {
+	case "all_mobs_dead":
+		parts = append(parts, "victory")
+	case "all_players_dead":
+		parts = append(parts, "defeat")
+	default:
+		parts = append(parts, "done")
+	}
+	if enc.XPAwarded > 0 {
+		parts = append(parts, fmt.Sprintf("+%dxp", enc.XPAwarded))
+	}
+	if enc.DropsGenerated {
+		if enc.LootExpired {
+			parts = append(parts, "expired")
+		} else if len(enc.Drops) > 0 {
+			parts = append(parts, fmt.Sprintf("%dloot", len(enc.Drops)))
+		}
+	}
+
+	summary := strings.Join(parts, " ")
+	// Available content width: panel width - border(2) - padding(2) - "== " prefix(3) - " ==" suffix(3) = width - 10
+	contentW := width - 10
+	if contentW < 6 {
+		contentW = 6
+	}
+	return dimStyle.Render("== " + truncateID(summary, contentW) + " ==")
+}
+
 // renderEventPanel returns a compact panel showing recent gameplay events.
-// Entries are appended from backend-confirmed events and local presentational
-// events. Newest entries are at the bottom. Read-only, no gameplay inference.
-func renderEventPanel(width int, events eventLog) string {
+// When an encounter is completed, a resolved header line appears at the top
+// for at-a-glance payoff visibility. Backend truth only, no gameplay inference.
+func renderEventPanel(width int, events eventLog, pr playerReadResult, er encounterReadResult) string {
 	title := panelTitleStyle.Render("Events")
 
+	var items []string
+
+	// Resolved header — compact outcome line at top when encounter completed
+	if header := resolvedHeader(width, pr, er); header != "" {
+		items = append(items, header)
+	}
+
 	entries := events.recent()
-	if len(entries) == 0 {
+	if len(entries) == 0 && len(items) == 0 {
 		content := title + "\n" + panelItemStyle.Render("  (none)")
 		return panelBorderStyle.Width(width - 4).Render(content)
 	}
 
-	var items []string
 	maxTextWidth := width - 6 // border(2) + padding(2) + indent(2)
 	if maxTextWidth < 4 {
 		maxTextWidth = 4
@@ -956,7 +1004,7 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	combat := renderCombatPanel(width, ar, pr, er, target, inv, fmID)
 
 	// === Events section (center of gravity) ===
-	eventsPanel := renderEventPanel(width, events)
+	eventsPanel := renderEventPanel(width, events, pr, er)
 
 	// === Detail section (contextual) ===
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
