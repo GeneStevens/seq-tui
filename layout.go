@@ -74,6 +74,7 @@ var (
 	focusedMobGlyphStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("1")).Bold(true)  // red bold
 	wallGlyphStyle          = lipgloss.NewStyle().Faint(true)                                // dim
 	attackTargetGlyphStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("3")).Bold(true)  // yellow bold
+	playerCombatGlyphStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("6")).Bold(true)  // cyan bold — in encounter
 )
 
 // colorizeMapContent applies presentational color to entity glyphs in the viewport.
@@ -86,6 +87,8 @@ func colorizeMapContent(mapContent string) string {
 		switch ch {
 		case '@':
 			sb.WriteString(playerGlyphStyle.Render("@"))
+		case '*':
+			sb.WriteString(playerCombatGlyphStyle.Render("*"))
 		case '&':
 			sb.WriteString(focusedPlayerGlyphStyle.Render("&"))
 		case 'm':
@@ -169,7 +172,7 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 			}
 			// Player marker last — always visible, never hidden by mob overlays
 			if pr.State == playerReadOK && pr.HasPos {
-				mapContent = overlayPlayer(mapContent, pr.Position, vpBounds, vpWidth, vpHeight)
+				mapContent = overlayPlayer(mapContent, pr.Position, vpBounds, vpWidth, vpHeight, pr.HasActiveEncounter)
 			}
 			if fe := focusedEntry(focus, entries); fe != nil {
 				if fe.kind == "pc" && pr.State == playerReadOK && pr.HasPos {
@@ -193,7 +196,7 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 			}
 			// Player marker last — always visible
 			if pr.State == playerReadOK && pr.HasPos {
-				mapContent = overlayPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight)
+				mapContent = overlayPlayer(mapContent, pr.Position, mr.Bounds, mr.MapWidth, mr.MapHeight, pr.HasActiveEncounter)
 			}
 			if fe := focusedEntry(focus, entries); fe != nil {
 				if fe.kind == "pc" && pr.State == playerReadOK && pr.HasPos {

@@ -235,8 +235,12 @@ func abs(x int) int {
 
 // overlayPlayer places the player marker onto an ASCII map string using shared projection bounds.
 // Player position uses x,y as ground plane (same as mobs).
-func overlayPlayer(mapText string, pos playerPosResult, bounds mapBounds, width, height int) string {
+func overlayPlayer(mapText string, pos playerPosResult, bounds mapBounds, width, height int, inCombat bool) string {
 	col, row := bounds.projectToCell(pos.X, pos.Y, width, height)
+	glyph := '@'
+	if inCombat {
+		glyph = '*'
+	}
 	lines := strings.Split(mapText, "\n")
 	if row >= 0 && row < len(lines) {
 		runes := []rune(lines[row])
@@ -244,7 +248,7 @@ func overlayPlayer(mapText string, pos playerPosResult, bounds mapBounds, width,
 			runes = append(runes, ' ')
 		}
 		if col >= 0 && col < len(runes) {
-			runes[col] = '@'
+			runes[col] = glyph
 			lines[row] = string(runes)
 		}
 	}
@@ -252,14 +256,15 @@ func overlayPlayer(mapText string, pos playerPosResult, bounds mapBounds, width,
 }
 
 // overlayFocusedMob replaces the mob marker at the focused mob's position with 'M'.
-// Purely visual, non-authoritative. If focusedMobID is empty or not found among mobs,
-// the map is returned unchanged.
+// Purely visual, non-authoritative. Matches by canonical MobID (used by focus/attack
+// systems). Falls back to ProcessID for pre-encounter mob entries. If focusedMobID
+// is empty or not found among mobs, the map is returned unchanged.
 func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, bounds mapBounds, width, height int) string {
 	if focusedMobID == "" || len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
 	}
 	for _, mob := range mobs {
-		if mob.ProcessID == focusedMobID {
+		if mob.MobID == focusedMobID || mob.ProcessID == focusedMobID {
 			col, row := bounds.projectToCell(mob.Position.X, mob.Position.Y, width, height)
 			lines := strings.Split(mapText, "\n")
 			if row >= 0 && row < len(lines) {
@@ -280,13 +285,14 @@ func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, 
 
 // overlayAttackTarget replaces the mob marker at the attack target's position with 'X'.
 // Purely visual, non-authoritative. Shows which mob the player last attacked.
+// Matches by canonical MobID (used by attack system). Falls back to ProcessID.
 // If targetID is empty or not found among mobs, the map is returned unchanged.
 func overlayAttackTarget(mapText string, mobs []mobPosition, targetID string, bounds mapBounds, width, height int) string {
 	if targetID == "" || len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
 	}
 	for _, mob := range mobs {
-		if mob.ProcessID == targetID {
+		if mob.MobID == targetID || mob.ProcessID == targetID {
 			col, row := bounds.projectToCell(mob.Position.X, mob.Position.Y, width, height)
 			lines := strings.Split(mapText, "\n")
 			if row >= 0 && row < len(lines) {

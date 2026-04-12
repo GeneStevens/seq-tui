@@ -714,8 +714,8 @@ func TestOverlayPlayerDeterministic(t *testing.T) {
 	mapText := "     \n     \n     "
 	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
 	pos := playerPosResult{X: 50, Y: 50}
-	a := overlayPlayer(mapText, pos, bounds, 5, 3)
-	b := overlayPlayer(mapText, pos, bounds, 5, 3)
+	a := overlayPlayer(mapText, pos, bounds, 5, 3, false)
+	b := overlayPlayer(mapText, pos, bounds, 5, 3, false)
 	if a != b {
 		t.Fatal("player overlay should be deterministic")
 	}
@@ -10124,5 +10124,121 @@ func TestEventContentPreserved(t *testing.T) {
 	}
 	if !strings.Contains(panel, "hit 42") {
 		t.Fatalf("event text must be preserved, got: %s", panel)
+	}
+}
+
+// --- Spatial feedback / combat visibility tests (M20260412-07) ---
+
+func TestPlayerGlyphIdleVsCombat(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	pos := playerPosResult{X: 50, Y: 50}
+
+	// Idle: @
+	idle := overlayPlayer(mapText, pos, bounds, 5, 3, false)
+	if !strings.Contains(idle, "@") {
+		t.Fatalf("idle player must use '@', got: %s", idle)
+	}
+	if strings.Contains(idle, "*") {
+		t.Fatal("idle player must not use '*'")
+	}
+
+	// Combat: *
+	combat := overlayPlayer(mapText, pos, bounds, 5, 3, true)
+	if !strings.Contains(combat, "*") {
+		t.Fatalf("combat player must use '*', got: %s", combat)
+	}
+	if strings.Contains(combat, "@") {
+		t.Fatal("combat player must not use '@'")
+	}
+}
+
+func TestPlayerGlyphDeterministic(t *testing.T) {
+	mapText := "     \n     \n     "
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+	pos := playerPosResult{X: 50, Y: 50}
+	a := overlayPlayer(mapText, pos, bounds, 5, 3, true)
+	b := overlayPlayer(mapText, pos, bounds, 5, 3, true)
+	if a != b {
+		t.Fatal("combat player overlay must be deterministic")
+	}
+}
+
+func TestFocusedMobOverlayMatchesMobID(t *testing.T) {
+	// overlayFocusedMob must match by MobID (canonical attack ID)
+	mapText := "m    \n     \n     "
+	mobs := []mobPosition{
+		{ProcessID: "pid-1", MobID: "orc-1", Position: mobPosVec3{X: 0, Y: 0}},
+	}
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+
+	// Match by MobID
+	result := overlayFocusedMob(mapText, mobs, "orc-1", bounds, 5, 3)
+	if !strings.Contains(result, "M") {
+		t.Fatalf("focused mob must show 'M' when matching by MobID, got: %s", result)
+	}
+}
+
+func TestAttackTargetOverlayMatchesMobID(t *testing.T) {
+	// overlayAttackTarget must match by MobID (canonical attack target)
+	mapText := "m    \n     \n     "
+	mobs := []mobPosition{
+		{ProcessID: "pid-1", MobID: "orc-1", Position: mobPosVec3{X: 0, Y: 0}},
+	}
+	bounds := mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100}
+
+	result := overlayAttackTarget(mapText, mobs, "orc-1", bounds, 5, 3)
+	if !strings.Contains(result, "X") {
+		t.Fatalf("attack target must show 'X' when matching by MobID, got: %s", result)
+	}
+}
+
+func TestCombatPlayerGlyphColorized(t *testing.T) {
+	// The '*' glyph must be colorized by colorizeMapContent.
+	output := colorizeMapContent("*")
+	if output == "*" {
+		t.Fatal("combat player glyph '*' must receive styling")
+	}
+	stripped := stripANSI(output)
+	if stripped != "*" {
+		t.Fatalf("stripped combat glyph must be '*', got: %q", stripped)
+	}
+}
+
+func TestMapPanelPlayerCombatGlyph(t *testing.T) {
+	// When player has active encounter, the map panel should render '*' not '@'.
+	mr := mapReadResult{
+		State: mapReadOK, MapText: ".....\n.....\n.....\n.....\n.....",
+		MapWidth: 5, MapHeight: 5,
+		Bounds: mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100},
+	}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 50, Y: 50},
+		HasActiveEncounter: true, ActiveEncounterID: "enc-1",
+	}
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 20, 10, attackResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "*") {
+		t.Fatalf("map panel must show '*' for combat player, got: %s", stripped)
+	}
+}
+
+func TestMapPanelPlayerIdleGlyph(t *testing.T) {
+	// When player has no active encounter, the map panel should render '@'.
+	mr := mapReadResult{
+		State: mapReadOK, MapText: ".....\n.....\n.....\n.....\n.....",
+		MapWidth: 5, MapHeight: 5,
+		Bounds: mapBounds{MinX: 0, MaxX: 100, MinZ: 0, MaxZ: 100, SpanX: 100, SpanZ: 100},
+	}
+	pr := playerReadResult{
+		State: playerReadOK, HasPos: true,
+		Position:           playerPosResult{X: 50, Y: 50},
+		HasActiveEncounter: false,
+	}
+	panel := renderMapPanel(mr, mobReadResult{}, pr, rosterFocus{}, nil, 20, 10, attackResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "@") {
+		t.Fatalf("map panel must show '@' for idle player, got: %s", stripped)
 	}
 }
