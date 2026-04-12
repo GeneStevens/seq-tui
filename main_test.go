@@ -10543,3 +10543,73 @@ func TestCombatFrameCompletedNoHPFrame(t *testing.T) {
 		t.Fatalf("completed encounter should not show HP frame, got: %s", panel)
 	}
 }
+
+// --- Combat progression diagnosis tests (M20260412-11) ---
+
+func TestCombatFrameReflectsUpdatedMobHP(t *testing.T) {
+	// Simulates the TUI seeing two successive encounter reads with decreasing mob HP.
+	// The combat frame must show the updated HP, not the initial HP.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+
+	// First read: mob at full HP
+	er1 := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			MobThreat: []mobThreatEntry{{MobID: "orc-1", HPCurrent: 120, HPMax: 120}},
+			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 15,
+		}},
+	}
+	panel1 := stripANSI(renderCombatPanel(40, ar, pr, er1, defaultTarget(), inv, "orc-1"))
+	if !strings.Contains(panel1, "120/120") {
+		t.Fatalf("first read must show 120/120, got: %s", panel1)
+	}
+
+	// Second read: mob HP decreased
+	er2 := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1"}, MobsAlive: 1,
+			MobThreat: []mobThreatEntry{{MobID: "orc-1", HPCurrent: 90, HPMax: 120}},
+			ActionIndex: 2, LatestResultKind: "damage_applied", LatestResultValue: 30,
+		}},
+	}
+	panel2 := stripANSI(renderCombatPanel(40, ar, pr, er2, defaultTarget(), inv, "orc-1"))
+	if !strings.Contains(panel2, "90/120") {
+		t.Fatalf("second read must show 90/120, got: %s", panel2)
+	}
+
+	// Panels must differ
+	if panel1 == panel2 {
+		t.Fatal("panels must differ when mob HP changes")
+	}
+}
+
+func TestCombatFrameTargetIdentityMatchesAttack(t *testing.T) {
+	// The combat frame must show HP for the ATTACK TARGET, not just any mob.
+	ar := attackResult{State: attackStateSent, TargetID: "orc-2"}
+	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-1"}
+	inv := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100}
+
+	er := encounterReadResult{
+		State: encounterReadOK, Count: 1,
+		Encounters: []encounterSummary{{
+			EncounterID: "enc-1", State: "Active",
+			MobIDs: []string{"orc-1", "orc-2"}, MobsAlive: 2,
+			MobThreat: []mobThreatEntry{
+				{MobID: "orc-1", HPCurrent: 120, HPMax: 120},
+				{MobID: "orc-2", HPCurrent: 45, HPMax: 120},
+			},
+		}},
+	}
+	panel := stripANSI(renderCombatPanel(40, ar, pr, er, defaultTarget(), inv, "orc-2"))
+
+	// Must show orc-2's HP (the attack target), not orc-1's
+	if !strings.Contains(panel, "45/120") {
+		t.Fatalf("combat frame must show attack target HP (45/120), got: %s", panel)
+	}
+}
