@@ -107,6 +107,33 @@ func reconcileFocus(f rosterFocus, oldEntries, newEntries []rosterEntry) rosterF
 	return rosterFocus{index: len(newEntries) - 1}
 }
 
+// mergeRosterIdentity preserves existing mob entry IDs (ProcessIDs) when
+// encounter data is refreshed. For each mob entry in newEntries, if an
+// existing entry with the same mobID is present in oldEntries, carry forward
+// the old entry's id (ProcessID). This prevents encounter refreshes from
+// silently swapping the live target identity when multiple live mobs share
+// the same canonical mob_id.
+func mergeRosterIdentity(oldEntries, newEntries []rosterEntry) []rosterEntry {
+	// Build mobID → existing id index from old entries
+	existingIDByMobID := make(map[string]string, len(oldEntries))
+	for _, e := range oldEntries {
+		if e.kind == "mb" && e.mobID != "" {
+			existingIDByMobID[e.mobID] = e.id
+		}
+	}
+
+	for i := range newEntries {
+		if newEntries[i].kind != "mb" {
+			continue
+		}
+		if existingID, ok := existingIDByMobID[newEntries[i].mobID]; ok && existingID != "" {
+			// Preserve the previously established live identity
+			newEntries[i].id = existingID
+		}
+	}
+	return newEntries
+}
+
 // moveFocusDown moves focus down within the roster. If unfocused, focuses the
 // first entry. Clamps at the end of the list.
 func moveFocusDown(f rosterFocus, entryCount int) rosterFocus {

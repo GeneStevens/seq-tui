@@ -485,6 +485,13 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case mobReadResultMsg:
 		m.mobRead = msg.result
+		// Invalidate sticky target if the selected ProcessID no longer exists
+		if fe := focusedEntry(m.rosterFocus, m.rosterEntries); fe != nil && fe.kind == "mb" {
+			if msg.result.State == mobReadOK && findMobPosition(msg.result.Mobs, fe.id) == nil {
+				m.rosterFocus = rosterFocus{index: -1}
+				m.rosterEntries = nil
+			}
+		}
 		return m, nil
 	case playerReadResultMsg:
 		m.playerRead = msg.result
@@ -507,7 +514,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 		newEntries := buildRosterEntries(enc)
 		if newEntries != nil {
-			// Encounter roster exists — use it (overrides pre-encounter mob entries)
+			// Encounter roster exists — merge with existing entries to preserve
+			// sticky ProcessID identity. Only replace entries when the user's
+			// selected target identity would be preserved.
+			newEntries = mergeRosterIdentity(m.rosterEntries, newEntries)
 			m.rosterFocus = reconcileFocus(m.rosterFocus, m.rosterEntries, newEntries)
 			m.rosterEntries = newEntries
 		}

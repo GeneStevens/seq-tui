@@ -214,6 +214,120 @@ func TestMobThreatEntryCarriesProcessID(t *testing.T) {
 	}
 }
 
+// --- M20260412-20 sticky target identity persistence tests ---
+
+func TestMergeRosterIdentityPreservesExistingProcessID(t *testing.T) {
+	oldEntries := []rosterEntry{
+		{kind: "pc", id: "p1"},
+		{kind: "mb", id: "pid-1", mobID: "orc_abc123", canonicalMobID: true},
+	}
+	// New encounter refresh resolves a DIFFERENT process_id for same mob_id
+	newEntries := []rosterEntry{
+		{kind: "pc", id: "p1"},
+		{kind: "mb", id: "pid-2", mobID: "orc_abc123", canonicalMobID: true},
+	}
+	merged := mergeRosterIdentity(oldEntries, newEntries)
+
+	var mobEntry *rosterEntry
+	for i := range merged {
+		if merged[i].kind == "mb" {
+			mobEntry = &merged[i]
+			break
+		}
+	}
+	if mobEntry == nil {
+		t.Fatal("expected mob entry")
+	}
+	// Should preserve the ORIGINAL ProcessID, not the newly resolved one
+	if mobEntry.id != "pid-1" {
+		t.Fatalf("mergeRosterIdentity should preserve existing ProcessID 'pid-1', got: %s", mobEntry.id)
+	}
+	if mobEntry.mobID != "orc_abc123" {
+		t.Fatalf("mobID should remain canonical, got: %s", mobEntry.mobID)
+	}
+}
+
+func TestMergeRosterIdentityAllowsNewMobs(t *testing.T) {
+	oldEntries := []rosterEntry{
+		{kind: "mb", id: "pid-1", mobID: "orc_abc123", canonicalMobID: true},
+	}
+	// New encounter adds a second mob
+	newEntries := []rosterEntry{
+		{kind: "mb", id: "pid-1", mobID: "orc_abc123", canonicalMobID: true},
+		{kind: "mb", id: "pid-3", mobID: "orc_def456", canonicalMobID: true},
+	}
+	merged := mergeRosterIdentity(oldEntries, newEntries)
+	if len(merged) != 2 {
+		t.Fatalf("expected 2 entries, got %d", len(merged))
+	}
+	if merged[0].id != "pid-1" {
+		t.Fatalf("existing mob should keep pid-1, got: %s", merged[0].id)
+	}
+	if merged[1].id != "pid-3" {
+		t.Fatalf("new mob should use its own ProcessID, got: %s", merged[1].id)
+	}
+}
+
+func TestStickyTargetSurvivesEncounterRefresh(t *testing.T) {
+	// Simulates the encounter refresh path: select target, then
+	// reconcileFocus against refreshed roster. ProcessID must persist.
+	oldEntries := []rosterEntry{
+		{kind: "pc", id: "p1"},
+		{kind: "mb", id: "pid-1", mobID: "orc_abc123", canonicalMobID: true},
+	}
+	focus := rosterFocus{index: 1} // focused on the mob
+
+	// Encounter refresh: mob_threat returns different process_id for same mob_id
+	newRaw := []rosterEntry{
+		{kind: "pc", id: "p1"},
+		{kind: "mb", id: "pid-99", mobID: "orc_abc123", canonicalMobID: true},
+	}
+	merged := mergeRosterIdentity(oldEntries, newRaw)
+	newFocus := reconcileFocus(focus, oldEntries, merged)
+
+	fe := focusedEntry(newFocus, merged)
+	if fe == nil {
+		t.Fatal("focus should survive encounter refresh")
+	}
+	if fe.id != "pid-1" {
+		t.Fatalf("sticky target should remain pid-1 after refresh, got: %s", fe.id)
+	}
+}
+
+func TestTargetClearedWhenProcessIDDisappears(t *testing.T) {
+	// Target pid-1 disappears from mob_positions.
+	// findMobPosition("pid-1") returns nil → target should be cleared.
+	mobs := []mobPosition{
+		{ProcessID: "pid-2", MobID: "orc_def456", Position: mobPosVec3{X: 50, Y: 0}},
+	}
+	// pid-1 is not in this list
+	pos := findMobPosition(mobs, "pid-1")
+	if pos != nil {
+		t.Fatal("pid-1 should not be found after disappearing")
+	}
+}
+
+func TestTabExplicitlyChangesTarget(t *testing.T) {
+	// When user presses Tab, the target should change to the new selection.
+	// This is NOT a refresh — it's an explicit user action.
+	player := playerPosResult{X: 0, Y: 0}
+	mobs := []mobPosition{
+		{ProcessID: "pid-1", MobID: "orc_abc", Position: mobPosVec3{X: 5, Y: 0}},
+		{ProcessID: "pid-2", MobID: "orc_def", Position: mobPosVec3{X: 10, Y: 0}},
+	}
+	entries := buildMobEntriesByDistance(player, mobs)
+	focus := moveFocusDown(rosterFocus{index: -1}, len(entries)) // first tab → nearest
+	fe := focusedEntry(focus, entries)
+	if fe == nil || fe.id != "pid-1" {
+		t.Fatalf("first tab should select pid-1 (nearest), got: %v", fe)
+	}
+	focus = moveFocusDown(focus, len(entries)) // second tab → next
+	fe = focusedEntry(focus, entries)
+	if fe == nil || fe.id != "pid-2" {
+		t.Fatalf("second tab should select pid-2, got: %v", fe)
+	}
+}
+
 func TestOverlayFocusedMobByProcessID(t *testing.T) {
 	// Two mobs with same MobID — overlay should match the correct one by ProcessID
 	mapText := ".....\n.....\n....."
