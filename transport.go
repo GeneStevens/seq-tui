@@ -9,6 +9,14 @@ import (
 	"time"
 )
 
+// setSessionHeader sets the X-Seq-Session-ID header on the request
+// if a global session ID is available.
+func setSessionHeader(req *http.Request) {
+	if globalSessionID != "" {
+		req.Header.Set(sessionIDHeader, globalSessionID)
+	}
+}
+
 // zoneReadState represents the outcome of a zone status read.
 type zoneReadState int
 
@@ -63,7 +71,13 @@ func fetchZoneStatus(target backendTarget) zoneReadResult {
 	globalSessionLog.LogRequest("zone_status", "GET", url)
 
 	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return zoneReadResult{State: zoneReadFailed, Error: err.Error()}
+	}
+	setSessionHeader(req)
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return zoneReadResult{
 			State: zoneReadFailed,
@@ -163,7 +177,13 @@ func fetchMobPositions(target backendTarget) mobReadResult {
 	url := zoneMobPositionsURL(target)
 
 	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return mobReadResult{State: mobReadFailed, Error: err.Error()}
+	}
+	setSessionHeader(req)
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return mobReadResult{State: mobReadFailed, Error: err.Error()}
 	}
@@ -296,6 +316,7 @@ func submitDirectionalMove(target backendTarget, direction string) moveResult {
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+	setSessionHeader(req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -407,6 +428,7 @@ func readPlayerState(target backendTarget) playerReadResult {
 		return playerReadResult{State: playerReadFailed, Error: err.Error()}
 	}
 	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+	setSessionHeader(req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -514,7 +536,13 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 	url := zoneEncountersURL(target)
 
 	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return encounterReadResult{State: encounterReadFailed, Error: err.Error()}
+	}
+	setSessionHeader(req)
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return encounterReadResult{State: encounterReadFailed, Error: err.Error()}
 	}
@@ -704,6 +732,7 @@ func queryTargetProximity(target backendTarget, entry rosterEntry) targetConfirm
 		return targetConfirmResult{State: targetConfirmFailed, Error: err.Error(), TargetKind: entry.kind, TargetID: entry.id}
 	}
 	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+	setSessionHeader(req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -804,6 +833,7 @@ func submitBasicAttack(target backendTarget, mobID string) attackResult {
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+	setSessionHeader(req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -881,7 +911,13 @@ func fetchPlayerInventory(target backendTarget) inventoryReadResult {
 	url := gameplayStatusURL(target)
 
 	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return inventoryReadResult{State: inventoryReadFailed, Error: err.Error()}
+	}
+	setSessionHeader(req)
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return inventoryReadResult{State: inventoryReadFailed, Error: err.Error()}
 	}
@@ -978,6 +1014,7 @@ func submitPickupItem(target backendTarget, encounterID, itemID string) pickupRe
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+	setSessionHeader(req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -1054,6 +1091,7 @@ func submitRespawn(target backendTarget) respawnResult {
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+	setSessionHeader(req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -1109,6 +1147,7 @@ func joinAndReadPlayer(target backendTarget) playerReadResult {
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
+	setSessionHeader(req)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -1126,6 +1165,7 @@ func joinAndReadPlayer(target backendTarget) playerReadResult {
 		return playerReadResult{State: playerReadFailed, Error: err.Error()}
 	}
 	stateReq.Header.Set("X-Seq-Dev-Token", target.DevToken)
+	setSessionHeader(stateReq)
 
 	stateResp, err := client.Do(stateReq)
 	if err != nil {

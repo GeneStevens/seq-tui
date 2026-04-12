@@ -836,6 +836,7 @@ func (m model) View() string {
 }
 
 func main() {
+	globalSessionID = generateSessionID()
 	slog := newSessionLogger()
 	globalSessionLog = slog
 	defer slog.Close()

@@ -7,12 +7,21 @@ import (
 	"path/filepath"
 	"sync"
 	"time"
+
+	"github.com/segmentio/ksuid"
 )
 
 // globalSessionLog is set at TUI startup for transport-level logging.
 // Transport functions run in tea.Cmd goroutines and can't access the model,
 // so they use this package-level reference. Thread-safe via sessionLogger's mutex.
 var globalSessionLog *sessionLogger
+
+// globalSessionID is the KSUID session identifier for this TUI process.
+// Always generated at startup regardless of whether session logging is enabled.
+// Used for backend request correlation via X-Seq-Session-ID header.
+var globalSessionID string
+
+const sessionIDHeader = "X-Seq-Session-ID"
 
 // sessionLogger writes JSONL session events to a file when enabled.
 // When disabled, all methods are no-ops with near-zero overhead.
@@ -31,9 +40,15 @@ type sessionEvent struct {
 	// Remaining fields are event-specific and merged via json.Marshal of the full struct.
 }
 
+// generateSessionID creates a new KSUID session identifier.
+// KSUIDs are compact, time-sortable, and filename-safe.
+func generateSessionID() string {
+	return ksuid.New().String()
+}
+
 // newSessionLogger creates a session logger. If SEQ_TUI_SESSION_LOG is not "1",
 // returns a disabled no-op logger. Uses SEQ_TUI_SESSION_LOG_DIR for output directory,
-// defaulting to the current directory.
+// defaulting to the current directory. Uses globalSessionID for the session identifier.
 func newSessionLogger() *sessionLogger {
 	if os.Getenv("SEQ_TUI_SESSION_LOG") != "1" {
 		return &sessionLogger{enabled: false}
@@ -44,7 +59,7 @@ func newSessionLogger() *sessionLogger {
 		dir = "."
 	}
 
-	sessionID := time.Now().UTC().Format("20060102-150405")
+	sessionID := globalSessionID
 	filename := filepath.Join(dir, fmt.Sprintf("seq-tui-session-%s.jsonl", sessionID))
 
 	f, err := os.Create(filename)
