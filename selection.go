@@ -36,11 +36,14 @@ func buildRosterEntries(enc *encounterSummary) []rosterEntry {
 	if total == 0 {
 		return nil
 	}
-	// Build mob_id → ProcessID index from mob_threat entries
-	processIDByMobID := make(map[string]string, len(enc.MobThreat))
+	// Build mob_id → live identity index from mob_threat entries.
+	// Prefer live_mob_id, fall back to process_id, then mob_id.
+	liveIDByMobID := make(map[string]string, len(enc.MobThreat))
 	for _, mt := range enc.MobThreat {
-		if mt.ProcessID != "" {
-			processIDByMobID[mt.MobID] = mt.ProcessID
+		if mt.LiveMobID != "" {
+			liveIDByMobID[mt.MobID] = mt.LiveMobID
+		} else if mt.ProcessID != "" {
+			liveIDByMobID[mt.MobID] = mt.ProcessID
 		}
 	}
 	entries := make([]rosterEntry, 0, total)
@@ -48,9 +51,9 @@ func buildRosterEntries(enc *encounterSummary) []rosterEntry {
 		entries = append(entries, rosterEntry{kind: "pc", id: pid})
 	}
 	for _, mid := range enc.MobIDs {
-		liveID := processIDByMobID[mid]
+		liveID := liveIDByMobID[mid]
 		if liveID == "" {
-			liveID = mid // fallback to mob_id if no ProcessID available
+			liveID = mid // fallback to mob_id if no live identity available
 		}
 		entries = append(entries, rosterEntry{kind: "mb", id: liveID, mobID: mid, canonicalMobID: true})
 	}
@@ -180,11 +183,14 @@ func buildMobEntriesByDistance(playerPos playerPosResult, mobs []mobPosition) []
 	}
 	ranked := make([]mobDist, 0, len(mobs))
 	for _, mob := range mobs {
-		// Use ProcessID as the stable live identity — unique per live mob instance.
-		// Store canonical mob_id separately for attack intent submission.
-		liveID := mob.ProcessID
+		// Use LiveMobID as the authoritative live identity — unique per live mob instance,
+		// stable across actor restarts. Fall back to ProcessID then MobID if not available.
+		liveID := mob.LiveMobID
 		if liveID == "" {
-			liveID = mob.MobID // fallback if no ProcessID
+			liveID = mob.ProcessID
+		}
+		if liveID == "" {
+			liveID = mob.MobID
 		}
 		dx := mob.Position.X - playerPos.X
 		dy := mob.Position.Y - playerPos.Y

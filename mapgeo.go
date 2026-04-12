@@ -264,7 +264,12 @@ func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, 
 	if focusedMobID == "" || len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
 	}
-	// Match by ProcessID first (unique per live instance), then MobID (encounter context)
+	// Match by LiveMobID first (authoritative), then ProcessID, then MobID (fallback)
+	for _, mob := range mobs {
+		if mob.LiveMobID != "" && mob.LiveMobID == focusedMobID {
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'T')
+		}
+	}
 	for _, mob := range mobs {
 		if mob.ProcessID == focusedMobID {
 			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'T')
@@ -296,12 +301,16 @@ func overlayGlyphAt(mapText string, pos mobPosVec3, bounds mapBounds, width, hei
 }
 
 // overlayAttackTarget replaces the mob marker at the attack target's position with
-// the given glyph. Purely visual, non-authoritative. Shows which mob the player
-// last attacked and what happened (hit/deny/pending). Matches by ProcessID first
-// (unique), then MobID. If targetID is empty or not found, map is returned unchanged.
+// the given glyph. Purely visual, non-authoritative. Matches by LiveMobID first,
+// then ProcessID, then MobID. If targetID is empty or not found, map is unchanged.
 func overlayAttackTarget(mapText string, mobs []mobPosition, targetID string, bounds mapBounds, width, height int, glyph rune) string {
 	if targetID == "" || len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
+	}
+	for _, mob := range mobs {
+		if mob.LiveMobID != "" && mob.LiveMobID == targetID {
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, glyph)
+		}
 	}
 	for _, mob := range mobs {
 		if mob.ProcessID == targetID {

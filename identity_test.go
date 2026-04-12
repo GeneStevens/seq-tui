@@ -214,6 +214,71 @@ func TestMobThreatEntryCarriesProcessID(t *testing.T) {
 	}
 }
 
+// --- M20260412-21 live_mob_id end-to-end tests ---
+
+func TestBuildMobEntriesUsesLiveMobID(t *testing.T) {
+	player := playerPosResult{X: 0, Y: 0}
+	mobs := []mobPosition{
+		{ProcessID: "pid-1", MobID: "orc_abc", LiveMobID: "lm_orc_abc_123", Position: mobPosVec3{X: 10, Y: 0}},
+	}
+	entries := buildMobEntriesByDistance(player, mobs)
+	if entries[0].id != "lm_orc_abc_123" {
+		t.Fatalf("entry.id should be LiveMobID, got: %s", entries[0].id)
+	}
+	if entries[0].mobID != "orc_abc" {
+		t.Fatalf("entry.mobID should be canonical mob_id, got: %s", entries[0].mobID)
+	}
+}
+
+func TestBuildMobEntriesFallsBackToProcessIDWhenNoLiveMobID(t *testing.T) {
+	player := playerPosResult{X: 0, Y: 0}
+	mobs := []mobPosition{
+		{ProcessID: "pid-1", MobID: "orc_abc", LiveMobID: "", Position: mobPosVec3{X: 10, Y: 0}},
+	}
+	entries := buildMobEntriesByDistance(player, mobs)
+	if entries[0].id != "pid-1" {
+		t.Fatalf("entry.id should fall back to ProcessID, got: %s", entries[0].id)
+	}
+}
+
+func TestFindMobPositionByLiveMobID(t *testing.T) {
+	mobs := []mobPosition{
+		{ProcessID: "pid-1", MobID: "orc_abc", LiveMobID: "lm_1", Position: mobPosVec3{X: 10, Y: 20}},
+		{ProcessID: "pid-2", MobID: "orc_abc", LiveMobID: "lm_2", Position: mobPosVec3{X: 50, Y: 60}},
+	}
+	pos := findMobPosition(mobs, "lm_1")
+	if pos == nil || pos.X != 10 {
+		t.Fatalf("lm_1 should resolve to (10,20), got: %v", pos)
+	}
+	pos2 := findMobPosition(mobs, "lm_2")
+	if pos2 == nil || pos2.X != 50 {
+		t.Fatalf("lm_2 should resolve to (50,60), got: %v", pos2)
+	}
+}
+
+func TestEncounterRosterUsesLiveMobIDFromMobThreat(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc_abc"},
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc_abc", LiveMobID: "lm_1", ProcessID: "pid-1", HPCurrent: 80, HPMax: 100},
+		},
+	}
+	entries := buildRosterEntries(enc)
+	var mobEntry *rosterEntry
+	for i := range entries {
+		if entries[i].kind == "mb" {
+			mobEntry = &entries[i]
+			break
+		}
+	}
+	if mobEntry == nil {
+		t.Fatal("expected mob entry")
+	}
+	if mobEntry.id != "lm_1" {
+		t.Fatalf("encounter mob entry.id should be LiveMobID, got: %s", mobEntry.id)
+	}
+}
+
 // --- M20260412-20 sticky target identity persistence tests ---
 
 func TestMergeRosterIdentityPreservesExistingProcessID(t *testing.T) {

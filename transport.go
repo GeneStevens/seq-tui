@@ -130,8 +130,9 @@ const (
 
 // mobPosition is a conservative partial decode of one mob's position data.
 type mobPosition struct {
-	ProcessID string     // backend actor PID (map key) — NOT the canonical attack target ID
-	MobID     string     `json:"mob_id"`  // canonical mob identity for attack submission
+	ProcessID string     // backend actor PID (map key) — debug/runtime only
+	MobID     string     `json:"mob_id"`      // canonical mob identity for attack submission
+	LiveMobID string     `json:"live_mob_id"` // authoritative live mob identity for targeting
 	MobName   string     `json:"mob_name"`
 	Position  mobPosVec3 `json:"position"`
 }
@@ -496,7 +497,8 @@ type encounterSummary struct {
 // Read-only — no client-side threat calculation or inference.
 type mobThreatEntry struct {
 	MobID                  string
-	ProcessID              string // stable live identity (actor PID) — unique per live mob instance
+	LiveMobID              string // authoritative live mob identity for targeting
+	ProcessID              string // runtime actor PID — debug only
 	SelectedTargetPlayerID string
 	HPCurrent              int
 	HPMax                  int
@@ -584,6 +586,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			// Mob engagement + HP
 			MobThreat []struct {
 				MobID                  string `json:"mob_id"`
+				LiveMobID              string `json:"live_mob_id"`
 				ProcessID              string `json:"process_id"`
 				SelectedTargetPlayerID string `json:"selected_target_player_id"`
 				HPCurrent              int    `json:"hp_current"`
@@ -610,6 +613,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 		for _, mt := range e.MobThreat {
 			threat = append(threat, mobThreatEntry{
 				MobID:                  mt.MobID,
+				LiveMobID:              mt.LiveMobID,
 				ProcessID:              mt.ProcessID,
 				SelectedTargetPlayerID: mt.SelectedTargetPlayerID,
 				HPCurrent:              mt.HPCurrent,

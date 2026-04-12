@@ -214,17 +214,19 @@ func directionTowardMob(playerPos playerPosResult, mobPos mobPosVec3) string {
 }
 
 // findMobPosition returns the position of a mob by its live identity.
-// Matches ProcessID first (stable per live instance), then MobID as fallback
-// (for encounter context where only mob_id is available).
-// Returns nil if not found. Read-only from backend-owned mob position data.
+// Matches LiveMobID first (authoritative per live instance), then ProcessID,
+// then MobID as fallback. Returns nil if not found.
 func findMobPosition(mobs []mobPosition, id string) *mobPosVec3 {
-	// Primary match: ProcessID (unique per live mob instance)
+	for i := range mobs {
+		if mobs[i].LiveMobID != "" && mobs[i].LiveMobID == id {
+			return &mobs[i].Position
+		}
+	}
 	for i := range mobs {
 		if mobs[i].ProcessID == id {
 			return &mobs[i].Position
 		}
 	}
-	// Fallback: MobID (for encounter roster entries that only have mob_id)
 	for i := range mobs {
 		if mobs[i].MobID == id {
 			return &mobs[i].Position
