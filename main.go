@@ -353,6 +353,7 @@ type model struct {
 	lastSeenActIdx   uint64              // last seen encounter ActionIndex for event dedup
 	lastSeenEncID    string              // last seen encounter ID for lifecycle events
 	lastSeenEncState string              // last seen encounter state for completion detection
+	showDiag         bool                // diagnostics section visible (d key toggle)
 	slog             *sessionLogger      // developer-facing session event log (nil-safe)
 }
 
@@ -716,6 +717,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, func() tea.Msg {
 				return respawnResultMsg{result: submitRespawn(bt)}
 			}
+		case "d":
+			// Toggle diagnostics section visibility
+			m.showDiag = !m.showDiag
+			return m, nil
 		case "a":
 			// Submit BasicAttack intent against focused mob
 			if m.playerRead.State != playerReadOK {
@@ -826,14 +831,14 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus, m.lastRespawn, m.events)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus, m.lastRespawn, m.events, m.showDiag)
 }
 
 func main() {
 	slog := newSessionLogger()
 	globalSessionLog = slog
 	defer slog.Close()
-	p := tea.NewProgram(model{target: defaultTarget(), slog: slog}, tea.WithAltScreen())
+	p := tea.NewProgram(model{target: defaultTarget(), showDiag: true, slog: slog}, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)

@@ -11,7 +11,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp = "hjkl:mv g:go tab:ros []:lt t:prx a:atk p:pk r:res q"
+	footerHelp = "hjkl:mv g:go tab:ros []:lt t:prx a:atk p:pk r:res d:diag q"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
@@ -926,30 +926,50 @@ func renderEventPanel(width int, events eventLog) string {
 	return panelBorderStyle.Width(width - 4).Render(content)
 }
 
+// renderDiagnosticsSection returns a subordinated diagnostics area combining
+// zone status and ambient cues. Uses a single border and dimmed title to
+// visually subordinate below gameplay-facing panels.
+func renderDiagnosticsSection(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, showDiag bool) string {
+	if !showDiag {
+		return ""
+	}
+	title := dimStyle.Render("Diagnostics")
+	vis := strings.ToLower(target.Visibility)
+	var items []string
+	items = append(items, panelItemStyle.Render("  "+target.Zone+" "+strings.ToLower(target.Mode)+"/"+vis))
+	items = append(items, panelItemStyle.Render("  "+zr.statusLabel()))
+	items = append(items, panelItemStyle.Render("  "+mobr.mobStatusLabel()))
+	items = append(items, panelItemStyle.Render("  "+pr.playerStatusLabel()))
+	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
+	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
 // renderSideColumn stacks the side panels vertically.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog) string {
-	// Panel ordering: most important first for small terminals.
-	// No blank-line separators — borders provide visual separation.
+// Hierarchy: tactical (player+combat) → events → details (loot+encounter+proximity) → diagnostics.
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog, showDiag bool) string {
+	// === Tactical section (glanceable at top) ===
 	player := renderPlayerPanel(width, pr, inv, rs)
-	// Compute focused mob ID for combat roster coherence
 	fmID := ""
 	if fe := focusedEntry(focus, entries); fe != nil && fe.kind == "mb" {
 		fmID = fe.id
 	}
 	combat := renderCombatPanel(width, ar, pr, er, target, inv, fmID)
-	outcome := renderOutcomePanel(width, pr, er)
+
+	// === Events section (center of gravity) ===
 	eventsPanel := renderEventPanel(width, events)
+
+	// === Detail section (contextual) ===
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
 	proximity := renderProximityPanel(width, tc, ar, mobr, pr)
-	status := renderStatusPanel(width, target, zr, mr, mobr, pr)
-	nearby := renderNearbyPanel(width)
-	// Outcome panel only appears when a completed encounter exists
-	panels := []string{player, combat}
-	if outcome != "" {
-		panels = append(panels, outcome)
+
+	// === Diagnostics section (subordinated) ===
+	diag := renderDiagnosticsSection(width, target, zr, mr, mobr, pr, showDiag)
+
+	panels := []string{player, combat, eventsPanel, loot, encounter, proximity}
+	if diag != "" {
+		panels = append(panels, diag)
 	}
-	panels = append(panels, eventsPanel, loot, encounter, proximity, status, nearby)
 	return lipgloss.JoinVertical(lipgloss.Left, panels...)
 }
 
@@ -983,7 +1003,7 @@ func renderFooter(width int, intentPreview string, focusLabel string, targetLabe
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog, showDiag bool) string {
 	header := renderHeader(width)
 	focusLabel := focusPreviewLabel(focus, entries)
 	targetLabel := tc.targetStatusLabel()
@@ -1011,7 +1031,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, invAtPickup, lootFocus, rs, events)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, invAtPickup, lootFocus, rs, events, showDiag)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,
