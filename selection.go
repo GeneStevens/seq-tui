@@ -25,6 +25,8 @@ type rosterEntry struct {
 
 // buildRosterEntries returns the flat, deterministic list of roster entries
 // for an encounter summary. Players first, then mobs, preserving backend order.
+// Uses ProcessID from mob_threat as the stable live identity when available,
+// falling back to mob_id for encounters where ProcessID is not yet populated.
 // Returns nil if encounter is nil or has no participants.
 func buildRosterEntries(enc *encounterSummary) []rosterEntry {
 	if enc == nil {
@@ -34,12 +36,23 @@ func buildRosterEntries(enc *encounterSummary) []rosterEntry {
 	if total == 0 {
 		return nil
 	}
+	// Build mob_id → ProcessID index from mob_threat entries
+	processIDByMobID := make(map[string]string, len(enc.MobThreat))
+	for _, mt := range enc.MobThreat {
+		if mt.ProcessID != "" {
+			processIDByMobID[mt.MobID] = mt.ProcessID
+		}
+	}
 	entries := make([]rosterEntry, 0, total)
 	for _, pid := range enc.PlayerIDs {
 		entries = append(entries, rosterEntry{kind: "pc", id: pid})
 	}
 	for _, mid := range enc.MobIDs {
-		entries = append(entries, rosterEntry{kind: "mb", id: mid, mobID: mid, canonicalMobID: true})
+		liveID := processIDByMobID[mid]
+		if liveID == "" {
+			liveID = mid // fallback to mob_id if no ProcessID available
+		}
+		entries = append(entries, rosterEntry{kind: "mb", id: liveID, mobID: mid, canonicalMobID: true})
 	}
 	return entries
 }

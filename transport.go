@@ -496,6 +496,7 @@ type encounterSummary struct {
 // Read-only — no client-side threat calculation or inference.
 type mobThreatEntry struct {
 	MobID                  string
+	ProcessID              string // stable live identity (actor PID) — unique per live mob instance
 	SelectedTargetPlayerID string
 	HPCurrent              int
 	HPMax                  int
@@ -583,6 +584,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			// Mob engagement + HP
 			MobThreat []struct {
 				MobID                  string `json:"mob_id"`
+				ProcessID              string `json:"process_id"`
 				SelectedTargetPlayerID string `json:"selected_target_player_id"`
 				HPCurrent              int    `json:"hp_current"`
 				HPMax                  int    `json:"hp_max"`
@@ -608,6 +610,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 		for _, mt := range e.MobThreat {
 			threat = append(threat, mobThreatEntry{
 				MobID:                  mt.MobID,
+				ProcessID:              mt.ProcessID,
 				SelectedTargetPlayerID: mt.SelectedTargetPlayerID,
 				HPCurrent:              mt.HPCurrent,
 				HPMax:                  mt.HPMax,

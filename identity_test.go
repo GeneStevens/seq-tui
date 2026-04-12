@@ -113,6 +113,107 @@ func TestAttackUsesCanonicalMobIDNotProcessID(t *testing.T) {
 	}
 }
 
+// --- M20260412-19 encounter identity continuity tests ---
+
+func TestBuildRosterEntriesUsesProcessIDFromMobThreat(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs: []string{"orc_abc123"},
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc_abc123", ProcessID: "pid-1", HPCurrent: 80, HPMax: 100},
+		},
+	}
+	entries := buildRosterEntries(enc)
+	var mobEntry *rosterEntry
+	for i := range entries {
+		if entries[i].kind == "mb" {
+			mobEntry = &entries[i]
+			break
+		}
+	}
+	if mobEntry == nil {
+		t.Fatal("expected a mob entry")
+	}
+	if mobEntry.id != "pid-1" {
+		t.Fatalf("encounter mob entry.id should be ProcessID 'pid-1', got: %s", mobEntry.id)
+	}
+	if mobEntry.mobID != "orc_abc123" {
+		t.Fatalf("encounter mob entry.mobID should be canonical 'orc_abc123', got: %s", mobEntry.mobID)
+	}
+}
+
+func TestBuildRosterEntriesFallsBackToMobIDWhenNoProcessID(t *testing.T) {
+	enc := &encounterSummary{
+		MobIDs:    []string{"orc_abc123"},
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc_abc123", ProcessID: "", HPCurrent: 80, HPMax: 100},
+		},
+	}
+	entries := buildRosterEntries(enc)
+	var mobEntry *rosterEntry
+	for i := range entries {
+		if entries[i].kind == "mb" {
+			mobEntry = &entries[i]
+			break
+		}
+	}
+	if mobEntry == nil {
+		t.Fatal("expected a mob entry")
+	}
+	if mobEntry.id != "orc_abc123" {
+		t.Fatalf("should fall back to mob_id when no ProcessID, got: %s", mobEntry.id)
+	}
+}
+
+func TestEncounterTargetContinuityWithPreEncounterSelection(t *testing.T) {
+	// Pre-encounter: target selected by ProcessID "pid-1"
+	// Encounter opens: mob_threat carries process_id "pid-1" for the same mob
+	// Roster entry should still have id="pid-1" for continuity
+
+	// Pre-encounter selection
+	preEncEntries := buildMobEntriesByDistance(
+		playerPosResult{X: 0, Y: 0},
+		[]mobPosition{{ProcessID: "pid-1", MobID: "orc_abc123", Position: mobPosVec3{X: 10, Y: 0}}},
+	)
+	if preEncEntries[0].id != "pid-1" {
+		t.Fatalf("pre-encounter entry.id should be ProcessID, got: %s", preEncEntries[0].id)
+	}
+
+	// Encounter opens — same ProcessID propagated
+	encEntries := buildRosterEntries(&encounterSummary{
+		MobIDs: []string{"orc_abc123"},
+		MobThreat: []mobThreatEntry{
+			{MobID: "orc_abc123", ProcessID: "pid-1", HPCurrent: 100, HPMax: 100},
+		},
+	})
+	var mobEntry *rosterEntry
+	for i := range encEntries {
+		if encEntries[i].kind == "mb" {
+			mobEntry = &encEntries[i]
+			break
+		}
+	}
+	if mobEntry == nil {
+		t.Fatal("expected a mob entry in encounter roster")
+	}
+	// Same ProcessID should survive the encounter transition
+	if mobEntry.id != "pid-1" {
+		t.Fatalf("encounter entry.id should match pre-encounter ProcessID 'pid-1', got: %s", mobEntry.id)
+	}
+}
+
+func TestMobThreatEntryCarriesProcessID(t *testing.T) {
+	// Verify that mobThreatEntry struct can carry ProcessID
+	mt := mobThreatEntry{
+		MobID:     "orc_abc123",
+		ProcessID: "pid-1",
+		HPCurrent: 80,
+		HPMax:     100,
+	}
+	if mt.ProcessID != "pid-1" {
+		t.Fatalf("expected ProcessID 'pid-1', got: %s", mt.ProcessID)
+	}
+}
+
 func TestOverlayFocusedMobByProcessID(t *testing.T) {
 	// Two mobs with same MobID — overlay should match the correct one by ProcessID
 	mapText := ".....\n.....\n....."
