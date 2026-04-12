@@ -640,10 +640,24 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "q", "Q", "ctrl+c":
 			return m, tea.Quit
 		case "tab":
-			// If no encounter roster, build mob entries from visible mob positions
-			if len(m.rosterEntries) == 0 && m.playerRead.State == playerReadOK && m.playerRead.HasPos && m.mobRead.State == mobReadOK {
+			// Pre-encounter: always rebuild mob list with fresh distances so Tab
+			// reflects current spatial truth. During encounter, use backend roster.
+			if !m.playerRead.HasActiveEncounter && m.playerRead.State == playerReadOK && m.playerRead.HasPos && m.mobRead.State == mobReadOK {
+				prevFocusID := ""
+				if fe := focusedEntry(m.rosterFocus, m.rosterEntries); fe != nil {
+					prevFocusID = fe.id
+				}
 				m.rosterEntries = buildMobEntriesByDistance(m.playerRead.Position, m.mobRead.Mobs)
+				// Preserve focus on the same mob if it still exists in the new list
 				m.rosterFocus = rosterFocus{index: -1}
+				if prevFocusID != "" {
+					for i, e := range m.rosterEntries {
+						if e.id == prevFocusID {
+							m.rosterFocus = rosterFocus{index: i}
+							break
+						}
+					}
+				}
 			}
 			m.rosterFocus = moveFocusDown(m.rosterFocus, len(m.rosterEntries))
 			fe := focusedEntry(m.rosterFocus, m.rosterEntries)
@@ -668,10 +682,22 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			return m, maybeRefreshProximity(&m)
 		case "shift+tab":
-			// Same pre-encounter mob entry building for shift+tab
-			if len(m.rosterEntries) == 0 && m.playerRead.State == playerReadOK && m.playerRead.HasPos && m.mobRead.State == mobReadOK {
+			// Pre-encounter: rebuild with fresh distances, same as tab
+			if !m.playerRead.HasActiveEncounter && m.playerRead.State == playerReadOK && m.playerRead.HasPos && m.mobRead.State == mobReadOK {
+				prevFocusID := ""
+				if fe := focusedEntry(m.rosterFocus, m.rosterEntries); fe != nil {
+					prevFocusID = fe.id
+				}
 				m.rosterEntries = buildMobEntriesByDistance(m.playerRead.Position, m.mobRead.Mobs)
 				m.rosterFocus = rosterFocus{index: -1}
+				if prevFocusID != "" {
+					for i, e := range m.rosterEntries {
+						if e.id == prevFocusID {
+							m.rosterFocus = rosterFocus{index: i}
+							break
+						}
+					}
+				}
 			}
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
 			return m, maybeRefreshProximity(&m)

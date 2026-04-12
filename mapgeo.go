@@ -255,10 +255,11 @@ func overlayPlayer(mapText string, pos playerPosResult, bounds mapBounds, width,
 	return strings.Join(lines, "\n")
 }
 
-// overlayFocusedMob replaces the mob marker at the focused mob's position with 'M'.
-// Purely visual, non-authoritative. Matches by canonical MobID (used by focus/attack
-// systems). Falls back to ProcessID for pre-encounter mob entries. If focusedMobID
-// is empty or not found among mobs, the map is returned unchanged.
+// overlayFocusedMob replaces the mob marker at the focused mob's position with 'T'
+// (target indicator). Purely visual, non-authoritative. Matches by canonical MobID
+// (used by focus/attack systems). Falls back to ProcessID for pre-encounter mob
+// entries. If focusedMobID is empty or not found among mobs, the map is returned
+// unchanged.
 func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, bounds mapBounds, width, height int) string {
 	if focusedMobID == "" || len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
@@ -273,7 +274,7 @@ func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, 
 					runes = append(runes, ' ')
 				}
 				if col >= 0 && col < len(runes) {
-					runes[col] = 'M'
+					runes[col] = 'T'
 					lines[row] = string(runes)
 				}
 			}

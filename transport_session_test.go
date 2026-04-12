@@ -206,9 +206,9 @@ func TestProximityPanelShowsOorLabel(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
 		Found: true, WithinProximity: false, Distance: 25.0,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "oor dist:25") {
-		t.Fatalf("proximity panel must show 'oor dist:25', got: %s", stripped)
+	if !strings.Contains(stripped, "OOR dist:25") {
+		t.Fatalf("proximity panel must show 'OOR dist:25', got: %s", stripped)
 	}
 }

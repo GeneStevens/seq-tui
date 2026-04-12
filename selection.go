@@ -151,7 +151,10 @@ func buildMobEntriesByDistance(playerPos playerPosResult, mobs []mobPosition) []
 		})
 	}
 	sort.Slice(ranked, func(i, j int) bool {
-		return ranked[i].dist < ranked[j].dist
+		if ranked[i].dist != ranked[j].dist {
+			return ranked[i].dist < ranked[j].dist
+		}
+		return ranked[i].entry.id < ranked[j].entry.id // stable tie-break by MobID
 	})
 
 	entries := make([]rosterEntry, len(ranked))

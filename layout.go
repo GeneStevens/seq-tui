@@ -379,53 +379,74 @@ func truncateID(id string, maxLen int) string {
 	return id[:maxLen-2] + ".."
 }
 
-// renderProximityPanel returns a compact panel showing backend-owned proximity data.
-// Read-only, no targeting authority, no gameplay semantics.
-// Shows [atk] marker when proximity target matches the current attack target.
-// When no proximity query is active, shows nearest mob from mob positions.
-func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mobr mobReadResult, pr playerReadResult) string {
-	title := panelTitleStyle.Render("Proximity")
+// renderProximityPanel returns a compact panel showing target/proximity data.
+// When a mob is focused, shows locally-computed distance and range status.
+// When backend proximity data is available, enriches with authoritative range.
+// Falls back to nearest mob when no target is focused.
+func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry) string {
+	title := panelTitleStyle.Render("Target")
 
 	var items []string
 
-	switch tc.State {
-	case targetConfirmNone:
-		// No proximity query — show nearest mob as orientation aid
-		if pr.State == playerReadOK && pr.HasPos && mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
-			nearID, nearDist := nearestMob(pr.Position, mobr.Mobs)
-			if nearID != "" {
-				items = append(items, panelItemStyle.Render("  nearest:"))
-				items = append(items, panelItemStyle.Render("  "+truncateID(nearID, width-6)))
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f", nearDist)))
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  mobs:%d", len(mobr.Mobs))))
+	fe := focusedEntry(focus, entries)
+
+	// If a mob is focused and we have position data, show target info
+	if fe != nil && fe.kind == "mb" && pr.State == playerReadOK && pr.HasPos && mobr.State == mobReadOK {
+		mobPos := findMobPosition(mobr.Mobs, fe.id)
+		if mobPos != nil {
+			dx := mobPos.X - pr.Position.X
+			dy := mobPos.Y - pr.Position.Y
+			dist := math.Sqrt(dx*dx + dy*dy)
+
+			// Target identity
+			nameLabel := truncateID(fe.id, width-6)
+			items = append(items, panelItemStyle.Render("  "+nameLabel))
+
+			// Distance and range status
+			// Use backend proximity truth if available for this target
+			if tc.State == targetConfirmOK && tc.TargetID == fe.id && tc.Found {
+				if tc.WithinProximity {
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  IN RANGE dist:%.0f", tc.Distance)))
+				} else {
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  OOR dist:%.0f", tc.Distance)))
+				}
 			} else {
-				items = append(items, panelItemStyle.Render("  no mobs"))
+				// Local distance estimate (no authoritative range check)
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f", dist)))
 			}
 		} else {
-			items = append(items, panelItemStyle.Render("  none"))
+			items = append(items, panelItemStyle.Render("  "+truncateID(fe.id, width-6)))
+			items = append(items, panelItemStyle.Render("  pos unknown"))
 		}
-	case targetConfirmFailed:
-		items = append(items, panelItemStyle.Render("  unavailable"))
-	case targetConfirmOK:
-		// Target name/ID with optional [atk] marker
+	} else if tc.State == targetConfirmOK {
+		// Backend proximity data for a target (fallback path)
 		nameLabel := ""
 		if tc.MobName != "" {
 			nameLabel = truncateID(tc.MobName, width-11)
 		} else {
 			nameLabel = tc.TargetKind + ":" + truncateID(tc.TargetID, width-14)
 		}
-		if ar.State == attackStateSent && ar.TargetID == tc.TargetID {
-			nameLabel += " [atk]"
-		}
 		items = append(items, panelItemStyle.Render("  "+nameLabel))
-
-		// Compact found + proximity + distance on one line
 		if !tc.Found {
 			items = append(items, panelItemStyle.Render("  not found"))
 		} else if tc.WithinProximity {
-			items = append(items, panelItemStyle.Render(fmt.Sprintf("  in range %.0f", tc.Distance)))
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  IN RANGE dist:%.0f", tc.Distance)))
 		} else {
-			items = append(items, panelItemStyle.Render(fmt.Sprintf("  oor dist:%.0f", tc.Distance)))
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  OOR dist:%.0f", tc.Distance)))
+		}
+	} else {
+		// No target — show nearest mob as orientation aid
+		if pr.State == playerReadOK && pr.HasPos && mobr.State == mobReadOK && len(mobr.Mobs) > 0 {
+			nearID, nearDist := nearestMob(pr.Position, mobr.Mobs)
+			if nearID != "" {
+				items = append(items, panelItemStyle.Render("  nearest:"))
+				items = append(items, panelItemStyle.Render("  "+truncateID(nearID, width-6)))
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f", nearDist)))
+			} else {
+				items = append(items, panelItemStyle.Render("  no target"))
+			}
+		} else {
+			items = append(items, panelItemStyle.Render("  no target"))
 		}
 	}
 
@@ -447,7 +468,10 @@ func nearestMob(playerPos playerPosResult, mobs []mobPosition) (string, float64)
 		dist := math.Sqrt(dx*dx + dy*dy)
 		if dist < bestDist {
 			bestDist = dist
-			bestID = mob.ProcessID
+			bestID = mob.MobID
+			if bestID == "" {
+				bestID = mob.ProcessID
+			}
 		}
 	}
 	return bestID, bestDist
@@ -1132,7 +1156,7 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	// === Detail section (contextual) ===
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
-	proximity := renderProximityPanel(width, tc, ar, mobr, pr)
+	proximity := renderProximityPanel(width, tc, ar, mobr, pr, focus, entries)
 
 	// === Diagnostics section (subordinated) ===
 	diag := renderDiagnosticsSection(width, target, zr, mr, mobr, pr, showDiag)
