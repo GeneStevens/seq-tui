@@ -398,8 +398,12 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 			dy := mobPos.Y - pr.Position.Y
 			dist := math.Sqrt(dx*dx + dy*dy)
 
-			// Target identity
-			nameLabel := truncateID(fe.id, width-6)
+			// Target identity — show canonical mob_id for readability, fall back to live ID
+			displayID := fe.mobID
+			if displayID == "" {
+				displayID = fe.id
+			}
+			nameLabel := truncateID(displayID, width-6)
 			items = append(items, panelItemStyle.Render("  "+nameLabel))
 
 			// Distance and range status
@@ -415,7 +419,11 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f", dist)))
 			}
 		} else {
-			items = append(items, panelItemStyle.Render("  "+truncateID(fe.id, width-6)))
+			displayID := fe.mobID
+			if displayID == "" {
+				displayID = fe.id
+			}
+			items = append(items, panelItemStyle.Render("  "+truncateID(displayID, width-6)))
 			items = append(items, panelItemStyle.Render("  pos unknown"))
 		}
 	} else if tc.State == targetConfirmOK {

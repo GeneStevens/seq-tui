@@ -6232,7 +6232,7 @@ func TestMobPositionDeserializesMobID(t *testing.T) {
 	}
 }
 
-func TestBuildMobEntriesUsesCanonicalMobID(t *testing.T) {
+func TestBuildMobEntriesUsesProcessIDAsLiveIdentity(t *testing.T) {
 	pos := playerPosResult{X: 0, Y: 0}
 	mobs := []mobPosition{
 		{ProcessID: "<0.123.0>", MobID: "a_orc_5", MobName: "an orc", Position: mobPosVec3{X: 10, Y: 10}},
@@ -6241,8 +6241,11 @@ func TestBuildMobEntriesUsesCanonicalMobID(t *testing.T) {
 	if len(entries) != 1 {
 		t.Fatal("expected 1 entry")
 	}
-	if entries[0].id != "a_orc_5" {
-		t.Fatalf("entry should use canonical mob_id, got %q", entries[0].id)
+	if entries[0].id != "<0.123.0>" {
+		t.Fatalf("entry.id should be ProcessID for live identity, got %q", entries[0].id)
+	}
+	if entries[0].mobID != "a_orc_5" {
+		t.Fatalf("entry.mobID should be canonical mob_id for attacks, got %q", entries[0].mobID)
 	}
 	if !entries[0].canonicalMobID {
 		t.Fatal("canonicalMobID should be true when mob_id is present")

@@ -213,11 +213,20 @@ func directionTowardMob(playerPos playerPosResult, mobPos mobPosVec3) string {
 	return "south"
 }
 
-// findMobPosition returns the position of a mob by its canonical mob_id.
+// findMobPosition returns the position of a mob by its live identity.
+// Matches ProcessID first (stable per live instance), then MobID as fallback
+// (for encounter context where only mob_id is available).
 // Returns nil if not found. Read-only from backend-owned mob position data.
-func findMobPosition(mobs []mobPosition, mobID string) *mobPosVec3 {
+func findMobPosition(mobs []mobPosition, id string) *mobPosVec3 {
+	// Primary match: ProcessID (unique per live mob instance)
 	for i := range mobs {
-		if mobs[i].MobID == mobID {
+		if mobs[i].ProcessID == id {
+			return &mobs[i].Position
+		}
+	}
+	// Fallback: MobID (for encounter roster entries that only have mob_id)
+	for i := range mobs {
+		if mobs[i].MobID == id {
 			return &mobs[i].Position
 		}
 	}
@@ -788,12 +797,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.lastAttack = attackResult{State: attackStateFailed, Error: "no mob_id"}
 				return m, nil
 			}
-			m.slog.LogIntent("attack", map[string]any{"target": fe.id, "canonical": true})
-			m.slog.LogState(map[string]any{"name": "attack_submit", "mob_id": fe.id, "has_encounter": m.playerRead.HasActiveEncounter})
+			m.slog.LogIntent("attack", map[string]any{"target_live_id": fe.id, "mob_id": fe.mobID, "canonical": true})
+			m.slog.LogState(map[string]any{"name": "attack_submit", "mob_id": fe.mobID, "live_id": fe.id, "has_encounter": m.playerRead.HasActiveEncounter})
 			entry := *fe
 			bt := m.target
 			return m, func() tea.Msg {
-				return attackResultMsg{result: submitBasicAttack(bt, entry.id)}
+				return attackResultMsg{result: submitBasicAttack(bt, entry.mobID)}
 			}
 		case "g":
 			// Step toward focused mob — compute dominant cardinal direction from
@@ -827,7 +836,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				"dx":        mobPos.X - m.playerRead.Position.X,
 				"dy":        mobPos.Y - m.playerRead.Position.Y,
 				"direction":  dir,
-				"mob_id":    fe.id,
+				"live_id":   fe.id,
+				"mob_id":    fe.mobID,
 			})
 			if dir == "" {
 				m.slog.LogState(map[string]any{"name": "goto_skip", "reason": "already_at_mob"})

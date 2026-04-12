@@ -13,11 +13,14 @@ type rosterFocus struct {
 }
 
 // rosterEntry is one entry in the flat roster list used for focus navigation.
-// The kind prefix ("pc" or "mb") is stored alongside the ID for display.
+// For mob entries, id is the stable live identity (ProcessID for pre-encounter,
+// mob_id for encounter context). mobID always carries the canonical mob_id
+// needed for attack intent submission.
 type rosterEntry struct {
 	kind           string // "pc" or "mb"
-	id             string // backend-owned ID used for attack targeting
-	canonicalMobID bool   // true when id is canonical mob_id (not actor PID)
+	id             string // stable live identity for lookup (ProcessID or mob_id)
+	mobID          string // canonical mob_id for attack submission (empty for PCs)
+	canonicalMobID bool   // true when mobID is a valid canonical mob_id
 }
 
 // buildRosterEntries returns the flat, deterministic list of roster entries
@@ -33,10 +36,10 @@ func buildRosterEntries(enc *encounterSummary) []rosterEntry {
 	}
 	entries := make([]rosterEntry, 0, total)
 	for _, pid := range enc.PlayerIDs {
-		entries = append(entries, rosterEntry{kind: "pc", id: pid, canonicalMobID: false})
+		entries = append(entries, rosterEntry{kind: "pc", id: pid})
 	}
 	for _, mid := range enc.MobIDs {
-		entries = append(entries, rosterEntry{kind: "mb", id: mid, canonicalMobID: true})
+		entries = append(entries, rosterEntry{kind: "mb", id: mid, mobID: mid, canonicalMobID: true})
 	}
 	return entries
 }
@@ -137,16 +140,17 @@ func buildMobEntriesByDistance(playerPos playerPosResult, mobs []mobPosition) []
 	}
 	ranked := make([]mobDist, 0, len(mobs))
 	for _, mob := range mobs {
-		// Use canonical mob_id for attack targeting; fall back to ProcessID for display only
-		mobID := mob.MobID
-		if mobID == "" {
-			mobID = mob.ProcessID // fallback — will be caught by attack validation
+		// Use ProcessID as the stable live identity — unique per live mob instance.
+		// Store canonical mob_id separately for attack intent submission.
+		liveID := mob.ProcessID
+		if liveID == "" {
+			liveID = mob.MobID // fallback if no ProcessID
 		}
 		dx := mob.Position.X - playerPos.X
 		dy := mob.Position.Y - playerPos.Y
 		d := math.Sqrt(dx*dx + dy*dy)
 		ranked = append(ranked, mobDist{
-			entry: rosterEntry{kind: "mb", id: mobID, canonicalMobID: mob.MobID != ""},
+			entry: rosterEntry{kind: "mb", id: liveID, mobID: mob.MobID, canonicalMobID: mob.MobID != ""},
 			dist:  d,
 		})
 	}
@@ -154,7 +158,7 @@ func buildMobEntriesByDistance(playerPos playerPosResult, mobs []mobPosition) []
 		if ranked[i].dist != ranked[j].dist {
 			return ranked[i].dist < ranked[j].dist
 		}
-		return ranked[i].entry.id < ranked[j].entry.id // stable tie-break by MobID
+		return ranked[i].entry.id < ranked[j].entry.id // stable tie-break by live ID
 	})
 
 	entries := make([]rosterEntry, len(ranked))

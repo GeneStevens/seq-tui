@@ -264,50 +264,53 @@ func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, 
 	if focusedMobID == "" || len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
 	}
+	// Match by ProcessID first (unique per live instance), then MobID (encounter context)
 	for _, mob := range mobs {
-		if mob.MobID == focusedMobID || mob.ProcessID == focusedMobID {
-			col, row := bounds.projectToCell(mob.Position.X, mob.Position.Y, width, height)
-			lines := strings.Split(mapText, "\n")
-			if row >= 0 && row < len(lines) {
-				runes := []rune(lines[row])
-				for len(runes) < width {
-					runes = append(runes, ' ')
-				}
-				if col >= 0 && col < len(runes) {
-					runes[col] = 'T'
-					lines[row] = string(runes)
-				}
-			}
-			return strings.Join(lines, "\n")
+		if mob.ProcessID == focusedMobID {
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'T')
+		}
+	}
+	for _, mob := range mobs {
+		if mob.MobID == focusedMobID {
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'T')
 		}
 	}
 	return mapText
 }
 
+// overlayGlyphAt places a glyph at the projected position of a mob on the map.
+func overlayGlyphAt(mapText string, pos mobPosVec3, bounds mapBounds, width, height int, glyph rune) string {
+	col, row := bounds.projectToCell(pos.X, pos.Y, width, height)
+	lines := strings.Split(mapText, "\n")
+	if row >= 0 && row < len(lines) {
+		runes := []rune(lines[row])
+		for len(runes) < width {
+			runes = append(runes, ' ')
+		}
+		if col >= 0 && col < len(runes) {
+			runes[col] = glyph
+			lines[row] = string(runes)
+		}
+	}
+	return strings.Join(lines, "\n")
+}
+
 // overlayAttackTarget replaces the mob marker at the attack target's position with
 // the given glyph. Purely visual, non-authoritative. Shows which mob the player
-// last attacked and what happened (hit/deny/pending). Matches by canonical MobID
-// (used by attack system). Falls back to ProcessID. If targetID is empty or not
-// found among mobs, the map is returned unchanged.
+// last attacked and what happened (hit/deny/pending). Matches by ProcessID first
+// (unique), then MobID. If targetID is empty or not found, map is returned unchanged.
 func overlayAttackTarget(mapText string, mobs []mobPosition, targetID string, bounds mapBounds, width, height int, glyph rune) string {
 	if targetID == "" || len(mobs) == 0 || width < 1 || height < 1 {
 		return mapText
 	}
 	for _, mob := range mobs {
-		if mob.MobID == targetID || mob.ProcessID == targetID {
-			col, row := bounds.projectToCell(mob.Position.X, mob.Position.Y, width, height)
-			lines := strings.Split(mapText, "\n")
-			if row >= 0 && row < len(lines) {
-				runes := []rune(lines[row])
-				for len(runes) < width {
-					runes = append(runes, ' ')
-				}
-				if col >= 0 && col < len(runes) {
-					runes[col] = glyph
-					lines[row] = string(runes)
-				}
-			}
-			return strings.Join(lines, "\n")
+		if mob.ProcessID == targetID {
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, glyph)
+		}
+	}
+	for _, mob := range mobs {
+		if mob.MobID == targetID {
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, glyph)
 		}
 	}
 	return mapText
