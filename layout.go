@@ -11,7 +11,7 @@ import (
 const (
 	headerTitle    = "seq-tui"
 	headerSubtitle = "spatial view"
-	footerHelp = "hjkl:mv g:go tab:ros []:lt t:prx a:atk p:pk r:res d:diag q"
+	footerHelp = "hjkl:mv g:step tab:ros []:lt t:prx a:atk p:pk r:res d:diag q"
 
 	// Minimum terminal width to show side panels alongside the map.
 	sidePanelMinWidth = 70
@@ -425,7 +425,7 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 		} else if tc.WithinProximity {
 			items = append(items, panelItemStyle.Render(fmt.Sprintf("  in range %.0f", tc.Distance)))
 		} else {
-			items = append(items, panelItemStyle.Render(fmt.Sprintf("  out %.0f", tc.Distance)))
+			items = append(items, panelItemStyle.Render(fmt.Sprintf("  oor dist:%.0f", tc.Distance)))
 		}
 	}
 

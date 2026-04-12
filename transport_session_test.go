@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
@@ -143,5 +144,71 @@ func TestGenerateSessionIDUnique(t *testing.T) {
 	id2 := generateSessionID()
 	if id1 == id2 {
 		t.Fatal("two generated session IDs should be unique")
+	}
+}
+
+// --- M20260412-15 approach/range wording tests ---
+
+func TestFooterShowsStepNotGo(t *testing.T) {
+	footer := renderFooter(80, "", "", "", "", "", true, inventoryReadResult{})
+	stripped := stripANSI(footer)
+	if !strings.Contains(stripped, "g:step") {
+		t.Fatalf("footer must say g:step, got: %s", stripped)
+	}
+	if strings.Contains(stripped, "g:go") {
+		t.Fatalf("footer must not say g:go, got: %s", stripped)
+	}
+}
+
+func TestStepTowardEventText(t *testing.T) {
+	// A moveResultMsg with source="step" should produce "step <dir>" not "move <dir>"
+	m := model{slog: &sessionLogger{}}
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 10, Y: 20}}
+	msg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 10, Y: 25}},
+		direction: "north",
+		source:    "step",
+	}
+	updated, _ := m.Update(msg)
+	um := updated.(model)
+	entries := um.events.recent()
+	if len(entries) == 0 {
+		t.Fatal("expected event entry for step")
+	}
+	last := entries[len(entries)-1]
+	if last.text != "step north" {
+		t.Fatalf("expected 'step north', got: %s", last.text)
+	}
+}
+
+func TestRegularMoveEventText(t *testing.T) {
+	// A moveResultMsg with default source should produce "move <dir>"
+	m := model{slog: &sessionLogger{}}
+	m.playerRead = playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 10, Y: 20}}
+	msg := moveResultMsg{
+		result:    moveResult{OK: true, HasPos: true, Position: playerPosResult{X: 10, Y: 25}},
+		direction: "north",
+	}
+	updated, _ := m.Update(msg)
+	um := updated.(model)
+	entries := um.events.recent()
+	if len(entries) == 0 {
+		t.Fatal("expected event entry for move")
+	}
+	last := entries[len(entries)-1]
+	if last.text != "move north" {
+		t.Fatalf("expected 'move north', got: %s", last.text)
+	}
+}
+
+func TestProximityPanelShowsOorLabel(t *testing.T) {
+	tc := targetConfirmResult{
+		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
+		Found: true, WithinProximity: false, Distance: 25.0,
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "oor dist:25") {
+		t.Fatalf("proximity panel must show 'oor dist:25', got: %s", stripped)
 	}
 }

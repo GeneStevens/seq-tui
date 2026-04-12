@@ -281,6 +281,7 @@ type encounterReadResultMsg struct {
 type moveResultMsg struct {
 	result    moveResult
 	direction string
+	source    string // "move" (default) or "step" (g key step-toward)
 }
 
 // targetConfirmMsg carries the result of a backend target proximity query.
@@ -580,10 +581,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.playerRead.Position = msg.result.Position
 				m.playerRead.HasPos = true
 			}
-			m.events.append(eventEntry{kind: "move", text: "move " + msg.direction})
+			if msg.source == "step" {
+				m.events.append(eventEntry{kind: "move", text: "step " + msg.direction})
+			} else {
+				m.events.append(eventEntry{kind: "move", text: "move " + msg.direction})
+			}
 		} else {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateFailed}
-			m.events.append(eventEntry{kind: "move", text: "move blocked " + msg.direction})
+			if msg.source == "step" {
+				m.events.append(eventEntry{kind: "move", text: "step blocked " + msg.direction})
+			} else {
+				m.events.append(eventEntry{kind: "move", text: "move blocked " + msg.direction})
+			}
 		}
 		// Render-observable state snapshot after move processing
 		m.slog.LogState(map[string]any{
@@ -788,6 +797,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return moveResultMsg{
 					result:    submitDirectionalMove(target, dir),
 					direction: dir,
+					source:    "step",
 				}
 			}
 		case "t":

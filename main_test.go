@@ -1932,7 +1932,7 @@ func TestProximityPanelFoundWithMobName(t *testing.T) {
 		t.Fatal("proximity panel should show mob name")
 	}
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "out") {
+	if !strings.Contains(stripped, "oor") {
 		t.Fatal("proximity panel should show out-of-range indicator")
 	}
 	if !strings.Contains(stripped, "12") {
@@ -5371,7 +5371,7 @@ func TestProximityPanelCompactOutOfRange(t *testing.T) {
 	}
 	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{})
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "out") {
+	if !strings.Contains(stripped, "oor") {
 		t.Fatalf("should show compact out-of-range, got: %s", stripped)
 	}
 }
@@ -7587,8 +7587,8 @@ func TestProximityPanelOutOfRangeAfterMove(t *testing.T) {
 	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr)
 	stripped := stripANSI(panel)
 
-	if !strings.Contains(stripped, "out 45") {
-		t.Fatalf("proximity must show 'out 45' when target still distant, got: %s", stripped)
+	if !strings.Contains(stripped, "oor dist:45") {
+		t.Fatalf("proximity must show 'oor dist:45' when target still distant, got: %s", stripped)
 	}
 	if !strings.Contains(stripped, "an orc") {
 		t.Fatalf("proximity must show mob name, got: %s", stripped)
@@ -7755,8 +7755,8 @@ func TestProximityAndCombatPanelComposeOutOfRange(t *testing.T) {
 	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr))
 	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, ""))
 
-	if !strings.Contains(proxPanel, "out 40") {
-		t.Fatalf("proximity panel must show 'out 40', got: %s", proxPanel)
+	if !strings.Contains(proxPanel, "oor dist:40") {
+		t.Fatalf("proximity panel must show 'oor dist:40', got: %s", proxPanel)
 	}
 	if !strings.Contains(combatPanel, "deny:oor") {
 		t.Fatalf("combat panel must show 'deny:oor', got: %s", combatPanel)
@@ -7816,8 +7816,8 @@ func TestProximityPanelRaceAfterMoveBeforeRead(t *testing.T) {
 	stripped := stripANSI(panel)
 
 	// Panel shows the stale (last known) distance — this is honest
-	if !strings.Contains(stripped, "out 50") {
-		t.Fatalf("race: proximity must show stale distance 'out 50', got: %s", stripped)
+	if !strings.Contains(stripped, "oor dist:50") {
+		t.Fatalf("race: proximity must show stale distance 'oor dist:50', got: %s", stripped)
 	}
 	// Must not show "in range" — that would be local inference
 	if strings.Contains(stripped, "in range") {
@@ -7996,8 +7996,8 @@ func TestProximityCombatTransitionOutToInRange(t *testing.T) {
 	prox1 := stripANSI(renderProximityPanel(sidePanelWidth, tcOut, ar, mobr, pr))
 	combat1 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erDeny, defaultTarget(), inventoryReadResult{}, "orc-1"))
 
-	if !strings.Contains(prox1, "out 35") {
-		t.Fatalf("phase 1 proximity must show 'out 35', got: %s", prox1)
+	if !strings.Contains(prox1, "oor dist:35") {
+		t.Fatalf("phase 1 proximity must show 'oor dist:35', got: %s", prox1)
 	}
 	if !strings.Contains(combat1, "deny:oor") {
 		t.Fatalf("phase 1 combat must show 'deny:oor', got: %s", combat1)
@@ -8093,8 +8093,8 @@ func TestStaleProximityDuringCombatSuccess(t *testing.T) {
 	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "orc-1"))
 
 	// Proximity shows stale data — this is honest
-	if !strings.Contains(proxPanel, "out 30") {
-		t.Fatalf("stale proximity must show 'out 30', got: %s", proxPanel)
+	if !strings.Contains(proxPanel, "oor dist:30") {
+		t.Fatalf("stale proximity must show 'oor dist:30', got: %s", proxPanel)
 	}
 	// Combat shows fresh backend truth
 	if !strings.Contains(combatPanel, "res:dmg") {
@@ -8384,8 +8384,8 @@ func TestGotoThenAttackComposition(t *testing.T) {
 
 func TestFooterContainsGotoHint(t *testing.T) {
 	footer := renderFooter(80, "", "", "", "", "", true, inventoryReadResult{})
-	if !strings.Contains(footer, "g:go") {
-		t.Fatalf("footer must contain g:go hint, got: %s", stripANSI(footer))
+	if !strings.Contains(footer, "g:step") {
+		t.Fatalf("footer must contain g:step hint, got: %s", stripANSI(footer))
 	}
 }
 
