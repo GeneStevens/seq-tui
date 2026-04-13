@@ -803,18 +803,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.lastAttack = attackResult{State: attackStateFailed, Error: "no mob focused"}
 				return m, nil
 			}
-			// Fail closed: refuse to submit attack if focused mob lacks canonical mob_id
-			if !fe.canonicalMobID {
-				m.slog.LogState(map[string]any{"name": "attack_skip", "reason": "no_canonical_mob_id", "focus_id": fe.id})
-				m.lastAttack = attackResult{State: attackStateFailed, Error: "no mob_id"}
+			// Fail closed: refuse to submit attack if focused mob lacks live identity
+			if fe.id == "" {
+				m.slog.LogState(map[string]any{"name": "attack_skip", "reason": "no_live_mob_id", "focus_id": fe.id})
+				m.lastAttack = attackResult{State: attackStateFailed, Error: "no live target"}
 				return m, nil
 			}
 			m.slog.LogIntent("attack", map[string]any{"target_live_id": fe.id, "mob_id": fe.mobID, "canonical": true})
-			m.slog.LogState(map[string]any{"name": "attack_submit", "mob_id": fe.mobID, "live_id": fe.id, "has_encounter": m.playerRead.HasActiveEncounter})
+			m.slog.LogState(map[string]any{"name": "attack_submit", "live_mob_id": fe.id, "mob_id": fe.mobID, "has_encounter": m.playerRead.HasActiveEncounter})
 			entry := *fe
 			bt := m.target
 			return m, func() tea.Msg {
-				return attackResultMsg{result: submitBasicAttack(bt, entry.mobID)}
+				return attackResultMsg{result: submitBasicAttack(bt, entry.id)}
 			}
 		case "g":
 			// Step toward focused mob — compute dominant cardinal direction from

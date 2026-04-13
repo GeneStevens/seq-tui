@@ -8447,20 +8447,20 @@ func TestAttackKeyFocusedPCNoAction(t *testing.T) {
 	}
 }
 
-func TestAttackKeyNonCanonicalMobNoAction(t *testing.T) {
+func TestAttackKeyEmptyLiveIDNoAction(t *testing.T) {
 	m := model{target: defaultTarget(), slog: newSessionLogger()}
 	defer m.slog.Close()
 	m.playerRead = playerReadResult{State: playerReadOK}
-	m.rosterEntries = []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: false}}
+	m.rosterEntries = []rosterEntry{{kind: "mb", id: "", canonicalMobID: false}}
 	m.rosterFocus = rosterFocus{index: 0}
 
 	updated, cmd := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{'a'}})
 	if cmd != nil {
-		t.Fatal("a key with non-canonical mob_id must not trigger attack")
+		t.Fatal("a key with empty live_mob_id must not trigger attack")
 	}
 	um := updated.(model)
 	if um.lastAttack.State != attackStateFailed {
-		t.Fatal("a key with non-canonical mob_id must set attackStateFailed")
+		t.Fatal("a key with empty live_mob_id must set attackStateFailed")
 	}
 }
 

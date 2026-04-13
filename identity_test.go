@@ -1,6 +1,9 @@
 package main
 
 import (
+	"io"
+	"net/http"
+	"net/http/httptest"
 	"strings"
 	"testing"
 )
@@ -276,6 +279,47 @@ func TestEncounterRosterUsesLiveMobIDFromMobThreat(t *testing.T) {
 	}
 	if mobEntry.id != "lm_1" {
 		t.Fatalf("encounter mob entry.id should be LiveMobID, got: %s", mobEntry.id)
+	}
+}
+
+// --- M20260412-23 live_mob_id attack targeting tests ---
+
+func TestAttackSubmitSendsLiveMobID(t *testing.T) {
+	var capturedPayload string
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		body, _ := io.ReadAll(r.Body)
+		capturedPayload = string(body)
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"ok":true}`))
+	})
+	srv := httptest.NewServer(mux)
+	defer srv.Close()
+
+	target := backendTarget{BaseURL: srv.URL, Zone: "testzone", Player: "p1", DevToken: "abc"}
+	submitBasicAttack(target, "lm_orc_abc_123456789")
+
+	if !strings.Contains(capturedPayload, `"live_id":"lm_orc_abc_123456789"`) {
+		t.Fatalf("attack payload should contain live_id, got: %s", capturedPayload)
+	}
+	if strings.Contains(capturedPayload, `"id":"`) {
+		t.Fatalf("attack payload should NOT contain id (mob_id), got: %s", capturedPayload)
+	}
+}
+
+func TestAttackSubmitUsesSelectedLiveTarget(t *testing.T) {
+	// Verify the attack handler sends entry.id (live_mob_id), not entry.mobID
+	player := playerPosResult{X: 0, Y: 0}
+	mobs := []mobPosition{
+		{ProcessID: "pid-1", MobID: "orc_abc", LiveMobID: "lm_orc_abc_123", Position: mobPosVec3{X: 10, Y: 0}},
+	}
+	entries := buildMobEntriesByDistance(player, mobs)
+	if entries[0].id != "lm_orc_abc_123" {
+		t.Fatalf("entry.id should be live_mob_id, got: %s", entries[0].id)
+	}
+	// Attack submission would use entry.id (lm_orc_abc_123), not entry.mobID (orc_abc)
+	if entries[0].mobID != "orc_abc" {
+		t.Fatalf("entry.mobID should be canonical, got: %s", entries[0].mobID)
 	}
 }
 

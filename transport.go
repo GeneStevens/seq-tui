@@ -826,17 +826,19 @@ func devIntentURL(target backendTarget) string {
 
 // submitBasicAttack submits a BasicAttack intent against the specified mob.
 // Returns a submission receipt only — no combat logic or damage tracking.
-func submitBasicAttack(target backendTarget, mobID string) attackResult {
+// submitBasicAttack submits a BasicAttack intent using the target's live_mob_id.
+// The backend resolves live_mob_id to canonical MobID server-side.
+func submitBasicAttack(target backendTarget, liveMobID string) attackResult {
 	url := devIntentURL(target)
 	start := time.Now()
 	globalSessionLog.LogRequest("basic_attack", "POST", url)
-	payload := fmt.Sprintf(`{"player_id":"%s","intent_kind":"BasicAttack","target":{"kind":"Mob","id":"%s"}}`,
-		target.Player, mobID)
+	payload := fmt.Sprintf(`{"player_id":"%s","intent_kind":"BasicAttack","target":{"kind":"Mob","live_id":"%s"}}`,
+		target.Player, liveMobID)
 
 	client := &http.Client{Timeout: 5 * time.Second}
 	req, err := http.NewRequest("POST", url, strings.NewReader(payload))
 	if err != nil {
-		return attackResult{State: attackStateFailed, Error: err.Error(), TargetID: mobID}
+		return attackResult{State: attackStateFailed, Error: err.Error(), TargetID: liveMobID}
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-Seq-Dev-Token", target.DevToken)
@@ -844,13 +846,13 @@ func submitBasicAttack(target backendTarget, mobID string) attackResult {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return attackResult{State: attackStateFailed, Error: err.Error(), TargetID: mobID}
+		return attackResult{State: attackStateFailed, Error: err.Error(), TargetID: liveMobID}
 	}
 	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return attackResult{State: attackStateFailed, Error: "failed to read body", TargetID: mobID}
+		return attackResult{State: attackStateFailed, Error: "failed to read body", TargetID: liveMobID}
 	}
 
 	// Check for backend success/failure
@@ -859,7 +861,7 @@ func submitBasicAttack(target backendTarget, mobID string) attackResult {
 		Error string `json:"error"`
 	}
 	if err := json.Unmarshal(body, &raw); err != nil {
-		return attackResult{State: attackStateFailed, Error: "failed to decode response", TargetID: mobID}
+		return attackResult{State: attackStateFailed, Error: "failed to decode response", TargetID: liveMobID}
 	}
 
 	if !raw.OK {
@@ -867,11 +869,11 @@ func submitBasicAttack(target backendTarget, mobID string) attackResult {
 		if errMsg == "" {
 			errMsg = fmt.Sprintf("HTTP %d", resp.StatusCode)
 		}
-		return attackResult{State: attackStateFailed, Error: errMsg, TargetID: mobID}
+		return attackResult{State: attackStateFailed, Error: errMsg, TargetID: liveMobID}
 	}
 
 	globalSessionLog.LogResponse("basic_attack", resp.StatusCode, true, time.Since(start).Milliseconds())
-	return attackResult{State: attackStateSent, TargetID: mobID}
+	return attackResult{State: attackStateSent, TargetID: liveMobID}
 }
 
 // --- Player inventory readback ---
