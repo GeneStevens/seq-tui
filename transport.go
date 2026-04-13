@@ -487,6 +487,7 @@ type encounterSummary struct {
 	LatestResultValue   int    // damage or heal amount
 	LatestResultSummary string // human-readable one-line summary from backend
 	TextSummaryLatest   string // backend-composed latest event description
+	LatestDenialKind    string // "out_of_range", "los_blocked", "blocked_wounded", etc.
 
 	// Mob engagement — which mobs are targeting which players.
 	// Populated from backend mob_threat array. Read-only, no threat logic.
@@ -583,6 +584,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			LatestResultValue   int    `json:"latest_result_value"`
 			LatestResultSummary string `json:"latest_result_summary"`
 			TextSummaryLatest   string `json:"text_summary_latest"`
+			LatestDenialKind    string `json:"latest_denial_kind"`
 			// Mob engagement + HP
 			MobThreat []struct {
 				MobID                  string `json:"mob_id"`
@@ -642,6 +644,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			LatestResultValue:   e.LatestResultValue,
 			LatestResultSummary: e.LatestResultSummary,
 			TextSummaryLatest:   e.TextSummaryLatest,
+			LatestDenialKind:    e.LatestDenialKind,
 			MobThreat:           threat,
 		})
 	}

@@ -369,9 +369,10 @@ type model struct {
 	lootFocus        int                 // local selection index into encounter Drops; -1 = none
 	lastRespawn      respawnResult       // result of most recent Respawn intent submission
 	events           eventLog            // bounded event stream for right-rail panel
-	lastSeenActIdx   uint64              // last seen encounter ActionIndex for event dedup
-	lastSeenEncID    string              // last seen encounter ID for lifecycle events
-	lastSeenEncState string              // last seen encounter state for completion detection
+	lastSeenActIdx      uint64 // last seen encounter ActionIndex for event dedup
+	lastSeenTimelineLen int    // last seen encounter timeline length for denial detection
+	lastSeenEncID       string // last seen encounter ID for lifecycle events
+	lastSeenEncState    string // last seen encounter state for completion detection
 	showDiag         bool                // diagnostics section visible (d key toggle)
 	slog             *sessionLogger      // developer-facing session event log (nil-safe)
 }
@@ -537,6 +538,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.lastSeenEncID = enc.EncounterID
 				m.lastSeenEncState = enc.State
 				m.lastSeenActIdx = enc.ActionIndex
+				m.lastSeenTimelineLen = enc.TimelineLength
 			} else if enc.State == "Completed" && m.lastSeenEncState != "Completed" {
 				// Outcome label
 				outcomeLabel := "encounter complete"
@@ -556,11 +558,20 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 				m.lastSeenEncState = enc.State
 			}
-			// Combat event: ActionIndex advanced
+			// Combat event: ActionIndex advanced (damage/miss/heal)
 			if enc.ActionIndex > m.lastSeenActIdx {
 				text := eventTextForResult(enc.LatestResultKind, enc.LatestResultValue)
 				m.events.append(eventEntry{kind: "combat", text: text})
 				m.lastSeenActIdx = enc.ActionIndex
+				m.lastSeenTimelineLen = enc.TimelineLength
+			}
+			// Denial event: timeline grew without ActionIndex advancing
+			if enc.TimelineLength > m.lastSeenTimelineLen && enc.ActionIndex == m.lastSeenActIdx {
+				if enc.LatestDenialKind != "" {
+					text := eventTextForResult(enc.LatestDenialKind, 0)
+					m.events.append(eventEntry{kind: "combat", text: text})
+				}
+				m.lastSeenTimelineLen = enc.TimelineLength
 			}
 		}
 		return m, nil
