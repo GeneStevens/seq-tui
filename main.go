@@ -373,6 +373,8 @@ type model struct {
 	lastSeenTimelineLen int    // last seen encounter timeline length for denial detection
 	lastSeenEncID       string // last seen encounter ID for lifecycle events
 	lastSeenEncState    string // last seen encounter state for completion detection
+	lastSeenMobsDead    int    // last seen dead mob count for defeat event detection
+	lastDenialKind      string // last emitted denial kind for dedup
 	showDiag         bool                // diagnostics section visible (d key toggle)
 	slog             *sessionLogger      // developer-facing session event log (nil-safe)
 }
@@ -534,18 +536,20 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if enc != nil {
 			// Encounter lifecycle: new encounter or state change
 			if enc.EncounterID != m.lastSeenEncID {
-				m.events.append(eventEntry{kind: "enc", text: "encounter opened"})
+				m.events.append(eventEntry{kind: "enc", text: "enc:opened"})
 				m.lastSeenEncID = enc.EncounterID
 				m.lastSeenEncState = enc.State
 				m.lastSeenActIdx = enc.ActionIndex
 				m.lastSeenTimelineLen = enc.TimelineLength
+				m.lastSeenMobsDead = enc.MobsDead
+				m.lastDenialKind = ""
 			} else if enc.State == "Completed" && m.lastSeenEncState != "Completed" {
 				// Outcome label
-				outcomeLabel := "encounter complete"
+				outcomeLabel := "enc:ended"
 				if enc.CompletedReason == "all_mobs_dead" {
-					outcomeLabel = "victory"
+					outcomeLabel = "VICTORY"
 				} else if enc.CompletedReason == "all_players_dead" {
-					outcomeLabel = "defeat"
+					outcomeLabel = "DEFEAT"
 				}
 				m.events.append(eventEntry{kind: "enc", text: outcomeLabel})
 				// XP payoff — backend-owned, no client computation
@@ -558,18 +562,25 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 				m.lastSeenEncState = enc.State
 			}
+			// Mob defeat detection: MobsDead increased
+			if enc.MobsDead > m.lastSeenMobsDead {
+				m.events.append(eventEntry{kind: "combat", text: "mob defeated"})
+				m.lastSeenMobsDead = enc.MobsDead
+			}
 			// Combat event: ActionIndex advanced (damage/miss/heal)
 			if enc.ActionIndex > m.lastSeenActIdx {
 				text := eventTextForResult(enc.LatestResultKind, enc.LatestResultValue)
 				m.events.append(eventEntry{kind: "combat", text: text})
 				m.lastSeenActIdx = enc.ActionIndex
 				m.lastSeenTimelineLen = enc.TimelineLength
+				m.lastDenialKind = "" // reset denial dedup on new combat event
 			}
-			// Denial event: timeline grew without ActionIndex advancing
+			// Denial event: timeline grew without ActionIndex advancing (dedup repeated denials)
 			if enc.TimelineLength > m.lastSeenTimelineLen && enc.ActionIndex == m.lastSeenActIdx {
-				if enc.LatestDenialKind != "" {
+				if enc.LatestDenialKind != "" && enc.LatestDenialKind != m.lastDenialKind {
 					text := eventTextForResult(enc.LatestDenialKind, 0)
 					m.events.append(eventEntry{kind: "combat", text: text})
+					m.lastDenialKind = enc.LatestDenialKind
 				}
 				m.lastSeenTimelineLen = enc.TimelineLength
 			}

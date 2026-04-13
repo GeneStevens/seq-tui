@@ -604,14 +604,17 @@ func renderCombatMobRoster(enc *encounterSummary, ar attackResult, playerID stri
 			prefix = "> "
 		}
 		suffix := ""
-		if focusedMobID == mid {
-			suffix = "~"
-		}
-		if isMobEngagingPlayer(enc, mid, playerID) {
-			suffix += "<-"
-		}
-		if suffix != "" {
-			suffix = " " + suffix
+		// Check if mob is dead (HP 0) from backend truth
+		hpC, hpM := findMobThreatHP(enc, mid)
+		if hpM > 0 && hpC <= 0 {
+			suffix = " (dead)"
+		} else {
+			if focusedMobID == mid {
+				suffix = " ~"
+			}
+			if isMobEngagingPlayer(enc, mid, playerID) {
+				suffix += " <-"
+			}
 		}
 		label := prefix + truncateID(mid, idWidth) + suffix
 		lines = append(lines, panelItemStyle.Render(label))
@@ -682,17 +685,23 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 	if pr.State == playerReadOK && pr.HasActiveEncounter && er.State == encounterReadOK {
 		enc := findPlayerEncounter(er.Encounters, pr.ActiveEncounterID)
 		if enc != nil {
-			// Compact state line with alive/dead counts merged
+			// Encounter state label
+			encStateLabel := "active"
 			if enc.State == "Completed" {
-				// Completion: compact one-line with phase suffix
-				reason := enc.CompletedReason
-				if reason == "" {
-					reason = "done"
-				}
-				if enc.DropsGenerated && len(enc.Drops) > 0 && !enc.LootExpired {
-					items = append(items, panelItemStyle.Render("  "+truncateID(reason, width-8)+"/L"))
+				if enc.CompletedReason == "all_mobs_dead" {
+					encStateLabel = "VICTORY"
+				} else if enc.CompletedReason == "all_players_dead" {
+					encStateLabel = "DEFEAT"
 				} else {
-					items = append(items, panelItemStyle.Render("  "+truncateID(reason, width-6)))
+					encStateLabel = "ended"
+				}
+			}
+			items = append(items, panelItemStyle.Render("  ["+encStateLabel+"]"))
+
+			if enc.State == "Completed" {
+				// Completion: show loot availability
+				if enc.DropsGenerated && len(enc.Drops) > 0 && !enc.LootExpired {
+					items = append(items, panelItemStyle.Render("  loot available"))
 				}
 			} else {
 				// Active encounter: compact HP combat frame
@@ -776,7 +785,7 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 	if pr.State != playerReadOK {
 		items = append(items, panelItemStyle.Render("  not joined"))
 	} else if ar.State == attackStateNone {
-		items = append(items, panelItemStyle.Render("  none"))
+		items = append(items, panelItemStyle.Render("  [idle]"))
 	} else if ar.State == attackStateSent {
 		// Attack accepted but encounter read hasn't arrived yet.
 		// "opening" signals that an encounter is expected imminently.
@@ -984,9 +993,9 @@ func renderOutcomePanel(width int, pr playerReadResult, er encounterReadResult) 
 	// Victory / defeat label from backend completion reason
 	switch enc.CompletedReason {
 	case "all_mobs_dead":
-		items = append(items, panelItemStyle.Render("  victory"))
+		items = append(items, panelItemStyle.Render("  VICTORY"))
 	case "all_players_dead":
-		items = append(items, panelItemStyle.Render("  defeat"))
+		items = append(items, panelItemStyle.Render("  DEFEAT"))
 	default:
 		reason := enc.CompletedReason
 		if reason == "" {
@@ -1021,10 +1030,11 @@ func eventEmphasis(text string) string {
 	switch {
 	case strings.HasPrefix(text, "hit "),
 		strings.HasPrefix(text, "heal "),
-		text == "victory",
-		text == "defeat",
-		text == "encounter opened",
-		text == "encounter complete",
+		text == "VICTORY",
+		text == "DEFEAT",
+		text == "enc:opened",
+		text == "enc:ended",
+		text == "mob defeated",
 		text == "miss":
 		return "strong"
 	case strings.HasPrefix(text, "attack"),
@@ -1071,11 +1081,11 @@ func resolvedHeader(width int, pr playerReadResult, er encounterReadResult) stri
 	var parts []string
 	switch enc.CompletedReason {
 	case "all_mobs_dead":
-		parts = append(parts, "victory")
+		parts = append(parts, "VICTORY")
 	case "all_players_dead":
-		parts = append(parts, "defeat")
+		parts = append(parts, "DEFEAT")
 	default:
-		parts = append(parts, "done")
+		parts = append(parts, "ended")
 	}
 	if enc.XPAwarded > 0 {
 		parts = append(parts, fmt.Sprintf("+%dxp", enc.XPAwarded))

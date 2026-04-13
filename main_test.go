@@ -2223,8 +2223,8 @@ func TestCombatPanelNone(t *testing.T) {
 	if !strings.Contains(panel, "Combat") {
 		t.Fatal("combat panel should contain title")
 	}
-	if !strings.Contains(panel, "none") {
-		t.Fatal("combat panel should show none before any attack")
+	if !strings.Contains(panel, "[idle]") {
+		t.Fatal("combat panel should show [idle] before any attack")
 	}
 }
 
@@ -2292,8 +2292,8 @@ func TestCombatPanelMobGone(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "all_mobs_dead") {
-		t.Fatalf("combat panel should show completion reason, got: %s", stripped)
+	if !strings.Contains(stripped, "VICTORY") {
+		t.Fatalf("combat panel should show VICTORY for all_mobs_dead, got: %s", stripped)
 	}
 	// Mob roster and atk lines suppressed for completed encounters
 	if strings.Contains(stripped, "atk:") {
@@ -2504,7 +2504,7 @@ func TestLootPanelNoGameplayTerms(t *testing.T) {
 		}},
 	}
 	panel := renderLootPanel(sidePanelWidth, pr, er, pickupResult{}, inventoryReadResult{}, -1, -1)
-	forbidden := []string{"rarity", "epic", "legendary", "value", "gold", "reward", "victory"}
+	forbidden := []string{"rarity", "epic", "legendary", "value", "gold", "reward", "VICTORY"}
 	for _, word := range forbidden {
 		if strings.Contains(strings.ToLower(panel), word) {
 			t.Fatalf("loot panel should not contain reward term: %s", word)
@@ -3621,8 +3621,8 @@ func TestCombatPanelShowsTextSummary(t *testing.T) {
 func TestCombatPanelWithoutEncounterShowsNone(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, encounterReadResult{}, defaultTarget(), inventoryReadResult{}, "")
-	if !strings.Contains(panel, "none") {
-		t.Fatal("combat panel without encounter should show 'none'")
+	if !strings.Contains(panel, "[idle]") {
+		t.Fatal("combat panel without encounter should show '[idle]'")
 	}
 }
 
@@ -5130,8 +5130,8 @@ func TestCombatPanelShowsPhaseLoot(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{}, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "/L") {
-		t.Fatalf("combat panel should show /L suffix when drops available, got: %s", stripped)
+	if !strings.Contains(stripped, "loot available") {
+		t.Fatalf("combat panel should show 'loot available' when drops exist, got: %s", stripped)
 	}
 }
 
@@ -5146,11 +5146,11 @@ func TestCombatPanelCompletedNoDrop(t *testing.T) {
 	}
 	panel := renderCombatPanel(sidePanelWidth, attackResult{}, pr, er, defaultTarget(), inventoryReadResult{}, "")
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "all_mobs_dead") {
-		t.Fatalf("combat panel should show completion reason, got: %s", stripped)
+	if !strings.Contains(stripped, "VICTORY") {
+		t.Fatalf("combat panel should show VICTORY, got: %s", stripped)
 	}
-	if strings.Contains(stripped, "/L") {
-		t.Fatal("should not show /L when no drops")
+	if strings.Contains(stripped, "loot") {
+		t.Fatal("should not show loot when no drops")
 	}
 }
 
@@ -5503,10 +5503,10 @@ func TestCombatPanelCompletedSuppressesStaleLines(t *testing.T) {
 		t.Fatal("result should be suppressed for completed encounter")
 	}
 	// Completion info should still show
-	if !strings.Contains(stripped, "all_mobs_dead") {
-		t.Fatal("completion reason should still show")
+	if !strings.Contains(stripped, "VICTORY") {
+		t.Fatal("completion state should still show")
 	}
-	if !strings.Contains(stripped, "/L") {
+	if !strings.Contains(stripped, "loot") {
 		t.Fatal("loot indicator should still show")
 	}
 }
@@ -6581,7 +6581,7 @@ func TestCombatPanelStateContractAllSixStates(t *testing.T) {
 		playerReadResult{State: playerReadOK},
 		encounterReadResult{State: encounterReadOK},
 		bt, inv, ""))
-	if !strings.Contains(panel1, "none") {
+	if !strings.Contains(panel1, "idle") {
 		t.Fatalf("idle state must show 'none', got: %s", panel1)
 	}
 
@@ -6703,7 +6703,7 @@ func TestCombatPanelStateContractResRequiresBackend(t *testing.T) {
 func TestCombatPanelRacePlayerHasEncounterButReadStale(t *testing.T) {
 	// Race: player read says HasActiveEncounter=true, but encounter read
 	// doesn't contain the encounter yet (stale encounter list).
-	// Combat panel must show enc:opening, not "none" or "no enc details".
+	// Combat panel must show enc:opening, not "idle" or "no enc details".
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: true, ActiveEncounterID: "enc-new"}
 	er := encounterReadResult{
@@ -6714,7 +6714,7 @@ func TestCombatPanelRacePlayerHasEncounterButReadStale(t *testing.T) {
 	if !strings.Contains(stripped, "enc: opening") {
 		t.Fatalf("race: player has encounter but read stale — must show enc: opening, got: %s", stripped)
 	}
-	if strings.Contains(stripped, "none") {
+	if strings.Contains(stripped, "idle") {
 		t.Fatalf("race: must not show 'none' during attack read gap, got: %s", stripped)
 	}
 }
@@ -6814,7 +6814,7 @@ func TestCombatPanelRaceResolutionVisibleFromBackend(t *testing.T) {
 
 func TestCombatPanelRaceNoRegressToEncNone(t *testing.T) {
 	// Critical contract: when lastAttack is sent, combat panel must NEVER
-	// show just "none" without context. It must show enc:opening or encounter details.
+	// show just "idle" without context. It must show enc:opening or encounter details.
 	testCases := []struct {
 		name string
 		pr   playerReadResult
@@ -6942,7 +6942,7 @@ func TestMoveFailureSetsIntentFailed(t *testing.T) {
 
 func TestMoveSuccessNoCombatPanelRegression(t *testing.T) {
 	// After a move, if there was a prior attack with enc:opening state,
-	// the combat panel must still show enc:opening (not regress to "none").
+	// the combat panel must still show enc:opening (not regress to "idle").
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
 	pr := playerReadResult{State: playerReadOK, HasActiveEncounter: false}
 	er := encounterReadResult{State: encounterReadOK}
@@ -7131,7 +7131,7 @@ func TestMoveDuringEncounterThenAttackPanelConsistent(t *testing.T) {
 	if !strings.Contains(stripped, "> orc-2") {
 		t.Fatalf("must show attack target with > prefix, got: %s", stripped)
 	}
-	if strings.Contains(stripped, "none") {
+	if strings.Contains(stripped, "idle") {
 		t.Fatalf("must not show 'none' during active encounter, got: %s", stripped)
 	}
 	if strings.Contains(stripped, "enc: opening") {
@@ -7142,7 +7142,7 @@ func TestMoveDuringEncounterThenAttackPanelConsistent(t *testing.T) {
 func TestMoveRaceThenAttackEncOpeningPreserved(t *testing.T) {
 	// Race scenario: move succeeded, immediate reads in flight, user attacks
 	// before encounter read arrives. The combat panel must show enc:opening
-	// (from attack), not regress to "none".
+	// (from attack), not regress to "idle".
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
 	pr := playerReadResult{
 		State: playerReadOK, HasPos: true,
@@ -7269,7 +7269,7 @@ func TestMoveThenAttackAllSixStatesDistinct(t *testing.T) {
 		bt, inv, ""))
 
 	// Verify key content markers
-	if !strings.Contains(panel1, "none") {
+	if !strings.Contains(panel1, "idle") {
 		t.Fatalf("state 1 (idle) must contain 'none', got: %s", panel1)
 	}
 	if !strings.Contains(panel2, "enc: opening") {
@@ -7458,7 +7458,7 @@ func TestRepeatedMovesThenAttackInRange(t *testing.T) {
 func TestRepeatedMovesRaceAttackBeforeReadsArrive(t *testing.T) {
 	// Race: player moves multiple times, then attacks before the latest
 	// move's immediate reads have returned. The combat panel must show
-	// enc:opening, not regress to "none".
+	// enc:opening, not regress to "idle".
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
 	pr := playerReadResult{
 		State: playerReadOK, HasPos: true,
@@ -7531,7 +7531,7 @@ func TestRepeatedMovesSixStatesPreserved(t *testing.T) {
 		encounterReadResult{State: encounterReadOK, Count: 0}, bt, inv, ""))
 
 	// Verify markers
-	if !strings.Contains(p1, "none") {
+	if !strings.Contains(p1, "idle") {
 		t.Fatalf("idle must contain 'none', got: %s", p1)
 	}
 	if !strings.Contains(p2, "enc: opening") {
@@ -9394,7 +9394,7 @@ func TestEventStreamEncounterOpened(t *testing.T) {
 	if m.events.len() != 1 {
 		t.Fatalf("new encounter should append 1 event, got %d", m.events.len())
 	}
-	if m.events.recent()[0].text != "encounter opened" {
+	if m.events.recent()[0].text != "enc:opened" {
 		t.Fatalf("event should be 'encounter opened', got: %s", m.events.recent()[0].text)
 	}
 }
@@ -9419,10 +9419,10 @@ func TestEventStreamEncounterCompleted(t *testing.T) {
 	updated, _ := m.Update(msg)
 	m = updated.(model)
 
-	// Should have victory event (all_mobs_dead → "victory")
+	// Should have victory event (all_mobs_dead → "VICTORY")
 	found := false
 	for _, e := range m.events.recent() {
-		if e.text == "victory" {
+		if e.text == "VICTORY" {
 			found = true
 		}
 	}
@@ -9461,7 +9461,7 @@ func TestOutcomePanelVictory(t *testing.T) {
 	if !strings.Contains(stripped, "Outcome") {
 		t.Fatalf("outcome panel must show title, got: %s", stripped)
 	}
-	if !strings.Contains(stripped, "victory") {
+	if !strings.Contains(stripped, "VICTORY") {
 		t.Fatalf("all_mobs_dead must show 'victory', got: %s", stripped)
 	}
 	if !strings.Contains(stripped, "xp +50") {
@@ -9484,7 +9484,7 @@ func TestOutcomePanelDefeat(t *testing.T) {
 	}
 	panel := renderOutcomePanel(sidePanelWidth, pr, er)
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "defeat") {
+	if !strings.Contains(stripped, "DEFEAT") {
 		t.Fatalf("all_players_dead must show 'defeat', got: %s", stripped)
 	}
 	if strings.Contains(stripped, "xp") {
@@ -9606,7 +9606,7 @@ func TestEventStreamVictoryPayoff(t *testing.T) {
 		texts[i] = e.text
 	}
 	joined := strings.Join(texts, " | ")
-	if !strings.Contains(joined, "victory") {
+	if !strings.Contains(joined, "VICTORY") {
 		t.Fatalf("must contain 'victory', got: %s", joined)
 	}
 	if !strings.Contains(joined, "xp +100") {
@@ -9641,8 +9641,8 @@ func TestEventStreamDefeatNoPayoff(t *testing.T) {
 	if len(entries) != 1 {
 		t.Fatalf("defeat should produce exactly 1 event, got %d: %v", len(entries), entries)
 	}
-	if entries[0].text != "defeat" {
-		t.Fatalf("defeat event should be 'defeat', got: %s", entries[0].text)
+	if entries[0].text != "DEFEAT" {
+		t.Fatalf("defeat event should be 'DEFEAT', got: %s", entries[0].text)
 	}
 }
 
@@ -9802,7 +9802,7 @@ func TestResolvedHeaderVictory(t *testing.T) {
 		}},
 	}
 	header := stripANSI(resolvedHeader(40, pr, er))
-	if !strings.Contains(header, "victory") {
+	if !strings.Contains(header, "VICTORY") {
 		t.Fatalf("header must contain 'victory', got: %s", header)
 	}
 	if !strings.Contains(header, "+50xp") {
@@ -9829,7 +9829,7 @@ func TestResolvedHeaderTruncatesAtNarrowWidth(t *testing.T) {
 	}
 	header := stripANSI(resolvedHeader(sidePanelWidth, pr, er))
 	// Must still show victory and have delimiters even when truncated
-	if !strings.Contains(header, "victory") {
+	if !strings.Contains(header, "VICTORY") {
 		t.Fatalf("narrow header must still show victory, got: %s", header)
 	}
 	if !strings.Contains(header, "==") {
@@ -9847,7 +9847,7 @@ func TestResolvedHeaderDefeat(t *testing.T) {
 		}},
 	}
 	header := stripANSI(resolvedHeader(sidePanelWidth, pr, er))
-	if !strings.Contains(header, "defeat") {
+	if !strings.Contains(header, "DEFEAT") {
 		t.Fatalf("header must contain 'defeat', got: %s", header)
 	}
 	if strings.Contains(header, "xp") {
@@ -9889,7 +9889,7 @@ func TestResolvedHeaderNoXP(t *testing.T) {
 		}},
 	}
 	header := stripANSI(resolvedHeader(sidePanelWidth, pr, er))
-	if !strings.Contains(header, "victory") {
+	if !strings.Contains(header, "VICTORY") {
 		t.Fatalf("header must contain 'victory', got: %s", header)
 	}
 	if strings.Contains(header, "xp") || strings.Contains(header, "+0") {
@@ -9927,7 +9927,7 @@ func TestResolvedHeaderInEventPanel(t *testing.T) {
 	log.append(eventEntry{kind: "combat", text: "hit 10"})
 	panel := renderEventPanel(sidePanelWidth, log, pr, er)
 	stripped := stripANSI(panel)
-	if !strings.Contains(stripped, "victory") {
+	if !strings.Contains(stripped, "VICTORY") {
 		t.Fatalf("Events panel must contain resolved header, got: %s", stripped)
 	}
 	if !strings.Contains(stripped, "hit 10") {
@@ -9948,7 +9948,7 @@ func TestResolvedHeaderNotInEventPanelDuringActive(t *testing.T) {
 	log.append(eventEntry{kind: "combat", text: "hit 10"})
 	panel := renderEventPanel(sidePanelWidth, log, pr, er)
 	stripped := stripANSI(panel)
-	if strings.Contains(stripped, "victory") || strings.Contains(stripped, "defeat") {
+	if strings.Contains(stripped, "VICTORY") || strings.Contains(stripped, "DEFEAT") {
 		t.Fatalf("Events panel must not contain resolved header during active, got: %s", stripped)
 	}
 }
@@ -9965,7 +9965,7 @@ func TestEventStreamOrderingPreservedWithHeader(t *testing.T) {
 	}
 	var log eventLog
 	log.append(eventEntry{kind: "combat", text: "hit 5"})
-	log.append(eventEntry{kind: "enc", text: "victory"})
+	log.append(eventEntry{kind: "enc", text: "VICTORY"})
 	panel := renderEventPanel(sidePanelWidth, log, pr, er)
 	stripped := stripANSI(panel)
 
@@ -9990,10 +9990,10 @@ func TestEventEmphasisClassification(t *testing.T) {
 		{"hit 12", "strong"},
 		{"hit 0", "strong"},
 		{"heal 5", "strong"},
-		{"victory", "strong"},
-		{"defeat", "strong"},
-		{"encounter opened", "strong"},
-		{"encounter complete", "strong"},
+		{"VICTORY", "strong"},
+		{"DEFEAT", "strong"},
+		{"enc:opened", "strong"},
+		{"enc:ended", "strong"},
 		{"miss", "strong"},
 		{"attack", "medium"},
 		{"attack failed", "medium"},
@@ -10085,7 +10085,7 @@ func TestResolvedHeaderStillRenders(t *testing.T) {
 		}},
 	}
 	header := stripANSI(resolvedHeader(40, pr, er))
-	if !strings.Contains(header, "victory") {
+	if !strings.Contains(header, "VICTORY") {
 		t.Fatalf("header must contain victory, got: %s", header)
 	}
 	if !strings.Contains(header, "==") {
