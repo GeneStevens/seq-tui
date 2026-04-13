@@ -585,7 +585,16 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if msg.result.State == attackStateSent {
 			m.events.append(eventEntry{kind: "atk", text: "attack"})
 		} else if msg.result.State == attackStateFailed {
-			m.events.append(eventEntry{kind: "atk", text: "attack failed"})
+			errText := "atk fail"
+			if msg.result.Error != "" {
+				// Show the first 18 chars of the error for compact display
+				reason := msg.result.Error
+				if len(reason) > 18 {
+					reason = reason[:18]
+				}
+				errText = "atk:" + reason
+			}
+			m.events.append(eventEntry{kind: "atk", text: errText})
 		}
 		if msg.result.State == attackStateSent {
 			// Immediate refresh: reduce enc:opening dwell by reading
