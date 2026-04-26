@@ -135,8 +135,8 @@
       "step_label": "move_to_range player=p1 slot=primary offset=(1.00,0.00)",
       "players": [
         {
-          "player_id": "p1",
-          "x": 6,
+          "player_id": "p2",
+          "x": 0,
           "y": 0,
           "z": 0,
           "hp_current": 100,
@@ -144,8 +144,8 @@
           "can_act": true
         },
         {
-          "player_id": "p2",
-          "x": 0,
+          "player_id": "p1",
+          "x": 6,
           "y": 0,
           "z": 0,
           "hp_current": 100,
@@ -236,7 +236,7 @@
         "mob_threat": [
           {
             "mob_id": "m1",
-            "selected_target_player_id": "",
+            "selected_target_player_id": "p1",
             "hp_current": 60,
             "hp_max": 60
           }
@@ -308,7 +308,24 @@
             "hp_max": 60
           }
         ]
-      }
+      },
+      "events": [
+        {
+          "kind": "player_hit",
+          "actor": "p1",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 1,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 2,
+          "encounter_id": "e1"
+        }
+      ]
     },
     {
       "step_index": 6,
@@ -576,7 +593,125 @@
         "mobs_dead": 1,
         "action_index": 6,
         "xp_awarded": 50
-      }
+      },
+      "events": [
+        {
+          "kind": "player_hit",
+          "actor": "p1",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p2",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "player_hit",
+          "actor": "p2",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 3,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p2",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "player_hit",
+          "actor": "p1",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 4,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p2",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "player_hit",
+          "actor": "p2",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 5,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p2",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "player_hit",
+          "actor": "p1",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 6,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_death",
+          "actor": "p1",
+          "target": "m1",
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p2",
+          "damage": 2,
+          "encounter_id": "e1"
+        }
+      ]
     },
     {
       "step_index": 10,

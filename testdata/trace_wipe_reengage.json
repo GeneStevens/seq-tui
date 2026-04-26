@@ -282,7 +282,7 @@
         "mob_threat": [
           {
             "mob_id": "m1",
-            "selected_target_player_id": "",
+            "selected_target_player_id": "p1",
             "hp_current": 60,
             "hp_max": 60
           }
@@ -294,20 +294,20 @@
       "step_label": "advance_time seconds=2.000",
       "players": [
         {
-          "player_id": "p2",
-          "x": 0,
-          "y": 0,
-          "z": 0,
-          "hp_current": 100,
-          "hp_max": 100,
-          "can_act": true
-        },
-        {
           "player_id": "p1",
           "x": 6,
           "y": 0,
           "z": 0,
           "hp_current": 60,
+          "hp_max": 100,
+          "can_act": true
+        },
+        {
+          "player_id": "p2",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "hp_current": 100,
           "hp_max": 100,
           "can_act": true
         }
@@ -354,7 +354,24 @@
             "hp_max": 60
           }
         ]
-      }
+      },
+      "events": [
+        {
+          "kind": "player_hit",
+          "actor": "p1",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 1,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 40,
+          "encounter_id": "e1"
+        }
+      ]
     },
     {
       "step_index": 7,
@@ -490,7 +507,7 @@
           },
           {
             "mob_id": "m2",
-            "selected_target_player_id": "",
+            "selected_target_player_id": "p1",
             "hp_current": 60,
             "hp_max": 60
           }
@@ -569,7 +586,24 @@
             "hp_max": 60
           }
         ]
-      }
+      },
+      "events": [
+        {
+          "kind": "player_hit",
+          "actor": "p1",
+          "target": "m2",
+          "damage": 10,
+          "action_index": 2,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 40,
+          "encounter_id": "e1"
+        }
+      ]
     },
     {
       "step_index": 10,
@@ -726,20 +760,20 @@
       "step_label": "attack_burst player=p2 slot=mob1 count=1 kind=BasicAttack",
       "players": [
         {
-          "player_id": "p1",
-          "x": 31,
-          "y": 0,
-          "z": 0,
-          "hp_current": 20,
-          "hp_max": 100,
-          "can_act": true
-        },
-        {
           "player_id": "p2",
           "x": 4,
           "y": 0,
           "z": 0,
           "hp_current": 100,
+          "hp_max": 100,
+          "can_act": true
+        },
+        {
+          "player_id": "p1",
+          "x": 31,
+          "y": 0,
+          "z": 0,
+          "hp_current": 20,
           "hp_max": 100,
           "can_act": true
         }
@@ -870,7 +904,38 @@
             "hp_max": 60
           }
         ]
-      }
+      },
+      "events": [
+        {
+          "kind": "player_hit",
+          "actor": "p2",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 3,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 40,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "player_death",
+          "actor": "m1",
+          "target": "p1",
+          "blocked_reason": "player_dead",
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p2",
+          "damage": 40,
+          "encounter_id": "e1"
+        }
+      ]
     },
     {
       "step_index": 14,
@@ -953,8 +1018,8 @@
       "step_label": "advance_until_wipe attackers=[p1-\u003emob1,p2-\u003emob1] initial_bursts=3 step_seconds=2.000 max_steps=120",
       "players": [
         {
-          "player_id": "p2",
-          "x": 4,
+          "player_id": "p1",
+          "x": 31,
           "y": 0,
           "z": 0,
           "hp_current": 0,
@@ -963,8 +1028,8 @@
           "blocked_reason": "player_dead"
         },
         {
-          "player_id": "p1",
-          "x": 31,
+          "player_id": "p2",
+          "x": 4,
           "y": 0,
           "z": 0,
           "hp_current": 0,
@@ -1010,7 +1075,46 @@
         "mobs_alive": 2,
         "mobs_dead": 0,
         "action_index": 5
-      }
+      },
+      "events": [
+        {
+          "kind": "player_hit",
+          "actor": "p2",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 4,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p2",
+          "damage": 40,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "player_hit",
+          "actor": "p2",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 5,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p2",
+          "damage": 40,
+          "encounter_id": "e1"
+        },
+        {
+          "kind": "player_death",
+          "actor": "m1",
+          "target": "p2",
+          "blocked_reason": "player_dead",
+          "encounter_id": "e1"
+        }
+      ]
     },
     {
       "step_index": 16,
@@ -1270,7 +1374,7 @@
       "step_label": "assert_state name=post_respawn checks=[player_state[p1 can_act=true blocked=],player_state[p2 can_act=true blocked=],player_alive[p1],player_alive[p2]]",
       "players": [
         {
-          "player_id": "p2",
+          "player_id": "p1",
           "x": 0,
           "y": 0,
           "z": 0,
@@ -1279,7 +1383,7 @@
           "can_act": true
         },
         {
-          "player_id": "p1",
+          "player_id": "p2",
           "x": 0,
           "y": 0,
           "z": 0,
@@ -1449,7 +1553,7 @@
         "mob_threat": [
           {
             "mob_id": "m1",
-            "selected_target_player_id": "",
+            "selected_target_player_id": "p1",
             "hp_current": 20,
             "hp_max": 60
           }
@@ -1461,20 +1565,20 @@
       "step_label": "advance_time seconds=2.000",
       "players": [
         {
-          "player_id": "p1",
-          "x": 6,
-          "y": 0,
-          "z": 0,
-          "hp_current": 60,
-          "hp_max": 100,
-          "can_act": true
-        },
-        {
           "player_id": "p2",
           "x": 0,
           "y": 0,
           "z": 0,
           "hp_current": 100,
+          "hp_max": 100,
+          "can_act": true
+        },
+        {
+          "player_id": "p1",
+          "x": 6,
+          "y": 0,
+          "z": 0,
+          "hp_current": 60,
           "hp_max": 100,
           "can_act": true
         }
@@ -1521,7 +1625,24 @@
             "hp_max": 60
           }
         ]
-      }
+      },
+      "events": [
+        {
+          "kind": "player_hit",
+          "actor": "p1",
+          "target": "m1",
+          "damage": 10,
+          "action_index": 1,
+          "encounter_id": "e2"
+        },
+        {
+          "kind": "mob_hit",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 40,
+          "encounter_id": "e2"
+        }
+      ]
     },
     {
       "step_index": 24,
@@ -1595,20 +1716,20 @@
       "step_label": "assert_state name=reengage checks=[new_encounter_id[saved_key=wipe_encounter],encounter_id_non_empty,saved_encounter_unmutated[key=wipe_encounter],encounter_participants[p1]]",
       "players": [
         {
-          "player_id": "p1",
-          "x": 6,
-          "y": 0,
-          "z": 0,
-          "hp_current": 60,
-          "hp_max": 100,
-          "can_act": true
-        },
-        {
           "player_id": "p2",
           "x": 0,
           "y": 0,
           "z": 0,
           "hp_current": 100,
+          "hp_max": 100,
+          "can_act": true
+        },
+        {
+          "player_id": "p1",
+          "x": 6,
+          "y": 0,
+          "z": 0,
+          "hp_current": 60,
           "hp_max": 100,
           "can_act": true
         }

@@ -830,12 +830,13 @@ func TestTruthSpatialMapPanelIntegration(t *testing.T) {
 
 // scenarioFrame holds one step of backend-owned state for playback validation.
 type scenarioFrame struct {
-	pr   playerReadResult
-	er   encounterReadResult
-	inv  inventoryReadResult
-	mobr mobReadResult
-	ar   attackResult
-	tc   targetConfirmResult
+	pr     playerReadResult
+	er     encounterReadResult
+	inv    inventoryReadResult
+	mobr   mobReadResult
+	ar     attackResult
+	tc     targetConfirmResult
+	events eventLog
 }
 
 // === Temporal Validation Tests ===
@@ -1171,6 +1172,7 @@ type traceFrame struct {
 	Players   []tracePlayer   `json:"players"`
 	Mobs      []traceMob      `json:"mobs"`
 	Encounter *traceEncounter `json:"encounter,omitempty"`
+	Events    []traceEvent    `json:"events,omitempty"`
 }
 
 type tracePlayer struct {
@@ -1214,6 +1216,16 @@ type traceMob struct {
 	Z         float64 `json:"z"`
 	HPCurrent int     `json:"hp_current"`
 	HPMax     int     `json:"hp_max"`
+}
+
+type traceEvent struct {
+	Kind          string `json:"kind"`
+	Actor         string `json:"actor"`
+	Target        string `json:"target"`
+	Damage        int    `json:"damage,omitempty"`
+	ActionIndex   uint64 `json:"action_index,omitempty"`
+	BlockedReason string `json:"blocked_reason,omitempty"`
+	EncounterID   string `json:"encounter_id,omitempty"`
 }
 
 // --- Trace loader + adapter ---
@@ -1343,7 +1355,39 @@ func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
 		}
 	}
 
-	return scenarioFrame{pr: pr, er: er, inv: inv, mobr: mobr, ar: ar, tc: tc}
+	var events eventLog
+	for _, te := range tf.Events {
+		text := traceEventToText(te, playerID)
+		if text != "" {
+			events.append(eventEntry{kind: traceEventKind(te), text: text})
+		}
+	}
+
+	return scenarioFrame{pr: pr, er: er, inv: inv, mobr: mobr, ar: ar, tc: tc, events: events}
+}
+
+func traceEventToText(te traceEvent, playerID string) string {
+	switch te.Kind {
+	case "player_hit":
+		return eventTextForCombatResult("damage_applied", te.Damage, te.Actor, te.Target)
+	case "mob_hit":
+		return eventTextForCombatResult("damage_applied", te.Damage, te.Actor, te.Target)
+	case "mob_death":
+		return "mob defeated"
+	case "player_death":
+		return "DEFEAT"
+	default:
+		return te.Kind
+	}
+}
+
+func traceEventKind(te traceEvent) string {
+	switch te.Kind {
+	case "player_hit", "mob_hit", "mob_death", "player_death":
+		return "combat"
+	default:
+		return "enc"
+	}
 }
 
 // === E2E Validation Tests ===
@@ -1928,5 +1972,204 @@ func TestE2EPacingPanelConsistency(t *testing.T) {
 				t.Fatalf("frame %d: combat panel should not be empty when encounter exists", i)
 			}
 		}
+	}
+}
+
+// === E2E Event Stream Tests ===
+
+func TestE2EEventStreamCombat1v1OrderedMessages(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+
+	combatFrame := trace.Frames[4]
+	sf := traceFrameToScenarioFrame(combatFrame, "p1")
+
+	entries := sf.events.recent()
+	if len(entries) == 0 {
+		t.Fatal("combat frame should have event log entries from trace events")
+	}
+
+	for i, e := range entries {
+		if strings.TrimSpace(e.text) == "" {
+			t.Fatalf("event %d has empty text", i)
+		}
+	}
+
+	panel := stripANSI(renderEventPanel(sidePanelWidth, sf.events, sf.pr, sf.er))
+	if !strings.Contains(panel, "hit") {
+		t.Fatal("event panel should contain 'hit' from combat events")
+	}
+}
+
+func TestE2EEventStreamHitDirectionVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+	combatFrame := trace.Frames[4]
+	sf := traceFrameToScenarioFrame(combatFrame, "p1")
+
+	entries := sf.events.recent()
+
+	foundPlayerHit := false
+	foundMobHit := false
+	for _, e := range entries {
+		if strings.Contains(e.text, "p1") && strings.Contains(e.text, "m1") && strings.Contains(e.text, "hit") {
+			foundPlayerHit = true
+		}
+		if strings.Contains(e.text, "m1") && strings.Contains(e.text, "p1") && strings.Contains(e.text, "hit") {
+			foundMobHit = true
+		}
+	}
+	if !foundPlayerHit {
+		t.Fatal("expected player>mob hit event with actor>target direction visible")
+	}
+	if !foundMobHit {
+		t.Fatal("expected mob>player hit event with actor>target direction visible")
+	}
+}
+
+func TestE2EEventStreamNoDuplicateSpam(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+	combatFrame := trace.Frames[4]
+	sf := traceFrameToScenarioFrame(combatFrame, "p1")
+
+	entries := sf.events.recent()
+	if len(entries) < 2 {
+		t.Fatal("expected multiple event entries")
+	}
+
+	for i := 1; i < len(entries); i++ {
+		if entries[i].text == entries[i-1].text {
+			t.Fatalf("duplicate consecutive events at %d: %q", i, entries[i].text)
+		}
+	}
+}
+
+func TestE2EEventStreamOrderMatchesTrace(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+	combatFrame := trace.Frames[4]
+	sf := traceFrameToScenarioFrame(combatFrame, "p1")
+
+	entries := sf.events.recent()
+
+	if len(entries) < 4 {
+		t.Fatalf("expected at least 4 events, got %d", len(entries))
+	}
+
+	if !strings.Contains(entries[0].text, "p1") || !strings.Contains(entries[0].text, "hit") {
+		t.Fatalf("first event should be player hit, got %q", entries[0].text)
+	}
+
+	if !strings.Contains(entries[1].text, "m1") || !strings.Contains(entries[1].text, "hit") {
+		t.Fatalf("second event should be mob hit, got %q", entries[1].text)
+	}
+}
+
+func TestE2EEventStreamWipeDeathVisibleBeforeDeathFrame(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_wipe_reengage.json"))
+
+	deathFrameIdx := -1
+	for i, f := range trace.Frames {
+		for _, p := range f.Players {
+			if p.PlayerID == "p1" && p.HPCurrent <= 0 {
+				deathFrameIdx = i
+				break
+			}
+		}
+		if deathFrameIdx >= 0 {
+			break
+		}
+	}
+	if deathFrameIdx < 0 {
+		t.Fatal("no death frame found for p1")
+	}
+
+	var allEvents []traceEvent
+	for i := 0; i <= deathFrameIdx && i < len(trace.Frames); i++ {
+		allEvents = append(allEvents, trace.Frames[i].Events...)
+	}
+
+	foundDeath := false
+	for _, e := range allEvents {
+		if e.Kind == "player_death" && e.Target == "p1" {
+			foundDeath = true
+			break
+		}
+	}
+	if !foundDeath {
+		t.Fatal("expected player_death event for p1 at or before death frame")
+	}
+
+	foundMobHit := false
+	for _, e := range allEvents {
+		if e.Kind == "mob_hit" && e.Target == "p1" {
+			foundMobHit = true
+			break
+		}
+		if e.Kind == "player_death" && e.Target == "p1" {
+			break
+		}
+	}
+	if !foundMobHit {
+		t.Fatal("expected mob_hit events for p1 before player_death")
+	}
+}
+
+func TestE2EEventStreamWipeDeathRendersInPanel(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_wipe_reengage.json"))
+
+	var deathSF scenarioFrame
+	found := false
+	for _, f := range trace.Frames {
+		for _, e := range f.Events {
+			if e.Kind == "player_death" {
+				deathSF = traceFrameToScenarioFrame(f, "p1")
+				found = true
+				break
+			}
+		}
+		if found {
+			break
+		}
+	}
+	if !found {
+		t.Fatal("no frame with player_death events")
+	}
+
+	entries := deathSF.events.recent()
+	foundDeathEvent := false
+	for _, e := range entries {
+		if e.text == "DEFEAT" {
+			foundDeathEvent = true
+			break
+		}
+	}
+	if !foundDeathEvent {
+		t.Fatal("expected DEFEAT event in event log for death frame")
+	}
+
+	panel := stripANSI(renderEventPanel(sidePanelWidth, deathSF.events, deathSF.pr, deathSF.er))
+	if !strings.Contains(panel, "DEFEAT") {
+		t.Fatal("event panel should show DEFEAT for death frame")
+	}
+}
+
+func TestE2EEventStreamMobDefeatedVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+	combatFrame := trace.Frames[4]
+	sf := traceFrameToScenarioFrame(combatFrame, "p1")
+
+	entries := sf.events.recent()
+	foundDefeated := false
+	for _, e := range entries {
+		if e.text == "mob defeated" {
+			foundDefeated = true
+			break
+		}
+	}
+	if !foundDefeated {
+		t.Fatal("expected 'mob defeated' event in combat log")
+	}
+
+	panel := stripANSI(renderEventPanel(sidePanelWidth, sf.events, sf.pr, sf.er))
+	if !strings.Contains(panel, "mob defeated") {
+		t.Fatal("event panel should show 'mob defeated'")
 	}
 }
