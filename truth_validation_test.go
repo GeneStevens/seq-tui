@@ -1226,6 +1226,8 @@ type traceEvent struct {
 	ActionIndex   uint64 `json:"action_index,omitempty"`
 	BlockedReason string `json:"blocked_reason,omitempty"`
 	EncounterID   string `json:"encounter_id,omitempty"`
+	AbilityID     string `json:"ability_id,omitempty"`
+	Reason        string `json:"reason,omitempty"`
 }
 
 // --- Trace loader + adapter ---
@@ -1378,6 +1380,14 @@ func traceEventToText(te traceEvent, playerID string) string {
 		return "DEFEAT"
 	case "cooldown_blocked":
 		return eventTextForResult("cooldown_blocked", 0)
+	case "cast_start":
+		return eventTextForResult("cast_start", 0)
+	case "cast_complete":
+		return eventTextForResult("cast_complete", 0)
+	case "cast_denied":
+		return eventTextForResult("cast_denied", 0)
+	case "cast_cancelled":
+		return eventTextForResult("cast_cancelled", 0)
 	default:
 		return te.Kind
 	}
@@ -1387,8 +1397,10 @@ func traceEventKind(te traceEvent) string {
 	switch te.Kind {
 	case "player_hit", "mob_hit", "mob_death", "player_death":
 		return "combat"
-	case "cooldown_blocked":
+	case "cooldown_blocked", "cast_denied", "cast_cancelled":
 		return "denial"
+	case "cast_start", "cast_complete":
+		return "cast"
 	default:
 		return "enc"
 	}
@@ -2263,5 +2275,110 @@ func TestE2EAbilityCooldownSuccessAfterExpiry(t *testing.T) {
 	// Should NOT contain denial in this frame
 	if strings.Contains(panel4, "deny cooldown") {
 		t.Fatalf("frame 4: should not show denial in success frame, got:\n%s", panel4)
+	}
+}
+
+// === Cast Lifecycle E2E Tests ===
+
+func TestCastStartVisibleInEventStream(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_lifecycle.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: cast_start — should show "casting" in event panel
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderEventPanel(sidePanelWidth, f0.events, f0.pr, f0.er))
+	if !strings.Contains(panel0, "casting") {
+		t.Fatalf("frame 0: cast_start should show 'casting' in event panel, got:\n%s", panel0)
+	}
+}
+
+func TestCastCompleteVisibleInEventStream(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_lifecycle.json"))
+
+	// Frame 2: cast_complete + damage — should show both
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "cast complete") {
+		t.Fatalf("frame 2: cast_complete should show 'cast complete' in event panel, got:\n%s", panel2)
+	}
+	if !strings.Contains(panel2, "hit") {
+		t.Fatalf("frame 2: damage after cast_complete should show 'hit' in event panel, got:\n%s", panel2)
+	}
+	if !strings.Contains(panel2, "18") {
+		t.Fatalf("frame 2: damage value 18 should be visible after cast_complete, got:\n%s", panel2)
+	}
+}
+
+func TestCastDeniedVisibleInEventStream(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_lifecycle.json"))
+
+	// Frame 4: cast_denied — should show "deny cast" in event panel
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "deny cast") {
+		t.Fatalf("frame 4: cast_denied should show 'deny cast' in event panel, got:\n%s", panel4)
+	}
+}
+
+func TestCastLifecycleProgressionAcrossFrames(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_lifecycle.json"))
+
+	// Process frames 0 through 2 and verify ordering: cast_start appears first, then cast_complete later
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+
+	// Frame 0 should have casting but not cast complete
+	entries0 := f0.events.recent()
+	hasCasting := false
+	hasCastComplete := false
+	for _, e := range entries0 {
+		if e.text == "casting" {
+			hasCasting = true
+		}
+		if e.text == "cast complete" {
+			hasCastComplete = true
+		}
+	}
+	if !hasCasting {
+		t.Fatalf("frame 0: should have 'casting' event")
+	}
+	if hasCastComplete {
+		t.Fatalf("frame 0: should NOT have 'cast complete' event yet")
+	}
+
+	// Frame 2 should have cast complete
+	entries2 := f2.events.recent()
+	hasCastComplete = false
+	for _, e := range entries2 {
+		if e.text == "cast complete" {
+			hasCastComplete = true
+		}
+	}
+	if !hasCastComplete {
+		t.Fatalf("frame 2: should have 'cast complete' event")
+	}
+}
+
+func TestCastNoDuplicateSpam(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_lifecycle.json"))
+
+	// Process all frames and verify no duplicate consecutive identical event lines
+	var allEvents []eventEntry
+	for _, frame := range trace.Frames {
+		sf := traceFrameToScenarioFrame(frame, "p1")
+		entries := sf.events.recent()
+		allEvents = append(allEvents, entries...)
+	}
+
+	for i := 1; i < len(allEvents); i++ {
+		if allEvents[i].text == allEvents[i-1].text && allEvents[i].text != "" {
+			// Allow combat events like mob_hit to repeat (they are distinct combat rounds)
+			if allEvents[i].kind == "combat" {
+				continue
+			}
+			t.Fatalf("duplicate consecutive event at index %d: %q (kind=%s)", i, allEvents[i].text, allEvents[i].kind)
+		}
 	}
 }

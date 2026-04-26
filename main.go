@@ -139,6 +139,14 @@ func eventTextForResult(kind string, value int) string {
 		text = "cooldown"
 	case "cooldown_blocked":
 		text = "deny cooldown"
+	case "cast_start":
+		text = "casting"
+	case "cast_complete":
+		text = "cast complete"
+	case "cast_denied":
+		text = "deny cast"
+	case "cast_cancelled":
+		text = "cast cancelled"
 	case "blocked_wounded":
 		text = "blocked"
 	default:
