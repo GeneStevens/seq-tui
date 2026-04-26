@@ -8,12 +8,13 @@ import (
 
 func TestEventTextForResultDenialKinds(t *testing.T) {
 	cases := map[string]string{
-		"out_of_range":    "deny range",
-		"los_blocked":     "deny los",
-		"invalid_target":  "deny target",
-		"blocked_wounded": "blocked",
-		"damage_applied":  "hit 42",
-		"attack_miss":     "miss",
+		"out_of_range":     "deny range",
+		"los_blocked":      "deny los",
+		"invalid_target":   "deny target",
+		"cooldown_blocked": "deny cooldown",
+		"blocked_wounded":  "blocked",
+		"damage_applied":   "hit 42",
+		"attack_miss":      "miss",
 	}
 	for kind, expected := range cases {
 		value := 0

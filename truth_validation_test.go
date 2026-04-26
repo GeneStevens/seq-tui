@@ -1376,6 +1376,8 @@ func traceEventToText(te traceEvent, playerID string) string {
 		return "mob defeated"
 	case "player_death":
 		return "DEFEAT"
+	case "cooldown_blocked":
+		return eventTextForResult("cooldown_blocked", 0)
 	default:
 		return te.Kind
 	}
@@ -1385,6 +1387,8 @@ func traceEventKind(te traceEvent) string {
 	switch te.Kind {
 	case "player_hit", "mob_hit", "mob_death", "player_death":
 		return "combat"
+	case "cooldown_blocked":
+		return "denial"
 	default:
 		return "enc"
 	}
@@ -2171,5 +2175,93 @@ func TestE2EEventStreamMobDefeatedVisible(t *testing.T) {
 	panel := stripANSI(renderEventPanel(sidePanelWidth, sf.events, sf.pr, sf.er))
 	if !strings.Contains(panel, "mob defeated") {
 		t.Fatal("event panel should show 'mob defeated'")
+	}
+}
+
+// === M20260426-16 Ability Cooldown E2E Tests ===
+
+func TestE2EAbilityCooldownHitVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_ability_cooldown.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1: heavy_strike success — should show player hit in event panel
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "hit") {
+		t.Fatalf("frame 1: ability hit should be visible in event panel, got:\n%s", panel1)
+	}
+	if !strings.Contains(panel1, "38") {
+		t.Fatalf("frame 1: ability damage value 38 should be visible, got:\n%s", panel1)
+	}
+}
+
+func TestE2EAbilityCooldownDenialVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_ability_cooldown.json"))
+
+	// Frame 2: cooldown_blocked — should show denial in event panel
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "deny cooldown") {
+		t.Fatalf("frame 2: cooldown denial should show 'deny cooldown' in event panel, got:\n%s", panel2)
+	}
+}
+
+func TestE2EAbilityCooldownDenialNoActionIndexAdvance(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_ability_cooldown.json"))
+
+	// Frame 1: action_index = 1 after successful hit
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	if f1.er.Encounters[0].ActionIndex != 1 {
+		t.Fatalf("frame 1: expected action_index 1, got %d", f1.er.Encounters[0].ActionIndex)
+	}
+
+	// Frame 2: action_index still 1 after cooldown denial
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	if f2.er.Encounters[0].ActionIndex != 1 {
+		t.Fatalf("frame 2: expected action_index 1 (unchanged after denial), got %d", f2.er.Encounters[0].ActionIndex)
+	}
+
+	// Frame 4: action_index = 2 after second success
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	if f4.er.Encounters[0].ActionIndex != 2 {
+		t.Fatalf("frame 4: expected action_index 2 after second success, got %d", f4.er.Encounters[0].ActionIndex)
+	}
+}
+
+func TestE2EAbilityCooldownNoDuplicateSpam(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_ability_cooldown.json"))
+
+	// Frame 2: should have exactly one denial entry, not repeated
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	entries := f2.events.recent()
+	denialCount := 0
+	for _, e := range entries {
+		if e.text == "deny cooldown" {
+			denialCount++
+		}
+	}
+	if denialCount != 1 {
+		t.Fatalf("expected exactly 1 'deny cooldown' event, got %d", denialCount)
+	}
+}
+
+func TestE2EAbilityCooldownSuccessAfterExpiry(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_ability_cooldown.json"))
+
+	// Frame 4: second success after cooldown expires
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "hit") {
+		t.Fatalf("frame 4: second ability hit should be visible after cooldown expires, got:\n%s", panel4)
+	}
+	if !strings.Contains(panel4, "38") {
+		t.Fatalf("frame 4: damage value should be visible after cooldown expires, got:\n%s", panel4)
+	}
+
+	// Should NOT contain denial in this frame
+	if strings.Contains(panel4, "deny cooldown") {
+		t.Fatalf("frame 4: should not show denial in success frame, got:\n%s", panel4)
 	}
 }

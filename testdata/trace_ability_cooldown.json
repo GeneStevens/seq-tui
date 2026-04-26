@@ -1,0 +1,119 @@
+{
+  "scenario_name": "ability-cooldown-heavy-strike",
+  "frames": [
+    {
+      "step_index": 0,
+      "step_label": "join_player player=p1",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "orc_grunt", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120}
+      ],
+      "events": []
+    },
+    {
+      "step_index": 1,
+      "step_label": "heavy_strike player=p1 target=m1",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 95, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "orc_grunt", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 82, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-hs-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 82, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "player_hit", "actor": "p1", "target": "m1", "damage": 38, "action_index": 1, "encounter_id": "enc-hs-1"},
+        {"kind": "mob_hit", "actor": "m1", "target": "p1", "damage": 5, "action_index": 1, "encounter_id": "enc-hs-1"}
+      ]
+    },
+    {
+      "step_index": 2,
+      "step_label": "heavy_strike_denied player=p1 cooldown_blocked",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 90, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "orc_grunt", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 82, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-hs-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 82, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "cooldown_blocked", "actor": "p1", "target": "m1", "action_index": 1, "encounter_id": "enc-hs-1", "blocked_reason": "heavy_strike on cooldown"},
+        {"kind": "mob_hit", "actor": "m1", "target": "p1", "damage": 5, "action_index": 1, "encounter_id": "enc-hs-1"}
+      ]
+    },
+    {
+      "step_index": 3,
+      "step_label": "advance_time seconds=11.000",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 85, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "orc_grunt", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 82, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-hs-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 82, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "mob_hit", "actor": "m1", "target": "p1", "damage": 5, "action_index": 1, "encounter_id": "enc-hs-1"}
+      ]
+    },
+    {
+      "step_index": 4,
+      "step_label": "heavy_strike_success player=p1 after_cooldown",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 80, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "orc_grunt", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 44, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-hs-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 2,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 44, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "player_hit", "actor": "p1", "target": "m1", "damage": 38, "action_index": 2, "encounter_id": "enc-hs-1"},
+        {"kind": "mob_hit", "actor": "m1", "target": "p1", "damage": 5, "action_index": 2, "encounter_id": "enc-hs-1"}
+      ]
+    }
+  ]
+}

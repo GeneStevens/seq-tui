@@ -137,6 +137,8 @@ func eventTextForResult(kind string, value int) string {
 		text = "deny target"
 	case "cooldown_set":
 		text = "cooldown"
+	case "cooldown_blocked":
+		text = "deny cooldown"
 	case "blocked_wounded":
 		text = "blocked"
 	default:
