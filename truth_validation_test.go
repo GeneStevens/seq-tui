@@ -823,6 +823,326 @@ func TestTruthSpatialMapPanelIntegration(t *testing.T) {
 	}
 }
 
+// --- Temporal playback infrastructure ---
+
+// scenarioFrame holds one step of backend-owned state for playback validation.
+type scenarioFrame struct {
+	pr   playerReadResult
+	er   encounterReadResult
+	inv  inventoryReadResult
+	mobr mobReadResult
+	ar   attackResult
+	tc   targetConfirmResult
+}
+
+// === Temporal Validation Tests ===
+
+func TestTruthTemporalMovementProgression(t *testing.T) {
+	canvas, bounds := spatialCanvas(20, 10)
+	w, h := 20, 10
+
+	posA := playerPosResult{X: 10, Y: 10}
+	posB := playerPosResult{X: 40, Y: 40}
+
+	frameA := overlayPlayer(canvas, posA, bounds, w, h, false)
+	frameB := overlayPlayer(canvas, posB, bounds, w, h, false)
+
+	// Both frames must have player marker
+	if !strings.Contains(frameA, "@") {
+		t.Fatalf("frame A should show player marker, got:\n%s", frameA)
+	}
+	if !strings.Contains(frameB, "@") {
+		t.Fatalf("frame B should show player marker, got:\n%s", frameB)
+	}
+	// Player position should differ between frames
+	if frameA == frameB {
+		t.Fatalf("player marker should move between frames A and B")
+	}
+}
+
+func TestTruthTemporalDistanceTransition(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK, Position: playerPosResult{X: 20, Y: 0}, HasPos: true}
+	mobr := mobReadResult{
+		State: mobReadOK,
+		Mobs: []mobPosition{{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 25, Y: 0, Z: 0}}},
+		Count: 1,
+	}
+	ar := attackResult{}
+	entries := []rosterEntry{{kind: "mb", id: "live-orc-1", mobID: "orc-1", canonicalMobID: true}}
+	focus := rosterFocus{index: 0}
+
+	// Frame 1: out of range
+	tc1 := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "live-orc-1", Found: true, WithinProximity: false, Distance: 50}
+	panel1 := renderProximityPanel(sidePanelWidth, tc1, ar, mobr, pr, focus, entries)
+	stripped1 := stripANSI(panel1)
+
+	// Frame 2: in range
+	tc2 := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "live-orc-1", Found: true, WithinProximity: true, Distance: 5}
+	panel2 := renderProximityPanel(sidePanelWidth, tc2, ar, mobr, pr, focus, entries)
+	stripped2 := stripANSI(panel2)
+
+	if !strings.Contains(stripped1, "OOR") {
+		t.Fatalf("frame 1 should show OOR, got:\n%s", stripped1)
+	}
+	if !strings.Contains(stripped2, "IN RANGE") {
+		t.Fatalf("frame 2 should show IN RANGE, got:\n%s", stripped2)
+	}
+	if strings.Contains(stripped1, "IN RANGE") {
+		t.Fatalf("frame 1 should not show IN RANGE, got:\n%s", stripped1)
+	}
+}
+
+func TestTruthTemporalCombatProgression(t *testing.T) {
+	frames := []scenarioFrame{
+		// Frame 0: encounter just opened, full HP
+		{
+			pr: playerReadResult{State: playerReadOK, Position: playerPosResult{X: 20, Y: 0}, HasPos: true, ActiveEncounterID: "enc-prog", HasActiveEncounter: true},
+			er: encounterReadResult{State: encounterReadOK, Encounters: []encounterSummary{{
+				EncounterID: "enc-prog", State: "Active", PlayerIDs: []string{"p1"}, MobIDs: []string{"live-orc-1"},
+				PlayerCount: 1, MobCount: 1, MobsAlive: 1, MobsDead: 0, ActionIndex: 0,
+				MobThreat: []mobThreatEntry{{MobID: "live-orc-1", LiveMobID: "live-orc-1", HPCurrent: 100, HPMax: 100}},
+			}}, Count: 1},
+			inv: inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 100, HPMax: 100},
+			ar:  attackResult{State: attackStateSent, TargetID: "live-orc-1"},
+		},
+		// Frame 1: mid-combat, HP reduced
+		{
+			pr: playerReadResult{State: playerReadOK, Position: playerPosResult{X: 20, Y: 0}, HasPos: true, ActiveEncounterID: "enc-prog", HasActiveEncounter: true},
+			er: encounterReadResult{State: encounterReadOK, Encounters: []encounterSummary{{
+				EncounterID: "enc-prog", State: "Active", PlayerIDs: []string{"p1"}, MobIDs: []string{"live-orc-1"},
+				PlayerCount: 1, MobCount: 1, MobsAlive: 1, MobsDead: 0, ActionIndex: 5,
+				LatestResultKind: "damage_applied", LatestResultValue: 20,
+				MobThreat: []mobThreatEntry{{MobID: "live-orc-1", LiveMobID: "live-orc-1", HPCurrent: 40, HPMax: 100}},
+			}}, Count: 1},
+			inv: inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 70, HPMax: 100},
+			ar:  attackResult{State: attackStateSent, TargetID: "live-orc-1"},
+		},
+		// Frame 2: victory, mob dead
+		{
+			pr: playerReadResult{State: playerReadOK, Position: playerPosResult{X: 20, Y: 0}, HasPos: true, ActiveEncounterID: "enc-prog", HasActiveEncounter: true},
+			er: encounterReadResult{State: encounterReadOK, Encounters: []encounterSummary{{
+				EncounterID: "enc-prog", State: "Completed", CompletedReason: "all_mobs_dead",
+				PlayerIDs: []string{"p1"}, MobIDs: []string{"live-orc-1"},
+				PlayerCount: 1, MobCount: 1, MobsAlive: 0, MobsDead: 1, ActionIndex: 10,
+				XPAwarded: 150, DropsGenerated: true, Drops: []string{"loot-1"},
+				MobThreat: []mobThreatEntry{{MobID: "live-orc-1", LiveMobID: "live-orc-1", HPCurrent: 0, HPMax: 100}},
+			}}, Count: 1},
+			inv: inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 55, HPMax: 100},
+			ar:  attackResult{State: attackStateSent, TargetID: "live-orc-1"},
+		},
+	}
+
+	for i, f := range frames {
+		combat := renderCombatPanel(sidePanelWidth, f.ar, f.pr, f.er, defaultTarget(), f.inv, "")
+		stripped := stripANSI(combat)
+
+		switch i {
+		case 0:
+			if !strings.Contains(stripped, "[active]") {
+				t.Fatalf("frame 0: should show [active], got:\n%s", stripped)
+			}
+			if !strings.Contains(stripped, "100/100") {
+				t.Fatalf("frame 0: should show mob HP 100/100, got:\n%s", stripped)
+			}
+		case 1:
+			if !strings.Contains(stripped, "[active]") {
+				t.Fatalf("frame 1: should show [active], got:\n%s", stripped)
+			}
+			if !strings.Contains(stripped, "40/100") {
+				t.Fatalf("frame 1: should show mob HP 40/100, got:\n%s", stripped)
+			}
+		case 2:
+			if !strings.Contains(stripped, "VICTORY") {
+				t.Fatalf("frame 2: should show VICTORY, got:\n%s", stripped)
+			}
+		}
+	}
+
+	// Verify player HP progression through player panel
+	player0 := stripANSI(renderPlayerPanel(sidePanelWidth, frames[0].pr, frames[0].inv, respawnResult{}))
+	player1 := stripANSI(renderPlayerPanel(sidePanelWidth, frames[1].pr, frames[1].inv, respawnResult{}))
+	player2 := stripANSI(renderPlayerPanel(sidePanelWidth, frames[2].pr, frames[2].inv, respawnResult{}))
+
+	if !strings.Contains(player0, "100/100") {
+		t.Fatalf("frame 0: player HP should be 100/100, got:\n%s", player0)
+	}
+	if !strings.Contains(player1, "70/100") {
+		t.Fatalf("frame 1: player HP should be 70/100, got:\n%s", player1)
+	}
+	if !strings.Contains(player2, "55/100") {
+		t.Fatalf("frame 2: player HP should be 55/100, got:\n%s", player2)
+	}
+
+	// Verify outcome panel on victory frame
+	outcome := stripANSI(renderOutcomePanel(sidePanelWidth, frames[2].pr, frames[2].er))
+	if !strings.Contains(outcome, "xp +150") {
+		t.Fatalf("frame 2: outcome should show xp +150, got:\n%s", outcome)
+	}
+}
+
+func TestTruthTemporalPlayerDeathProgression(t *testing.T) {
+	// Frame 0: alive, low HP
+	inv0 := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 10, HPMax: 100}
+	pr0 := playerReadResult{State: playerReadOK, Position: playerPosResult{X: 20, Y: 0}, HasPos: true}
+	panel0 := stripANSI(renderPlayerPanel(sidePanelWidth, pr0, inv0, respawnResult{}))
+
+	// Frame 1: dead
+	inv1 := inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: false, BlockedReason: "player_dead", HPCurrent: 0, HPMax: 100}
+	panel1 := stripANSI(renderPlayerPanel(sidePanelWidth, pr0, inv1, respawnResult{}))
+
+	// Frame 2: respawn sent
+	panel2 := stripANSI(renderPlayerPanel(sidePanelWidth, pr0, inv1, respawnResult{State: respawnStateSent}))
+
+	if strings.Contains(panel0, "DEAD") {
+		t.Fatalf("frame 0: should not show DEAD at 10 HP, got:\n%s", panel0)
+	}
+	if !strings.Contains(panel0, "10/100") {
+		t.Fatalf("frame 0: should show 10/100, got:\n%s", panel0)
+	}
+	if !strings.Contains(panel1, "DEAD") {
+		t.Fatalf("frame 1: should show DEAD, got:\n%s", panel1)
+	}
+	if !strings.Contains(panel1, "0/100") {
+		t.Fatalf("frame 1: should show 0/100, got:\n%s", panel1)
+	}
+	_ = panel2 // respawn sent frame compiled and rendered
+}
+
+func TestTruthTemporalTargetingChange(t *testing.T) {
+	mobs := []mobPosition{
+		{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 25, Y: 0, Z: 0}},
+		{MobID: "orc-2", LiveMobID: "live-orc-2", Position: mobPosVec3{X: 30, Y: 0, Z: 0}},
+	}
+	canvas, bounds := spatialCanvas(20, 10)
+	w, h := 20, 10
+
+	// Frame 0: orc-1 focused
+	map0 := overlayMobs(canvas, mobs, bounds, w, h)
+	map0 = overlayFocusedMob(map0, mobs, "live-orc-1", bounds, w, h)
+
+	// Frame 1: orc-2 focused
+	map1 := overlayMobs(canvas, mobs, bounds, w, h)
+	map1 = overlayFocusedMob(map1, mobs, "live-orc-2", bounds, w, h)
+
+	// Both frames should have 'T' marker
+	if !strings.Contains(map0, "T") {
+		t.Fatalf("frame 0: should show target marker T for orc-1, got:\n%s", map0)
+	}
+	if !strings.Contains(map1, "T") {
+		t.Fatalf("frame 1: should show target marker T for orc-2, got:\n%s", map1)
+	}
+	// Target should move between frames
+	if map0 == map1 {
+		t.Fatalf("target marker T should be at different position between frames")
+	}
+}
+
+func TestTruthTemporalMultiPlayerProgression(t *testing.T) {
+	frames := []scenarioFrame{
+		// Frame 0: p1 alone in encounter
+		{
+			pr: playerReadResult{State: playerReadOK, Position: playerPosResult{X: 20, Y: 0}, HasPos: true, ActiveEncounterID: "enc-mp", HasActiveEncounter: true},
+			er: encounterReadResult{State: encounterReadOK, Encounters: []encounterSummary{{
+				EncounterID: "enc-mp", State: "Active", PlayerIDs: []string{"p1"}, MobIDs: []string{"live-orc-1"},
+				PlayerCount: 1, MobCount: 1, MobsAlive: 1, MobsDead: 0, ActionIndex: 1,
+				MobThreat: []mobThreatEntry{{MobID: "live-orc-1", LiveMobID: "live-orc-1", SelectedTargetPlayerID: "p1", HPCurrent: 100, HPMax: 100}},
+			}}, Count: 1},
+			inv: inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 90, HPMax: 100},
+			ar:  attackResult{State: attackStateSent, TargetID: "live-orc-1"},
+		},
+		// Frame 1: p2 joins
+		{
+			pr: playerReadResult{State: playerReadOK, Position: playerPosResult{X: 20, Y: 0}, HasPos: true, ActiveEncounterID: "enc-mp", HasActiveEncounter: true},
+			er: encounterReadResult{State: encounterReadOK, Encounters: []encounterSummary{{
+				EncounterID: "enc-mp", State: "Active", PlayerIDs: []string{"p1", "p2"}, MobIDs: []string{"live-orc-1"},
+				PlayerCount: 2, MobCount: 1, MobsAlive: 1, MobsDead: 0, ActionIndex: 3,
+				MobThreat: []mobThreatEntry{{MobID: "live-orc-1", LiveMobID: "live-orc-1", SelectedTargetPlayerID: "p1", HPCurrent: 60, HPMax: 100}},
+			}}, Count: 1},
+			inv: inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 80, HPMax: 100},
+			ar:  attackResult{State: attackStateSent, TargetID: "live-orc-1"},
+		},
+		// Frame 2: mob dies, victory
+		{
+			pr: playerReadResult{State: playerReadOK, Position: playerPosResult{X: 20, Y: 0}, HasPos: true, ActiveEncounterID: "enc-mp", HasActiveEncounter: true},
+			er: encounterReadResult{State: encounterReadOK, Encounters: []encounterSummary{{
+				EncounterID: "enc-mp", State: "Completed", CompletedReason: "all_mobs_dead",
+				PlayerIDs: []string{"p1", "p2"}, MobIDs: []string{"live-orc-1"},
+				PlayerCount: 2, MobCount: 1, MobsAlive: 0, MobsDead: 1, ActionIndex: 8,
+				XPAwarded: 200,
+				MobThreat: []mobThreatEntry{{MobID: "live-orc-1", LiveMobID: "live-orc-1", HPCurrent: 0, HPMax: 100}},
+			}}, Count: 1},
+			inv: inventoryReadResult{State: inventoryReadOK, HasLifecycle: true, CanAct: true, HPCurrent: 75, HPMax: 100},
+			ar:  attackResult{State: attackStateSent, TargetID: "live-orc-1"},
+		},
+	}
+
+	// Frame 0: only p1 in encounter panel
+	focus0 := rosterFocus{index: 0}
+	enc0 := stripANSI(renderEncounterPanel(sidePanelWidth, frames[0].pr, frames[0].er, focus0, "p1"))
+	if !strings.Contains(enc0, "p1") {
+		t.Fatalf("frame 0: encounter panel should show p1, got:\n%s", enc0)
+	}
+	if strings.Contains(enc0, "p2") {
+		t.Fatalf("frame 0: encounter panel should not show p2 yet, got:\n%s", enc0)
+	}
+
+	// Frame 1: p1 and p2 both visible
+	enc1 := stripANSI(renderEncounterPanel(sidePanelWidth, frames[1].pr, frames[1].er, focus0, "p1"))
+	if !strings.Contains(enc1, "p1") || !strings.Contains(enc1, "p2") {
+		t.Fatalf("frame 1: encounter panel should show both p1 and p2, got:\n%s", enc1)
+	}
+
+	// Frame 1: mob HP decreased
+	combat1 := stripANSI(renderCombatPanel(sidePanelWidth, frames[1].ar, frames[1].pr, frames[1].er, defaultTarget(), frames[1].inv, ""))
+	if !strings.Contains(combat1, "60/100") {
+		t.Fatalf("frame 1: should show mob HP 60/100, got:\n%s", combat1)
+	}
+
+	// Frame 2: victory
+	combat2 := stripANSI(renderCombatPanel(sidePanelWidth, frames[2].ar, frames[2].pr, frames[2].er, defaultTarget(), frames[2].inv, ""))
+	if !strings.Contains(combat2, "VICTORY") {
+		t.Fatalf("frame 2: should show VICTORY, got:\n%s", combat2)
+	}
+
+	// Frame 2: mob dead in roster
+	enc2 := findPlayerEncounter(frames[2].er.Encounters, "enc-mp")
+	roster2 := renderCombatMobRoster(enc2, frames[2].ar, "p1", sidePanelWidth, "")
+	joined2 := stripANSI(strings.Join(roster2, "\n"))
+	if !strings.Contains(joined2, "(dead)") {
+		t.Fatalf("frame 2: mob roster should show (dead), got:\n%s", joined2)
+	}
+}
+
+func TestTruthTemporalMobRetarget(t *testing.T) {
+	// Frame 0: mob targeting p1
+	enc0 := encounterSummary{
+		EncounterID: "enc-retarget", State: "Active", PlayerIDs: []string{"p1", "p2"}, MobIDs: []string{"live-orc-1"},
+		PlayerCount: 2, MobCount: 1, MobsAlive: 1, MobsDead: 0,
+		MobThreat: []mobThreatEntry{{MobID: "live-orc-1", LiveMobID: "live-orc-1", SelectedTargetPlayerID: "p1", HPCurrent: 80, HPMax: 100}},
+	}
+	ar := attackResult{State: attackStateSent, TargetID: "live-orc-1"}
+	roster0 := renderCombatMobRoster(&enc0, ar, "p1", sidePanelWidth, "")
+	joined0 := stripANSI(strings.Join(roster0, "\n"))
+
+	// Frame 1: mob retargets to p2
+	enc1 := enc0
+	enc1.MobThreat = []mobThreatEntry{{MobID: "live-orc-1", LiveMobID: "live-orc-1", SelectedTargetPlayerID: "p2", HPCurrent: 60, HPMax: 100}}
+	roster1 := renderCombatMobRoster(&enc1, ar, "p1", sidePanelWidth, "")
+	joined1 := stripANSI(strings.Join(roster1, "\n"))
+
+	// Both frames should show mob identity
+	if !strings.Contains(joined0, "orc-1") {
+		t.Fatalf("frame 0: roster should show orc-1, got:\n%s", joined0)
+	}
+	if !strings.Contains(joined1, "orc-1") {
+		t.Fatalf("frame 1: roster should show orc-1, got:\n%s", joined1)
+	}
+	// Targeting indicator should change
+	if joined0 == joined1 {
+		t.Fatalf("mob roster should differ when target changes from p1 to p2")
+	}
+}
+
 // --- Deferred backend facts ---
 // The following backend-owned facts are not currently surfaced in the TUI
 // and are intentionally not tested here. If they are added in future missions,
@@ -833,3 +1153,4 @@ func TestTruthSpatialMapPanelIntegration(t *testing.T) {
 // - encounter timeline / action history details beyond latest result
 // - other-player position overlay in multiplayer map viewport
 // - mob name labels on map viewport
+// - respawn confirmation rendering (respawnStateOK transition)
