@@ -1,6 +1,9 @@
 package main
 
 import (
+	"encoding/json"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -643,7 +646,7 @@ func TestTruthMultiplayerNoGhostParticipants(t *testing.T) {
 func spatialCanvas(w, h int) (string, mapBounds) {
 	bounds := mapBounds{MinX: 0, MaxX: 50, MinZ: 0, MaxZ: 50, SpanX: 50, SpanZ: 50}
 	var sb strings.Builder
-	for r := 0; r < h; r++ {
+	for r := range h {
 		if r > 0 {
 			sb.WriteByte('\n')
 		}
@@ -1154,3 +1157,406 @@ func TestTruthTemporalMobRetarget(t *testing.T) {
 // - other-player position overlay in multiplayer map viewport
 // - mob name labels on map viewport
 // - respawn confirmation rendering (respawnStateOK transition)
+
+// --- E2E trace ingestion types ---
+
+type traceFile struct {
+	ScenarioName string       `json:"scenario_name"`
+	Frames       []traceFrame `json:"frames"`
+}
+
+type traceFrame struct {
+	StepIndex int             `json:"step_index"`
+	StepLabel string          `json:"step_label"`
+	Players   []tracePlayer   `json:"players"`
+	Mobs      []traceMob      `json:"mobs"`
+	Encounter *traceEncounter `json:"encounter,omitempty"`
+}
+
+type tracePlayer struct {
+	PlayerID  string  `json:"player_id"`
+	X         float64 `json:"x"`
+	Y         float64 `json:"y"`
+	Z         float64 `json:"z"`
+	HPCurrent int     `json:"hp_current"`
+	HPMax     int     `json:"hp_max"`
+	CanAct    bool    `json:"can_act"`
+	XPCurrent int     `json:"xp_current"`
+}
+
+type traceEncounter struct {
+	EncounterID     string           `json:"encounter_id"`
+	State           string           `json:"state"`
+	CompletedReason string           `json:"completed_reason"`
+	PlayerIDs       []string         `json:"player_ids"`
+	MobIDs          []string         `json:"mob_ids"`
+	MobsAlive       int              `json:"mobs_alive"`
+	MobsDead        int              `json:"mobs_dead"`
+	ActionIndex     uint64           `json:"action_index"`
+	XPAwarded       int              `json:"xp_awarded"`
+	MobThreat       []traceMobThreat `json:"mob_threat"`
+}
+
+type traceMobThreat struct {
+	MobID                  string `json:"mob_id"`
+	SelectedTargetPlayerID string `json:"selected_target_player_id"`
+	HPCurrent              int    `json:"hp_current"`
+	HPMax                  int    `json:"hp_max"`
+}
+
+type traceMob struct {
+	MobID     string  `json:"mob_id"`
+	MobName   string  `json:"mob_name"`
+	State     string  `json:"state"`
+	X         float64 `json:"x"`
+	Y         float64 `json:"y"`
+	Z         float64 `json:"z"`
+	HPCurrent int     `json:"hp_current"`
+	HPMax     int     `json:"hp_max"`
+}
+
+// --- Trace loader + adapter ---
+
+func loadScenarioTrace(t *testing.T, path string) traceFile {
+	t.Helper()
+	data, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatalf("failed to read trace file %s: %v", path, err)
+	}
+	var tf traceFile
+	if err := json.Unmarshal(data, &tf); err != nil {
+		t.Fatalf("failed to decode trace file %s: %v", path, err)
+	}
+	return tf
+}
+
+func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
+	// Find the player in the frame
+	var player *tracePlayer
+	for i := range tf.Players {
+		if tf.Players[i].PlayerID == playerID {
+			player = &tf.Players[i]
+			break
+		}
+	}
+
+	// Build playerReadResult
+	pr := playerReadResult{State: playerReadOK}
+	if player != nil {
+		pr.Position = playerPosResult{X: player.X, Y: player.Y}
+		pr.HasPos = true
+	}
+
+	// Build encounterReadResult
+	er := encounterReadResult{State: encounterReadOK}
+	ar := attackResult{}
+	if tf.Encounter != nil {
+		enc := tf.Encounter
+		pr.ActiveEncounterID = enc.EncounterID
+		pr.HasActiveEncounter = true
+
+		// Build mob threat from encounter mob_threat; if absent, synthesize
+		// from trace mob data so dead mobs have HP 0 entries for rendering.
+		var threat []mobThreatEntry
+		if len(enc.MobThreat) > 0 {
+			for _, mt := range enc.MobThreat {
+				threat = append(threat, mobThreatEntry{
+					MobID:                  mt.MobID,
+					LiveMobID:              mt.MobID,
+					SelectedTargetPlayerID: mt.SelectedTargetPlayerID,
+					HPCurrent:              mt.HPCurrent,
+					HPMax:                  mt.HPMax,
+				})
+			}
+		} else {
+			// Synthesize from trace mobs for encounter mob IDs
+			for _, mid := range enc.MobIDs {
+				for _, m := range tf.Mobs {
+					if m.MobID == mid {
+						threat = append(threat, mobThreatEntry{
+							MobID:     m.MobID,
+							LiveMobID: m.MobID,
+							HPCurrent: m.HPCurrent,
+							HPMax:     m.HPMax,
+						})
+						break
+					}
+				}
+			}
+		}
+
+		es := encounterSummary{
+			EncounterID:     enc.EncounterID,
+			State:           enc.State,
+			CompletedReason: enc.CompletedReason,
+			PlayerIDs:       enc.PlayerIDs,
+			MobIDs:          enc.MobIDs,
+			PlayerCount:     len(enc.PlayerIDs),
+			MobCount:        len(enc.MobIDs),
+			MobsAlive:       enc.MobsAlive,
+			MobsDead:        enc.MobsDead,
+			ActionIndex:     enc.ActionIndex,
+			XPAwarded:       enc.XPAwarded,
+			MobThreat:       threat,
+		}
+		er.Encounters = []encounterSummary{es}
+		er.Count = 1
+
+		// If there are mobs in the encounter, set attack target to first mob
+		if len(enc.MobIDs) > 0 {
+			ar = attackResult{State: attackStateSent, TargetID: enc.MobIDs[0]}
+		}
+	}
+
+	// Build inventoryReadResult from player lifecycle
+	inv := inventoryReadResult{State: inventoryReadOK}
+	if player != nil {
+		inv.HasLifecycle = true
+		inv.CanAct = player.CanAct
+		inv.HPCurrent = player.HPCurrent
+		inv.HPMax = player.HPMax
+	}
+
+	// Build mobReadResult
+	mobs := make([]mobPosition, 0, len(tf.Mobs))
+	for _, m := range tf.Mobs {
+		mobs = append(mobs, mobPosition{
+			MobID:     m.MobID,
+			LiveMobID: m.MobID,
+			Position:  mobPosVec3{X: m.X, Y: m.Y, Z: m.Z},
+		})
+	}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: len(mobs)}
+
+	// Build targetConfirmResult (for first mob in encounter, if any)
+	tc := targetConfirmResult{}
+	if tf.Encounter != nil && len(tf.Encounter.MobIDs) > 0 {
+		tc = targetConfirmResult{
+			State:           targetConfirmOK,
+			TargetKind:      "mb",
+			TargetID:        tf.Encounter.MobIDs[0],
+			Found:           true,
+			WithinProximity: true,
+			Distance:        5,
+		}
+	}
+
+	return scenarioFrame{pr: pr, er: er, inv: inv, mobr: mobr, ar: ar, tc: tc}
+}
+
+// === E2E Validation Tests ===
+
+func TestE2ECombat1v1Lifecycle(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: player joined, no encounter
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	player0 := stripANSI(renderPlayerPanel(sidePanelWidth, f0.pr, f0.inv, respawnResult{}))
+	if !strings.Contains(player0, "100/100") {
+		t.Fatalf("frame 0: player should have full HP 100/100, got:\n%s", player0)
+	}
+
+	// Frame 4: combat completed (attack_until_complete runs to completion)
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	combat4 := stripANSI(renderCombatPanel(sidePanelWidth, f4.ar, f4.pr, f4.er, defaultTarget(), f4.inv, ""))
+	if !strings.Contains(combat4, "VICTORY") {
+		t.Fatalf("frame 4: should show VICTORY after combat, got:\n%s", combat4)
+	}
+
+	// Frame 4: player HP should be reduced (took damage during combat)
+	player4 := stripANSI(renderPlayerPanel(sidePanelWidth, f4.pr, f4.inv, respawnResult{}))
+	if strings.Contains(player4, "100/100") {
+		t.Fatalf("frame 4: player HP should be reduced after combat, got:\n%s", player4)
+	}
+
+	// Frame 4: mob should be dead in roster
+	if f4.er.Count > 0 {
+		enc := findPlayerEncounter(f4.er.Encounters, f4.pr.ActiveEncounterID)
+		if enc != nil {
+			roster := renderCombatMobRoster(enc, f4.ar, "p1", sidePanelWidth, "")
+			joined := stripANSI(strings.Join(roster, "\n"))
+			if !strings.Contains(joined, "(dead)") {
+				t.Fatalf("frame 4: mob roster should show (dead), got:\n%s", joined)
+			}
+		}
+	}
+
+	// Frame 5: same state (assert frame) — XP awarded
+	f5 := traceFrameToScenarioFrame(trace.Frames[5], "p1")
+	outcome5 := stripANSI(renderOutcomePanel(sidePanelWidth, f5.pr, f5.er))
+	if !strings.Contains(outcome5, "xp +50") {
+		t.Fatalf("frame 5: outcome should show xp +50, got:\n%s", outcome5)
+	}
+}
+
+func TestE2ECombat1v1SpatialProgression(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+
+	// Frame 0: player at origin
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	canvas0, bounds := spatialCanvas(20, 10)
+	map0 := overlayPlayer(canvas0, f0.pr.Position, bounds, 20, 10, false)
+	if !strings.Contains(map0, "@") {
+		t.Fatalf("frame 0: should show player marker @, got:\n%s", map0)
+	}
+
+	// Frame 0: mobs visible
+	mob0 := overlayMobs(canvas0, f0.mobr.Mobs, bounds, 20, 10)
+	if !strings.Contains(mob0, "m") {
+		t.Fatalf("frame 0: should show mob marker m, got:\n%s", mob0)
+	}
+
+	// Frame 2: player moved to range (position changed)
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	canvas2, _ := spatialCanvas(20, 10)
+	map2 := overlayPlayer(canvas2, f2.pr.Position, bounds, 20, 10, false)
+	if !strings.Contains(map2, "@") {
+		t.Fatalf("frame 2: should show player marker @ after move, got:\n%s", map2)
+	}
+
+	// Player position should differ between frame 0 and frame 2
+	if f0.pr.Position.X == f2.pr.Position.X && f0.pr.Position.Y == f2.pr.Position.Y {
+		t.Fatalf("player position should change between frame 0 and frame 2")
+	}
+}
+
+func TestE2EMultiplayerLifecycle(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_group_2p_1m.json"))
+	if len(trace.Frames) < 11 {
+		t.Fatalf("expected at least 11 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: only p1 exists
+	if len(trace.Frames[0].Players) != 1 {
+		t.Fatalf("frame 0: expected 1 player, got %d", len(trace.Frames[0].Players))
+	}
+
+	// Frame 1: p2 joins
+	if len(trace.Frames[1].Players) != 2 {
+		t.Fatalf("frame 1: expected 2 players, got %d", len(trace.Frames[1].Players))
+	}
+
+	// Frame 6: encounter_join — both players in encounter
+	f6 := traceFrameToScenarioFrame(trace.Frames[6], "p1")
+	if f6.er.Count == 0 {
+		t.Fatalf("frame 6: should have encounter after encounter_join")
+	}
+	enc6 := f6.er.Encounters[0]
+	if len(enc6.PlayerIDs) != 2 {
+		t.Fatalf("frame 6: encounter should have 2 players, got %d", len(enc6.PlayerIDs))
+	}
+	focus6 := rosterFocus{index: 0}
+	encPanel6 := stripANSI(renderEncounterPanel(sidePanelWidth, f6.pr, f6.er, focus6, "p1"))
+	if !strings.Contains(encPanel6, "p1") || !strings.Contains(encPanel6, "p2") {
+		t.Fatalf("frame 6: encounter panel should show both p1 and p2, got:\n%s", encPanel6)
+	}
+
+	// Frame 9: combat complete, victory
+	f9 := traceFrameToScenarioFrame(trace.Frames[9], "p1")
+	combat9 := stripANSI(renderCombatPanel(sidePanelWidth, f9.ar, f9.pr, f9.er, defaultTarget(), f9.inv, ""))
+	if !strings.Contains(combat9, "VICTORY") {
+		t.Fatalf("frame 9: should show VICTORY, got:\n%s", combat9)
+	}
+
+	// Frame 9: both players took damage (HP < 100)
+	f9p1 := traceFrameToScenarioFrame(trace.Frames[9], "p1")
+	f9p2 := traceFrameToScenarioFrame(trace.Frames[9], "p2")
+	player9p1 := stripANSI(renderPlayerPanel(sidePanelWidth, f9p1.pr, f9p1.inv, respawnResult{}))
+	player9p2 := stripANSI(renderPlayerPanel(sidePanelWidth, f9p2.pr, f9p2.inv, respawnResult{}))
+	if strings.Contains(player9p1, "100/100") {
+		t.Fatalf("frame 9: p1 HP should be reduced, got:\n%s", player9p1)
+	}
+	if strings.Contains(player9p2, "100/100") {
+		t.Fatalf("frame 9: p2 HP should be reduced, got:\n%s", player9p2)
+	}
+
+	// Frame 10: XP awarded
+	f10 := traceFrameToScenarioFrame(trace.Frames[10], "p1")
+	outcome10 := stripANSI(renderOutcomePanel(sidePanelWidth, f10.pr, f10.er))
+	if !strings.Contains(outcome10, "xp +50") {
+		t.Fatalf("frame 10: outcome should show xp +50, got:\n%s", outcome10)
+	}
+
+	// No ghost players — only p1 and p2 in frame 10
+	if len(trace.Frames[10].Players) != 2 {
+		t.Fatalf("frame 10: expected 2 players, got %d", len(trace.Frames[10].Players))
+	}
+}
+
+func TestE2ETraceAdapterRoundtrip(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+
+	for i, frame := range trace.Frames {
+		sf := traceFrameToScenarioFrame(frame, "p1")
+
+		// Every frame should produce a renderable player panel
+		panel := renderPlayerPanel(sidePanelWidth, sf.pr, sf.inv, respawnResult{})
+		if panel == "" {
+			t.Fatalf("frame %d: player panel should not be empty", i)
+		}
+
+		// If encounter exists, combat panel should render
+		if sf.er.Count > 0 {
+			combat := renderCombatPanel(sidePanelWidth, sf.ar, sf.pr, sf.er, defaultTarget(), sf.inv, "")
+			if combat == "" {
+				t.Fatalf("frame %d: combat panel should not be empty when encounter exists", i)
+			}
+		}
+	}
+}
+
+func TestE2ETraceDeterminism(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+
+	// Convert and render same frame twice — output must be identical
+	for i, frame := range trace.Frames {
+		sf1 := traceFrameToScenarioFrame(frame, "p1")
+		sf2 := traceFrameToScenarioFrame(frame, "p1")
+
+		panel1 := renderPlayerPanel(sidePanelWidth, sf1.pr, sf1.inv, respawnResult{})
+		panel2 := renderPlayerPanel(sidePanelWidth, sf2.pr, sf2.inv, respawnResult{})
+		if panel1 != panel2 {
+			t.Fatalf("frame %d: deterministic render failed — player panel differs between runs", i)
+		}
+
+		if sf1.er.Count > 0 {
+			c1 := renderCombatPanel(sidePanelWidth, sf1.ar, sf1.pr, sf1.er, defaultTarget(), sf1.inv, "")
+			c2 := renderCombatPanel(sidePanelWidth, sf2.ar, sf2.pr, sf2.er, defaultTarget(), sf2.inv, "")
+			if c1 != c2 {
+				t.Fatalf("frame %d: deterministic render failed — combat panel differs between runs", i)
+			}
+		}
+	}
+}
+
+func TestE2ECombat1v1MobStateTracking(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+
+	// Frame 0: mob should be alive
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	if len(f0.mobr.Mobs) == 0 {
+		t.Fatalf("frame 0: should have mobs")
+	}
+
+	// Frame 0: mob visible on map
+	canvas, bounds := spatialCanvas(20, 10)
+	mobMap := overlayMobs(canvas, f0.mobr.Mobs, bounds, 20, 10)
+	if !strings.Contains(mobMap, "m") {
+		t.Fatalf("frame 0: should show mob marker, got:\n%s", mobMap)
+	}
+
+	// Frame 4: encounter completed — check mob dead in encounter data
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	if f4.er.Count > 0 {
+		enc := f4.er.Encounters[0]
+		if enc.MobsDead != 1 {
+			t.Fatalf("frame 4: expected 1 dead mob, got %d", enc.MobsDead)
+		}
+		if enc.MobsAlive != 0 {
+			t.Fatalf("frame 4: expected 0 alive mobs, got %d", enc.MobsAlive)
+		}
+	}
+}
