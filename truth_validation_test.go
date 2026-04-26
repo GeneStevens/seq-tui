@@ -2382,3 +2382,158 @@ func TestCastNoDuplicateSpam(t *testing.T) {
 		}
 	}
 }
+
+// --- Cast Interrupt / Movement Cancel Tests (trace_cast_interrupt.json) ---
+
+func TestCastCancelledByMovementVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_interrupt.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1: cast_cancelled by movement — should show "cast cancelled" in event panel
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "cast cancelled") {
+		t.Fatalf("frame 1: cast_cancelled should show 'cast cancelled' in event panel, got:\n%s", panel1)
+	}
+	// Should NOT contain damage text
+	if strings.Contains(panel1, "hit") {
+		t.Fatalf("frame 1: cast_cancelled frame should NOT show 'hit' (no damage), got:\n%s", panel1)
+	}
+}
+
+func TestCastRecastAfterCancelVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_interrupt.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Process frames 1 (cancel), 2 (recast), 3 (complete+damage)
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+
+	// Frame 1: cast_cancelled appears
+	entries1 := f1.events.recent()
+	hasCancelled := false
+	for _, e := range entries1 {
+		if e.text == "cast cancelled" {
+			hasCancelled = true
+		}
+	}
+	if !hasCancelled {
+		t.Fatalf("frame 1: should have 'cast cancelled' event")
+	}
+
+	// Frame 2: cast_start appears again (recast)
+	entries2 := f2.events.recent()
+	hasCasting := false
+	for _, e := range entries2 {
+		if e.text == "casting" {
+			hasCasting = true
+		}
+	}
+	if !hasCasting {
+		t.Fatalf("frame 2: should have 'casting' event after recast")
+	}
+
+	// Frame 3: cast_complete + damage
+	entries3 := f3.events.recent()
+	hasCastComplete := false
+	hasDamage := false
+	for _, e := range entries3 {
+		if e.text == "cast complete" {
+			hasCastComplete = true
+		}
+		if strings.Contains(e.text, "hit") && strings.Contains(e.text, "18") {
+			hasDamage = true
+		}
+	}
+	if !hasCastComplete {
+		t.Fatalf("frame 3: should have 'cast complete' event")
+	}
+	if !hasDamage {
+		t.Fatalf("frame 3: should have damage event with value 18")
+	}
+}
+
+func TestCastInterruptReasonReadable(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_interrupt.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1: reason=movement — renders as "cast cancelled"
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "cast cancelled") {
+		t.Fatalf("frame 1 (reason=movement): should render 'cast cancelled', got:\n%s", panel1)
+	}
+
+	// Frame 4: reason=interrupted — also renders as "cast cancelled"
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "cast cancelled") {
+		t.Fatalf("frame 4 (reason=interrupted): should render 'cast cancelled', got:\n%s", panel4)
+	}
+}
+
+func TestCastInterruptNoDuplicateSpam(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_interrupt.json"))
+
+	// Process all frames and verify no duplicate consecutive identical event lines
+	var allEvents []eventEntry
+	for _, frame := range trace.Frames {
+		sf := traceFrameToScenarioFrame(frame, "p1")
+		entries := sf.events.recent()
+		allEvents = append(allEvents, entries...)
+	}
+
+	for i := 1; i < len(allEvents); i++ {
+		if allEvents[i].text == allEvents[i-1].text && allEvents[i].text != "" {
+			// Allow combat events to repeat (distinct rounds)
+			if allEvents[i].kind == "combat" {
+				continue
+			}
+			t.Fatalf("duplicate consecutive event at index %d: %q (kind=%s)", i, allEvents[i].text, allEvents[i].kind)
+		}
+	}
+}
+
+func TestCastInterruptEventOrdering(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_interrupt.json"))
+	if len(trace.Frames) < 2 {
+		t.Fatalf("expected at least 2 frames, got %d", len(trace.Frames))
+	}
+
+	// Process frames 0 and 1 and verify cast_start text appears BEFORE cast_cancelled
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+
+	// Collect events in order across both frames
+	var allEvents []eventEntry
+	allEvents = append(allEvents, f0.events.recent()...)
+	allEvents = append(allEvents, f1.events.recent()...)
+
+	castingIdx := -1
+	cancelledIdx := -1
+	for i, e := range allEvents {
+		if e.text == "casting" && castingIdx == -1 {
+			castingIdx = i
+		}
+		if e.text == "cast cancelled" && cancelledIdx == -1 {
+			cancelledIdx = i
+		}
+	}
+
+	if castingIdx == -1 {
+		t.Fatalf("expected 'casting' event in frames 0-1")
+	}
+	if cancelledIdx == -1 {
+		t.Fatalf("expected 'cast cancelled' event in frames 0-1")
+	}
+	if castingIdx >= cancelledIdx {
+		t.Fatalf("'casting' (index %d) should appear before 'cast cancelled' (index %d)", castingIdx, cancelledIdx)
+	}
+}

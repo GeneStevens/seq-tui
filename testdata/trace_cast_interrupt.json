@@ -1,0 +1,131 @@
+{
+  "scenario_name": "cast-interrupt-movement-cancel",
+  "frames": [
+    {
+      "step_index": 0,
+      "step_label": "cast_start player=p1 ability=power_shot target=orc-1",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "orc-1", "mob_name": "orc_grunt", "state": "Alive", "x": 3, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-int-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 0,
+        "mob_threat": [
+          {"mob_id": "orc-1", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "cast_start", "actor": "p1", "target": "orc-1", "ability_id": "power_shot", "action_index": 0, "encounter_id": "enc-cast-int-1"}
+      ]
+    },
+    {
+      "step_index": 1,
+      "step_label": "player_move player=p1 cast_cancelled reason=movement",
+      "players": [
+        {"player_id": "p1", "x": 1, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "orc-1", "mob_name": "orc_grunt", "state": "Alive", "x": 3, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-int-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 0,
+        "mob_threat": [
+          {"mob_id": "orc-1", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "cast_cancelled", "actor": "p1", "target": "orc-1", "ability_id": "power_shot", "reason": "movement", "action_index": 0, "encounter_id": "enc-cast-int-1"}
+      ]
+    },
+    {
+      "step_index": 2,
+      "step_label": "cast_start player=p1 ability=power_shot target=orc-1 recast",
+      "players": [
+        {"player_id": "p1", "x": 1, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "orc-1", "mob_name": "orc_grunt", "state": "Alive", "x": 3, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-int-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 0,
+        "mob_threat": [
+          {"mob_id": "orc-1", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "cast_start", "actor": "p1", "target": "orc-1", "ability_id": "power_shot", "action_index": 0, "encounter_id": "enc-cast-int-1"}
+      ]
+    },
+    {
+      "step_index": 3,
+      "step_label": "cast_complete player=p1 ability=power_shot target=orc-1",
+      "players": [
+        {"player_id": "p1", "x": 1, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "orc-1", "mob_name": "orc_grunt", "state": "Alive", "x": 3, "y": 0, "z": 0, "hp_current": 102, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-int-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "orc-1", "selected_target_player_id": "p1", "hp_current": 102, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "cast_complete", "actor": "p1", "target": "orc-1", "ability_id": "power_shot", "action_index": 1, "encounter_id": "enc-cast-int-1"},
+        {"kind": "player_hit", "actor": "p1", "target": "orc-1", "damage": 18, "action_index": 1, "encounter_id": "enc-cast-int-1"}
+      ]
+    },
+    {
+      "step_index": 4,
+      "step_label": "cast_cancelled player=p1 ability=power_shot reason=interrupted",
+      "players": [
+        {"player_id": "p1", "x": 1, "y": 0, "z": 0, "hp_current": 95, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "orc-1", "mob_name": "orc_grunt", "state": "Alive", "x": 3, "y": 0, "z": 0, "hp_current": 102, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-int-1",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "orc-1", "selected_target_player_id": "p1", "hp_current": 102, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "cast_cancelled", "actor": "p1", "target": "orc-1", "ability_id": "power_shot", "reason": "interrupted", "action_index": 1, "encounter_id": "enc-cast-int-1"}
+      ]
+    }
+  ]
+}
