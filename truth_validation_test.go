@@ -527,13 +527,120 @@ func TestTruthGroup2p1mMobEngagement(t *testing.T) {
 	}
 }
 
+// === Encounter Identity Tests ===
+
+func TestTruthEncounterIdentityVisible(t *testing.T) {
+	pr, er, inv, _, ar, _, _, _ := combat1v1ActiveSnapshot()
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "enc:") {
+		t.Fatalf("combat panel should show encounter identity prefix, got:\n%s", stripped)
+	}
+	if !strings.Contains(stripped, "enc:enc-co..") {
+		t.Fatalf("combat panel should show truncated encounter ID, got:\n%s", stripped)
+	}
+}
+
+func TestTruthEncounterIdentityStableOnVictory(t *testing.T) {
+	pr, er, inv, _, ar, _, _, _ := combat1v1VictorySnapshot()
+	panel := renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inv, "")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "enc:") {
+		t.Fatalf("combat panel should show encounter identity after completion, got:\n%s", stripped)
+	}
+}
+
+// === Timeline Ordering Tests ===
+
+func TestTruthTimelineOrdering(t *testing.T) {
+	pr, er, _, _, _, _, _, _ := combat1v1ActiveSnapshot()
+	events := eventLog{}
+	events.append(eventEntry{kind: "enc", text: "enc:opened"})
+	events.append(eventEntry{kind: "combat", text: "orc-1>p1 hit 15"})
+	events.append(eventEntry{kind: "combat", text: "mob defeated"})
+	events.append(eventEntry{kind: "enc", text: "VICTORY"})
+
+	panel := renderEventPanel(sidePanelWidth, events, pr, er)
+	stripped := stripANSI(panel)
+
+	for _, want := range []string{"enc:opened", "hit 15", "mob defeated", "VICTORY"} {
+		if !strings.Contains(stripped, want) {
+			t.Fatalf("event panel should contain %q, got:\n%s", want, stripped)
+		}
+	}
+
+	openIdx := strings.Index(stripped, "enc:opened")
+	hitIdx := strings.Index(stripped, "hit 15")
+	victoryIdx := strings.Index(stripped, "VICTORY")
+	if openIdx >= hitIdx || hitIdx >= victoryIdx {
+		t.Fatalf("events should be in chronological order, got positions: opened=%d hit=%d victory=%d", openIdx, hitIdx, victoryIdx)
+	}
+}
+
+// === Retaliation Visibility Tests ===
+
+func TestTruthRetaliationEventVisible(t *testing.T) {
+	text := eventTextForCombatResult("damage_applied", 12, "orc-1", "p1")
+	if !strings.Contains(text, "orc-1") {
+		t.Fatalf("retaliation event should contain attacker, got: %s", text)
+	}
+	if !strings.Contains(text, "p1") {
+		t.Fatalf("retaliation event should contain target, got: %s", text)
+	}
+	if !strings.Contains(text, "hit") {
+		t.Fatalf("retaliation event should contain hit label, got: %s", text)
+	}
+	if !strings.Contains(text, "12") {
+		t.Fatalf("retaliation event should contain damage value, got: %s", text)
+	}
+}
+
+func TestTruthRetaliationFallbackWithoutActor(t *testing.T) {
+	text := eventTextForCombatResult("damage_applied", 12, "", "")
+	if text != "hit 12" {
+		t.Fatalf("without actor/target should fall back to simple format, got: %s", text)
+	}
+}
+
+func TestTruthRetaliationInEventPanel(t *testing.T) {
+	pr, er, _, _, _, _, _, _ := combat1v1ActiveSnapshot()
+	events := eventLog{}
+	events.append(eventEntry{kind: "combat", text: "orc-1>p1 hit 12"})
+
+	panel := renderEventPanel(sidePanelWidth, events, pr, er)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "orc-1") {
+		t.Fatalf("event panel should show mob attacker identity, got:\n%s", stripped)
+	}
+}
+
+func TestTruthMobEngagementInRoster(t *testing.T) {
+	_, er, _, _, ar, _, _, _ := group2p1mActiveSnapshot()
+	enc := findPlayerEncounter(er.Encounters, "enc-group-2p1m")
+	lines := renderCombatMobRoster(enc, ar, "p1", sidePanelWidth, "")
+	joined := stripANSI(strings.Join(lines, "\n"))
+	if !strings.Contains(joined, "<-") {
+		t.Fatalf("mob roster should show targeting indicator, got:\n%s", joined)
+	}
+}
+
+func TestTruthMultiplayerNoGhostParticipants(t *testing.T) {
+	pr, er, _, _, _, focus, _, _ := group2p1mActiveSnapshot()
+	panel := renderEncounterPanel(sidePanelWidth, pr, er, focus, "p1")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "p1") || !strings.Contains(stripped, "p2") {
+		t.Fatalf("encounter panel should show both real players, got:\n%s", stripped)
+	}
+	if strings.Contains(stripped, "p3") {
+		t.Fatalf("encounter panel should not contain ghost participant p3, got:\n%s", stripped)
+	}
+}
+
 // --- Deferred backend facts ---
 // The following backend-owned facts are not currently surfaced in the TUI
 // and are intentionally not tested here. If they are added in future missions,
 // corresponding truth validation tests should be added.
 //
-// - encounter_id: not displayed as a readable value to the player
 // - per-mob threat table values (numeric threat amounts)
 // - per-player XP breakdown in multiplayer encounters
 // - encounter timeline / action history details beyond latest result
-// - mob retaliation details (which mob hit which player)

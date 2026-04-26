@@ -148,6 +148,28 @@ func eventTextForResult(kind string, value int) string {
 	return text
 }
 
+// eventTextForCombatResult returns enriched event text with actor>target prefix
+// when actor and target are available. Falls back to eventTextForResult when
+// actor/target are empty (e.g. legacy events without engagement data).
+func eventTextForCombatResult(kind string, value int, actor, target string) string {
+	if actor == "" && target == "" {
+		return eventTextForResult(kind, value)
+	}
+	actorLabel := truncateID(actor, 8)
+	targetLabel := truncateID(target, 8)
+	prefix := actorLabel + ">" + targetLabel
+	switch kind {
+	case "damage_applied":
+		return fmt.Sprintf("%s hit %d", prefix, value)
+	case "attack_miss":
+		return prefix + " miss"
+	case "heal_applied":
+		return fmt.Sprintf("%s heal %d", prefix, value)
+	default:
+		return eventTextForResult(kind, value)
+	}
+}
+
 // eventEntry is one line in the event stream panel.
 // Kind classifies the source; text is the compact display string.
 type eventEntry struct {
@@ -569,7 +591,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 			// Combat event: ActionIndex advanced (damage/miss/heal)
 			if enc.ActionIndex > m.lastSeenActIdx {
-				text := eventTextForResult(enc.LatestResultKind, enc.LatestResultValue)
+				text := eventTextForCombatResult(enc.LatestResultKind, enc.LatestResultValue, enc.LatestResultActor, enc.LatestResultTarget)
 				m.events.append(eventEntry{kind: "combat", text: text})
 				m.lastSeenActIdx = enc.ActionIndex
 				m.lastSeenTimelineLen = enc.TimelineLength

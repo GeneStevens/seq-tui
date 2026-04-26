@@ -697,6 +697,8 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				}
 			}
 			items = append(items, panelItemStyle.Render("  ["+encStateLabel+"]"))
+			encIDLabel := truncateID(enc.EncounterID, 8)
+			items = append(items, panelItemStyle.Render("  enc:"+encIDLabel))
 
 			if enc.State == "Completed" {
 				// Completion: show loot availability
@@ -1028,8 +1030,8 @@ func renderOutcomePanel(width int, pr playerReadResult, er encounterReadResult) 
 // simple string prefix checks. Purely presentational — no gameplay semantics.
 func eventEmphasis(text string) string {
 	switch {
-	case strings.HasPrefix(text, "hit "),
-		strings.HasPrefix(text, "heal "),
+	case strings.Contains(text, "hit "),
+		strings.Contains(text, "heal "),
 		text == "VICTORY",
 		text == "DEFEAT",
 		text == "enc:opened",
