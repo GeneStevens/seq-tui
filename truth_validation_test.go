@@ -1759,3 +1759,174 @@ func TestE2EWipeReengageCompletedReason(t *testing.T) {
 		t.Fatalf("outcome panel should NOT contain VICTORY for wipe, got:\n%s", outcome)
 	}
 }
+
+// === E2E Pacing Readability Tests ===
+
+func TestE2EPacingCombat1v1HPVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0 (join): full HP should be visible
+	sf0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderPlayerPanel(sidePanelWidth, sf0.pr, sf0.inv, respawnResult{}))
+	if !strings.Contains(panel0, "100/100") {
+		t.Fatalf("frame 0: player panel should show full HP 100/100, got:\n%s", panel0)
+	}
+
+	// Frame 4 (attack_until_complete): HP should be reduced
+	sf4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderPlayerPanel(sidePanelWidth, sf4.pr, sf4.inv, respawnResult{}))
+	if strings.Contains(panel4, "100/100") {
+		t.Fatalf("frame 4: player panel should NOT show full HP after combat, got:\n%s", panel4)
+	}
+	if !strings.Contains(panel4, "/") {
+		t.Fatalf("frame 4: player panel should contain HP fraction, got:\n%s", panel4)
+	}
+
+	// Frame 4: mob roster should show (dead) since encounter completed with all_mobs_dead
+	if sf4.er.Count > 0 {
+		enc := findPlayerEncounter(sf4.er.Encounters, sf4.pr.ActiveEncounterID)
+		if enc != nil {
+			roster := renderCombatMobRoster(enc, sf4.ar, "p1", sidePanelWidth, "")
+			rosterStr := stripANSI(strings.Join(roster, "\n"))
+			if !strings.Contains(rosterStr, "(dead)") {
+				t.Fatalf("frame 4: mob roster should contain (dead), got:\n%s", rosterStr)
+			}
+		}
+	}
+}
+
+func TestE2EPacingWipeHPProgression(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_wipe_reengage.json"))
+
+	// Collect rendered player panels for all frames where p1 exists and encounter is Active
+	var renderedPanels []string
+	for _, f := range trace.Frames {
+		if f.Encounter == nil || f.Encounter.State != "Active" {
+			continue
+		}
+		// Check that p1 exists in this frame
+		hasP1 := false
+		for _, p := range f.Players {
+			if p.PlayerID == "p1" {
+				hasP1 = true
+				break
+			}
+		}
+		if !hasP1 {
+			continue
+		}
+
+		sf := traceFrameToScenarioFrame(f, "p1")
+		panel := stripANSI(renderPlayerPanel(sidePanelWidth, sf.pr, sf.inv, respawnResult{}))
+		renderedPanels = append(renderedPanels, panel)
+	}
+
+	if len(renderedPanels) < 2 {
+		t.Fatalf("expected at least 2 active combat frames with p1, got %d", len(renderedPanels))
+	}
+
+	// Verify that at least 2 different HP values appear across active combat frames
+	// (HP decline is visible, not a single jump)
+	unique := make(map[string]bool)
+	for _, p := range renderedPanels {
+		unique[p] = true
+	}
+	if len(unique) < 2 {
+		t.Fatalf("expected at least 2 distinct player panel renderings across active combat frames, got %d unique out of %d total:\n%s",
+			len(unique), len(renderedPanels), renderedPanels[0])
+	}
+}
+
+func TestE2EPacingSpatialRangeTransition(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+	if len(trace.Frames) < 3 {
+		t.Fatalf("expected at least 3 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0 (join): p1 at (0,0)
+	sf0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	// Frame 2 (move_to_range): p1 at (6,0)
+	sf2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+
+	canvas0, bounds0 := spatialCanvas(20, 10)
+	map0 := overlayPlayer(canvas0, sf0.pr.Position, bounds0, 20, 10, false)
+	canvas2, bounds2 := spatialCanvas(20, 10)
+	map2 := overlayPlayer(canvas2, sf2.pr.Position, bounds2, 20, 10, false)
+
+	// Both should contain player marker
+	if !strings.Contains(map0, "@") {
+		t.Fatalf("frame 0: map should contain player marker @, got:\n%s", map0)
+	}
+	if !strings.Contains(map2, "@") {
+		t.Fatalf("frame 2: map should contain player marker @, got:\n%s", map2)
+	}
+
+	// Maps should differ (position changed from (0,0) to (6,0))
+	if map0 == map2 {
+		t.Fatalf("frame 0 and frame 2 maps should differ after move, both:\n%s", map0)
+	}
+
+	// Render proximity panel for frame 2 (within range after move)
+	// renderProximityPanel needs a focused roster entry with a mob to show range info
+	var entries []rosterEntry
+	if len(sf2.mobr.Mobs) > 0 {
+		entries = append(entries, rosterEntry{kind: "mb", id: sf2.mobr.Mobs[0].MobID, mobID: sf2.mobr.Mobs[0].MobID})
+	}
+	focus := rosterFocus{index: 0}
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, sf2.tc, sf2.ar, sf2.mobr, sf2.pr, focus, entries))
+	// Should contain either "IN RANGE" or a distance value
+	if !strings.Contains(proxPanel, "IN RANGE") && !strings.Contains(proxPanel, "dist:") {
+		t.Fatalf("frame 2: proximity panel should show range info after move, got:\n%s", proxPanel)
+	}
+}
+
+func TestE2EPacingEncounterStateProgression(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0 (join): no encounter
+	sf0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	combat0 := stripANSI(renderCombatPanel(sidePanelWidth, sf0.ar, sf0.pr, sf0.er, defaultTarget(), sf0.inv, ""))
+	combat0Lower := strings.ToLower(combat0)
+	// No encounter visible — should NOT contain "active" or "VICTORY"
+	if strings.Contains(combat0Lower, "active") {
+		t.Fatalf("frame 0: combat panel should not show active state (no encounter), got:\n%s", combat0)
+	}
+	if strings.Contains(combat0Lower, "victory") {
+		t.Fatalf("frame 0: combat panel should not show VICTORY (no encounter), got:\n%s", combat0)
+	}
+
+	// Frame 4 (completed): encounter Completed with all_mobs_dead
+	sf4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	combat4 := stripANSI(renderCombatPanel(sidePanelWidth, sf4.ar, sf4.pr, sf4.er, defaultTarget(), sf4.inv, ""))
+	if !strings.Contains(combat4, "VICTORY") {
+		t.Fatalf("frame 4: combat panel should contain VICTORY for completed encounter, got:\n%s", combat4)
+	}
+}
+
+func TestE2EPacingPanelConsistency(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_1v1.json"))
+
+	for i, f := range trace.Frames {
+		sf := traceFrameToScenarioFrame(f, "p1")
+
+		// Player panel should always be non-empty
+		playerPanel := stripANSI(renderPlayerPanel(sidePanelWidth, sf.pr, sf.inv, respawnResult{}))
+		if strings.TrimSpace(playerPanel) == "" {
+			t.Fatalf("frame %d: player panel should not be empty", i)
+		}
+
+		// If encounter exists, combat panel should be non-empty
+		if sf.er.Count > 0 {
+			combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, sf.ar, sf.pr, sf.er, defaultTarget(), sf.inv, ""))
+			if strings.TrimSpace(combatPanel) == "" {
+				t.Fatalf("frame %d: combat panel should not be empty when encounter exists", i)
+			}
+		}
+	}
+}
