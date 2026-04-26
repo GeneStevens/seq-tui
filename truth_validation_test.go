@@ -636,6 +636,193 @@ func TestTruthMultiplayerNoGhostParticipants(t *testing.T) {
 	}
 }
 
+// --- Spatial helpers ---
+
+// spatialCanvas returns a blank canvas and simple bounds for spatial overlay tests.
+// Bounds cover world coordinates (0,0) to (50,50) — large enough for snapshot positions.
+func spatialCanvas(w, h int) (string, mapBounds) {
+	bounds := mapBounds{MinX: 0, MaxX: 50, MinZ: 0, MaxZ: 50, SpanX: 50, SpanZ: 50}
+	var sb strings.Builder
+	for r := 0; r < h; r++ {
+		if r > 0 {
+			sb.WriteByte('\n')
+		}
+		sb.WriteString(strings.Repeat(" ", w))
+	}
+	return sb.String(), bounds
+}
+
+// spatialMapFixture returns a mapReadResult with simple 4-wall room geometry.
+// Used for renderMapPanel integration tests that need the adaptive viewport path.
+func spatialMapFixture() mapReadResult {
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Y: 0, Z: 0}, To: mapVec3{X: 50, Y: 0, Z: 0}},
+		{From: mapVec3{X: 50, Y: 0, Z: 0}, To: mapVec3{X: 50, Y: 0, Z: 50}},
+		{From: mapVec3{X: 50, Y: 0, Z: 50}, To: mapVec3{X: 0, Y: 0, Z: 50}},
+		{From: mapVec3{X: 0, Y: 0, Z: 50}, To: mapVec3{X: 0, Y: 0, Z: 0}},
+	}
+	bounds := computeBounds(lines)
+	width, height := 30, 15
+	ascii, _ := projectAndRasterize(lines, width, height)
+	return mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  width,
+		MapHeight: height,
+		Bounds:    bounds,
+		Lines:     lines,
+	}
+}
+
+// === Spatial Truth Tests ===
+
+func TestTruthSpatialPlayerMarkerOnMap(t *testing.T) {
+	pr, _, _, _, _, _, _, _ := combat1v1ActiveSnapshot()
+	canvas, bounds := spatialCanvas(20, 10)
+	result := overlayPlayer(canvas, pr.Position, bounds, 20, 10, false)
+	if !strings.Contains(result, "@") {
+		t.Fatalf("map should show player marker '@' at backend position, got:\n%s", result)
+	}
+}
+
+func TestTruthSpatialPlayerCombatGlyphOnMap(t *testing.T) {
+	pr, _, _, _, _, _, _, _ := combat1v1ActiveSnapshot()
+	canvas, bounds := spatialCanvas(20, 10)
+	result := overlayPlayer(canvas, pr.Position, bounds, 20, 10, true)
+	if !strings.Contains(result, "*") {
+		t.Fatalf("map should show combat marker '*' for player in combat, got:\n%s", result)
+	}
+	if strings.Contains(result, "@") {
+		t.Fatalf("map should not show idle marker '@' when player is in combat, got:\n%s", result)
+	}
+}
+
+func TestTruthSpatialMobMarkerOnMap(t *testing.T) {
+	_, _, _, mobr, _, _, _, _ := combat1v1ActiveSnapshot()
+	canvas, bounds := spatialCanvas(20, 10)
+	result := overlayMobs(canvas, mobr.Mobs, bounds, 20, 10)
+	if !strings.Contains(result, "m") {
+		t.Fatalf("map should show mob marker 'm' at backend position, got:\n%s", result)
+	}
+}
+
+func TestTruthSpatialFocusedMobTargetMarker(t *testing.T) {
+	_, _, _, mobr, _, focus, entries, _ := combat1v1ActiveSnapshot()
+	canvas, bounds := spatialCanvas(20, 10)
+	canvas = overlayMobs(canvas, mobr.Mobs, bounds, 20, 10)
+	fe := focusedEntry(focus, entries)
+	if fe == nil || fe.kind != "mb" {
+		t.Fatal("expected focused entry to be a mob")
+	}
+	canvas = overlayFocusedMob(canvas, mobr.Mobs, fe.id, bounds, 20, 10)
+	if !strings.Contains(canvas, "T") {
+		t.Fatalf("map should show target marker 'T' for focused mob, got:\n%s", canvas)
+	}
+}
+
+func TestTruthSpatialAttackTargetGlyphOnMap(t *testing.T) {
+	_, _, _, mobr, ar, _, _, _ := combat1v1ActiveSnapshot()
+	canvas, bounds := spatialCanvas(20, 10)
+	canvas = overlayMobs(canvas, mobr.Mobs, bounds, 20, 10)
+	canvas = overlayAttackTarget(canvas, mobr.Mobs, ar.TargetID, bounds, 20, 10, 'X')
+	if !strings.Contains(canvas, "X") {
+		t.Fatalf("map should show attack target glyph 'X', got:\n%s", canvas)
+	}
+}
+
+func TestTruthSpatialMultipleMobsDistinct(t *testing.T) {
+	mobs := []mobPosition{
+		{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 10, Y: 10, Z: 0}},
+		{MobID: "orc-2", LiveMobID: "live-orc-2", Position: mobPosVec3{X: 40, Y: 40, Z: 0}},
+	}
+	canvas, bounds := spatialCanvas(20, 10)
+	result := overlayMobs(canvas, mobs, bounds, 20, 10)
+	if strings.Count(result, "m") < 2 {
+		t.Fatalf("map should show 2 distinct mob markers 'm', got %d in:\n%s", strings.Count(result, "m"), result)
+	}
+}
+
+func TestTruthSpatialMultipleMobsSameCellShowCount(t *testing.T) {
+	mobs := []mobPosition{
+		{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 25, Y: 0, Z: 0}},
+		{MobID: "orc-2", LiveMobID: "live-orc-2", Position: mobPosVec3{X: 25, Y: 0, Z: 0}},
+	}
+	canvas, bounds := spatialCanvas(20, 10)
+	result := overlayMobs(canvas, mobs, bounds, 20, 10)
+	if !strings.Contains(result, "2") {
+		t.Fatalf("map should show count '2' for overlapping mobs, got:\n%s", result)
+	}
+}
+
+func TestTruthSpatialPlayerAndMobCoexist(t *testing.T) {
+	pr, _, _, mobr, _, _, _, _ := combat1v1ActiveSnapshot()
+	canvas, bounds := spatialCanvas(20, 10)
+	canvas = overlayMobs(canvas, mobr.Mobs, bounds, 20, 10)
+	canvas = overlayPlayer(canvas, pr.Position, bounds, 20, 10, false)
+	if !strings.Contains(canvas, "@") {
+		t.Fatalf("map should show player marker '@', got:\n%s", canvas)
+	}
+	if !strings.Contains(canvas, "m") {
+		t.Fatalf("map should show mob marker 'm' alongside player, got:\n%s", canvas)
+	}
+}
+
+func TestTruthSpatialOutOfRangeLabel(t *testing.T) {
+	pr, _, _, mobr, ar, focus, entries, _ := combat1v1ActiveSnapshot()
+	tc := targetConfirmResult{
+		State:           targetConfirmOK,
+		TargetKind:      "mb",
+		TargetID:        "live-orc-1",
+		Found:           true,
+		WithinProximity: false,
+		Distance:        50,
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, focus, entries)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "OOR") {
+		t.Fatalf("proximity panel should show OOR for out-of-range target, got:\n%s", stripped)
+	}
+	if !strings.Contains(stripped, "dist:50") {
+		t.Fatalf("proximity panel should show dist:50 for out-of-range target, got:\n%s", stripped)
+	}
+}
+
+func TestTruthSpatialFocusedPlayerGlyph(t *testing.T) {
+	pr, _, _, _, _, _, _, _ := combat1v1ActiveSnapshot()
+	canvas, bounds := spatialCanvas(20, 10)
+	canvas = overlayPlayer(canvas, pr.Position, bounds, 20, 10, false)
+	canvas = overlayFocusedPlayer(canvas, pr.Position, bounds, 20, 10)
+	if !strings.Contains(canvas, "&") {
+		t.Fatalf("map should show focused player marker '&', got:\n%s", canvas)
+	}
+	if strings.Contains(canvas, "@") {
+		t.Fatalf("focused player '&' should replace idle '@', got:\n%s", canvas)
+	}
+}
+
+func TestTruthSpatialHitImpactGlyph(t *testing.T) {
+	_, _, _, mobr, ar, _, _, _ := combat1v1ActiveSnapshot()
+	canvas, bounds := spatialCanvas(20, 10)
+	canvas = overlayMobs(canvas, mobr.Mobs, bounds, 20, 10)
+	canvas = overlayAttackTarget(canvas, mobr.Mobs, ar.TargetID, bounds, 20, 10, '!')
+	if !strings.Contains(canvas, "!") {
+		t.Fatalf("map should show hit impact glyph '!' for damage result, got:\n%s", canvas)
+	}
+}
+
+func TestTruthSpatialMapPanelIntegration(t *testing.T) {
+	pr, _, _, mobr, ar, focus, entries, _ := combat1v1ActiveSnapshot()
+	mr := spatialMapFixture()
+	panel := renderMapPanel(mr, mobr, pr, focus, entries, 80, 30, ar, "damage_applied")
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "*") {
+		t.Fatalf("map panel should show combat player marker '*', got:\n%s", stripped)
+	}
+	if !strings.Contains(stripped, "!") {
+		t.Fatalf("map panel should show hit impact glyph '!' for attack target, got:\n%s", stripped)
+	}
+}
+
 // --- Deferred backend facts ---
 // The following backend-owned facts are not currently surfaced in the TUI
 // and are intentionally not tested here. If they are added in future missions,
@@ -644,3 +831,5 @@ func TestTruthMultiplayerNoGhostParticipants(t *testing.T) {
 // - per-mob threat table values (numeric threat amounts)
 // - per-player XP breakdown in multiplayer encounters
 // - encounter timeline / action history details beyond latest result
+// - other-player position overlay in multiplayer map viewport
+// - mob name labels on map viewport
