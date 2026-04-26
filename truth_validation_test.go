@@ -1174,14 +1174,15 @@ type traceFrame struct {
 }
 
 type tracePlayer struct {
-	PlayerID  string  `json:"player_id"`
-	X         float64 `json:"x"`
-	Y         float64 `json:"y"`
-	Z         float64 `json:"z"`
-	HPCurrent int     `json:"hp_current"`
-	HPMax     int     `json:"hp_max"`
-	CanAct    bool    `json:"can_act"`
-	XPCurrent int     `json:"xp_current"`
+	PlayerID      string  `json:"player_id"`
+	X             float64 `json:"x"`
+	Y             float64 `json:"y"`
+	Z             float64 `json:"z"`
+	HPCurrent     int     `json:"hp_current"`
+	HPMax         int     `json:"hp_max"`
+	CanAct        bool    `json:"can_act"`
+	BlockedReason string  `json:"blocked_reason"`
+	XPCurrent     int     `json:"xp_current"`
 }
 
 type traceEncounter struct {
@@ -1313,6 +1314,7 @@ func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
 	if player != nil {
 		inv.HasLifecycle = true
 		inv.CanAct = player.CanAct
+		inv.BlockedReason = player.BlockedReason
 		inv.HPCurrent = player.HPCurrent
 		inv.HPMax = player.HPMax
 	}
@@ -1558,5 +1560,202 @@ func TestE2ECombat1v1MobStateTracking(t *testing.T) {
 		if enc.MobsAlive != 0 {
 			t.Fatalf("frame 4: expected 0 alive mobs, got %d", enc.MobsAlive)
 		}
+	}
+}
+
+// === Wipe/Death/Respawn/Re-engage E2E Tests ===
+
+func TestE2EWipeReengageLifecycle(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_wipe_reengage.json"))
+
+	// Find wipe frame: encounter Completed with all_players_dead
+	wipeIdx := -1
+	for i, f := range trace.Frames {
+		if f.Encounter != nil && f.Encounter.State == "Completed" && f.Encounter.CompletedReason == "all_players_dead" {
+			wipeIdx = i
+			break
+		}
+	}
+	if wipeIdx < 0 {
+		t.Fatal("no wipe frame found (encounter Completed with all_players_dead)")
+	}
+
+	sf := traceFrameToScenarioFrame(trace.Frames[wipeIdx], "p1")
+
+	// Combat panel should show DEFEAT
+	combat := stripANSI(renderCombatPanel(sidePanelWidth, sf.ar, sf.pr, sf.er, defaultTarget(), sf.inv, ""))
+	if !strings.Contains(combat, "DEFEAT") {
+		t.Fatalf("wipe frame: combat panel should contain DEFEAT, got:\n%s", combat)
+	}
+
+	// Player panel should show DEAD
+	player := stripANSI(renderPlayerPanel(sidePanelWidth, sf.pr, sf.inv, respawnResult{}))
+	if !strings.Contains(player, "DEAD") {
+		t.Fatalf("wipe frame: player panel should contain DEAD, got:\n%s", player)
+	}
+
+	// Outcome panel should show DEFEAT
+	outcome := stripANSI(renderOutcomePanel(sidePanelWidth, sf.pr, sf.er))
+	if !strings.Contains(outcome, "DEFEAT") {
+		t.Fatalf("wipe frame: outcome panel should contain DEFEAT, got:\n%s", outcome)
+	}
+}
+
+func TestE2EWipeReengageDeathState(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_wipe_reengage.json"))
+
+	// Find frame where p1 has can_act=false and hp=0
+	deathIdx := -1
+	for i, f := range trace.Frames {
+		for _, p := range f.Players {
+			if p.PlayerID == "p1" && !p.CanAct && p.HPCurrent <= 0 {
+				deathIdx = i
+				break
+			}
+		}
+		if deathIdx >= 0 {
+			break
+		}
+	}
+	if deathIdx < 0 {
+		t.Fatal("no death frame found for p1 (can_act=false, HP<=0)")
+	}
+
+	sf := traceFrameToScenarioFrame(trace.Frames[deathIdx], "p1")
+
+	// Player panel should show DEAD with 0/
+	player := stripANSI(renderPlayerPanel(sidePanelWidth, sf.pr, sf.inv, respawnResult{}))
+	if !strings.Contains(player, "DEAD") {
+		t.Fatalf("death frame: player panel should contain DEAD, got:\n%s", player)
+	}
+	if !strings.Contains(player, "0/") {
+		t.Fatalf("death frame: player panel should contain 0/ (zero HP), got:\n%s", player)
+	}
+
+	// Verify blocked_reason mapped through adapter
+	if sf.inv.BlockedReason != "player_dead" {
+		t.Fatalf("death frame: inv.BlockedReason should be player_dead, got %q", sf.inv.BlockedReason)
+	}
+}
+
+func TestE2EWipeReengageRespawnTransition(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_wipe_reengage.json"))
+
+	// Find death frame (p1 can_act=false, HP<=0)
+	deathIdx := -1
+	for i, f := range trace.Frames {
+		for _, p := range f.Players {
+			if p.PlayerID == "p1" && !p.CanAct && p.HPCurrent <= 0 {
+				deathIdx = i
+				break
+			}
+		}
+		if deathIdx >= 0 {
+			break
+		}
+	}
+	if deathIdx < 0 {
+		t.Fatal("no death frame found for p1")
+	}
+
+	// Find respawn frame (p1 can_act=true AFTER death, HP > 0)
+	respawnIdx := -1
+	for i := deathIdx + 1; i < len(trace.Frames); i++ {
+		for _, p := range trace.Frames[i].Players {
+			if p.PlayerID == "p1" && p.CanAct && p.HPCurrent > 0 {
+				respawnIdx = i
+				break
+			}
+		}
+		if respawnIdx >= 0 {
+			break
+		}
+	}
+	if respawnIdx < 0 {
+		t.Fatal("no respawn frame found for p1 (can_act=true after death)")
+	}
+
+	// Death frame should show DEAD
+	sfDead := traceFrameToScenarioFrame(trace.Frames[deathIdx], "p1")
+	deadPanel := stripANSI(renderPlayerPanel(sidePanelWidth, sfDead.pr, sfDead.inv, respawnResult{}))
+	if !strings.Contains(deadPanel, "DEAD") {
+		t.Fatalf("death frame should show DEAD, got:\n%s", deadPanel)
+	}
+
+	// Respawn frame should NOT show DEAD and should show HP
+	sfAlive := traceFrameToScenarioFrame(trace.Frames[respawnIdx], "p1")
+	alivePanel := stripANSI(renderPlayerPanel(sidePanelWidth, sfAlive.pr, sfAlive.inv, respawnResult{}))
+	if strings.Contains(alivePanel, "DEAD") {
+		t.Fatalf("respawn frame should NOT show DEAD, got:\n%s", alivePanel)
+	}
+	if !strings.Contains(alivePanel, "/") {
+		t.Fatalf("respawn frame should show HP fraction, got:\n%s", alivePanel)
+	}
+}
+
+func TestE2EWipeReengageNewEncounterIdentity(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_wipe_reengage.json"))
+
+	// Find wipe encounter ID
+	wipeEncID := ""
+	for _, f := range trace.Frames {
+		if f.Encounter != nil && f.Encounter.CompletedReason == "all_players_dead" {
+			wipeEncID = f.Encounter.EncounterID
+			break
+		}
+	}
+	if wipeEncID == "" {
+		t.Fatal("no wipe encounter found")
+	}
+
+	// Find re-engage encounter ID (Active encounter with different ID, after the wipe)
+	reengageEncID := ""
+	foundWipe := false
+	for _, f := range trace.Frames {
+		if f.Encounter != nil && f.Encounter.CompletedReason == "all_players_dead" {
+			foundWipe = true
+			continue
+		}
+		if foundWipe && f.Encounter != nil && f.Encounter.State == "Active" && f.Encounter.EncounterID != wipeEncID {
+			reengageEncID = f.Encounter.EncounterID
+			break
+		}
+	}
+	if reengageEncID == "" {
+		t.Fatal("no re-engage encounter found with different ID")
+	}
+
+	// IDs must differ
+	if wipeEncID == reengageEncID {
+		t.Fatalf("wipe and re-engage encounter IDs should differ: %s", wipeEncID)
+	}
+}
+
+func TestE2EWipeReengageCompletedReason(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_wipe_reengage.json"))
+
+	// Find wipe frame
+	wipeIdx := -1
+	for i, f := range trace.Frames {
+		if f.Encounter != nil && f.Encounter.State == "Completed" && f.Encounter.CompletedReason == "all_players_dead" {
+			wipeIdx = i
+			break
+		}
+	}
+	if wipeIdx < 0 {
+		t.Fatal("no wipe frame found")
+	}
+
+	sf := traceFrameToScenarioFrame(trace.Frames[wipeIdx], "p1")
+	outcome := stripANSI(renderOutcomePanel(sidePanelWidth, sf.pr, sf.er))
+
+	// DEFEAT should be visible (from completed_reason=all_players_dead)
+	if !strings.Contains(outcome, "DEFEAT") {
+		t.Fatalf("outcome panel should contain DEFEAT for wipe, got:\n%s", outcome)
+	}
+
+	// VICTORY should NOT be present
+	if strings.Contains(outcome, "VICTORY") {
+		t.Fatalf("outcome panel should NOT contain VICTORY for wipe, got:\n%s", outcome)
 	}
 }
