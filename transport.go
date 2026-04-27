@@ -256,6 +256,9 @@ func (r playerReadResult) playerStatusLabel() string {
 		}
 		return "player: joined (no pos)"
 	case playerReadFailed:
+		if r.Error != "" {
+			return "player: " + r.Error
+		}
 		return "player: unavailable"
 	default:
 		return "player: pending"
@@ -433,12 +436,12 @@ func readPlayerState(target backendTarget) playerReadResult {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return playerReadResult{State: playerReadFailed, Error: err.Error()}
+		return playerReadResult{State: playerReadFailed, Error: classifyJoinError(err.Error())}
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return playerReadResult{State: playerReadFailed, Error: fmt.Sprintf("HTTP %d", resp.StatusCode)}
+		return playerReadResult{State: playerReadFailed, Error: classifyJoinError(fmt.Sprintf("HTTP %d", resp.StatusCode))}
 	}
 
 	body, err := io.ReadAll(resp.Body)
@@ -1283,6 +1286,29 @@ func submitRespawn(target backendTarget) respawnResult {
 	return respawnResult{State: respawnStateSent}
 }
 
+// classifyJoinError maps raw join/read error strings to user-friendly diagnostics.
+func classifyJoinError(raw string) string {
+	if strings.Contains(raw, "connection refused") {
+		return "connection refused (is backend running?)"
+	}
+	if strings.Contains(raw, "timeout") || strings.Contains(raw, "deadline exceeded") {
+		return "request timeout"
+	}
+	if raw == "HTTP 403" || raw == "join HTTP 403" {
+		return "forbidden (check dev token)"
+	}
+	if raw == "HTTP 404" || raw == "join HTTP 404" {
+		return "not found (check SEQ_DEV_API=1 on backend)"
+	}
+	if strings.HasPrefix(raw, "HTTP ") || strings.HasPrefix(raw, "join HTTP ") {
+		return raw
+	}
+	if len(raw) > 80 {
+		return raw[:80]
+	}
+	return raw
+}
+
 // devJoinURL builds the dev player-join endpoint URL.
 func devJoinURL(target backendTarget) string {
 	base := strings.TrimRight(target.BaseURL, "/")
@@ -1311,12 +1337,12 @@ func joinAndReadPlayer(target backendTarget) playerReadResult {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return playerReadResult{State: playerReadFailed, Error: err.Error()}
+		return playerReadResult{State: playerReadFailed, Error: classifyJoinError(err.Error())}
 	}
 	resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return playerReadResult{State: playerReadFailed, Error: fmt.Sprintf("join HTTP %d", resp.StatusCode)}
+		return playerReadResult{State: playerReadFailed, Error: classifyJoinError(fmt.Sprintf("join HTTP %d", resp.StatusCode))}
 	}
 
 	// Step 2: Read player state

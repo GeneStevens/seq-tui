@@ -150,7 +150,7 @@ func TestGenerateSessionIDUnique(t *testing.T) {
 // --- M20260412-15 approach/range wording tests ---
 
 func TestFooterShowsStepNotGo(t *testing.T) {
-	footer := renderFooter(80, "", "", "", "", "", true, false, inventoryReadResult{})
+	footer := renderFooter(80, "", "", "", "", "", true, false, "", inventoryReadResult{})
 	stripped := stripANSI(footer)
 	if !strings.Contains(stripped, "g:step") {
 		t.Fatalf("footer must say g:step, got: %s", stripped)

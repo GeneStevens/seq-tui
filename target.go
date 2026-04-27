@@ -1,5 +1,16 @@
 package main
 
+import "os"
+
+// envOr returns the value of the environment variable key if non-empty,
+// otherwise returns fallback.
+func envOr(key, fallback string) string {
+	if v := os.Getenv(key); v != "" {
+		return v
+	}
+	return fallback
+}
+
 // backendTarget describes the intended backend connection target.
 // This is a local configuration shell only — no connectivity is attempted.
 // Fields align with the backend's canonical ZoneInstanceKey routing model.
@@ -17,12 +28,12 @@ type backendTarget struct {
 // Defaults match the backend's canonical public RT Crushbone instance.
 func defaultTarget() backendTarget {
 	return backendTarget{
-		BaseURL:    "http://localhost:9090",
-		Zone:       "crushbone",
+		BaseURL:    envOr("SEQ_BACKEND_URL", "http://localhost:9090"),
+		Zone:       envOr("SEQ_ZONE", "crushbone"),
 		Mode:       "RT",
 		Visibility: "PUBLIC",
 		Affinity:   "open",
-		Player:     "p1",
-		DevToken:   "abc",
+		Player:     envOr("SEQ_PLAYER", "p1"),
+		DevToken:   envOr("SEQ_DEV_TOKEN", "abc"),
 	}
 }

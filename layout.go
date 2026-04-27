@@ -1259,10 +1259,16 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 
 // renderFooter returns the footer help strip with status labels.
 // When playerJoined is false, shows a reduced hint set since most actions require joining.
-func renderFooter(width int, intentPreview string, focusLabel string, targetLabel string, attackLabel string, pickupLabel string, playerJoined bool, playerFailed bool, inv inventoryReadResult) string {
+func renderFooter(width int, intentPreview string, focusLabel string, targetLabel string, attackLabel string, pickupLabel string, playerJoined bool, playerFailed bool, playerError string, inv inventoryReadResult) string {
 	help := footerHelp
 	if !playerJoined && playerFailed {
-		help = "hjkl:mv q  (not joined — retrying)"
+		if playerError != "" && len(playerError) <= 60 {
+			help = fmt.Sprintf("(not joined: %s)", playerError)
+		} else if playerError != "" {
+			help = fmt.Sprintf("(not joined: %s)", playerError[:60])
+		} else {
+			help = "(not joined — retrying)"
+		}
 	} else if !playerJoined {
 		help = "hjkl:mv q  (joining...)"
 	} else if inv.State == inventoryReadOK && inv.HasLifecycle && inv.HPMax > 0 && inv.HPCurrent <= 0 {
@@ -1295,7 +1301,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	targetLabel := tc.targetStatusLabel()
 	attackLabel := ar.attackStatusLabel()
 	pickupLabel := pk.pickupStatusLabel()
-	footer := renderFooter(width, lastInput, focusLabel, targetLabel, attackLabel, pickupLabel, pr.State == playerReadOK, pr.State == playerReadFailed, inv)
+	footer := renderFooter(width, lastInput, focusLabel, targetLabel, attackLabel, pickupLabel, pr.State == playerReadOK, pr.State == playerReadFailed, pr.Error, inv)
 
 	// Body height is total minus header (1 line) and footer (1 line)
 	bodyHeight := height - 2
