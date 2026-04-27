@@ -495,6 +495,10 @@ type encounterSummary struct {
 
 	// Active casts — backend-owned cast progress data. Read-only display.
 	ActiveCasts []activeCastEntry
+
+	// Queued ability — backend-owned GCD queue data. Read-only display.
+	QueuedAbilityID string // backend-owned queued ability for display
+	QueuedTargetID  string // backend-owned queued target for display
 }
 
 // activeCastEntry holds one active cast's backend-owned progress data.
@@ -617,6 +621,12 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 				ElapsedMs      int64   `json:"elapsed_ms"`
 				ProgressPct    float64 `json:"progress_pct"`
 			} `json:"active_casts"`
+			// GCD queue — backend-owned queued ability data
+			PlayerGCD []struct {
+				PlayerID          string `json:"player_id"`
+				QueuedAbilityID   string `json:"queued_ability_id"`
+				QueuedTargetMobID string `json:"queued_target_mob_id"`
+			} `json:"player_gcd"`
 		} `json:"result"`
 		Error string `json:"error"`
 	}
@@ -656,6 +666,15 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 				ProgressPct:    ac.ProgressPct,
 			})
 		}
+		// Pick the first player with a queued ability for display
+		var queuedAbilityID, queuedTargetID string
+		for _, pg := range e.PlayerGCD {
+			if pg.QueuedAbilityID != "" {
+				queuedAbilityID = pg.QueuedAbilityID
+				queuedTargetID = pg.QueuedTargetMobID
+				break
+			}
+		}
 		summaries = append(summaries, encounterSummary{
 			EncounterID:         e.EncounterID,
 			State:               e.State,
@@ -681,6 +700,8 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			LatestDenialKind:    e.LatestDenialKind,
 			MobThreat:           threat,
 			ActiveCasts:         casts,
+			QueuedAbilityID:     queuedAbilityID,
+			QueuedTargetID:      queuedTargetID,
 		})
 	}
 

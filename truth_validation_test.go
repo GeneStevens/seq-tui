@@ -1199,6 +1199,13 @@ type traceEncounter struct {
 	ActionIndex     uint64           `json:"action_index"`
 	XPAwarded       int              `json:"xp_awarded"`
 	MobThreat       []traceMobThreat `json:"mob_threat"`
+	PlayerGCD       []tracePlayerGCD `json:"player_gcd,omitempty"`
+}
+
+type tracePlayerGCD struct {
+	PlayerID          string `json:"player_id"`
+	QueuedAbilityID   string `json:"queued_ability_id"`
+	QueuedTargetMobID string `json:"queued_target_mob_id"`
 }
 
 type traceMobThreat struct {
@@ -1341,6 +1348,15 @@ func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
 			es.ActiveCasts = casts
 		}
 
+		// Map player GCD queue data from trace encounter
+		for _, pg := range enc.PlayerGCD {
+			if pg.QueuedAbilityID != "" {
+				es.QueuedAbilityID = pg.QueuedAbilityID
+				es.QueuedTargetID = pg.QueuedTargetMobID
+				break
+			}
+		}
+
 		er.Encounters = []encounterSummary{es}
 		er.Count = 1
 
@@ -1415,6 +1431,20 @@ func traceEventToText(te traceEvent, playerID string) string {
 		return eventTextForResult("cast_denied", 0)
 	case "cast_cancelled":
 		return eventTextForResult("cast_cancelled", 0)
+	case "gcd_started":
+		return eventTextForResult("gcd_started", 0)
+	case "gcd_blocked":
+		return eventTextForResult("gcd_blocked", 0)
+	case "ability_queued":
+		if te.AbilityID != "" {
+			return "queued " + te.AbilityID
+		}
+		return eventTextForResult("ability_queued", 0)
+	case "ability_executed_from_queue":
+		if te.AbilityID != "" {
+			return "from queue " + te.AbilityID
+		}
+		return eventTextForResult("ability_executed_from_queue", 0)
 	default:
 		return te.Kind
 	}
@@ -1424,10 +1454,14 @@ func traceEventKind(te traceEvent) string {
 	switch te.Kind {
 	case "player_hit", "mob_hit", "mob_death", "player_death":
 		return "combat"
-	case "cooldown_blocked", "cast_denied", "cast_cancelled":
+	case "cooldown_blocked", "cast_denied", "cast_cancelled", "gcd_blocked":
 		return "denial"
 	case "cast_start", "cast_complete":
 		return "cast"
+	case "gcd_started":
+		return "resource"
+	case "ability_queued", "ability_executed_from_queue":
+		return "queue"
 	default:
 		return "enc"
 	}
@@ -2660,5 +2694,169 @@ func TestCastCancellationReasonStillVisible(t *testing.T) {
 	eventPanel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
 	if !strings.Contains(eventPanel3, "cast cancelled") {
 		t.Fatalf("frame 3: event panel should contain 'cast cancelled' for cancellation event, got:\n%s", eventPanel3)
+	}
+}
+
+// === GCD Queue E2E Tests ===
+
+func TestGCDStartedVisibleInEventStream(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_gcd_queue.json"))
+	if len(trace.Frames) < 4 {
+		t.Fatalf("expected at least 4 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: gcd_started — should show "gcd" in event panel
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderEventPanel(sidePanelWidth, f0.events, f0.pr, f0.er))
+	if !strings.Contains(panel0, "gcd") {
+		t.Fatalf("frame 0: gcd_started should show 'gcd' in event panel, got:\n%s", panel0)
+	}
+}
+
+func TestAbilityQueuedVisibleInEventStream(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_gcd_queue.json"))
+
+	// Frame 1: ability_queued — should show "queued" and ability name (may be truncated) in event panel
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "queued") {
+		t.Fatalf("frame 1: ability_queued should show 'queued' in event panel, got:\n%s", panel1)
+	}
+	// Ability name may be truncated in narrow panel — check the underlying event entry
+	entries1 := f1.events.recent()
+	hasQueuedAbility := false
+	for _, e := range entries1 {
+		if strings.Contains(e.text, "queued") && strings.Contains(e.text, "heavy_strike") {
+			hasQueuedAbility = true
+		}
+	}
+	if !hasQueuedAbility {
+		t.Fatalf("frame 1: ability_queued event entry should contain 'queued heavy_strike', got entries: %v", entries1)
+	}
+}
+
+func TestAbilityExecutedFromQueueVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_gcd_queue.json"))
+
+	// Frame 2: ability_executed_from_queue — should show "from queue" in event panel
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "from queue") {
+		t.Fatalf("frame 2: ability_executed_from_queue should show 'from queue' in event panel, got:\n%s", panel2)
+	}
+	// Ability name may be truncated in narrow panel — check the underlying event entry
+	entries2 := f2.events.recent()
+	hasFromQueueAbility := false
+	for _, e := range entries2 {
+		if strings.Contains(e.text, "from queue") && strings.Contains(e.text, "heavy_strike") {
+			hasFromQueueAbility = true
+		}
+	}
+	if !hasFromQueueAbility {
+		t.Fatalf("frame 2: from_queue event entry should contain 'from queue heavy_strike', got entries: %v", entries2)
+	}
+}
+
+func TestGCDQueueEventOrdering(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_gcd_queue.json"))
+
+	// Process frames 0-2, verify events appear in order: hit → gcd → queued → from queue → hit
+	var allEvents []eventEntry
+	for i := 0; i <= 2; i++ {
+		sf := traceFrameToScenarioFrame(trace.Frames[i], "p1")
+		allEvents = append(allEvents, sf.events.recent()...)
+	}
+
+	hitIdx := -1
+	gcdIdx := -1
+	queuedIdx := -1
+	fromQueueIdx := -1
+	for i, e := range allEvents {
+		if strings.Contains(e.text, "hit") && hitIdx == -1 {
+			hitIdx = i
+		}
+		if e.text == "gcd" && gcdIdx == -1 {
+			gcdIdx = i
+		}
+		if strings.Contains(e.text, "queued") && !strings.Contains(e.text, "from queue") && queuedIdx == -1 {
+			queuedIdx = i
+		}
+		if strings.Contains(e.text, "from queue") && fromQueueIdx == -1 {
+			fromQueueIdx = i
+		}
+	}
+
+	if hitIdx == -1 {
+		t.Fatalf("expected 'hit' event in frames 0-2")
+	}
+	if gcdIdx == -1 {
+		t.Fatalf("expected 'gcd' event in frames 0-2")
+	}
+	if queuedIdx == -1 {
+		t.Fatalf("expected 'queued' event in frames 0-2")
+	}
+	if fromQueueIdx == -1 {
+		t.Fatalf("expected 'from queue' event in frames 0-2")
+	}
+
+	if hitIdx >= gcdIdx {
+		t.Fatalf("'hit' (index %d) should appear before 'gcd' (index %d)", hitIdx, gcdIdx)
+	}
+	if gcdIdx >= queuedIdx {
+		t.Fatalf("'gcd' (index %d) should appear before 'queued' (index %d)", gcdIdx, queuedIdx)
+	}
+	if queuedIdx >= fromQueueIdx {
+		t.Fatalf("'queued' (index %d) should appear before 'from queue' (index %d)", queuedIdx, fromQueueIdx)
+	}
+}
+
+func TestGCDQueueNoDuplicateSpam(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_gcd_queue.json"))
+
+	// Process all frames and verify no duplicate consecutive identical event lines
+	var allEvents []eventEntry
+	for _, frame := range trace.Frames {
+		sf := traceFrameToScenarioFrame(frame, "p1")
+		allEvents = append(allEvents, sf.events.recent()...)
+	}
+
+	for i := 1; i < len(allEvents); i++ {
+		if allEvents[i].text == allEvents[i-1].text && allEvents[i].text != "" {
+			// Allow combat events to repeat (distinct rounds)
+			if allEvents[i].kind == "combat" {
+				continue
+			}
+			t.Fatalf("duplicate consecutive event at index %d: %q (kind=%s)", i, allEvents[i].text, allEvents[i].kind)
+		}
+	}
+}
+
+func TestQueuedAbilityVisibleInCombatPanel(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_gcd_queue.json"))
+
+	// Modify frame 1 encounter to include player_gcd data for combat panel test
+	frame1 := trace.Frames[1]
+	frame1.Encounter.PlayerGCD = []tracePlayerGCD{
+		{PlayerID: "p1", QueuedAbilityID: "heavy_strike", QueuedTargetMobID: "live-orc-1"},
+	}
+
+	f1 := traceFrameToScenarioFrame(frame1, "p1")
+	panel1 := stripANSI(renderCombatPanel(sidePanelWidth, f1.ar, f1.pr, f1.er, defaultTarget(), f1.inv, ""))
+	if !strings.Contains(panel1, "queued:") {
+		t.Fatalf("frame 1: combat panel should contain 'queued:' when ability is queued, got:\n%s", panel1)
+	}
+	if !strings.Contains(panel1, "heavy_strike") {
+		t.Fatalf("frame 1: combat panel should contain 'heavy_strike' ability name, got:\n%s", panel1)
+	}
+}
+
+func TestQueuedAbilityNotVisibleWhenEmpty(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_gcd_queue.json"))
+
+	// Frame 0 has no player_gcd — combat panel should NOT show "queued:"
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderCombatPanel(sidePanelWidth, f0.ar, f0.pr, f0.er, defaultTarget(), f0.inv, ""))
+	if strings.Contains(panel0, "queued:") {
+		t.Fatalf("frame 0: combat panel should NOT contain 'queued:' when no ability is queued, got:\n%s", panel0)
 	}
 }

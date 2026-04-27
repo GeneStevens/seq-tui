@@ -738,6 +738,12 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					items = append(items, eventStrongStyle.Render(castLabel))
 				}
 
+				// Queued ability — backend-owned, read-only display
+				if enc.QueuedAbilityID != "" {
+					queueLabel := fmt.Sprintf("  queued: %s > %s", enc.QueuedAbilityID, truncateID(enc.QueuedTargetID, 6))
+					items = append(items, panelItemStyle.Render(queueLabel))
+				}
+
 				// Compact state line
 				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %da/%dd act:%d", enc.MobsAlive, enc.MobsDead, enc.ActionIndex)))
 			}

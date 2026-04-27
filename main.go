@@ -149,6 +149,14 @@ func eventTextForResult(kind string, value int) string {
 		text = "cast cancelled"
 	case "blocked_wounded":
 		text = "blocked"
+	case "gcd_started":
+		text = "gcd"
+	case "gcd_blocked":
+		text = "deny gcd"
+	case "ability_queued":
+		text = "queued"
+	case "ability_executed_from_queue":
+		text = "from queue"
 	default:
 		text = kind
 		if value > 0 {
