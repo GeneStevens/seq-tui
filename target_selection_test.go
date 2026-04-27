@@ -323,3 +323,254 @@ func TestGKeyUsesSelectedTarget(t *testing.T) {
 	}
 }
 
+// --- M20260427-28 range/target/map legibility tests ---
+
+func TestTargetPanelShowsMobNameAfterFocus(t *testing.T) {
+	// When a mob is focused, renderProximityPanel output contains the mob's ID/name.
+	mobs := []mobPosition{{MobID: "orc-alpha", Position: mobPosVec3{X: 30, Y: 0}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	entries := []rosterEntry{{kind: "mb", id: "orc-alpha", canonicalMobID: true}}
+	focus := rosterFocus{index: 0}
+
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries)
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "orc-alpha") {
+		t.Fatalf("panel should contain focused mob name 'orc-alpha', got:\n%s", stripped)
+	}
+}
+
+func TestProximityPanelInRangeHasBoldStyle(t *testing.T) {
+	// When backend confirms within proximity, the IN RANGE line uses bold ANSI styling.
+	mobs := []mobPosition{{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 5, Y: 0}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	entries := []rosterEntry{{kind: "mb", id: "live-orc-1", mobID: "orc-1", canonicalMobID: true}}
+	focus := rosterFocus{index: 0}
+
+	tc := targetConfirmResult{
+		State:           targetConfirmOK,
+		TargetID:        "live-orc-1",
+		Found:           true,
+		WithinProximity: true,
+		Distance:        5,
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries)
+
+	// Find the line containing "IN RANGE" in the raw (non-stripped) output
+	found := false
+	for _, line := range strings.Split(panel, "\n") {
+		if strings.Contains(stripANSI(line), "IN RANGE") {
+			// Bold ANSI escape is \033[1m (or part of a combined SGR sequence with ;1)
+			if strings.Contains(line, "\033[1m") || strings.Contains(line, "\033[1;") || strings.Contains(line, ";1m") {
+				found = true
+			}
+			break
+		}
+	}
+	if !found {
+		t.Fatalf("IN RANGE line should contain bold ANSI code, got raw panel:\n%s", panel)
+	}
+}
+
+func TestProximityPanelOORShowsCloserHint(t *testing.T) {
+	// When OOR, panel shows "g:closer" actionable hint.
+	mobs := []mobPosition{{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 100, Y: 0}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	entries := []rosterEntry{{kind: "mb", id: "live-orc-1", mobID: "orc-1", canonicalMobID: true}}
+	focus := rosterFocus{index: 0}
+
+	tc := targetConfirmResult{
+		State:           targetConfirmOK,
+		TargetID:        "live-orc-1",
+		Found:           true,
+		WithinProximity: false,
+		Distance:        100,
+	}
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries)
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "g:closer") {
+		t.Fatalf("OOR panel should show 'g:closer' hint, got:\n%s", stripped)
+	}
+}
+
+func TestProximityPanelNoTargetShowsTabHint(t *testing.T) {
+	// When no target is focused and no mobs are visible, panel shows "tab" hint.
+	mobr := mobReadResult{State: mobReadOK, Mobs: nil, Count: 0}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, rosterFocus{index: -1}, nil)
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "tab") {
+		t.Fatalf("no-target panel should show 'tab' hint, got:\n%s", stripped)
+	}
+}
+
+func TestMapFocusedMobNotOverwrittenByAttackGlyph(t *testing.T) {
+	// When attack target == focused mob, map should show 'M' (focused), not 'X' (attack).
+	// This validates the fix: renderMapPanel skips attack overlay when target is focused mob.
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Y: 0, Z: 0}, To: mapVec3{X: 100, Y: 0, Z: 100}},
+	}
+	bounds := computeBounds(lines)
+	width, height := 30, 15
+	ascii, _ := projectAndRasterize(lines, width, height)
+
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  width,
+		MapHeight: height,
+		Bounds:    bounds,
+		Lines:     lines,
+	}
+
+	// Place mob near the player so it falls within the adaptive viewport.
+	// mob.Position.Y maps to world Z for projection (same as player.Position.Y).
+	mobs := []mobPosition{{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 53, Y: 48}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 50, Y: 50}}
+	entries := []rosterEntry{{kind: "mb", id: "live-orc-1", mobID: "orc-1", canonicalMobID: true}}
+	focus := rosterFocus{index: 0}
+	ar := attackResult{State: attackStateSent, TargetID: "live-orc-1"}
+
+	panel := renderMapPanel(mr, mobr, pr, focus, entries, 34, 17, ar, "")
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "M") {
+		t.Fatalf("focused mob should show as 'M' on map, got:\n%s", stripped)
+	}
+	if strings.Contains(stripped, "X") {
+		t.Fatalf("attack glyph 'X' should not overwrite focused mob 'M', got:\n%s", stripped)
+	}
+}
+
+func TestMapPlayerNotOverwrittenByAttackFocusOverlays(t *testing.T) {
+	// Player, focused mob, and attack target all at the same cell: player '@' always wins.
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Y: 0, Z: 0}, To: mapVec3{X: 100, Y: 0, Z: 100}},
+	}
+	bounds := computeBounds(lines)
+	width, height := 30, 15
+	ascii, _ := projectAndRasterize(lines, width, height)
+
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  width,
+		MapHeight: height,
+		Bounds:    bounds,
+		Lines:     lines,
+	}
+
+	// Player at (50,50), focused mob at same position, attack on a different mob also at (50,50)
+	mobs := []mobPosition{
+		{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 50, Y: 0, Z: 50}},
+		{MobID: "orc-2", LiveMobID: "live-orc-2", Position: mobPosVec3{X: 50, Y: 0, Z: 50}},
+	}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 2}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 50, Y: 50}}
+	entries := []rosterEntry{
+		{kind: "mb", id: "live-orc-1", mobID: "orc-1", canonicalMobID: true},
+		{kind: "mb", id: "live-orc-2", mobID: "orc-2", canonicalMobID: true},
+	}
+	focus := rosterFocus{index: 0} // focus on orc-1
+	ar := attackResult{State: attackStateSent, TargetID: "live-orc-2"}
+
+	panel := renderMapPanel(mr, mobr, pr, focus, entries, 34, 17, ar, "")
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "@") {
+		t.Fatalf("player '@' should always be visible, got:\n%s", stripped)
+	}
+}
+
+func TestMapRenderIdempotent(t *testing.T) {
+	// Same state rendered twice produces identical output.
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Y: 0, Z: 0}, To: mapVec3{X: 100, Y: 0, Z: 100}},
+	}
+	bounds := computeBounds(lines)
+	width, height := 30, 15
+	ascii, _ := projectAndRasterize(lines, width, height)
+
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  width,
+		MapHeight: height,
+		Bounds:    bounds,
+		Lines:     lines,
+	}
+
+	mobs := []mobPosition{
+		{MobID: "orc-1", LiveMobID: "live-orc-1", Position: mobPosVec3{X: 30, Y: 0, Z: 30}},
+		{MobID: "orc-2", LiveMobID: "live-orc-2", Position: mobPosVec3{X: 70, Y: 0, Z: 70}},
+	}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 2}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 50, Y: 50}}
+	entries := []rosterEntry{
+		{kind: "mb", id: "live-orc-1", mobID: "orc-1", canonicalMobID: true},
+	}
+	focus := rosterFocus{index: 0}
+	ar := attackResult{State: attackStateSent, TargetID: "live-orc-2"}
+
+	out1 := renderMapPanel(mr, mobr, pr, focus, entries, 34, 17, ar, "")
+	out2 := renderMapPanel(mr, mobr, pr, focus, entries, 34, 17, ar, "")
+
+	if out1 != out2 {
+		t.Fatalf("renderMapPanel should be idempotent.\nRender 1:\n%s\nRender 2:\n%s", out1, out2)
+	}
+}
+
+func TestMapDistinctGlyphsForPlayerFocusedOther(t *testing.T) {
+	// Three entities at different positions all show their correct glyphs.
+	lines := []mapLine{
+		{From: mapVec3{X: 0, Y: 0, Z: 0}, To: mapVec3{X: 100, Y: 0, Z: 100}},
+	}
+	bounds := computeBounds(lines)
+	width, height := 30, 15
+	ascii, _ := projectAndRasterize(lines, width, height)
+
+	mr := mapReadResult{
+		State:     mapReadOK,
+		MapText:   ascii,
+		MapWidth:  width,
+		MapHeight: height,
+		Bounds:    bounds,
+		Lines:     lines,
+	}
+
+	// All three entities near each other so they fall within the adaptive viewport.
+	// Player at (50,50), focused mob slightly offset, unfocused mob also nearby.
+	// mob.Position.Y maps to world Z for projection (same as player.Position.Y).
+	mobs := []mobPosition{
+		{MobID: "orc-focused", LiveMobID: "live-orc-focused", Position: mobPosVec3{X: 53, Y: 48}},
+		{MobID: "orc-other", LiveMobID: "live-orc-other", Position: mobPosVec3{X: 47, Y: 52}},
+	}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 2}
+	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 50, Y: 50}}
+	entries := []rosterEntry{
+		{kind: "mb", id: "live-orc-focused", mobID: "orc-focused", canonicalMobID: true},
+		{kind: "mb", id: "live-orc-other", mobID: "orc-other", canonicalMobID: true},
+	}
+	focus := rosterFocus{index: 0} // focus on orc-focused
+
+	panel := renderMapPanel(mr, mobr, pr, focus, entries, 34, 17, attackResult{}, "")
+	stripped := stripANSI(panel)
+
+	if !strings.Contains(stripped, "@") {
+		t.Fatalf("map should contain player '@', got:\n%s", stripped)
+	}
+	if !strings.Contains(stripped, "M") {
+		t.Fatalf("map should contain focused mob 'M', got:\n%s", stripped)
+	}
+	if !strings.Contains(stripped, "m") {
+		t.Fatalf("map should contain unfocused mob 'm', got:\n%s", stripped)
+	}
+}
+

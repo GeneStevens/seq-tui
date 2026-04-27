@@ -187,7 +187,12 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 					mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, vpBounds, vpWidth, vpHeight)
 				}
 			}
-			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
+			// Skip attack overlay when target is the focused mob (M marker more useful than X)
+			focusedMobID := ""
+			if fe := focusedEntry(focus, entries); fe != nil && fe.kind == "mb" {
+				focusedMobID = fe.id
+			}
+			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK && ar.TargetID != focusedMobID {
 				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, vpBounds, vpWidth, vpHeight, attackTargetGlyph(latestResultKind))
 			}
 			// Player marker last — always visible, never hidden by mob overlays
@@ -211,7 +216,12 @@ func renderMapPanel(mr mapReadResult, mobr mobReadResult, pr playerReadResult, f
 					mapContent = overlayFocusedMob(mapContent, mobr.Mobs, fe.id, mr.Bounds, mr.MapWidth, mr.MapHeight)
 				}
 			}
-			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK {
+			// Skip attack overlay when target is the focused mob (M marker more useful than X)
+			legacyFocusedMobID := ""
+			if fe := focusedEntry(focus, entries); fe != nil && fe.kind == "mb" {
+				legacyFocusedMobID = fe.id
+			}
+			if ar.State == attackStateSent && ar.TargetID != "" && mobr.State == mobReadOK && ar.TargetID != legacyFocusedMobID {
 				mapContent = overlayAttackTarget(mapContent, mobr.Mobs, ar.TargetID, mr.Bounds, mr.MapWidth, mr.MapHeight, attackTargetGlyph(latestResultKind))
 			}
 			// Player marker last — always visible
@@ -404,15 +414,17 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 				displayID = fe.id
 			}
 			nameLabel := truncateID(displayID, width-6)
-			items = append(items, panelItemStyle.Render("  "+nameLabel))
+			items = append(items, "  "+nameLabel)
 
 			// Distance and range status
 			// Use backend proximity truth if available for this target
 			if tc.State == targetConfirmOK && tc.TargetID == fe.id && tc.Found {
 				if tc.WithinProximity {
-					items = append(items, panelItemStyle.Render(fmt.Sprintf("  IN RANGE dist:%.0f", tc.Distance)))
+					items = append(items, eventStrongStyle.Render(fmt.Sprintf("  IN RANGE dist:%.0f", tc.Distance)))
+					items = append(items, panelItemStyle.Render("  → a:attack"))
 				} else {
 					items = append(items, panelItemStyle.Render(fmt.Sprintf("  OOR dist:%.0f", tc.Distance)))
+					items = append(items, panelItemStyle.Render("  → g:closer"))
 				}
 			} else {
 				// Local distance estimate (no authoritative range check yet)
@@ -423,7 +435,7 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 			if displayID == "" {
 				displayID = fe.id
 			}
-			items = append(items, panelItemStyle.Render("  "+truncateID(displayID, width-6)))
+			items = append(items, "  "+truncateID(displayID, width-6))
 			items = append(items, panelItemStyle.Render("  pos unknown"))
 		}
 	} else if tc.State == targetConfirmOK {
@@ -451,10 +463,10 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 				items = append(items, panelItemStyle.Render("  "+truncateID(nearID, width-6)))
 				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f", nearDist)))
 			} else {
-				items = append(items, panelItemStyle.Render("  no target"))
+				items = append(items, panelItemStyle.Render("  no target (tab)"))
 			}
 		} else {
-			items = append(items, panelItemStyle.Render("  no target"))
+			items = append(items, panelItemStyle.Render("  no target (tab)"))
 		}
 	}
 

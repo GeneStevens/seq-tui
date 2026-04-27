@@ -821,8 +821,9 @@ func TestTruthSpatialMapPanelIntegration(t *testing.T) {
 	if !strings.Contains(stripped, "*") {
 		t.Fatalf("map panel should show combat player marker '*', got:\n%s", stripped)
 	}
-	if !strings.Contains(stripped, "!") {
-		t.Fatalf("map panel should show hit impact glyph '!' for attack target, got:\n%s", stripped)
+	// When attack target is the focused mob, M marker is preserved (combat panel shows attack status)
+	if !strings.Contains(stripped, "M") {
+		t.Fatalf("map panel should show focused mob marker 'M' when attack target is focused mob, got:\n%s", stripped)
 	}
 }
 
@@ -3693,5 +3694,74 @@ func TestE2EMultiMobRosterEngagement(t *testing.T) {
 	}
 	if !strings.Contains(joined, "m2") {
 		t.Fatalf("frame 1: roster should contain mob 'm2', got:\n%s", joined)
+	}
+}
+
+// --- M20260427-28 range/target/map legibility tests ---
+
+func TestTruthTemporalOORToInRangeTransition(t *testing.T) {
+	// Phase 1: Player far from mob, backend says OOR.
+	// Phase 2: Player moves near mob, backend says IN RANGE.
+	// Verifies full panel state transition with same target mob ID.
+
+	mobID := "orc-patrol"
+	liveMobID := "live-orc-patrol"
+
+	mobs := []mobPosition{{MobID: mobID, LiveMobID: liveMobID, Position: mobPosVec3{X: 100, Y: 0, Z: 0}}}
+	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
+	entries := []rosterEntry{{kind: "mb", id: liveMobID, mobID: mobID, canonicalMobID: true}}
+	focus := rosterFocus{index: 0}
+	ar := attackResult{}
+
+	// Phase 1: Player at (0,0), mob at (100,0). Backend says OOR.
+	pr1 := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
+	tc1 := targetConfirmResult{
+		State:           targetConfirmOK,
+		TargetKind:      "mb",
+		TargetID:        liveMobID,
+		Found:           true,
+		WithinProximity: false,
+		Distance:        100,
+	}
+	panel1 := renderProximityPanel(sidePanelWidth, tc1, ar, mobr, pr1, focus, entries)
+	stripped1 := stripANSI(panel1)
+
+	if !strings.Contains(stripped1, "OOR") {
+		t.Fatalf("phase 1: should show OOR, got:\n%s", stripped1)
+	}
+	if !strings.Contains(stripped1, "g:closer") {
+		t.Fatalf("phase 1: should show 'g:closer' hint, got:\n%s", stripped1)
+	}
+
+	// Phase 2: Player moves to (95,0). Backend says IN RANGE.
+	pr2 := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 95, Y: 0}}
+	tc2 := targetConfirmResult{
+		State:           targetConfirmOK,
+		TargetKind:      "mb",
+		TargetID:        liveMobID,
+		Found:           true,
+		WithinProximity: true,
+		Distance:        5,
+	}
+	panel2 := renderProximityPanel(sidePanelWidth, tc2, ar, mobr, pr2, focus, entries)
+	stripped2 := stripANSI(panel2)
+
+	if !strings.Contains(stripped2, "IN RANGE") {
+		t.Fatalf("phase 2: should show IN RANGE, got:\n%s", stripped2)
+	}
+	if !strings.Contains(stripped2, "a:attack") {
+		t.Fatalf("phase 2: should show 'a:attack' hint, got:\n%s", stripped2)
+	}
+	if strings.Contains(stripped2, "OOR") {
+		t.Fatalf("phase 2: should NOT show OOR, got:\n%s", stripped2)
+	}
+
+	// Verify both phases reference the same target mob ID
+	displayID := mobID // renderProximityPanel shows canonical mobID when available
+	if !strings.Contains(stripped1, displayID) {
+		t.Fatalf("phase 1: should show mob ID '%s', got:\n%s", displayID, stripped1)
+	}
+	if !strings.Contains(stripped2, displayID) {
+		t.Fatalf("phase 2: should show mob ID '%s', got:\n%s", displayID, stripped2)
 	}
 }
