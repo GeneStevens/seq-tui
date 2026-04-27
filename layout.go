@@ -740,6 +740,27 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					}
 				}
 
+				// Target mob casting — show cast progress for focused/targeted mob
+				if targetMobID != "" {
+					for _, mc := range enc.MobCasts {
+						if mc.MobID == targetMobID {
+							items = append(items, eventStrongStyle.Render(fmt.Sprintf("  mob casting: %s %d%%", mc.AbilityID, int(mc.ProgressPct))))
+							break
+						}
+					}
+				}
+
+				// Target mob lockout — show remaining lockout for focused/targeted mob
+				if targetMobID != "" {
+					for _, ml := range enc.MobLockouts {
+						if ml.MobID == targetMobID {
+							lockSec := float64(ml.RemainingMs) / 1000.0
+							items = append(items, panelItemStyle.Render(fmt.Sprintf("  lockout: %.1fs", lockSec)))
+							break
+						}
+					}
+				}
+
 				// Active cast progress — backend-owned, read-only display
 				for _, ac := range enc.ActiveCasts {
 					castLabel := fmt.Sprintf("  casting: %s > %s %d%%", ac.AbilityID, truncateID(ac.TargetMobID, 6), int(ac.ProgressPct))
@@ -750,6 +771,15 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 				if enc.QueuedAbilityID != "" {
 					queueLabel := fmt.Sprintf("  queued: %s > %s", enc.QueuedAbilityID, truncateID(enc.QueuedTargetID, 6))
 					items = append(items, panelItemStyle.Render(queueLabel))
+				}
+
+				// GCD status — backend-owned remaining time
+				if enc.GCDRemainingMs > 0 {
+					gcdSec := float64(enc.GCDRemainingMs) / 1000.0
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  gcd: %.1fs", gcdSec)))
+				} else if enc.QueuedAbilityID == "" {
+					// Only show "gcd: ready" if there's no queued ability (avoid noise)
+					items = append(items, panelItemStyle.Render("  gcd: ready"))
 				}
 
 				// Compact state line
@@ -1057,12 +1087,19 @@ func eventEmphasis(text string) string {
 		text == "enc:opened",
 		text == "enc:ended",
 		text == "mob defeated",
-		text == "miss":
+		text == "miss",
+		text == "casting",
+		text == "interrupted",
+		strings.HasPrefix(text, "mob casting:"):
 		return "strong"
 	case strings.HasPrefix(text, "attack"),
 		strings.HasPrefix(text, "deny "),
 		text == "cooldown",
-		text == "blocked":
+		text == "blocked",
+		text == "lockout",
+		text == "lockout blocked",
+		text == "cast cancelled",
+		text == "gcd":
 		return "medium"
 	default:
 		// move, focus, and anything else

@@ -1201,6 +1201,21 @@ type traceEncounter struct {
 	MobThreat       []traceMobThreat  `json:"mob_threat"`
 	PlayerGCD       []tracePlayerGCD  `json:"player_gcd,omitempty"`
 	PlayerMana      []tracePlayerMana `json:"player_mana,omitempty"`
+	MobCasts        []traceMobCast    `json:"mob_casts,omitempty"`
+	MobLockouts     []traceMobLockout `json:"mob_lockouts,omitempty"`
+}
+
+type traceMobCast struct {
+	MobID       string  `json:"mob_id"`
+	AbilityID   string  `json:"ability_id"`
+	ElapsedMs   int64   `json:"elapsed_ms"`
+	DurationMs  int64   `json:"duration_ms"`
+	ProgressPct float64 `json:"progress_pct"`
+}
+
+type traceMobLockout struct {
+	MobID       string `json:"mob_id"`
+	RemainingMs int64  `json:"remaining_ms"`
 }
 
 type tracePlayerMana struct {
@@ -1213,6 +1228,7 @@ type tracePlayerGCD struct {
 	PlayerID          string `json:"player_id"`
 	QueuedAbilityID   string `json:"queued_ability_id"`
 	QueuedTargetMobID string `json:"queued_target_mob_id"`
+	GCDRemainingMs    int64  `json:"gcd_remaining_ms"`
 }
 
 type traceMobThreat struct {
@@ -1356,12 +1372,14 @@ func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
 			es.ActiveCasts = casts
 		}
 
-		// Map player GCD queue data from trace encounter
+		// Map player GCD queue data and GCD remaining from trace encounter
 		for _, pg := range enc.PlayerGCD {
 			if pg.QueuedAbilityID != "" {
 				es.QueuedAbilityID = pg.QueuedAbilityID
 				es.QueuedTargetID = pg.QueuedTargetMobID
-				break
+			}
+			if pg.GCDRemainingMs > 0 && es.GCDRemainingMs == 0 {
+				es.GCDRemainingMs = pg.GCDRemainingMs
 			}
 		}
 
@@ -1376,6 +1394,33 @@ func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
 				})
 			}
 			es.PlayerMana = mana
+		}
+
+		// Map mob casts from trace encounter
+		if len(enc.MobCasts) > 0 {
+			var casts []mobCastEntry
+			for _, mc := range enc.MobCasts {
+				casts = append(casts, mobCastEntry{
+					MobID:       mc.MobID,
+					AbilityID:   mc.AbilityID,
+					ElapsedMs:   mc.ElapsedMs,
+					DurationMs:  mc.DurationMs,
+					ProgressPct: mc.ProgressPct,
+				})
+			}
+			es.MobCasts = casts
+		}
+
+		// Map mob lockouts from trace encounter
+		if len(enc.MobLockouts) > 0 {
+			var lockouts []mobLockoutEntry
+			for _, ml := range enc.MobLockouts {
+				lockouts = append(lockouts, mobLockoutEntry{
+					MobID:       ml.MobID,
+					RemainingMs: ml.RemainingMs,
+				})
+			}
+			es.MobLockouts = lockouts
 		}
 
 		er.Encounters = []encounterSummary{es}
@@ -1466,6 +1511,8 @@ func traceEventToText(te traceEvent, playerID string) string {
 		return eventTextForResult("gcd_started", 0)
 	case "gcd_blocked":
 		return eventTextForResult("gcd_blocked", 0)
+	case "mob_cast_start":
+		return "casting"
 	case "ability_queued":
 		if te.AbilityID != "" {
 			return "queued " + te.AbilityID
@@ -1493,7 +1540,7 @@ func traceEventKind(te traceEvent) string {
 		return "combat"
 	case "cooldown_blocked", "cast_denied", "cast_cancelled", "gcd_blocked", "resource_blocked", "interrupt_denied", "interrupt_lockout_blocked":
 		return "denial"
-	case "cast_start", "cast_complete":
+	case "cast_start", "cast_complete", "mob_cast_start":
 		return "cast"
 	case "gcd_started", "resource_spent", "resource_regen", "interrupt_applied", "interrupt_lockout_started":
 		return "resource"
@@ -3365,5 +3412,90 @@ func TestMobCastingEncounterFlow(t *testing.T) {
 		if len(entries) > 10 {
 			t.Fatalf("frame %d: too many events (%d), possible spam", i, len(entries))
 		}
+	}
+}
+
+func TestE2ECombatClarity(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_combat_clarity.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: GCD active — combat panel should contain "gcd:"
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	combat0 := stripANSI(renderCombatPanel(sidePanelWidth, f0.ar, f0.pr, f0.er, defaultTarget(), f0.inv, "mob_caster_1"))
+	if !strings.Contains(combat0, "gcd:") {
+		t.Fatalf("frame 0: combat panel should contain 'gcd:', got:\n%s", combat0)
+	}
+	// GCD remaining > 0 should show time
+	if !strings.Contains(combat0, "gcd: 0.8s") {
+		t.Fatalf("frame 0: combat panel should show gcd remaining '0.8s', got:\n%s", combat0)
+	}
+
+	// Frame 1: Mob starts casting — combat panel should contain mob casting info
+	// Use wider panel width to avoid line wrapping in narrow panels
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	combat1 := stripANSI(renderCombatPanel(40, f1.ar, f1.pr, f1.er, defaultTarget(), f1.inv, "mob_caster_1"))
+	if !strings.Contains(combat1, "mob casting: mob_firebolt") {
+		t.Fatalf("frame 1: combat panel should contain 'mob casting: mob_firebolt', got:\n%s", combat1)
+	}
+
+	// Frame 1: mob_cast_start event should produce "casting" text with strong emphasis
+	entries1 := f1.events.recent()
+	foundCasting := false
+	for _, e := range entries1 {
+		if e.text == "casting" {
+			foundCasting = true
+			emphasis := eventEmphasis(e.text)
+			if emphasis != "strong" {
+				t.Fatalf("frame 1: 'casting' event should have strong emphasis, got %s", emphasis)
+			}
+		}
+	}
+	if !foundCasting {
+		t.Fatalf("frame 1: events should contain 'casting', got: %v", entries1)
+	}
+
+	// Frame 2: Interrupt applied, lockout visible — combat panel should contain "lockout:"
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	combat2 := stripANSI(renderCombatPanel(sidePanelWidth, f2.ar, f2.pr, f2.er, defaultTarget(), f2.inv, "mob_caster_1"))
+	if !strings.Contains(combat2, "lockout:") {
+		t.Fatalf("frame 2: combat panel should contain 'lockout:', got:\n%s", combat2)
+	}
+
+	// Frame 2: "interrupted" event should have strong emphasis
+	entries2 := f2.events.recent()
+	foundInterrupted := false
+	for _, e := range entries2 {
+		if e.text == "interrupted" {
+			foundInterrupted = true
+			emphasis := eventEmphasis(e.text)
+			if emphasis != "strong" {
+				t.Fatalf("frame 2: 'interrupted' event should have strong emphasis, got %s", emphasis)
+			}
+		}
+	}
+	if !foundInterrupted {
+		t.Fatalf("frame 2: events should contain 'interrupted', got: %v", entries2)
+	}
+
+	// Frame 3: GCD expired (remaining = 0), lockout still active
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	combat3 := stripANSI(renderCombatPanel(sidePanelWidth, f3.ar, f3.pr, f3.er, defaultTarget(), f3.inv, "mob_caster_1"))
+	if !strings.Contains(combat3, "gcd: ready") {
+		t.Fatalf("frame 3: combat panel should show 'gcd: ready' when GCD expired, got:\n%s", combat3)
+	}
+	if !strings.Contains(combat3, "lockout:") {
+		t.Fatalf("frame 3: combat panel should still show 'lockout:' (lockout active), got:\n%s", combat3)
+	}
+
+	// Frame 4: Lockout expired — no lockout line
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	combat4 := stripANSI(renderCombatPanel(sidePanelWidth, f4.ar, f4.pr, f4.er, defaultTarget(), f4.inv, "mob_caster_1"))
+	if strings.Contains(combat4, "lockout:") {
+		t.Fatalf("frame 4: combat panel should NOT show lockout after expiry, got:\n%s", combat4)
+	}
+	if !strings.Contains(combat4, "gcd: ready") {
+		t.Fatalf("frame 4: combat panel should show 'gcd: ready', got:\n%s", combat4)
 	}
 }

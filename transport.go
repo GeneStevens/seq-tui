@@ -502,6 +502,15 @@ type encounterSummary struct {
 
 	// Player mana — backend-owned resource state. Read-only display.
 	PlayerMana []playerManaEntry
+
+	// GCD remaining — backend-owned GCD remaining time for display.
+	GCDRemainingMs int64
+
+	// Mob casts — backend-owned mob cast progress data. Read-only display.
+	MobCasts []mobCastEntry
+
+	// Mob lockouts — backend-owned mob lockout state. Read-only display.
+	MobLockouts []mobLockoutEntry
 }
 
 // playerManaEntry holds one player's backend-owned mana state.
@@ -510,6 +519,23 @@ type playerManaEntry struct {
 	PlayerID    string
 	ManaCurrent int
 	ManaMax     int
+}
+
+// mobCastEntry holds one mob's backend-owned cast progress data.
+// Read-only — no client-side cast progress computation.
+type mobCastEntry struct {
+	MobID       string
+	AbilityID   string
+	ElapsedMs   int64
+	DurationMs  int64
+	ProgressPct float64
+}
+
+// mobLockoutEntry holds one mob's backend-owned lockout state.
+// Read-only — no client-side lockout computation.
+type mobLockoutEntry struct {
+	MobID       string
+	RemainingMs int64
 }
 
 // activeCastEntry holds one active cast's backend-owned progress data.
@@ -637,6 +663,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 				PlayerID          string `json:"player_id"`
 				QueuedAbilityID   string `json:"queued_ability_id"`
 				QueuedTargetMobID string `json:"queued_target_mob_id"`
+				GCDRemainingMs    int64  `json:"gcd_remaining_ms"`
 			} `json:"player_gcd"`
 			// Player mana — backend-owned resource state
 			PlayerMana []struct {
@@ -644,6 +671,19 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 				ManaCurrent int    `json:"mana_current"`
 				ManaMax     int    `json:"mana_max"`
 			} `json:"player_mana"`
+			// Mob casts — backend-owned mob cast progress
+			MobCasts []struct {
+				MobID       string  `json:"mob_id"`
+				AbilityID   string  `json:"ability_id"`
+				ElapsedMs   int64   `json:"elapsed_ms"`
+				DurationMs  int64   `json:"duration_ms"`
+				ProgressPct float64 `json:"progress_pct"`
+			} `json:"mob_casts"`
+			// Mob lockouts — backend-owned mob lockout state
+			MobLockouts []struct {
+				MobID       string `json:"mob_id"`
+				RemainingMs int64  `json:"remaining_ms"`
+			} `json:"mob_lockouts"`
 		} `json:"result"`
 		Error string `json:"error"`
 	}
@@ -685,12 +725,34 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 		}
 		// Pick the first player with a queued ability for display
 		var queuedAbilityID, queuedTargetID string
+		var gcdRemainingMs int64
 		for _, pg := range e.PlayerGCD {
 			if pg.QueuedAbilityID != "" {
 				queuedAbilityID = pg.QueuedAbilityID
 				queuedTargetID = pg.QueuedTargetMobID
-				break
 			}
+			if pg.GCDRemainingMs > 0 && gcdRemainingMs == 0 {
+				gcdRemainingMs = pg.GCDRemainingMs
+			}
+		}
+		// Map mob casts from backend
+		var mobCasts []mobCastEntry
+		for _, mc := range e.MobCasts {
+			mobCasts = append(mobCasts, mobCastEntry{
+				MobID:       mc.MobID,
+				AbilityID:   mc.AbilityID,
+				ElapsedMs:   mc.ElapsedMs,
+				DurationMs:  mc.DurationMs,
+				ProgressPct: mc.ProgressPct,
+			})
+		}
+		// Map mob lockouts from backend
+		var mobLockouts []mobLockoutEntry
+		for _, ml := range e.MobLockouts {
+			mobLockouts = append(mobLockouts, mobLockoutEntry{
+				MobID:       ml.MobID,
+				RemainingMs: ml.RemainingMs,
+			})
 		}
 		// Map player mana from backend
 		var mana []playerManaEntry
@@ -729,6 +791,9 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			QueuedAbilityID:     queuedAbilityID,
 			QueuedTargetID:      queuedTargetID,
 			PlayerMana:          mana,
+			GCDRemainingMs:      gcdRemainingMs,
+			MobCasts:            mobCasts,
+			MobLockouts:         mobLockouts,
 		})
 	}
 
