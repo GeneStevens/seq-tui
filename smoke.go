@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"strings"
+)
 
 type smokeStatus int
 
@@ -45,7 +49,7 @@ func runSmoke(target backendTarget) []smokeStep {
 		steps = append(steps, smokeStep{
 			Name:   "backend reachable",
 			Status: smokeFail,
-			Detail: classifyJoinError(zoneResult.Error),
+			Detail: classifyZoneError(zoneResult.Error, target.Zone),
 		})
 		steps = append(steps, smokeStep{Name: "player join", Status: smokeSkip, Detail: "backend unreachable"})
 		steps = append(steps, smokeStep{Name: "player state", Status: smokeSkip, Detail: "backend unreachable"})
@@ -170,4 +174,39 @@ func smokeHasFailed(steps []smokeStep) bool {
 		}
 	}
 	return false
+}
+
+func classifyZoneError(raw, zone string) string {
+	if strings.Contains(raw, "connection refused") {
+		return "connection refused (is backend running?)"
+	}
+	if strings.Contains(raw, "timeout") || strings.Contains(raw, "deadline exceeded") {
+		return "request timeout"
+	}
+	if raw == "HTTP 404" {
+		return fmt.Sprintf("zone %q not found (check SEQ_ZONE)", zone)
+	}
+	if raw == "HTTP 503" {
+		return "backend unavailable (service starting?)"
+	}
+	if len(raw) > 80 {
+		return raw[:80]
+	}
+	return raw
+}
+
+func runSmokeCmd(target backendTarget, w io.Writer) int {
+	fmt.Fprintln(w, smokeConfigSummary(target))
+	fmt.Fprintln(w, "---")
+	steps := runSmoke(target)
+	for _, s := range steps {
+		fmt.Fprintln(w, s)
+	}
+	fmt.Fprintln(w, "---")
+	if smokeHasFailed(steps) {
+		fmt.Fprintln(w, "FAIL")
+		return 1
+	}
+	fmt.Fprintln(w, "PASS")
+	return 0
 }

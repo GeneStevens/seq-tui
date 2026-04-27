@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"math"
 	"os"
@@ -1018,6 +1019,13 @@ func (m model) View() string {
 }
 
 func main() {
+	smokeFlag := flag.Bool("smoke", false, "run startup smoke check and exit")
+	flag.Parse()
+
+	if *smokeFlag {
+		os.Exit(runSmokeCmd(defaultTarget(), os.Stdout))
+	}
+
 	globalSessionID = generateSessionID()
 	slog := newSessionLogger()
 	globalSessionLog = slog

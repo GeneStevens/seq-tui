@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -14,6 +15,10 @@ func newSmokeServer(t *testing.T, opts smokeServerOpts) *httptest.Server {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/world/zone/testzone", func(w http.ResponseWriter, r *http.Request) {
+		if opts.zoneNotFound {
+			http.Error(w, "not found", http.StatusNotFound)
+			return
+		}
 		if opts.zoneDown {
 			http.Error(w, "unavailable", http.StatusServiceUnavailable)
 			return
@@ -72,6 +77,7 @@ func newSmokeServer(t *testing.T, opts smokeServerOpts) *httptest.Server {
 
 type smokeServerOpts struct {
 	zoneDown        bool
+	zoneNotFound    bool
 	devAPIDisabled  bool
 	tokenMismatch   bool
 	playerReadFails bool
@@ -362,6 +368,119 @@ func findStep(steps []smokeStep, name string) *smokeStep {
 		}
 	}
 	return nil
+}
+
+func TestSmokeZoneNotFound(t *testing.T) {
+	srv := newSmokeServer(t, smokeServerOpts{zoneNotFound: true})
+	defer srv.Close()
+
+	target := testTargetWithServer(srv.URL)
+	steps := runSmoke(target)
+
+	if len(steps) != 5 {
+		t.Fatalf("expected 5 steps, got %d", len(steps))
+	}
+	if steps[0].Status != smokeFail {
+		t.Errorf("backend reachable should FAIL on zone not found, got %s", steps[0].Status)
+	}
+	if !strings.Contains(steps[0].Detail, "not found") {
+		t.Errorf("should mention not found: %s", steps[0].Detail)
+	}
+	if !strings.Contains(steps[0].Detail, "testzone") {
+		t.Errorf("should mention zone name: %s", steps[0].Detail)
+	}
+	for _, s := range steps[1:] {
+		if s.Status != smokeSkip {
+			t.Errorf("step %q should be SKIP after zone not found, got %s", s.Name, s.Status)
+		}
+	}
+}
+
+func TestClassifyZoneError(t *testing.T) {
+	cases := []struct {
+		raw, zone, want string
+	}{
+		{"connection refused", "crushbone", "connection refused (is backend running?)"},
+		{"HTTP 404", "crushbone", `zone "crushbone" not found (check SEQ_ZONE)`},
+		{"HTTP 503", "crushbone", "backend unavailable (service starting?)"},
+		{"timeout", "crushbone", "request timeout"},
+		{"deadline exceeded", "crushbone", "request timeout"},
+		{"something else", "crushbone", "something else"},
+	}
+	for _, tc := range cases {
+		got := classifyZoneError(tc.raw, tc.zone)
+		if got != tc.want {
+			t.Errorf("classifyZoneError(%q, %q) = %q, want %q", tc.raw, tc.zone, got, tc.want)
+		}
+	}
+}
+
+func TestClassifyZoneErrorTruncation(t *testing.T) {
+	long := strings.Repeat("x", 100)
+	got := classifyZoneError(long, "z")
+	if len(got) != 80 {
+		t.Errorf("expected truncation to 80 chars, got %d", len(got))
+	}
+}
+
+func TestSmokeCmdAllPass(t *testing.T) {
+	srv := newSmokeServer(t, smokeServerOpts{})
+	defer srv.Close()
+
+	target := testTargetWithServer(srv.URL)
+	var buf bytes.Buffer
+	code := runSmokeCmd(target, &buf)
+	if code != 0 {
+		t.Errorf("expected exit code 0, got %d", code)
+	}
+	out := buf.String()
+	if !strings.Contains(out, "PASS") {
+		t.Errorf("output should contain PASS: %s", out)
+	}
+	if strings.Contains(out, "FAIL") {
+		t.Errorf("output should not contain FAIL: %s", out)
+	}
+	if !strings.Contains(out, "---") {
+		t.Errorf("output should contain separator: %s", out)
+	}
+}
+
+func TestSmokeCmdFail(t *testing.T) {
+	target := backendTarget{
+		BaseURL:  "http://127.0.0.1:1",
+		Zone:     "testzone",
+		Mode:     "RT",
+		Player:   "p1",
+		DevToken: "test-token",
+	}
+	var buf bytes.Buffer
+	code := runSmokeCmd(target, &buf)
+	if code != 1 {
+		t.Errorf("expected exit code 1, got %d", code)
+	}
+	out := buf.String()
+	if !strings.Contains(out, "FAIL") {
+		t.Errorf("output should contain FAIL: %s", out)
+	}
+	if !strings.Contains(out, "connection refused") {
+		t.Errorf("output should contain connection refused: %s", out)
+	}
+}
+
+func TestSmokeCmdShowsConfig(t *testing.T) {
+	srv := newSmokeServer(t, smokeServerOpts{})
+	defer srv.Close()
+
+	target := testTargetWithServer(srv.URL)
+	var buf bytes.Buffer
+	runSmokeCmd(target, &buf)
+	out := buf.String()
+	if !strings.Contains(out, "testzone") {
+		t.Errorf("output should show zone in config: %s", out)
+	}
+	if !strings.Contains(out, "***") {
+		t.Errorf("output should mask token: %s", out)
+	}
 }
 
 // Verify JSON round-trip of smoke steps for structured output.
