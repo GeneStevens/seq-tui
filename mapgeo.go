@@ -6,6 +6,7 @@ import (
 	"io"
 	"math"
 	"net/http"
+	"sort"
 	"strings"
 	"time"
 )
@@ -577,7 +578,19 @@ func overlayMobs(mapText string, mobs []mobPosition, bounds mapBounds, width, he
 		lines = append(lines, strings.Repeat(" ", width))
 	}
 
-	for cell, count := range counts {
+	cells := make([]cellKey, 0, len(counts))
+	for cell := range counts {
+		cells = append(cells, cell)
+	}
+	sort.Slice(cells, func(i, j int) bool {
+		if cells[i].row != cells[j].row {
+			return cells[i].row < cells[j].row
+		}
+		return cells[i].col < cells[j].col
+	})
+
+	for _, cell := range cells {
+		count := counts[cell]
 		runes := []rune(lines[cell.row])
 		for len(runes) < width {
 			runes = append(runes, ' ')

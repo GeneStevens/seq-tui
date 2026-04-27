@@ -486,12 +486,13 @@ func nearestMob(playerPos playerPosResult, mobs []mobPosition) (string, float64)
 		dx := mob.Position.X - playerPos.X
 		dy := mob.Position.Y - playerPos.Y
 		dist := math.Sqrt(dx*dx + dy*dy)
-		if dist < bestDist {
+		mobID := mob.MobID
+		if mobID == "" {
+			mobID = mob.ProcessID
+		}
+		if dist < bestDist || (dist == bestDist && mobID < bestID) {
 			bestDist = dist
-			bestID = mob.MobID
-			if bestID == "" {
-				bestID = mob.ProcessID
-			}
+			bestID = mobID
 		}
 	}
 	return bestID, bestDist
