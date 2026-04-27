@@ -248,7 +248,7 @@ func TestRenderMapPanelContainsPlayerMarker(t *testing.T) {
 }
 
 func TestRenderLayoutContainsAllSections(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, headerTitle) {
 		t.Fatal("layout should contain header title")
 	}
@@ -261,7 +261,7 @@ func TestRenderLayoutContainsAllSections(t *testing.T) {
 }
 
 func TestRenderLayoutNonEmpty(t *testing.T) {
-	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(80, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty")
 	}
@@ -282,14 +282,14 @@ func TestRenderStatusPanelContainsTitle(t *testing.T) {
 }
 
 func TestRenderSideColumnContainsDiagnostics(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(col, "Diagnostics") {
 		t.Fatal("side column should contain diagnostics section when showDiag=true")
 	}
 }
 
 func TestWideLayoutContainsPanels(t *testing.T) {
-	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, "Diagnostics") {
 		t.Fatal("wide layout should contain diagnostics section")
 	}
@@ -299,7 +299,7 @@ func TestWideLayoutContainsPanels(t *testing.T) {
 }
 
 func TestNarrowLayoutOmitsPanels(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if strings.Contains(layout, "Diagnostics") {
 		t.Fatal("narrow layout should not contain diagnostics")
 	}
@@ -310,7 +310,7 @@ func TestNarrowLayoutOmitsPanels(t *testing.T) {
 
 func TestRenderLayoutSmallTerminal(t *testing.T) {
 	// Should not panic with very small dimensions
-	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(20, 5, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if len(layout) == 0 {
 		t.Fatal("layout should not be empty even for small terminal")
 	}
@@ -319,7 +319,7 @@ func TestRenderLayoutSmallTerminal(t *testing.T) {
 func TestRenderLayoutVariousSizes(t *testing.T) {
 	sizes := [][2]int{{40, 20}, {80, 40}, {120, 50}, {200, 60}}
 	for _, sz := range sizes {
-		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+		layout := renderLayout(sz[0], sz[1], "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 		if !strings.Contains(layout, headerTitle) {
 			t.Fatalf("layout at %dx%d missing header", sz[0], sz[1])
 		}
@@ -986,7 +986,7 @@ func TestEncounterPanelActiveButDetailsMissing(t *testing.T) {
 }
 
 func TestSideColumnContainsEncounterPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(col, encounterTitle) {
 		t.Fatal("side column should contain encounter panel title")
 	}
@@ -996,14 +996,14 @@ func TestSideColumnContainsEncounterPanel(t *testing.T) {
 }
 
 func TestWideLayoutContainsEncounterPanel(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, encounterTitle) {
 		t.Fatal("wide layout should contain encounter panel")
 	}
 }
 
 func TestNarrowLayoutOmitsEncounterPanel(t *testing.T) {
-	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(50, 30, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if strings.Contains(layout, encounterTitle) {
 		t.Fatal("narrow layout should not contain encounter panel")
 	}
@@ -1679,14 +1679,14 @@ func TestFooterShowsBothPreviews(t *testing.T) {
 func TestLayoutIncludesFocusPreview(t *testing.T) {
 	entries := []rosterEntry{{kind: "mb", id: "test-mob"}}
 	focus := rosterFocus{index: 0}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, focus, entries, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, focus, entries, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, "~mb:test-mob") {
 		t.Fatal("layout should include focus preview in footer")
 	}
 }
 
 func TestLayoutFocusNoneWhenUnfocused(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	// When unfocused, no ~ marker should appear in footer
 	if strings.Contains(stripANSI(layout), "~mb:") || strings.Contains(stripANSI(layout), "~pc:") {
 		t.Fatal("layout should not show focus marker when unfocused")
@@ -1852,14 +1852,14 @@ func TestFooterShowsAllThreeLabels(t *testing.T) {
 
 func TestLayoutIncludesTargetLabel(t *testing.T) {
 	tc := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a", Found: true, MobName: "orc"}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, tc, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, tc, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, "(backend)") {
 		t.Fatal("layout should include backend target label")
 	}
 }
 
 func TestLayoutTargetNoneByDefault(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, "target: none") {
 		t.Fatal("layout should show target: none by default")
 	}
@@ -1884,7 +1884,7 @@ func TestFooterContainsConfirmHint(t *testing.T) {
 // --- Proximity Panel Tests (M29) ---
 
 func TestTargetPanelNoTarget(t *testing.T) {
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "Target") {
 		t.Fatal("target panel should contain title")
@@ -1896,7 +1896,7 @@ func TestTargetPanelNoTarget(t *testing.T) {
 
 func TestTargetPanelNoTargetOnFailure(t *testing.T) {
 	tc := targetConfirmResult{State: targetConfirmFailed, Error: "HTTP 500"}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "no target") {
 		t.Fatalf("target panel should show 'no target' when no focus and backend failed, got: %s", stripped)
@@ -1908,7 +1908,7 @@ func TestProximityPanelFoundWithMobName(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, WithinProximity: false, Distance: 12.3, MobName: "a_skeleton",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	if !strings.Contains(panel, "a_skeleton") {
 		t.Fatal("proximity panel should show mob name")
 	}
@@ -1926,7 +1926,7 @@ func TestProximityPanelFoundWithinProximity(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, WithinProximity: true, Distance: 2.1, MobName: "orc",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "IN RANGE") {
 		t.Fatalf("proximity panel should show in-range indicator, got: %s", stripped)
@@ -1937,7 +1937,7 @@ func TestProximityPanelNotFound(t *testing.T) {
 	tc := targetConfirmResult{
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a", Found: false,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "not found") {
 		t.Fatalf("proximity panel should show not found, got: %s", stripped)
@@ -1949,7 +1949,7 @@ func TestProximityPanelFallbackID(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-a",
 		Found: true, MobName: "",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	if !strings.Contains(panel, "mb:orc-a") {
 		t.Fatal("proximity panel should fall back to kind:id when no mob name")
 	}
@@ -1960,22 +1960,22 @@ func TestProximityPanelDeterministic(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc",
 		Found: true, WithinProximity: true, Distance: 5.0, MobName: "orc",
 	}
-	a := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
-	b := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	a := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
+	b := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	if a != b {
 		t.Fatal("proximity panel should be deterministic")
 	}
 }
 
 func TestSideColumnContainsProximityPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(col, "Target") {
 		t.Fatal("side column should contain target panel")
 	}
 }
 
 func TestWideLayoutContainsProximityPanel(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, "Target") {
 		t.Fatal("wide layout should contain target panel")
 	}
@@ -1986,7 +1986,7 @@ func TestProximityPanelNoGameplayTerms(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc",
 		Found: true, WithinProximity: true, Distance: 2.0, MobName: "orc",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	forbidden := []string{"attack", "threat", "aggro", "damage", "hp", "health", "enemy"}
 	for _, word := range forbidden {
 		if strings.Contains(strings.ToLower(panel), word) {
@@ -2161,14 +2161,14 @@ func TestFooterShowsAttackKeybind(t *testing.T) {
 
 func TestLayoutIncludesAttackLabel(t *testing.T) {
 	ar := attackResult{State: attackStateSent, TargetID: "orc"}
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, ar, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, ar, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, "attack: sent") {
 		t.Fatal("layout should include attack label when sent")
 	}
 }
 
 func TestLayoutNoAttackLabelByDefault(t *testing.T) {
-	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 50, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if strings.Contains(layout, "attack:") {
 		t.Fatal("layout should not show attack label by default")
 	}
@@ -2329,14 +2329,14 @@ func TestCombatPanelNoGameplayTerms(t *testing.T) {
 }
 
 func TestSideColumnContainsCombatPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(col, "Combat") {
 		t.Fatal("side column should contain combat panel")
 	}
 }
 
 func TestWideLayoutContainsCombatPanel(t *testing.T) {
-	layout := renderLayout(120, 80, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 80, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(layout, "Combat") {
 		t.Fatal("wide layout should contain combat panel")
 	}
@@ -2513,7 +2513,7 @@ func TestPickupStatusLabelFailed(t *testing.T) {
 }
 
 func TestSideColumnContainsLootPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(col, "Loot") {
 		t.Fatal("side column should contain loot panel")
 	}
@@ -3821,7 +3821,7 @@ func TestPlayerPanelNoGameplayTerms(t *testing.T) {
 }
 
 func TestSideColumnContainsPlayerPanel(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	if !strings.Contains(col, "Player") {
 		t.Fatal("side column should contain player panel")
 	}
@@ -5312,7 +5312,7 @@ func TestTargetPanelShowsInRange(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
 		Found: true, WithinProximity: true, Distance: 3.0, MobName: "orc",
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "IN RANGE") {
 		t.Fatalf("target panel should show IN RANGE, got: %s", stripped)
@@ -5320,7 +5320,7 @@ func TestTargetPanelShowsInRange(t *testing.T) {
 }
 
 func TestTargetPanelTitleIsTarget(t *testing.T) {
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "Target") {
 		t.Fatalf("panel title should be Target, got: %s", stripped)
@@ -5332,7 +5332,7 @@ func TestProximityPanelCompactInRange(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
 		Found: true, WithinProximity: true, Distance: 2.0,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "IN RANGE") {
 		t.Fatalf("should show compact in-range, got: %s", stripped)
@@ -5344,7 +5344,7 @@ func TestProximityPanelCompactOutOfRange(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
 		Found: true, WithinProximity: false, Distance: 15.0,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "OOR") {
 		t.Fatalf("should show compact out-of-range, got: %s", stripped)
@@ -5448,7 +5448,7 @@ func TestFooterJoinedShowsFull(t *testing.T) {
 
 func TestLayoutNotJoinedFooter(t *testing.T) {
 	// When player not joined, layout footer should show reduced hints
-	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	layout := renderLayout(120, 40, "", defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	stripped := stripANSI(layout)
 	if !strings.Contains(stripped, "joining") {
 		t.Fatalf("not-joined layout should show joining hint in footer, got last line: %s", stripped[len(stripped)-100:])
@@ -5539,7 +5539,7 @@ func TestCombatPanelCompletedIsCompact(t *testing.T) {
 // --- Small Terminal Panel Ordering Sanity Tests (M20260409-10) ---
 
 func TestSideColumnPlayerBeforeCombat(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	stripped := stripANSI(col)
 	playerIdx := strings.Index(stripped, "Player")
 	combatIdx := strings.Index(stripped, "Combat")
@@ -5552,7 +5552,7 @@ func TestSideColumnPlayerBeforeCombat(t *testing.T) {
 }
 
 func TestSideColumnCombatBeforeLoot(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	stripped := stripANSI(col)
 	combatIdx := strings.Index(stripped, "Combat")
 	lootIdx := strings.Index(stripped, "Loot")
@@ -5565,7 +5565,7 @@ func TestSideColumnCombatBeforeLoot(t *testing.T) {
 }
 
 func TestSideColumnDiagnosticsIsLast(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	stripped := stripANSI(col)
 	diagIdx := strings.Index(stripped, "Diagnostics")
 	eventsIdx := strings.Index(stripped, "Events")
@@ -5578,7 +5578,7 @@ func TestSideColumnDiagnosticsIsLast(t *testing.T) {
 }
 
 func TestSideColumnNoBlankLineSeparators(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{index: -1}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	stripped := stripANSI(col)
 	// Should not have double newlines (blank line separators removed)
 	if strings.Contains(stripped, "\n\n\n") {
@@ -5918,7 +5918,7 @@ func TestProximityPanelShowsNearestMob(t *testing.T) {
 		Count: 1,
 	}
 	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "nearest") {
 		t.Fatalf("should show nearest mob, got: %s", stripped)
@@ -5933,7 +5933,7 @@ func TestProximityPanelShowsNearestMob(t *testing.T) {
 
 func TestProximityPanelNoneWithoutMobs(t *testing.T) {
 	tc := targetConfirmResult{State: targetConfirmNone}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "no target") {
 		t.Fatalf("should show 'no target' without player/mobs, got: %s", stripped)
@@ -7562,7 +7562,7 @@ func TestProximityPanelOutOfRangeAfterMove(t *testing.T) {
 	ar := attackResult{}
 	mobr := mobReadResult{}
 	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 10, Y: 0}}
-	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "OOR dist:45") {
@@ -7584,7 +7584,7 @@ func TestProximityPanelInRangeAfterMove(t *testing.T) {
 	ar := attackResult{}
 	mobr := mobReadResult{}
 	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 20, Y: 5}}
-	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "IN RANGE dist:8") {
@@ -7603,7 +7603,7 @@ func TestProximityPanelAtkMarkerAfterMoveAndAttack(t *testing.T) {
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
 	mobr := mobReadResult{}
 	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 22, Y: 5}}
-	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "IN RANGE") {
@@ -7618,7 +7618,7 @@ func TestProximityPanelNoAtkMarkerOnDifferentTarget(t *testing.T) {
 		Found: true, WithinProximity: true, Distance: 5,
 	}
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
-	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 
 	if strings.Contains(stripped, "[atk]") {
@@ -7727,7 +7727,7 @@ func TestProximityAndCombatPanelComposeOutOfRange(t *testing.T) {
 		}},
 	}
 
-	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil))
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil, 0, false))
 	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, ""))
 
 	if !strings.Contains(proxPanel, "OOR dist:40") {
@@ -7761,7 +7761,7 @@ func TestProximityAndCombatPanelComposeInRange(t *testing.T) {
 		}},
 	}
 
-	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil))
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil, 0, false))
 	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, ""))
 
 	if !strings.Contains(proxPanel, "IN RANGE dist:8") {
@@ -7784,7 +7784,7 @@ func TestProximityPanelRaceAfterMoveBeforeRead(t *testing.T) {
 	ar := attackResult{State: attackStateSent, TargetID: "orc-1"}
 	// Player has moved but proximity hasn't refreshed yet
 	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 15, Y: 0}}
-	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 
 	// Panel shows the stale (last known) distance — this is honest
@@ -7965,7 +7965,7 @@ func TestProximityCombatTransitionOutToInRange(t *testing.T) {
 			LatestResultKind: "out_of_range",
 		}},
 	}
-	prox1 := stripANSI(renderProximityPanel(sidePanelWidth, tcOut, ar, mobr, pr, rosterFocus{index: -1}, nil))
+	prox1 := stripANSI(renderProximityPanel(sidePanelWidth, tcOut, ar, mobr, pr, rosterFocus{index: -1}, nil, 0, false))
 	combat1 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erDeny, defaultTarget(), inventoryReadResult{}, "orc-1"))
 
 	if !strings.Contains(prox1, "OOR dist:35") {
@@ -7988,7 +7988,7 @@ func TestProximityCombatTransitionOutToInRange(t *testing.T) {
 			ActionIndex: 1, LatestResultKind: "damage_applied", LatestResultValue: 12,
 		}},
 	}
-	prox2 := stripANSI(renderProximityPanel(sidePanelWidth, tcIn, ar, mobr, pr, rosterFocus{index: -1}, nil))
+	prox2 := stripANSI(renderProximityPanel(sidePanelWidth, tcIn, ar, mobr, pr, rosterFocus{index: -1}, nil, 0, false))
 	combat2 := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, erRes, defaultTarget(), inventoryReadResult{}, "orc-1"))
 
 	if !strings.Contains(prox2, "IN RANGE dist:6") {
@@ -8027,7 +8027,7 @@ func TestProximityNotFoundWhileCombatDenial(t *testing.T) {
 			LatestResultKind: "invalid_target",
 		}},
 	}
-	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil))
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tc, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil, 0, false))
 	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, ""))
 
 	if !strings.Contains(proxPanel, "not found") {
@@ -8061,7 +8061,7 @@ func TestStaleProximityDuringCombatSuccess(t *testing.T) {
 		}},
 	}
 
-	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tcStale, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil))
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, tcStale, ar, mobReadResult{}, pr, rosterFocus{index: -1}, nil, 0, false))
 	combatPanel := stripANSI(renderCombatPanel(sidePanelWidth, ar, pr, er, defaultTarget(), inventoryReadResult{}, "orc-1"))
 
 	// Proximity shows stale data — this is honest
@@ -9267,8 +9267,8 @@ func TestEventStreamMoveAppends(t *testing.T) {
 	if m.events.len() != 1 {
 		t.Fatalf("move result should append 1 event, got %d", m.events.len())
 	}
-	if m.events.recent()[0].text != "move east" {
-		t.Fatalf("move event text should be 'move east', got: %s", m.events.recent()[0].text)
+	if m.events.recent()[0].text != "→ east" {
+		t.Fatalf("move event text should be '→ east', got: %s", m.events.recent()[0].text)
 	}
 }
 
@@ -9286,8 +9286,8 @@ func TestEventStreamBlockedMoveAppends(t *testing.T) {
 	if m.events.len() != 1 {
 		t.Fatalf("blocked move should append 1 event, got %d", m.events.len())
 	}
-	if !strings.Contains(m.events.recent()[0].text, "move blocked") {
-		t.Fatalf("blocked move event should contain 'move blocked', got: %s", m.events.recent()[0].text)
+	if !strings.Contains(m.events.recent()[0].text, "blocked") {
+		t.Fatalf("blocked move event should contain 'blocked', got: %s", m.events.recent()[0].text)
 	}
 }
 
@@ -9413,7 +9413,7 @@ func TestEventStreamEncounterCompleted(t *testing.T) {
 func TestEventStreamSideColumnContainsPanel(t *testing.T) {
 	var log eventLog
 	log.append(eventEntry{kind: "move", text: "move east"})
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, log, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, log, true, 0, false)
 	stripped := stripANSI(col)
 	if !strings.Contains(stripped, "Events") {
 		t.Fatal("side column must contain Events panel")
@@ -9635,7 +9635,7 @@ func TestOutcomeRemovedFromSideColumn(t *testing.T) {
 			CompletedReason: "all_mobs_dead", XPAwarded: 30,
 		}},
 	}
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, pr, er, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, pr, er, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	stripped := stripANSI(col)
 	if strings.Contains(stripped, "Outcome") {
 		t.Fatal("Outcome panel should no longer appear in side column (content in event stream)")
@@ -9646,7 +9646,7 @@ func TestOutcomeRemovedFromSideColumn(t *testing.T) {
 
 func TestSideColumnHierarchyOrder(t *testing.T) {
 	// Panels must appear in order: Player → Combat → Events → Loot → Encounter → Proximity → Diagnostics
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
 	stripped := stripANSI(col)
 
 	playerIdx := strings.Index(stripped, "Player")
@@ -9667,7 +9667,7 @@ func TestSideColumnHierarchyOrder(t *testing.T) {
 }
 
 func TestSideColumnDiagnosticsHidden(t *testing.T) {
-	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, false)
+	col := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, playerReadResult{State: playerReadOK}, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, false, 0, false)
 	stripped := stripANSI(col)
 	if strings.Contains(stripped, "Diagnostics") {
 		t.Fatal("diagnostics must be hidden when showDiag=false")
@@ -9756,8 +9756,8 @@ func TestFooterContainsDiagHint(t *testing.T) {
 
 func TestDiagCollapsedSideColumnShorter(t *testing.T) {
 	pr := playerReadResult{State: playerReadOK}
-	expanded := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, pr, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true)
-	collapsed := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, pr, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, false)
+	expanded := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, pr, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, true, 0, false)
+	collapsed := renderSideColumn(sidePanelWidth, defaultTarget(), zoneReadResult{}, mapReadResult{}, mobReadResult{}, pr, encounterReadResult{}, rosterFocus{}, nil, targetConfirmResult{}, attackResult{}, pickupResult{}, inventoryReadResult{}, -1, -1, respawnResult{}, eventLog{}, false, 0, false)
 
 	expandedLines := strings.Count(expanded, "\n")
 	collapsedLines := strings.Count(collapsed, "\n")

@@ -152,7 +152,7 @@ func TestTargetPanelShowsFocusedMobDistance(t *testing.T) {
 	entries := []rosterEntry{{kind: "mb", id: "orc-1", canonicalMobID: true}}
 	focus := rosterFocus{index: 0}
 
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "orc-1") {
@@ -168,7 +168,7 @@ func TestTargetPanelFallsBackToNearestWhenNoFocus(t *testing.T) {
 	mobr := mobReadResult{State: mobReadOK, Mobs: mobs, Count: 1}
 	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
 
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "nearest") {
@@ -253,7 +253,7 @@ func TestProximityPanelFallbackShowsCheckHint(t *testing.T) {
 	focus := rosterFocus{index: 0}
 
 	// No targetConfirm data — empty result triggers the fallback branch
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "dist:25") {
@@ -279,7 +279,7 @@ func TestProximityPanelWithRangeDataNoHint(t *testing.T) {
 		WithinProximity: true,
 		Distance:        25,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "IN RANGE") {
@@ -333,7 +333,7 @@ func TestTargetPanelShowsMobNameAfterFocus(t *testing.T) {
 	entries := []rosterEntry{{kind: "mb", id: "orc-alpha", canonicalMobID: true}}
 	focus := rosterFocus{index: 0}
 
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "orc-alpha") {
@@ -356,7 +356,7 @@ func TestProximityPanelInRangeHasBoldStyle(t *testing.T) {
 		WithinProximity: true,
 		Distance:        5,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries, 0, false)
 
 	// Find the line containing "IN RANGE" in the raw (non-stripped) output
 	found := false
@@ -389,7 +389,7 @@ func TestProximityPanelOORShowsCloserHint(t *testing.T) {
 		WithinProximity: false,
 		Distance:        100,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "g:closer") {
@@ -402,7 +402,7 @@ func TestProximityPanelNoTargetShowsTabHint(t *testing.T) {
 	mobr := mobReadResult{State: mobReadOK, Mobs: nil, Count: 0}
 	pr := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
 
-	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 
 	if !strings.Contains(stripped, "tab") {

@@ -29,7 +29,7 @@ func TestSideColumnRenderIdempotent(t *testing.T) {
 
 	var outputs [3]string
 	for i := range outputs {
-		outputs[i] = renderSideColumn(width, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, 0, 0, rs, events, false)
+		outputs[i] = renderSideColumn(width, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, 0, 0, rs, events, false, 0, false)
 	}
 	for i := 1; i < len(outputs); i++ {
 		if outputs[i] != outputs[0] {
@@ -49,7 +49,7 @@ func TestProximityPanelRenderIdempotent(t *testing.T) {
 
 	var outputs [3]string
 	for i := range outputs {
-		outputs[i] = renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries)
+		outputs[i] = renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries, 0, false)
 	}
 	for i := 1; i < len(outputs); i++ {
 		if outputs[i] != outputs[0] {
@@ -85,7 +85,7 @@ func TestFullLayoutRenderIdempotent(t *testing.T) {
 		outputs[i] = renderLayout(termW, termH, "", target, zoneReadResult{}, mr, mobr, pr,
 			encounterReadResult{}, rosterFocus{index: -1}, nil,
 			targetConfirmResult{}, attackResult{}, pickupResult{},
-			inventoryReadResult{}, 0, 0, respawnResult{}, events, false)
+			inventoryReadResult{}, 0, 0, respawnResult{}, events, false, 0, false)
 	}
 	for i := 1; i < len(outputs); i++ {
 		if outputs[i] != outputs[0] {
@@ -375,12 +375,12 @@ func TestPlayerMoveProximityUpdates(t *testing.T) {
 
 	// Player far away at (0, 0)
 	prFar := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 0, Y: 0}}
-	panelFar := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, prFar, focus, entries)
+	panelFar := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, prFar, focus, entries, 0, false)
 	strippedFar := stripANSI(panelFar)
 
 	// Player closer at (30, 0)
 	prClose := playerReadResult{State: playerReadOK, HasPos: true, Position: playerPosResult{X: 30, Y: 0}}
-	panelClose := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, prClose, focus, entries)
+	panelClose := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, prClose, focus, entries, 0, false)
 	strippedClose := stripANSI(panelClose)
 
 	// Far panel should show dist:50, close panel should show dist:20
@@ -451,7 +451,7 @@ func TestMapAndProximityAgreeOnTarget(t *testing.T) {
 	}
 
 	// Check proximity panel shows the mob with distance
-	proxPanel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries)
+	proxPanel := renderProximityPanel(sidePanelWidth, targetConfirmResult{}, attackResult{}, mobr, pr, focus, entries, 0, false)
 	strippedProx := stripANSI(proxPanel)
 	if !strings.Contains(strippedProx, "orc-1") {
 		t.Fatalf("proximity panel should show focused mob 'orc-1', got:\n%s", strippedProx)
@@ -493,7 +493,7 @@ func TestInRangeConsistency(t *testing.T) {
 	}
 
 	// Proximity panel should show IN RANGE
-	proxPanel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries)
+	proxPanel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobr, pr, focus, entries, 0, false)
 	strippedProx := stripANSI(proxPanel)
 	if !strings.Contains(strippedProx, "IN RANGE") {
 		t.Fatalf("proximity panel should show IN RANGE, got:\n%s", strippedProx)

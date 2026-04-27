@@ -176,8 +176,8 @@ func TestStepTowardEventText(t *testing.T) {
 		t.Fatal("expected event entry for step")
 	}
 	last := entries[len(entries)-1]
-	if last.text != "step north" {
-		t.Fatalf("expected 'step north', got: %s", last.text)
+	if last.text != "↑ step north" {
+		t.Fatalf("expected '↑ step north', got: %s", last.text)
 	}
 }
 
@@ -196,8 +196,8 @@ func TestRegularMoveEventText(t *testing.T) {
 		t.Fatal("expected event entry for move")
 	}
 	last := entries[len(entries)-1]
-	if last.text != "move north" {
-		t.Fatalf("expected 'move north', got: %s", last.text)
+	if last.text != "↑ north" {
+		t.Fatalf("expected '↑ north', got: %s", last.text)
 	}
 }
 
@@ -206,7 +206,7 @@ func TestProximityPanelShowsOorLabel(t *testing.T) {
 		State: targetConfirmOK, TargetKind: "mb", TargetID: "orc-1",
 		Found: true, WithinProximity: false, Distance: 25.0,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil)
+	panel := renderProximityPanel(sidePanelWidth, tc, attackResult{}, mobReadResult{}, playerReadResult{}, rosterFocus{index: -1}, nil, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "OOR dist:25") {
 		t.Fatalf("proximity panel must show 'OOR dist:25', got: %s", stripped)

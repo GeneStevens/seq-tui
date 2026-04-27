@@ -390,7 +390,7 @@ func TestTruthCombat1v1CombatResult(t *testing.T) {
 
 func TestTruthCombat1v1FocusedMobInProximity(t *testing.T) {
 	pr, _, _, mobr, ar, focus, entries, tc := combat1v1ActiveSnapshot()
-	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, focus, entries, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "orc-1") {
 		t.Fatalf("proximity panel should contain mob identity orc-1, got:\n%s", stripped)
@@ -402,7 +402,7 @@ func TestTruthCombat1v1FocusedMobInProximity(t *testing.T) {
 
 func TestTruthCombat1v1Distance(t *testing.T) {
 	pr, _, _, mobr, ar, focus, entries, tc := combat1v1ActiveSnapshot()
-	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, focus, entries, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "dist:5") {
 		t.Fatalf("proximity panel should contain dist:5, got:\n%s", stripped)
@@ -780,7 +780,7 @@ func TestTruthSpatialOutOfRangeLabel(t *testing.T) {
 		WithinProximity: false,
 		Distance:        50,
 	}
-	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, focus, entries)
+	panel := renderProximityPanel(sidePanelWidth, tc, ar, mobr, pr, focus, entries, 0, false)
 	stripped := stripANSI(panel)
 	if !strings.Contains(stripped, "OOR") {
 		t.Fatalf("proximity panel should show OOR for out-of-range target, got:\n%s", stripped)
@@ -878,12 +878,12 @@ func TestTruthTemporalDistanceTransition(t *testing.T) {
 
 	// Frame 1: out of range
 	tc1 := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "live-orc-1", Found: true, WithinProximity: false, Distance: 50}
-	panel1 := renderProximityPanel(sidePanelWidth, tc1, ar, mobr, pr, focus, entries)
+	panel1 := renderProximityPanel(sidePanelWidth, tc1, ar, mobr, pr, focus, entries, 0, false)
 	stripped1 := stripANSI(panel1)
 
 	// Frame 2: in range
 	tc2 := targetConfirmResult{State: targetConfirmOK, TargetKind: "mb", TargetID: "live-orc-1", Found: true, WithinProximity: true, Distance: 5}
-	panel2 := renderProximityPanel(sidePanelWidth, tc2, ar, mobr, pr, focus, entries)
+	panel2 := renderProximityPanel(sidePanelWidth, tc2, ar, mobr, pr, focus, entries, 0, false)
 	stripped2 := stripANSI(panel2)
 
 	if !strings.Contains(stripped1, "OOR") {
@@ -2085,7 +2085,7 @@ func TestE2EPacingSpatialRangeTransition(t *testing.T) {
 		entries = append(entries, rosterEntry{kind: "mb", id: sf2.mobr.Mobs[0].MobID, mobID: sf2.mobr.Mobs[0].MobID})
 	}
 	focus := rosterFocus{index: 0}
-	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, sf2.tc, sf2.ar, sf2.mobr, sf2.pr, focus, entries))
+	proxPanel := stripANSI(renderProximityPanel(sidePanelWidth, sf2.tc, sf2.ar, sf2.mobr, sf2.pr, focus, entries, 0, false))
 	// Should contain either "IN RANGE" or a distance value
 	if !strings.Contains(proxPanel, "IN RANGE") && !strings.Contains(proxPanel, "dist:") {
 		t.Fatalf("frame 2: proximity panel should show range info after move, got:\n%s", proxPanel)
@@ -3723,7 +3723,7 @@ func TestTruthTemporalOORToInRangeTransition(t *testing.T) {
 		WithinProximity: false,
 		Distance:        100,
 	}
-	panel1 := renderProximityPanel(sidePanelWidth, tc1, ar, mobr, pr1, focus, entries)
+	panel1 := renderProximityPanel(sidePanelWidth, tc1, ar, mobr, pr1, focus, entries, 0, false)
 	stripped1 := stripANSI(panel1)
 
 	if !strings.Contains(stripped1, "OOR") {
@@ -3743,7 +3743,7 @@ func TestTruthTemporalOORToInRangeTransition(t *testing.T) {
 		WithinProximity: true,
 		Distance:        5,
 	}
-	panel2 := renderProximityPanel(sidePanelWidth, tc2, ar, mobr, pr2, focus, entries)
+	panel2 := renderProximityPanel(sidePanelWidth, tc2, ar, mobr, pr2, focus, entries, 0, false)
 	stripped2 := stripANSI(panel2)
 
 	if !strings.Contains(stripped2, "IN RANGE") {

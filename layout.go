@@ -393,7 +393,7 @@ func truncateID(id string, maxLen int) string {
 // When a mob is focused, shows locally-computed distance and range status.
 // When backend proximity data is available, enriches with authoritative range.
 // Falls back to nearest mob when no target is focused.
-func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry) string {
+func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mobr mobReadResult, pr playerReadResult, focus rosterFocus, entries []rosterEntry, distDelta float64, hasDistDelta bool) string {
 	title := panelTitleStyle.Render("Target")
 
 	var items []string
@@ -419,16 +419,17 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 			// Distance and range status
 			// Use backend proximity truth if available for this target
 			if tc.State == targetConfirmOK && tc.TargetID == fe.id && tc.Found {
+				deltaSuffix := distDeltaSuffix(distDelta, hasDistDelta)
 				if tc.WithinProximity {
-					items = append(items, eventStrongStyle.Render(fmt.Sprintf("  IN RANGE dist:%.0f", tc.Distance)))
+					items = append(items, eventStrongStyle.Render(fmt.Sprintf("  IN RANGE dist:%.0f%s", tc.Distance, deltaSuffix)))
 					items = append(items, panelItemStyle.Render("  → a:attack"))
 				} else {
-					items = append(items, panelItemStyle.Render(fmt.Sprintf("  OOR dist:%.0f", tc.Distance)))
+					items = append(items, panelItemStyle.Render(fmt.Sprintf("  OOR dist:%.0f%s", tc.Distance, deltaSuffix)))
 					items = append(items, panelItemStyle.Render("  → g:closer"))
 				}
 			} else {
-				// Local distance estimate (no authoritative range check yet)
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f (t:chk)", dist)))
+				deltaSuffix := distDeltaSuffix(distDelta, hasDistDelta)
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f%s (t:chk)", dist, deltaSuffix)))
 			}
 		} else {
 			displayID := fe.mobID
@@ -472,6 +473,26 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 
 	content := title + "\n" + lipgloss.JoinVertical(lipgloss.Left, items...)
 	return panelBorderStyle.Width(width - 4).Render(content)
+}
+
+// distDeltaSuffix returns a compact arrow+value suffix for distance changes.
+// Negative delta = closer (↓), positive = farther (↑). Returns "" if no delta
+// or if the change is negligible (< 0.5 units).
+func distDeltaSuffix(delta float64, hasDelta bool) string {
+	if !hasDelta {
+		return ""
+	}
+	absDelta := delta
+	if absDelta < 0 {
+		absDelta = -absDelta
+	}
+	if absDelta < 0.5 {
+		return ""
+	}
+	if delta < 0 {
+		return fmt.Sprintf(" ↓%.0f", -delta)
+	}
+	return fmt.Sprintf(" ↑%.0f", delta)
 }
 
 // nearestMob returns the ID and distance of the nearest mob to the player position.
@@ -1103,6 +1124,8 @@ func eventEmphasis(text string) string {
 		text == "miss",
 		text == "casting",
 		text == "interrupted",
+		text == "IN RANGE",
+		text == "out of range",
 		strings.HasPrefix(text, "mob casting:"):
 		return "strong"
 	case strings.HasPrefix(text, "attack"),
@@ -1231,7 +1254,7 @@ func renderDiagnosticsSection(width int, target backendTarget, zr zoneReadResult
 
 // renderSideColumn stacks the side panels vertically.
 // Hierarchy: tactical (player+combat) → events → details (loot+encounter+proximity) → diagnostics.
-func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog, showDiag bool) string {
+func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog, showDiag bool, distDelta float64, hasDistDelta bool) string {
 	// === Tactical section (glanceable at top) ===
 	player := renderPlayerPanel(width, pr, inv, rs)
 	fmID := ""
@@ -1246,7 +1269,7 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 	// === Detail section (contextual) ===
 	loot := renderLootPanel(width, pr, er, pk, inv, invAtPickup, lootFocus)
 	encounter := renderEncounterPanel(width, pr, er, focus, target.Player)
-	proximity := renderProximityPanel(width, tc, ar, mobr, pr, focus, entries)
+	proximity := renderProximityPanel(width, tc, ar, mobr, pr, focus, entries, distDelta, hasDistDelta)
 
 	// === Diagnostics section (subordinated) ===
 	diag := renderDiagnosticsSection(width, target, zr, mr, mobr, pr, showDiag)
@@ -1296,7 +1319,7 @@ func renderFooter(width int, intentPreview string, focusLabel string, targetLabe
 }
 
 // renderLayout composes all sections into the full view.
-func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog, showDiag bool) string {
+func renderLayout(width, height int, lastInput string, target backendTarget, zr zoneReadResult, mr mapReadResult, mobr mobReadResult, pr playerReadResult, er encounterReadResult, focus rosterFocus, entries []rosterEntry, tc targetConfirmResult, ar attackResult, pk pickupResult, inv inventoryReadResult, invAtPickup int, lootFocus int, rs respawnResult, events eventLog, showDiag bool, distDelta float64, hasDistDelta bool) string {
 	header := renderHeader(width)
 	focusLabel := focusPreviewLabel(focus, entries)
 	targetLabel := tc.targetStatusLabel()
@@ -1331,7 +1354,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	var body string
 	if width >= sidePanelMinWidth {
 		// Side-by-side: map on left, info panels on right
-		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, invAtPickup, lootFocus, rs, events, showDiag)
+		sideCol := renderSideColumn(sidePanelWidth, target, zr, mr, mobr, pr, er, focus, entries, tc, ar, pk, inv, invAtPickup, lootFocus, rs, events, showDiag, distDelta, hasDistDelta)
 		combined := lipgloss.JoinHorizontal(lipgloss.Top, mapPanel, "  ", sideCol)
 		body = lipgloss.Place(width, bodyHeight,
 			lipgloss.Center, lipgloss.Center,

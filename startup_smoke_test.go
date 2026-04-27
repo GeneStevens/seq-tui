@@ -31,6 +31,7 @@ func TestStartupSmokeJoinedFooter(t *testing.T) {
 		respawnResult{},
 		eventLog{},
 		true, // showDiag: diagnostics panel includes player status label
+		0, false,
 	)
 	out := stripANSI(raw)
 	if strings.Contains(out, "not joined") {
@@ -65,6 +66,7 @@ func TestStartupSmokeFailedJoinFooter(t *testing.T) {
 		respawnResult{},
 		eventLog{},
 		false,
+		0, false,
 	)
 	out := stripANSI(raw)
 	if !strings.Contains(out, "not joined") {

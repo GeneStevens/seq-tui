@@ -118,6 +118,22 @@ func directionFromKey(key string) string {
 	}
 }
 
+// directionArrow returns a Unicode arrow for a cardinal direction.
+func directionArrow(dir string) string {
+	switch dir {
+	case "north":
+		return "↑"
+	case "south":
+		return "↓"
+	case "east":
+		return "→"
+	case "west":
+		return "←"
+	default:
+		return ""
+	}
+}
+
 // eventTextForResult returns a human-readable event text for a backend combat result.
 // Maps internal result kinds to compact readable forms for the event stream.
 // This is purely presentational — no gameplay inference.
@@ -424,6 +440,10 @@ type model struct {
 	lootFocus        int                 // local selection index into encounter Drops; -1 = none
 	lastRespawn      respawnResult       // result of most recent Respawn intent submission
 	events           eventLog            // bounded event stream for right-rail panel
+	distDelta        float64             // distance change to focused target from last move (negative = closer)
+	hasDistDelta     bool                // whether distDelta is meaningful for display
+	prevRangeInRange bool                // was target in-range at last proximity check
+	hasPrevRange     bool                // whether prevRangeInRange is meaningful
 	lastSeenActIdx      uint64 // last seen encounter ActionIndex for event dedup
 	lastSeenTimelineLen int    // last seen encounter timeline length for denial detection
 	lastSeenEncID       string // last seen encounter ID for lifecycle events
@@ -642,6 +662,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 		return m, nil
 	case targetConfirmMsg:
+		// Range transition detection: emit event when range state changes
+		if msg.result.State == targetConfirmOK && msg.result.Found {
+			if m.hasPrevRange {
+				if msg.result.WithinProximity && !m.prevRangeInRange {
+					m.events.append(eventEntry{kind: "range", text: "IN RANGE"})
+				} else if !msg.result.WithinProximity && m.prevRangeInRange {
+					m.events.append(eventEntry{kind: "range", text: "out of range"})
+				}
+			}
+			m.prevRangeInRange = msg.result.WithinProximity
+			m.hasPrevRange = true
+		}
 		m.targetConfirm = msg.result
 		return m, nil
 	case attackResultMsg:
@@ -688,6 +720,23 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case moveResultMsg:
 		m.slog.LogPoll("move_result", msg.result.OK)
+		arrow := directionArrow(msg.direction)
+		// Compute distance delta to focused target before updating position
+		m.hasDistDelta = false
+		if fe := focusedEntry(m.rosterFocus, m.rosterEntries); fe != nil && fe.kind == "mb" && m.mobRead.State == mobReadOK {
+			if mobPos := findMobPosition(m.mobRead.Mobs, fe.id); mobPos != nil {
+				preDX := mobPos.X - m.playerRead.Position.X
+				preDY := mobPos.Y - m.playerRead.Position.Y
+				preDist := math.Sqrt(preDX*preDX + preDY*preDY)
+				if msg.result.OK && msg.result.HasPos {
+					postDX := mobPos.X - msg.result.Position.X
+					postDY := mobPos.Y - msg.result.Position.Y
+					postDist := math.Sqrt(postDX*postDX + postDY*postDY)
+					m.distDelta = postDist - preDist
+					m.hasDistDelta = true
+				}
+			}
+		}
 		if msg.result.OK {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateSent}
 			if msg.result.HasPos {
@@ -695,16 +744,16 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.playerRead.HasPos = true
 			}
 			if msg.source == "step" {
-				m.events.append(eventEntry{kind: "move", text: "step " + msg.direction})
+				m.events.append(eventEntry{kind: "move", text: arrow + " step " + msg.direction})
 			} else {
-				m.events.append(eventEntry{kind: "move", text: "move " + msg.direction})
+				m.events.append(eventEntry{kind: "move", text: arrow + " " + msg.direction})
 			}
 		} else {
 			m.lastIntent = moveIntent{direction: msg.direction, state: moveStateFailed}
 			if msg.source == "step" {
-				m.events.append(eventEntry{kind: "move", text: "step blocked " + msg.direction})
+				m.events.append(eventEntry{kind: "move", text: arrow + " step blk " + msg.direction})
 			} else {
-				m.events.append(eventEntry{kind: "move", text: "move blocked " + msg.direction})
+				m.events.append(eventEntry{kind: "move", text: arrow + " blocked " + msg.direction})
 			}
 		}
 		// Render-observable state snapshot after move processing
@@ -767,6 +816,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 			}
 			m.rosterFocus = moveFocusDown(m.rosterFocus, len(m.rosterEntries))
+			m.hasDistDelta = false
+			m.hasPrevRange = false
 			fe := focusedEntry(m.rosterFocus, m.rosterEntries)
 			if fe != nil {
 				source := "encounter_roster"
@@ -1015,7 +1066,7 @@ func (m model) View() string {
 	if m.width == 0 || m.height == 0 {
 		return ""
 	}
-	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus, m.lastRespawn, m.events, m.showDiag)
+	return renderLayout(m.width, m.height, m.lastIntent.preview(), m.target, m.zoneRead, m.mapRead, m.mobRead, m.playerRead, m.encounterRead, m.rosterFocus, m.rosterEntries, m.targetConfirm, m.lastAttack, m.lastPickup, m.inventoryRead, m.invCountAtPickup, m.lootFocus, m.lastRespawn, m.events, m.showDiag, m.distDelta, m.hasDistDelta)
 }
 
 func main() {
