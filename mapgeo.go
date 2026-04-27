@@ -255,10 +255,10 @@ func overlayPlayer(mapText string, pos playerPosResult, bounds mapBounds, width,
 	return strings.Join(lines, "\n")
 }
 
-// overlayFocusedMob replaces the mob marker at the focused mob's position with 'T'
-// (target indicator). Purely visual, non-authoritative. Matches by canonical MobID
-// (used by focus/attack systems). Falls back to ProcessID for pre-encounter mob
-// entries. If focusedMobID is empty or not found among mobs, the map is returned
+// overlayFocusedMob replaces the mob marker at the focused mob's position with 'M'
+// (focused-mob indicator). Purely visual, non-authoritative. Matches by canonical
+// MobID (used by focus/attack systems). Falls back to ProcessID for pre-encounter
+// mob entries. If focusedMobID is empty or not found among mobs, the map is returned
 // unchanged.
 func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, bounds mapBounds, width, height int) string {
 	if focusedMobID == "" || len(mobs) == 0 || width < 1 || height < 1 {
@@ -267,17 +267,17 @@ func overlayFocusedMob(mapText string, mobs []mobPosition, focusedMobID string, 
 	// Match by LiveMobID first (authoritative), then ProcessID, then MobID (fallback)
 	for _, mob := range mobs {
 		if mob.LiveMobID != "" && mob.LiveMobID == focusedMobID {
-			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'T')
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'M')
 		}
 	}
 	for _, mob := range mobs {
 		if mob.ProcessID == focusedMobID {
-			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'T')
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'M')
 		}
 	}
 	for _, mob := range mobs {
 		if mob.MobID == focusedMobID {
-			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'T')
+			return overlayGlyphAt(mapText, mob.Position, bounds, width, height, 'M')
 		}
 	}
 	return mapText
@@ -483,6 +483,20 @@ func computeAdaptiveWorldWindow(fullBounds mapBounds, centerX, centerZ float64, 
 	}
 }
 
+// snapViewportCenter quantizes the viewport center to the resolution of one cell,
+// preventing sub-cell floating-point drift from shifting the entire viewport grid.
+func snapViewportCenter(x, z, spanX, spanZ float64, vpWidth, vpHeight int) (float64, float64) {
+	if vpWidth > 1 && spanX > 0 {
+		cellX := spanX / float64(vpWidth-1)
+		x = math.Round(x/cellX) * cellX
+	}
+	if vpHeight > 1 && spanZ > 0 {
+		cellZ := spanZ / float64(vpHeight-1)
+		z = math.Round(z/cellZ) * cellZ
+	}
+	return x, z
+}
+
 // rasterizeAdaptiveViewport rasterizes zone geometry into a viewport-sized canvas
 // using adaptive world bounds. Returns the ASCII map and the viewport-local bounds
 // for use by overlay functions. The viewport is the final render size — no further
@@ -491,6 +505,25 @@ func rasterizeAdaptiveViewport(lines []mapLine, fullBounds mapBounds, centerX, c
 	if len(lines) == 0 || vpWidth < 1 || vpHeight < 1 {
 		return "", mapBounds{}
 	}
+
+	// Snap center to cell-aligned grid to prevent sub-cell jitter
+	fractionX := float64(vpWidth) / adaptiveRefWidth
+	if fractionX > 1.0 {
+		fractionX = 1.0
+	}
+	if fractionX < 0.05 {
+		fractionX = 0.05
+	}
+	fractionZ := float64(vpHeight) / adaptiveRefHeight
+	if fractionZ > 1.0 {
+		fractionZ = 1.0
+	}
+	if fractionZ < 0.05 {
+		fractionZ = 0.05
+	}
+	snapSpanX := fullBounds.SpanX * fractionX
+	snapSpanZ := fullBounds.SpanZ * fractionZ
+	centerX, centerZ = snapViewportCenter(centerX, centerZ, snapSpanX, snapSpanZ, vpWidth, vpHeight)
 
 	vpBounds := computeAdaptiveWorldWindow(fullBounds, centerX, centerZ, vpWidth, vpHeight)
 

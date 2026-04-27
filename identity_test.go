@@ -449,11 +449,11 @@ func TestOverlayFocusedMobByProcessID(t *testing.T) {
 	result1 := overlayFocusedMob(mapText, mobs, "pid-1", bounds, 5, 3)
 	result2 := overlayFocusedMob(mapText, mobs, "pid-2", bounds, 5, 3)
 
-	if !strings.Contains(result1, "T") {
-		t.Fatal("overlay by ProcessID pid-1 should place T glyph")
+	if !strings.Contains(result1, "M") {
+		t.Fatal("overlay by ProcessID pid-1 should place M glyph")
 	}
-	if !strings.Contains(result2, "T") {
-		t.Fatal("overlay by ProcessID pid-2 should place T glyph")
+	if !strings.Contains(result2, "M") {
+		t.Fatal("overlay by ProcessID pid-2 should place M glyph")
 	}
 	// They should be at different positions
 	if result1 == result2 {

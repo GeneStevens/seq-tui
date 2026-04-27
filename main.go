@@ -523,7 +523,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				if m.playerRead.State == playerReadOK {
 					return playerReadResultMsg{result: readPlayerState(target)}
 				}
-				return nil
+				return playerReadResultMsg{result: joinAndReadPlayer(target)}
 			},
 			func() tea.Msg {
 				return zoneReadResultMsg{result: fetchZoneStatus(target)}
@@ -786,7 +786,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			} else {
 				m.slog.LogState(map[string]any{"name": "tab_focus", "focus_kind": "none", "roster_len": len(m.rosterEntries), "has_encounter": m.playerRead.HasActiveEncounter, "mob_count": m.mobRead.Count})
 			}
-			return m, maybeRefreshProximity(&m)
+			// Auto-query proximity for focused mob
+			fe = focusedEntry(m.rosterFocus, m.rosterEntries)
+			if fe != nil && fe.kind == "mb" {
+				entry := *fe
+				bt := m.target
+				m.lastProximityPos = m.playerRead.Position
+				m.lastProximityID = entry.id
+				return m, func() tea.Msg {
+					return targetConfirmMsg{result: queryTargetProximity(bt, entry)}
+				}
+			}
+			return m, nil
 		case "shift+tab":
 			// Pre-encounter: rebuild with fresh distances, same as tab
 			if !m.playerRead.HasActiveEncounter && m.playerRead.State == playerReadOK && m.playerRead.HasPos && m.mobRead.State == mobReadOK {
@@ -806,7 +817,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				}
 			}
 			m.rosterFocus = moveFocusUp(m.rosterFocus, len(m.rosterEntries))
-			return m, maybeRefreshProximity(&m)
+			// Auto-query proximity for focused mob
+			fe := focusedEntry(m.rosterFocus, m.rosterEntries)
+			if fe != nil && fe.kind == "mb" {
+				entry := *fe
+				bt := m.target
+				m.lastProximityPos = m.playerRead.Position
+				m.lastProximityID = entry.id
+				return m, func() tea.Msg {
+					return targetConfirmMsg{result: queryTargetProximity(bt, entry)}
+				}
+			}
+			return m, nil
 		case "[":
 			// Move loot selection up
 			if m.lootFocus > 0 {

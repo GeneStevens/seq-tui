@@ -415,8 +415,8 @@ func renderProximityPanel(width int, tc targetConfirmResult, ar attackResult, mo
 					items = append(items, panelItemStyle.Render(fmt.Sprintf("  OOR dist:%.0f", tc.Distance)))
 				}
 			} else {
-				// Local distance estimate (no authoritative range check)
-				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f", dist)))
+				// Local distance estimate (no authoritative range check yet)
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  dist:%.0f (t:chk)", dist)))
 			}
 		} else {
 			displayID := fe.mobID
@@ -1247,9 +1247,11 @@ func renderSideColumn(width int, target backendTarget, zr zoneReadResult, mr map
 
 // renderFooter returns the footer help strip with status labels.
 // When playerJoined is false, shows a reduced hint set since most actions require joining.
-func renderFooter(width int, intentPreview string, focusLabel string, targetLabel string, attackLabel string, pickupLabel string, playerJoined bool, inv inventoryReadResult) string {
+func renderFooter(width int, intentPreview string, focusLabel string, targetLabel string, attackLabel string, pickupLabel string, playerJoined bool, playerFailed bool, inv inventoryReadResult) string {
 	help := footerHelp
-	if !playerJoined {
+	if !playerJoined && playerFailed {
+		help = "hjkl:mv q  (not joined — retrying)"
+	} else if !playerJoined {
 		help = "hjkl:mv q  (joining...)"
 	} else if inv.State == inventoryReadOK && inv.HasLifecycle && inv.HPMax > 0 && inv.HPCurrent <= 0 {
 		help = "[r:respawn]  " + help
@@ -1281,7 +1283,7 @@ func renderLayout(width, height int, lastInput string, target backendTarget, zr 
 	targetLabel := tc.targetStatusLabel()
 	attackLabel := ar.attackStatusLabel()
 	pickupLabel := pk.pickupStatusLabel()
-	footer := renderFooter(width, lastInput, focusLabel, targetLabel, attackLabel, pickupLabel, pr.State == playerReadOK, inv)
+	footer := renderFooter(width, lastInput, focusLabel, targetLabel, attackLabel, pickupLabel, pr.State == playerReadOK, pr.State == playerReadFailed, inv)
 
 	// Body height is total minus header (1 line) and footer (1 line)
 	bodyHeight := height - 2

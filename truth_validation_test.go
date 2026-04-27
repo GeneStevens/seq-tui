@@ -718,8 +718,8 @@ func TestTruthSpatialFocusedMobTargetMarker(t *testing.T) {
 		t.Fatal("expected focused entry to be a mob")
 	}
 	canvas = overlayFocusedMob(canvas, mobr.Mobs, fe.id, bounds, 20, 10)
-	if !strings.Contains(canvas, "T") {
-		t.Fatalf("map should show target marker 'T' for focused mob, got:\n%s", canvas)
+	if !strings.Contains(canvas, "M") {
+		t.Fatalf("map should show target marker 'M' for focused mob, got:\n%s", canvas)
 	}
 }
 
@@ -1028,12 +1028,12 @@ func TestTruthTemporalTargetingChange(t *testing.T) {
 	map1 := overlayMobs(canvas, mobs, bounds, w, h)
 	map1 = overlayFocusedMob(map1, mobs, "live-orc-2", bounds, w, h)
 
-	// Both frames should have 'T' marker
-	if !strings.Contains(map0, "T") {
-		t.Fatalf("frame 0: should show target marker T for orc-1, got:\n%s", map0)
+	// Both frames should have 'M' marker
+	if !strings.Contains(map0, "M") {
+		t.Fatalf("frame 0: should show target marker M for orc-1, got:\n%s", map0)
 	}
-	if !strings.Contains(map1, "T") {
-		t.Fatalf("frame 1: should show target marker T for orc-2, got:\n%s", map1)
+	if !strings.Contains(map1, "M") {
+		t.Fatalf("frame 1: should show target marker M for orc-2, got:\n%s", map1)
 	}
 	// Target should move between frames
 	if map0 == map1 {
@@ -3554,5 +3554,144 @@ func TestE2EHealLifecycle(t *testing.T) {
 	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
 	if !strings.Contains(panel4, "deny mana") {
 		t.Fatalf("frame 4: event panel should contain 'deny mana', got:\n%s", panel4)
+	}
+}
+
+// --- M20260427-26 Multi-Mob Encounter Pressure and Priority Validation ---
+
+func TestE2EMultiMobBothVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_multi_mob_pressure.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1: encounter opened with 2 mobs
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+
+	// Render combat panel — attack target is m1 (first mob in encounter)
+	combat := stripANSI(renderCombatPanel(sidePanelWidth, f1.ar, f1.pr, f1.er, defaultTarget(), f1.inv, ""))
+	// Both mob IDs should appear in the roster
+	if !strings.Contains(combat, "m1") {
+		t.Fatalf("frame 1: combat panel should contain mob 'm1', got:\n%s", combat)
+	}
+	if !strings.Contains(combat, "m2") {
+		t.Fatalf("frame 1: combat panel should contain mob 'm2', got:\n%s", combat)
+	}
+
+	// Encounter panel should show 1p/2m participant counts
+	focus := rosterFocus{index: 0}
+	encPanel := stripANSI(renderEncounterPanel(sidePanelWidth, f1.pr, f1.er, focus, "p1"))
+	if !strings.Contains(encPanel, "1p/2m") {
+		t.Fatalf("frame 1: encounter panel should show '1p/2m', got:\n%s", encPanel)
+	}
+}
+
+func TestE2EMultiMobCasterCasting(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_multi_mob_pressure.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 2: caster m2 begins casting mob_firebolt
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+
+	// Combat panel shows casting info for the targeted mob. The trace adapter
+	// sets attack target to m1 (first encounter mob). To verify the caster's
+	// cast bar, target m2 directly — this simulates the player tabbing to m2.
+	arM2 := attackResult{State: attackStateSent, TargetID: "m2"}
+	combat := stripANSI(renderCombatPanel(40, arM2, f2.pr, f2.er, defaultTarget(), f2.inv, "m2"))
+	if !strings.Contains(combat, "mob casting: mob_firebolt") {
+		t.Fatalf("frame 2: combat panel should contain 'mob casting: mob_firebolt', got:\n%s", combat)
+	}
+	if !strings.Contains(combat, "25%") {
+		t.Fatalf("frame 2: combat panel should show cast progress '25%%', got:\n%s", combat)
+	}
+
+	// Event log should contain a "casting" entry from the cast_start event
+	entries := f2.events.recent()
+	foundCasting := false
+	for _, e := range entries {
+		if e.text == "casting" {
+			foundCasting = true
+			break
+		}
+	}
+	if !foundCasting {
+		t.Fatalf("frame 2: events should contain 'casting' for cast_start, got: %v", entries)
+	}
+}
+
+func TestE2EMultiMobInterleavedEvents(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_multi_mob_pressure.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 3: combined damage — melee m1 hits and caster m2 cast completes with damage
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+
+	// Event panel should contain melee damage from m1
+	if !strings.Contains(panel, "hit 12") {
+		t.Fatalf("frame 3: event panel should contain melee 'hit 12', got:\n%s", panel)
+	}
+	// Event panel should contain caster damage from m2
+	if !strings.Contains(panel, "hit 30") {
+		t.Fatalf("frame 3: event panel should contain caster 'hit 30', got:\n%s", panel)
+	}
+	// Event panel should contain cast completion
+	if !strings.Contains(panel, "cast complete") {
+		t.Fatalf("frame 3: event panel should contain 'cast complete', got:\n%s", panel)
+	}
+}
+
+func TestE2EMultiMobActorTargetClarity(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_multi_mob_pressure.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 3: combined damage — verify actor>target labels distinguish sources
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+
+	// Melee damage should show m1>p1 actor>target prefix
+	if !strings.Contains(panel, "m1>p1 hit 12") {
+		t.Fatalf("frame 3: event panel should contain 'm1>p1 hit 12' for melee damage, got:\n%s", panel)
+	}
+	// Caster damage should show m2>p1 actor>target prefix
+	if !strings.Contains(panel, "m2>p1 hit 30") {
+		t.Fatalf("frame 3: event panel should contain 'm2>p1 hit 30' for caster damage, got:\n%s", panel)
+	}
+}
+
+func TestE2EMultiMobRosterEngagement(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_multi_mob_pressure.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1: both mobs targeting p1 — roster should show engagement markers
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	enc := findPlayerEncounter(f1.er.Encounters, f1.pr.ActiveEncounterID)
+	if enc == nil {
+		t.Fatalf("frame 1: expected encounter summary, got nil")
+	}
+
+	roster := renderCombatMobRoster(enc, f1.ar, "p1", sidePanelWidth, "")
+	joined := stripANSI(strings.Join(roster, "\n"))
+
+	// Both mobs should have the "<-" engagement marker since both target p1
+	engagementCount := strings.Count(joined, "<-")
+	if engagementCount < 2 {
+		t.Fatalf("frame 1: roster should show '<-' engagement marker for both mobs targeting p1, found %d, got:\n%s", engagementCount, joined)
+	}
+
+	// Both mob IDs should appear in the roster
+	if !strings.Contains(joined, "m1") {
+		t.Fatalf("frame 1: roster should contain mob 'm1', got:\n%s", joined)
+	}
+	if !strings.Contains(joined, "m2") {
+		t.Fatalf("frame 1: roster should contain mob 'm2', got:\n%s", joined)
 	}
 }
