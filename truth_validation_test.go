@@ -1167,12 +1167,13 @@ type traceFile struct {
 }
 
 type traceFrame struct {
-	StepIndex int             `json:"step_index"`
-	StepLabel string          `json:"step_label"`
-	Players   []tracePlayer   `json:"players"`
-	Mobs      []traceMob      `json:"mobs"`
-	Encounter *traceEncounter `json:"encounter,omitempty"`
-	Events    []traceEvent    `json:"events,omitempty"`
+	StepIndex   int             `json:"step_index"`
+	StepLabel   string          `json:"step_label"`
+	Players     []tracePlayer   `json:"players"`
+	Mobs        []traceMob      `json:"mobs"`
+	Encounter   *traceEncounter `json:"encounter,omitempty"`
+	Events      []traceEvent    `json:"events,omitempty"`
+	ActiveCasts []traceCast     `json:"active_casts,omitempty"`
 }
 
 type tracePlayer struct {
@@ -1228,6 +1229,15 @@ type traceEvent struct {
 	EncounterID   string `json:"encounter_id,omitempty"`
 	AbilityID     string `json:"ability_id,omitempty"`
 	Reason        string `json:"reason,omitempty"`
+}
+
+type traceCast struct {
+	PlayerID       string  `json:"player_id"`
+	AbilityID      string  `json:"ability_id"`
+	TargetMobID    string  `json:"target_mob_id"`
+	CastDurationMs int64   `json:"cast_duration_ms"`
+	ElapsedMs      int64   `json:"elapsed_ms"`
+	ProgressPct    float64 `json:"progress_pct"`
 }
 
 // --- Trace loader + adapter ---
@@ -1314,6 +1324,23 @@ func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
 			XPAwarded:       enc.XPAwarded,
 			MobThreat:       threat,
 		}
+
+		// Map active casts from trace frame to encounter summary
+		if len(tf.ActiveCasts) > 0 {
+			var casts []activeCastEntry
+			for _, ac := range tf.ActiveCasts {
+				casts = append(casts, activeCastEntry{
+					PlayerID:       ac.PlayerID,
+					AbilityID:      ac.AbilityID,
+					TargetMobID:    ac.TargetMobID,
+					CastDurationMs: ac.CastDurationMs,
+					ElapsedMs:      ac.ElapsedMs,
+					ProgressPct:    ac.ProgressPct,
+				})
+			}
+			es.ActiveCasts = casts
+		}
+
 		er.Encounters = []encounterSummary{es}
 		er.Count = 1
 
@@ -2535,5 +2562,103 @@ func TestCastInterruptEventOrdering(t *testing.T) {
 	}
 	if castingIdx >= cancelledIdx {
 		t.Fatalf("'casting' (index %d) should appear before 'cast cancelled' (index %d)", castingIdx, cancelledIdx)
+	}
+}
+
+// --- Cast Progress Visibility Tests (trace_cast_progress.json) ---
+
+func TestCastProgressVisibleDuringCast(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_progress.json"))
+	if len(trace.Frames) < 4 {
+		t.Fatalf("expected at least 4 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: cast_start with active cast — combat panel should show "casting:" and "power_shot"
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderCombatPanel(sidePanelWidth, f0.ar, f0.pr, f0.er, defaultTarget(), f0.inv, ""))
+	if !strings.Contains(panel0, "casting:") {
+		t.Fatalf("frame 0: combat panel should contain 'casting:' during active cast, got:\n%s", panel0)
+	}
+	if !strings.Contains(panel0, "power_shot") {
+		t.Fatalf("frame 0: combat panel should contain 'power_shot' ability name, got:\n%s", panel0)
+	}
+
+	// Frame 1: cast still in progress — combat panel should still show "casting:" and "power_shot"
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderCombatPanel(sidePanelWidth, f1.ar, f1.pr, f1.er, defaultTarget(), f1.inv, ""))
+	if !strings.Contains(panel1, "casting:") {
+		t.Fatalf("frame 1: combat panel should contain 'casting:' during active cast, got:\n%s", panel1)
+	}
+	if !strings.Contains(panel1, "power_shot") {
+		t.Fatalf("frame 1: combat panel should contain 'power_shot' ability name, got:\n%s", panel1)
+	}
+}
+
+func TestCastProgressPercentageAdvances(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_progress.json"))
+	if len(trace.Frames) < 2 {
+		t.Fatalf("expected at least 2 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: 0% progress
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderCombatPanel(sidePanelWidth, f0.ar, f0.pr, f0.er, defaultTarget(), f0.inv, ""))
+	if !strings.Contains(panel0, "0%") {
+		t.Fatalf("frame 0: combat panel should contain '0%%' progress, got:\n%s", panel0)
+	}
+
+	// Frame 1: 50% progress
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderCombatPanel(sidePanelWidth, f1.ar, f1.pr, f1.er, defaultTarget(), f1.inv, ""))
+	if !strings.Contains(panel1, "50%") {
+		t.Fatalf("frame 1: combat panel should contain '50%%' progress, got:\n%s", panel1)
+	}
+}
+
+func TestCastProgressClearedAfterCompletion(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_progress.json"))
+	if len(trace.Frames) < 3 {
+		t.Fatalf("expected at least 3 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 2: cast_complete — no active casts, combat panel should NOT contain "casting:"
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderCombatPanel(sidePanelWidth, f2.ar, f2.pr, f2.er, defaultTarget(), f2.inv, ""))
+	if strings.Contains(panel2, "casting:") {
+		t.Fatalf("frame 2: combat panel should NOT contain 'casting:' after cast completion, got:\n%s", panel2)
+	}
+}
+
+func TestCastProgressClearedAfterCancellation(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_progress.json"))
+	if len(trace.Frames) < 4 {
+		t.Fatalf("expected at least 4 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 3: cast_cancelled — no active casts, combat panel should NOT contain "casting:"
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderCombatPanel(sidePanelWidth, f3.ar, f3.pr, f3.er, defaultTarget(), f3.inv, ""))
+	if strings.Contains(panel3, "casting:") {
+		t.Fatalf("frame 3: combat panel should NOT contain 'casting:' after cancellation, got:\n%s", panel3)
+	}
+
+	// Event panel should contain "cast cancelled"
+	eventPanel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(eventPanel3, "cast cancelled") {
+		t.Fatalf("frame 3: event panel should contain 'cast cancelled', got:\n%s", eventPanel3)
+	}
+}
+
+func TestCastCancellationReasonStillVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_cast_progress.json"))
+	if len(trace.Frames) < 4 {
+		t.Fatalf("expected at least 4 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 3: cast_cancelled with reason=movement — event panel should show "cast cancelled"
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	eventPanel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(eventPanel3, "cast cancelled") {
+		t.Fatalf("frame 3: event panel should contain 'cast cancelled' for cancellation event, got:\n%s", eventPanel3)
 	}
 }

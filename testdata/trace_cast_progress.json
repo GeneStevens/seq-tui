@@ -1,0 +1,113 @@
+{
+  "scenario_name": "cast-progress-visibility",
+  "frames": [
+    {
+      "step_index": 0,
+      "step_label": "cast_start player=p1 ability=power_shot target=live-orc-1",
+      "players": [
+        {"player_id": "p1", "x": 20, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "live-orc-1", "mob_name": "Orc Warrior", "state": "Alive", "x": 25, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-progress",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["live-orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 0,
+        "mob_threat": [
+          {"mob_id": "live-orc-1", "selected_target_player_id": "p1", "hp_current": 100, "hp_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "cast_start", "actor": "p1", "target": "live-orc-1", "ability_id": "power_shot", "action_index": 0, "encounter_id": "enc-cast-progress"}
+      ],
+      "active_casts": [
+        {"player_id": "p1", "ability_id": "power_shot", "target_mob_id": "live-orc-1", "cast_duration_ms": 2000, "elapsed_ms": 0, "progress_pct": 0}
+      ]
+    },
+    {
+      "step_index": 1,
+      "step_label": "advance_time seconds=1.000 cast_in_progress",
+      "players": [
+        {"player_id": "p1", "x": 20, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "live-orc-1", "mob_name": "Orc Warrior", "state": "Alive", "x": 25, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-progress",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["live-orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 0,
+        "mob_threat": [
+          {"mob_id": "live-orc-1", "selected_target_player_id": "p1", "hp_current": 100, "hp_max": 100}
+        ]
+      },
+      "events": [],
+      "active_casts": [
+        {"player_id": "p1", "ability_id": "power_shot", "target_mob_id": "live-orc-1", "cast_duration_ms": 2000, "elapsed_ms": 1000, "progress_pct": 50}
+      ]
+    },
+    {
+      "step_index": 2,
+      "step_label": "cast_complete player=p1 ability=power_shot target=live-orc-1",
+      "players": [
+        {"player_id": "p1", "x": 20, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "live-orc-1", "mob_name": "Orc Warrior", "state": "Alive", "x": 25, "y": 0, "z": 0, "hp_current": 82, "hp_max": 100}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-progress",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["live-orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "live-orc-1", "selected_target_player_id": "p1", "hp_current": 82, "hp_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "cast_complete", "actor": "p1", "target": "live-orc-1", "ability_id": "power_shot", "action_index": 1, "encounter_id": "enc-cast-progress"},
+        {"kind": "player_hit", "actor": "p1", "target": "live-orc-1", "damage": 18, "action_index": 1, "encounter_id": "enc-cast-progress"}
+      ],
+      "active_casts": []
+    },
+    {
+      "step_index": 3,
+      "step_label": "cast_start_then_cancelled player=p1 reason=movement",
+      "players": [
+        {"player_id": "p1", "x": 20, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "live-orc-1", "mob_name": "Orc Warrior", "state": "Alive", "x": 25, "y": 0, "z": 0, "hp_current": 82, "hp_max": 100}
+      ],
+      "encounter": {
+        "encounter_id": "enc-cast-progress",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["live-orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "live-orc-1", "selected_target_player_id": "p1", "hp_current": 82, "hp_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "cast_start", "actor": "p1", "target": "live-orc-1", "ability_id": "power_shot", "action_index": 1, "encounter_id": "enc-cast-progress"},
+        {"kind": "cast_cancelled", "actor": "p1", "target": "live-orc-1", "ability_id": "power_shot", "reason": "movement", "action_index": 1, "encounter_id": "enc-cast-progress"}
+      ],
+      "active_casts": []
+    }
+  ]
+}

@@ -732,6 +732,12 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					}
 				}
 
+				// Active cast progress — backend-owned, read-only display
+				for _, ac := range enc.ActiveCasts {
+					castLabel := fmt.Sprintf("  casting: %s > %s %d%%", ac.AbilityID, truncateID(ac.TargetMobID, 6), int(ac.ProgressPct))
+					items = append(items, eventStrongStyle.Render(castLabel))
+				}
+
 				// Compact state line
 				items = append(items, panelItemStyle.Render(fmt.Sprintf("  %da/%dd act:%d", enc.MobsAlive, enc.MobsDead, enc.ActionIndex)))
 			}

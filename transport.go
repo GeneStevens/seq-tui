@@ -492,6 +492,20 @@ type encounterSummary struct {
 	// Mob engagement — which mobs are targeting which players.
 	// Populated from backend mob_threat array. Read-only, no threat logic.
 	MobThreat []mobThreatEntry
+
+	// Active casts — backend-owned cast progress data. Read-only display.
+	ActiveCasts []activeCastEntry
+}
+
+// activeCastEntry holds one active cast's backend-owned progress data.
+// Read-only — no client-side cast progress computation.
+type activeCastEntry struct {
+	PlayerID       string
+	AbilityID      string
+	TargetMobID    string
+	CastDurationMs int64
+	ElapsedMs      int64
+	ProgressPct    float64
 }
 
 // mobThreatEntry holds one mob's backend-owned targeting, threat, and HP data.
@@ -594,6 +608,15 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 				HPCurrent              int    `json:"hp_current"`
 				HPMax                  int    `json:"hp_max"`
 			} `json:"mob_threat"`
+			// Active casts — backend-owned cast progress
+			ActiveCasts []struct {
+				PlayerID       string  `json:"player_id"`
+				AbilityID      string  `json:"ability_id"`
+				TargetMobID    string  `json:"target_mob_id"`
+				CastDurationMs int64   `json:"cast_duration_ms"`
+				ElapsedMs      int64   `json:"elapsed_ms"`
+				ProgressPct    float64 `json:"progress_pct"`
+			} `json:"active_casts"`
 		} `json:"result"`
 		Error string `json:"error"`
 	}
@@ -622,6 +645,17 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 				HPMax:                  mt.HPMax,
 			})
 		}
+		var casts []activeCastEntry
+		for _, ac := range e.ActiveCasts {
+			casts = append(casts, activeCastEntry{
+				PlayerID:       ac.PlayerID,
+				AbilityID:      ac.AbilityID,
+				TargetMobID:    ac.TargetMobID,
+				CastDurationMs: ac.CastDurationMs,
+				ElapsedMs:      ac.ElapsedMs,
+				ProgressPct:    ac.ProgressPct,
+			})
+		}
 		summaries = append(summaries, encounterSummary{
 			EncounterID:         e.EncounterID,
 			State:               e.State,
@@ -646,6 +680,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			TextSummaryLatest:   e.TextSummaryLatest,
 			LatestDenialKind:    e.LatestDenialKind,
 			MobThreat:           threat,
+			ActiveCasts:         casts,
 		})
 	}
 
