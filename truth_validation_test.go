@@ -1452,6 +1452,14 @@ func traceEventToText(te traceEvent, playerID string) string {
 		return eventTextForResult("cast_denied", 0)
 	case "cast_cancelled":
 		return eventTextForResult("cast_cancelled", 0)
+	case "interrupt_applied":
+		return eventTextForResult("interrupt_applied", 0)
+	case "interrupt_denied":
+		return eventTextForResult("interrupt_denied", 0)
+	case "interrupt_lockout_started":
+		return eventTextForResult("interrupt_lockout_started", 0)
+	case "interrupt_lockout_blocked":
+		return eventTextForResult("interrupt_lockout_blocked", 0)
 	case "gcd_started":
 		return eventTextForResult("gcd_started", 0)
 	case "gcd_blocked":
@@ -1481,11 +1489,11 @@ func traceEventKind(te traceEvent) string {
 	switch te.Kind {
 	case "player_hit", "mob_hit", "mob_death", "player_death":
 		return "combat"
-	case "cooldown_blocked", "cast_denied", "cast_cancelled", "gcd_blocked", "resource_blocked":
+	case "cooldown_blocked", "cast_denied", "cast_cancelled", "gcd_blocked", "resource_blocked", "interrupt_denied", "interrupt_lockout_blocked":
 		return "denial"
 	case "cast_start", "cast_complete":
 		return "cast"
-	case "gcd_started", "resource_spent", "resource_regen":
+	case "gcd_started", "resource_spent", "resource_regen", "interrupt_applied", "interrupt_lockout_started":
 		return "resource"
 	case "ability_queued", "ability_executed_from_queue":
 		return "queue"
@@ -2960,6 +2968,129 @@ func TestResourceRegenEventVisibility(t *testing.T) {
 	}
 	if !hasRegen {
 		t.Fatalf("frame 3: resource_regen should classify as 'resource' kind, got entries: %v", entries3)
+	}
+}
+
+// === Interrupt System E2E Tests ===
+
+func TestInterruptAppliedEventVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_interrupt.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: interrupt_applied should show "interrupted" in event panel
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderEventPanel(sidePanelWidth, f0.events, f0.pr, f0.er))
+	if !strings.Contains(panel0, "interrupted") {
+		t.Fatalf("frame 0: interrupt_applied should show 'interrupted' in event panel, got:\n%s", panel0)
+	}
+
+	// Verify it classifies as resource kind
+	entries0 := f0.events.recent()
+	hasResource := false
+	for _, e := range entries0 {
+		if e.text == "interrupted" && e.kind == "resource" {
+			hasResource = true
+		}
+	}
+	if !hasResource {
+		t.Fatalf("frame 0: interrupt_applied should classify as 'resource' kind, got entries: %v", entries0)
+	}
+}
+
+func TestInterruptDeniedEventVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_interrupt.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 3: interrupt_denied should show "deny interrupt" in event panel
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "deny interrupt") {
+		t.Fatalf("frame 3: interrupt_denied should show 'deny interrupt' in event panel, got:\n%s", panel3)
+	}
+
+	// Verify it classifies as denial kind
+	entries3 := f3.events.recent()
+	hasDenial := false
+	for _, e := range entries3 {
+		if e.text == "deny interrupt" && e.kind == "denial" {
+			hasDenial = true
+		}
+	}
+	if !hasDenial {
+		t.Fatalf("frame 3: interrupt_denied should classify as 'denial' kind, got entries: %v", entries3)
+	}
+}
+
+func TestInterruptLockoutBlockedEventVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_interrupt.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1: interrupt_lockout_blocked should show "lockout blocked" in event panel
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "lockout blocked") {
+		t.Fatalf("frame 1: interrupt_lockout_blocked should show 'lockout blocked' in event panel, got:\n%s", panel1)
+	}
+
+	// Verify it classifies as denial kind
+	entries1 := f1.events.recent()
+	hasDenial := false
+	for _, e := range entries1 {
+		if e.text == "lockout blocked" && e.kind == "denial" {
+			hasDenial = true
+		}
+	}
+	if !hasDenial {
+		t.Fatalf("frame 1: interrupt_lockout_blocked should classify as 'denial' kind, got entries: %v", entries1)
+	}
+}
+
+func TestInterruptEventOrderReadability(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_interrupt.json"))
+	if len(trace.Frames) < 1 {
+		t.Fatalf("expected at least 1 frame, got %d", len(trace.Frames))
+	}
+
+	// Frame 0 has cast_cancelled + interrupt_applied + interrupt_lockout_started
+	// Verify they appear in readable order: cast cancelled before interrupted before lockout
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	entries0 := f0.events.recent()
+
+	cancelledIdx := -1
+	interruptedIdx := -1
+	lockoutIdx := -1
+	for i, e := range entries0 {
+		if e.text == "cast cancelled" && cancelledIdx == -1 {
+			cancelledIdx = i
+		}
+		if e.text == "interrupted" && interruptedIdx == -1 {
+			interruptedIdx = i
+		}
+		if e.text == "lockout" && lockoutIdx == -1 {
+			lockoutIdx = i
+		}
+	}
+
+	if cancelledIdx == -1 {
+		t.Fatalf("expected 'cast cancelled' event in frame 0")
+	}
+	if interruptedIdx == -1 {
+		t.Fatalf("expected 'interrupted' event in frame 0")
+	}
+	if lockoutIdx == -1 {
+		t.Fatalf("expected 'lockout' event in frame 0")
+	}
+	if cancelledIdx >= interruptedIdx {
+		t.Fatalf("'cast cancelled' (index %d) should appear before 'interrupted' (index %d)", cancelledIdx, interruptedIdx)
+	}
+	if interruptedIdx >= lockoutIdx {
+		t.Fatalf("'interrupted' (index %d) should appear before 'lockout' (index %d)", interruptedIdx, lockoutIdx)
 	}
 }
 

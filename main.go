@@ -147,6 +147,14 @@ func eventTextForResult(kind string, value int) string {
 		text = "deny cast"
 	case "cast_cancelled":
 		text = "cast cancelled"
+	case "interrupt_applied":
+		text = "interrupted"
+	case "interrupt_denied":
+		text = "deny interrupt"
+	case "interrupt_lockout_started":
+		text = "lockout"
+	case "interrupt_lockout_blocked":
+		text = "lockout blocked"
 	case "blocked_wounded":
 		text = "blocked"
 	case "gcd_started":
