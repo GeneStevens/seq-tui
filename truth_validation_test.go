@@ -1254,6 +1254,7 @@ type traceEvent struct {
 	Actor         string `json:"actor"`
 	Target        string `json:"target"`
 	Damage        int    `json:"damage,omitempty"`
+	Heal          int    `json:"heal,omitempty"`
 	Amount        int    `json:"amount,omitempty"`
 	ActionIndex   uint64 `json:"action_index,omitempty"`
 	BlockedReason string `json:"blocked_reason,omitempty"`
@@ -1485,6 +1486,8 @@ func traceEventToText(te traceEvent, playerID string) string {
 		return eventTextForCombatResult("damage_applied", te.Damage, te.Actor, te.Target)
 	case "damage_applied":
 		return eventTextForCombatResult("damage_applied", te.Damage, te.Actor, te.Target)
+	case "heal_applied":
+		return eventTextForCombatResult("heal_applied", te.Heal, te.Actor, te.Target)
 	case "mob_death":
 		return "mob defeated"
 	case "player_death":
@@ -1536,7 +1539,7 @@ func traceEventToText(te traceEvent, playerID string) string {
 
 func traceEventKind(te traceEvent) string {
 	switch te.Kind {
-	case "player_hit", "mob_hit", "damage_applied", "mob_death", "player_death":
+	case "player_hit", "mob_hit", "damage_applied", "heal_applied", "mob_death", "player_death":
 		return "combat"
 	case "cooldown_blocked", "cast_denied", "cast_cancelled", "gcd_blocked", "resource_blocked", "interrupt_denied", "interrupt_lockout_blocked":
 		return "denial"
@@ -3497,5 +3500,59 @@ func TestE2ECombatClarity(t *testing.T) {
 	}
 	if !strings.Contains(combat4, "gcd: ready") {
 		t.Fatalf("frame 4: combat panel should show 'gcd: ready', got:\n%s", combat4)
+	}
+}
+
+func TestE2EHealLifecycle(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_heal.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: Player damaged, ready to heal — HP 75/100, mana 100/100
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	player0 := stripANSI(renderPlayerPanel(sidePanelWidth, f0.pr, f0.inv, respawnResult{}))
+	if !strings.Contains(player0, "75/100") {
+		t.Fatalf("frame 0: player should show HP 75/100, got:\n%s", player0)
+	}
+
+	// Frame 1: Heal cast started — event stream contains "casting"
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "casting") {
+		t.Fatalf("frame 1: event panel should contain 'casting', got:\n%s", panel1)
+	}
+
+	// Frame 2: Heal completes — event panel has "heal 25", HP=100/100, mana=75/100
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "heal 25") {
+		t.Fatalf("frame 2: event panel should contain 'heal 25', got:\n%s", panel2)
+	}
+	player2 := stripANSI(renderPlayerPanel(sidePanelWidth, f2.pr, f2.inv, respawnResult{}))
+	if !strings.Contains(player2, "100/100") {
+		t.Fatalf("frame 2: player should show HP 100/100 after heal, got:\n%s", player2)
+	}
+	combat2 := stripANSI(renderCombatPanel(sidePanelWidth, f2.ar, f2.pr, f2.er, defaultTarget(), f2.inv, "mob_caster_1"))
+	if !strings.Contains(combat2, "75/100") {
+		t.Fatalf("frame 2: combat panel should show mana 75/100, got:\n%s", combat2)
+	}
+
+	// Frame 3: Heal interrupted — event panel has "cast cancelled", HP unchanged at 80
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "cast cancelled") {
+		t.Fatalf("frame 3: event panel should contain 'cast cancelled', got:\n%s", panel3)
+	}
+	player3 := stripANSI(renderPlayerPanel(sidePanelWidth, f3.pr, f3.inv, respawnResult{}))
+	if !strings.Contains(player3, "80/100") {
+		t.Fatalf("frame 3: player HP should remain 80/100 after cancelled heal, got:\n%s", player3)
+	}
+
+	// Frame 4: Resource denial — event panel has "deny mana"
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "deny mana") {
+		t.Fatalf("frame 4: event panel should contain 'deny mana', got:\n%s", panel4)
 	}
 }
