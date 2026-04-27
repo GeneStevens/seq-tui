@@ -157,6 +157,12 @@ func eventTextForResult(kind string, value int) string {
 		text = "queued"
 	case "ability_executed_from_queue":
 		text = "from queue"
+	case "resource_blocked":
+		text = "deny mana"
+	case "resource_spent":
+		text = fmt.Sprintf("mana -%d", value)
+	case "resource_regen":
+		text = fmt.Sprintf("mana +%d", value)
 	default:
 		text = kind
 		if value > 0 {

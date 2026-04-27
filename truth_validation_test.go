@@ -1189,17 +1189,24 @@ type tracePlayer struct {
 }
 
 type traceEncounter struct {
-	EncounterID     string           `json:"encounter_id"`
-	State           string           `json:"state"`
-	CompletedReason string           `json:"completed_reason"`
-	PlayerIDs       []string         `json:"player_ids"`
-	MobIDs          []string         `json:"mob_ids"`
-	MobsAlive       int              `json:"mobs_alive"`
-	MobsDead        int              `json:"mobs_dead"`
-	ActionIndex     uint64           `json:"action_index"`
-	XPAwarded       int              `json:"xp_awarded"`
-	MobThreat       []traceMobThreat `json:"mob_threat"`
-	PlayerGCD       []tracePlayerGCD `json:"player_gcd,omitempty"`
+	EncounterID     string            `json:"encounter_id"`
+	State           string            `json:"state"`
+	CompletedReason string            `json:"completed_reason"`
+	PlayerIDs       []string          `json:"player_ids"`
+	MobIDs          []string          `json:"mob_ids"`
+	MobsAlive       int               `json:"mobs_alive"`
+	MobsDead        int               `json:"mobs_dead"`
+	ActionIndex     uint64            `json:"action_index"`
+	XPAwarded       int               `json:"xp_awarded"`
+	MobThreat       []traceMobThreat  `json:"mob_threat"`
+	PlayerGCD       []tracePlayerGCD  `json:"player_gcd,omitempty"`
+	PlayerMana      []tracePlayerMana `json:"player_mana,omitempty"`
+}
+
+type tracePlayerMana struct {
+	PlayerID    string `json:"player_id"`
+	ManaCurrent int    `json:"mana_current"`
+	ManaMax     int    `json:"mana_max"`
 }
 
 type tracePlayerGCD struct {
@@ -1231,6 +1238,7 @@ type traceEvent struct {
 	Actor         string `json:"actor"`
 	Target        string `json:"target"`
 	Damage        int    `json:"damage,omitempty"`
+	Amount        int    `json:"amount,omitempty"`
 	ActionIndex   uint64 `json:"action_index,omitempty"`
 	BlockedReason string `json:"blocked_reason,omitempty"`
 	EncounterID   string `json:"encounter_id,omitempty"`
@@ -1357,6 +1365,19 @@ func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
 			}
 		}
 
+		// Map player mana from trace encounter
+		if len(enc.PlayerMana) > 0 {
+			var mana []playerManaEntry
+			for _, pm := range enc.PlayerMana {
+				mana = append(mana, playerManaEntry{
+					PlayerID:    pm.PlayerID,
+					ManaCurrent: pm.ManaCurrent,
+					ManaMax:     pm.ManaMax,
+				})
+			}
+			es.PlayerMana = mana
+		}
+
 		er.Encounters = []encounterSummary{es}
 		er.Count = 1
 
@@ -1445,6 +1466,12 @@ func traceEventToText(te traceEvent, playerID string) string {
 			return "from queue " + te.AbilityID
 		}
 		return eventTextForResult("ability_executed_from_queue", 0)
+	case "resource_blocked":
+		return eventTextForResult("resource_blocked", 0)
+	case "resource_spent":
+		return eventTextForResult("resource_spent", te.Amount)
+	case "resource_regen":
+		return eventTextForResult("resource_regen", te.Amount)
 	default:
 		return te.Kind
 	}
@@ -1454,11 +1481,11 @@ func traceEventKind(te traceEvent) string {
 	switch te.Kind {
 	case "player_hit", "mob_hit", "mob_death", "player_death":
 		return "combat"
-	case "cooldown_blocked", "cast_denied", "cast_cancelled", "gcd_blocked":
+	case "cooldown_blocked", "cast_denied", "cast_cancelled", "gcd_blocked", "resource_blocked":
 		return "denial"
 	case "cast_start", "cast_complete":
 		return "cast"
-	case "gcd_started":
+	case "gcd_started", "resource_spent", "resource_regen":
 		return "resource"
 	case "ability_queued", "ability_executed_from_queue":
 		return "queue"
@@ -2858,5 +2885,105 @@ func TestQueuedAbilityNotVisibleWhenEmpty(t *testing.T) {
 	panel0 := stripANSI(renderCombatPanel(sidePanelWidth, f0.ar, f0.pr, f0.er, defaultTarget(), f0.inv, ""))
 	if strings.Contains(panel0, "queued:") {
 		t.Fatalf("frame 0: combat panel should NOT contain 'queued:' when no ability is queued, got:\n%s", panel0)
+	}
+}
+
+// === Resource System E2E Tests ===
+
+func TestResourceSpentEventVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_resource.json"))
+	if len(trace.Frames) < 4 {
+		t.Fatalf("expected at least 4 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: resource_spent event should show "mana -10" in event stream
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderEventPanel(sidePanelWidth, f0.events, f0.pr, f0.er))
+	if !strings.Contains(panel0, "mana -10") {
+		t.Fatalf("frame 0: resource_spent should show 'mana -10' in event panel, got:\n%s", panel0)
+	}
+
+	// Frame 1: second resource_spent also shows "mana -10"
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	entries1 := f1.events.recent()
+	hasSpent := false
+	for _, e := range entries1 {
+		if strings.Contains(e.text, "mana -10") {
+			hasSpent = true
+		}
+	}
+	if !hasSpent {
+		t.Fatalf("frame 1: resource_spent event entry should contain 'mana -10', got entries: %v", entries1)
+	}
+}
+
+func TestResourceBlockedEventVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_resource.json"))
+
+	// Frame 2: resource_blocked — should show "deny mana" in event panel
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "deny mana") {
+		t.Fatalf("frame 2: resource_blocked should show 'deny mana' in event panel, got:\n%s", panel2)
+	}
+
+	// Verify it classifies as denial kind
+	entries2 := f2.events.recent()
+	hasDenial := false
+	for _, e := range entries2 {
+		if e.text == "deny mana" && e.kind == "denial" {
+			hasDenial = true
+		}
+	}
+	if !hasDenial {
+		t.Fatalf("frame 2: resource_blocked should classify as 'denial' kind, got entries: %v", entries2)
+	}
+}
+
+func TestResourceRegenEventVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_resource.json"))
+
+	// Frame 3: resource_regen — should show "mana +20" in event panel
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "mana +20") {
+		t.Fatalf("frame 3: resource_regen should show 'mana +20' in event panel, got:\n%s", panel3)
+	}
+
+	// Verify it classifies as resource kind
+	entries3 := f3.events.recent()
+	hasRegen := false
+	for _, e := range entries3 {
+		if e.text == "mana +20" && e.kind == "resource" {
+			hasRegen = true
+		}
+	}
+	if !hasRegen {
+		t.Fatalf("frame 3: resource_regen should classify as 'resource' kind, got entries: %v", entries3)
+	}
+}
+
+func TestManaDisplayInCombatPanel(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_resource.json"))
+
+	// Frame 0: encounter has player_mana [p1: 90/100]
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderCombatPanel(sidePanelWidth, f0.ar, f0.pr, f0.er, defaultTarget(), f0.inv, ""))
+	if !strings.Contains(panel0, "mana: 90/100") {
+		t.Fatalf("frame 0: combat panel should display 'mana: 90/100', got:\n%s", panel0)
+	}
+
+	// Frame 2: low mana [p1: 5/100]
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderCombatPanel(sidePanelWidth, f2.ar, f2.pr, f2.er, defaultTarget(), f2.inv, ""))
+	if !strings.Contains(panel2, "mana: 5/100") {
+		t.Fatalf("frame 2: combat panel should display 'mana: 5/100', got:\n%s", panel2)
+	}
+
+	// Frame 3: mana after regen [p1: 25/100]
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderCombatPanel(sidePanelWidth, f3.ar, f3.pr, f3.er, defaultTarget(), f3.inv, ""))
+	if !strings.Contains(panel3, "mana: 25/100") {
+		t.Fatalf("frame 3: combat panel should display 'mana: 25/100', got:\n%s", panel3)
 	}
 }

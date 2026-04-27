@@ -499,6 +499,17 @@ type encounterSummary struct {
 	// Queued ability — backend-owned GCD queue data. Read-only display.
 	QueuedAbilityID string // backend-owned queued ability for display
 	QueuedTargetID  string // backend-owned queued target for display
+
+	// Player mana — backend-owned resource state. Read-only display.
+	PlayerMana []playerManaEntry
+}
+
+// playerManaEntry holds one player's backend-owned mana state.
+// Read-only — no client-side mana computation or inference.
+type playerManaEntry struct {
+	PlayerID    string
+	ManaCurrent int
+	ManaMax     int
 }
 
 // activeCastEntry holds one active cast's backend-owned progress data.
@@ -627,6 +638,12 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 				QueuedAbilityID   string `json:"queued_ability_id"`
 				QueuedTargetMobID string `json:"queued_target_mob_id"`
 			} `json:"player_gcd"`
+			// Player mana — backend-owned resource state
+			PlayerMana []struct {
+				PlayerID    string `json:"player_id"`
+				ManaCurrent int    `json:"mana_current"`
+				ManaMax     int    `json:"mana_max"`
+			} `json:"player_mana"`
 		} `json:"result"`
 		Error string `json:"error"`
 	}
@@ -675,6 +692,15 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 				break
 			}
 		}
+		// Map player mana from backend
+		var mana []playerManaEntry
+		for _, pm := range e.PlayerMana {
+			mana = append(mana, playerManaEntry{
+				PlayerID:    pm.PlayerID,
+				ManaCurrent: pm.ManaCurrent,
+				ManaMax:     pm.ManaMax,
+			})
+		}
 		summaries = append(summaries, encounterSummary{
 			EncounterID:         e.EncounterID,
 			State:               e.State,
@@ -702,6 +728,7 @@ func fetchZoneEncounters(target backendTarget) encounterReadResult {
 			ActiveCasts:         casts,
 			QueuedAbilityID:     queuedAbilityID,
 			QueuedTargetID:      queuedTargetID,
+			PlayerMana:          mana,
 		})
 	}
 

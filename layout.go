@@ -717,6 +717,14 @@ func renderCombatPanel(width int, ar attackResult, pr playerReadResult, er encou
 					items = append(items, eventStrongStyle.Render("  You "+renderHPBar(inv.HPCurrent, inv.HPMax, barW)))
 				}
 
+				// Player mana line — backend-owned resource state, read-only
+				if len(enc.PlayerMana) > 0 {
+					pm := enc.PlayerMana[0]
+					if pm.ManaMax > 0 {
+						items = append(items, panelItemStyle.Render(fmt.Sprintf("  mana: %d/%d", pm.ManaCurrent, pm.ManaMax)))
+					}
+				}
+
 				// Target HP line — use attack target or focused mob
 				targetMobID := ""
 				if ar.State == attackStateSent && ar.TargetID != "" {

@@ -1,0 +1,119 @@
+{
+  "scenario_name": "resource-mana-lifecycle",
+  "frames": [
+    {
+      "step_index": 0,
+      "step_label": "heavy_strike costs mana, resource_spent",
+      "players": [
+        {"player_id": "p1", "x": 20, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "live-orc-1", "mob_name": "Orc Warrior", "state": "Alive", "x": 25, "y": 0, "z": 0, "hp_current": 80, "hp_max": 100}
+      ],
+      "encounter": {
+        "encounter_id": "enc-resource",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["live-orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "live-orc-1", "selected_target_player_id": "p1", "hp_current": 80, "hp_max": 100}
+        ],
+        "player_mana": [
+          {"player_id": "p1", "mana_current": 90, "mana_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "resource_spent", "actor": "p1", "ability_id": "heavy_strike", "amount": 10, "encounter_id": "enc-resource"},
+        {"kind": "player_hit", "actor": "p1", "target": "live-orc-1", "damage": 20, "action_index": 1, "encounter_id": "enc-resource"}
+      ]
+    },
+    {
+      "step_index": 1,
+      "step_label": "second heavy_strike spends more mana",
+      "players": [
+        {"player_id": "p1", "x": 20, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "live-orc-1", "mob_name": "Orc Warrior", "state": "Alive", "x": 25, "y": 0, "z": 0, "hp_current": 60, "hp_max": 100}
+      ],
+      "encounter": {
+        "encounter_id": "enc-resource",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["live-orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 2,
+        "mob_threat": [
+          {"mob_id": "live-orc-1", "selected_target_player_id": "p1", "hp_current": 60, "hp_max": 100}
+        ],
+        "player_mana": [
+          {"player_id": "p1", "mana_current": 80, "mana_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "resource_spent", "actor": "p1", "ability_id": "heavy_strike", "amount": 10, "encounter_id": "enc-resource"},
+        {"kind": "player_hit", "actor": "p1", "target": "live-orc-1", "damage": 20, "action_index": 2, "encounter_id": "enc-resource"}
+      ]
+    },
+    {
+      "step_index": 2,
+      "step_label": "low mana, heavy_strike denied by resource_blocked",
+      "players": [
+        {"player_id": "p1", "x": 20, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "live-orc-1", "mob_name": "Orc Warrior", "state": "Alive", "x": 25, "y": 0, "z": 0, "hp_current": 60, "hp_max": 100}
+      ],
+      "encounter": {
+        "encounter_id": "enc-resource",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["live-orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 2,
+        "mob_threat": [
+          {"mob_id": "live-orc-1", "selected_target_player_id": "p1", "hp_current": 60, "hp_max": 100}
+        ],
+        "player_mana": [
+          {"player_id": "p1", "mana_current": 5, "mana_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "resource_blocked", "actor": "p1", "ability_id": "heavy_strike", "encounter_id": "enc-resource"}
+      ]
+    },
+    {
+      "step_index": 3,
+      "step_label": "time advance, mana regenerates",
+      "players": [
+        {"player_id": "p1", "x": 20, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "live-orc-1", "mob_name": "Orc Warrior", "state": "Alive", "x": 25, "y": 0, "z": 0, "hp_current": 60, "hp_max": 100}
+      ],
+      "encounter": {
+        "encounter_id": "enc-resource",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["live-orc-1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 2,
+        "mob_threat": [
+          {"mob_id": "live-orc-1", "selected_target_player_id": "p1", "hp_current": 60, "hp_max": 100}
+        ],
+        "player_mana": [
+          {"player_id": "p1", "mana_current": 25, "mana_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "resource_regen", "actor": "p1", "amount": 20, "encounter_id": "enc-resource"}
+      ]
+    }
+  ]
+}
