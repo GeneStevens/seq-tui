@@ -1438,6 +1438,8 @@ func traceEventToText(te traceEvent, playerID string) string {
 		return eventTextForCombatResult("damage_applied", te.Damage, te.Actor, te.Target)
 	case "mob_hit":
 		return eventTextForCombatResult("damage_applied", te.Damage, te.Actor, te.Target)
+	case "damage_applied":
+		return eventTextForCombatResult("damage_applied", te.Damage, te.Actor, te.Target)
 	case "mob_death":
 		return "mob defeated"
 	case "player_death":
@@ -1487,7 +1489,7 @@ func traceEventToText(te traceEvent, playerID string) string {
 
 func traceEventKind(te traceEvent) string {
 	switch te.Kind {
-	case "player_hit", "mob_hit", "mob_death", "player_death":
+	case "player_hit", "mob_hit", "damage_applied", "mob_death", "player_death":
 		return "combat"
 	case "cooldown_blocked", "cast_denied", "cast_cancelled", "gcd_blocked", "resource_blocked", "interrupt_denied", "interrupt_lockout_blocked":
 		return "denial"
@@ -3116,5 +3118,252 @@ func TestManaDisplayInCombatPanel(t *testing.T) {
 	panel3 := stripANSI(renderCombatPanel(sidePanelWidth, f3.ar, f3.pr, f3.er, defaultTarget(), f3.inv, ""))
 	if !strings.Contains(panel3, "mana: 25/100") {
 		t.Fatalf("frame 3: combat panel should display 'mana: 25/100', got:\n%s", panel3)
+	}
+}
+
+// === Mob Casting E2E Tests ===
+
+func TestMobCastStartVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_mob_casting.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 0: cast_start with mob actor should show "casting" in event panel
+	f0 := traceFrameToScenarioFrame(trace.Frames[0], "p1")
+	panel0 := stripANSI(renderEventPanel(sidePanelWidth, f0.events, f0.pr, f0.er))
+	if !strings.Contains(panel0, "casting") {
+		t.Fatalf("frame 0: cast_start should show 'casting' in event panel, got:\n%s", panel0)
+	}
+
+	// Verify it classifies as cast kind
+	entries0 := f0.events.recent()
+	hasCast := false
+	for _, e := range entries0 {
+		if e.text == "casting" && e.kind == "cast" {
+			hasCast = true
+		}
+	}
+	if !hasCast {
+		t.Fatalf("frame 0: cast_start should classify as 'cast' kind, got entries: %v", entries0)
+	}
+}
+
+func TestMobCastDamageVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_mob_casting.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1: cast_complete then damage_applied with correct value
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "cast complete") {
+		t.Fatalf("frame 1: should show 'cast complete' in event panel, got:\n%s", panel1)
+	}
+
+	// Verify damage event via entries (panel may truncate long actor>target text)
+	entries1 := f1.events.recent()
+	hasDamage := false
+	for _, e := range entries1 {
+		if strings.Contains(e.text, "hit 25") && e.kind == "combat" {
+			hasDamage = true
+		}
+	}
+	if !hasDamage {
+		t.Fatalf("frame 1: should have damage event containing 'hit 25', got entries: %v", entries1)
+	}
+
+	// Verify player HP reflects the damage (75/100)
+	player1 := stripANSI(renderPlayerPanel(sidePanelWidth, f1.pr, f1.inv, respawnResult{}))
+	if !strings.Contains(player1, "75/100") {
+		t.Fatalf("frame 1: player HP should be 75/100 after taking 25 damage, got:\n%s", player1)
+	}
+
+	// Verify event ordering: cast_complete appears before hit
+	castCompleteIdx := -1
+	hitIdx := -1
+	for i, e := range entries1 {
+		if e.text == "cast complete" && castCompleteIdx == -1 {
+			castCompleteIdx = i
+		}
+		if strings.Contains(e.text, "hit 25") && hitIdx == -1 {
+			hitIdx = i
+		}
+	}
+	if castCompleteIdx == -1 {
+		t.Fatalf("frame 1: expected 'cast complete' event")
+	}
+	if hitIdx == -1 {
+		t.Fatalf("frame 1: expected 'hit 25' event")
+	}
+	if castCompleteIdx >= hitIdx {
+		t.Fatalf("frame 1: 'cast complete' (index %d) should appear before 'hit 25' (index %d)", castCompleteIdx, hitIdx)
+	}
+}
+
+func TestMobCastInterruptedNoDamage(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_mob_casting.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 2: interrupt_applied + cast_cancelled, no damage event
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "interrupted") {
+		t.Fatalf("frame 2: should show 'interrupted' in event panel, got:\n%s", panel2)
+	}
+	if !strings.Contains(panel2, "cast cancelled") {
+		t.Fatalf("frame 2: should show 'cast cancelled' in event panel, got:\n%s", panel2)
+	}
+
+	// No damage event in this frame (interrupt prevented cast completion)
+	entries2 := f2.events.recent()
+	for _, e := range entries2 {
+		if strings.Contains(e.text, "hit") && e.kind == "combat" {
+			t.Fatalf("frame 2: should NOT have damage event after interrupt, got: %v", e)
+		}
+	}
+
+	// Player HP should still be 75 (no damage taken)
+	player2 := stripANSI(renderPlayerPanel(sidePanelWidth, f2.pr, f2.inv, respawnResult{}))
+	if !strings.Contains(player2, "75/100") {
+		t.Fatalf("frame 2: player HP should remain 75/100 (interrupt prevented damage), got:\n%s", player2)
+	}
+
+	// Verify event ordering: cast_start before interrupted before cast_cancelled
+	castStartIdx := -1
+	interruptedIdx := -1
+	cancelledIdx := -1
+	for i, e := range entries2 {
+		if e.text == "casting" && castStartIdx == -1 {
+			castStartIdx = i
+		}
+		if e.text == "interrupted" && interruptedIdx == -1 {
+			interruptedIdx = i
+		}
+		if e.text == "cast cancelled" && cancelledIdx == -1 {
+			cancelledIdx = i
+		}
+	}
+	if castStartIdx == -1 {
+		t.Fatalf("frame 2: expected 'casting' event")
+	}
+	if interruptedIdx == -1 {
+		t.Fatalf("frame 2: expected 'interrupted' event")
+	}
+	if cancelledIdx == -1 {
+		t.Fatalf("frame 2: expected 'cast cancelled' event")
+	}
+	if castStartIdx >= interruptedIdx {
+		t.Fatalf("frame 2: 'casting' (index %d) should appear before 'interrupted' (index %d)", castStartIdx, interruptedIdx)
+	}
+	if interruptedIdx >= cancelledIdx {
+		t.Fatalf("frame 2: 'interrupted' (index %d) should appear before 'cast cancelled' (index %d)", interruptedIdx, cancelledIdx)
+	}
+}
+
+func TestMobCastLockoutBlockedVisibility(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_mob_casting.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 3: interrupt_lockout_blocked should show "lockout blocked"
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "lockout blocked") {
+		t.Fatalf("frame 3: interrupt_lockout_blocked should show 'lockout blocked' in event panel, got:\n%s", panel3)
+	}
+
+	// Verify it classifies as denial kind
+	entries3 := f3.events.recent()
+	hasDenial := false
+	for _, e := range entries3 {
+		if e.text == "lockout blocked" && e.kind == "denial" {
+			hasDenial = true
+		}
+	}
+	if !hasDenial {
+		t.Fatalf("frame 3: interrupt_lockout_blocked should classify as 'denial' kind, got entries: %v", entries3)
+	}
+
+	// Player HP should still be 75 (lockout prevented cast)
+	player3 := stripANSI(renderPlayerPanel(sidePanelWidth, f3.pr, f3.inv, respawnResult{}))
+	if !strings.Contains(player3, "75/100") {
+		t.Fatalf("frame 3: player HP should remain 75/100 (lockout blocked cast), got:\n%s", player3)
+	}
+}
+
+func TestMobCastingEncounterFlow(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_mob_casting.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Verify HP progression across all frames:
+	// Frame 0: 100/100 (cast started but not complete)
+	// Frame 1: 75/100 (took 25 damage from completed cast)
+	// Frame 2: 75/100 (interrupt prevented damage)
+	// Frame 3: 75/100 (lockout blocked cast)
+	// Frame 4: 50/100 (took 25 damage from second completed cast)
+	expectedHP := []int{100, 75, 75, 75, 50}
+	for i, expected := range expectedHP {
+		sf := traceFrameToScenarioFrame(trace.Frames[i], "p1")
+		if sf.inv.HPCurrent != expected {
+			t.Fatalf("frame %d: expected player HP %d, got %d", i, expected, sf.inv.HPCurrent)
+		}
+	}
+
+	// Verify damage only occurs on frames with completed casts (1 and 4)
+	for i, frame := range trace.Frames {
+		sf := traceFrameToScenarioFrame(frame, "p1")
+		entries := sf.events.recent()
+		hasDamage := false
+		for _, e := range entries {
+			if strings.Contains(e.text, "hit") && e.kind == "combat" {
+				hasDamage = true
+			}
+		}
+		if i == 1 || i == 4 {
+			if !hasDamage {
+				t.Fatalf("frame %d: expected damage event on completed cast frame", i)
+			}
+		} else {
+			if hasDamage {
+				t.Fatalf("frame %d: should NOT have damage event (cast not completed or blocked)", i)
+			}
+		}
+	}
+
+	// Frame 4: lockout expired, full cast+damage cycle works again
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "casting") {
+		t.Fatalf("frame 4: should show 'casting' for new cast_start, got:\n%s", panel4)
+	}
+	if !strings.Contains(panel4, "cast complete") {
+		t.Fatalf("frame 4: should show 'cast complete', got:\n%s", panel4)
+	}
+	// Verify damage event via entries (panel may truncate long actor>target text)
+	entries4 := f4.events.recent()
+	hasDamageF4 := false
+	for _, e := range entries4 {
+		if strings.Contains(e.text, "hit 25") && e.kind == "combat" {
+			hasDamageF4 = true
+		}
+	}
+	if !hasDamageF4 {
+		t.Fatalf("frame 4: should have damage event containing 'hit 25', got entries: %v", entries4)
+	}
+
+	// Verify no duplicate/spam events — each frame should have reasonable event count
+	for i, frame := range trace.Frames {
+		sf := traceFrameToScenarioFrame(frame, "p1")
+		entries := sf.events.recent()
+		if len(entries) > 10 {
+			t.Fatalf("frame %d: too many events (%d), possible spam", i, len(entries))
+		}
 	}
 }
