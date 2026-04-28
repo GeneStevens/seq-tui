@@ -4374,3 +4374,101 @@ func TestXPProgressionAcrossTraceFrames(t *testing.T) {
 		t.Fatalf("frame 2: should show xp: 30/300, got:\n%s", panel2)
 	}
 }
+
+func TestOutcomePanelShowsDifferentXPForDifferentEncounters(t *testing.T) {
+	makeOutcome := func(xp int) string {
+		pr := playerReadResult{
+			State:              playerReadOK,
+			HasActiveEncounter: true,
+			ActiveEncounterID:  "enc-test",
+		}
+		er := encounterReadResult{
+			State: encounterReadOK,
+			Encounters: []encounterSummary{{
+				EncounterID:     "enc-test",
+				State:           "Completed",
+				CompletedReason: "all_mobs_dead",
+				PlayerIDs:       []string{"p1"},
+				MobIDs:          []string{"m1"},
+				MobsDead:        1,
+				XPAwarded:       xp,
+			}},
+			Count: 1,
+		}
+		return stripANSI(renderOutcomePanel(sidePanelWidth, pr, er))
+	}
+
+	meleeOutcome := makeOutcome(50)
+	casterOutcome := makeOutcome(75)
+	hybridCasterOutcome := makeOutcome(175)
+
+	if !strings.Contains(meleeOutcome, "xp +50") {
+		t.Fatalf("melee outcome should show 'xp +50', got:\n%s", meleeOutcome)
+	}
+	if !strings.Contains(casterOutcome, "xp +75") {
+		t.Fatalf("caster outcome should show 'xp +75', got:\n%s", casterOutcome)
+	}
+	if !strings.Contains(hybridCasterOutcome, "xp +175") {
+		t.Fatalf("hybrid+caster outcome should show 'xp +175', got:\n%s", hybridCasterOutcome)
+	}
+
+	if meleeOutcome == casterOutcome {
+		t.Fatal("melee and caster outcomes should display different XP amounts")
+	}
+	if casterOutcome == hybridCasterOutcome {
+		t.Fatal("caster and hybrid+caster outcomes should display different XP amounts")
+	}
+}
+
+func TestEventPanelShowsDifferentXPGainAmounts(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	er := encounterReadResult{State: encounterReadOK}
+
+	events := eventLog{}
+	events.append(eventEntry{kind: "enc", text: "xp +50"})
+	events.append(eventEntry{kind: "enc", text: "xp +75"})
+	events.append(eventEntry{kind: "enc", text: "xp +175"})
+
+	panel := stripANSI(renderEventPanel(sidePanelWidth, events, pr, er))
+	if !strings.Contains(panel, "xp +50") {
+		t.Fatalf("event panel should contain 'xp +50', got:\n%s", panel)
+	}
+	if !strings.Contains(panel, "xp +75") {
+		t.Fatalf("event panel should contain 'xp +75', got:\n%s", panel)
+	}
+	if !strings.Contains(panel, "xp +175") {
+		t.Fatalf("event panel should contain 'xp +175', got:\n%s", panel)
+	}
+}
+
+func TestXPProgressionVisibleAcrossDifficultyTiers(t *testing.T) {
+	renderXPState := func(level, xpCurrent, xpToNext int) string {
+		pr := playerReadResult{State: playerReadOK}
+		inv := inventoryReadResult{
+			State:        inventoryReadOK,
+			HasLifecycle: true,
+			CanAct:       true,
+			HPCurrent:    100,
+			HPMax:        100,
+			Level:        level,
+			XPCurrent:    xpCurrent,
+			XPToNext:     xpToNext,
+		}
+		return stripANSI(renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{}))
+	}
+
+	// After killing 1 melee mob (50 XP): level 1, xp 50/100
+	afterMelee := renderXPState(1, 50, 100)
+	if !strings.Contains(afterMelee, "xp: 50/100") {
+		t.Fatalf("after melee kill should show xp: 50/100, got:\n%s", afterMelee)
+	}
+
+	// After killing 1 hybrid mob (100 XP): level 2, xp 0/200
+	afterHybrid := renderXPState(2, 0, 200)
+	if !strings.Contains(afterHybrid, "lvl 2") {
+		t.Fatalf("after hybrid kill should show lvl 2, got:\n%s", afterHybrid)
+	}
+	if !strings.Contains(afterHybrid, "xp: 0/200") {
+		t.Fatalf("after hybrid kill should show xp: 0/200, got:\n%s", afterHybrid)
+	}
+}
