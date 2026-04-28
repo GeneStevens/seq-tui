@@ -4,141 +4,451 @@
     {
       "step_index": 0,
       "step_label": "encounter_opened",
-      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}],
+      "players": [
+        {
+          "player_id": "p1",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "hp_current": 88,
+          "hp_max": 100,
+          "can_act": true
+        }
+      ],
       "mobs": [
-        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500},
-        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+        {
+          "mob_id": "m1",
+          "mob_name": "Orc Warrior",
+          "state": "Alive",
+          "x": 5,
+          "y": 0,
+          "z": 0,
+          "hp_current": 500,
+          "hp_max": 500
+        },
+        {
+          "mob_id": "m2",
+          "mob_name": "Dark Channeler",
+          "state": "Alive",
+          "x": 8,
+          "y": 0,
+          "z": 0,
+          "hp_current": 300,
+          "hp_max": 300
+        }
       ],
       "encounter": {
         "encounter_id": "enc-comp-melee-caster",
         "state": "Active",
-        "player_ids": ["p1"],
-        "mob_ids": ["m1", "m2"],
+        "player_ids": [
+          "p1"
+        ],
+        "mob_ids": [
+          "m1",
+          "m2"
+        ],
         "mobs_alive": 2,
         "mobs_dead": 0,
         "action_index": 1,
         "mob_threat": [
-          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500},
-          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+          {
+            "mob_id": "m1",
+            "selected_target_player_id": "p1",
+            "hp_current": 500,
+            "hp_max": 500
+          },
+          {
+            "mob_id": "m2",
+            "selected_target_player_id": "p1",
+            "hp_current": 300,
+            "hp_max": 300
+          }
+        ],
+        "mob_casts": [
+          {
+            "mob_id": "m2",
+            "ability_id": "mob_firebolt",
+            "elapsed_ms": 0,
+            "duration_ms": 2000,
+            "progress_pct": 0
+          }
         ]
       },
       "events": [
-        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-caster", "action_index": 1},
-        {"kind": "cast_start", "actor": "m2", "target": "p1", "ability_id": "mob_firebolt", "encounter_id": "enc-comp-melee-caster"}
+        {
+          "kind": "damage_applied",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 12,
+          "action_index": 1,
+          "encounter_id": "enc-comp-melee-caster"
+        },
+        {
+          "kind": "cast_start",
+          "actor": "m2",
+          "target": "p1",
+          "encounter_id": "enc-comp-melee-caster",
+          "ability_id": "mob_firebolt"
+        }
       ]
     },
     {
       "step_index": 1,
       "step_label": "melee_continues_caster_casting",
-      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 76, "hp_max": 100, "can_act": true}],
+      "players": [
+        {
+          "player_id": "p1",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "hp_current": 76,
+          "hp_max": 100,
+          "can_act": true
+        }
+      ],
       "mobs": [
-        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500},
-        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+        {
+          "mob_id": "m1",
+          "mob_name": "Orc Warrior",
+          "state": "Alive",
+          "x": 5,
+          "y": 0,
+          "z": 0,
+          "hp_current": 500,
+          "hp_max": 500
+        },
+        {
+          "mob_id": "m2",
+          "mob_name": "Dark Channeler",
+          "state": "Alive",
+          "x": 8,
+          "y": 0,
+          "z": 0,
+          "hp_current": 300,
+          "hp_max": 300
+        }
       ],
       "encounter": {
         "encounter_id": "enc-comp-melee-caster",
         "state": "Active",
-        "player_ids": ["p1"],
-        "mob_ids": ["m1", "m2"],
+        "player_ids": [
+          "p1"
+        ],
+        "mob_ids": [
+          "m1",
+          "m2"
+        ],
         "mobs_alive": 2,
         "mobs_dead": 0,
         "action_index": 3,
         "mob_threat": [
-          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500},
-          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+          {
+            "mob_id": "m1",
+            "selected_target_player_id": "p1",
+            "hp_current": 500,
+            "hp_max": 500
+          },
+          {
+            "mob_id": "m2",
+            "selected_target_player_id": "p1",
+            "hp_current": 300,
+            "hp_max": 300
+          }
         ],
         "mob_casts": [
-          {"mob_id": "m2", "ability_id": "mob_firebolt", "duration_ms": 2000, "elapsed_ms": 1000, "progress_pct": 50}
+          {
+            "mob_id": "m2",
+            "ability_id": "mob_firebolt",
+            "elapsed_ms": 1000,
+            "duration_ms": 2000,
+            "progress_pct": 50
+          }
         ]
       },
       "events": [
-        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-caster", "action_index": 2}
+        {
+          "kind": "damage_applied",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 12,
+          "action_index": 3,
+          "encounter_id": "enc-comp-melee-caster"
+        }
       ]
     },
     {
       "step_index": 2,
       "step_label": "player_interrupts_caster",
-      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 64, "hp_max": 100, "can_act": true}],
+      "players": [
+        {
+          "player_id": "p1",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "hp_current": 64,
+          "hp_max": 100,
+          "can_act": true
+        }
+      ],
       "mobs": [
-        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500},
-        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+        {
+          "mob_id": "m1",
+          "mob_name": "Orc Warrior",
+          "state": "Alive",
+          "x": 5,
+          "y": 0,
+          "z": 0,
+          "hp_current": 500,
+          "hp_max": 500
+        },
+        {
+          "mob_id": "m2",
+          "mob_name": "Dark Channeler",
+          "state": "Alive",
+          "x": 8,
+          "y": 0,
+          "z": 0,
+          "hp_current": 300,
+          "hp_max": 300
+        }
       ],
       "encounter": {
         "encounter_id": "enc-comp-melee-caster",
         "state": "Active",
-        "player_ids": ["p1"],
-        "mob_ids": ["m1", "m2"],
+        "player_ids": [
+          "p1"
+        ],
+        "mob_ids": [
+          "m1",
+          "m2"
+        ],
         "mobs_alive": 2,
         "mobs_dead": 0,
-        "action_index": 5,
+        "action_index": 6,
         "mob_threat": [
-          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500},
-          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+          {
+            "mob_id": "m1",
+            "selected_target_player_id": "p1",
+            "hp_current": 500,
+            "hp_max": 500
+          },
+          {
+            "mob_id": "m2",
+            "selected_target_player_id": "p1",
+            "hp_current": 300,
+            "hp_max": 300
+          }
         ],
         "mob_lockouts": [
-          {"mob_id": "m2", "remaining_ms": 4000}
+          {
+            "mob_id": "m2",
+            "remaining_ms": 4000
+          }
         ]
       },
       "events": [
-        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-caster", "action_index": 4},
-        {"kind": "interrupt_applied", "actor": "p1", "target": "m2", "ability_id": "interrupt", "encounter_id": "enc-comp-melee-caster", "action_index": 5},
-        {"kind": "cast_cancelled", "actor": "m2", "target": "p1", "ability_id": "mob_firebolt", "reason": "interrupted", "encounter_id": "enc-comp-melee-caster"}
+        {
+          "kind": "damage_applied",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 12,
+          "action_index": 5,
+          "encounter_id": "enc-comp-melee-caster"
+        },
+        {
+          "kind": "interrupt_applied",
+          "actor": "p1",
+          "target": "m2",
+          "action_index": 6,
+          "encounter_id": "enc-comp-melee-caster",
+          "ability_id": "interrupt"
+        },
+        {
+          "kind": "cast_cancelled",
+          "actor": "m2",
+          "target": "p1",
+          "encounter_id": "enc-comp-melee-caster",
+          "ability_id": "mob_firebolt",
+          "reason": "interrupted"
+        }
       ]
     },
     {
       "step_index": 3,
       "step_label": "melee_hits_caster_lockout",
-      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 52, "hp_max": 100, "can_act": true}],
+      "players": [
+        {
+          "player_id": "p1",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "hp_current": 52,
+          "hp_max": 100,
+          "can_act": true
+        }
+      ],
       "mobs": [
-        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500},
-        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+        {
+          "mob_id": "m1",
+          "mob_name": "Orc Warrior",
+          "state": "Alive",
+          "x": 5,
+          "y": 0,
+          "z": 0,
+          "hp_current": 500,
+          "hp_max": 500
+        },
+        {
+          "mob_id": "m2",
+          "mob_name": "Dark Channeler",
+          "state": "Alive",
+          "x": 8,
+          "y": 0,
+          "z": 0,
+          "hp_current": 300,
+          "hp_max": 300
+        }
       ],
       "encounter": {
         "encounter_id": "enc-comp-melee-caster",
         "state": "Active",
-        "player_ids": ["p1"],
-        "mob_ids": ["m1", "m2"],
+        "player_ids": [
+          "p1"
+        ],
+        "mob_ids": [
+          "m1",
+          "m2"
+        ],
         "mobs_alive": 2,
         "mobs_dead": 0,
-        "action_index": 7,
+        "action_index": 8,
         "mob_threat": [
-          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500},
-          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+          {
+            "mob_id": "m1",
+            "selected_target_player_id": "p1",
+            "hp_current": 500,
+            "hp_max": 500
+          },
+          {
+            "mob_id": "m2",
+            "selected_target_player_id": "p1",
+            "hp_current": 300,
+            "hp_max": 300
+          }
         ],
         "mob_lockouts": [
-          {"mob_id": "m2", "remaining_ms": 2000}
+          {
+            "mob_id": "m2",
+            "remaining_ms": 2000
+          }
         ]
       },
       "events": [
-        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-caster", "action_index": 6},
-        {"kind": "interrupt_lockout_blocked", "target": "m2", "ability_id": "mob_firebolt", "encounter_id": "enc-comp-melee-caster"}
+        {
+          "kind": "damage_applied",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 12,
+          "action_index": 8,
+          "encounter_id": "enc-comp-melee-caster"
+        },
+        {
+          "kind": "interrupt_lockout_blocked",
+          "actor": "",
+          "target": "m2",
+          "encounter_id": "enc-comp-melee-caster",
+          "ability_id": "mob_firebolt"
+        }
       ]
     },
     {
       "step_index": 4,
       "step_label": "uninterrupted_path_firebolt_hits",
-      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 22, "hp_max": 100, "can_act": true}],
+      "players": [
+        {
+          "player_id": "p1",
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "hp_current": 10,
+          "hp_max": 100,
+          "can_act": true
+        }
+      ],
       "mobs": [
-        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500},
-        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+        {
+          "mob_id": "m1",
+          "mob_name": "Orc Warrior",
+          "state": "Alive",
+          "x": 5,
+          "y": 0,
+          "z": 0,
+          "hp_current": 500,
+          "hp_max": 500
+        },
+        {
+          "mob_id": "m2",
+          "mob_name": "Dark Channeler",
+          "state": "Alive",
+          "x": 8,
+          "y": 0,
+          "z": 0,
+          "hp_current": 300,
+          "hp_max": 300
+        }
       ],
       "encounter": {
         "encounter_id": "enc-comp-melee-caster",
         "state": "Active",
-        "player_ids": ["p1"],
-        "mob_ids": ["m1", "m2"],
+        "player_ids": [
+          "p1"
+        ],
+        "mob_ids": [
+          "m1",
+          "m2"
+        ],
         "mobs_alive": 2,
         "mobs_dead": 0,
-        "action_index": 9,
+        "action_index": 11,
         "mob_threat": [
-          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500},
-          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+          {
+            "mob_id": "m1",
+            "selected_target_player_id": "p1",
+            "hp_current": 500,
+            "hp_max": 500
+          },
+          {
+            "mob_id": "m2",
+            "selected_target_player_id": "p1",
+            "hp_current": 300,
+            "hp_max": 300
+          }
         ]
       },
       "events": [
-        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-caster", "action_index": 8},
-        {"kind": "cast_complete", "actor": "m2", "ability_id": "mob_firebolt", "encounter_id": "enc-comp-melee-caster"},
-        {"kind": "damage_applied", "actor": "m2", "target": "p1", "damage": 30, "encounter_id": "enc-comp-melee-caster", "action_index": 9}
+        {
+          "kind": "damage_applied",
+          "actor": "m1",
+          "target": "p1",
+          "damage": 12,
+          "action_index": 10,
+          "encounter_id": "enc-comp-melee-caster"
+        },
+        {
+          "kind": "cast_complete",
+          "actor": "m2",
+          "target": "",
+          "encounter_id": "enc-comp-melee-caster",
+          "ability_id": "mob_firebolt"
+        },
+        {
+          "kind": "damage_applied",
+          "actor": "m2",
+          "target": "p1",
+          "damage": 30,
+          "action_index": 11,
+          "encounter_id": "enc-comp-melee-caster"
+        }
       ]
     }
   ]
