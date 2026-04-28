@@ -1,0 +1,108 @@
+{
+  "scenario_name": "composition-melee-pair",
+  "frames": [
+    {
+      "step_index": 0,
+      "step_label": "encounter_opened",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120},
+        {"mob_id": "m2", "mob_name": "Orc Grunt", "state": "Alive", "x": 2, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-melee-pair",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 2,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-pair", "action_index": 1}
+      ]
+    },
+    {
+      "step_index": 1,
+      "step_label": "dual_melee_pressure",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 76, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120},
+        {"mob_id": "m2", "mob_name": "Orc Grunt", "state": "Alive", "x": 2, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-melee-pair",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 2,
+        "mobs_dead": 0,
+        "action_index": 3,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-pair", "action_index": 2},
+        {"kind": "damage_applied", "actor": "m2", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-pair", "action_index": 3}
+      ]
+    },
+    {
+      "step_index": 2,
+      "step_label": "player_focuses_m1",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 52, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 40, "hp_max": 120},
+        {"mob_id": "m2", "mob_name": "Orc Grunt", "state": "Alive", "x": 2, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-melee-pair",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 2,
+        "mobs_dead": 0,
+        "action_index": 5,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 40, "hp_max": 120},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "p1", "target": "m1", "damage": 80, "encounter_id": "enc-comp-melee-pair", "action_index": 4},
+        {"kind": "damage_applied", "actor": "m2", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-pair", "action_index": 5}
+      ]
+    },
+    {
+      "step_index": 3,
+      "step_label": "m1_dead_pressure_drops",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 40, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Dead", "x": 1, "y": 0, "z": 0, "hp_current": 0, "hp_max": 120},
+        {"mob_id": "m2", "mob_name": "Orc Grunt", "state": "Alive", "x": 2, "y": 0, "z": 0, "hp_current": 120, "hp_max": 120}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-melee-pair",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 1,
+        "mobs_dead": 1,
+        "action_index": 7,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 0, "hp_max": 120},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 120, "hp_max": 120}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "p1", "target": "m1", "damage": 40, "encounter_id": "enc-comp-melee-pair", "action_index": 6},
+        {"kind": "damage_applied", "actor": "m2", "target": "p1", "damage": 12, "encounter_id": "enc-comp-melee-pair", "action_index": 7}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "scenario_name": "composition-hybrid-caster",
+  "frames": [
+    {
+      "step_index": 0,
+      "step_label": "encounter_opened",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Dire Warlock", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 400, "hp_max": 400},
+        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-hybrid-caster",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 2,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 400, "hp_max": 400},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-hybrid-caster", "action_index": 1},
+        {"kind": "cast_start", "actor": "m2", "target": "p1", "ability_id": "mob_firebolt", "encounter_id": "enc-comp-hybrid-caster"}
+      ]
+    },
+    {
+      "step_index": 1,
+      "step_label": "both_casting",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 76, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Dire Warlock", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 400, "hp_max": 400},
+        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-hybrid-caster",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 2,
+        "mobs_dead": 0,
+        "action_index": 3,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 400, "hp_max": 400},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+        ],
+        "mob_casts": [
+          {"mob_id": "m1", "ability_id": "mob_shadowbolt", "duration_ms": 3000, "elapsed_ms": 1000, "progress_pct": 33},
+          {"mob_id": "m2", "ability_id": "mob_firebolt", "duration_ms": 2000, "elapsed_ms": 1500, "progress_pct": 75}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-hybrid-caster", "action_index": 2},
+        {"kind": "cast_start", "actor": "m1", "target": "p1", "ability_id": "mob_shadowbolt", "encounter_id": "enc-comp-hybrid-caster"}
+      ]
+    },
+    {
+      "step_index": 2,
+      "step_label": "player_interrupts_caster",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 64, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Dire Warlock", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 400, "hp_max": 400},
+        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-hybrid-caster",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 2,
+        "mobs_dead": 0,
+        "action_index": 5,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 400, "hp_max": 400},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+        ],
+        "mob_casts": [
+          {"mob_id": "m1", "ability_id": "mob_shadowbolt", "duration_ms": 3000, "elapsed_ms": 2000, "progress_pct": 66}
+        ],
+        "mob_lockouts": [
+          {"mob_id": "m2", "remaining_ms": 4000}
+        ]
+      },
+      "events": [
+        {"kind": "interrupt_applied", "actor": "p1", "target": "m2", "ability_id": "interrupt", "encounter_id": "enc-comp-hybrid-caster", "action_index": 4},
+        {"kind": "cast_cancelled", "actor": "m2", "target": "p1", "ability_id": "mob_firebolt", "reason": "interrupted", "encounter_id": "enc-comp-hybrid-caster"},
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-hybrid-caster", "action_index": 5}
+      ]
+    },
+    {
+      "step_index": 3,
+      "step_label": "hybrid_cast_completes_caster_lockout",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 27, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Dire Warlock", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 400, "hp_max": 400},
+        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-hybrid-caster",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 2,
+        "mobs_dead": 0,
+        "action_index": 7,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 400, "hp_max": 400},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+        ],
+        "mob_lockouts": [
+          {"mob_id": "m2", "remaining_ms": 2000}
+        ]
+      },
+      "events": [
+        {"kind": "cast_complete", "actor": "m1", "ability_id": "mob_shadowbolt", "encounter_id": "enc-comp-hybrid-caster"},
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 25, "encounter_id": "enc-comp-hybrid-caster", "action_index": 6},
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-hybrid-caster", "action_index": 7},
+        {"kind": "interrupt_lockout_blocked", "target": "m2", "ability_id": "mob_firebolt", "encounter_id": "enc-comp-hybrid-caster"}
+      ]
+    },
+    {
+      "step_index": 4,
+      "step_label": "hybrid_melee_caster_still_locked",
+      "players": [{"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 15, "hp_max": 100, "can_act": true}],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Dire Warlock", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 400, "hp_max": 400},
+        {"mob_id": "m2", "mob_name": "Dark Channeler", "state": "Alive", "x": 8, "y": 0, "z": 0, "hp_current": 300, "hp_max": 300}
+      ],
+      "encounter": {
+        "encounter_id": "enc-comp-hybrid-caster",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1", "m2"],
+        "mobs_alive": 2,
+        "mobs_dead": 0,
+        "action_index": 9,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 400, "hp_max": 400},
+          {"mob_id": "m2", "selected_target_player_id": "p1", "hp_current": 300, "hp_max": 300}
+        ],
+        "mob_lockouts": [
+          {"mob_id": "m2", "remaining_ms": 500}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-comp-hybrid-caster", "action_index": 8},
+        {"kind": "interrupt_lockout_blocked", "target": "m2", "ability_id": "mob_firebolt", "encounter_id": "enc-comp-hybrid-caster"}
+      ]
+    }
+  ]
+}

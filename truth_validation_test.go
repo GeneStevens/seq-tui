@@ -4110,3 +4110,161 @@ func TestE2EBehaviorHybridHPTrajectory(t *testing.T) {
 		t.Fatalf("cast spike damage should be 30 (HP %d -> %d), got %d", f2.inv.HPCurrent, f4.inv.HPCurrent, castSpike)
 	}
 }
+
+// --- M20260427-40 encounter composition readability tests ---
+
+func TestE2ECompositionMeleePairSteadyPressure(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_composition_melee_pair.json"))
+
+	// Frame 1: both mobs dealing damage, both visible
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	combat := stripANSI(renderCombatPanel(sidePanelWidth, f1.ar, f1.pr, f1.er, defaultTarget(), f1.inv, ""))
+	if !strings.Contains(combat, "m1") {
+		t.Fatalf("frame 1: combat panel should show mob m1, got:\n%s", combat)
+	}
+
+	// Event panel should show damage from both mobs
+	panel := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel, "m1>p1") {
+		t.Fatalf("frame 1: event panel should show m1>p1 damage, got:\n%s", panel)
+	}
+	if !strings.Contains(panel, "m2>p1") {
+		t.Fatalf("frame 1: event panel should show m2>p1 damage, got:\n%s", panel)
+	}
+
+	// Roster should show both mobs with engagement markers
+	enc := findPlayerEncounter(f1.er.Encounters, f1.pr.ActiveEncounterID)
+	roster := renderCombatMobRoster(enc, f1.ar, "p1", sidePanelWidth, "")
+	joined := stripANSI(strings.Join(roster, "\n"))
+	engagementCount := strings.Count(joined, "<-")
+	if engagementCount < 2 {
+		t.Fatalf("frame 1: roster should show '<-' engagement for both mobs, count=%d, got:\n%s", engagementCount, joined)
+	}
+}
+
+func TestE2ECompositionMeleePairFocusDown(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_composition_melee_pair.json"))
+
+	// Frame 2: player focused m1, its HP should be lower than m2
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	enc2 := findPlayerEncounter(f2.er.Encounters, f2.pr.ActiveEncounterID)
+	if enc2 == nil {
+		t.Fatal("frame 2: no encounter found")
+	}
+	var m1HP, m2HP int
+	for _, mt := range enc2.MobThreat {
+		if mt.MobID == "m1" {
+			m1HP = mt.HPCurrent
+		}
+		if mt.MobID == "m2" {
+			m2HP = mt.HPCurrent
+		}
+	}
+	if m1HP >= m2HP {
+		t.Fatalf("frame 2: focused mob m1 HP (%d) should be lower than m2 HP (%d)", m1HP, m2HP)
+	}
+
+	// Frame 3: m1 dead, encounter shows 1 alive / 1 dead
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	enc3 := findPlayerEncounter(f3.er.Encounters, f3.pr.ActiveEncounterID)
+	if enc3 == nil {
+		t.Fatal("frame 3: no encounter found")
+	}
+	if enc3.MobsAlive != 1 || enc3.MobsDead != 1 {
+		t.Fatalf("frame 3: expected 1 alive / 1 dead, got alive=%d dead=%d", enc3.MobsAlive, enc3.MobsDead)
+	}
+}
+
+func TestE2ECompositionMeleeCasterCastVisible(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_composition_melee_caster.json"))
+
+	// Frame 1: caster is casting — target m2 to see its cast bar (use width 40 to avoid line wrap)
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	arM2 := attackResult{State: attackStateSent, TargetID: "m2"}
+	combat := stripANSI(renderCombatPanel(40, arM2, f1.pr, f1.er, defaultTarget(), f1.inv, "m2"))
+	if !strings.Contains(combat, "mob casting: mob_firebolt") {
+		t.Fatalf("frame 1: combat panel should show mob_firebolt cast, got:\n%s", combat)
+	}
+
+	// Event panel should show melee damage (different from cast)
+	panel := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel, "m1>p1") {
+		t.Fatalf("frame 1: should show melee damage m1>p1, got:\n%s", panel)
+	}
+}
+
+func TestE2ECompositionMeleeCasterInterruptEffect(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_composition_melee_caster.json"))
+
+	// Frame 2: interrupt applied, cast cancelled
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel, "interrupt") {
+		t.Fatalf("frame 2: event panel should show interrupt, got:\n%s", panel)
+	}
+
+	// Frame 4: uninterrupted path shows firebolt damage
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "hit 30") {
+		t.Fatalf("frame 4: should show firebolt hit 30 damage, got:\n%s", panel4)
+	}
+
+	// Player HP higher when interrupted (frame 2) than when not (frame 4)
+	if f2.inv.HPCurrent <= f4.inv.HPCurrent {
+		t.Fatalf("interrupted path HP (%d) should be higher than uninterrupted (%d)", f2.inv.HPCurrent, f4.inv.HPCurrent)
+	}
+}
+
+func TestE2ECompositionHybridCasterOverlappingPressure(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_composition_hybrid_caster.json"))
+
+	// Frame 1: both mobs casting simultaneously
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	enc := findPlayerEncounter(f1.er.Encounters, f1.pr.ActiveEncounterID)
+	if enc == nil {
+		t.Fatal("frame 1: no encounter found")
+	}
+	if len(enc.MobCasts) < 2 {
+		t.Fatalf("frame 1: expected 2 active mob casts for overlapping pressure, got %d", len(enc.MobCasts))
+	}
+
+	// Both mobs should be visible in combat panel
+	combat := stripANSI(renderCombatPanel(sidePanelWidth, f1.ar, f1.pr, f1.er, defaultTarget(), f1.inv, ""))
+	if !strings.Contains(combat, "m1") || !strings.Contains(combat, "m2") {
+		t.Fatalf("frame 1: both mobs should be visible in combat panel, got:\n%s", combat)
+	}
+}
+
+func TestE2ECompositionHybridCasterTargetSwitchEffect(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_composition_hybrid_caster.json"))
+
+	// Frame 2: caster interrupted, hybrid still casting
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel, "interrupt") {
+		t.Fatalf("frame 2: should show interrupt event, got:\n%s", panel)
+	}
+
+	// Frame 3: hybrid cast completes, caster lockout
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	enc := findPlayerEncounter(f3.er.Encounters, f3.pr.ActiveEncounterID)
+	if enc == nil {
+		t.Fatal("frame 3: no encounter found")
+	}
+	// Caster should have lockout
+	hasLockout := false
+	for _, lo := range enc.MobLockouts {
+		if lo.MobID == "m2" {
+			hasLockout = true
+		}
+	}
+	if !hasLockout {
+		t.Fatal("frame 3: caster m2 should have lockout active")
+	}
+
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "cast complete") {
+		t.Fatalf("frame 3: should show hybrid cast complete, got:\n%s", panel3)
+	}
+}
