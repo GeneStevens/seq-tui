@@ -1,0 +1,126 @@
+{
+  "scenario_name": "decision-heal-vs-dps",
+  "frames": [
+    {
+      "step_index": 0,
+      "step_label": "join_player",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500}
+      ]
+    },
+    {
+      "step_index": 1,
+      "step_label": "damaged",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 30, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500}
+      ],
+      "encounter": {
+        "encounter_id": "enc-decision-heal",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 3,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 35, "encounter_id": "enc-decision-heal", "action_index": 2},
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 35, "encounter_id": "enc-decision-heal", "action_index": 3}
+      ]
+    },
+    {
+      "step_index": 2,
+      "step_label": "heal_started",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 30, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500}
+      ],
+      "active_casts": [
+        {"player_id": "p1", "ability_id": "heal", "target_mob_id": "", "cast_duration_ms": 2000, "elapsed_ms": 0, "progress_pct": 0.0}
+      ],
+      "encounter": {
+        "encounter_id": "enc-decision-heal",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 3,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500}
+        ],
+        "player_mana": [
+          {"player_id": "p1", "mana_current": 75, "mana_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "cast_start", "actor": "p1", "target": "p1", "ability_id": "heal", "encounter_id": "enc-decision-heal"}
+      ]
+    },
+    {
+      "step_index": 3,
+      "step_label": "heal_complete",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 55, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500}
+      ],
+      "encounter": {
+        "encounter_id": "enc-decision-heal",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 4,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500}
+        ],
+        "player_mana": [
+          {"player_id": "p1", "mana_current": 75, "mana_max": 100}
+        ]
+      },
+      "events": [
+        {"kind": "cast_complete", "actor": "p1", "ability_id": "heal", "encounter_id": "enc-decision-heal"},
+        {"kind": "heal_applied", "actor": "p1", "target": "p1", "heal": 25, "encounter_id": "enc-decision-heal", "action_index": 4}
+      ]
+    },
+    {
+      "step_index": 4,
+      "step_label": "stabilized",
+      "players": [
+        {"player_id": "p1", "x": 0, "y": 0, "z": 0, "hp_current": 43, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Warrior", "state": "Alive", "x": 1, "y": 0, "z": 0, "hp_current": 500, "hp_max": 500}
+      ],
+      "encounter": {
+        "encounter_id": "enc-decision-heal",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 5,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 500, "hp_max": 500}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-decision-heal", "action_index": 5}
+      ]
+    }
+  ]
+}

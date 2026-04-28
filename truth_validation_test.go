@@ -3765,3 +3765,165 @@ func TestTruthTemporalOORToInRangeTransition(t *testing.T) {
 		t.Fatalf("phase 2: should show mob ID '%s', got:\n%s", displayID, stripped2)
 	}
 }
+
+// --- M20260427-38 decision pressure visibility tests ---
+
+func TestE2EDecisionInterruptSuccess(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_decision_interrupt_vs_damage.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 3 (interrupt_success): event panel should contain "interrupted"
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "interrupted") {
+		t.Fatalf("frame 3: event panel should contain 'interrupted', got:\n%s", panel3)
+	}
+
+	// Frame 3: event panel should contain "cast cancelled"
+	if !strings.Contains(panel3, "cast cancelled") {
+		t.Fatalf("frame 3: event panel should contain 'cast cancelled', got:\n%s", panel3)
+	}
+
+	// Frame 4 (lockout_safe): event panel should contain "lockout"
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "lockout") {
+		t.Fatalf("frame 4: event panel should contain 'lockout', got:\n%s", panel4)
+	}
+}
+
+func TestE2EDecisionInterruptHPPreserved(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_decision_interrupt_vs_damage.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 2: player HP before interrupt decision
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	hp2 := f2.inv.HPCurrent
+
+	// Frame 4: player HP after interrupt + lockout (only auto-attack damage, no firebolt)
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	hp4 := f4.inv.HPCurrent
+
+	// HP drop should be small (no firebolt landed thanks to interrupt)
+	hpDrop := hp2 - hp4
+	if hpDrop > 15 {
+		t.Fatalf("HP drop should be <= 15 (only auto-attack, no firebolt), got %d (hp2=%d, hp4=%d)", hpDrop, hp2, hp4)
+	}
+
+	// Player must still be alive
+	if hp4 <= 0 {
+		t.Fatalf("frame 4: player HP should be > 0, got %d", hp4)
+	}
+}
+
+func TestE2EDecisionHealStabilization(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_decision_heal_vs_dps.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 2 (heal_started): event panel should contain "casting"
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "casting") {
+		t.Fatalf("frame 2: event panel should contain 'casting', got:\n%s", panel2)
+	}
+
+	// Frame 3 (heal_complete): event panel should contain "cast complete"
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "cast complete") {
+		t.Fatalf("frame 3: event panel should contain 'cast complete', got:\n%s", panel3)
+	}
+
+	// Frame 3: event panel should contain heal text (from heal_applied)
+	if !strings.Contains(panel3, "heal") {
+		t.Fatalf("frame 3: event panel should contain 'heal', got:\n%s", panel3)
+	}
+
+	// HP should increase from frame 2 to frame 3
+	hp2 := f2.inv.HPCurrent
+	hp3 := f3.inv.HPCurrent
+	if hp3 <= hp2 {
+		t.Fatalf("frame 3 HP (%d) should be greater than frame 2 HP (%d) after heal", hp3, hp2)
+	}
+}
+
+func TestE2EDecisionHealSurvival(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_decision_heal_vs_dps.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 4 (stabilized): player should be alive and able to act
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	if !f4.inv.CanAct {
+		t.Fatalf("frame 4: player should be able to act (CanAct=true)")
+	}
+	if f4.inv.HPCurrent <= 0 {
+		t.Fatalf("frame 4: player HP should be > 0, got %d", f4.inv.HPCurrent)
+	}
+
+	// Frame 4: event panel should contain "hit" (damage still happening — player under pressure but surviving)
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "hit") {
+		t.Fatalf("frame 4: event panel should contain 'hit' (damage ongoing), got:\n%s", panel4)
+	}
+}
+
+func TestE2EDecisionMultiMobInterruptPriority(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_decision_multi_mob_priority.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 3 (interrupt_caster): event panel should contain "interrupted"
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "interrupted") {
+		t.Fatalf("frame 3: event panel should contain 'interrupted', got:\n%s", panel3)
+	}
+
+	// Frame 3: event panel should contain "cast cancelled"
+	if !strings.Contains(panel3, "cast cancelled") {
+		t.Fatalf("frame 3: event panel should contain 'cast cancelled', got:\n%s", panel3)
+	}
+
+	// Frame 4 (lockout_breathing_room): event panel should contain "lockout"
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "lockout") {
+		t.Fatalf("frame 4: event panel should contain 'lockout', got:\n%s", panel4)
+	}
+
+	// Frame 4: melee still attacking (only melee damage, caster locked out)
+	if !strings.Contains(panel4, "hit") {
+		t.Fatalf("frame 4: event panel should contain 'hit' (melee still attacking), got:\n%s", panel4)
+	}
+}
+
+func TestE2EDecisionMultiMobHealDuringLockout(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_decision_multi_mob_priority.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 5 (recovery): event panel should contain heal text
+	f5 := traceFrameToScenarioFrame(trace.Frames[5], "p1")
+	panel5 := stripANSI(renderEventPanel(sidePanelWidth, f5.events, f5.pr, f5.er))
+	if !strings.Contains(panel5, "heal") {
+		t.Fatalf("frame 5: event panel should contain 'heal', got:\n%s", panel5)
+	}
+
+	// HP should recover: frame 5 HP > frame 4 HP
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	hp4 := f4.inv.HPCurrent
+	hp5 := f5.inv.HPCurrent
+	if hp5 <= hp4 {
+		t.Fatalf("frame 5 HP (%d) should be greater than frame 4 HP (%d) after heal", hp5, hp4)
+	}
+}
