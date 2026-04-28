@@ -10,8 +10,35 @@ import (
 	"testing"
 )
 
+type smokeServerOpts struct {
+	zoneDown        bool
+	zoneNotFound    bool
+	devAPIDisabled  bool
+	tokenMismatch   bool
+	playerReadFails bool
+	mobsFail        bool
+	noMobs          bool
+	proxFail        bool
+	moveFail        bool
+	moveNoProgress  bool
+	attackFail      bool
+	encounterFail   bool
+	noEncounters    bool
+	inventoryFail   bool
+	mobStartDist    float64
+	mobInRange      bool
+}
+
 func newSmokeServer(t *testing.T, opts smokeServerOpts) *httptest.Server {
 	t.Helper()
+
+	mobDist := opts.mobStartDist
+	if mobDist == 0 {
+		mobDist = 3.5
+	}
+	moveCount := 0
+	attacked := false
+
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/world/zone/testzone", func(w http.ResponseWriter, r *http.Request) {
@@ -69,50 +96,131 @@ func newSmokeServer(t *testing.T, opts smokeServerOpts) *httptest.Server {
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, `{"found":true,"within_proximity":true,"distance_2d":3.5,"target_mob_name":"a goblin","target_mob_id":"goblin-1"}`)
+		inRange := opts.mobInRange || mobDist <= 1.0
+		fmt.Fprintf(w, `{"found":true,"within_proximity":%t,"distance_2d":%.1f,"target_mob_name":"a goblin","target_mob_id":"goblin-1"}`, inRange, mobDist)
+	})
+
+	mux.HandleFunc("/world/dev/zone/testzone/player/move", func(w http.ResponseWriter, r *http.Request) {
+		if opts.moveFail {
+			http.Error(w, "error", http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		moveCount++
+		if opts.moveNoProgress {
+			fmt.Fprint(w, `{"ok":true,"x":10,"y":20,"z":0}`)
+			return
+		}
+		newDist := mobDist - 1.0
+		if newDist < 0.5 {
+			newDist = 0.5
+		}
+		mobDist = newDist
+		newX := 10.0 - float64(moveCount)
+		newY := 20.0 - float64(moveCount)
+		fmt.Fprintf(w, `{"ok":true,"x":%.0f,"y":%.0f,"z":0}`, newX, newY)
+	})
+
+	mux.HandleFunc("/world/dev/zone/testzone/intent", func(w http.ResponseWriter, r *http.Request) {
+		if opts.attackFail {
+			w.Header().Set("Content-Type", "application/json")
+			fmt.Fprint(w, `{"ok":false,"error":"attack denied"}`)
+			return
+		}
+		attacked = true
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprint(w, `{"ok":true}`)
+	})
+
+	mux.HandleFunc("/world/call/testzone", func(w http.ResponseWriter, r *http.Request) {
+		msg := r.URL.Query().Get("message")
+		w.Header().Set("Content-Type", "application/json")
+		switch msg {
+		case "encounters":
+			if opts.encounterFail {
+				http.Error(w, "error", http.StatusInternalServerError)
+				return
+			}
+			if opts.noEncounters || !attacked {
+				fmt.Fprint(w, `{"result":[]}`)
+				return
+			}
+			fmt.Fprint(w, `{"result":[{"encounter_id":"enc-1","state":"active","player_ids":["p1"],"mob_ids":["goblin-1"],"mobs_alive_count":1,"mobs_dead_count":0,"action_index":1,"timeline_length":1,"latest_result_kind":"damage_applied","latest_result_actor":"p1","latest_result_target":"goblin-1","latest_result_value":15,"mob_threat":[{"mob_id":"goblin-1","live_mob_id":"live-goblin-1","process_id":"pid-goblin-1","hp_current":85,"hp_max":100}]}]}`)
+		case "gameplay_status":
+			if opts.inventoryFail {
+				http.Error(w, "error", http.StatusInternalServerError)
+				return
+			}
+			fmt.Fprint(w, `{"result":{"items":[],"can_act":true,"blocked_reason":"","hp_current":100,"hp_max":100,"players":[{"player_id":"p1","hp_current":100,"hp_max":100}]}}`)
+		default:
+			http.Error(w, "unknown message", http.StatusBadRequest)
+		}
 	})
 
 	return httptest.NewServer(mux)
 }
 
-type smokeServerOpts struct {
-	zoneDown        bool
-	zoneNotFound    bool
-	devAPIDisabled  bool
-	tokenMismatch   bool
-	playerReadFails bool
-	mobsFail        bool
-	noMobs          bool
-	proxFail        bool
-}
-
 func TestSmokeAllPass(t *testing.T) {
-	srv := newSmokeServer(t, smokeServerOpts{})
+	srv := newSmokeServer(t, smokeServerOpts{mobStartDist: 3.5})
 	defer srv.Close()
 
 	target := testTargetWithServer(srv.URL)
 	steps := runSmoke(target)
 
-	if len(steps) != 5 {
-		t.Fatalf("expected 5 steps, got %d", len(steps))
+	if len(steps) != 9 {
+		for _, s := range steps {
+			t.Logf("  %s", s)
+		}
+		t.Fatalf("expected 9 steps, got %d", len(steps))
 	}
+
+	wantNames := []string{
+		"backend reachable", "player join", "player visible",
+		"mob visible", "target selection", "distance known",
+		"movement", "range check", "attack feedback",
+	}
+	for i, name := range wantNames {
+		assertStepName(t, steps, i, name)
+	}
+
 	for _, s := range steps {
-		if s.Status != smokePass {
-			t.Errorf("step %q: expected PASS, got %s — %s", s.Name, s.Status, s.Detail)
+		if s.Status == smokeFail {
+			t.Errorf("step %q: expected PASS or SKIP, got FAIL — %s", s.Name, s.Detail)
 		}
 	}
 
-	assertStepName(t, steps, 0, "backend reachable")
-	assertStepName(t, steps, 1, "player join")
-	assertStepName(t, steps, 2, "player state")
-	assertStepName(t, steps, 3, "mob positions")
-	assertStepName(t, steps, 4, "target proximity")
-
-	if !strings.Contains(steps[1].Detail, "joined at") {
-		t.Errorf("player join detail should contain position: %s", steps[1].Detail)
+	if !strings.Contains(steps[2].Detail, "HP=") {
+		t.Errorf("player visible should contain HP: %s", steps[2].Detail)
 	}
 	if !strings.Contains(steps[4].Detail, "a goblin") {
-		t.Errorf("target proximity should name mob: %s", steps[4].Detail)
+		t.Errorf("target selection should name mob: %s", steps[4].Detail)
+	}
+	if !strings.Contains(steps[8].Detail, "damage_applied") {
+		t.Errorf("attack feedback should contain event kind: %s", steps[8].Detail)
+	}
+}
+
+func TestSmokeAlreadyInRange(t *testing.T) {
+	srv := newSmokeServer(t, smokeServerOpts{mobInRange: true, mobStartDist: 1.0})
+	defer srv.Close()
+
+	target := testTargetWithServer(srv.URL)
+	steps := runSmoke(target)
+
+	moveStep := findStep(steps, "movement")
+	if moveStep == nil {
+		t.Fatal("missing movement step")
+	}
+	if moveStep.Status != smokeSkip {
+		t.Errorf("movement should be SKIP when already in range, got %s", moveStep.Status)
+	}
+
+	rangeStep := findStep(steps, "range check")
+	if rangeStep == nil {
+		t.Fatal("missing range check step")
+	}
+	if rangeStep.Status != smokePass {
+		t.Errorf("range check should PASS when already in range, got %s — %s", rangeStep.Status, rangeStep.Detail)
 	}
 }
 
@@ -126,8 +234,8 @@ func TestSmokeBackendDown(t *testing.T) {
 	}
 	steps := runSmoke(target)
 
-	if len(steps) != 5 {
-		t.Fatalf("expected 5 steps, got %d", len(steps))
+	if len(steps) != 9 {
+		t.Fatalf("expected 9 steps, got %d", len(steps))
 	}
 	if steps[0].Status != smokeFail {
 		t.Errorf("backend reachable should FAIL, got %s", steps[0].Status)
@@ -188,8 +296,6 @@ func TestSmokePlayerReadFails(t *testing.T) {
 	if steps[0].Status != smokePass {
 		t.Errorf("backend should be reachable")
 	}
-	// Join succeeds but player state read returns 500 — joinAndReadPlayer
-	// treats join-ok + read-fail as playerReadOK with HasPos=false
 	if steps[1].Status != smokePass {
 		t.Errorf("player join should still PASS (join succeeded): %s", steps[1].Detail)
 	}
@@ -212,20 +318,20 @@ func TestSmokeMobsFail(t *testing.T) {
 		t.Errorf("player join should PASS")
 	}
 
-	mobStep := findStep(steps, "mob positions")
+	mobStep := findStep(steps, "mob visible")
 	if mobStep == nil {
-		t.Fatal("missing mob positions step")
+		t.Fatal("missing mob visible step")
 	}
 	if mobStep.Status != smokeFail {
-		t.Errorf("mob positions should FAIL: %s", mobStep.Detail)
+		t.Errorf("mob visible should FAIL: %s", mobStep.Detail)
 	}
 
-	proxStep := findStep(steps, "target proximity")
-	if proxStep == nil {
-		t.Fatal("missing target proximity step")
+	targetStep := findStep(steps, "target selection")
+	if targetStep == nil {
+		t.Fatal("missing target selection step")
 	}
-	if proxStep.Status != smokeSkip {
-		t.Errorf("target proximity should SKIP when mobs fail: %s", proxStep.Detail)
+	if targetStep.Status != smokeSkip {
+		t.Errorf("target selection should SKIP when mobs fail: %s", targetStep.Detail)
 	}
 }
 
@@ -236,23 +342,23 @@ func TestSmokeNoMobs(t *testing.T) {
 	target := testTargetWithServer(srv.URL)
 	steps := runSmoke(target)
 
-	mobStep := findStep(steps, "mob positions")
+	mobStep := findStep(steps, "mob visible")
 	if mobStep == nil {
-		t.Fatal("missing mob positions step")
+		t.Fatal("missing mob visible step")
 	}
-	if mobStep.Status != smokePass {
-		t.Errorf("mob positions should PASS with 0 mobs: %s", mobStep.Detail)
+	if mobStep.Status != smokeFail {
+		t.Errorf("mob visible should FAIL with 0 mobs: %s", mobStep.Detail)
+	}
+	if !strings.Contains(mobStep.Detail, "no mobs") {
+		t.Errorf("should explain reason: %s", mobStep.Detail)
 	}
 
-	proxStep := findStep(steps, "target proximity")
-	if proxStep == nil {
-		t.Fatal("missing target proximity step")
+	targetStep := findStep(steps, "target selection")
+	if targetStep == nil {
+		t.Fatal("missing target selection step")
 	}
-	if proxStep.Status != smokeSkip {
-		t.Errorf("target proximity should SKIP with no mobs: %s", proxStep.Detail)
-	}
-	if !strings.Contains(proxStep.Detail, "no mobs") {
-		t.Errorf("should explain skip reason: %s", proxStep.Detail)
+	if targetStep.Status != smokeSkip {
+		t.Errorf("target selection should SKIP with no mobs: %s", targetStep.Detail)
 	}
 }
 
@@ -263,18 +369,99 @@ func TestSmokeProximityFails(t *testing.T) {
 	target := testTargetWithServer(srv.URL)
 	steps := runSmoke(target)
 
-	for _, s := range steps[:4] {
-		if s.Status != smokePass {
-			t.Errorf("step %q should PASS: %s", s.Name, s.Detail)
+	for _, s := range steps[:3] {
+		if s.Status == smokeFail {
+			t.Errorf("step %q should not FAIL: %s", s.Name, s.Detail)
 		}
 	}
 
-	proxStep := findStep(steps, "target proximity")
-	if proxStep == nil {
-		t.Fatal("missing target proximity step")
+	targetStep := findStep(steps, "target selection")
+	if targetStep == nil {
+		t.Fatal("missing target selection step")
 	}
-	if proxStep.Status != smokeFail {
-		t.Errorf("target proximity should FAIL: %s", proxStep.Detail)
+	if targetStep.Status != smokeFail {
+		t.Errorf("target selection should FAIL: %s", targetStep.Detail)
+	}
+}
+
+func TestSmokeMoveFails(t *testing.T) {
+	srv := newSmokeServer(t, smokeServerOpts{moveFail: true, mobStartDist: 10.0})
+	defer srv.Close()
+
+	target := testTargetWithServer(srv.URL)
+	steps := runSmoke(target)
+
+	moveStep := findStep(steps, "movement")
+	if moveStep == nil {
+		t.Fatal("missing movement step")
+	}
+	if moveStep.Status != smokeFail {
+		t.Errorf("movement should FAIL: %s", moveStep.Detail)
+	}
+
+	rangeStep := findStep(steps, "range check")
+	if rangeStep == nil {
+		t.Fatal("missing range check step")
+	}
+	if rangeStep.Status != smokeSkip {
+		t.Errorf("range check should SKIP when movement fails: %s", rangeStep.Detail)
+	}
+}
+
+func TestSmokeMoveNoProgress(t *testing.T) {
+	srv := newSmokeServer(t, smokeServerOpts{moveNoProgress: true, mobStartDist: 10.0})
+	defer srv.Close()
+
+	target := testTargetWithServer(srv.URL)
+	steps := runSmoke(target)
+
+	moveStep := findStep(steps, "movement")
+	if moveStep == nil {
+		t.Fatal("missing movement step")
+	}
+	if moveStep.Status != smokeFail {
+		t.Errorf("movement should FAIL when no progress: %s", moveStep.Detail)
+	}
+	if !strings.Contains(moveStep.Detail, "did not decrease") {
+		t.Errorf("should explain distance didn't decrease: %s", moveStep.Detail)
+	}
+}
+
+func TestSmokeAttackFails(t *testing.T) {
+	srv := newSmokeServer(t, smokeServerOpts{attackFail: true, mobInRange: true, mobStartDist: 1.0})
+	defer srv.Close()
+
+	target := testTargetWithServer(srv.URL)
+	steps := runSmoke(target)
+
+	atkStep := findStep(steps, "attack feedback")
+	if atkStep == nil {
+		t.Fatal("missing attack feedback step")
+	}
+	if atkStep.Status != smokeFail {
+		t.Errorf("attack feedback should FAIL: %s", atkStep.Detail)
+	}
+	if !strings.Contains(atkStep.Detail, "attack denied") {
+		t.Errorf("should report attack error: %s", atkStep.Detail)
+	}
+}
+
+func TestSmokeNoEncounterAfterAttack(t *testing.T) {
+	srv := newSmokeServer(t, smokeServerOpts{noEncounters: true, mobInRange: true, mobStartDist: 1.0})
+	defer srv.Close()
+
+	target := testTargetWithServer(srv.URL)
+	steps := runSmoke(target)
+
+	atkStep := findStep(steps, "attack feedback")
+	if atkStep == nil {
+		t.Fatal("missing attack feedback step")
+	}
+	if atkStep.Status != smokeFail {
+		t.Errorf("attack feedback should FAIL with no encounters: %s", atkStep.Detail)
+	}
+	if !strings.Contains(atkStep.Detail, "no encounter") {
+		t.Errorf("should explain no encounter: %s", atkStep.Detail)
 	}
 }
 
@@ -377,8 +564,8 @@ func TestSmokeZoneNotFound(t *testing.T) {
 	target := testTargetWithServer(srv.URL)
 	steps := runSmoke(target)
 
-	if len(steps) != 5 {
-		t.Fatalf("expected 5 steps, got %d", len(steps))
+	if len(steps) != 9 {
+		t.Fatalf("expected 9 steps, got %d", len(steps))
 	}
 	if steps[0].Status != smokeFail {
 		t.Errorf("backend reachable should FAIL on zone not found, got %s", steps[0].Status)
@@ -424,7 +611,7 @@ func TestClassifyZoneErrorTruncation(t *testing.T) {
 }
 
 func TestSmokeCmdAllPass(t *testing.T) {
-	srv := newSmokeServer(t, smokeServerOpts{})
+	srv := newSmokeServer(t, smokeServerOpts{mobStartDist: 3.5})
 	defer srv.Close()
 
 	target := testTargetWithServer(srv.URL)
@@ -437,8 +624,8 @@ func TestSmokeCmdAllPass(t *testing.T) {
 	if !strings.Contains(out, "PASS") {
 		t.Errorf("output should contain PASS: %s", out)
 	}
-	if strings.Contains(out, "FAIL") {
-		t.Errorf("output should not contain FAIL: %s", out)
+	if strings.Contains(out, "[FAIL]") {
+		t.Errorf("output should not contain [FAIL]: %s", out)
 	}
 	if !strings.Contains(out, "---") {
 		t.Errorf("output should contain separator: %s", out)
@@ -468,7 +655,7 @@ func TestSmokeCmdFail(t *testing.T) {
 }
 
 func TestSmokeCmdShowsConfig(t *testing.T) {
-	srv := newSmokeServer(t, smokeServerOpts{})
+	srv := newSmokeServer(t, smokeServerOpts{mobStartDist: 3.5})
 	defer srv.Close()
 
 	target := testTargetWithServer(srv.URL)
@@ -483,7 +670,6 @@ func TestSmokeCmdShowsConfig(t *testing.T) {
 	}
 }
 
-// Verify JSON round-trip of smoke steps for structured output.
 func TestSmokeStepsJSON(t *testing.T) {
 	steps := []smokeStep{
 		{Name: "backend reachable", Status: smokePass, Detail: "ok"},
@@ -501,3 +687,45 @@ func TestSmokeStepsJSON(t *testing.T) {
 		t.Fatalf("expected 2 steps, got %d", len(decoded))
 	}
 }
+
+func TestSmokeFailureClarity(t *testing.T) {
+	cases := []struct {
+		name     string
+		opts     smokeServerOpts
+		stepName string
+		wantFail bool
+		wantIn   string
+	}{
+		{"backend not running", smokeServerOpts{zoneDown: true}, "backend reachable", true, "unavailable"},
+		{"dev API disabled", smokeServerOpts{devAPIDisabled: true}, "player join", true, "not found"},
+		{"token mismatch", smokeServerOpts{tokenMismatch: true}, "player join", true, "forbidden"},
+		{"no mobs", smokeServerOpts{noMobs: true}, "mob visible", true, "no mobs"},
+		{"target failure", smokeServerOpts{proxFail: true}, "target selection", true, ""},
+		{"movement ineffective", smokeServerOpts{moveNoProgress: true, mobStartDist: 10.0}, "movement", true, "did not decrease"},
+		{"attack denied", smokeServerOpts{attackFail: true, mobInRange: true, mobStartDist: 1.0}, "attack feedback", true, "attack denied"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			srv := newSmokeServer(t, tc.opts)
+			defer srv.Close()
+
+			target := testTargetWithServer(srv.URL)
+			steps := runSmoke(target)
+
+			step := findStep(steps, tc.stepName)
+			if step == nil {
+				for _, s := range steps {
+					t.Logf("  %s", s)
+				}
+				t.Fatalf("missing step %q", tc.stepName)
+			}
+			if tc.wantFail && step.Status != smokeFail {
+				t.Errorf("step %q: expected FAIL, got %s — %s", tc.stepName, step.Status, step.Detail)
+			}
+			if tc.wantIn != "" && !strings.Contains(step.Detail, tc.wantIn) {
+				t.Errorf("step %q detail should contain %q: %s", tc.stepName, tc.wantIn, step.Detail)
+			}
+		})
+	}
+}
+
