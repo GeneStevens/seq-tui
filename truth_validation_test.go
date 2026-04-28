@@ -1187,6 +1187,8 @@ type tracePlayer struct {
 	CanAct        bool    `json:"can_act"`
 	BlockedReason string  `json:"blocked_reason"`
 	XPCurrent     int     `json:"xp_current"`
+	Level         int     `json:"level"`
+	XPTotal       int     `json:"xp_total"`
 }
 
 type traceEncounter struct {
@@ -1256,6 +1258,7 @@ type traceEvent struct {
 	Target        string `json:"target"`
 	Damage        int    `json:"damage,omitempty"`
 	Heal          int    `json:"heal,omitempty"`
+	XPGained      int    `json:"xp_gained,omitempty"`
 	Amount        int    `json:"amount,omitempty"`
 	ActionIndex   uint64 `json:"action_index,omitempty"`
 	BlockedReason string `json:"blocked_reason,omitempty"`
@@ -1442,6 +1445,12 @@ func traceFrameToScenarioFrame(tf traceFrame, playerID string) scenarioFrame {
 		inv.BlockedReason = player.BlockedReason
 		inv.HPCurrent = player.HPCurrent
 		inv.HPMax = player.HPMax
+		inv.Level = player.Level
+		inv.XPCurrent = player.XPCurrent
+		inv.XPTotal = player.XPTotal
+		if player.Level > 0 {
+			inv.XPToNext = 100 * player.Level // matches backend formula
+		}
 	}
 
 	// Build mobReadResult
@@ -4266,5 +4275,102 @@ func TestE2ECompositionHybridCasterTargetSwitchEffect(t *testing.T) {
 	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
 	if !strings.Contains(panel3, "cast complete") {
 		t.Fatalf("frame 3: should show hybrid cast complete, got:\n%s", panel3)
+	}
+}
+
+// === XP / Level Display Tests ===
+
+func TestPlayerPanelShowsLevel(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{
+		State:        inventoryReadOK,
+		HasLifecycle: true,
+		CanAct:       true,
+		HPCurrent:    85,
+		HPMax:        100,
+		Level:        3,
+		XPToNext:     300,
+	}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "lvl 3") {
+		t.Fatalf("player panel should contain 'lvl 3', got:\n%s", stripped)
+	}
+}
+
+func TestPlayerPanelShowsXPProgress(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	inv := inventoryReadResult{
+		State:        inventoryReadOK,
+		HasLifecycle: true,
+		CanAct:       true,
+		HPCurrent:    85,
+		HPMax:        100,
+		Level:        3,
+		XPCurrent:    50,
+		XPToNext:     300,
+	}
+	panel := renderPlayerPanel(sidePanelWidth, pr, inv, respawnResult{})
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "xp: 50/300") {
+		t.Fatalf("player panel should contain 'xp: 50/300', got:\n%s", stripped)
+	}
+}
+
+func TestEventPanelShowsXPGainEvent(t *testing.T) {
+	pr := playerReadResult{State: playerReadOK}
+	er := encounterReadResult{State: encounterReadOK}
+	events := eventLog{}
+	events.append(eventEntry{kind: "combat", text: "xp +50"})
+
+	panel := renderEventPanel(sidePanelWidth, events, pr, er)
+	stripped := stripANSI(panel)
+	if !strings.Contains(stripped, "xp +50") {
+		t.Fatalf("event panel should contain 'xp +50', got:\n%s", stripped)
+	}
+
+	// Verify strong emphasis classification
+	emphasis := eventEmphasis("xp +50")
+	if emphasis != "strong" {
+		t.Fatalf("'xp +50' should get strong emphasis, got: %s", emphasis)
+	}
+}
+
+func TestXPProgressionAcrossTraceFrames(t *testing.T) {
+	// Construct two frames: before and after XP gain
+	frame1 := traceFrame{
+		StepIndex: 0,
+		StepLabel: "combat_active",
+		Players: []tracePlayer{
+			{PlayerID: "p1", X: 20, Y: 0, HPCurrent: 85, HPMax: 100, CanAct: true, Level: 2, XPCurrent: 80, XPTotal: 280},
+		},
+	}
+	frame2 := traceFrame{
+		StepIndex: 1,
+		StepLabel: "combat_complete",
+		Players: []tracePlayer{
+			{PlayerID: "p1", X: 20, Y: 0, HPCurrent: 85, HPMax: 100, CanAct: true, Level: 3, XPCurrent: 30, XPTotal: 330},
+		},
+	}
+
+	sf1 := traceFrameToScenarioFrame(frame1, "p1")
+	sf2 := traceFrameToScenarioFrame(frame2, "p1")
+
+	// Frame 1: level 2, XP 80/200
+	panel1 := stripANSI(renderPlayerPanel(sidePanelWidth, sf1.pr, sf1.inv, respawnResult{}))
+	if !strings.Contains(panel1, "lvl 2") {
+		t.Fatalf("frame 1: should show lvl 2, got:\n%s", panel1)
+	}
+	if !strings.Contains(panel1, "xp: 80/200") {
+		t.Fatalf("frame 1: should show xp: 80/200, got:\n%s", panel1)
+	}
+
+	// Frame 2: level 3, XP 30/300
+	panel2 := stripANSI(renderPlayerPanel(sidePanelWidth, sf2.pr, sf2.inv, respawnResult{}))
+	if !strings.Contains(panel2, "lvl 3") {
+		t.Fatalf("frame 2: should show lvl 3, got:\n%s", panel2)
+	}
+	if !strings.Contains(panel2, "xp: 30/300") {
+		t.Fatalf("frame 2: should show xp: 30/300, got:\n%s", panel2)
 	}
 }

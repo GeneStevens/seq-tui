@@ -1016,6 +1016,9 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 		if inv.HPMax > 0 && inv.HPCurrent <= 0 {
 			// Dead: highest priority — show prominently with HP
 			items = append(items, panelItemStyle.Render(fmt.Sprintf("  DEAD %d/%d", inv.HPCurrent, inv.HPMax)))
+			if inv.Level > 0 {
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  lvl %d", inv.Level)))
+			}
 			if rs.State == respawnStateSent {
 				items = append(items, panelItemStyle.Render("  respawn: sent"))
 			} else if rs.State == respawnStateFailed {
@@ -1031,10 +1034,19 @@ func renderPlayerPanel(width int, pr playerReadResult, inv inventoryReadResult, 
 			if inv.HPMax > 0 {
 				items = append(items, panelItemStyle.Render(fmt.Sprintf("  hp: %d/%d", inv.HPCurrent, inv.HPMax)))
 			}
+			if inv.Level > 0 {
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  lvl %d", inv.Level)))
+			}
 		} else {
 			// Alive and can act: normal display
 			if inv.HPMax > 0 {
 				items = append(items, panelItemStyle.Render(fmt.Sprintf("  hp: %d/%d", inv.HPCurrent, inv.HPMax)))
+			}
+			if inv.Level > 0 {
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  lvl %d", inv.Level)))
+			}
+			if inv.XPToNext > 0 {
+				items = append(items, panelItemStyle.Render(fmt.Sprintf("  xp: %d/%d", inv.XPCurrent, inv.XPToNext)))
 			}
 		}
 
@@ -1116,6 +1128,7 @@ func eventEmphasis(text string) string {
 	switch {
 	case strings.Contains(text, "hit "),
 		strings.Contains(text, "heal "),
+		strings.Contains(text, "xp +"),
 		text == "VICTORY",
 		text == "DEFEAT",
 		text == "enc:opened",

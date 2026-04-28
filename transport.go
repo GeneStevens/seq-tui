@@ -1055,6 +1055,10 @@ type inventoryReadResult struct {
 	BlockedReason string // backend reason for being unable to act (empty if can act)
 	HPCurrent     int    // backend-owned current HP
 	HPMax         int    // backend-owned max HP
+	Level         int    // backend-owned player level
+	XPCurrent     int    // backend-owned current XP within level
+	XPToNext      int    // backend-owned XP needed for next level
+	XPTotal       int    // backend-owned cumulative XP total
 	HasLifecycle  bool   // true if lifecycle fields were decoded from response
 }
 
@@ -1104,6 +1108,10 @@ func fetchPlayerInventory(target backendTarget) inventoryReadResult {
 				BlockedReason string   `json:"blocked_reason"`
 				HPCurrent     int      `json:"hp_current"`
 				HPMax         int      `json:"hp_max"`
+				Level         int      `json:"level"`
+				XPCurrent     int      `json:"xp_current"`
+				XPToNext      int      `json:"xp_to_next"`
+				XPTotal       int      `json:"xp_total"`
 			} `json:"players"`
 		} `json:"result"`
 	}
@@ -1122,6 +1130,10 @@ func fetchPlayerInventory(target backendTarget) inventoryReadResult {
 				BlockedReason: p.BlockedReason,
 				HPCurrent:     p.HPCurrent,
 				HPMax:         p.HPMax,
+				Level:         p.Level,
+				XPCurrent:     p.XPCurrent,
+				XPToNext:      p.XPToNext,
+				XPTotal:       p.XPTotal,
 				HasLifecycle:  true,
 			}
 		}
