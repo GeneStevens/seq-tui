@@ -1,0 +1,102 @@
+{
+  "scenario_name": "behavior-melee-steady-damage",
+  "frames": [
+    {
+      "step_index": 0,
+      "step_label": "encounter_opened",
+      "players": [
+        {"player_id": "p1", "x": 4, "y": 0, "z": 0, "hp_current": 100, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Brute", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 200, "hp_max": 200}
+      ],
+      "encounter": {
+        "encounter_id": "enc-melee",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 0,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 200, "hp_max": 200}
+        ]
+      }
+    },
+    {
+      "step_index": 1,
+      "step_label": "melee_tick_1",
+      "players": [
+        {"player_id": "p1", "x": 4, "y": 0, "z": 0, "hp_current": 88, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Brute", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 200, "hp_max": 200}
+      ],
+      "encounter": {
+        "encounter_id": "enc-melee",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 1,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 200, "hp_max": 200}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-melee", "action_index": 1}
+      ]
+    },
+    {
+      "step_index": 2,
+      "step_label": "melee_tick_2",
+      "players": [
+        {"player_id": "p1", "x": 4, "y": 0, "z": 0, "hp_current": 76, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Brute", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 200, "hp_max": 200}
+      ],
+      "encounter": {
+        "encounter_id": "enc-melee",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 2,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 200, "hp_max": 200}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-melee", "action_index": 2}
+      ]
+    },
+    {
+      "step_index": 3,
+      "step_label": "melee_tick_3",
+      "players": [
+        {"player_id": "p1", "x": 4, "y": 0, "z": 0, "hp_current": 64, "hp_max": 100, "can_act": true}
+      ],
+      "mobs": [
+        {"mob_id": "m1", "mob_name": "Orc Brute", "state": "Alive", "x": 5, "y": 0, "z": 0, "hp_current": 200, "hp_max": 200}
+      ],
+      "encounter": {
+        "encounter_id": "enc-melee",
+        "state": "Active",
+        "player_ids": ["p1"],
+        "mob_ids": ["m1"],
+        "mobs_alive": 1,
+        "mobs_dead": 0,
+        "action_index": 3,
+        "mob_threat": [
+          {"mob_id": "m1", "selected_target_player_id": "p1", "hp_current": 200, "hp_max": 200}
+        ]
+      },
+      "events": [
+        {"kind": "damage_applied", "actor": "m1", "target": "p1", "damage": 12, "encounter_id": "enc-melee", "action_index": 3}
+      ]
+    }
+  ]
+}

@@ -3927,3 +3927,186 @@ func TestE2EDecisionMultiMobHealDuringLockout(t *testing.T) {
 		t.Fatalf("frame 5 HP (%d) should be greater than frame 4 HP (%d) after heal", hp5, hp4)
 	}
 }
+
+// --- M20260427-39 enemy behavior pattern readability tests ---
+
+func TestE2EBehaviorMeleeSteadyDamage(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_behavior_melee.json"))
+	if len(trace.Frames) < 4 {
+		t.Fatalf("expected at least 4 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1: melee tick produces "hit 12"
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "hit 12") {
+		t.Fatalf("frame 1: should contain 'hit 12', got:\n%s", panel1)
+	}
+
+	// Frame 2: melee tick produces "hit 12", no casting
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "hit 12") {
+		t.Fatalf("frame 2: should contain 'hit 12', got:\n%s", panel2)
+	}
+	if strings.Contains(panel2, "casting") {
+		t.Fatalf("frame 2: should NOT contain 'casting' (pure melee), got:\n%s", panel2)
+	}
+
+	// Frame 3: melee tick produces "hit 12"
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "hit 12") {
+		t.Fatalf("frame 3: should contain 'hit 12', got:\n%s", panel3)
+	}
+}
+
+func TestE2EBehaviorMeleeHPDecline(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_behavior_melee.json"))
+	if len(trace.Frames) < 4 {
+		t.Fatalf("expected at least 4 frames, got %d", len(trace.Frames))
+	}
+
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+
+	hp1 := f1.inv.HPCurrent
+	hp2 := f2.inv.HPCurrent
+	hp3 := f3.inv.HPCurrent
+
+	// HP should strictly decrease across frames
+	if hp1 <= hp2 {
+		t.Fatalf("HP should decline: frame 1 HP (%d) should be > frame 2 HP (%d)", hp1, hp2)
+	}
+	if hp2 <= hp3 {
+		t.Fatalf("HP should decline: frame 2 HP (%d) should be > frame 3 HP (%d)", hp2, hp3)
+	}
+
+	// Each step should decrease by about 12 (melee damage)
+	drop12 := hp1 - hp2
+	drop23 := hp2 - hp3
+	if drop12 != 12 {
+		t.Fatalf("frame 1->2 HP drop should be 12, got %d (HP: %d -> %d)", drop12, hp1, hp2)
+	}
+	if drop23 != 12 {
+		t.Fatalf("frame 2->3 HP drop should be 12, got %d (HP: %d -> %d)", drop23, hp2, hp3)
+	}
+}
+
+func TestE2EBehaviorCasterBurstPattern(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_behavior_caster.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1 (idle_wait): no damage events while waiting
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if strings.Contains(panel1, "hit") {
+		t.Fatalf("frame 1: should NOT contain 'hit' (no damage while idle), got:\n%s", panel1)
+	}
+
+	// Frame 2 (cast_start): caster begins casting
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	panel2 := stripANSI(renderEventPanel(sidePanelWidth, f2.events, f2.pr, f2.er))
+	if !strings.Contains(panel2, "casting") {
+		t.Fatalf("frame 2: should contain 'casting', got:\n%s", panel2)
+	}
+
+	// Frame 3 (cast_complete_damage): cast resolves with burst damage
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "cast complete") {
+		t.Fatalf("frame 3: should contain 'cast complete', got:\n%s", panel3)
+	}
+	if !strings.Contains(panel3, "hit 30") {
+		t.Fatalf("frame 3: should contain 'hit 30', got:\n%s", panel3)
+	}
+}
+
+func TestE2EBehaviorCasterNeverMelees(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_behavior_caster.json"))
+	if len(trace.Frames) < 5 {
+		t.Fatalf("expected at least 5 frames, got %d", len(trace.Frames))
+	}
+
+	// Across frames 1-4, caster should never produce melee damage (hit 12)
+	for i := 1; i <= 4; i++ {
+		f := traceFrameToScenarioFrame(trace.Frames[i], "p1")
+		panel := stripANSI(renderEventPanel(sidePanelWidth, f.events, f.pr, f.er))
+		if strings.Contains(panel, "hit 12") {
+			t.Fatalf("frame %d: should NOT contain 'hit 12' (caster never melees), got:\n%s", i, panel)
+		}
+	}
+}
+
+func TestE2EBehaviorHybridMixedPattern(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_behavior_hybrid.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	// Frame 1 (melee_phase): melee damage
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	panel1 := stripANSI(renderEventPanel(sidePanelWidth, f1.events, f1.pr, f1.er))
+	if !strings.Contains(panel1, "hit 12") {
+		t.Fatalf("frame 1: should contain 'hit 12', got:\n%s", panel1)
+	}
+
+	// Frame 3 (cast_spike): hybrid starts casting
+	f3 := traceFrameToScenarioFrame(trace.Frames[3], "p1")
+	panel3 := stripANSI(renderEventPanel(sidePanelWidth, f3.events, f3.pr, f3.er))
+	if !strings.Contains(panel3, "casting") {
+		t.Fatalf("frame 3: should contain 'casting', got:\n%s", panel3)
+	}
+
+	// Frame 4 (spike_resolves): cast completes with burst damage
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	panel4 := stripANSI(renderEventPanel(sidePanelWidth, f4.events, f4.pr, f4.er))
+	if !strings.Contains(panel4, "cast complete") {
+		t.Fatalf("frame 4: should contain 'cast complete', got:\n%s", panel4)
+	}
+	if !strings.Contains(panel4, "hit 30") {
+		t.Fatalf("frame 4: should contain 'hit 30', got:\n%s", panel4)
+	}
+
+	// Frame 5 (melee_resumes): back to melee damage
+	f5 := traceFrameToScenarioFrame(trace.Frames[5], "p1")
+	panel5 := stripANSI(renderEventPanel(sidePanelWidth, f5.events, f5.pr, f5.er))
+	if !strings.Contains(panel5, "hit 12") {
+		t.Fatalf("frame 5: should contain 'hit 12', got:\n%s", panel5)
+	}
+}
+
+func TestE2EBehaviorHybridHPTrajectory(t *testing.T) {
+	trace := loadScenarioTrace(t, filepath.Join("testdata", "trace_behavior_hybrid.json"))
+	if len(trace.Frames) < 6 {
+		t.Fatalf("expected at least 6 frames, got %d", len(trace.Frames))
+	}
+
+	f1 := traceFrameToScenarioFrame(trace.Frames[1], "p1")
+	f2 := traceFrameToScenarioFrame(trace.Frames[2], "p1")
+	f4 := traceFrameToScenarioFrame(trace.Frames[4], "p1")
+	f5 := traceFrameToScenarioFrame(trace.Frames[5], "p1")
+
+	// Verify specific HP values at each phase
+	if f1.inv.HPCurrent != 88 {
+		t.Fatalf("frame 1 HP should be 88, got %d", f1.inv.HPCurrent)
+	}
+	if f2.inv.HPCurrent != 76 {
+		t.Fatalf("frame 2 HP should be 76 (steady melee drop), got %d", f2.inv.HPCurrent)
+	}
+	if f4.inv.HPCurrent != 46 {
+		t.Fatalf("frame 4 HP should be 46 (big spike drop from cast), got %d", f4.inv.HPCurrent)
+	}
+	if f5.inv.HPCurrent != 34 {
+		t.Fatalf("frame 5 HP should be 34 (melee resumes), got %d", f5.inv.HPCurrent)
+	}
+
+	// Cast spike should account for exactly 30 damage
+	castSpike := f2.inv.HPCurrent - f4.inv.HPCurrent
+	if castSpike != 30 {
+		t.Fatalf("cast spike damage should be 30 (HP %d -> %d), got %d", f2.inv.HPCurrent, f4.inv.HPCurrent, castSpike)
+	}
+}
