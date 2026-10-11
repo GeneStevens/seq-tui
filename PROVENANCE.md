@@ -1,0 +1,17 @@
+# PROVENANCE
+
+The provenance rule (seq-design `docs/09-roadmap.md` §2):
+
+> **Every name, map, number and asset in SEQ has a recorded original source.** No names, data, maps, art or formulas taken from EverQuest or its emulators (Pillar 1).
+
+This file lists each content item in `seq-tui` and its source (for example "invented for SEQ, 2026-10-12" or "derived from formula X in doc 05"). The Evaluator checks it for any mission that adds content.
+
+## Content
+
+| Item | Source |
+| ---- | ------ |
+| *(none yet)* | |
+
+## Exclusions
+
+All content that existed before the reset is excluded: nothing from the tree at tag `pre-reset` (commit `9d04d89`) is carried into this tree. It stays in git history only. Any later salvage (for example the map rasterizer, see `README.md`) must be recorded in the table above, with its source, in the mission that brings it in.
