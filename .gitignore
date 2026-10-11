@@ -1,2 +1,4 @@
 seq-tui
 .DS_Store
+tmp/
+traces/
