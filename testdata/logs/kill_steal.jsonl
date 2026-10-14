@@ -1,0 +1,10 @@
+{"welcome":{"protocol_version":1,"min_protocol_version":1,"tick_ms":100,"limits":{"max_message_bytes":65536,"max_intents_per_second":20}}}
+{"snapshot":{"seq":"30","game_time_ms":"3000","tick":"30","space":"outskirts","self":{"entity":{"id":"char-aria","kind":"ENTITY_KIND_CHARACTER","name":"Aria","pos":{},"hp":"120","max_hp":"120","level":"3"},"stats":{"level":"3","max_hp":"120","speed_mm_s":"4500","melee_range_mm":"2500"}},"entities":[{"id":"char-bram","kind":"ENTITY_KIND_CHARACTER","name":"Bram","pos":{"x":"3000"},"hp":"120","max_hp":"120","level":"3"},{"id":"mob-outskirts-rat-2-1","kind":"ENTITY_KIND_MOB","name":"Shell Rat","pos":{"x":"4000"},"hp":"20","max_hp":"20","level":"1"}]}}
+{"zone_map":{"space":"outskirts","name":"Outskirts","bounds":{"min_x":"-50000","min_y":"-50000","max_x":"50000","max_y":"50000"},"walls":[{"a":{"x":"-10000","y":"5000"},"b":{"x":"10000","y":"5000"}}],"view_radius_mm":"20000"}}
+{"event":{"seq":"31","game_time_ms":"3100","encounter_opened":{"id":"enc-9","owner":"char-bram","mob":"mob-outskirts-rat-2-1"}}}
+{"event":{"seq":"32","game_time_ms":"3200","combat":{"kind":"COMBAT_KIND_HIT","attacker":"char-bram","target":"mob-outskirts-rat-2-1","amount":"6"}}}
+{"intent_result":{"intent_id":"tui-1","accepted":true}}
+{"event":{"seq":"33","game_time_ms":"3300","target_changed":{"actor":"char-aria","target":"mob-outskirts-rat-2-1"}}}
+{"intent_result":{"intent_id":"tui-2","reason":"encounter_owned"}}
+{"event":{"seq":"34","game_time_ms":"3400","denied":{"intent":"auto_attack","target":"mob-outskirts-rat-2-1","reason":"encounter_owned","actor":"char-aria"}}}
+{"event":{"seq":"35","game_time_ms":"3500","combat":{"kind":"COMBAT_KIND_HIT","attacker":"char-bram","target":"mob-outskirts-rat-2-1","amount":"7"}}}
