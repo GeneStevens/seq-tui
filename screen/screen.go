@@ -131,6 +131,7 @@ func helpLines(w, h int, st Styler) []string {
 		"Auto-attack      F or Space: on / off",
 		"Loot             L: the nearest drop you may take",
 		"Use a door       E: the nearest door; stand at it first",
+		"Release          R: when you are dead, give up your body and respawn",
 		"Log out          O: leave the world",
 		"Quit             Q or Ctrl+C: leave the screen, stay in the world",
 		"Event log        V: also show movement and rules ticks",

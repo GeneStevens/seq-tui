@@ -104,3 +104,10 @@ func TestOtherKeys(t *testing.T) {
 		}
 	}
 }
+
+func TestRKeyReleases(t *testing.T) {
+	m := load(t, "live_release.jsonl", 309) // dead
+	if a := app.Plan("r", m); a.Kind != app.Release {
+		t.Errorf("%+v", a)
+	}
+}

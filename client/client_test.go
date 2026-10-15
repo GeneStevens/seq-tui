@@ -3,9 +3,15 @@ package client_test
 import (
 	"bytes"
 	"context"
-	"errors"
+	"crypto/tls"
+	"net/http"
+	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
+
+	"github.com/coder/websocket"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
@@ -13,60 +19,78 @@ import (
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
-// fake is an in-memory server end of a Transport.
+// fake is the server end of one WebSocket connection the client made.
 type fake struct {
 	in   chan *pb.ClientMessage // what the client sent
-	out  chan *pb.ServerMessage // what the server says
+	conn *websocket.Conn
 	done chan struct{}
 }
 
-func newFake() *fake {
-	return &fake{in: make(chan *pb.ClientMessage, 64), out: make(chan *pb.ServerMessage, 64), done: make(chan struct{})}
+// server is a development-style gateway for tests: it hands each connection to
+// the test as a fake.
+type server struct {
+	url   string
+	conns chan *fake
 }
 
-func (f *fake) Send(_ context.Context, m *pb.ClientMessage) error {
-	select {
-	case <-f.done:
-		return errors.New("closed")
-	default:
-	}
-	f.in <- m
-	return nil
+func newServer(t *testing.T) *server {
+	t.Helper()
+	srv := &server{conns: make(chan *fake, 8)}
+	ts := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		c, err := websocket.Accept(w, r, nil)
+		if err != nil {
+			return
+		}
+		f := &fake{in: make(chan *pb.ClientMessage, 64), conn: c, done: make(chan struct{})}
+		srv.conns <- f
+		defer close(f.done)
+		for {
+			_, b, err := c.Read(context.Background())
+			if err != nil {
+				return
+			}
+			var m pb.ClientMessage
+			if proto.Unmarshal(b, &m) == nil {
+				f.in <- &m
+			}
+		}
+	}))
+	t.Cleanup(ts.Close)
+	srv.url = "wss" + strings.TrimPrefix(ts.URL, "https")
+	return srv
 }
 
-func (f *fake) Recv(ctx context.Context) (*pb.ServerMessage, error) {
+func (s *server) accept(t *testing.T) *fake {
+	t.Helper()
 	select {
-	case m := <-f.out:
-		return m, nil
-	case <-f.done:
-		return nil, errors.New("closed")
-	case <-ctx.Done():
-		return nil, ctx.Err()
+	case f := <-s.conns:
+		return f
+	case <-time.After(5 * time.Second):
+		t.Fatal("the client did not connect")
+		return nil
 	}
 }
 
-func (f *fake) Close() error {
-	select {
-	case <-f.done:
-	default:
-		close(f.done)
-	}
-	return nil
-}
+func (f *fake) Close() { _ = f.conn.CloseNow() }
 
 func (f *fake) say(b any) {
+	var m *pb.ServerMessage
 	switch v := b.(type) {
 	case *pb.Welcome:
-		f.out <- &pb.ServerMessage{Body: &pb.ServerMessage_Welcome{Welcome: v}}
+		m = &pb.ServerMessage{Body: &pb.ServerMessage_Welcome{Welcome: v}}
 	case *pb.Snapshot:
-		f.out <- &pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: v}}
+		m = &pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: v}}
 	case *pb.Event:
-		f.out <- &pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: v}}
+		m = &pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: v}}
 	case *pb.IntentResult:
-		f.out <- &pb.ServerMessage{Body: &pb.ServerMessage_IntentResult{IntentResult: v}}
+		m = &pb.ServerMessage{Body: &pb.ServerMessage_IntentResult{IntentResult: v}}
 	case *pb.Error:
-		f.out <- &pb.ServerMessage{Body: &pb.ServerMessage_Error{Error: v}}
+		m = &pb.ServerMessage{Body: &pb.ServerMessage_Error{Error: v}}
+	case *pb.Pong:
+		m = &pb.ServerMessage{Body: &pb.ServerMessage_Pong{Pong: v}}
 	}
+	b2, _ := proto.Marshal(m)
+	_ = f.conn.Write(context.Background(), websocket.MessageBinary, b2)
 }
 
 func (f *fake) next(t *testing.T) *pb.ClientMessage {
@@ -75,22 +99,13 @@ func (f *fake) next(t *testing.T) *pb.ClientMessage {
 	case m := <-f.in:
 		return m
 	case <-time.After(5 * time.Second):
-		t.Fatal("the client sent nothing")
-		return nil
+		t.Error("the client sent nothing")
+		return &pb.ClientMessage{}
 	}
 }
 
 func snap(seq uint64) *pb.Snapshot {
 	return &pb.Snapshot{Seq: seq, Space: "outskirts", Self: &pb.SelfState{Entity: &pb.EntityState{Id: "char-aria", Name: "Aria", Hp: 100, MaxHp: 120, Pos: &pb.Pos{}}}}
-}
-
-func dialer(fs ...*fake) client.Dialer {
-	i := 0
-	return func(context.Context) (client.Transport, error) {
-		f := fs[i]
-		i++
-		return f, nil
-	}
 }
 
 func ctx(t *testing.T) context.Context {
@@ -99,10 +114,14 @@ func ctx(t *testing.T) context.Context {
 	return c
 }
 
-// login runs the hello/select exchange against f, which answers it.
-func login(t *testing.T, s *client.Session, f *fake) {
+// login runs the hello/select exchange, which the server answers, and returns
+// the server's end of the connection.
+func login(t *testing.T, srv *server, s *client.Session) *fake {
 	t.Helper()
+	fc := make(chan *fake, 1)
 	go func() {
+		f := srv.accept(t)
+		fc <- f
 		h := f.next(t).GetHello()
 		if h.GetCredential() != "seq_st_human" || h.GetProtocolVersion() != 1 {
 			t.Errorf("hello %v", h)
@@ -117,16 +136,17 @@ func login(t *testing.T, s *client.Session, f *fake) {
 	if err := s.Login(ctx(t)); err != nil {
 		t.Fatal(err)
 	}
+	return <-fc
 }
 
-func newSession(d client.Dialer, rec *record.Writer) *client.Session {
-	return client.NewSession(client.Config{Dial: d, Credential: "seq_st_human", Character: "me-1", Session: "sess", Record: rec})
+func newSession(srv *server, rec *record.Writer) *client.Session {
+	return client.NewSession(client.Config{URL: srv.url, TLS: &tls.Config{InsecureSkipVerify: true}, Credential: "seq_st_human", Character: "me-1", Session: "sess", Record: rec})
 }
 
 func TestLoginAndEveryIntent(t *testing.T) {
-	f := newFake()
-	s := newSession(dialer(f), nil)
-	login(t, s, f)
+	srv := newServer(t)
+	s := newSession(srv, nil)
+	f := login(t, srv, s)
 	s.View(func(m *model.Model) {
 		if !m.Ready() || m.Self.Name != "Aria" || m.Last() != 10 {
 			t.Errorf("model after login: %+v", m.Self)
@@ -145,6 +165,7 @@ func TestLoginAndEveryIntent(t *testing.T) {
 		{"attack", func() (string, error) { return s.Attack(c, true) }, func(i *pb.Intent) bool { return i.GetAttack().GetOn() }},
 		{"loot", func() (string, error) { return s.Loot(c, "drop-1") }, func(i *pb.Intent) bool { return i.GetLoot().GetDrop() == "drop-1" }},
 		{"use_door", func() (string, error) { return s.UseDoor(c, "line-east") }, func(i *pb.Intent) bool { return i.GetUseDoor().GetDoor() == "line-east" }},
+		{"release", func() (string, error) { return s.Release(c) }, func(i *pb.Intent) bool { return i.GetRelease() != nil }},
 	}
 	for n, k := range cmds {
 		id, err := k.send()
@@ -177,9 +198,10 @@ func TestLoginAndEveryIntent(t *testing.T) {
 }
 
 func TestSelectRefused(t *testing.T) {
-	f := newFake()
-	s := newSession(dialer(f), nil)
+	srv := newServer(t)
+	s := newSession(srv, nil)
 	go func() {
+		f := srv.accept(t)
 		f.next(t)
 		f.say(&pb.Welcome{ProtocolVersion: 1})
 		f.next(t)
@@ -192,10 +214,10 @@ func TestSelectRefused(t *testing.T) {
 }
 
 func TestDropResumeAndResend(t *testing.T) {
-	f1, f2 := newFake(), newFake()
+	srv := newServer(t)
 	var buf bytes.Buffer
-	s := newSession(dialer(f1, f2), record.NewWriter(&buf))
-	login(t, s, f1)
+	s := newSession(srv, record.NewWriter(&buf))
+	f1 := login(t, srv, s)
 	c := ctx(t)
 	f1.say(&pb.Event{Seq: 11, Body: &pb.Event_RulesTick{RulesTick: &pb.RulesTick{}}})
 	id, err := s.Move(c, 1, 2) // in flight when the connection drops
@@ -216,12 +238,15 @@ func TestDropResumeAndResend(t *testing.T) {
 		}
 	}
 	go func() {
+		f2 := srv.accept(t)
 		f2.next(t) // hello
 		f2.say(&pb.Welcome{ProtocolVersion: 1})
 		r := f2.next(t).GetResume()
 		if r.GetSession() != "sess" || r.GetLastSeq() != 11 {
 			t.Errorf("resume %v: it must name the session and the last event applied", r)
 		}
+		f2.next(t) // the toolkit's ping, which makes sure a replay is back
+		f2.say(&pb.Pong{Nonce: 1})
 		again := f2.next(t).GetIntent()
 		if again.GetIntentId() != id || again.GetMove().GetDestination().GetX() != 1 {
 			t.Errorf("resent %v, want %s unchanged", again, id)
@@ -249,7 +274,7 @@ func TestDropResumeAndResend(t *testing.T) {
 	for _, m := range msgs {
 		rm.Apply(m)
 	}
-	if rm.Last() != 12 || rm.Connections != 2 || len(msgs) != 6 {
+	if rm.Last() != 12 || rm.Connections != 2 || len(msgs) != 7 {
 		t.Errorf("replay: last %d connections %d messages %d", rm.Last(), rm.Connections, len(msgs))
 	}
 }

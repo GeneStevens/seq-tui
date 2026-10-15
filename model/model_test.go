@@ -8,6 +8,7 @@ import (
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
 // replay reads a recorded log from testdata/logs and applies it to a model:
@@ -184,5 +185,94 @@ func TestLiveLogin(t *testing.T) {
 	m := replay(t, "live_login.jsonl")
 	if m.Self.ID != "me-1" || m.Space != "Testgrounds" || m.Map == nil || len(m.Map.GetDoors()) != 2 || len(m.Entities) != 1 || m.Welcome == nil {
 		t.Errorf("self %+v space %q map %v entities %v", m.Self, m.Space, m.Map, m.EntityIDs())
+	}
+}
+
+// The live release capture (TUI-006): the character dies, releases, and comes
+// back; the fresh snapshot after the respawned event is the new view.
+func TestReleaseAndRespawnFromALiveLog(t *testing.T) {
+	m := replay(t, "live_release.jsonl")
+	s := m.Self
+	if s.Dead || s.Released || s.HP != s.MaxHP || s.Pos.GetX() != 10000 || s.Pos.GetY() != 50000 {
+		t.Errorf("after the respawn: %+v", s)
+	}
+	if len(m.Faults) != 0 || m.Duplicates != 0 || m.Last() != 340 {
+		t.Errorf("stream: last %d faults %v dups %d", m.Last(), m.Faults, m.Duplicates)
+	}
+	var kinds []string
+	for _, e := range m.Log {
+		if e.Kind == "released" || e.Kind == "respawned" {
+			kinds = append(kinds, e.Kind)
+		}
+	}
+	if strings.Join(kinds, " ") != "released respawned" {
+		t.Errorf("log kinds %v", kinds)
+	}
+}
+
+func TestDeathThenReleasedShowsTheWait(t *testing.T) {
+	f, err := os.Open(filepath.Join("..", "testdata", "logs", "live_release.jsonl"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
+	msgs, err := record.Read(f)
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := model.New()
+	for _, msg := range msgs[:309] {
+		m.Apply(msg)
+	}
+	if !m.Self.Dead || m.Self.Released {
+		t.Errorf("dead, not released: %+v", m.Self)
+	}
+	for _, msg := range msgs[309:321] {
+		m.Apply(msg)
+	}
+	if !m.Self.Dead || !m.Self.Released || m.Self.RespawnInMs != 5000 {
+		t.Errorf("released and waiting: %+v", m.Self)
+	}
+}
+
+func TestCrossingTheDoorAndBackFromALiveLog(t *testing.T) {
+	m := replay(t, "live_door.jsonl")
+	if m.Space != "Testgrounds" || m.Map == nil || m.Map.GetSpace() != "Testgrounds" || m.Last() != 2 || len(m.Faults) != 0 {
+		t.Errorf("back in the first zone: space %q map %v last %d faults %v", m.Space, m.Map.GetSpace(), m.Last(), m.Faults)
+	}
+	var entered []string
+	for _, e := range m.Log {
+		if e.Kind == "space_changed" {
+			entered = append(entered, e.Text)
+		}
+	}
+	if strings.Join(entered, "; ") != "entered Outskirts; entered Testgrounds" {
+		t.Errorf("crossings %v", entered)
+	}
+}
+
+func TestLootGoneRemovesTheDropAtOnce(t *testing.T) {
+	m := model.New()
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Seq: 5, Space: "z", Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me"}},
+		Drops: []*pb.LootDropState{{Id: "drop-1"}, {Id: "drop-2"}}}}})
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: &pb.Event{Seq: 6, Body: &pb.Event_LootGone{LootGone: &pb.LootGone{Drop: "drop-1", Reason: "expired"}}}}})
+	if len(m.Drops) != 1 || m.Drops["drop-2"] == nil {
+		t.Errorf("drops %v: loot_gone removes the drop, not the next snapshot", m.Drops)
+	}
+	if e := m.Log[len(m.Log)-1]; e.Kind != "loot_gone" || e.Reason != "expired" {
+		t.Errorf("log entry %+v", e)
+	}
+}
+
+func TestForgottenResultIsFlagged(t *testing.T) {
+	m := model.New()
+	m.IntentSent("a", 1, "move")
+	m.IntentSent("b", 2, "move")
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_IntentResult{IntentResult: &pb.IntentResult{IntentId: "a", Accepted: true, ResultUnknown: true}}})
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_IntentResult{IntentResult: &pb.IntentResult{IntentId: "b", Accepted: true}}})
+	a, _ := m.Intent("a")
+	b, _ := m.Intent("b")
+	if a.State != model.IntentAccepted || !a.Unknown || b.Unknown {
+		t.Errorf("a %+v b %+v", a, b)
 	}
 }

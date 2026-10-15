@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                 .                             #  ││ Tester  Lv 1  XP 0       │
+│                 .                             #  ││ HP 100/100 ############# │
+│                 .                             #  ││ Target: none             │
+│                 .                             #  ││ Auto-attack: off         │
+│                 .                             #  │└──────────────────────────┘
+│                 .                             #  │┌─ Target ─────────────────┐
+│                 .                             #  ││ no target (Tab to choose)│
+│                 .       @                     #  ││                          │
+│                 .                             #  ││                          │
+│                 .                 m           #  │└──────────────────────────┘
+│                 .                             #  │┌─ Nearby ─────────────────┐
+│                 .                             #  ││ m Plain Scu… 14m E 40/40 │
+│                 .                             #  ││ D gate-north      98m NE │
+│                 .                             #  ││ D line-east       189m E │
+│                 .                             #  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│   448.0s encounter enc-2 with Plain Scuttler closed: participants_dead       │
+│   449.1s Tester released; respawns in 5 s                                    │
+│   449.6s Plain Scuttler reset to 40 hp                                       │
+│   454.1s Tester respawned at (10000, 50000) with 100 hp                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

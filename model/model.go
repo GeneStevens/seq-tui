@@ -38,6 +38,10 @@ type IntentStatus struct {
 	Kind   string // "move", "target", ...; "?" for a result to an intent not recorded as sent
 	State  IntentState
 	Reason string // set exactly when denied
+	// Unknown: the server answered from its high-water mark (D41): the
+	// intent was applied, but the original result was forgotten, so it may
+	// have been denied when it was judged.
+	Unknown bool
 }
 
 // Self is the character's own state.
@@ -46,6 +50,8 @@ type Self struct {
 	Level          int64
 	HP, MaxHP      int64
 	Dead           bool
+	Released       bool  // a dead character released; it respawns after RespawnInMs
+	RespawnInMs    int64 // game time from the released event
 	XP             int64
 	Pos            *pb.Pos
 	Target         string
@@ -183,14 +189,14 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 func (m *Model) applyResult(r *pb.IntentResult) {
 	for i := range m.Intents {
 		if m.Intents[i].ID == r.GetIntentId() {
-			m.Intents[i].State, m.Intents[i].Reason = IntentAccepted, ""
+			m.Intents[i].State, m.Intents[i].Reason, m.Intents[i].Unknown = IntentAccepted, "", r.GetResultUnknown()
 			if !r.GetAccepted() {
 				m.Intents[i].State, m.Intents[i].Reason = IntentDenied, r.GetReason()
 			}
 			return
 		}
 	}
-	s := IntentStatus{ID: r.GetIntentId(), Kind: "?", State: IntentAccepted}
+	s := IntentStatus{ID: r.GetIntentId(), Kind: "?", State: IntentAccepted, Unknown: r.GetResultUnknown()}
 	if !r.GetAccepted() {
 		s.State, s.Reason = IntentDenied, r.GetReason()
 	}
@@ -325,6 +331,21 @@ func (m *Model) apply(e *pb.Event) {
 	case *pb.Event_LootDropped:
 		d := b.LootDropped
 		m.Drops[d.GetDrop()] = &pb.LootDropState{Id: d.GetDrop(), Item: d.GetItem(), Pos: d.GetPos()}
+	case *pb.Event_LootGone:
+		delete(m.Drops, b.LootGone.GetDrop()) // expired or taken (D41): gone now, not at the next snapshot
+	case *pb.Event_Released:
+		if r := b.Released; r.GetActor() == m.Self.ID {
+			m.Self.Released, m.Self.RespawnInMs = true, r.GetRespawnInMs()
+		}
+	case *pb.Event_Respawned:
+		// The character itself is sent a fresh snapshot after this event; the
+		// rest are told here.
+		r := b.Respawned
+		if r.GetActor() == m.Self.ID {
+			m.Self.Dead, m.Self.Released, m.Self.HP, m.Self.Pos = false, false, r.GetHp(), clonePos(r.GetPos())
+		} else if en := m.entity(r.GetActor()); en != nil {
+			en.Dead, en.Hp, en.Pos = false, r.GetHp(), clonePos(r.GetPos())
+		}
 	case *pb.Event_MobReset:
 		if en := m.Entities[b.MobReset.GetId()]; en != nil {
 			en.Hp, en.Dead = b.MobReset.GetHp(), false

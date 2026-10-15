@@ -44,11 +44,20 @@ func youLines(m *model.Model, w int, st Styler) []string {
 	} else if s.MaxHP > 0 && s.HP*4 <= s.MaxHP {
 		hpLine = st.Red(hpLine)
 	}
+	last := fit(" Auto-attack: "+onOff(s.AutoAttack), w)
+	if s.Dead {
+		// Nothing else can be done but release (D41); say so, and what is
+		// happening once it is done.
+		last = st.Bold(fit(" You are dead. R: release", w))
+		if s.Released {
+			last = st.Bold(fit(fmt.Sprintf(" Released: back in %d s", (s.RespawnInMs+999)/1000), w))
+		}
+	}
 	return []string{
 		st.Bold(fit(head, w)),
 		hpLine,
 		fit(" Target: "+targetName(m), w),
-		fit(" Auto-attack: "+onOff(s.AutoAttack), w),
+		last,
 	}
 }
 

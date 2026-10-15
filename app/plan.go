@@ -25,6 +25,7 @@ const (
 	Attack // turn auto-attack On
 	Loot
 	UseDoor
+	Release
 	Logout
 	Quit
 	ToggleHelp
@@ -73,6 +74,8 @@ func Plan(key string, m *model.Model) Action {
 			return Action{Kind: UseDoor, ID: id}
 		}
 		return Action{Note: "no door on this map"}
+	case "r":
+		return Action{Kind: Release} // the server denies it unless the character is dead
 	case "o":
 		return Action{Kind: Logout}
 	case "q", "ctrl+c":

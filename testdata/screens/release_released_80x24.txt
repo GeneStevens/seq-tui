@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│        .                             #           ││ Tester  Lv 1  XP 0       │
+│        .                             #           ││ DEAD  HP 0/100           │
+│        .                             #           ││ Target: none             │
+│        .                             #           ││ Released: back in 5 s    │
+│        .                             #           │└──────────────────────────┘
+│        .                             #           │┌─ Target ─────────────────┐
+│        .                             #           ││ no target (Tab to choose)│
+│        .                @m           #           ││                          │
+│        .                             #           ││                          │
+│        .                             #           │└──────────────────────────┘
+│        .                             #           │┌─ Nearby ─────────────────┐
+│        .                             #           ││ m Plain Scut… 1m E 40/40 │
+│        .                             #           ││ D gate-north      88m NE │
+│        .                             #           ││ D line-east       178m E │
+│        .                             #           ││ p Tester  178m E 100/100 │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│ < 448.0s Plain Scuttler hit Tester for 3                                     │
+│ x 448.0s Plain Scuttler killed Tester                                        │
+│   448.0s encounter enc-2 with Plain Scuttler closed: participants_dead       │
+│   449.1s Tester released; respawns in 5 s                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit
