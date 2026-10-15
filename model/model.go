@@ -81,6 +81,10 @@ type Model struct {
 	Welcome     *pb.Welcome
 	Connections int
 
+	// Heard counts every message applied, a pong included: the screen's
+	// "last heard" clock, since a quiet zone sends no events.
+	Heard uint64
+
 	// Log is the bounded, ordered event log, oldest first.
 	Log []LogEntry
 	// Intents are the most recent intents, oldest first.
@@ -93,8 +97,9 @@ type Model struct {
 	Duplicates int
 	Faults     []string
 
-	last      uint64 // the stream number of the last event applied, or of the snapshot
-	selected  bool   // a snapshot has arrived
+	names     map[string]string // id to name, for every entity ever seen, so the log can name those that left
+	last      uint64            // the stream number of the last event applied, or of the snapshot
+	selected  bool              // a snapshot has arrived
 	logCap    int
 	intentCap int
 }
@@ -104,7 +109,7 @@ func New() *Model { return NewBounded(DefaultLogCap, DefaultIntentsCap) }
 
 // NewBounded returns an empty model with the given event log and intent list bounds.
 func NewBounded(logCap, intentCap int) *Model {
-	return &Model{logCap: max(logCap, 1), intentCap: max(intentCap, 1), Group: map[string]*Member{},
+	return &Model{logCap: max(logCap, 1), intentCap: max(intentCap, 1), Group: map[string]*Member{}, names: map[string]string{},
 		Entities: map[string]*pb.EntityState{}, Drops: map[string]*pb.LootDropState{}, Encounters: map[string]*pb.EncounterState{}}
 }
 
@@ -150,6 +155,7 @@ func (m *Model) addIntent(s IntentStatus) {
 
 // Apply folds one server message into the model.
 func (m *Model) Apply(msg *pb.ServerMessage) {
+	m.Heard++
 	switch b := msg.GetBody().(type) {
 	case *pb.ServerMessage_Welcome:
 		m.Welcome = b.Welcome
@@ -205,11 +211,14 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
 	}
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
+	m.remember(e)
 	m.Drops, m.Encounters = map[string]*pb.LootDropState{}, map[string]*pb.EncounterState{}
 	for _, g := range s.GetGroup() {
+		m.remember(g.GetEntity())
 		m.Group[g.GetEntity().GetId()] = &Member{Entity: cloneEntity(g.GetEntity()), Target: g.GetTarget(), AutoAttack: g.GetAutoAttack(), XP: g.GetXp()}
 	}
 	for _, en := range s.GetEntities() {
+		m.remember(en)
 		m.Entities[en.GetId()] = cloneEntity(en)
 	}
 	for _, d := range s.GetDrops() {
@@ -250,6 +259,7 @@ func (m *Model) apply(e *pb.Event) {
 		m.Space, m.Map = b.SpaceChanged.GetSpace(), nil
 	case *pb.Event_EntityAppeared:
 		en := b.EntityAppeared.GetEntity()
+		m.remember(en)
 		switch {
 		case en.GetId() == m.Self.ID:
 		case m.Group[en.GetId()] != nil:
@@ -319,6 +329,12 @@ func (m *Model) apply(e *pb.Event) {
 		if en := m.Entities[b.MobReset.GetId()]; en != nil {
 			en.Hp, en.Dead = b.MobReset.GetHp(), false
 		}
+	}
+}
+
+func (m *Model) remember(e *pb.EntityState) {
+	if e.GetName() != "" {
+		m.names[e.GetId()] = e.GetName()
 	}
 }
 

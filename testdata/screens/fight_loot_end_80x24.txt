@@ -1,0 +1,24 @@
+┌─ Outskirts, north up ────────────────────────────┐┌─ You ────────────────────┐
+│                                                  ││ Aria  Lv 3  XP 275       │
+│                                                  ││ HP 115/120 ############- │
+│                                                  ││ Target: none             │
+│                                                  ││ Auto-attack: off         │
+│                                                  │└──────────────────────────┘
+│                 #################                │┌─ Target ─────────────────┐
+│                                                  ││ no target (Tab to choose)│
+│                         @ x                      ││                          │
+│                                                  ││                          │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Nearby ─────────────────┐
+│                                                  ││ x Shell Rat    2m E dead │
+│                                                  ││                          │
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│ +   2.0s Aria received 25 xp from Shell Rat                                  │
+│     2.1s Aria's target Shell Rat cleared: target_dead                        │
+│     2.2s Aria stopped attacking                                              │
+│ +   2.3s Aria received shell-fragment from drop-enc-1-shell-fragment         │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | outskirts | heard 0.4s ago | loot accepted              ? help  q quit

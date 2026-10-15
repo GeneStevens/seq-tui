@@ -83,3 +83,12 @@ func (s *Session) Result(ctx context.Context, id string) (model.IntentStatus, er
 	})
 	return st, err
 }
+
+// Ping asks the server for a pong, so a quiet connection is seen to be alive.
+func (s *Session) Ping(ctx context.Context) error {
+	s.mu.Lock()
+	s.idn++
+	n := uint64(s.idn)
+	s.mu.Unlock()
+	return s.send(ctx, &pb.ClientMessage{Body: &pb.ClientMessage_Ping{Ping: &pb.Ping{Nonce: n}}})
+}

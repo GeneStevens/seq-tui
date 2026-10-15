@@ -1,0 +1,281 @@
+package screen
+
+import (
+	"fmt"
+	"sort"
+	"strings"
+
+	"github.com/GeneStevens/seq-tui/model"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
+)
+
+const (
+	youRows    = 6
+	targetRows = 5
+)
+
+func rightColumn(m *model.Model, rw, th int, st Styler) []string {
+	iw := rw - 2
+	rows := box("You", rw, youRows, youLines(m, iw, st), st)
+	rows = append(rows, box("Target", rw, targetRows, targetLines(m, iw, st), st)...)
+	rows = append(rows, box("Nearby", rw, th-youRows-targetRows, nearbyLines(m, iw, th-youRows-targetRows-2, st), st)...)
+	return rows
+}
+
+func onOff(b bool) string {
+	if b {
+		return "ON"
+	}
+	return "off"
+}
+
+func youLines(m *model.Model, w int, st Styler) []string {
+	s := m.Self
+	name := s.Name
+	if name == "" {
+		name = "(no character)"
+	}
+	head := fmt.Sprintf(" %s  Lv %d  XP %d", name, s.Level, s.XP)
+	hp := fmt.Sprintf(" HP %d/%d ", s.HP, s.MaxHP)
+	hpLine := fit(hp+bar(s.HP, s.MaxHP, max(w-width(hp)-1, 0)), w)
+	if s.Dead {
+		hpLine = fit(" DEAD  HP 0/"+fmt.Sprint(s.MaxHP), w)
+		hpLine = st.Red(st.Bold(hpLine))
+	} else if s.MaxHP > 0 && s.HP*4 <= s.MaxHP {
+		hpLine = st.Red(hpLine)
+	}
+	return []string{
+		st.Bold(fit(head, w)),
+		hpLine,
+		fit(" Target: "+targetName(m), w),
+		fit(" Auto-attack: "+onOff(s.AutoAttack), w),
+	}
+}
+
+type nearby struct {
+	glyph  rune
+	name   string
+	d      int64
+	dx, dy int64
+	hp     string
+	target bool
+	id     string
+}
+
+func nearbyList(m *model.Model) []nearby {
+	sp := m.Self.Pos
+	mk := func(g rune, id, name string, p *pb.Pos, hp string) nearby {
+		return nearby{glyph: g, id: id, name: name, d: dist(p.GetX(), p.GetY(), sp.GetX(), sp.GetY()),
+			dx: p.GetX() - sp.GetX(), dy: p.GetY() - sp.GetY(), hp: hp, target: id == m.Self.Target}
+	}
+	var out []nearby
+	ent := func(e *pb.EntityState) {
+		hp := fmt.Sprintf("%d/%d", e.GetHp(), e.GetMaxHp())
+		if e.GetDead() {
+			hp = "dead"
+		}
+		out = append(out, mk(entityGlyph(e), e.GetId(), e.GetName(), e.GetPos(), hp))
+	}
+	for _, id := range m.GroupIDs() {
+		ent(m.Group[id].Entity)
+	}
+	for _, id := range m.EntityIDs() {
+		ent(m.Entities[id])
+	}
+	for _, id := range m.DropIDs() {
+		d := m.Drops[id]
+		out = append(out, mk(glyphDrop, id, d.GetItem(), d.GetPos(), ""))
+	}
+	for _, d := range m.Map.GetDoors() {
+		out = append(out, mk(glyphDoor, d.GetId(), d.GetId(), d.GetPos(), ""))
+	}
+	sort.SliceStable(out, func(i, j int) bool {
+		if out[i].d != out[j].d {
+			return out[i].d < out[j].d
+		}
+		return out[i].id < out[j].id
+	})
+	return out
+}
+
+func nearbyLines(m *model.Model, w, h int, st Styler) []string {
+	rows := make([]string, 0, h)
+	if m.Self.Pos == nil {
+		return pad(rows, w, h)
+	}
+	list := nearbyList(m)
+	for i, n := range list {
+		if len(rows) == h {
+			break
+		}
+		right := metres(n.d) + " " + bearing(n.dx, n.dy)
+		if n.hp != "" {
+			right += " " + n.hp
+		}
+		right += " "
+		g := n.glyph
+		if n.target {
+			g = upper(g)
+		}
+		if len(rows) == h-1 && i < len(list)-1 {
+			rows = append(rows, fit(fmt.Sprintf(" +%d more", len(list)-i), w))
+			break
+		}
+		room := w - width(right) - 4
+		line := fit(" "+string(g)+" "+fit(n.name, max(room, 1)), w-width(right)-1) + " " + right
+		line = fit(line, w)
+		if n.target {
+			line = st.Reverse(line)
+		}
+		rows = append(rows, line)
+	}
+	if len(list) == 0 {
+		rows = append(rows, fit(" nothing in view", w))
+	}
+	return pad(rows, w, h)
+}
+
+func pad(rows []string, w, h int) []string {
+	for len(rows) < h {
+		rows = append(rows, strings.Repeat(" ", w))
+	}
+	return rows
+}
+
+func targetLines(m *model.Model, w int, st Styler) []string {
+	id := m.Self.Target
+	e := m.Entities[id]
+	if id != "" && e == nil && m.Group[id] != nil {
+		e = m.Group[id].Entity
+	}
+	if e == nil {
+		return pad([]string{fit(" no target (Tab to choose)", w)}, w, targetRows-2)
+	}
+	g := upper(entityGlyph(e))
+	state := fmt.Sprintf("HP %d/%d ", e.GetHp(), e.GetMaxHp())
+	if e.GetDead() {
+		state = "DEAD "
+	}
+	sp := m.Self.Pos
+	right := metres(dist(e.GetPos().GetX(), e.GetPos().GetY(), sp.GetX(), sp.GetY())) + " " + bearing(e.GetPos().GetX()-sp.GetX(), e.GetPos().GetY()-sp.GetY())
+	fight := "not in a fight"
+	for _, eid := range m.EncounterIDs() {
+		enc := m.Encounters[eid]
+		if enc.GetMob() != id {
+			continue
+		}
+		if enc.GetOwner() == m.Self.ID {
+			fight = "fighting you"
+		} else if o := m.Group[enc.GetOwner()]; o != nil || enc.GetOwner() != "" {
+			who := enc.GetOwner()
+			if o != nil {
+				who = o.Entity.GetName()
+			} else if n := m.Entities[who]; n != nil {
+				who = n.GetName()
+			}
+			fight = "in a fight with " + who
+		}
+	}
+	return []string{
+		st.Bold(fit(fmt.Sprintf(" %c %s  Lv %d", g, e.GetName(), e.GetLevel()), w)),
+		fit(" "+state+bar(e.GetHp(), e.GetMaxHp(), max(w-width(state)-width(right)-4, 0))+" "+right, w),
+		fit(" "+fight, w),
+	}
+}
+
+func logLines(m *model.Model, v View, w, h int, st Styler) []string {
+	type styled struct {
+		text string
+		fn   func(string) string
+	}
+	var all []styled
+	for _, e := range m.Log {
+		if !v.Verbose && (e.Kind == "entity_moved" || e.Kind == "rules_tick") {
+			continue
+		}
+		mark, fn := " ", func(s string) string { return s }
+		switch {
+		case e.Kind == "denied":
+			mark, fn = "!", func(s string) string { return st.Red(st.Bold(s)) }
+		case (e.Kind == "combat_hit" || e.Kind == "combat_miss") && e.Target == m.Self.ID:
+			mark, fn = "<", st.Red
+		case e.Kind == "combat_death":
+			mark, fn = "x", st.Yellow
+			if e.Actor == m.Self.ID {
+				fn = func(s string) string { return st.Yellow(st.Bold(s)) }
+			}
+		case e.Kind == "reward":
+			mark, fn = "+", st.Green
+		case e.Kind == "entity_moved" || e.Kind == "rules_tick":
+			fn = st.Dim
+		}
+		prefix := fmt.Sprintf(" %s %5.1fs ", mark, float64(e.GameTimeMs)/1000)
+		for i, ln := range wrap(clean(e.Text), max(w-width(prefix), 8)) {
+			p := prefix
+			if i > 0 {
+				p = strings.Repeat(" ", width(prefix)+2)
+			}
+			all = append(all, styled{p + ln, fn})
+		}
+	}
+	if len(all) > h {
+		all = all[len(all)-h:]
+	}
+	rows := make([]string, 0, h)
+	for _, s := range all {
+		rows = append(rows, s.fn(fit(s.text, w)))
+	}
+	if len(all) == 0 {
+		rows = append(rows, fit(" nothing has happened yet", w))
+	}
+	return pad(rows, w, h)
+}
+
+// wrap breaks s into lines of at most n cells at spaces; continuation lines
+// are indented by the caller. A word longer than a line is cut.
+func wrap(s string, n int) []string {
+	var out []string
+	cur := ""
+	for _, word := range strings.Fields(s) {
+		for width(word) > n {
+			if cur != "" {
+				out, cur = append(out, cur), ""
+			}
+			r := []rune(word)
+			out, word = append(out, string(r[:n])), string(r[n:])
+		}
+		switch {
+		case cur == "":
+			cur = word
+		case width(cur)+1+width(word) <= n-2*boolInt(len(out) > 0):
+			cur += " " + word
+		default:
+			out, cur = append(out, cur), word
+		}
+	}
+	if cur != "" || len(out) == 0 {
+		out = append(out, cur)
+	}
+	return out
+}
+
+func boolInt(b bool) int {
+	if b {
+		return 1
+	}
+	return 0
+}
+
+// targetName is what the target is called, or "none".
+func targetName(m *model.Model) string {
+	id := m.Self.Target
+	switch {
+	case id == "":
+		return "none"
+	case m.Entities[id] != nil:
+		return m.Entities[id].GetName()
+	case m.Group[id] != nil:
+		return m.Group[id].Entity.GetName()
+	}
+	return id
+}

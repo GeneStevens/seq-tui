@@ -68,6 +68,15 @@ func (s *Session) View(f func(*model.Model)) {
 	f(s.m)
 }
 
+// Changed returns a channel that is closed at the next change to the model or
+// the connection. Take it before reading the model and wait on it after, and
+// no change is missed.
+func (s *Session) Changed() <-chan struct{} {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.changed
+}
+
 // Login connects, presents the credential, and selects the character; it
 // returns when the first snapshot has arrived.
 func (s *Session) Login(ctx context.Context) error {
