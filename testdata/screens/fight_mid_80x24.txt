@@ -1,0 +1,24 @@
+┌─ Outskirts, north up ────────────────────────────┐┌─ You ────────────────────┐
+│                                                  ││ Aria  Lv 3  XP 250       │
+│                                                  ││ HP 115/120 ############- │
+│                                                  ││ Target: Shell Rat        │
+│                                                  ││ Auto-attack: ON          │
+│                                                  │└──────────────────────────┘
+│                 #################                │┌─ Target ─────────────────┐
+│                                                  ││ M Shell Rat  Lv 1        │
+│                         @ M                      ││ HP 12/20 #####---- 2m E  │
+│                                                  ││ fighting you             │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Nearby ─────────────────┐
+│                                                  ││ M Shell Rat   2m E 12/20 │
+│                                                  ││                          │
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     1.2s Aria began attacking Shell Rat                                      │
+│     1.3s Aria opened an encounter with Shell Rat (enc-1)                     │
+│     1.4s Aria hit Shell Rat for 8                                            │
+│ <   1.5s Shell Rat hit Aria for 5                                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | outskirts | heard 0.4s ago                              ? help  q quit

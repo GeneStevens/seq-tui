@@ -1,0 +1,24 @@
+┌─ Keys ───────────────────────────────────────────────────────────────────────┐
+│ Move             arrow keys or W A S D                                       │
+│ Cycle target     Tab (Esc clears the target)                                 │
+│ Auto-attack      F or Space: on / off                                        │
+│ Loot             L: the nearest drop you may take                            │
+│ Use a door       E: the nearest door; stand at it first                      │
+│ Log out          O: leave the world                                          │
+│ Quit             Q or Ctrl+C: leave the screen, stay in the world            │
+│ Event log        V: also show movement and rules ticks                       │
+│ Help             ?                                                           │
+│                                                                              │
+│ Map: north is up, your position is always the centre.                        │
+│   @ you     m mob     M your target     x dead mob                           │
+│   p another character     * a drop     D a door     # wall                   │
+│   Nearby lists the same things nearest first, with a distance                │
+│   and a compass point, so nothing depends on colour.                         │
+│                                                                              │
+│ Event log markers:  ! denied (with the reason)   < a hit on you              │
+│                     x a kill   + a reward                                    │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | outskirts | heard 0.4s ago                              ? help  q quit

@@ -1,0 +1,24 @@
+┌─ Outskirts, north up ────────────────────────────┐┌─ You ────────────────────┐
+│                                                  ││ Aria  Lv 3  XP 0         │
+│                                                  ││ HP 120/120 ############# │
+│                                                  ││ Target: Shell Rat        │
+│                                                  ││ Auto-attack: off         │
+│                                                  │└──────────────────────────┘
+│                 #################                │┌─ Target ─────────────────┐
+│                                                  ││ M Shell Rat  Lv 1        │
+│                         @ pM                     ││ HP 7/20 ###------- 4m E  │
+│                                                  ││ in a fight with Bram     │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Nearby ─────────────────┐
+│                                                  ││ p Bram      3m E 120/120 │
+│                                                  ││ M Shell Rat    4m E 7/20 │
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     3.2s Bram hit Shell Rat for 6                                            │
+│     3.3s Aria targeted Shell Rat                                             │
+│ !   3.4s Aria denied auto_attack on Shell Rat: encounter_owned               │
+│     3.5s Bram hit Shell Rat for 7                                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | outskirts | heard 0.4s ago | ! attack denied: encounter_owned   ? help
