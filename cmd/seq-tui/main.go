@@ -64,7 +64,7 @@ func run() error {
 			return fmt.Errorf("-insecure is for a local server only, not %s", u.Hostname())
 		}
 	}
-	cfg := client.Config{Dial: client.WebSocketDialer(*addr, tlsCfg), Credential: token, Character: *char}
+	cfg := client.Config{URL: *addr, TLS: tlsCfg, Credential: token, Character: *char}
 	if *rec != "" {
 		f, err := os.Create(*rec)
 		if err != nil {

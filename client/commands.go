@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	"fmt"
+	"errors"
 
 	"github.com/GeneStevens/seq-tui/model"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
@@ -43,13 +43,23 @@ func (s *Session) UseDoor(ctx context.Context, door string) (string, error) {
 	return s.intent(ctx, "use_door", func(i *pb.Intent) { i.Body = &pb.Intent_UseDoor{UseDoor: &pb.UseDoor{Door: door}} })
 }
 
+// Release gives up a dead character's body; it respawns at the zone's start
+// point after the zone's delay (D41).
+func (s *Session) Release(ctx context.Context) (string, error) {
+	return s.intent(ctx, "release", func(i *pb.Intent) { i.Body = &pb.Intent_Release{Release: &pb.Release{}} })
+}
+
 // Logout leaves the world at once (D39); the server ends the connection when
 // the logout is journaled.
 func (s *Session) Logout(ctx context.Context) error {
+	c := s.client()
+	if c == nil {
+		return errors.New("not connected")
+	}
 	s.mu.Lock()
 	s.out = true
 	s.mu.Unlock()
-	return s.send(ctx, &pb.ClientMessage{Body: &pb.ClientMessage_Logout{Logout: &pb.Logout{}}})
+	return c.Logout(ctx)
 }
 
 // LoggedOut reports whether Logout was sent.
@@ -59,16 +69,29 @@ func (s *Session) LoggedOut() bool {
 	return s.out
 }
 
+// intent sends a new intent through the toolkit. The toolkit numbers it and
+// calls the body with the id and sequence number set, just before the write;
+// the body is where the model learns of it, so a fast result finds it there.
 func (s *Session) intent(ctx context.Context, kind string, fill func(*pb.Intent)) (string, error) {
-	s.mu.Lock()
-	s.seq++
-	s.idn++
-	in := &pb.Intent{IntentId: fmt.Sprintf("tui-%d", s.idn), Seq: s.seq}
-	fill(in)
-	s.sent[in.IntentId] = in
-	s.m.IntentSent(in.IntentId, in.Seq, kind)
-	s.mu.Unlock()
-	return in.IntentId, s.send(ctx, &pb.ClientMessage{Body: &pb.ClientMessage_Intent{Intent: in}})
+	c := s.client()
+	if c == nil {
+		return "", errors.New("not connected")
+	}
+	body := func(i *pb.Intent) {
+		fill(i)
+		s.mu.Lock()
+		if _, ok := s.m.Intent(i.IntentId); !ok { // a resend names it again
+			s.m.IntentSent(i.IntentId, i.Seq, kind)
+		}
+		s.mu.Unlock()
+	}
+	sent, err := c.Send(ctx, "tui", body)
+	if sent.ID != "" {
+		s.mu.Lock()
+		s.sent[sent.ID] = sent
+		s.mu.Unlock()
+	}
+	return sent.ID, err
 }
 
 // Result waits for the intent_result of the intent with id and returns its status.
@@ -86,9 +109,13 @@ func (s *Session) Result(ctx context.Context, id string) (model.IntentStatus, er
 
 // Ping asks the server for a pong, so a quiet connection is seen to be alive.
 func (s *Session) Ping(ctx context.Context) error {
+	c := s.client()
+	if c == nil {
+		return errors.New("not connected")
+	}
 	s.mu.Lock()
-	s.idn++
-	n := uint64(s.idn)
+	s.nping++
+	n := 100 + s.nping // 1 is the toolkit's own, on a reconnect
 	s.mu.Unlock()
-	return s.send(ctx, &pb.ClientMessage{Body: &pb.ClientMessage_Ping{Ping: &pb.Ping{Nonce: n}}})
+	return c.Ping(ctx, n)
 }

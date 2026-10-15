@@ -173,6 +173,9 @@ func (a *App) send(act Action) tea.Cmd {
 		case UseDoor:
 			what = "use door"
 			id, err = a.sess.UseDoor(ctx, act.ID)
+		case Release:
+			what = "release"
+			id, err = a.sess.Release(ctx)
 		case Logout:
 			if err := a.sess.Logout(ctx); err != nil {
 				return resultMsg{"logout failed: " + err.Error(), true}
@@ -188,6 +191,8 @@ func (a *App) send(act Action) tea.Cmd {
 			return resultMsg{what + ": " + err.Error(), true}
 		case st.State == model.IntentDenied:
 			return resultMsg{fmt.Sprintf("%s denied: %s", what, st.Reason), true}
+		case st.Unknown:
+			return resultMsg{what + ": already applied (result unknown)", false}
 		}
 		return resultMsg{what + " ok", false}
 	}

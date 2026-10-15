@@ -35,6 +35,14 @@ var Cases = []Case{
 	{Name: "crossing_after", Log: "crossing.jsonl"},
 	{Name: "drop_resume", Log: "drop_resume.jsonl"},
 	{Name: "live_login", Log: "live_login.jsonl"},
+	// Recorded from a live development server (TUI-006): dying, releasing,
+	// respawning, and crossing the zone line to the second zone and back.
+	{Name: "release_dead", Log: "live_release.jsonl", Upto: 309},
+	{Name: "release_released", Log: "live_release.jsonl", Upto: 321},
+	{Name: "release_respawned", Log: "live_release.jsonl"},
+	{Name: "door_before", Log: "live_door.jsonl", Upto: 681},
+	{Name: "door_across", Log: "live_door.jsonl", Upto: 684},
+	{Name: "door_back", Log: "live_door.jsonl"},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
 }
 

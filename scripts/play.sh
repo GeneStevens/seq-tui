@@ -1,8 +1,9 @@
 #!/bin/sh
 # make play: a local seq server on a throwaway PostgreSQL, and this TUI on it.
 #
-# Needs: docker (OrbStack's), and access to the private seq module (go fetches
-# it over ssh; set GOPRIVATE=github.com/GeneStevens/* if it does not).
+# Needs: docker (OrbStack's), and access to the private seq module. The script
+# downloads the module itself; if that fails it says what the one-time setup is
+# (GOPRIVATE, and git over ssh; the README has the same text).
 # Nothing here is a secret: the database is a tmpfs container on 127.0.0.1, the
 # certificate is made in memory, the token is for an account that lives as long
 # as the server does.
@@ -16,8 +17,53 @@ cd "$(dirname "$0")/.."
 port="${SEQ_PG_PORT:-55432}"
 addr="${SEQ_ADDR:-127.0.0.1:8443}"
 character="${SEQ_CHARACTER:-me-1}"
-seqdir=$(go list -m -f '{{.Dir}}' github.com/GeneStevens/seq)
-seqver=$(go list -m -f '{{.Version}}' github.com/GeneStevens/seq)
+module=github.com/GeneStevens/seq
+
+setup_help() {
+	cat >&2 <<HELP
+
+make play: could not download the private module $module.
+
+One-time setup (the module is private, so go must skip the public proxy and
+fetch it with git over ssh, with a key GitHub accepts):
+
+  go env -w GOPRIVATE='github.com/GeneStevens/*'
+  git config --global url."git@github.com:".insteadOf "https://github.com/"
+  ssh -T git@github.com            # should greet you by name
+
+Then run make play again.
+HELP
+}
+
+fetch() { go mod download "$module" >"$dlog" 2>&1; }
+
+dlog=$(mktemp)
+if ! fetch; then
+	# Retry once as the one-time setup would have it, for this run only.
+	case ",${GOPRIVATE:-}," in
+	*"github.com/GeneStevens"*) ;;
+	*) export GOPRIVATE="${GOPRIVATE:+$GOPRIVATE,}github.com/GeneStevens/*" ;;
+	esac
+	export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0='url.ssh://git@github.com/.insteadOf' GIT_CONFIG_VALUE_0='https://github.com/'
+	export GIT_SSH_COMMAND="${GIT_SSH_COMMAND:-ssh -o BatchMode=yes}"
+	if ! fetch; then
+		cat "$dlog" >&2
+		rm -f "$dlog"
+		setup_help
+		exit 1
+	fi
+fi
+rm -f "$dlog"
+seqdir=$(go list -m -f '{{.Dir}}' "$module")
+seqver=$(go list -m -f '{{.Version}}' "$module")
+if [ -z "$seqdir" ] || [ ! -f "$seqdir/deploy/docker-compose.yml" ]; then
+	echo "make play: the $module module is not where go says it is (dir '$seqdir'); try: go mod download $module" >&2
+	exit 1
+fi
+if ! docker info >/dev/null 2>&1; then
+	echo "make play: docker is not running (start OrbStack); the server's database runs in a container" >&2
+	exit 1
+fi
 mkdir -p tmp
 log=tmp/seqd.log
 export SEQ_PG_PORT="$port"

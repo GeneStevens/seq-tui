@@ -1,8 +1,13 @@
+// Package client is the TUI's connection to a SEQ server: a Session that feeds
+// the model from the agent toolkit's connection, and the commands that send
+// intents. The WebSocket, the login, the reconnect and the resume are the
+// toolkit's (agentkit in the seq module); this package has no transport.
 package client
 
 import (
 	"context"
 	"crypto/rand"
+	"crypto/tls"
 	"encoding/hex"
 	"errors"
 	"fmt"
@@ -10,13 +15,18 @@ import (
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
+	"github.com/GeneStevens/seq/agentkit"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
+// ProtocolVersion is the protocol version this client speaks.
+const ProtocolVersion = agentkit.ProtocolVersion
+
 // Config says how a Session connects.
 type Config struct {
-	Dial       Dialer
-	Credential string // a human session token (doc 04 §3)
+	URL        string      // wss://host:port/seq/v1
+	TLS        *tls.Config // nil: the system roots
+	Credential string      // a human session token (doc 04 §3)
 	Character  string
 	// Session names this play session; a resume names it again. Empty: a
 	// random one is made.
@@ -27,22 +37,20 @@ type Config struct {
 	Model *model.Model
 }
 
-// Session is one play session: a connection that feeds the model, and that can
-// be brought back and resumed on the same session id.
+// Session is one play session: the agent toolkit's connection (D41) with the
+// model fed from its raw-message hook. The toolkit owns the WebSocket, the
+// login and the resume; the session adds the model, the recording, and one
+// command per intent.
 type Session struct {
 	cfg Config
 
 	mu      sync.Mutex
 	changed chan struct{} // closed and replaced on every change
 	m       *model.Model
-	tr      Transport
-	gen     int   // the connection number, to ignore a dead pump's last words
-	closed  bool  // the current connection has ended
-	err     error // why
-	sent    map[string]*pb.Intent
-	seq     uint64
-	idn     int
+	agent   *agentkit.Agent
+	sent    map[string]agentkit.Sent
 	out     bool // logout sent
+	nping   uint64
 }
 
 // NewSession returns a Session; Login connects it.
@@ -55,7 +63,7 @@ func NewSession(cfg Config) *Session {
 	if cfg.Model == nil {
 		cfg.Model = model.New()
 	}
-	return &Session{cfg: cfg, m: cfg.Model, changed: make(chan struct{}), sent: map[string]*pb.Intent{}}
+	return &Session{cfg: cfg, m: cfg.Model, changed: make(chan struct{}), sent: map[string]agentkit.Sent{}}
 }
 
 // SessionID is the id of this play session.
@@ -77,116 +85,87 @@ func (s *Session) Changed() <-chan struct{} {
 	return s.changed
 }
 
-// Login connects, presents the credential, and selects the character; it
-// returns when the first snapshot has arrived.
-func (s *Session) Login(ctx context.Context) error {
-	if err := s.connect(ctx); err != nil {
-		return err
-	}
-	if err := s.send(ctx, &pb.ClientMessage{Body: &pb.ClientMessage_Select{Select: &pb.Select{Character: s.cfg.Character, Session: s.cfg.Session}}}); err != nil {
-		return err
-	}
-	nerr := s.errCount()
-	return s.wait(ctx, "the snapshot", func() bool { return s.m.Ready() || len(s.m.Errors) > nerr }, func() error {
-		if !s.m.Ready() {
-			return fmt.Errorf("select refused: %s", errText(s.m.Errors[len(s.m.Errors)-1]))
-		}
-		return nil
-	})
-}
-
-// Reconnect brings a dropped connection back: it dials, presents the
-// credential, asks to resume after the last event the model applied (D39), and
-// sends again, under their own ids, the intents with no result yet.
-func (s *Session) Reconnect(ctx context.Context) error {
-	if err := s.connect(ctx); err != nil {
-		return err
-	}
-	s.mu.Lock()
-	last, pending := s.m.Last(), s.m.PendingIntents()
-	s.mu.Unlock()
-	if err := s.send(ctx, &pb.ClientMessage{Body: &pb.ClientMessage_Resume{Resume: &pb.Resume{Session: s.cfg.Session, LastSeq: last}}}); err != nil {
-		return err
-	}
-	for _, id := range pending {
-		s.mu.Lock()
-		in := s.sent[id]
-		s.mu.Unlock()
-		if in == nil {
-			continue
-		}
-		if err := s.send(ctx, &pb.ClientMessage{Body: &pb.ClientMessage_Intent{Intent: in}}); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func (s *Session) connect(ctx context.Context) error {
-	tr, err := s.cfg.Dial(ctx)
-	if err != nil {
-		return describeErr("dialing", err)
-	}
-	s.mu.Lock()
-	old := s.tr
-	s.tr, s.closed, s.err = tr, false, nil
-	s.gen++
-	gen := s.gen
-	nerr, before := len(s.m.Errors), s.m.Connections
-	s.mu.Unlock()
-	if old != nil {
-		_ = old.Close()
-	}
-	go s.pump(tr, gen)
-	if err := s.send(ctx, &pb.ClientMessage{Body: &pb.ClientMessage_Hello{Hello: &pb.Hello{ProtocolVersion: ProtocolVersion, Credential: s.cfg.Credential}}}); err != nil {
-		return err
-	}
-	return s.wait(ctx, "the welcome", func() bool {
-		return s.m.Connections > before || len(s.m.Errors) > nerr
-	}, func() error {
-		if len(s.m.Errors) > nerr {
-			return fmt.Errorf("hello refused: %s", errText(s.m.Errors[len(s.m.Errors)-1]))
-		}
-		return nil
-	})
-}
-
-func (s *Session) errCount() int {
+// onMessage is the toolkit's hook: it sees every message of every connection,
+// in order, before the toolkit acts on it. It records the message and folds it
+// into the model.
+func (s *Session) onMessage(_ []byte, msg *pb.ServerMessage) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	return len(s.m.Errors)
-}
-
-func errText(e *pb.Error) string { return e.GetCode().String() + ": " + e.GetMessage() }
-
-// pump reads a connection until it ends, feeding the recorder and the model.
-func (s *Session) pump(tr Transport, gen int) {
-	for {
-		msg, err := tr.Recv(context.Background())
-		s.mu.Lock()
-		if s.gen != gen {
-			s.mu.Unlock()
-			return
-		}
-		if err != nil {
-			if errors.Is(err, errBadMessage) {
-				s.m.Errors = append(s.m.Errors, &pb.Error{Code: pb.ErrorCode_ERROR_CODE_BAD_MESSAGE, Message: err.Error()})
-				s.wake()
-				s.mu.Unlock()
-				continue
-			}
-			s.closed, s.err = true, err
-			s.wake()
-			s.mu.Unlock()
-			return
-		}
+	if msg == nil {
+		s.m.Errors = append(s.m.Errors, &pb.Error{Code: pb.ErrorCode_ERROR_CODE_BAD_MESSAGE, Message: "the server sent something that is not a protocol message"})
+	} else {
 		if s.cfg.Record != nil {
 			_ = s.cfg.Record.Write(msg)
 		}
 		s.m.Apply(msg)
+	}
+	s.wake()
+}
+
+// watch wakes the waiters when c's connection ends.
+func (s *Session) watch(c *agentkit.Client) {
+	go func() {
+		_, _ = c.Ended(context.Background())
+		s.mu.Lock()
 		s.wake()
 		s.mu.Unlock()
+	}()
+}
+
+// Login connects, presents the credential, and selects the character; it
+// returns when the first snapshot has arrived.
+func (s *Session) Login(ctx context.Context) error {
+	a, _, err := agentkit.Login(ctx, agentkit.Config{
+		URL: s.cfg.URL, TLS: s.cfg.TLS, Credential: s.cfg.Credential, Character: s.cfg.Character,
+		Session: s.cfg.Session, OnMessage: s.onMessage,
+	})
+	if err != nil {
+		return err
 	}
+	s.mu.Lock()
+	s.agent = a
+	s.mu.Unlock()
+	s.watch(a.Client())
+	return nil
+}
+
+func (s *Session) client() *agentkit.Client {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.agent == nil {
+		return nil
+	}
+	return s.agent.Client()
+}
+
+// Reconnect brings a dropped connection back: the toolkit dials, presents the
+// credential and asks to resume after the last event it applied (D39); then
+// the intents with no result yet are sent again, under their own ids.
+func (s *Session) Reconnect(ctx context.Context) error {
+	s.mu.Lock()
+	a := s.agent
+	s.mu.Unlock()
+	if a == nil {
+		return errors.New("not connected")
+	}
+	if err := a.Reconnect(ctx); err != nil {
+		return err
+	}
+	s.watch(a.Client())
+	s.mu.Lock()
+	var pending []agentkit.Sent
+	for _, id := range s.m.PendingIntents() {
+		if in, ok := s.sent[id]; ok {
+			pending = append(pending, in)
+		}
+	}
+	s.mu.Unlock()
+	for _, in := range pending {
+		if err := a.Client().Resend(ctx, in); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // wake tells every waiter the model changed. Callers hold s.mu.
@@ -200,8 +179,9 @@ func (s *Session) wake() {
 // its error is the result.
 func (s *Session) wait(ctx context.Context, what string, pred func() bool, done func() error) error {
 	for {
+		closed, cerr := s.Closed()
 		s.mu.Lock()
-		ok, ch, closed, cerr := pred(), s.changed, s.closed, s.err
+		ok, ch := pred(), s.changed
 		var derr error
 		if ok && done != nil {
 			derr = done()
@@ -221,36 +201,25 @@ func (s *Session) wait(ctx context.Context, what string, pred func() bool, done 
 	}
 }
 
-func (s *Session) send(ctx context.Context, m *pb.ClientMessage) error {
-	s.mu.Lock()
-	tr := s.tr
-	s.mu.Unlock()
-	if tr == nil {
-		return errors.New("not connected")
-	}
-	if err := tr.Send(ctx, m); err != nil {
-		return describeErr("sending", err)
-	}
-	return nil
-}
-
 // Drop ends the connection without a goodbye, as a network failure would; the
 // session can be brought back with Reconnect.
 func (s *Session) Drop() {
-	s.mu.Lock()
-	tr := s.tr
-	s.mu.Unlock()
-	if tr != nil {
-		_ = tr.Close()
+	if c := s.client(); c != nil {
+		c.Drop()
 	}
 }
 
 // Close ends the connection politely.
-func (s *Session) Close() { s.Drop() }
+func (s *Session) Close() {
+	if c := s.client(); c != nil {
+		c.Close()
+	}
+}
 
 // Closed reports whether the connection has ended, and why.
 func (s *Session) Closed() (bool, error) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	return s.closed, s.err
+	if c := s.client(); c != nil {
+		return c.Closed()
+	}
+	return false, nil
 }

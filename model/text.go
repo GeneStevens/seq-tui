@@ -45,7 +45,11 @@ func (m *Model) Text() string {
 	}
 	fmt.Fprintf(&b, "intents (%d):\n", len(m.Intents))
 	for _, i := range m.Intents {
-		fmt.Fprintf(&b, "  %s %s %s %s\n", i.ID, i.Kind, i.State, i.Reason)
+		note := ""
+		if i.Unknown {
+			note = " (already applied, result unknown)"
+		}
+		fmt.Fprintf(&b, "  %s %s %s %s%s\n", i.ID, i.Kind, i.State, i.Reason, note)
 	}
 	fmt.Fprintf(&b, "events (%d):\n", len(m.Log))
 	for _, e := range m.Log {

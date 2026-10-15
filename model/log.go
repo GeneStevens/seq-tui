@@ -104,6 +104,15 @@ func describe(e *pb.Event, label func(string) string) (kind, text, reason string
 	case *pb.Event_LootDropped:
 		d := b.LootDropped
 		return "loot_dropped", fmt.Sprintf("%s dropped %s (%s)", label(d.GetMob()), d.GetItem(), d.GetDrop()), ""
+	case *pb.Event_LootGone:
+		g := b.LootGone
+		return "loot_gone", fmt.Sprintf("drop %s is gone: %s", g.GetDrop(), g.GetReason()), g.GetReason()
+	case *pb.Event_Released:
+		r := b.Released
+		return "released", fmt.Sprintf("%s released; respawns in %d s", label(r.GetActor()), (r.GetRespawnInMs()+999)/1000), ""
+	case *pb.Event_Respawned:
+		r := b.Respawned
+		return "respawned", fmt.Sprintf("%s respawned at (%d, %d) with %d hp", label(r.GetActor()), r.GetPos().GetX(), r.GetPos().GetY(), r.GetHp()), ""
 	case *pb.Event_MobReset:
 		return "mob_reset", fmt.Sprintf("%s reset to %d hp", label(b.MobReset.GetId()), b.MobReset.GetHp()), ""
 	}
