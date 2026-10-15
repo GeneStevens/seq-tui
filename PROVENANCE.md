@@ -10,7 +10,8 @@ This file lists each content item in `seq-tui` and its source (for example "inve
 
 | Item | Source |
 | ---- | ------ |
-| *(none yet)* | |
+| `testdata/logs/fight_loot.jsonl`, `kill_steal.jsonl`, `crossing.jsonl`, `drop_resume.jsonl` | Built by `cmd/mkfixtures` (this repo, 2026-10-14) from the message shapes of seq's golden fixtures (`protocol/testdata`). Entity, item, space and door ids are those seq's goldens use; all invented for SEQ. |
+| `testdata/logs/live_login.jsonl` | Recorded 2026-10-14 from a local `seqd` (seq at 7e590a4) running its development zone; names are seq's own. |
 
 ## Exclusions
 
