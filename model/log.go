@@ -29,6 +29,9 @@ func (m *Model) logEvent(e *pb.Event) {
 	if k, t, r, ok := describeCombat(e, m.label, m.AbilityName); ok {
 		kind, text, reason = k, t, r
 	}
+	if k, t, r, ok := m.describeEconomy(e); ok {
+		kind, text, reason = k, t, r
+	}
 	var actor, target string
 	switch b := e.GetBody().(type) {
 	case *pb.Event_Combat:

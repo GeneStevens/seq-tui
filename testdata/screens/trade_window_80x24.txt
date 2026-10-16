@@ -1,0 +1,24 @@
+┌─ Trade ──────────────────────────────────────────────────────────────────────┐
+│ Trade with c2. Changing an offer clears the confirmations.                   │
+│ Your offer                           │ c2's offer                            │
+│ not confirmed                        │ not confirmed                         │
+│ crowns 0                             │ crowns 7                              │
+│> Worn Cap Common                     │  (no items)                           │
+│──────────────────────────────────────────────────────────────────────────────│
+│ You carry, 0 crowns (Enter puts the item in the offer)                       │
+│  Worn Cap Common  armor +2                                                   │
+│> Scuttler Blade Rare [bound]  damage 4-9 / 2.0s, str +3                      │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade    │
+│ Esc closes the screen and leaves the trade open.                             │
+│ The server refuses Rare and Named items, and ones already traded.            │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | ! offer Scuttler Blade denied: that item is bound and cannot be trade…

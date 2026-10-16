@@ -1,0 +1,45 @@
+┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                                                                                ││ c2  Lv 1  XP 0               | 0 crowns│
+│                                                                                                ││ HP 100/100 ########################### │
+│                                                                                                ││ Target: none                           │
+│                                                                                                ││ Auto-attack: off                       │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ ~ 5 crowns          16m S not lootable │
+│                                                                                                ││ ~ Scuttler Blade    16m S not lootable │
+│                                                                                                ││ ~ Worn Cap          16m S not lootable │
+│                                                @                                               ││ p c1                      16m S 94/100 │
+│                                                                                                ││ D gate-north                     24m N │
+│                                                                                                ││ D line-east                    110m SE │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                             p  ~                                               ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    NN.Ns c1 hit Trophy Scuttler for 4                                                                                                    │
+│    NN.Ns Trophy Scuttler hit c1 for 1                                                                                                    │
+│    NN.Ns c1 hit Trophy Scuttler for 4                                                                                                    │
+│ x  NN.Ns c1 killed Trophy Scuttler                                                                                                       │
+│    NN.Ns c1's target Trophy Scuttler cleared: target_dead                                                                                │
+│    NN.Ns c1 stopped attacking                                                                                                            │
+│    NN.Ns Trophy Scuttler dropped Worn Cap (drop-enc-1-worn-cap): not yours to take                                                       │
+│    NN.Ns Trophy Scuttler dropped Scuttler Blade (drop-enc-1-scuttler-blade): not yours to take                                           │
+│    NN.Ns Trophy Scuttler dropped 5 crowns (drop-enc-1-crowns): not yours to take                                                         │
+│    NN.Ns encounter enc-1 with Trophy Scuttler closed: mob_died                                                                           │
+│    NN.Ns Trophy Scuttler left view                                                                                                       │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | not lootable: the drops in view are not yours to take                                ? help  q quit

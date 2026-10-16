@@ -1,27 +1,27 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                    .                                               #           ││ gorm  Lv 1 Warrior                     │
+│                                    .                                               #           ││ gorm  Lv 1 Warrior           | 0 crowns│
 │                                    .                                               #           ││ HP 120/120 ########################### │
 │                                    .                                               #           ││ XP ------------------------- 40 to Lv 2│
 │                                    .                                               #           ││ Atk off | none                         │
 │                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Target ───────────────────────────────┐
+│                                    .             $  $ $  $ $ $                     #           │┌─ Target ───────────────────────────────┐
 │                                    .                                               #           ││ no target (Tab to choose)              │
-│                                    .                                               #           ││                                        │
+│                                    .             $  $ $                            #           ││                                        │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
+│                                    .                                               #           ││ $ Testgrounds Vendor       8m N vendor │
+│                                    .           @                 m                 #           ││ $ Testgrounds Banker      9m NE banker │
+│                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
+│                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
+│                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
+│                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
+│                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
 │                                    .                                               #           ││ m Plain Scuttler           15m E 40/40 │
-│                                    .           @                 m                 #           ││ D gate-north                    98m NE │
+│                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │
+│                                    .                                               #           ││ $ Druid Trainer         17m NE trainer │
+│                                    .                                               #           ││ D gate-north                    98m NE │
 │                                    .                                               #           ││ D line-east                     189m E │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
 │                                    .                                               #           ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐

@@ -1,27 +1,27 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                 .                                                         #    ││ Tester  Lv 1  XP 0                     │
+│                                 .                                                         #    ││ aria  Lv 1  XP 0             | 0 crowns│
 │                                 .                                                         #    ││ HP 6/6 ############################### │
 │                                 .                                                         #    ││ Target: none                           │
 │                                 .                                                         #    ││ Auto-attack: off                       │
 │                                 .                                                         #    │└────────────────────────────────────────┘
-│                                 .                                                         #    │┌─ Target ───────────────────────────────┐
+│                                 .                $  $  $  $  $  $                         #    │┌─ Target ───────────────────────────────┐
 │                                 .                                                         #    ││ no target (Tab to choose)              │
 │                                 .                                                         #    ││                                        │
-│                                 .                                                         #    ││                                        │
+│                                 .                $  $  $                                  #    ││                                        │
 │                                 .                                                         #    │└────────────────────────────────────────┘
 │                                 .                                                         #    │┌─ Nearby ───────────────────────────────┐
+│                                 .                                                         #    ││ $ Testgrounds Vendor       8m N vendor │
+│                                 .                                                         #    ││ $ Testgrounds Banker      9m NE banker │
+│                                 .                                                         #    ││ $ Testgrounds Binder     10m NE binder │
+│                                 .              @                                          #    ││ $ Warrior Trainer        12m N trainer │
+│                                 .                                       m                 #    ││ $ Cleric Trainer         13m N trainer │
+│                                 .                                                         #    ││ $ Rogue Trainer         13m NE trainer │
+│                                 .                                                         #    ││ $ Wizard Trainer        14m NE trainer │
+│                                 .                                                         #    ││ $ Paladin Trainer       16m NE trainer │
+│                                 .                                                         #    ││ $ Druid Trainer         17m NE trainer │
 │                                 .                                                         #    ││ m Plain Scuttler           18m E 40/40 │
 │                                 .                                                         #    ││ D gate-north                    98m NE │
 │                                 .                                                         #    ││ D line-east                     189m E │
-│                                 .              @                                          #    ││                                        │
-│                                 .                                       m                 #    ││                                        │
-│                                 .                                                         #    ││                                        │
-│                                 .                                                         #    ││                                        │
-│                                 .                                                         #    ││                                        │
-│                                 .                                                         #    ││                                        │
-│                                 .                                                         #    ││                                        │
-│                                 .                                                         #    ││                                        │
-│                                 .                                                         #    ││                                        │
 │                                 .                                                         #    ││                                        │
 │                                 .                                                         #    ││                                        │
 │                                 .                                                         #    ││                                        │
@@ -30,16 +30,16 @@
 │                                 .                                                         #    ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.1s Plain Scuttler began attacking Tester                                                                                           │
-│ <   1.1s Plain Scuttler hit Tester for 2                                                                                                 │
-│ <   4.1s Plain Scuttler hit Tester for 1                                                                                                 │
-│     6.0s Tester healed 2                                                                                                                 │
-│ <   7.1s Plain Scuttler hit Tester for 3                                                                                                 │
-│ <  10.1s Plain Scuttler hit Tester for 2                                                                                                 │
-│ x  10.1s Plain Scuttler killed Tester                                                                                                    │
+│     1.1s Plain Scuttler began attacking aria                                                                                             │
+│ <   1.1s Plain Scuttler hit aria for 2                                                                                                   │
+│ <   4.1s Plain Scuttler hit aria for 1                                                                                                   │
+│     6.0s aria healed 2                                                                                                                   │
+│ <   7.1s Plain Scuttler hit aria for 3                                                                                                   │
+│ <  10.1s Plain Scuttler hit aria for 2                                                                                                   │
+│ x  10.1s Plain Scuttler killed aria                                                                                                      │
 │    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead                                                                   │
 │    11.0s Plain Scuttler reset to 40 hp                                                                                                   │
-│    30.2s Tester released; respawns in 5 s                                                                                                │
-│    35.2s Tester respawned at (10000, 50000) with 6 hp                                                                                    │
+│    30.2s aria released; respawns in 5 s                                                                                                  │
+│    35.2s aria respawned at (10000, 50000) with 6 hp                                                                                      │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit

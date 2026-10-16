@@ -1,5 +1,5 @@
 ┌─ Testgrounds (Quick Turns), north up ────────────┐┌─ You ────────────────────┐
-│                                                  ││ Tester  Lv 1  XP 0       │
+│                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
 │                                                  ││ Target: none             │
 │..................................................││ Auto-attack: off         │

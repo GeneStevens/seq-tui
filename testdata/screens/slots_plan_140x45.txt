@@ -1,0 +1,45 @@
+┌─ Ability slots ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Keys 1-8 use the slots in play. Up / Down or 1-8 choose; Enter picks an ability.                                                         │
+│ Backspace empties a slot, Esc closes. Here a change joins the plan (Enter submits).                                                      │
+│ > 1  Root             1.5 s cast, 10 mana, range 25m, enemy  (in the plan)                                                               │
+│   2  Frost Bolt       2.0 s cast, 12 mana, range 25m, enemy                                                                              │
+│   3  Root             1.5 s cast, 10 mana, range 25m, enemy                                                                              │
+│   4  (empty)                                                                                                                             │
+│   5  (empty)                                                                                                                             │
+│   6  (empty)                                                                                                                             │
+│   7  (empty)                                                                                                                             │
+│   8  (empty)                                                                                                                             │
+│                                                                                                                                          │
+│ Known abilities                                                                                                                          │
+│   Flame Dart       key 1  1.0 s cast, 6 mana, range 25m, enemy                                                                           │
+│   Frost Bolt       key 2  2.0 s cast, 12 mana, range 25m, enemy                                                                          │
+│   Root             key 3  1.5 s cast, 10 mana, range 25m, enemy                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds (Quick Turns) | heard 0.4s ago | slot change added to the plan: Esc closes this, Enter submits the plan ? help  q quit

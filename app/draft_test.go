@@ -147,3 +147,32 @@ func TestSharedKeysAndTheMenuKey(t *testing.T) {
 		t.Error("the world is real-time: bare intents are sent")
 	}
 }
+
+// Between rounds a slot changes by a plan step (D50): any number of them, none
+// counted as the plan's move or action, and the plan sends them to the server.
+func TestSlotChangesAreStepsOfThePlan(t *testing.T) {
+	m := load(t, "turn_cast.jsonl@turn_cast_plan", 0)
+	var d app.Draft
+	for _, s := range []app.Action{
+		{Kind: app.SetSlot, Slot: 1, ID: "wizard-frost-bolt"},
+		{Kind: app.SetSlot, Slot: 2, ID: "wizard-flame-dart"},
+		{Kind: app.SetSlot, Slot: 1},
+		{Kind: app.UseAbility, Slot: 2},
+		{Kind: app.Move, X: 1, Y: 2},
+	} {
+		if why := d.Add(s); why != "" {
+			t.Fatalf("%+v refused: %s", s, why)
+		}
+	}
+	got := d.Slots()
+	if len(got) != 2 || got[1] != "" || got[2] != "wizard-flame-dart" {
+		t.Errorf("the plan's slots: %v", got)
+	}
+	lines := d.Lines(m)
+	if lines[0] != "key 1: Frost Bolt" || lines[2] != "empty key 1" {
+		t.Errorf("lines %q", lines)
+	}
+	if n := len(d.Agent()); n != 5 {
+		t.Errorf("%d steps for the server", n)
+	}
+}

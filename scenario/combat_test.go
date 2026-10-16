@@ -123,12 +123,24 @@ func TestWizardRootsAndNukes(t *testing.T) {
 	})
 	p.Golden("rooted")
 
-	// Flame Dart, then Frost Bolt twice, each after the global cooldown; the mob is held and dies.
-	for _, key := range []string{"3", "2", "2"} {
+	// Flame Dart, then Frost Bolt again and again, each after the global
+	// cooldown, until the held mob is dead. Spells always land (D50): what the
+	// mob loses is the spell's, less its resist.
+	low := mana(p)
+	for i := 0; i < 8; i++ {
+		key := "2"
+		if i == 0 {
+			key = "3"
+		}
 		p.Press(key)
 		w.Advance(2500 * time.Millisecond)
+		low = mana(p)
+		var dead bool
+		p.Model(func(m *model.Model) { dead = m.Self.Target == "" })
+		if dead {
+			break
+		}
 	}
-	low := mana(p)
 	p.Model(func(m *model.Model) {
 		if low >= start || m.Self.XP != 20 || !hasLog(m, "combat_death", "Zedd killed Plain Scuttler") || m.Self.Target != "" {
 			t.Fatalf("after the kill: mana %d (was %d), xp %d, target %q", low, start, m.Self.XP, m.Self.Target)
@@ -252,15 +264,16 @@ func worth(xp int) func(string, *core.Zone) {
 	}
 }
 
-// A kill that is worth a level: the log says so and names the new ability,
-// which is in the next free slot and works.
-func TestLevelUpShowsTheNewAbility(t *testing.T) {
+// A kill that is worth a level: the log says so. A level no longer grants
+// abilities (SEQ-040): they are bought from the class trainer, so the kit is the
+// same and the trainer's scenario is where the new one is learned.
+func TestLevelUpIsInTheLog(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"zedd": "wizard"}}},
-		Zone: both(worth(60), learnAt("wizard", "wizard-arcane-ward", 2))})
+		Zone: worth(60)})
 	w.Fixture("levelup.jsonl")
 	p := w.Login("ann", "zedd")
 	p.Model(func(m *model.Model) {
-		if m.Self.Level != 1 || m.AbilityByID("wizard-arcane-ward") != nil || m.Self.XPNext != 40 {
+		if m.Self.Level != 1 || m.Self.XPNext != 40 {
 			t.Fatalf("a new wizard: level %d, xp to %d", m.Self.Level, m.Self.XPNext)
 		}
 	})
@@ -277,25 +290,14 @@ func TestLevelUpShowsTheNewAbility(t *testing.T) {
 		w.Advance(2500 * time.Millisecond)
 	}
 	p.Model(func(m *model.Model) {
-		if m.Self.Level != 2 || m.AbilityByID("wizard-arcane-ward") == nil || m.SlotOf("wizard-arcane-ward") != 3 || m.Self.XP != 60 {
+		if m.Self.Level != 2 || m.Self.XP != 60 || len(m.Self.Abilities) != 2 {
 			t.Fatalf("after the kill: level %d, xp %d, slots %s", m.Self.Level, m.Self.XP, slotsOf(m))
 		}
-		if !hasLog(m, "level_up", "you reached level 2: new ability Arcane Ward (key 3)") {
-			t.Fatalf("no level-up line: %+v", m.Log[len(m.Log)-4:])
+		if !hasLog(m, "level_up", "you reached level 2") || hasLog(m, "level_up", "new ability") {
+			t.Fatalf("the level-up line: %+v", m.Log[len(m.Log)-4:])
 		}
 	})
 	p.Golden("levelup")
-
-	// Key 3 is Arcane Ward now: it works, and the effect it puts on the wizard is on the bar.
-	p.Press("3")
-	notice(t, p, "key 3 Arcane Ward ok", false)
-	w.Advance(500 * time.Millisecond)
-	p.Model(func(m *model.Model) {
-		if len(m.Self.Effects) != 1 || m.Self.Effects[0].Ability != "wizard-arcane-ward" {
-			t.Fatalf("effects %+v", m.Self.Effects)
-		}
-	})
-	p.Golden("levelup_ward")
 }
 
 // atGate starts new characters at the gate of Testgrounds, where its instances
@@ -310,7 +312,7 @@ func TestTurnBasedRoundWithACastInThePlan(t *testing.T) {
 		Zone: atGate})
 	w.Fixture("turn_cast.jsonl")
 	p := w.Login("ann", "zedd")
-	p.Press("i", "4", "enter")
+	openPreset(t, p, "quick-turns", true)
 	w.Advance(time.Second)
 	p.Press("e")
 	p.Eventually("round 1", openRound)

@@ -1,11 +1,11 @@
 ┌─ Testgrounds (Quick Turns), north up ────────────┐┌─ You ────────────────────┐
-│                                                  ││ zedd  Lv 1 Wizard        │
+│                                                  ││ zedd  Lv 1 Wizard   | 0cr│
 │                                                  ││ HP 80/80 ############### │
 │                                                  ││ MP 150/150 ############# │
 │..................................................││ XP ----------- 40 to Lv 2│
 │                                                  ││ Atk off | none           │
 │                         @                        │└──────────────────────────┘
-│                                                  │┌─ Round 1, 19 s left ─────┐
+│                                                  │┌─ Round 1, 5 min 19 s l… ─┐
 │                                                  ││ 0 of 1 submitted         │
 │                                                  ││ Plan (2/16): not sent yet│
 │                         m                        ││  2 use Frost Bolt (key 2)│

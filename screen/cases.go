@@ -39,6 +39,15 @@ type Case struct {
 	// empty log draws it before any character is chosen).
 	Slots  *Slots
 	Create *Create
+	// PlanSlots are the slot changes the plan holds; Inventory, Traders and
+	// Trade draw the inventory and gear screen, the traders' screen and the
+	// trade window.
+	PlanSlots map[int]string
+	Inventory *Inventory
+	Traders   *Traders
+	Trade     *TradeUI
+	// TraderName puts the traders' screen's cursor on the trader with that name.
+	TraderName string
 }
 
 // Sizes the goldens are drawn at.
@@ -84,9 +93,10 @@ var Cases = []Case{
 	// Classes and combat (SEQ-038, SEQ-039): the creation screen, a new Wizard,
 	// the slot screen, a cast and the effect it leaves, a cancelled and an
 	// interrupted cast, a Warrior, a level-up, and a cast in a turn-based plan.
-	{Name: "create_name", Create: &Create{}},
-	{Name: "create_class", Create: &Create{Name: "Zedd", Class: 3, Classes: true}},
-	{Name: "create_refused", Create: &Create{Name: "zEDD", Class: 1, Err: "someone already has that name (name_taken)"}},
+	// The class menu is the server's, from the welcome the log begins with.
+	{Name: "create_name", Log: "wizard.jsonl", Mark: "create_name", Create: &Create{}},
+	{Name: "create_class", Log: "wizard.jsonl", Mark: "create_name", Create: &Create{Name: "Zedd", Class: 3, Classes: true}},
+	{Name: "create_refused", Log: "wizard.jsonl", Mark: "create_name", Create: &Create{Name: "zEDD", Class: 1, Err: "someone already has that name (name_taken)"}},
 	{Name: "kit_new", Log: "wizard.jsonl", Mark: "kit_new"},
 	{Name: "slots_pick", Log: "wizard.jsonl", Mark: "slots_pick", Slots: &Slots{Slot: 0, Pick: true, Cur: 2}},
 	{Name: "slots_set", Log: "wizard.jsonl", Mark: "slots_set", Slots: &Slots{Slot: 2}},
@@ -102,9 +112,26 @@ var Cases = []Case{
 	{Name: "warrior_second_wind", Log: "warrior.jsonl", Mark: "warrior_second_wind", Notice: "key 3 Second Wind ok"},
 	{Name: "warrior_killed", Log: "warrior.jsonl", Mark: "warrior_killed", Notice: "key 2 Bash ok"},
 	{Name: "levelup", Log: "levelup.jsonl", Mark: "levelup", Notice: "key 2 Frost Bolt ok"},
-	{Name: "levelup_ward", Log: "levelup.jsonl", Mark: "levelup_ward", Notice: "key 3 Arcane Ward ok"},
 	{Name: "turn_cast_plan", Log: "turn_cast.jsonl", Mark: "turn_cast_plan", Left: 20 * time.Second, Plan: []string{"target Plain Scuttler", "use Frost Bolt (key 2)"}},
 	{Name: "turn_cast_round", Log: "turn_cast.jsonl", Mark: "turn_cast_round", Left: 20 * time.Second, Notice: "plan accepted, counts even if you disconnect"},
+	// SEQ-040 and SEQ-042 (TUI-010): the class menu the server sent, looting and
+	// gear, the traders, a trade, the Peril menu, effects seen on login, and a
+	// slot changed by the plan.
+	{Name: "class_menu", Log: "class_menu.jsonl", Mark: "class_menu", Create: &Create{Name: "Mira", Class: 5, Classes: true}},
+	{Name: "inventory_looted", Log: "loot_equip.jsonl", Mark: "inventory_looted", Inventory: &Inventory{Carried: true}},
+	{Name: "inventory_worn", Log: "loot_equip.jsonl", Mark: "inventory_worn", Notice: "wear Worn Cap ok", Inventory: &Inventory{}},
+	{Name: "vendor", Log: "traders.jsonl", Mark: "vendor", Traders: &Traders{Open: true, Cur: [2]int{1, 0}}, TraderName: "Testgrounds Vendor"},
+	{Name: "trainer", Log: "traders.jsonl", Mark: "trainer", Traders: &Traders{Open: true, Cur: [2]int{2, 0}}, TraderName: "Wizard Trainer"},
+	{Name: "bank", Log: "traders.jsonl", Mark: "bank", Notice: "bank Buckler ok", Traders: &Traders{Open: true}, TraderName: "Testgrounds Banker"},
+	{Name: "trade_ask", Log: "trade.jsonl", Mark: "trade_ask", Trade: &TradeUI{}},
+	{Name: "trade_window", Log: "trade.jsonl", Mark: "trade_window", Notice: "offer Scuttler Blade denied: that item is bound and cannot be traded (bound)", NoticeBad: true, Trade: &TradeUI{Item: 1}},
+	{Name: "peril_menu", Log: "peril.jsonl", Mark: "peril_menu", Menu: true, MenuSel: 3},
+	{Name: "peril_paid", Log: "peril.jsonl", Mark: "peril_paid", Notice: "instance requested; the log says when it is open"},
+	{Name: "login_rooted", Log: "mid_fight.jsonl", Mark: "login_rooted"},
+	{Name: "slots_plan", Log: "slots_round.jsonl", Mark: "slots_plan", Slots: &Slots{Slot: 0}, PlanSlots: map[int]string{1: "wizard-root"}, Left: 20 * time.Second,
+		Plan: []string{"key 1: Root"}, Notice: "slot change added to the plan: Esc closes this, Enter submits the plan"},
+	{Name: "slots_plan_round", Log: "slots_round.jsonl", Mark: "slots_plan_round", Left: 20 * time.Second, Plan: []string{"key 1: Root"}},
+	{Name: "slots_changed", Log: "slots_round.jsonl", Mark: "slots_changed", Left: 20 * time.Second, Notice: "plan accepted, counts even if you disconnect"},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
 }
 
@@ -143,7 +170,17 @@ func (c Case) Draw(m *model.Model, w, h int) string {
 	if c.Menu {
 		v.Menu = &Menu{Sel: c.MenuSel}
 	}
-	v.Slots, v.Create = c.Slots, c.Create
+	v.Slots, v.Create, v.PlanSlots = c.Slots, c.Create, c.PlanSlots
+	v.Inventory, v.Traders, v.Trade = c.Inventory, c.Traders, c.Trade
+	if c.Traders != nil && c.TraderName != "" {
+		t := *c.Traders
+		for i, n := range TradersInView(m) {
+			if n.GetName() == c.TraderName {
+				t.Sel = i
+			}
+		}
+		v.Traders = &t
+	}
 	if c.Dest != nil {
 		v.Plan.Dest = &pb.Pos{X: c.Dest[0], Y: c.Dest[1]}
 	}

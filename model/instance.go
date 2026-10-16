@@ -114,7 +114,7 @@ func (m *Model) TurnBased() bool {
 // repeatsRound reports whether e is a round_started for the round already open.
 func (m *Model) repeatsRound(e *pb.Event) bool {
 	o := e.GetRoundStarted()
-	return o != nil && m.Round != nil && m.Round.Open && m.Round.Number == o.GetRound() && m.Round.DeadlineMs == o.GetDeadlineMs() && m.Round.Participants == o.GetParticipants()
+	return o != nil && m.Round != nil && m.Round.Open && m.Round.Number == o.GetRound() && m.Round.DeadlineMs == o.GetDeadlineMs() && m.Round.Participants == o.GetParticipants() && slices.Equal(m.Round.Submitted, o.GetSubmitted())
 }
 
 func (m *Model) applyInstanceEvent(e *pb.Event) {

@@ -1,28 +1,28 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                    .                                               #           ││ gorm  Lv 1 Warrior                     │
+│                                    .                                               #           ││ gorm  Lv 1 Warrior           | 0 crowns│
 │                                    .                                               #           ││ HP 120/120 ########################### │
 │                                    .                                               #           ││ XP ############------------- 20 to Lv 2│
 │                                    .                                               #           ││ Atk off | none                         │
 │                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Target ───────────────────────────────┐
+│                                    .             $  $ $  $ $ $                     #           │┌─ Target ───────────────────────────────┐
 │                                    .                                               #           ││ no target (Tab to choose)              │
-│                                    .                                               #           ││                                        │
+│                                    .             $  $ $                            #           ││                                        │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
-│                                    .                                               #           ││ * shell-fragment                  2m E │
-│                                    .           @  *                                #           ││ m Plain Scuttler           19m E 40/40 │
-│                                    .                                 m             #           ││ D gate-north                    98m NE │
+│                                    .                                               #           ││ * Cracked Shell Fragment          2m E │
+│                                    .           @  *                                #           ││ $ Testgrounds Vendor       8m N vendor │
+│                                    .                                 m             #           ││ $ Testgrounds Banker      9m NE banker │
+│                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
+│                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
+│                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
+│                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
+│                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
+│                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │
+│                                    .                                               #           ││ $ Druid Trainer         17m NE trainer │
+│                                    .                                               #           ││ m Plain Scuttler           19m E 40/40 │
+│                                    .                                               #           ││ D gate-north                    98m NE │
 │                                    .                                               #           ││ D line-east                     189m E │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt                       tgt? 2 Bash                       tgt? 3 Second Wind                 31s 4 -                         empty │
@@ -33,7 +33,7 @@
 │ x  22.9s gorm killed Plain Scuttler                                                                                                      │
 │    22.9s gorm's target Plain Scuttler cleared: target_dead                                                                               │
 │    22.9s gorm stopped attacking                                                                                                          │
-│    22.9s Plain Scuttler dropped shell-fragment (drop-enc-1-shell-fragment)                                                               │
+│    22.9s Plain Scuttler dropped Cracked Shell Fragment (drop-enc-1-shell-fragment)                                                       │
 │    22.9s encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
 │ +  22.9s gorm received 20 xp from Plain Scuttler                                                                                         │
 │    22.9s Plain Scuttler left view                                                                                                        │

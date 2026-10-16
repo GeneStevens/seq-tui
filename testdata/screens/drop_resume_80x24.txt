@@ -1,5 +1,5 @@
 ┌─ Outskirts, north up ────────────────────────────┐┌─ You ────────────────────┐
-│                                                  ││ Aria  Lv 3  XP 0         │
+│                                                  ││ Aria  Lv 3  XP 0    | 0cr│
 │                                                  ││ HP 120/120 ############# │
 │                                                  ││ Target: Shell Rat        │
 │                                                  ││ Auto-attack: off         │

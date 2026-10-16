@@ -1,0 +1,45 @@
+┌─ Inventory and gear ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Crowns 5 | carrying 2 of 20 | bank 0 | bind point none yet                                                                               │
+│ Gear worn                                                          │ Items carried                                                       │
+│   head      -                                                      │> Scuttler Blade                                                     │
+│   chest     -                                                      │  Worn Cap                                                           │
+│   legs      -                                                      │                                                                     │
+│   hands     -                                                      │                                                                     │
+│   feet      -                                                      │                                                                     │
+│   ring1     -                                                      │                                                                     │
+│   ring2     -                                                      │                                                                     │
+│   neck      -                                                      │                                                                     │
+│   main_hand -                                                      │                                                                     │
+│   off_hand  -                                                      │                                                                     │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                                                                     │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                                                                               │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit

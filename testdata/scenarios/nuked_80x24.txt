@@ -1,8 +1,8 @@
 ┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
-│                    .                   #         ││ Zedd  Lv 1 Wizard        │
+│                    .                   #         ││ Zedd  Lv 1 Wizard   | 0cr│
 │                    .                   #         ││ HP 80/80 ############### │
-│                    .                   #         ││ MP 115/150 #########---- │
-│                    .                   #         ││ XP #####------ 20 to Lv 2│
+│                    .     $$$$$$        #         ││ MP 108/150 #########---- │
+│                    .     $$$           #         ││ XP #####------ 20 to Lv 2│
 │                    .                   #         ││ Atk off | none           │
 │                    .    @     *        #         │└──────────────────────────┘
 │                    .                   #         │┌─ Target ─────────────────┐
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns Plain Scuttler dropped shell-fragment (drop-enc-1-shell-fragment)   │
-│     N.Ns encounter enc-1 with Plain Scuttler closed: mob_died                │
-│ +   N.Ns Zedd received 20 xp from Plain Scuttler                             │
-│     N.Ns Plain Scuttler left view                                            │
+│            (drop-enc-1-shell-fragment)                                       │
+│    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                │
+│ +  NN.Ns Zedd received 20 xp from Plain Scuttler                             │
+│    NN.Ns Plain Scuttler left view                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok      ? help  q quit

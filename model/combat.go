@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"slices"
+	"strings"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
@@ -21,6 +22,9 @@ type Cast struct {
 	Target   string
 	Slot     int
 	EndsAtMs int64
+	// LandsInRound is the round a cast in a turn-based instance lands in, when
+	// the server said it is a later one (0: this round, or real time).
+	LandsInRound uint64
 }
 
 // Effect is an effect lying on someone: from the snapshot for the character,
@@ -35,6 +39,8 @@ type Effect struct {
 	// EndsAtMs is the game time the effect ends, 0 when it lasts until broken.
 	EndsAtMs int64
 	Approx   bool
+	// Tags say what kind of affliction it is: poison, disease or curse (D50).
+	Tags []string
 }
 
 func (e Effect) same(o Effect) bool {
@@ -63,6 +69,11 @@ func (m *Model) AbilityByID(id string) *pb.AbilityInfo {
 func (m *Model) AbilityName(id string) string {
 	if a := m.AbilityByID(id); a != nil && a.GetName() != "" {
 		return a.GetName()
+	}
+	if m.Self.Class != "" && strings.HasPrefix(id, m.Self.Class+"-") {
+		// An ability the character does not know yet (a trainer's lesson) has
+		// only its id: the class's own ones are "wizard-arcane-ward".
+		return readable(strings.TrimPrefix(id, m.Self.Class+"-"))
 	}
 	return id
 }
@@ -164,14 +175,21 @@ func (s *Self) setKit(self *pb.SelfState, now int64) {
 	if c := self.GetCast(); c.GetAbility() != "" {
 		s.Cast = &Cast{Ability: c.GetAbility(), Target: c.GetTarget(), Slot: int(c.GetSlot()), EndsAtMs: c.GetEndsAtMs()}
 	}
-	s.Effects = nil
-	for _, e := range self.GetEffects() {
-		fx := Effect{Ability: e.GetAbility(), Source: e.GetSource(), Kind: e.GetKind(), Stat: e.GetStat(), EndsAtMs: e.GetExpiresAtMs()}
+	s.Effects = effectsFrom(self.GetEffects(), now)
+}
+
+// effectsFrom reads the effects the snapshot lists on the character or on any
+// entity in view (D50).
+func effectsFrom(list []*pb.EffectState, now int64) []Effect {
+	var out []Effect
+	for _, e := range list {
+		fx := Effect{Ability: e.GetAbility(), Source: e.GetSource(), Kind: e.GetKind(), Stat: e.GetStat(), EndsAtMs: e.GetExpiresAtMs(), Tags: slices.Clone(e.GetTags())}
 		if e.GetTicksLeft() > 0 {
 			fx.EndsAtMs, fx.Approx = now+e.GetTicksLeft()*RulesTickMs, true
 		}
-		s.Effects = append(s.Effects, fx)
+		out = append(out, fx)
 	}
+	return out
 }
 
 // levelUp is the log line of a snapshot that raised the character's level: the
@@ -234,7 +252,7 @@ func (m *Model) applyCombatEvent(e *pb.Event) {
 	case *pb.Event_CastStarted:
 		if o := b.CastStarted; o.GetActor() == me {
 			m.Self.GCDUntilMs = at + m.Self.GCDMs
-			m.Self.Cast = &Cast{Ability: o.GetAbility(), Target: o.GetTarget(), Slot: m.SlotOf(o.GetAbility()), EndsAtMs: at + o.GetCastMs()}
+			m.Self.Cast = &Cast{Ability: o.GetAbility(), Target: o.GetTarget(), Slot: m.SlotOf(o.GetAbility()), EndsAtMs: at + o.GetCastMs(), LandsInRound: o.GetLandsInRound()}
 			m.Self.LastCastEnd = nil
 		}
 	case *pb.Event_CastCancelled:
@@ -260,7 +278,7 @@ func (m *Model) applyCombatEvent(e *pb.Event) {
 		}
 	case *pb.Event_EffectApplied:
 		o := b.EffectApplied
-		fx := Effect{Ability: o.GetAbility(), Source: o.GetSource(), Kind: o.GetKind(), Stat: o.GetStat()}
+		fx := Effect{Ability: o.GetAbility(), Source: o.GetSource(), Kind: o.GetKind(), Stat: o.GetStat(), Tags: slices.Clone(o.GetTags())}
 		if o.GetDurationMs() > 0 {
 			fx.EndsAtMs = at + o.GetDurationMs()
 		}
@@ -307,7 +325,11 @@ func describeCombat(e *pb.Event, label func(string) string, ability func(string)
 		return "ability_used", text, "", true
 	case *pb.Event_CastStarted:
 		o := b.CastStarted
-		return "cast_started", fmt.Sprintf("%s began casting %s (%.1f s)", label(o.GetActor()), ability(o.GetAbility()), float64(o.GetCastMs())/1000), "", true
+		text = fmt.Sprintf("%s began casting %s (%.1f s)", label(o.GetActor()), ability(o.GetAbility()), float64(o.GetCastMs())/1000)
+		if r := o.GetLandsInRound(); r > 0 {
+			text += fmt.Sprintf(", lands in round %d", r)
+		}
+		return "cast_started", text, "", true
 	case *pb.Event_CastCancelled:
 		o := b.CastCancelled
 		return "cast_cancelled", fmt.Sprintf("%s's %s was cancelled: %s", label(o.GetActor()), ability(o.GetAbility()), castWhy(o.GetReason())), o.GetReason(), true

@@ -1,5 +1,5 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                                                                                ││ Tester  Lv 1  XP 20                    │
+│                                                                                                ││ aria  Lv 1  XP 20            | 0 crowns│
 │                                                                                                ││ HP 93/100 ##########################-- │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
@@ -31,14 +31,14 @@
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    55.6s encounter inst-1.enc-1 with Plain Scuttler closed: mob_died                                                                     │
-│ +  55.6s Tester received 20 xp from Plain Scuttler                                                                                       │
+│ +  55.6s aria received 20 xp from Plain Scuttler                                                                                         │
 │    55.6s Plain Scuttler left view                                                                                                        │
-│    60.0s Tester healed 2                                                                                                                 │
-│    66.0s Tester healed 2                                                                                                                 │
-│    72.0s Tester healed 2                                                                                                                 │
-│    78.0s Tester healed 2                                                                                                                 │
+│    60.0s aria healed 2                                                                                                                   │
+│    66.0s aria healed 2                                                                                                                   │
+│    72.0s aria healed 2                                                                                                                   │
+│    78.0s aria healed 2                                                                                                                   │
 │    81.7s drop drop-inst-1.enc-1-shell-fragment is gone: taken                                                                            │
-│ +  81.7s Tester received shell-fragment from drop-inst-1.enc-1-shell-fragment                                                            │
+│ +  81.7s aria received Shell Fragment from drop-inst-1.enc-1-shell-fragment                                                              │
 │    81.7s instance ended, cleared: every mob dead and the loot taken                                                                      │
 │    82.1s entered Testgrounds                                                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

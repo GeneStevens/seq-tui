@@ -3,43 +3,43 @@
 │                                                                                                                                          │
 │ Name   _                   3 to 16 letters                                                                                               │
 │                                                                                                                                          │
-│ Class                                                                                                                                    │
-│ > 1  Warrior  Tank. Holds enemies with Taunt and Bash and heals itself; no mana.                                                         │
-│   2  Cleric   Healer. Minor Heal for allies, Smite for enemies; mana.                                                                    │
-│   3  Rogue    Melee damage. Backstab from behind, Sneak to hide; no mana.                                                                │
-│   4  Wizard   Spell damage. Flame Dart and Frost Bolt from range; fragile; mana.                                                         │
-│   5  Paladin  Tank and healer. Holy Strike, Challenge and healing hands; mana.                                                           │
-│   6  Druid    Healer and nature damage. Thorn Bolt and Mend; mana.                                                                       │
+│ Class (the server's menu)                                                                                                                │
+│ > 1  Warrior   tank                                                                                                                      │
+│   2  Cleric    healer                                                                                                                    │
+│   3  Rogue     melee                                                                                                                     │
+│   4  Wizard    spell                                                                                                                     │
+│   5  Paladin   tank + healer                                                                                                             │
+│   6  Druid     healer + spell                                                                                                            │
+│                                                                                                                                          │
+│ Armored front-liner who holds enemies' attention and soaks up their blows.                                                               │
+│ Starts with, free:                                                                                                                       │
+│   Taunt (instant, cd 12s, range 20m, enemy)                                                                                              │
+│   Bash (instant, cd 18s, range 2m, enemy)                                                                                                │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │ Type the name. Tab or Down moves to the classes: Up / Down or 1-6 choose.                                                                │
 │ Enter makes the character and plays it. Ctrl+C quits.                                                                                    │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | no space | heard N.Ns ago                                                                                           ? help  q quit

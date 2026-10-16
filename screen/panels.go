@@ -50,12 +50,13 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	} else {
 		left -= inst + round
 	}
-	target := left >= targetRows
-	targetH := targetRows
+	// The Target panel gives up its last line (the fight) when one row is short.
+	target := left >= targetRows-1
+	targetH := min(targetRows, left)
 	if target {
-		left -= targetRows
+		left -= targetH
 	}
-	if turn && target && left > 5 {
+	if turn && target && targetH == targetRows && left > 5 {
 		more := min(left-5, 4) // a longer plan list, while Nearby keeps 5 rows
 		round += more
 		left -= more
@@ -67,7 +68,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		round += left
 	case inst > 0:
 		inst += left
-	case target:
+	case target && targetH == targetRows:
 		targetH += left
 	}
 	if inst > 0 {
@@ -77,7 +78,8 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		rows = append(rows, box(roundTitle(m, v), rw, round, roundLines(m, v, iw, round-2, st), st)...)
 	}
 	if target {
-		rows = append(rows, box("Target", rw, targetH, pad(targetLines(m, iw, st), iw, targetH-2), st)...)
+		tl := targetLines(m, iw, st)
+		rows = append(rows, box("Target", rw, targetH, pad(tl[:min(len(tl), targetH-2)], iw, targetH-2), st)...)
 	}
 	if nearby {
 		h := th - len(rows)
@@ -124,7 +126,7 @@ func youLines(m *model.Model, v View, w int, st Styler) []string {
 		}
 	}
 	return []string{
-		st.Bold(fit(head, w)),
+		st.Bold(withCrowns(head, s.Crowns, w)),
 		hpLine,
 		fit(" Target: "+targetName(m), w),
 		last,
@@ -139,6 +141,7 @@ type nearby struct {
 	hp     string
 	target bool
 	id     string
+	note   string // after the distance: "not lootable"
 }
 
 func nearbyList(m *model.Model) []nearby {
@@ -163,7 +166,14 @@ func nearbyList(m *model.Model) []nearby {
 	}
 	for _, id := range m.DropIDs() {
 		d := m.Drops[id]
-		out = append(out, mk(glyphDrop, id, d.GetItem(), d.GetPos(), ""))
+		n := mk(glyphDrop, id, m.DropName(d), d.GetPos(), "")
+		if !d.GetCanLoot() {
+			n.glyph, n.note = glyphLocked, "not lootable"
+		}
+		out = append(out, n)
+	}
+	for _, n := range m.NPCs {
+		out = append(out, mk(glyphTrader, n.GetId(), n.GetName(), n.GetPos(), n.GetRole()))
 	}
 	for _, d := range m.Map.GetDoors() {
 		out = append(out, mk(glyphDoor, d.GetId(), d.GetId(), d.GetPos(), ""))
@@ -190,6 +200,9 @@ func nearbyLines(m *model.Model, w, h int, st Styler) []string {
 		right := metres(n.d) + " " + bearing(n.dx, n.dy)
 		if n.hp != "" {
 			right += " " + n.hp
+		}
+		if n.note != "" {
+			right += " " + n.note
 		}
 		right += " "
 		g := n.glyph

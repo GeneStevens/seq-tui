@@ -12,9 +12,9 @@ import (
 )
 
 // createKey handles a key on the character creation screen. The name takes
-// letters; Tab or Down moves to the class list, where Up and Down or 1 to 6
-// choose; Enter makes the character from either.
-func (a *App) createKey(k string) Action {
+// letters; Tab or Down moves to the class list (the server's menu), where Up
+// and Down or the number choose; Enter makes the character from either.
+func (a *App) createKey(k string, m *model.Model) Action {
 	c := a.create
 	if c.Busy {
 		if k == "ctrl+c" {
@@ -31,7 +31,12 @@ func (a *App) createKey(k string) Action {
 			c.Err = "a name is 3 to 16 letters"
 			return Action{}
 		}
-		return Action{Kind: CreateCharacter}
+		menu := m.Classes()
+		if c.Class >= len(menu) {
+			c.Err = "the server has sent no class menu to choose from"
+			return Action{}
+		}
+		return Action{Kind: CreateCharacter, ID: menu[c.Class].GetId(), Note: c.Name}
 	case "tab":
 		c.Classes = !c.Classes
 		return Action{}
@@ -62,8 +67,8 @@ func (a *App) createKey(k string) Action {
 			c.Class--
 		}
 	case k == "down":
-		c.Class = min(c.Class+1, len(screen.Classes)-1)
-	case len(k) == 1 && k[0] >= '1' && k[0] <= byte('0'+len(screen.Classes)):
+		c.Class = min(c.Class+1, max(len(m.Classes())-1, 0))
+	case len(k) == 1 && k[0] >= '1' && k[0] <= byte('0'+min(len(m.Classes()), 9)):
 		c.Class = int(k[0] - '1')
 	}
 	return Action{}

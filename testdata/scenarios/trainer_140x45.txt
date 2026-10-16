@@ -1,0 +1,45 @@
+┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Wizard Trainer, trainer, 4m NE away. You have 102 crowns.                                                                                │
+│                                                                                                                                          │
+│ You are level 3. Enter buys the ability under the cursor.                                                                                │
+│  Flame Dart             level 1   known                                                                                                  │
+│  Frost Bolt             level 1   known                                                                                                  │
+│> Arcane Ward            level 3   45 crowns                                                                                              │
+│  Root                   level 5   75 crowns                                                                                              │
+│  Fireball               level 7   105 crowns                                                                                             │
+│  Blink                  level 9   135 crowns                                                                                             │
+│  Frost Nova             level 11  165 crowns                                                                                             │
+│  Gate                   level 12  180 crowns                                                                                             │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Enter acts. Esc goes back.                                                                                                               │
+│ The answer is on the status line; every denial says why.                                                                                 │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

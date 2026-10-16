@@ -1,0 +1,45 @@
+┌─ Trade ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Trade with c1. Changing an offer clears the confirmations.                                                                               │
+│ Your offer                                                         │ c1's offer                                                          │
+│ not confirmed                                                      │ CONFIRMED                                                           │
+│ crowns 7                                                           │ crowns 0                                                            │
+│  (no items)                                                        │  Worn Cap Common  armor +2                                          │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ You carry, 20 crowns (Enter puts the item in the offer)                                                                                  │
+│  (nothing)                                                                                                                               │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                                                                │
+│ Esc closes the screen and leaves the trade open.                                                                                         │
+│ The server refuses Rare and Named items, and ones already traded.                                                                        │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | offer 7 crowns ok                                                                    ? help  q quit

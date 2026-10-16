@@ -147,3 +147,76 @@ func (s *Session) UseAbility(ctx context.Context, slot int, target string) (stri
 func (s *Session) SetSlot(ctx context.Context, slot int, ability string) (string, error) {
 	return s.intent(ctx, "set_slot", agentkit.SetSlot(slot, ability))
 }
+
+// Equip wears an item from the inventory (as the inventory lists it); gear
+// names the slot, "" lets the server choose (a ring goes to the first free
+// one). Out of combat only.
+func (s *Session) Equip(ctx context.Context, item, gear string) (string, error) {
+	return s.intent(ctx, "equip", agentkit.Equip(item, gear))
+}
+
+// Unequip takes off what is worn in a gear slot.
+func (s *Session) Unequip(ctx context.Context, gear string) (string, error) {
+	return s.intent(ctx, "unequip", agentkit.Unequip(gear))
+}
+
+// Buy buys count of an item from a vendor within reach.
+func (s *Session) Buy(ctx context.Context, npc, item string, count int) (string, error) {
+	return s.intent(ctx, "buy", agentkit.Buy(npc, item, count))
+}
+
+// Sell sells an item from the inventory to a vendor.
+func (s *Session) Sell(ctx context.Context, npc, item string) (string, error) {
+	return s.intent(ctx, "sell", agentkit.Sell(npc, item))
+}
+
+// Train buys an ability from a trainer of the character's class.
+func (s *Session) Train(ctx context.Context, npc, ability string) (string, error) {
+	return s.intent(ctx, "train", agentkit.Train(npc, ability))
+}
+
+// Bind sets the bind point at a binder.
+func (s *Session) Bind(ctx context.Context, npc string) (string, error) {
+	return s.intent(ctx, "bind", agentkit.Bind(npc))
+}
+
+// BankDeposit puts an item from the inventory in the bank.
+func (s *Session) BankDeposit(ctx context.Context, npc, item string) (string, error) {
+	return s.intent(ctx, "bank_deposit", agentkit.BankDeposit(npc, item))
+}
+
+// BankWithdraw takes an item out of the bank.
+func (s *Session) BankWithdraw(ctx context.Context, npc, item string) (string, error) {
+	return s.intent(ctx, "bank_withdraw", agentkit.BankWithdraw(npc, item))
+}
+
+// TradeOpen asks another character for a trade, or agrees to its ask.
+func (s *Session) TradeOpen(ctx context.Context, with string) (string, error) {
+	return s.intent(ctx, "trade_open", agentkit.TradeOpen(with))
+}
+
+// TradeAddItem puts an item from the inventory in the trade offer.
+func (s *Session) TradeAddItem(ctx context.Context, item string) (string, error) {
+	return s.intent(ctx, "trade_add", agentkit.TradeAddItem(item))
+}
+
+// TradeSetCrowns sets the total of crowns in the trade offer.
+func (s *Session) TradeSetCrowns(ctx context.Context, crowns int) (string, error) {
+	return s.intent(ctx, "trade_add", agentkit.TradeSetCrowns(crowns))
+}
+
+// TradeRemoveItem takes an item back out of the offer.
+func (s *Session) TradeRemoveItem(ctx context.Context, item string) (string, error) {
+	return s.intent(ctx, "trade_remove", agentkit.TradeRemoveItem(item))
+}
+
+// TradeConfirm confirms the trade as it stands; any change clears both
+// confirmations.
+func (s *Session) TradeConfirm(ctx context.Context) (string, error) {
+	return s.intent(ctx, "trade_confirm", agentkit.TradeConfirm())
+}
+
+// TradeCancel closes the trade window.
+func (s *Session) TradeCancel(ctx context.Context) (string, error) {
+	return s.intent(ctx, "trade_cancel", agentkit.TradeCancel())
+}

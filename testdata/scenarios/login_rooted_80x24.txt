@@ -1,24 +1,24 @@
 ┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
-│                    .                   #         ││ zedd  Lv 2 Wizard        │
-│                    .                   #         ││ HP 88/88 ############### │
-│                    .                   #         ││ MP 115/173 ########----- │
-│                    .                   #         ││ XP ###-------- 40 to Lv 3│
-│                    .                   #         ││ Atk off | none           │
-│                    .    @*             #         │└──────────────────────────┘
+│                    .                   #         ││ zedd  Lv 1 Wizard   | 0cr│
+│                    .                   #         ││ HP 80/80 ############### │
+│                    .     $$$$$$        #         ││ MP 140/150 ############- │
+│                    .     $$$           #         ││ XP ----------- 40 to Lv 2│
+│                    .                   #         ││ Atk off | Plain Scuttler │
+│                    .    @     M        #         │└──────────────────────────┘
 │                    .                   #         │┌─ Target ─────────────────┐
-│                    .                   #         ││ no target (Tab to choose)│
-│                    .                   #         ││                          │
-│                    .                   #         ││                          │
+│                    .                   #         ││ M Plain Scuttler  Lv 1   │
+│                    .                   #         ││ HP 400/400 ###### 13m E  │
+│                    .                   #         ││ fighting you             │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Flame Dart    gcd 2 Frost Bolt   gcd 3 Arcane Ward  60s 4 -          empty │
+│ 1 Flame Dart  ready 2 Frost Bolt ready 3 Root       ready 4 -          empty │
 │ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
-│ You: Arcane Ward 36s                                                         │
+│ You: none   |   Plain Scuttler: Rooted 18s                                   │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns Plain Scuttler left view                                            │
-│ +  NN.Ns you reached level 2: new ability Arcane Ward (key 3)                │
-│    NN.Ns zedd used Arcane Ward                                               │
-│    NN.Ns Arcane Ward: lifesteal on zedd for 36 s                             │
+│ nothing has happened yet                                                     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds | heard N.Ns ago | key 3 Arcane Ward ok     ? help  q quit
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

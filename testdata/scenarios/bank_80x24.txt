@@ -1,0 +1,24 @@
+┌─ Traders ────────────────────────────────────────────────────────────────────┐
+│ Testgrounds Banker, banker, 2m S away. You have 37 crowns.                   │
+│                                                                              │
+│ You carry (Enter banks it)           │ In the bank, 1 (Enter takes it)       │
+│  (nothing)                           │> Buckler Common                       │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.  │
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | bank Buckler ok          ? help  q quit

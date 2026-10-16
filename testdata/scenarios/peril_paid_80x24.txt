@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                                                  ││ c1  Lv 1  XP 0     | 30cr│
+│                                                  ││ HP 100/100 ############# │
+│..................................................││ Target: none             │
+│                                                  ││ Auto-attack: off         │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Instance ───────────────┐
+│                         D                        ││ Peril Den                │
+│                         @                        ││ real-time | open         │
+│                                                  ││ party up to 2 | heroic   │
+│                                                  ││ enter at gate-north (E)  │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Target ─────────────────┐
+│                                                  ││ no target (Tab to choose)│
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns c2 (c2) appeared                                                    │
+│ +   N.Ns you paid an entry fee of 50 crowns                                  │
+│     N.Ns instance opened: Peril Den (up to 2 in it); enter at gate-north with│
+│            E                                                                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | heard N.Ns ago | instance requested; the log says when it is open     

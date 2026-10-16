@@ -1,5 +1,5 @@
 ┌─ Testgrounds (Quick Turns), north up ──────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                                                                                ││ zedd  Lv 1 Wizard                      │
+│                                                                                                ││ zedd  Lv 1 Wizard            | 0 crowns│
 │                                                                                                ││ HP 80/80 ############################# │
 │                                                                                                ││ MP 150/150 ########################### │
 │                                                                                                ││ XP ------------------------- 40 to Lv 2│
@@ -11,7 +11,7 @@
 │                                                                                                ││ party up to 1 | normal                 │
 │                                                                                                ││ sleeps up to 7 d                       │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                @                                               │┌─ Round 1, 19 s left ───────────────────┐
+│                                                @                                               │┌─ Round 1, 5 min 19 s left ─────────────┐
 │                                                                                                ││ 0 of 1 submitted                       │
 │                                                                                                ││ Plan (2/16): not sent yet              │
 │                                                                                                ││  1 target Plain Scuttler               │

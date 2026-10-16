@@ -26,7 +26,7 @@ func replayTo(t *testing.T, spec string) *model.Model {
 
 func TestMenuIsKeptFromTheWorldZoneMap(t *testing.T) {
 	m := replayTo(t, "solo_trial.jsonl@instance_menu")
-	if len(m.Presets) != 5 || m.Preset("quick-turns").GetTimeMode() != "turn_based" || m.Preset("quick-turns").GetTurnDeadlineMs() != 20000 {
+	if len(m.Presets) != 7 || m.Preset("quick-turns").GetTimeMode() != "turn_based" || m.Preset("quick-turns").GetTurnDeadlineMs() != 20000 {
 		t.Fatalf("presets %v", m.Presets)
 	}
 	if m.Preset("quick-turns").GetSleepLimitMs() == 0 || m.Preset("solo-trial").GetSleepLimitMs() != 0 {
@@ -47,14 +47,14 @@ func TestSoloTrialOpenedEnteredClearedHandedBack(t *testing.T) {
 		t.Errorf("inside: %q %v", m.Space, m.Current())
 	}
 	// What the instance is comes from the server, not from the space's name (D49).
-	if in := m.Instance; in.GetPreset() != "solo-trial" || in.GetPartyCap() != 1 || in.GetTimeMode() != "realtime" || in.GetDifficulty() != "heroic" || in.GetSleepLimitMs() != 0 {
+	if in := m.Instance; in.GetPreset() != "solo-trial" || in.GetPartyCap() != 1 || in.GetTimeMode() != "realtime" || in.GetDifficulty() != "normal" || in.GetSleepLimitMs() != 0 {
 		t.Errorf("instance info %v", in)
 	}
 	m.Space = "Somewhere else entirely"
 	if m.InstanceName() != "Solo Trial" || !m.InInstance() {
 		t.Error("the instance was read from the space's name")
 	}
-	if len(m.Presets) != 5 {
+	if len(m.Presets) != 7 {
 		t.Error("the menu was lost when the character went in")
 	}
 	m = replayTo(t, "solo_trial.jsonl")

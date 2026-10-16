@@ -1,0 +1,45 @@
+┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                    .                                               #           ││ zedd  Lv 1 Wizard            | 0 crowns│
+│                                    .                                               #           ││ HP 80/80 ############################# │
+│                                    .                                               #           ││ MP 140/150 #########################-- │
+│                                    .                                               #           ││ XP ------------------------- 40 to Lv 2│
+│                                    .                                               #           ││ Atk off | Plain Scuttler               │
+│                                    .             $  $ $  $ $ $                     #           │└────────────────────────────────────────┘
+│                                    .                                               #           │┌─ Target ───────────────────────────────┐
+│                                    .             $  $ $                            #           ││ M Plain Scuttler  Lv 1                 │
+│                                    .                                               #           ││ HP 400/400 #################### 13m E  │
+│                                    .                                               #           ││ fighting you                           │
+│                                    .                                               #           │└────────────────────────────────────────┘
+│                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
+│                                    .           @              M                    #           ││ $ Testgrounds Vendor       8m N vendor │
+│                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
+│                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
+│                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
+│                                    .                                               #           ││ M Plain Scuttler         13m E 400/400 │
+│                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
+│                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
+│                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
+│                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │
+│                                    .                                               #           ││ $ Druid Trainer         17m NE trainer │
+│                                    .                                               #           ││ D gate-north                    98m NE │
+│                                    .                                               #           ││ D line-east                     189m E │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1 Flame Dart             6mp ready 2 Frost Bolt           12mp ready 3 Root                 10mp ready 4 -                         empty │
+│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ You: none   |   Plain Scuttler: Rooted 18s                                                                                               │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     0.2s zedd targeted Plain Scuttler                                                                                                    │
+│     0.3s zedd began casting Root (1.5 s)                                                                                                 │
+│     1.8s zedd used Root on Plain Scuttler                                                                                                │
+│     1.8s zedd opened an encounter with Plain Scuttler (enc-1)                                                                            │
+│     1.8s Root: root on Plain Scuttler for 18 s                                                                                           │
+│     1.9s Plain Scuttler targeted zedd                                                                                                    │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit
