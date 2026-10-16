@@ -14,11 +14,57 @@ const (
 	targetRows = 5
 )
 
-func rightColumn(m *model.Model, rw, th int, st Styler) []string {
+// rightColumn stacks the panels that fit, in order: You, Instance (inside one,
+// or once one is open or has ended), Round (turn-based), Target, Nearby. What a
+// small screen cannot hold is left out, never squeezed; spare rows go to the
+// Instance panel, or to the Round panel when Nearby does not fit.
+func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	iw := rw - 2
 	rows := box("You", rw, youRows, youLines(m, iw, st), st)
-	rows = append(rows, box("Target", rw, targetRows, targetLines(m, iw, st), st)...)
-	rows = append(rows, box("Nearby", rw, th-youRows-targetRows, nearbyLines(m, iw, th-youRows-targetRows-2, st), st)...)
+	left := th - youRows
+	inst, round := 0, 0
+	if instanceShown(m) {
+		inst = 4
+		left -= inst
+	}
+	turn := m.TurnBased()
+	if turn {
+		round = 7
+		left -= round
+	}
+	target := left >= targetRows
+	if target {
+		left -= targetRows
+	}
+	if turn && target && left > 5 {
+		more := min(left-5, 4) // a longer plan list, while Nearby keeps 5 rows
+		round += more
+		left -= more
+	}
+	nearby := left >= 5
+	switch {
+	case nearby:
+	case turn:
+		round += left
+	case inst > 0:
+		inst += left
+	}
+	if inst > 0 {
+		rows = append(rows, box("Instance", rw, inst, instanceLines(m, iw, inst-2, st), st)...)
+	}
+	if turn {
+		rows = append(rows, box(roundTitle(m, v), rw, round, roundLines(m, v, iw, round-2, st), st)...)
+	}
+	if target {
+		rows = append(rows, box("Target", rw, targetRows, targetLines(m, iw, st), st)...)
+	}
+	if nearby {
+		h := th - len(rows)
+		rows = append(rows, box("Nearby", rw, h, nearbyLines(m, iw, h-2, st), st)...)
+	}
+	for len(rows) < th {
+		rows = append(rows, strings.Repeat(" ", rw))
+	}
 	return rows
 }
 

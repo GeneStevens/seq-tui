@@ -41,6 +41,13 @@ type View struct {
 	// Notice is the answer to the last command, shown on the status line.
 	Notice    string
 	NoticeBad bool // the command was denied: shown with "!" and its reason
+
+	// Menu is the instance menu, nil when it is closed. Plan is the plan
+	// being built in a turn-based instance. Now is the client's clock, for the
+	// countdown to a round's deadline (a date from the server).
+	Menu *Menu
+	Plan Plan
+	Now  time.Time
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -52,12 +59,15 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	lh := min(6+(h-MinHeight)/3, 14)
 	th := h - lh - 1 // rows above the log
 	var rows []string
-	if v.Help {
+	switch {
+	case v.Help:
 		rows = box("Keys", w, th+lh, helpLines(w-2, th+lh-2, st), st)
-	} else {
+	case v.Menu != nil:
+		rows = box("Instances", w, th+lh, menuLines(m, v, w-2, th+lh-2, st), st)
+	default:
 		mapW := w - rw
-		mp := box(mapTitle(m), mapW, th, mapPanel(m, mapW-2, th-2, st), st)
-		right := rightColumn(m, rw, th, st)
+		mp := box(mapTitle(m), mapW, th, mapPanel(m, v, mapW-2, th-2, st), st)
+		right := rightColumn(m, v, rw, th, st)
 		for i := range mp {
 			rows = append(rows, mp[i]+right[i])
 		}
@@ -96,7 +106,7 @@ func mapTitle(m *model.Model) string {
 	return "Map"
 }
 
-func mapPanel(m *model.Model, cw, ch int, st Styler) []string {
+func mapPanel(m *model.Model, v View, cw, ch int, st Styler) []string {
 	if m.Map == nil || m.Self.Pos == nil {
 		rows := make([]string, ch)
 		for i := range rows {
@@ -105,7 +115,7 @@ func mapPanel(m *model.Model, cw, ch int, st Styler) []string {
 		rows[ch/2] = fit("  waiting for the map…", cw)
 		return rows
 	}
-	return mapRows(m, cw, ch, st)
+	return mapRows(m, v, cw, ch, st)
 }
 
 // box draws a titled frame of w x h cells around inner, whose lines are each
@@ -132,16 +142,17 @@ func helpLines(w, h int, st Styler) []string {
 		"Loot             L: the nearest drop you may take",
 		"Use a door       E: the nearest door; stand at it first",
 		"Release          R: when you are dead, give up your body and respawn",
-		"Log out          O: leave the world",
-		"Quit             Q or Ctrl+C: leave the screen, stay in the world",
-		"Event log        V: also show movement and rules ticks",
-		"Help             ?",
+		"Instances        I: this zone's menu (Enter opens one); then E at its door",
+		"Plans            in a turn-based instance the keys build a plan, not act:",
+		"                 arrows move, Tab target, F attack, L loot, E door, X stop, R release",
+		"                 Enter submits it, Backspace removes a step, Esc clears the plan",
+		"Leave            O logs out of the world; Q or Ctrl+C quits the screen only",
+		"Event log        V: also show movement and rules ticks      Help  ?",
 		"",
 		"Map: north is up, your position is always the centre.",
-		"  @ you     m mob     M your target     x dead mob",
+		"  @ you     m mob     M your target     x dead mob     + end of your plan",
 		"  p another character     * a drop     D a door     # wall",
-		"  Nearby lists the same things nearest first, with a distance",
-		"  and a compass point, so nothing depends on colour.",
+		"  Nearby lists the same things nearest first, with a distance and a compass point.",
 		"",
 		"Event log markers:  ! denied (with the reason)   < a hit on you",
 		"                    x a kill   + a reward",

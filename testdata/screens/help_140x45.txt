@@ -5,20 +5,20 @@
 │ Loot             L: the nearest drop you may take                                                                                        │
 │ Use a door       E: the nearest door; stand at it first                                                                                  │
 │ Release          R: when you are dead, give up your body and respawn                                                                     │
-│ Log out          O: leave the world                                                                                                      │
-│ Quit             Q or Ctrl+C: leave the screen, stay in the world                                                                        │
-│ Event log        V: also show movement and rules ticks                                                                                   │
-│ Help             ?                                                                                                                       │
+│ Instances        I: this zone's menu (Enter opens one); then E at its door                                                               │
+│ Plans            in a turn-based instance the keys build a plan, not act:                                                                │
+│                  arrows move, Tab target, F attack, L loot, E door, X stop, R release                                                    │
+│                  Enter submits it, Backspace removes a step, Esc clears the plan                                                         │
+│ Leave            O logs out of the world; Q or Ctrl+C quits the screen only                                                              │
+│ Event log        V: also show movement and rules ticks      Help  ?                                                                      │
 │                                                                                                                                          │
 │ Map: north is up, your position is always the centre.                                                                                    │
-│   @ you     m mob     M your target     x dead mob                                                                                       │
+│   @ you     m mob     M your target     x dead mob     + end of your plan                                                                │
 │   p another character     * a drop     D a door     # wall                                                                               │
-│   Nearby lists the same things nearest first, with a distance                                                                            │
-│   and a compass point, so nothing depends on colour.                                                                                     │
+│   Nearby lists the same things nearest first, with a distance and a compass point.                                                       │
 │                                                                                                                                          │
 │ Event log markers:  ! denied (with the reason)   < a hit on you                                                                          │
 │                     x a kill   + a reward                                                                                                │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

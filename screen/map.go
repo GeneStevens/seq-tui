@@ -19,6 +19,7 @@ const (
 	glyphDoor      = 'D'
 	glyphWall      = '#'
 	glyphBounds    = '.'
+	glyphPlan      = '+' // where the plan being built ends
 	// The target is its glyph in upper case: M, X, P.
 )
 
@@ -32,6 +33,7 @@ const (
 	kWall
 	kDoor
 	kDrop
+	kPlan
 	kCharacter
 	kMob
 	kTarget
@@ -150,7 +152,7 @@ func entityGlyph(e *pb.EntityState) rune {
 func upper(r rune) rune { return []rune(strings.ToUpper(string(r)))[0] }
 
 // mapRows draws the map panel's interior: cw x ch cells, styled.
-func mapRows(m *model.Model, cw, ch int, st Styler) []string {
+func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	g := newGrid(newScale(m.Map.GetViewRadiusMm(), ch), cw, ch, m.Self.Pos)
 	if b := m.Map.GetBounds(); b != nil {
 		corners := []*pb.Pos{{X: b.GetMinX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMaxY()}, {X: b.GetMinX(), Y: b.GetMaxY()}}
@@ -170,6 +172,10 @@ func mapRows(m *model.Model, cw, ch int, st Styler) []string {
 	for _, id := range m.DropIDs() {
 		c, r := g.cellOf(m.Drops[id].GetPos())
 		g.put(c, r, glyphDrop, kDrop)
+	}
+	if v.Plan.Dest != nil {
+		c, r := g.cellOf(v.Plan.Dest)
+		g.put(c, r, glyphPlan, kPlan)
 	}
 	put := func(e *pb.EntityState) {
 		c, r := g.cellOf(e.GetPos())
@@ -204,6 +210,8 @@ func mapRows(m *model.Model, cw, ch int, st Styler) []string {
 				s = st.Cyan(s)
 			case kDrop:
 				s = st.Green(s)
+			case kPlan:
+				s = st.Yellow(s)
 			case kMob:
 				s = st.Red(s)
 			case kTarget:

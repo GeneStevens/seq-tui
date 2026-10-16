@@ -8,6 +8,7 @@ import (
 	"sort"
 
 	"github.com/GeneStevens/seq-tui/model"
+	"github.com/GeneStevens/seq/agentkit"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
@@ -30,15 +31,29 @@ const (
 	Quit
 	ToggleHelp
 	ToggleVerbose
+	Stop       // a plan step: stop where you are
+	OpenMenu   // the instance menu
+	PlanAdd    // add Step to the plan
+	PlanUndo   // remove the last step
+	PlanClear  // remove every step
+	PlanSubmit // send the plan
+	OpenInstance
 )
 
 // Action is a key's meaning, with the choice it needs already made.
 type Action struct {
 	Kind Kind
-	X, Y int64  // Move: the destination
-	ID   string // Target, Loot, UseDoor: what it names
-	On   bool   // Attack
-	Note string // None: why nothing happens, for the status line
+	X, Y int64   // Move: the destination
+	ID   string  // Target, Loot, UseDoor: what it names
+	On   bool    // Attack
+	Note string  // None: why nothing happens, for the status line
+	Step *Action // PlanAdd: the step to add
+
+	// PlanSubmit: the plan as the toolkit takes it, and the round and edit it
+	// is a copy of.
+	Steps []agentkit.Step
+	Round uint64
+	Ver   int
 }
 
 // Plan decides what a key does against the model. It is pure.
@@ -76,6 +91,13 @@ func Plan(key string, m *model.Model) Action {
 		return Action{Note: "no door on this map"}
 	case "r":
 		return Action{Kind: Release} // the server denies it unless the character is dead
+	}
+	return common(key)
+}
+
+// common are the keys that mean the same in real time and in a plan.
+func common(key string) Action {
+	switch key {
 	case "o":
 		return Action{Kind: Logout}
 	case "q", "ctrl+c":
@@ -84,6 +106,8 @@ func Plan(key string, m *model.Model) Action {
 		return Action{Kind: ToggleHelp}
 	case "v":
 		return Action{Kind: ToggleVerbose}
+	case "i":
+		return Action{Kind: OpenMenu}
 	}
 	return Action{}
 }
@@ -95,7 +119,10 @@ func d2(a, b *pb.Pos) int64 {
 
 // nextTarget is the living mob after the current target, nearest first, and
 // round again.
-func nextTarget(m *model.Model) string {
+func nextTarget(m *model.Model) string { return nextTargetFrom(m, m.Self.Target) }
+
+// nextTargetFrom is the living mob after cur, nearest first.
+func nextTargetFrom(m *model.Model, cur string) string {
 	var ids []string
 	for _, id := range m.EntityIDs() {
 		if e := m.Entities[id]; e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB && !e.GetDead() {
@@ -106,7 +133,7 @@ func nextTarget(m *model.Model) string {
 		return d2(m.Entities[ids[i]].GetPos(), m.Self.Pos) < d2(m.Entities[ids[j]].GetPos(), m.Self.Pos)
 	})
 	for i, id := range ids {
-		if id == m.Self.Target {
+		if id == cur {
 			return ids[(i+1)%len(ids)]
 		}
 	}
@@ -117,11 +144,13 @@ func nextTarget(m *model.Model) string {
 }
 
 // nearestDrop prefers a drop this character may take.
-func nearestDrop(m *model.Model) string {
+func nearestDrop(m *model.Model) string { return nearestDropTo(m, m.Self.Pos) }
+
+func nearestDropTo(m *model.Model, from *pb.Pos) string {
 	best, bestOK, bestD := "", false, int64(0)
 	for _, id := range m.DropIDs() {
 		d := m.Drops[id]
-		ok, dd := d.GetCanLoot(), d2(d.GetPos(), m.Self.Pos)
+		ok, dd := d.GetCanLoot(), d2(d.GetPos(), from)
 		if best == "" || (ok && !bestOK) || (ok == bestOK && dd < bestD) {
 			best, bestOK, bestD = id, ok, dd
 		}
@@ -129,10 +158,12 @@ func nearestDrop(m *model.Model) string {
 	return best
 }
 
-func nearestDoor(m *model.Model) string {
+func nearestDoor(m *model.Model) string { return nearestDoorTo(m, m.Self.Pos) }
+
+func nearestDoorTo(m *model.Model, from *pb.Pos) string {
 	best, bestD := "", int64(0)
 	for _, d := range m.Map.GetDoors() {
-		if dd := d2(d.GetPos(), m.Self.Pos); best == "" || dd < bestD {
+		if dd := d2(d.GetPos(), from); best == "" || dd < bestD {
 			best, bestD = d.GetId(), dd
 		}
 	}

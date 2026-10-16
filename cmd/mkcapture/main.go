@@ -4,11 +4,20 @@
 //
 //	SEQ_SESSION_TOKEN=... go run ./cmd/mkcapture -scenario release -character me-1 -out testdata/logs/live_release.jsonl
 //	SEQ_SESSION_TOKEN=... go run ./cmd/mkcapture -scenario door    -character me-2 -out testdata/logs/live_door.jsonl
+//	SEQ_SESSION_TOKEN=... go run ./cmd/mkcapture -scenario solo    -character me-1 -out testdata/logs/live_solo_trial.jsonl
+//	SEQ_SESSION_TOKEN=... go run ./cmd/mkcapture -scenario turns   -character me-1 -out testdata/logs/live_quick_turns.jsonl
 //
 // release: stand beside a mob until it kills the character, release, wait for
 // the respawn. door: walk to the zone line, cross it, and cross back.
+// solo: open solo-trial from the menu, walk in, kill and loot the scuttler
+// until the instance is cleared, and be handed back. turns: the same in
+// quick-turns, a plan a round, one missed deadline, a dropped connection that
+// resumes and a fresh login into the open round.
 // The server is the one `make play` starts (seqd, -insecure's loopback rules
-// apply). A fixture is reviewed before it is committed; tests only read it.
+// apply). An account's characters are one group, and an account has one
+// instance at a time, so run each of solo and turns on a fresh server with
+// the character standing in the world. A fixture is reviewed before it is
+// committed; tests only read it.
 package main
 
 import (
@@ -34,7 +43,7 @@ func main() {
 func run() error {
 	addr := flag.String("url", "wss://127.0.0.1:8443/seq/v1", "the development server's gateway (loopback only)")
 	char := flag.String("character", "me-1", "the character to play")
-	scenario := flag.String("scenario", "release", "release or door")
+	scenario := flag.String("scenario", "release", "release, door, solo or turns")
 	out := flag.String("out", "", "the log to write")
 	flag.Parse()
 	token := os.Getenv("SEQ_SESSION_TOKEN")
@@ -46,26 +55,39 @@ func run() error {
 		return err
 	}
 	defer f.Close()
-	s := client.NewSession(client.Config{URL: *addr, TLS: &tls.Config{InsecureSkipVerify: true}, Credential: token, Character: *char, Record: record.NewWriter(f)})
+	cfg := client.Config{URL: *addr, TLS: &tls.Config{InsecureSkipVerify: true}, Credential: token, Character: *char, Record: record.NewWriter(f)}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
 	defer cancel()
-	if err := s.Login(ctx); err != nil {
+	c := &capture{cfg: cfg, ctx: ctx}
+	if err := c.login(); err != nil {
 		return err
 	}
-	defer s.Close()
-	c := &capture{s: s, ctx: ctx}
+	defer func() { c.s.Close() }()
 	switch *scenario {
 	case "release":
 		return c.release()
 	case "door":
 		return c.door()
+	case "turns":
+		return c.turns()
+	case "solo":
+		return c.solo()
 	}
 	return fmt.Errorf("unknown scenario %q", *scenario)
 }
 
 type capture struct {
+	cfg client.Config
 	s   *client.Session
 	ctx context.Context
+}
+
+// login connects a new session, with a new model, to the same recording.
+func (c *capture) login() error {
+	cfg := c.cfg
+	cfg.Session, cfg.Model = "", nil
+	c.s = client.NewSession(cfg)
+	return c.s.Login(c.ctx)
 }
 
 // until polls the model until pred holds.

@@ -5,6 +5,7 @@ import (
 	"errors"
 
 	"github.com/GeneStevens/seq-tui/model"
+	"github.com/GeneStevens/seq/agentkit"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
@@ -118,4 +119,18 @@ func (s *Session) Ping(ctx context.Context) error {
 	n := 100 + s.nping // 1 is the toolkit's own, on a reconnect
 	s.mu.Unlock()
 	return c.Ping(ctx, n)
+}
+
+// OpenInstance asks for an instance of the zone from one of the presets its
+// map lists (D11). An accepted intent means the request was taken: the
+// instance_opened or instance_open_failed event follows.
+func (s *Session) OpenInstance(ctx context.Context, preset string) (string, error) {
+	return s.intent(ctx, "instance_open", agentkit.InstanceOpen(preset))
+}
+
+// SubmitPlan sends the plan for the next round of a turn-based instance (D30).
+// The intent's result is the plan's durable receipt (D37). A human session
+// never marks a plan as a stand-in.
+func (s *Session) SubmitPlan(ctx context.Context, steps ...agentkit.Step) (string, error) {
+	return s.intent(ctx, "plan", agentkit.TurnSubmit(steps...))
 }

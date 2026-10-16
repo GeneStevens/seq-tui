@@ -1,0 +1,24 @@
+┌─ Testgrounds (Quick Turns), north up ────────────┐┌─ You ────────────────────┐
+│                                                  ││ Tester  Lv 1  XP 0       │
+│                                                  ││ HP 100/100 ############# │
+│                       D                          ││ Target: Plain Scuttler   │
+│                                                  ││ Auto-attack: ON          │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Instance ───────────────┐
+│                         M                        ││ Quick Turns              │
+│                         @                        ││ turn-based | inside      │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Round 3 ran: all subm… ─┐
+│                                                  ││ your own plan was played │
+│                                                  ││ next round opening…      │
+│                                                  ││                          │
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     4.1s Tester hit Plain Scuttler for 5                                     │
+│     6.0s Plain Scuttler healed 1                                             │
+│     6.0s round 3 ran (everyone had a plan): your character played your own   │
+│            plan                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds (Quick Turns) | heard 0.4s ago              ? help  q quit
