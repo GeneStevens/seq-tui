@@ -1,4 +1,4 @@
-.PHONY: verify golden play
+.PHONY: verify golden fixtures play
 
 # verify is the repo's gate (seq-design D15): gofmt check, vet, test. Under 60 s.
 verify:
@@ -9,11 +9,21 @@ verify:
 	go test ./... || exit 1; \
 	echo "make verify: OK in $$(( $$(date +%s) - start )) s"
 
-# golden rewrites the golden screens in testdata/screens from the recorded logs.
+# fixtures regenerates the recorded logs under testdata/logs: the hand-built ones
+# (cmd/mkfixtures) and the sessions of the client scenarios, which write their
+# own recording when SEQ_FIXTURES names the directory. Run `make golden` after
+# it, and review both diffs.
+fixtures:
+	go run ./cmd/mkfixtures testdata/logs
+	SEQ_FIXTURES=$(CURDIR)/testdata/logs go test ./scenario -count=1
+
+# golden rewrites the golden screens: testdata/screens from the recorded logs,
+# testdata/scenarios from the scenarios' own screens.
 # Review the diff before committing: a golden changing means the screen changed.
 # Tests and `make verify` only compare, never write.
 golden:
 	go run ./cmd/mkscreens
+	SEQ_GOLDEN=1 go test ./scenario -count=1
 
 # play starts a local seq server (PostgreSQL through docker, OrbStack's) and the
 # TUI on it; see scripts/play.sh for what it needs. Quitting stops both.

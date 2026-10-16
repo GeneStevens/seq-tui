@@ -1,7 +1,9 @@
 // Command mkfixtures writes the recorded-log fixtures under testdata/logs. The
 // logs are built from the shapes of seq's golden fixtures (protocol/testdata),
-// in the order a real session delivers them; tests only read them. Run it by
-// hand, and review the diff, if a fixture must change:
+// in the order a real session delivers them; tests only read them. The logs
+// that come from a played session (play, release, door, solo_trial,
+// quick_turns, duo_turns) are the scenarios' (`make fixtures` runs both). Run
+// it by hand, and review the diff, if a fixture must change:
 //
 //	go run ./cmd/mkfixtures testdata/logs
 package main

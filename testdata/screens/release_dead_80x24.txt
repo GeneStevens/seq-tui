@@ -1,24 +1,24 @@
 ┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
-│        .                             #           ││ Tester  Lv 1  XP 0       │
-│        .                             #           ││ DEAD  HP 0/100           │
-│        .                             #           ││ Target: none             │
-│        .                             #           ││ You are dead. R: release │
-│        .                             #           │└──────────────────────────┘
-│        .                             #           │┌─ Target ─────────────────┐
-│        .                             #           ││ no target (Tab to choose)│
-│        .              m @            #           ││                          │
-│        .                             #           ││                          │
-│        .                             #           │└──────────────────────────┘
-│        .                             #           │┌─ Nearby ─────────────────┐
-│        .                             #           ││ m Plain Scu… 2m NW 40/40 │
-│        .                             #           ││ D gate-north      88m NE │
-│        .                             #           ││ D line-east       178m E │
-│        .                             #           ││ p Tester  178m E 100/100 │
+│          .                             #         ││ Tester  Lv 1  XP 0       │
+│          .                             #         ││ DEAD  HP 0/6             │
+│          .                             #         ││ Target: none             │
+│          .                             #         ││ You are dead. R: release │
+│          .                             #         │└──────────────────────────┘
+│          .                             #         │┌─ Target ─────────────────┐
+│          .                             #         ││ no target (Tab to choose)│
+│          .              @m             #         ││                          │
+│          .                             #         ││                          │
+│          .                             #         │└──────────────────────────┘
+│          .                             #         │┌─ Nearby ─────────────────┐
+│          .                             #         ││ m Plain Scut… 2m E 40/40 │
+│          .                             #         ││ D gate-north      89m NE │
+│          .                             #         ││ D line-east       180m E │
+│          .                             #         ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│   444.0s Tester healed 2                                                     │
-│ < 445.0s Plain Scuttler hit Tester for 4                                     │
-│ < 448.0s Plain Scuttler hit Tester for 3                                     │
-│ x 448.0s Plain Scuttler killed Tester                                        │
+│ <  10.1s Plain Scuttler hit Tester for 2                                     │
+│ x  10.1s Plain Scuttler killed Tester                                        │
+│    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead       │
+│    11.0s Plain Scuttler reset to 40 hp                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

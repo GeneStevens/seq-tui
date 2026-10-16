@@ -91,6 +91,10 @@ type Model struct {
 	Opened *Opened
 	Ended  *Ended
 	Round  *Round
+	// Instance is what the server says of the instance the character is in
+	// (D49): its preset, party cap, time mode, difficulty and sleep limit. Nil
+	// in a world zone.
+	Instance *pb.InstanceInfo
 
 	// Welcome is the latest welcome; Connections counts the welcomes seen
 	// (a resume after a drop is a second connection).
@@ -225,7 +229,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	self := s.GetSelf()
 	e := self.GetEntity()
-	m.Space, m.Tick, m.GameTimeMs = s.GetSpace(), s.GetTick(), s.GetGameTimeMs()
+	m.Space, m.Tick, m.GameTimeMs, m.Instance = s.GetSpace(), s.GetTick(), s.GetGameTimeMs(), s.GetInstance()
 	m.Self = Self{
 		ID: e.GetId(), Name: e.GetName(), Level: e.GetLevel(), HP: e.GetHp(), MaxHP: e.GetMaxHp(), Dead: e.GetDead(),
 		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(),
@@ -280,7 +284,7 @@ func (m *Model) apply(e *pb.Event) {
 	switch b := e.GetBody().(type) {
 	case *pb.Event_SpaceChanged:
 		// The snapshot of the new space follows and replaces this view.
-		m.Space, m.Map, m.Round = b.SpaceChanged.GetSpace(), nil, nil
+		m.Space, m.Map, m.Round, m.Instance = b.SpaceChanged.GetSpace(), nil, nil, nil
 	case *pb.Event_EntityAppeared:
 		en := b.EntityAppeared.GetEntity()
 		m.remember(en)

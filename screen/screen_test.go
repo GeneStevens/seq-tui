@@ -208,22 +208,22 @@ func TestRoundPanel(t *testing.T) {
 	for _, tc := range []struct {
 		left time.Duration
 		want string
-	}{{20 * time.Second, "Round 2, 20 s left"}, {1500 * time.Millisecond, "Round 2, 2 s left"}, {0, "Round 2, deadline now"}, {-time.Second, "Round 2, deadline now"}} {
+	}{{20 * time.Second, "Round 1, 20 s left"}, {1500 * time.Millisecond, "Round 1, 2 s left"}, {0, "Round 1, deadline now"}, {-time.Second, "Round 1, deadline now"}} {
 		if out := draw(tc.left, false, 80, 24); !strings.Contains(out, tc.want) {
 			t.Errorf("left %v: want %q\n%s", tc.left, tc.want, out)
 		}
 	}
-	if out := draw(5*time.Second, false, 140, 45); !strings.Contains(out, "Plan (4/16): not sent yet") || !strings.Contains(out, "Enter submits") {
+	if out := draw(5*time.Second, false, 140, 45); !strings.Contains(out, "Plan (3/16): not sent yet") || !strings.Contains(out, "Enter submits") {
 		t.Errorf("unsent:\n%s", out)
 	}
-	if out := draw(5*time.Second, true, 140, 45); !strings.Contains(out, "Plan (4/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
+	if out := draw(5*time.Second, true, 140, 45); !strings.Contains(out, "Plan (3/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
 		t.Errorf("sent:\n%s", out)
 	}
 	// Told again after a reconnect with our plan among the submitted: accepted,
 	// though this screen never held the plan.
 	m.Round.Submitted = []string{m.Self.ID}
 	out := screen.Render(m, screen.View{Conn: screen.ConnOnline, Now: deadline.Add(-time.Second)}, 140, 45, screen.Plain())
-	if !strings.Contains(out, "Plans in: you") || !strings.Contains(out, "accepted") {
+	if !strings.Contains(out, "1 of 1 submitted") || !strings.Contains(out, "accepted") {
 		t.Errorf("submitted:\n%s", out)
 	}
 }
@@ -234,7 +234,7 @@ func TestPanelsFollowTheInstance(t *testing.T) {
 	for _, tc := range []struct {
 		name            string
 		instance, round bool
-	}{{"live_login", false, false}, {"instance_menu", false, false}, {"instance_opened", true, false}, {"instance_inside", true, false}, {"instance_cleared", true, false}, {"round_plan", true, true}, {"round_missed", true, true}} {
+	}{{"play_login", false, false}, {"instance_menu", false, false}, {"instance_opened", true, false}, {"instance_inside", true, false}, {"instance_cleared", true, false}, {"round_plan", true, true}, {"round_missed", true, true}} {
 		c := caseNamed(t, tc.name)
 		out := c.Draw(replay(t, c), 140, 45)
 		if has := strings.Contains(out, "─ Instance ─"); has != tc.instance && !c.Menu {
@@ -252,9 +252,56 @@ func TestPanelsFollowTheInstance(t *testing.T) {
 func TestMenuListsEveryPresetWithItsTimeMode(t *testing.T) {
 	c := caseNamed(t, "instance_menu")
 	out := c.Draw(replay(t, c), 80, 24)
-	for _, want := range []string{"Scuttler Skirmish", "real-time; party 2", "Solo Trial", "party 1; heroic", "Long Game", "100-tick rounds (10 s), 24 h to plan", "Quick Turns", "20-tick rounds (2 s), 20 s to plan", "Duo Turns", "6 s to plan", "> 4"} {
+	for _, want := range []string{"Scuttler Skirmish", "real-time", "party 2; normal", "Solo Trial", "party 1; heroic", "Long Game", "100-tick rounds (10 s), 24 h to plan", "Quick Turns", "20-tick rounds (2 s), 20 s to plan", "Duo Turns", "6 s to plan", "> 2"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q:\n%s", want, out)
 		}
+	}
+}
+
+// D49: the menu shows each turn-based preset's sleep limit, and not a
+// real-time preset's, which has none.
+func TestMenuShowsTheSleepLimit(t *testing.T) {
+	c := caseNamed(t, "instance_menu")
+	out := c.Draw(replay(t, c), 80, 24)
+	if n := strings.Count(out, "sleeps up to 7 d"); n != 3 {
+		t.Errorf("%d presets show a sleep limit, want the 3 turn-based ones:\n%s", n, out)
+	}
+	for _, l := range strings.Split(out, "\n") {
+		if strings.Contains(l, "party 1; heroic") && strings.Contains(l, "sleeps") {
+			t.Errorf("a real-time preset has a sleep limit: %q", l)
+		}
+	}
+}
+
+// D49: the Instance panel says what the server says the instance is, and the
+// Round panel says "N of M submitted", counting the character's own receipt.
+func TestInstanceAndRoundPanelsShowTheServersFields(t *testing.T) {
+	c := caseNamed(t, "duo_one_of_two")
+	out := c.Draw(replay(t, c), 80, 24)
+	for _, want := range []string{"Duo Turns", "turn-based | inside", "party up to 2 | normal", "sleeps up to 7 d", "1 of 2 submitted", "Plan (1/16): accepted"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("missing %q:\n%s", want, out)
+		}
+	}
+	c = caseNamed(t, "duo_gathered")
+	if out := c.Draw(replay(t, c), 80, 24); !strings.Contains(out, "0 of 2 submitted") {
+		t.Errorf("gathered:\n%s", out)
+	}
+	c = caseNamed(t, "instance_inside")
+	if out := c.Draw(replay(t, c), 140, 45); !strings.Contains(out, "real-time | inside") || !strings.Contains(out, "party up to 1 | heroic") || strings.Contains(out, "sleeps") {
+		t.Errorf("solo-trial:\n%s", out)
+	}
+	// The panel does not read the space's name.
+	m := replay(t, c)
+	m.Space = "Somewhere (Else)"
+	if out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()); !strings.Contains(out, "party up to 1 | heroic") {
+		t.Errorf("the panel changed with the space's name:\n%s", out)
+	}
+	// A resolved round shows who played what.
+	m = replay(t, caseNamed(t, "duo_two_of_two"))
+	m.Round.Open = false
+	if out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()); !strings.Contains(out, "2 of 2 submitted") || !strings.Contains(out, "own plan") {
+		t.Errorf("resolved:\n%s", out)
 	}
 }

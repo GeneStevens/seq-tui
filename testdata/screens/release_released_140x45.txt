@@ -1,45 +1,45 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                .                                                         #                     ││ Tester  Lv 1  XP 0                     │
-│                .                                                         #                     ││ DEAD  HP 0/100                         │
-│                .                                                         #                     ││ Target: none                           │
-│                .                                                         #                     ││ Released: back in 5 s                  │
-│                .                                                         #                     │└────────────────────────────────────────┘
-│                .                                                         #                     │┌─ Target ───────────────────────────────┐
-│                .                                                         #                     ││ no target (Tab to choose)              │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     │└────────────────────────────────────────┘
-│                .                                                         #                     │┌─ Nearby ───────────────────────────────┐
-│                .                                                         #                     ││ m Plain Scuttler            1m E 40/40 │
-│                .                                                         #                     ││ D gate-north                    88m NE │
-│                .                                                         #                     ││ D line-east                     178m E │
-│                .                               @ m                       #                     ││ p Tester                178m E 100/100 │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
-│                .                                                         #                     ││                                        │
+│                   .                                                         #                  ││ Tester  Lv 1  XP 0                     │
+│                   .                                                         #                  ││ DEAD  HP 0/6                           │
+│                   .                                                         #                  ││ Target: none                           │
+│                   .                                                         #                  ││ Released: back in 5 s                  │
+│                   .                                                         #                  │└────────────────────────────────────────┘
+│                   .                                                         #                  │┌─ Target ───────────────────────────────┐
+│                   .                                                         #                  ││ no target (Tab to choose)              │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  │└────────────────────────────────────────┘
+│                   .                                                         #                  │┌─ Nearby ───────────────────────────────┐
+│                   .                                                         #                  ││ m Plain Scuttler            2m E 40/40 │
+│                   .                                                         #                  ││ D gate-north                    89m NE │
+│                   .                              m                          #                  ││ D line-east                     180m E │
+│                   .                            @                            #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ < 433.0s Plain Scuttler missed Tester                                                                                                    │
-│ < 436.0s Plain Scuttler hit Tester for 1                                                                                                 │
-│   438.0s Tester healed 2                                                                                                                 │
-│ < 439.0s Plain Scuttler hit Tester for 1                                                                                                 │
-│ < 442.0s Plain Scuttler missed Tester                                                                                                    │
-│   444.0s Tester healed 2                                                                                                                 │
-│ < 445.0s Plain Scuttler hit Tester for 4                                                                                                 │
-│ < 448.0s Plain Scuttler hit Tester for 3                                                                                                 │
-│ x 448.0s Plain Scuttler killed Tester                                                                                                    │
-│   448.0s encounter enc-2 with Plain Scuttler closed: participants_dead                                                                   │
-│   449.1s Tester released; respawns in 5 s                                                                                                │
+│     0.2s Tester opened an encounter with Plain Scuttler (enc-1)                                                                          │
+│     1.1s Plain Scuttler began attacking Tester                                                                                           │
+│ <   1.1s Plain Scuttler hit Tester for 2                                                                                                 │
+│ <   4.1s Plain Scuttler hit Tester for 1                                                                                                 │
+│     6.0s Tester healed 2                                                                                                                 │
+│ <   7.1s Plain Scuttler hit Tester for 3                                                                                                 │
+│ <  10.1s Plain Scuttler hit Tester for 2                                                                                                 │
+│ x  10.1s Plain Scuttler killed Tester                                                                                                    │
+│    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead                                                                   │
+│    11.0s Plain Scuttler reset to 40 hp                                                                                                   │
+│    30.2s Tester released; respawns in 5 s                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit
+ ONLINE | Testgrounds | heard 0.4s ago | release ok                                                                           ? help  q quit

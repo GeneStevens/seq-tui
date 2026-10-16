@@ -24,7 +24,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	left := th - youRows
 	inst, round := 0, 0
 	if instanceShown(m) {
-		inst = 4
+		inst = max(instanceRows(m), 2) + 2
 		left -= inst
 	}
 	turn := m.TurnBased()

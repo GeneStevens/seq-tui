@@ -8,7 +8,7 @@ import (
 )
 
 func TestPlanKeysBuildASequenceOfSteps(t *testing.T) {
-	m := load(t, "live_quick_turns.jsonl", 391) // round 2 open, at (100000, 90000), a mob 17 m south
+	m := load(t, "quick_turns.jsonl@round_plan", 0) // round 1 open, at (100000, 90000), a mob 14 m south
 	if !m.TurnBased() {
 		t.Fatal("not turn-based")
 	}
@@ -93,7 +93,7 @@ func TestPlanDraft(t *testing.T) {
 }
 
 func TestPlanLootAndDoorAreChosenFromWhereThePlanEnds(t *testing.T) {
-	m := load(t, "live_quick_turns.jsonl", 510) // the drop has appeared
+	m := load(t, "quick_turns.jsonl@round_drop", 0) // the drop has appeared
 	var d app.Draft
 	a := app.TurnKey("l", m, &d)
 	if a.Kind != app.PlanAdd || a.Step.Kind != app.Loot || a.Step.ID != "drop-inst-1.enc-1-shell-fragment" {
@@ -111,14 +111,14 @@ func TestPlanLootAndDoorAreChosenFromWhereThePlanEnds(t *testing.T) {
 }
 
 func TestSharedKeysAndTheMenuKey(t *testing.T) {
-	m := load(t, "live_quick_turns.jsonl", 391)
+	m := load(t, "quick_turns.jsonl@round_plan", 0)
 	var d app.Draft
 	for key, want := range map[string]app.Kind{"i": app.OpenMenu, "q": app.Quit, "?": app.ToggleHelp, "o": app.Logout, "v": app.ToggleVerbose, "z": app.None} {
 		if a := app.TurnKey(key, m, &d); a.Kind != want {
 			t.Errorf("turn %s: %+v", key, a)
 		}
 	}
-	w := load(t, "live_solo_trial.jsonl", 3)
+	w := load(t, "solo_trial.jsonl@instance_menu", 0)
 	if a := app.Plan("i", w); a.Kind != app.OpenMenu {
 		t.Errorf("%+v", a)
 	}
