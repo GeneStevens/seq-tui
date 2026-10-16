@@ -1,0 +1,45 @@
+┌─ Thornwick Downs, at 100,100 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                                                                                ││ hale  Lv 5 Warrior           | 0 crowns│
+│                                                                                                ││ HP 176/176 ########################### │
+│                                                                                                ││ XP ------------------------ 145 to Lv 6│
+│                                                                                                ││ Atk off | none                         │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Companion, caster ────────────────────┐
+│                                                                                                ││ your recruit  Lv 5                     │
+│                                                                                                ││ not with you: P calls it               │
+│                                                                                                ││ stance guard                           │
+│                                                                                                ││ away                                   │
+│                                                                                                ││ P call or send away   H stance         │
+│                                                                                                ││ Y attack my target    U come here      │
+│                                                @                                               ││ J stop    Z drop the order             │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│          c                                                                                     ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ D town-gate                    106m NW │
+│                                                                              c                 ││ D hollow-warren                 304m E │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1 Taunt                       tgt? 2 Bash                       tgt? 3 -                         empty 4 -                         empty │
+│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ You: none                                                                                                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     0.3s your companion Watch Spellcaster is back                                                                                        │
+│     0.3s Watch Spellcaster (comp-hale) appeared                                                                                          │
+│     2.5s your companion Watch Spellcaster is back                                                                                        │
+│     2.5s Watch Spellcaster (comp-hale) appeared                                                                                          │
+│     4.6s your companion was sent away                                                                                                    │
+│     4.6s Watch Spellcaster left view                                                                                                     │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard 0.4s ago                                                                                    ? help  q quit

@@ -68,6 +68,17 @@ const (
 	ContractAccept  // take the contract ID from the board NPC
 	ContractTurnIn  // hand the contract ID in at the board NPC
 	ContractAbandon // give the contract ID up
+	OpenRole        // the screen for choosing the recruit's role at the quest giver NPC
+	CompanionSummon
+	CompanionDismiss
+	CompanionStance // set the companion's stance to ID
+	CompanionRole   // the quest giver NPC makes the recruit's role ID
+	CompanionOrder  // order the companion: ID is "attack" (Target), "move" (X, Y), "stop" or "clear"
+	HelperNext      // the companion keys talk to the other helper
+	DuoSummon       // bring the second character into play
+	DuoDismiss      // log the second character out
+	DuoStance       // set the second character's stance to ID
+	DuoOrder        // order the second character, as CompanionOrder
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -75,10 +86,12 @@ type Action struct {
 	Kind Kind
 	X, Y int64  // Move: the destination
 	ID   string // Target, Loot, UseDoor: what it names
-	On   bool   // Attack
-	Slot int    // UseAbility, SetSlot: 1 to 8
-	NPC  string // Buy, Sell, Train, Bind, BankDeposit, BankWithdraw: the trader
-	Gear string // Unequip: the gear slot
+	// Target is the mob an order to attack names.
+	Target string
+	On     bool   // Attack
+	Slot   int    // UseAbility, SetSlot: 1 to 8
+	NPC    string // Buy, Sell, Train, Bind, BankDeposit, BankWithdraw: the trader
+	Gear   string // Unequip: the gear slot
 	// Count is how many Buy buys; Amount is the crowns of TradeCrowns.
 	Count  int
 	Amount int64

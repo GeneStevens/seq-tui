@@ -1,0 +1,24 @@
+┌─ Thornwick Downs, at 100,100 m, north up ────────┐┌─ You ────────────────────┐
+│                                                  ││ hale  Lv 5 Warrior  | 0cr│
+│                                                  ││ HP 176/176 ############# │
+│                                                  ││ XP ---------- 145 to Lv 6│
+│                                                  ││ Atk off | none           │
+│                                                  │└──────────────────────────┘
+│                         @p                       │┌─ Companion, caster ──────┐
+│                                                  ││ Watch Spellcaster  Lv 5  │
+│         c                                        ││ HP 112/112 ############# │
+│                                                  ││ stance guard             │
+│                                      c           ││ waiting for a fight      │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns your companion Watch Spellcaster is back                            │
+│     N.Ns Watch Spellcaster (comp-hale) appeared                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard N.Ns ago | reconnected          ? help  q quit

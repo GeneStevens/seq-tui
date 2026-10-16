@@ -1,0 +1,45 @@
+┌─ Thornwick Downs, at 152,95 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                                                                                ││ hale  Lv 5 Warrior           | 0 crowns│
+│                                                                                                ││ HP 176/176 ########################### │
+│                                                                                                ││ XP ------------------------ 145 to Lv 6│
+│                                                                                                ││ Atk ON | Bramble Tusker                │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Companion, tank ──────────────────────┐
+│                                                                      #                         ││ Watch Shieldman  Lv 5                  │
+│                                                                      #                         ││ HP 170/176 ##########################- │
+│                                                                      #                         ││ stance assist                          │
+│                                                                      #                         ││ ordered to stand                       │
+│                                                                      #                         ││ P call or send away   H stance         │
+│                                                                      #                         ││ Y attack my target    U come here      │
+│                                             p  @    c                #                         ││ J stop    Z drop the order             │
+│                                                                      #                         │└────────────────────────────────────────┘
+│                                                                      #                         │┌─ Target ───────────────────────────────┐
+│                                                                      #                         ││ M Bramble Tusker  Lv 5                 │
+│                                                                      #                         ││ HP 174/182 ####################- 1m W  │
+│                                                                      #                         ││ in a fight with Watch Shieldman        │
+│                c                                                     #                         │└────────────────────────────────────────┘
+│                                                                      #                         │┌─ Nearby ───────────────────────────────┐
+│                                                                      #                         ││ M Bramble Tusker          1m W 174/182 │
+│                                                                      #                         ││ p Watch Shieldman         3m W 170/176 │
+│                                                                      #                         ││ D town-gate                     156m W │
+│                                                                      #                         ││ D hollow-warren                 254m E │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1 Taunt                      ready 2 Bash                      ready 3 -                         empty 4 -                         empty │
+│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ You: none   |   Bramble Tusker: none                                                                                                     │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     1.7s Watch Shieldman began attacking Bramble Tusker                                                                                  │
+│     1.7s Watch Shieldman missed Bramble Tusker                                                                                           │
+│     1.8s Bramble Tusker began attacking Watch Shieldman                                                                                  │
+│     1.8s Bramble Tusker hit Watch Shieldman for 6                                                                                        │
+│     3.6s hale began attacking Bramble Tusker                                                                                             │
+│     3.6s hale hit Bramble Tusker for 8                                                                                                   │
+│     3.7s your companion is ordered: stop                                                                                                 │
+│     3.7s Watch Shieldman's target Bramble Tusker cleared: ordered                                                                        │
+│     3.7s Watch Shieldman stopped attacking                                                                                               │
+│     3.7s Bramble Tusker targeted hale                                                                                                    │
+│     3.8s Bramble Tusker began attacking hale                                                                                             │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard 0.4s ago | companion order: stop ok                                                         ? help  q quit

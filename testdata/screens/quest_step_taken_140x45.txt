@@ -1,0 +1,45 @@
+┌─ Thornwick, at 103,50 m, north up ─────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                    #                                               .                           ││ hale  Lv 6 Warrior           | 0 crowns│
+│                    #                                               .                           ││ HP 190/190 ########################### │
+│                    #                                               .                           ││ XP ------------------------ 162 to Lv 7│
+│                    #                                               .                           ││ Atk off | none                         │
+│                    #                                               .                           │└────────────────────────────────────────┘
+│                    #                                               .                           │┌─ Quest ────────────────────────────────┐
+│                    #           $                                   .                           ││ [>] Eyes on the Goblins          scout │
+│                    #                                               .                           ││ Walk out to the goblin lookout beyond  │
+│                    #                                               .                           ││ the ford, see what the raiders are     │
+│                    #                                               .                           ││ about, and report to Captain Hartley.  │
+│                                                                    .                           │└────────────────────────────────────────┘
+│                                                                    .                           │┌─ Target ───────────────────────────────┐
+│                                                @?                  .                           ││ no target (Tab to choose)              │
+│                                                                    .                           ││                                        │
+│                                                                    .                           ││                                        │
+│                                                             D      .                           │└────────────────────────────────────────┘
+│                                                                    .                           │┌─ Contracts (K) ────────────────────────┐
+│                                                                    .                           ││ Eyes on the Goblins                 go │
+│                                                                    .                           │└────────────────────────────────────────┘
+│                                                                    .                           │┌─ Nearby ───────────────────────────────┐
+│                                                                    .                           ││ ? Captain Rhosyn Har… 1m E quest_giver │
+│                                                                    .                           ││ D east-gate                     12m SE │
+│                                                                    .                           ││ $ Odalys Penn            16m NW banker │
+│                                                                    .                           ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1 Taunt                       tgt? 2 Bash                       tgt? 3 -                         empty 4 -                         empty │
+│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ You: none                                                                                                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
+│            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
+│            Watch can trust. Prove yourself first, and come and see me. Show me what you can do out in the Downs and I will give you a    │
+│            recruit of the Watch to fight beside you. Once the Watch has vouched for you, tell me what the recruit should be: a shield, a │
+│            medic, a blade or a spellcaster. You may change your mind here whenever you like.                                             │
+│ !   0.3s hale denied companion_role on captain: no_companion                                                                             │
+│ +   0.4s you took the contract Eyes on the Goblins                                                                                       │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard 0.4s ago                                                                                          ? help  q quit

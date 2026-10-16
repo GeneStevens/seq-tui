@@ -50,6 +50,16 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	} else {
 		left -= inst + round
 	}
+	// The Companion, Party and Quest panels, when the character has them: they
+	// come before the Target and Nearby panels, which give way to them.
+	var helpers []panel
+	for _, hp := range helperPanels(m, v, iw, st) {
+		h := min(len(hp.lines)+2, left)
+		if h < 4 {
+			break
+		}
+		helpers, left = append(helpers, panel{hp.title, hp.lines[:min(len(hp.lines), h-2)]}), left-h
+	}
 	// The Target panel gives up its last line (the fight) when one row is short.
 	target := left >= targetRows-1
 	targetH := min(targetRows, left)
@@ -83,6 +93,9 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	}
 	if turn && round > 0 {
 		rows = append(rows, box(roundTitle(m, v), rw, round, roundLines(m, v, iw, round-2, st), st)...)
+	}
+	for _, hp := range helpers {
+		rows = append(rows, box(hp.title, rw, len(hp.lines)+2, hp.lines, st)...)
 	}
 	if target {
 		tl := targetLines(m, iw, st)

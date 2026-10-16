@@ -290,3 +290,21 @@ func (s *Session) Closed() (bool, error) {
 	}
 	return false, nil
 }
+
+// LogoutAndWait logs out and returns once the server has ended the connection:
+// the character is out of the world. A driver that has its own character log
+// out uses it, so that nothing of it is left when the call returns.
+func (s *Session) LogoutAndWait(ctx context.Context) error {
+	c := s.client()
+	if c == nil {
+		return errors.New("not connected")
+	}
+	s.mu.Lock()
+	s.out = true
+	s.mu.Unlock()
+	if err := c.Logout(ctx); err != nil {
+		return err
+	}
+	_, err := c.Ended(ctx)
+	return err
+}

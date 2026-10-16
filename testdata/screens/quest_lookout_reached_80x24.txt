@@ -1,0 +1,24 @@
+┌─ Thornwick Downs, at 228,140 m, north up ────────┐┌─ You ────────────────────┐
+│                                                  ││ hale  Lv 6 Warrior  | 0cr│
+│                                                  ││ HP 190/190 ############# │
+│                                                  ││ XP ---------- 162 to Lv 7│
+│                                                  ││ Atk off | none           │
+│                                                  │└──────────────────────────┘
+│                         @                        │┌─ Target ─────────────────┐
+│                                                  ││ no target (Tab to choose)│
+│                                                  ││                          │
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│ +   2.0s contract Eyes on the Goblins: the marker is reached; return to the  │
+│            board                                                             │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard 0.4s ago | move ok              ? help  q quit

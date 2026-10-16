@@ -148,6 +148,8 @@ type Player struct {
 	keys      int
 	rec       *record.Writer
 	creating  bool // the program opened on the creation screen
+	second    string
+	duo       *client.Duo // the account's second character on a stance, if the player has one
 }
 
 // Login starts a TUI for the account's character: it logs in with a session
@@ -156,6 +158,21 @@ type Player struct {
 func (w *World) Login(account, character string) *Player {
 	w.T.Helper()
 	p := &Player{w: w, Account: account, Character: character}
+	if len(w.players) == 0 {
+		p.rec = w.rec
+	}
+	w.players = append(w.players, p)
+	p.start()
+	return p
+}
+
+// LoginWithDuo is Login for a player who also has the account's second
+// character on a stance (D42): it is out of play until the player presses P, and
+// the scenario drives it once each time the player syncs, not by a clock of its
+// own.
+func (w *World) LoginWithDuo(account, character, second string) *Player {
+	w.T.Helper()
+	p := &Player{w: w, Account: account, Character: character, second: second}
 	if len(w.players) == 0 {
 		p.rec = w.rec
 	}
@@ -207,6 +224,12 @@ func (p *Player) start() {
 	if p.creating {
 		a = app.NewCreator(p.Sess)
 	}
+	if p.second != "" {
+		dc := cfg
+		dc.Character = p.second
+		p.duo = client.NewDuo(dc, p.Character)
+		a.SetDuo(p.duo)
+	}
 	a.Clock = p.w.Now
 	pr, pw := io.Pipe()
 	p.in, p.keys, p.done = pw, 0, make(chan struct{})
@@ -231,6 +254,9 @@ func (p *Player) stop() {
 	<-p.done
 	_ = p.in.Close()
 	p.Sess.Close()
+	if p.duo != nil {
+		p.duo.Close()
+	}
 	p.prog = nil
 }
 
@@ -290,6 +316,39 @@ func (p *Player) Sync() {
 		t.Fatalf("%s: waiting for the server: %v", p.Character, err)
 	}
 	p.idle()
+	p.driveDuo(ctx)
+}
+
+// driveDuo lets the second character's stance see what the server has sent and
+// send its answer: a ping first, so the character's replica holds everything the
+// server sent before now, and one after, so the answers are taken in.
+func (p *Player) driveDuo(ctx context.Context) {
+	t := p.w.T
+	t.Helper()
+	if p.duo == nil {
+		return
+	}
+	s := p.duo.Session()
+	if s == nil {
+		return
+	}
+	if err := s.Ping(ctx); err != nil {
+		t.Fatalf("%s: waiting for the server: %v", p.second, err)
+	}
+	p.duo.Step(ctx)
+	if err := s.Ping(ctx); err != nil {
+		t.Fatalf("%s: waiting for the server: %v", p.second, err)
+	}
+}
+
+// Duo runs f on the model of the second character; it fails the test when that
+// character is not in play.
+func (p *Player) Duo(f func(*model.Model)) {
+	p.w.T.Helper()
+	if p.duo == nil || p.duo.Session() == nil {
+		p.w.T.Fatalf("%s: the second character is not in play", p.Character)
+	}
+	p.duo.Session().View(f)
 }
 
 func (p *Player) idle() {

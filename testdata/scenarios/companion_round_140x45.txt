@@ -1,0 +1,45 @@
+┌─ Testgrounds (Duo Turns), at 100,90 m, north up ───────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                                                                                ││ aria  Lv 1  XP 0             | 0 crowns│
+│                                                                                                ││ HP 100/100 ########################### │
+│                                                                                                ││ Target: Plain Scuttler                 │
+│                                                                                                ││ Auto-attack: off                       │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Instance ─────────────────────────────┐
+│................................................................................................││ Duo Turns                              │
+│                                                                                                ││ turn-based | inside                    │
+│                                                                                                ││ party up to 2 | normal                 │
+│                                                                                                ││ sleeps up to 7 d                       │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Round 2, 6 s left ────────────────────┐
+│                                                                                                ││ 0 of 1 submitted                       │
+│                                                                                                ││ Plan: empty, not sent                  │
+│                                                @                                               ││  Enter submits; else safe default      │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                 p                                              ││                                        │
+│                                                M                                               │└────────────────────────────────────────┘
+│                                                                                                │┌─ Companion, tank ──────────────────────┐
+│                                                                                                ││ Watch Shieldman  Lv 1                  │
+│                                                                                                ││ HP 118/120 ##########################- │
+│                                                                                                ││ stance assist                          │
+│                                                                                                ││ ordered to attack                      │
+│                                                                                                ││ P call or send away   H stance         │
+│                                                                                                ││ Y attack my target    U come here      │
+│                                                                                                ││ J stop    Z drop the order             │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns your companion is ordered: attack                                                                                               │
+│     N.Ns Watch Shieldman targeted Plain Scuttler                                                                                         │
+│     N.Ns Watch Shieldman used warrior-taunt on Plain Scuttler                                                                            │
+│     N.Ns Watch Shieldman opened an encounter with Plain Scuttler (inst-1.enc-1)                                                          │
+│     N.Ns Plain Scuttler targeted Watch Shieldman                                                                                         │
+│     N.Ns Watch Shieldman began attacking Plain Scuttler                                                                                  │
+│     N.Ns Watch Shieldman missed Plain Scuttler                                                                                           │
+│     N.Ns Plain Scuttler began attacking Watch Shieldman                                                                                  │
+│     N.Ns Plain Scuttler hit Watch Shieldman for 2                                                                                        │
+│     N.Ns round 1 ran (everyone had a plan; 1 of 1 submitted): you played your own plan                                                   │
+│     N.Ns round 2 is open: game time waits for plans (0 of 1 submitted: none yet)                                                         │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds (Duo Turns) | heard N.Ns ago | plan accepted, counts even if you disconnect                             ? help  q quit

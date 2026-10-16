@@ -1,0 +1,24 @@
+┌─ Contract board ─────────────────────────────────────────────────────────────┐
+│ Captain Rhosyn Hartley | you hold 1 of 3 contracts | 0 crowns                │
+│ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
+│  (nothing for your level)            │> Break the Raiding Party       READY  │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│──────────────────────────────────────────────────────────────────────────────│
+│ Break the Raiding Party: Hunt, 5 of 5 killed.                                │
+│                                                                              │
+│ Pays nothing. Finished: hand it in at the board.                             │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
+│ The answer is on the status line; every refusal says why.                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard 0.4s ago                              ? help  q quit

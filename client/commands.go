@@ -240,3 +240,54 @@ func (s *Session) ContractAbandon(ctx context.Context, contract string) (string,
 func (s *Session) ContractTurnIn(ctx context.Context, npc, contract string) (string, error) {
 	return s.intent(ctx, "contract_turn_in", agentkit.ContractTurnIn(npc, contract))
 }
+
+// The house companion (SEQ-049, doc 05 section 5). The server judges each
+// intent: the quest, the role, a free party slot.
+
+// CompanionSummon calls the house companion to your side.
+func (s *Session) CompanionSummon(ctx context.Context) (string, error) {
+	return s.intent(ctx, "companion_summon", agentkit.CompanionSummon())
+}
+
+// CompanionDismiss sends the house companion away and keeps it away.
+func (s *Session) CompanionDismiss(ctx context.Context) (string, error) {
+	return s.intent(ctx, "companion_dismiss", agentkit.CompanionDismiss())
+}
+
+// CompanionStance sets what the companion does by itself: one of
+// agentkit.CompanionStances.
+func (s *Session) CompanionStance(ctx context.Context, stance string) (string, error) {
+	return s.intent(ctx, "companion_stance", agentkit.CompanionStance(stance))
+}
+
+// CompanionRole chooses the companion's role at the quest giver npc.
+func (s *Session) CompanionRole(ctx context.Context, npc, role string) (string, error) {
+	return s.intent(ctx, "companion_role", agentkit.CompanionRole(npc, role))
+}
+
+// CompanionOrder gives the companion a direct command that overrides its stance:
+// "attack" (target), "move" (x, y), "stop" or "clear".
+func (s *Session) CompanionOrder(ctx context.Context, order, target string, x, y int64) (string, error) {
+	var dest *pb.Pos
+	if order == "move" {
+		dest = &pb.Pos{X: x, Y: y}
+	}
+	return s.intent(ctx, "companion_order", agentkit.CompanionOrder(order, target, dest, 0))
+}
+
+// Send sends an intent and returns its id, without waiting for its result: Result
+// does that.
+func (s *Session) Send(ctx context.Context, kind string, in agentkit.Intent) (string, error) {
+	return s.intent(ctx, kind, in)
+}
+
+// Replica runs f on the toolkit's own view of the character, the one a stance
+// reads; f is not called before a login.
+func (s *Session) Replica(f func(*agentkit.Replica)) {
+	s.mu.Lock()
+	a := s.agent
+	s.mu.Unlock()
+	if a != nil {
+		a.Client().View(f)
+	}
+}

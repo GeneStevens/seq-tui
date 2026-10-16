@@ -41,6 +41,7 @@ func run() error {
 	char := flag.String("character", "me-1", "the character to play")
 	create := flag.Bool("new", false, "make a new character (a name and one of the six classes) and play it")
 	insecure := flag.Bool("insecure", false, "development only: accept a self-signed certificate (loopback addresses only)")
+	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it)")
 	rec := flag.String("record", "", "write every message the server sends to this file")
 	replay := flag.String("replay", "", "draw this recorded log instead of connecting")
 	text := flag.Bool("text", false, "with -replay: print the model as plain text instead of the screen")
@@ -79,7 +80,7 @@ func run() error {
 	sess := client.NewSession(cfg)
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	prog := app.New
+	prog := func(s *client.Session) *app.App { return app.New(s) }
 	login := sess.Login
 	if *create {
 		prog, login = app.NewCreator, sess.Connect
@@ -88,7 +89,18 @@ func run() error {
 		return err
 	}
 	defer sess.Close()
-	_, err := tea.NewProgram(prog(sess)).Run()
+	a := prog(sess)
+	if *duo != "" && !*create {
+		dc := cfg
+		dc.Character, dc.Record = *duo, nil
+		d := client.NewDuo(dc, *char)
+		defer d.Close()
+		a.SetDuo(d)
+		dctx, stop := context.WithCancel(context.Background())
+		defer stop()
+		go d.Run(dctx)
+	}
+	_, err := tea.NewProgram(a).Run()
 	return err
 }
 

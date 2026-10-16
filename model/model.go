@@ -67,6 +67,7 @@ type Self struct {
 	// and how many items the inventory holds.
 	Crowns        int64
 	Contracts     []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
+	Companion     *pb.CompanionState // the house companion (SEQ-049); nil before the quest is begun
 	Equipped      []string
 	Bank          []string
 	BindZone      string
@@ -176,8 +177,14 @@ type Model struct {
 	// snapshots told, kept after they leave view.
 	npcNames      map[string]string
 	contractNames map[string]string
-	last          uint64 // the stream number of the last event applied, or of the snapshot
-	selected      bool   // a snapshot has arrived
+	// questGiver is the quest giver seen (an NPC with that role), questOffered the
+	// contract ids it offers now and questSteps/questOrder every one it has offered.
+	questGiver   string
+	questOffered map[string]bool
+	questSteps   map[string]*pb.ContractOffer
+	questOrder   []string
+	last         uint64 // the stream number of the last event applied, or of the snapshot
+	selected     bool   // a snapshot has arrived
 	// levelPending: a reward raised the level and the snapshot that says what it
 	// taught has not come yet.
 	levelPending bool
@@ -298,7 +305,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		HasDestination: self.GetHasDestination(), Destination: clonePos(self.GetDestination()),
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
 		Crowns: self.GetCrowns(), Equipped: slices.Clone(self.GetEquipped()), Bank: slices.Clone(self.GetBank()),
-		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(), Contracts: slices.Clone(self.GetContracts()),
+		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(), Contracts: slices.Clone(self.GetContracts()), Companion: cloneCompanion(self.GetCompanion()),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
@@ -552,5 +559,13 @@ func clonePos(p *pb.Pos) *pb.Pos { return &pb.Pos{X: p.GetX(), Y: p.GetY(), Z: p
 
 func cloneEntity(e *pb.EntityState) *pb.EntityState {
 	return &pb.EntityState{Id: e.GetId(), Kind: e.GetKind(), Name: e.GetName(), Pos: clonePos(e.GetPos()),
-		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare()}
+		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare(), Owner: e.GetOwner()}
+}
+
+func cloneCompanion(c *pb.CompanionState) *pb.CompanionState {
+	if c == nil {
+		return nil
+	}
+	return &pb.CompanionState{Stage: c.GetStage(), Unlocked: c.GetUnlocked(), Role: c.GetRole(), Stance: c.GetStance(),
+		Summoned: c.GetSummoned(), Present: c.GetPresent(), Id: c.GetId(), Order: c.GetOrder()}
 }

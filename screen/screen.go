@@ -73,6 +73,14 @@ type View struct {
 	Board     *Board
 	Contracts *ContractsUI
 	Overview  bool
+
+	// Role is the screen for choosing the recruit's role, nil when closed. Duo is
+	// the account's second character on a stance, nil when there is none, and
+	// KeysToDuo says the companion keys talk to it rather than to the house
+	// companion (when the character has both).
+	Role      *Role
+	Duo       *DuoView
+	KeysToDuo bool
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -104,6 +112,8 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		rows = append(rows, box("Talking", w, th+lh, talkLines(m, v.Talk, w-2, th+lh-2, st), st)...)
 	case v.Board != nil:
 		rows = append(rows, box("Contract board", w, th+lh, boardLines(m, v.Board, w-2, th+lh-2, st), st)...)
+	case v.Role != nil:
+		rows = append(rows, box("Recruit's role", w, th+lh, roleLines(m, v.Role, w-2, th+lh-2, st), st)...)
 	case v.Contracts != nil:
 		rows = append(rows, box("Contracts", w, th+lh, contractsScreenLines(m, v.Contracts, w-2, th+lh-2, st), st)...)
 	case v.Overview && m.Map != nil && m.Self.Pos != nil:
@@ -198,13 +208,13 @@ func helpLines(w, h int, st Styler) []string {
 		"Instances        I: this zone's menu (Enter opens one); then E at its door",
 		"Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank",
 		"Trade            T: ask a character in reach; each side offers, then confirms",
-		"People           G: talk to the nearest; its options open the trader or board",
+		"People           G: talk to the nearest; options open a trader, board or role",
 		"Contracts        K: those you hold (X gives up); the board takes, hands in",
-		"Plans            turn-based: keys build a plan. Arrows, Tab, F, 1-8, L, E, X,",
-		"                 R release, B slots; one move or door, one ability or attack.",
-		"                 Enter submits it, Backspace removes a step, Esc clears it",
-		"Leave            O logs out of the world; Q or Ctrl+C quits the screen only",
-		"Event log        V: also show movement, rules ticks and mana      Help  ?",
+		"Companion        P call/send away  H stance  Y attack my target  U come here",
+		"                 J stop  Z drop the order  . the other helper (a second one)",
+		"Plans            turn-based: keys build a plan, one move or door, one ability",
+		"                 or attack. Enter submits, Backspace drops a step, Esc clears",
+		"Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log",
 		"Map              north is up, you are the centre; M: the whole zone seen",
 		"  @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end",
 		"  * drop  ~ a drop you may not take  $ trader  & board  ? talker",

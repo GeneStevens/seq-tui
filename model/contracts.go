@@ -216,6 +216,7 @@ func (m *Model) noteNPC(n *pb.NpcInfo) {
 			m.Lessons[t.GetInfo().GetId()] = t.GetInfo()
 		}
 	}
+	m.noteQuestGiver(n)
 	if m.Space != "" {
 		m.place().NPCs[n.GetId()] = n
 	}

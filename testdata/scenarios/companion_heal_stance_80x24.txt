@@ -1,0 +1,24 @@
+┌─ Thornwick Downs, at 100,100 m, north up ────────┐┌─ You ────────────────────┐
+│                                                  ││ hale  Lv 5 Warrior  | 0cr│
+│                                                  ││ HP 176/176 ############# │
+│                                                  ││ XP ---------- 145 to Lv 6│
+│                                                  ││ Atk off | none           │
+│                                                  │└──────────────────────────┘
+│                         @p                       │┌─ Companion, healer ──────┐
+│                                                  ││ Watch Medic  Lv 5        │
+│         c                                        ││ HP 140/140 ############# │
+│                                                  ││ stance heal              │
+│                                      c           ││ watching for the hurt    │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns your companion is now on assist                                     │
+│     N.Ns your companion is now on guard                                      │
+│     N.Ns your companion is now on heal                                       │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard N.Ns ago | companion stance heal ok     ? help

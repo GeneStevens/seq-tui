@@ -54,6 +54,10 @@ type Case struct {
 	Board     *Board
 	Contracts *ContractsUI
 	Overview  bool
+	// Role draws the screen for choosing the recruit's role; Duo the account's
+	// second character on a stance (its own state is not in the recorded log).
+	Role *Role
+	Duo  *DuoView
 }
 
 // Sizes the goldens are drawn at.
@@ -160,6 +164,28 @@ var Cases = []Case{
 	{Name: "event_banner", Log: "thornwick_raid.jsonl", Mark: "event_banner"},
 	{Name: "event_over", Log: "thornwick_raid.jsonl", Mark: "event_over", Notice: "attack ok"},
 	{Name: "rare_in_view", Log: "thornwick_rare.jsonl", Mark: "rare_in_view", Notice: "target ok"},
+	// SEQ-049 (TUI-013): the Watch Captain's quest, choosing a role, the house
+	// companion and its panel, a turn-based plan with companion steps, and a
+	// second character on a stance.
+	{Name: "companion_talk", Log: "companion_quest.jsonl", Mark: "companion_talk", Notice: "talk to Captain Rhosyn Hartley ok", Talk: &Talk{NPC: "captain"}},
+	{Name: "quest_step_taken", Log: "companion_quest.jsonl", Mark: "quest_step_taken"},
+	{Name: "quest_lookout_far", Log: "companion_lookout.jsonl", Mark: "quest_lookout_far"},
+	{Name: "quest_lookout_reached", Log: "companion_lookout.jsonl", Mark: "quest_lookout_reached", Notice: "move ok"},
+	{Name: "quest_ready", Log: "companion_role.jsonl", Mark: "quest_ready", Board: &Board{NPC: "captain", Pane: 1}},
+	{Name: "quest_done", Log: "companion_role.jsonl", Mark: "quest_done"},
+	{Name: "choose_role", Log: "companion_role.jsonl", Mark: "choose_role", Role: &Role{NPC: "captain"}},
+	{Name: "companion_away", Log: "companion_role.jsonl", Mark: "companion_away"},
+	{Name: "companion_called", Log: "companion_role.jsonl", Mark: "companion_called", Notice: "call the companion ok"},
+	{Name: "companion_follow", Log: "companion_fight.jsonl", Mark: "companion_follow"},
+	{Name: "companion_assist", Log: "companion_fight.jsonl", Mark: "companion_assist", Notice: "attack ok"},
+	{Name: "companion_override", Log: "companion_fight.jsonl", Mark: "companion_override", Notice: "companion order: stop ok"},
+	{Name: "companion_fresh_login", Log: "companion_reconnect.jsonl", Mark: "companion_fresh_login"},
+	{Name: "companion_dismissed", Log: "companion_reconnect.jsonl", Mark: "companion_dismissed"},
+	{Name: "companion_plan", Log: "companion_turns.jsonl", Mark: "companion_plan", Left: 20 * time.Second,
+		Plan: []string{"companion: stance assist", "target Plain Scuttler", "companion: attack Plain Scuttler"}},
+	{Name: "duo_out_of_play", Log: "duo_guard.jsonl", Mark: "duo_out_of_play", Duo: &DuoView{ID: "bram", Stance: "follow"}},
+	{Name: "duo_party", Log: "duo_guard.jsonl", Mark: "duo_party", Notice: "second character in play", Duo: &DuoView{ID: "bram", Active: true, Stance: "follow"}},
+	{Name: "duo_guard_fight", Log: "duo_guard.jsonl", Mark: "duo_guard_fight", Notice: "attack ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "guard", Target: "mob-bramble-tuskers-a-1"}},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
 }
 
@@ -201,6 +227,7 @@ func (c Case) Draw(m *model.Model, w, h int) string {
 	v.Slots, v.Create, v.PlanSlots = c.Slots, c.Create, c.PlanSlots
 	v.Inventory, v.Traders, v.Trade = c.Inventory, c.Traders, c.Trade
 	v.Talk, v.Board, v.Contracts, v.Overview = c.Talk, c.Board, c.Contracts, c.Overview
+	v.Role, v.Duo = c.Role, c.Duo
 	if c.Traders != nil && c.TraderName != "" {
 		t := *c.Traders
 		for i, n := range TradersInView(m) {

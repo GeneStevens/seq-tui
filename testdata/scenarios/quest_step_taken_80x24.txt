@@ -1,0 +1,24 @@
+┌─ Thornwick, at 103,50 m, north up ───────────────┐┌─ You ────────────────────┐
+│             #                   .                ││ hale  Lv 6 Warrior  | 0cr│
+│             #                   .                ││ HP 190/190 ############# │
+│             #                   .                ││ XP ---------- 162 to Lv 7│
+│             #    $              .                ││ Atk off | none           │
+│             #                   .                │└──────────────────────────┘
+│                         @       .                │┌─ Quest ──────────────────┐
+│                                 .                ││ [>] Eyes on the Go…scout │
+│                              D  .                ││ Walk out to the goblin   │
+│                                 .                ││ lookout beyond the       │
+│                                 .                ││ ford, see what the       │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│            what the recruit should be: a shield, a medic, a blade or a       │
+│            spellcaster. You may change your mind here whenever you like.     │
+│ !   N.Ns hale denied companion_role on captain: no_companion                 │
+│ +   N.Ns you took the contract Eyes on the Goblins                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard N.Ns ago                              ? help  q quit
