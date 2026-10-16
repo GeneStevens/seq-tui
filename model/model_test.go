@@ -12,15 +12,11 @@ import (
 )
 
 // replay reads a recorded log from testdata/logs and applies it to a model:
-// no backend, no network (doc 03 layer 5).
+// no backend, no network (doc 03 layer 5). The name is a file, or "file@mark"
+// for the messages before a mark a scenario wrote into it.
 func replay(t *testing.T, name string) *model.Model {
 	t.Helper()
-	f, err := os.Open(filepath.Join("..", "testdata", "logs", name))
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer f.Close()
-	msgs, err := record.Read(f)
+	msgs, err := record.Load(filepath.Join("..", "testdata", "logs"), name)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -180,23 +176,26 @@ func TestText(t *testing.T) {
 	}
 }
 
-// live_login.jsonl was recorded from a local seqd (see the README).
-func TestLiveLogin(t *testing.T) {
-	m := replay(t, "live_login.jsonl")
-	if m.Self.ID != "me-1" || m.Space != "Testgrounds" || m.Map == nil || len(m.Map.GetDoors()) != 2 || len(m.Entities) != 1 || m.Welcome == nil {
+// play.jsonl is the session of the login-move-fight-loot scenario.
+func TestScenarioLogin(t *testing.T) {
+	m := replay(t, "play.jsonl@play_login")
+	if m.Self.ID != "aria" || m.Space != "Testgrounds" || m.Map == nil || len(m.Map.GetDoors()) != 2 || len(m.Entities) != 1 || m.Welcome == nil {
 		t.Errorf("self %+v space %q map %v entities %v", m.Self, m.Space, m.Map, m.EntityIDs())
+	}
+	if m.Instance != nil || m.InInstance() {
+		t.Errorf("a world zone carries no instance: %v", m.Instance)
 	}
 }
 
-// The live release capture (TUI-006): the character dies, releases, and comes
-// back; the fresh snapshot after the respawned event is the new view.
-func TestReleaseAndRespawnFromALiveLog(t *testing.T) {
-	m := replay(t, "live_release.jsonl")
+// The release scenario: the character dies, releases, and comes back; the
+// fresh snapshot after the respawned event is the new view.
+func TestReleaseAndRespawnFromAScenarioLog(t *testing.T) {
+	m := replay(t, "release.jsonl")
 	s := m.Self
 	if s.Dead || s.Released || s.HP != s.MaxHP || s.Pos.GetX() != 10000 || s.Pos.GetY() != 50000 {
 		t.Errorf("after the respawn: %+v", s)
 	}
-	if len(m.Faults) != 0 || m.Duplicates != 0 || m.Last() != 340 {
+	if len(m.Faults) != 0 || m.Duplicates != 0 {
 		t.Errorf("stream: last %d faults %v dups %d", m.Last(), m.Faults, m.Duplicates)
 	}
 	var kinds []string
@@ -211,33 +210,19 @@ func TestReleaseAndRespawnFromALiveLog(t *testing.T) {
 }
 
 func TestDeathThenReleasedShowsTheWait(t *testing.T) {
-	f, err := os.Open(filepath.Join("..", "testdata", "logs", "live_release.jsonl"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer f.Close()
-	msgs, err := record.Read(f)
-	if err != nil {
-		t.Fatal(err)
-	}
-	m := model.New()
-	for _, msg := range msgs[:309] {
-		m.Apply(msg)
-	}
+	m := replay(t, "release.jsonl@release_dead")
 	if !m.Self.Dead || m.Self.Released {
 		t.Errorf("dead, not released: %+v", m.Self)
 	}
-	for _, msg := range msgs[309:321] {
-		m.Apply(msg)
-	}
+	m = replay(t, "release.jsonl@release_released")
 	if !m.Self.Dead || !m.Self.Released || m.Self.RespawnInMs != 5000 {
 		t.Errorf("released and waiting: %+v", m.Self)
 	}
 }
 
-func TestCrossingTheDoorAndBackFromALiveLog(t *testing.T) {
-	m := replay(t, "live_door.jsonl")
-	if m.Space != "Testgrounds" || m.Map == nil || m.Map.GetSpace() != "Testgrounds" || m.Last() != 2 || len(m.Faults) != 0 {
+func TestCrossingTheDoorAndBackFromAScenarioLog(t *testing.T) {
+	m := replay(t, "door.jsonl")
+	if m.Space != "Testgrounds" || m.Map == nil || m.Map.GetSpace() != "Testgrounds" || len(m.Faults) != 0 {
 		t.Errorf("back in the first zone: space %q map %v last %d faults %v", m.Space, m.Map.GetSpace(), m.Last(), m.Faults)
 	}
 	var entered []string

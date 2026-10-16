@@ -48,6 +48,7 @@ type Session struct {
 	changed chan struct{} // closed and replaced on every change
 	m       *model.Model
 	agent   *agentkit.Agent
+	cur     *agentkit.Client // the agent's connection as of the last login or reconnect
 	sent    map[string]agentkit.Sent
 	out     bool // logout sent
 	nping   uint64
@@ -123,19 +124,22 @@ func (s *Session) Login(ctx context.Context) error {
 		return err
 	}
 	s.mu.Lock()
-	s.agent = a
+	s.agent, s.cur = a, a.Client()
 	s.mu.Unlock()
 	s.watch(a.Client())
 	return nil
 }
 
+// client is the connection now in use, nil before a login. It is the one the
+// session last saw up: the toolkit holds its own lock for the whole of a
+// reconnect, while the pong it waits for comes through onMessage, which needs
+// the session's, so the session must never wait on the agent under its lock
+// (nor at all while a reconnect runs: a command sent then finds the old
+// connection closed, as it should).
 func (s *Session) client() *agentkit.Client {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	if s.agent == nil {
-		return nil
-	}
-	return s.agent.Client()
+	return s.cur
 }
 
 // Reconnect brings a dropped connection back: the toolkit dials, presents the
@@ -151,7 +155,11 @@ func (s *Session) Reconnect(ctx context.Context) error {
 	if err := a.Reconnect(ctx); err != nil {
 		return err
 	}
-	s.watch(a.Client())
+	nc := a.Client()
+	s.mu.Lock()
+	s.cur = nc
+	s.mu.Unlock()
+	s.watch(nc)
 	s.mu.Lock()
 	var pending []agentkit.Sent
 	for _, id := range s.m.PendingIntents() {
@@ -161,7 +169,7 @@ func (s *Session) Reconnect(ctx context.Context) error {
 	}
 	s.mu.Unlock()
 	for _, in := range pending {
-		if err := a.Client().Resend(ctx, in); err != nil {
+		if err := nc.Resend(ctx, in); err != nil {
 			return err
 		}
 	}

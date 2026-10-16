@@ -1,7 +1,6 @@
 package app_test
 
 import (
-	"os"
 	"testing"
 
 	"github.com/GeneStevens/seq-tui/app"
@@ -9,14 +8,11 @@ import (
 	"github.com/GeneStevens/seq-tui/record"
 )
 
-func load(t *testing.T, name string, upto int) *model.Model {
+// load replays a recorded log into a model: a file name in testdata/logs, or
+// "file@mark" for the messages before a mark the scenario wrote.
+func load(t *testing.T, spec string, upto int) *model.Model {
 	t.Helper()
-	f, err := os.Open("../testdata/logs/" + name)
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer f.Close()
-	msgs, err := record.Read(f)
+	msgs, err := record.Load("../testdata/logs", spec)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -31,7 +27,7 @@ func load(t *testing.T, name string, upto int) *model.Model {
 }
 
 func TestMoveKeysAimAStepFromWhereYouStand(t *testing.T) {
-	m := load(t, "live_login.jsonl", 0) // at (10000, 50000)
+	m := load(t, "play.jsonl@play_login", 0) // at (10000, 50000)
 	for key, want := range map[string][2]int64{
 		"up": {10000, 50000 + app.StepMm}, "w": {10000, 50000 + app.StepMm},
 		"down": {10000, 50000 - app.StepMm}, "s": {10000, 50000 - app.StepMm},
@@ -79,13 +75,13 @@ func TestLootNamesTheNearestDrop(t *testing.T) {
 	if a := app.Plan("l", m); a.Kind != app.Loot || a.ID != "drop-enc-1-shell-fragment" {
 		t.Errorf("%+v", a)
 	}
-	if a := app.Plan("l", load(t, "live_login.jsonl", 0)); a.Kind != app.None || a.Note == "" {
+	if a := app.Plan("l", load(t, "play.jsonl@play_login", 0)); a.Kind != app.None || a.Note == "" {
 		t.Errorf("no drop in view: %+v", a)
 	}
 }
 
 func TestDoorNamesTheNearestDoor(t *testing.T) {
-	m := load(t, "live_login.jsonl", 0)
+	m := load(t, "play.jsonl@play_login", 0)
 	if a := app.Plan("e", m); a.Kind != app.UseDoor || a.ID != "gate-north" {
 		t.Errorf("%+v", a)
 	}
@@ -106,7 +102,7 @@ func TestOtherKeys(t *testing.T) {
 }
 
 func TestRKeyReleases(t *testing.T) {
-	m := load(t, "live_release.jsonl", 309) // dead
+	m := load(t, "release.jsonl@release_dead", 0) // dead
 	if a := app.Plan("r", m); a.Kind != app.Release {
 		t.Errorf("%+v", a)
 	}

@@ -1,0 +1,45 @@
+┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                         .                                                         #            ││ Tester  Lv 1  XP 0                     │
+│                         .                                                         #            ││ HP 96/100 ##########################-- │
+│                         .                                                         #            ││ Target: Plain Scuttler                 │
+│                         .                                                         #            ││ Auto-attack: ON                        │
+│                         .                                                         #            │└────────────────────────────────────────┘
+│                         .                                                         #            │┌─ Target ───────────────────────────────┐
+│                         .                                                         #            ││ M Plain Scuttler  Lv 1                 │
+│                         .                                                         #            ││ HP 22/40 ############----------- 2m E  │
+│                         .                                                         #            ││ fighting you                           │
+│                         .                                                         #            │└────────────────────────────────────────┘
+│                         .                                                         #            │┌─ Nearby ───────────────────────────────┐
+│                         .                                                         #            ││ M Plain Scuttler            2m E 22/40 │
+│                         .                                                         #            ││ D gate-north                    93m NE │
+│                         .                                                         #            ││ D line-east                     183m E │
+│                         .                      @   M                              #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ <   N.Ns Plain Scuttler hit Tester for 2                                                                                                 │
+│     N.Ns Tester began attacking Plain Scuttler                                                                                           │
+│     N.Ns Tester hit Plain Scuttler for 4                                                                                                 │
+│     N.Ns Tester hit Plain Scuttler for 6                                                                                                 │
+│ <   N.Ns Plain Scuttler hit Tester for 1                                                                                                 │
+│     N.Ns Tester healed 2                                                                                                                 │
+│     N.Ns Plain Scuttler healed 1                                                                                                         │
+│     N.Ns Tester missed Plain Scuttler                                                                                                    │
+│ <   N.Ns Plain Scuttler hit Tester for 3                                                                                                 │
+│     N.Ns Tester hit Plain Scuttler for 5                                                                                                 │
+│    NN.Ns Tester hit Plain Scuttler for 4                                                                                                 │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | attack ok                                                                            ? help  q quit

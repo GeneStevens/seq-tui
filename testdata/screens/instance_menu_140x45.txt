@@ -2,23 +2,23 @@
 │ A private copy of this zone for your group; then press E at its door.                                                                    │
 │                                                                                                                                          │
 │   1  Scuttler Skirmish  (skirmish), door gate-north                                                                                      │
-│      real-time; party 2; normal                                                                                                          │
-│   2  Solo Trial  (solo-trial), door gate-north                                                                                           │
-│      real-time; party 1; heroic                                                                                                          │
+│      real-time                                                                                                                           │
+│      party 2; normal                                                                                                                     │
+│ > 2  Solo Trial  (solo-trial), door gate-north                                                                                           │
+│      real-time                                                                                                                           │
+│      party 1; heroic                                                                                                                     │
 │   3  Long Game  (long-game), door gate-north                                                                                             │
-│      turn-based, 100-tick rounds (10 s), 24 h to plan; party 2; normal                                                                   │
-│ > 4  Quick Turns  (quick-turns), door gate-north                                                                                         │
-│      turn-based, 20-tick rounds (2 s), 20 s to plan; party 1; normal                                                                     │
+│      turn-based, 100-tick rounds (10 s), 24 h to plan                                                                                    │
+│      party 2; normal; sleeps up to 7 d                                                                                                   │
+│   4  Quick Turns  (quick-turns), door gate-north                                                                                         │
+│      turn-based, 20-tick rounds (2 s), 20 s to plan                                                                                      │
+│      party 1; normal; sleeps up to 7 d                                                                                                   │
 │   5  Duo Turns  (duo-turns), door gate-north                                                                                             │
-│      turn-based, 20-tick rounds (2 s), 6 s to plan; party 2; normal                                                                      │
+│      turn-based, 20-tick rounds (2 s), 6 s to plan                                                                                       │
+│      party 2; normal; sleeps up to 7 d                                                                                                   │
 │                                                                                                                                          │
 │ Up / Down or the number choose; Enter opens it; Esc closes the menu.                                                                     │
 │ Denied inside an instance, and when your group already has one open.                                                                     │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

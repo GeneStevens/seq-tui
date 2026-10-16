@@ -2,6 +2,7 @@ package screen
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 	"time"
 
@@ -84,11 +85,15 @@ func menuLines(m *model.Model, v View, w, h int, st Styler) []string {
 			mark = "> "
 		}
 		head := fmt.Sprintf(" %s%d  %s  (%s), door %s", mark, i+1, p.GetName(), p.GetId(), p.GetEntrance())
-		detail := fmt.Sprintf("      %s; party %d; %s", timeMode(p, tickOf(m)), p.GetPartyCap(), p.GetDifficulty())
+		detail := fmt.Sprintf("      %s", timeMode(p, tickOf(m)))
+		rules := fmt.Sprintf("      party %d; %s", p.GetPartyCap(), p.GetDifficulty())
+		if sl := sleepWords(p.GetSleepLimitMs()); sl != "" {
+			rules += "; " + sl
+		}
 		if i == v.Menu.Sel {
-			rows = append(rows, st.Reverse(fit(head, w)), st.Reverse(fit(detail, w)))
+			rows = append(rows, st.Reverse(fit(head, w)), st.Reverse(fit(detail, w)), st.Reverse(fit(rules, w)))
 		} else {
-			rows = append(rows, st.Bold(fit(head, w)), fit(detail, w))
+			rows = append(rows, st.Bold(fit(head, w)), fit(detail, w), fit(rules, w))
 		}
 	}
 	add("")
@@ -112,49 +117,69 @@ func presetName(m *model.Model, id string) string {
 	return id
 }
 
-func instanceLines(m *model.Model, w, h int, st Styler) []string {
-	var l1, l2, l3 string
-	p := m.Current()
-	mode := ""
-	switch {
-	case p != nil:
-		mode = "real-time"
-		if p.GetTimeMode() == "turn_based" {
-			mode = "turn-based"
-		}
-	case m.TurnBased():
-		mode = "turn-based"
+// modeWord is a time mode as a player reads it.
+func modeWord(mode string) string {
+	if mode == "turn_based" {
+		return "turn-based"
 	}
+	return "real-time"
+}
+
+// sleepWords says how long a turn-based instance may sleep unplayed before it
+// is abandoned (D49); "" for a real-time one, which has no limit.
+func sleepWords(ms int64) string {
+	if ms <= 0 {
+		return ""
+	}
+	return "sleeps up to " + duration(time.Duration(ms)*time.Millisecond)
+}
+
+// instanceInfoLines are the rows of the Instance panel: what the server says
+// the instance is, not what its space is called (D49).
+func instanceInfoLines(m *model.Model) []string {
+	var rows []string
 	switch {
-	case m.InInstance():
-		l1 = m.InstanceName()
-		l2 = strings.Trim(mode+" | inside", " |")
-		if p != nil {
-			l3 = fmt.Sprintf("party up to %d | %s", p.GetPartyCap(), p.GetDifficulty())
+	case m.Instance != nil:
+		in := m.Instance
+		rows = []string{m.InstanceName(), modeWord(in.GetTimeMode()) + " | inside",
+			fmt.Sprintf("party up to %d | %s", in.GetPartyCap(), in.GetDifficulty())}
+		if s := sleepWords(in.GetSleepLimitMs()); s != "" {
+			rows = append(rows, s)
 		}
+	case m.InInstance(): // a round with no snapshot of the instance yet
+		rows = []string{"Instance", "turn-based | inside"}
 	case m.Opened != nil:
-		p = m.Preset(m.Opened.Preset)
-		l1 = presetName(m, m.Opened.Preset)
-		mode = ""
-		if p != nil {
-			mode = "real-time"
-			if p.GetTimeMode() == "turn_based" {
-				mode = "turn-based"
+		rows = []string{presetName(m, m.Opened.Preset), "open"}
+		if p := m.Preset(m.Opened.Preset); p != nil {
+			rows[1] = modeWord(p.GetTimeMode()) + " | open"
+			rows = append(rows, fmt.Sprintf("party up to %d | %s", m.Opened.PartyCap, p.GetDifficulty()))
+			if s := sleepWords(p.GetSleepLimitMs()); s != "" {
+				rows = append(rows, s)
 			}
-		}
-		l2 = strings.Trim(mode+" | open", " |")
-		if p != nil {
-			l3 = "enter at " + p.GetEntrance() + " (E)"
+			rows = append(rows, "enter at "+p.GetEntrance()+" (E)")
 		}
 	default:
-		l1 = presetName(m, m.Ended.Preset) + " ended"
+		name := presetName(m, m.Ended.Preset) + " ended"
 		if m.Ended.Preset == "" {
-			l1 = "Instance ended"
+			name = "Instance ended"
 		}
-		l2 = m.Ended.Reason
-		l3 = "you were handed back"
+		rows = []string{name, m.Ended.Reason, "you were handed back"}
 	}
-	rows := []string{st.Bold(fit(" "+l1, w)), fit(" "+l2, w), fit(" "+l3, w)}
+	return rows
+}
+
+// instanceRows is how many rows of text the Instance panel has to show.
+func instanceRows(m *model.Model) int { return len(instanceInfoLines(m)) }
+
+func instanceLines(m *model.Model, w, h int, st Styler) []string {
+	var rows []string
+	for i, l := range instanceInfoLines(m) {
+		l = fit(" "+l, w)
+		if i == 0 {
+			l = st.Bold(l)
+		}
+		rows = append(rows, l)
+	}
 	return pad(rows[:min(len(rows), h)], w, h)
 }
 
@@ -186,15 +211,36 @@ func roundLines(m *model.Model, v View, w, h int, st Styler) []string {
 		return pad(rows, w, h)
 	}
 	if r.Open {
-		who := "none yet"
-		if len(r.Submitted) > 0 {
-			who = nameList(m, r.Submitted)
+		// The server does not announce a plan to the others: what is known is the
+		// list its last round event gave, and this character's own receipt.
+		in := slices.Clone(r.Submitted)
+		if v.Plan.Sent && !contains(in, you) {
+			in = append(in, you)
 		}
-		add(" Plans in: " + who)
-	} else {
-		if contains(r.ResolvedSubmitted, you) {
-			add(" your own plan was played")
+		who := "none yet"
+		if len(in) > 0 {
+			who = nameList(m, in)
+		}
+		if r.Participants > 0 {
+			add(fmt.Sprintf(" %d of %d submitted", len(in), r.Participants))
+			if len(in) > 0 {
+				add(" " + who)
+			}
 		} else {
+			add(" Plans in: " + who)
+		}
+	} else {
+		if r.ResolvedParticipants > 0 {
+			add(fmt.Sprintf(" %d of %d submitted", len(r.ResolvedSubmitted), r.ResolvedParticipants))
+		}
+		switch {
+		case len(r.Plays) > 0:
+			for _, p := range r.Plays {
+				add(fmt.Sprintf(" %s: %s", nameList(m, []string{p.Character}), playWords(p.Source)))
+			}
+		case contains(r.ResolvedSubmitted, you):
+			add(" your own plan was played")
+		default:
 			add(" no plan from you: a stand-in")
 			add(" or the safe default ran")
 		}
@@ -211,7 +257,7 @@ func roundLines(m *model.Model, v View, w, h int, st Styler) []string {
 			head = " Plan: empty, not sent"
 		}
 		add(head)
-		if h >= 8 {
+		if h >= 7 {
 			if in {
 				add("  counts even if you disconnect")
 			} else {
@@ -220,7 +266,11 @@ func roundLines(m *model.Model, v View, w, h int, st Styler) []string {
 		}
 		room := h - len(rows)
 		steps := v.Plan.Steps
-		if len(steps) > room && room > 0 {
+		switch {
+		case len(steps) <= room || room <= 0:
+		case room == 1: // no room to say how many: the last step is the one that matters
+			steps = steps[len(steps)-1:]
+		default:
 			skip := len(steps) - room + 1
 			add(fmt.Sprintf("  …%d earlier", skip))
 			steps = steps[skip:]
@@ -233,6 +283,19 @@ func roundLines(m *model.Model, v View, w, h int, st Styler) []string {
 		}
 	}
 	return pad(rows, w, h)
+}
+
+// playWords is what a round's character played, in few words (D49).
+func playWords(source string) string {
+	switch source {
+	case "own_plan":
+		return "own plan"
+	case "stand_in":
+		return "stand-in plan"
+	case "safe_default":
+		return "safe default"
+	}
+	return source
 }
 
 func ranBy(reason string) string {

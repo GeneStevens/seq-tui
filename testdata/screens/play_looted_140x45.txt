@@ -1,0 +1,45 @@
+┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                         .                                                         #            ││ Tester  Lv 1  XP 20                    │
+│                         .                                                         #            ││ HP 99/100 ###########################- │
+│                         .                                                         #            ││ Target: none                           │
+│                         .                                                         #            ││ Auto-attack: off                       │
+│                         .                                                         #            │└────────────────────────────────────────┘
+│                         .                                                         #            │┌─ Target ───────────────────────────────┐
+│                         .                                                         #            ││ no target (Tab to choose)              │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            │└────────────────────────────────────────┘
+│                         .                                                         #            │┌─ Nearby ───────────────────────────────┐
+│                         .                                                         #            ││ D gate-north                    93m NE │
+│                         .                                                         #            ││ D line-east                     183m E │
+│                         .                                                         #            ││                                        │
+│                         .                      @                                  #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+│                         .                                                         #            ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    20.5s Tester's target Plain Scuttler cleared: target_dead                                                                             │
+│    20.5s Tester stopped attacking                                                                                                        │
+│    20.5s Plain Scuttler dropped shell-fragment (drop-enc-1-shell-fragment)                                                               │
+│    20.5s encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
+│ +  20.5s Tester received 20 xp from Plain Scuttler                                                                                       │
+│    20.5s Plain Scuttler left view                                                                                                        │
+│    24.0s Tester healed 2                                                                                                                 │
+│    30.0s Tester healed 2                                                                                                                 │
+│    36.0s Tester healed 2                                                                                                                 │
+│    40.6s drop drop-enc-1-shell-fragment is gone: taken                                                                                   │
+│ +  40.6s Tester received shell-fragment from drop-enc-1-shell-fragment                                                                   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago | loot ok                                                                              ? help  q quit

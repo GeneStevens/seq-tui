@@ -49,7 +49,7 @@ var sgr = regexp.MustCompile("\x1b\\[[0-9;]*m")
 func screenOf(a *app.App) string { return sgr.ReplaceAllString(a.View().Content, "") }
 
 func TestInstanceMenuOpensChoosesAndCloses(t *testing.T) {
-	a, _ := program(t, "live_solo_trial.jsonl", 3)
+	a, _ := program(t, "solo_trial.jsonl@instance_menu", 0)
 	press(a, "i")
 	if s := screenOf(a); !strings.Contains(s, "Instances") || !strings.Contains(s, "Quick Turns") || !strings.Contains(s, "Duo Turns") {
 		t.Fatalf("no menu:\n%s", s)
@@ -76,7 +76,7 @@ func TestInstanceMenuOpensChoosesAndCloses(t *testing.T) {
 }
 
 func TestTurnBasedKeysBuildAPlanInsteadOfActing(t *testing.T) {
-	a, sess := program(t, "live_quick_turns.jsonl", 391)
+	a, sess := program(t, "quick_turns.jsonl@round_plan", 0)
 	a.Update(tea.WindowSizeMsg{Width: 140, Height: 45}) // room for the whole plan
 	for _, k := range []string{"down", "down", "tab", "f"} {
 		if cmd := press(a, k); cmd != nil {
@@ -84,7 +84,7 @@ func TestTurnBasedKeysBuildAPlanInsteadOfActing(t *testing.T) {
 		}
 	}
 	s := screenOf(a)
-	for _, want := range []string{"Plan (4/16): not sent yet", "move (100000,84000)", "target Plain Scuttler", "attack on", "Plans in: none yet", "+"} {
+	for _, want := range []string{"Plan (4/16): not sent yet", "move (100000,84000)", "target Plain Scuttler", "attack on", "0 of 1 submitted", "none yet", "+"} {
 		if !strings.Contains(s, want) {
 			t.Errorf("missing %q:\n%s", want, s)
 		}
@@ -111,13 +111,13 @@ func TestTurnBasedKeysBuildAPlanInsteadOfActing(t *testing.T) {
 	sess.View(func(m *model.Model) {
 		m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: &pb.Event{Seq: m.Last() + 1, Body: &pb.Event_RoundStarted{RoundStarted: &pb.RoundStarted{Round: m.Round.Number + 1, DeadlineMs: 1}}}}})
 	})
-	if s := screenOf(a); !strings.Contains(s, "Round 3") || !strings.Contains(s, "Plan: empty, not sent") {
+	if s := screenOf(a); !strings.Contains(s, "Round 2") || !strings.Contains(s, "Plan: empty, not sent") {
 		t.Errorf("the plan survived a new round:\n%s", s)
 	}
 }
 
 func TestRealTimeKeysStillActInTheWorld(t *testing.T) {
-	a, _ := program(t, "live_solo_trial.jsonl", 3)
+	a, _ := program(t, "solo_trial.jsonl@instance_menu", 0)
 	if cmd := press(a, "d"); cmd == nil {
 		t.Error("a move key in a real-time zone sends the move")
 	}

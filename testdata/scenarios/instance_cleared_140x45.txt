@@ -1,0 +1,45 @@
+┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                                                                                ││ Tester  Lv 1  XP 20                    │
+│                                                                                                ││ HP 93/100 ##########################-- │
+│                                                                                                ││ Target: none                           │
+│                                                                                                ││ Auto-attack: off                       │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Instance ─────────────────────────────┐
+│................................................................................................││ Solo Trial ended                       │
+│                                                                                                ││ cleared                                │
+│                                                                                                ││ you were handed back                   │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                @                                               │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ D gate-north                   0m here │
+│                                                                                                ││ D line-east                    124m SE │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: mob_died                                                                     │
+│ +  NN.Ns Tester received 20 xp from Plain Scuttler                                                                                       │
+│    NN.Ns Plain Scuttler left view                                                                                                        │
+│    NN.Ns Tester healed 2                                                                                                                 │
+│    NN.Ns Tester healed 2                                                                                                                 │
+│    NN.Ns Tester healed 2                                                                                                                 │
+│    NN.Ns Tester healed 2                                                                                                                 │
+│    NN.Ns drop drop-inst-1.enc-1-shell-fragment is gone: taken                                                                            │
+│ +  NN.Ns Tester received shell-fragment from drop-inst-1.enc-1-shell-fragment                                                            │
+│    NN.Ns instance ended, cleared: every mob dead and the loot taken                                                                      │
+│    NN.Ns entered Testgrounds                                                                                                             │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | loot ok                                                                              ? help  q quit

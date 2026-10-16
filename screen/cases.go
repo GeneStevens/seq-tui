@@ -18,6 +18,9 @@ type Case struct {
 	Name string
 	Log  string // file in testdata/logs
 	Upto int    // messages replayed; 0 is all of them
+	// Mark replays the messages before the mark of that name instead (a
+	// scenario writes the marks when it records the log).
+	Mark string
 	Help bool
 	// Notice is the last command's answer shown on the status line.
 	Notice    string
@@ -30,6 +33,8 @@ type Case struct {
 	Plan []string
 	Dest *[2]int64
 	Left time.Duration
+	// PlanSent: the server has the plan (the receipt came).
+	PlanSent bool
 }
 
 // Sizes the goldens are drawn at.
@@ -43,27 +48,35 @@ var Cases = []Case{
 	{Name: "crossing_before", Log: "crossing.jsonl", Upto: 4},
 	{Name: "crossing_after", Log: "crossing.jsonl"},
 	{Name: "drop_resume", Log: "drop_resume.jsonl"},
-	{Name: "live_login", Log: "live_login.jsonl"},
-	// Recorded from a live development server (TUI-006): dying, releasing,
-	// respawning, and crossing the zone line to the second zone and back.
-	{Name: "release_dead", Log: "live_release.jsonl", Upto: 309},
-	{Name: "release_released", Log: "live_release.jsonl", Upto: 321},
-	{Name: "release_respawned", Log: "live_release.jsonl"},
-	{Name: "door_before", Log: "live_door.jsonl", Upto: 681},
-	{Name: "door_across", Log: "live_door.jsonl", Upto: 684},
-	{Name: "door_back", Log: "live_door.jsonl"},
-	// Recorded from a live development server (TUI-007): the instance menu,
-	// solo-trial opened, entered and cleared with the hand-back, and
-	// quick-turns round by round.
-	{Name: "instance_menu", Log: "live_solo_trial.jsonl", Upto: 3, Menu: true, MenuSel: 3},
-	{Name: "instance_opened", Log: "live_solo_trial.jsonl", Upto: 386, Notice: "instance requested; the log says when it is open"},
-	{Name: "instance_inside", Log: "live_solo_trial.jsonl", Upto: 395},
-	{Name: "instance_cleared", Log: "live_solo_trial.jsonl"},
-	{Name: "round_plan", Log: "live_quick_turns.jsonl", Upto: 391, Left: 14 * time.Second,
-		Plan: []string{"move (100000,87000)", "move (100000,84000)", "target Plain Scuttler", "attack on"}, Dest: &[2]int64{100000, 84000}},
-	{Name: "round_resolved_own", Log: "live_quick_turns.jsonl", Upto: 457},
-	{Name: "round_missed", Log: "live_quick_turns.jsonl", Upto: 478},
-	{Name: "round_reconnected", Log: "live_quick_turns.jsonl", Upto: 462, Left: 15 * time.Second},
+	// Recorded by the client scenarios (`make fixtures`, scenario/): each log
+	// is one scenario's session, and a mark is a point the scenario named.
+	{Name: "play_login", Log: "play.jsonl", Mark: "play_login"},
+	{Name: "play_fight", Log: "play.jsonl", Mark: "play_fight"},
+	{Name: "play_looted", Log: "play.jsonl", Mark: "play_looted", Notice: "loot ok"},
+	// Dying, releasing, respawning, and crossing the zone line and back.
+	{Name: "release_dead", Log: "release.jsonl", Mark: "release_dead"},
+	{Name: "release_released", Log: "release.jsonl", Mark: "release_released", Notice: "release ok"},
+	{Name: "release_respawned", Log: "release.jsonl", Mark: "release_respawned"},
+	{Name: "door_before", Log: "door.jsonl", Mark: "door_before"},
+	{Name: "door_across", Log: "door.jsonl", Mark: "door_across", Notice: "use door ok"},
+	{Name: "door_back", Log: "door.jsonl", Mark: "door_back", Notice: "use door ok"},
+	// The instance menu, solo-trial opened, entered and cleared with the
+	// hand-back, and quick-turns and duo-turns round by round.
+	{Name: "instance_menu", Log: "solo_trial.jsonl", Mark: "instance_menu", Menu: true, MenuSel: 1},
+	{Name: "instance_opened", Log: "solo_trial.jsonl", Mark: "instance_opened", Notice: "instance requested; the log says when it is open"},
+	{Name: "instance_inside", Log: "solo_trial.jsonl", Mark: "instance_inside", Notice: "use door ok"},
+	{Name: "instance_cleared", Log: "solo_trial.jsonl", Mark: "instance_cleared", Notice: "loot ok"},
+	{Name: "round_plan", Log: "quick_turns.jsonl", Mark: "round_plan", Left: 20 * time.Second,
+		Plan: []string{"move (100000,87000)", "move (100000,84000)", "target Plain Scuttler"}, Dest: &[2]int64{100000, 84000}},
+	{Name: "round_receipt", Log: "quick_turns.jsonl", Mark: "round_receipt", Left: 20 * time.Second, PlanSent: true, Notice: "plan accepted, counts even if you disconnect",
+		Plan: []string{"move (100000,87000)", "move (100000,84000)", "target Plain Scuttler"}, Dest: &[2]int64{100000, 84000}},
+	{Name: "round_missed", Log: "quick_turns.jsonl", Mark: "round_missed", Left: 19 * time.Second},
+	{Name: "round_resumed", Log: "quick_turns.jsonl", Mark: "round_resumed", Left: 19 * time.Second},
+	{Name: "round_fresh", Log: "quick_turns.jsonl", Mark: "round_fresh", Left: 19 * time.Second},
+	{Name: "round_cleared", Log: "quick_turns.jsonl", Mark: "round_cleared", Notice: "plan accepted, counts even if you disconnect"},
+	{Name: "duo_gathered", Log: "duo_turns.jsonl", Mark: "duo_gathered", Left: 6 * time.Second},
+	{Name: "duo_one_of_two", Log: "duo_turns.jsonl", Mark: "duo_one_of_two", Left: 6 * time.Second, PlanSent: true, Notice: "plan accepted, counts even if you disconnect", Plan: []string{"move (100000,92000)"}},
+	{Name: "duo_two_of_two", Log: "duo_turns.jsonl", Mark: "duo_two_of_two", Left: 6 * time.Second},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
 }
 
@@ -74,7 +87,12 @@ func (c Case) Replay(dir string) (*model.Model, error) {
 		return nil, err
 	}
 	defer f.Close()
-	msgs, err := record.Read(f)
+	var msgs []*pb.ServerMessage
+	if c.Mark != "" {
+		msgs, err = record.ReadUntil(f, c.Mark)
+	} else {
+		msgs, err = record.Read(f)
+	}
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", c.Log, err)
 	}
@@ -90,7 +108,7 @@ func (c Case) Replay(dir string) (*model.Model, error) {
 
 // Draw renders the case at w x h, plain, with the clock fixed.
 func (c Case) Draw(m *model.Model, w, h int) string {
-	v := View{Help: c.Help, Conn: ConnOnline, HasTick: true, Since: 400 * time.Millisecond, Notice: c.Notice, NoticeBad: c.NoticeBad, Plan: Plan{Steps: c.Plan}}
+	v := View{Help: c.Help, Conn: ConnOnline, HasTick: true, Since: 400 * time.Millisecond, Notice: c.Notice, NoticeBad: c.NoticeBad, Plan: Plan{Steps: c.Plan, Sent: c.PlanSent}}
 	if c.Menu {
 		v.Menu = &Menu{Sel: c.MenuSel}
 	}

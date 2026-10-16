@@ -34,6 +34,13 @@ type App struct {
 	menu     *screen.Menu // the instance menu, nil when closed
 	draft    Draft        // the plan being built in a turn-based instance
 	Err      error        // why the program ended, if it ended badly
+
+	// Clock tells the time the screen's countdowns and "heard ago" read; nil is
+	// the wall clock. A scenario sets it to its server's clock.
+	Clock func() time.Time
+
+	keys     int // key presses handled, and commands sent and answered: what a scenario waits on
+	inflight int
 }
 
 // New returns the program's model for a session that has logged in.
@@ -55,6 +62,14 @@ type (
 	reconnected struct{ err error }
 )
 
+// now is the time the screen reads.
+func (a *App) now() time.Time {
+	if a.Clock != nil {
+		return a.Clock()
+	}
+	return time.Now()
+}
+
 func (a *App) Init() tea.Cmd {
 	a.watch = a.sess.Changed()
 	a.observe()
@@ -71,7 +86,7 @@ func (a *App) waitChange() tea.Cmd {
 func (a *App) observe() {
 	a.sess.View(func(m *model.Model) {
 		if !a.view.HasTick || m.Heard != a.lastN {
-			a.lastTick, a.lastN, a.view.HasTick = time.Now(), m.Heard, true
+			a.lastTick, a.lastN, a.view.HasTick = a.now(), m.Heard, true
 		}
 	})
 }
@@ -108,12 +123,17 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return a, a.reconnect(retryEvery)
 		}
 		a.retrying, a.view.Conn, a.view.Notice, a.view.NoticeBad = false, screen.ConnOnline, "reconnected", false
+	case Probe:
+		msg.Fn(a)
+		close(msg.Done)
 	case resultMsg:
+		a.inflight--
 		a.view.Notice, a.view.NoticeBad = msg.note, msg.bad
 		if msg.planSent && msg.planRound == a.draft.Round && msg.planVer == a.draft.Ver {
 			a.draft.Sent = true
 		}
 	case tea.KeyPressMsg:
+		a.keys++
 		return a.key(msg.String())
 	}
 	return a, nil
@@ -190,6 +210,7 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		if act.Kind == PlanSubmit {
 			act.Round, act.Ver, act.Steps = a.draft.Round, a.draft.Ver, a.draft.Agent()
 		}
+		a.inflight++
 		return a, a.send(act)
 	}
 	return a, nil
@@ -291,19 +312,25 @@ func (a *App) send(act Action) tea.Cmd {
 	}
 }
 
-func (a *App) View() tea.View {
+// render draws the screen at w x h; since is how long ago the server was last
+// heard.
+func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v := a.view
-	v.Since = time.Since(a.lastTick)
+	v.Since = since
 	var out string
-	v.Menu, v.Now = a.menu, time.Now()
+	v.Menu, v.Now = a.menu, a.now()
 	a.sess.View(func(m *model.Model) {
 		a.sync(m)
 		if m.TurnBased() {
 			v.Plan = screen.Plan{Steps: a.draft.Lines(m), Sent: a.draft.Sent, Dest: a.draft.Dest()}
 		}
-		out = screen.Render(m, v, a.w, a.h, screen.ANSI())
+		out = screen.Render(m, v, w, h, st)
 	})
-	tv := tea.NewView(out)
+	return out
+}
+
+func (a *App) View() tea.View {
+	tv := tea.NewView(a.render(a.w, a.h, a.now().Sub(a.lastTick), screen.ANSI()))
 	tv.AltScreen = true
 	tv.WindowTitle = "SEQ"
 	return tv

@@ -10,15 +10,15 @@
 │                                                  ││ party up to 1 | heroic   │
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
-│                       m                          │┌─ Target ─────────────────┐
+│                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
-│                                                  ││                          │
+│                         m                        ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     0.2s instance opened: Solo Trial (up to 1 in it); enter at gate-north    │
 │            with E                                                            │
 │     1.3s entered Testgrounds (Solo Trial)                                    │
-│     1.4s Plain Scuttler targeted Tester                                      │
-│     1.4s Tester opened an encounter with Plain Scuttler (inst-1.enc-1)       │
+│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds (Solo Trial) | heard 0.4s ago               ? help  q quit
+ ONLINE | Testgrounds (Solo Trial) | heard 0.4s ago | use door ok ? help  q quit

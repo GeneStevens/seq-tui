@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│             .                             #      ││ Tester  Lv 1  XP 20      │
+│             .                             #      ││ HP 99/100 #############- │
+│             .                             #      ││ Target: none             │
+│             .                             #      ││ Auto-attack: off         │
+│             .                             #      │└──────────────────────────┘
+│             .                             #      │┌─ Target ─────────────────┐
+│             .                             #      ││ no target (Tab to choose)│
+│             .           @                 #      ││                          │
+│             .                             #      ││                          │
+│             .                             #      │└──────────────────────────┘
+│             .                             #      │┌─ Nearby ─────────────────┐
+│             .                             #      ││ D gate-north      93m NE │
+│             .                             #      ││ D line-east       183m E │
+│             .                             #      ││                          │
+│             .                             #      ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    NN.Ns Tester healed 2                                                     │
+│    NN.Ns Tester healed 2                                                     │
+│    NN.Ns drop drop-enc-1-shell-fragment is gone: taken                       │
+│ +  NN.Ns Tester received shell-fragment from drop-enc-1-shell-fragment       │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | loot ok                  ? help  q quit

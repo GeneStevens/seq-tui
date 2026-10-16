@@ -1,19 +1,20 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │                                                                                                ││ Tester  Lv 1  XP 20                    │
-│                                                                                                ││ HP 95/100 ##########################-- │
+│                                                                                                ││ HP 93/100 ##########################-- │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
 │................................................................................................││ Solo Trial ended                       │
 │                                                                                                ││ cleared                                │
+│                                                                                                ││ you were handed back                   │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                @                                               │┌─ Nearby ───────────────────────────────┐
+│                                                @                                               │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ D gate-north                   0m here │
 │                                                                                                ││ D line-east                    124m SE │
 │                                                                                                ││                                        │
@@ -27,19 +28,18 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ x  19.6s Tester killed Plain Scuttler                                                                                                    │
-│    19.6s Tester's target Plain Scuttler cleared: target_dead                                                                             │
-│    19.6s Tester stopped attacking                                                                                                        │
-│    19.6s Plain Scuttler dropped shell-fragment (drop-inst-1.enc-1-shell-fragment)                                                        │
-│    19.6s encounter inst-1.enc-1 with Plain Scuttler closed: mob_died                                                                     │
-│ +  19.6s Tester received 20 xp from Plain Scuttler                                                                                       │
-│    19.6s Plain Scuttler left view                                                                                                        │
-│    19.7s drop drop-inst-1.enc-1-shell-fragment is gone: taken                                                                            │
-│ +  19.7s Tester received shell-fragment from drop-inst-1.enc-1-shell-fragment                                                            │
-│    19.7s instance ended, cleared: every mob dead and the loot taken                                                                      │
-│    48.5s entered Testgrounds                                                                                                             │
+│    55.6s encounter inst-1.enc-1 with Plain Scuttler closed: mob_died                                                                     │
+│ +  55.6s Tester received 20 xp from Plain Scuttler                                                                                       │
+│    55.6s Plain Scuttler left view                                                                                                        │
+│    60.0s Tester healed 2                                                                                                                 │
+│    66.0s Tester healed 2                                                                                                                 │
+│    72.0s Tester healed 2                                                                                                                 │
+│    78.0s Tester healed 2                                                                                                                 │
+│    81.7s drop drop-inst-1.enc-1-shell-fragment is gone: taken                                                                            │
+│ +  81.7s Tester received shell-fragment from drop-inst-1.enc-1-shell-fragment                                                            │
+│    81.7s instance ended, cleared: every mob dead and the loot taken                                                                      │
+│    82.1s entered Testgrounds                                                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit
+ ONLINE | Testgrounds | heard 0.4s ago | loot ok                                                                              ? help  q quit

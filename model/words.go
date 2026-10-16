@@ -99,22 +99,21 @@ func (m *Model) describeInstance(e *pb.Event) (kind, text, reason string, ok boo
 		if len(o.GetSubmitted()) > 0 {
 			who = m.nameList(o.GetSubmitted())
 		}
-		return "round_started", fmt.Sprintf("round %d is open: game time waits for plans (plans in: %s)", o.GetRound(), who), "", true
+		in := fmt.Sprintf("plans in: %s", who)
+		if n := o.GetParticipants(); n > 0 {
+			in = fmt.Sprintf("%d of %d submitted: %s", len(o.GetSubmitted()), n, who)
+		}
+		return "round_started", fmt.Sprintf("round %d is open: game time waits for plans (%s)", o.GetRound(), in), "", true
 	case *pb.Event_RoundResolved:
 		o := b.RoundResolved
-		own := false
-		for _, id := range o.GetSubmitted() {
-			own = own || id == m.Self.ID
-		}
 		by := map[string]string{"all_submitted": "everyone had a plan", "deadline": "the deadline passed", "instance_ended": "the instance ended"}[o.GetReason()]
 		if by == "" {
 			by = o.GetReason()
 		}
-		fate := "your character played your own plan"
-		if !own {
-			fate = "you had no plan of your own, so your character played a stand-in plan if one was sent, else the safe default (stop, defend, start nothing)"
+		if n := o.GetParticipants(); n > 0 {
+			by = fmt.Sprintf("%s; %d of %d submitted", by, len(o.GetSubmitted()), n)
 		}
-		return "round_resolved", fmt.Sprintf("round %d ran (%s): %s", o.GetRound(), by, fate), o.GetReason(), true
+		return "round_resolved", fmt.Sprintf("round %d ran (%s): %s", o.GetRound(), by, m.playsWords(o)), o.GetReason(), true
 	}
 	return "", "", "", false
 }
@@ -128,4 +127,35 @@ func (m *Model) nameList(ids []string) string {
 		}
 	}
 	return strings.Join(out, ", ")
+}
+
+// playsWords says exactly what each character played in a round (D49): its own
+// plan, its agent's stand-in, or the safe default (stop, defend, start nothing).
+func (m *Model) playsWords(o *pb.RoundResolved) string {
+	if len(o.GetPlays()) == 0 { // a server that does not say (before D49): what the submitted list implies
+		for _, id := range o.GetSubmitted() {
+			if id == m.Self.ID {
+				return "you played your own plan"
+			}
+		}
+		return "you had no plan of your own: a stand-in or the safe default ran"
+	}
+	out := make([]string, len(o.GetPlays()))
+	for i, p := range o.GetPlays() {
+		who, poss := m.label(p.GetCharacter()), "its"
+		if p.GetCharacter() == m.Self.ID {
+			who, poss = "you", "your"
+		}
+		switch p.GetSource() {
+		case "own_plan":
+			out[i] = fmt.Sprintf("%s played %s own plan", who, poss)
+		case "stand_in":
+			out[i] = fmt.Sprintf("%s played a stand-in plan", who)
+		case "safe_default":
+			out[i] = fmt.Sprintf("%s played the safe default (stop, defend, start nothing)", who)
+		default:
+			out[i] = fmt.Sprintf("%s played %s", who, p.GetSource())
+		}
+	}
+	return strings.Join(out, "; ")
 }
