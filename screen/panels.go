@@ -61,6 +61,13 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		round += more
 		left -= more
 	}
+	// The Contracts panel, when the character holds any and Nearby keeps its rows.
+	consH, consLines := contractsBox(m, iw, st)
+	if consH > 0 && left-consH >= 5 {
+		left -= consH
+	} else {
+		consH = 0
+	}
 	nearby := left >= 5
 	switch {
 	case nearby:
@@ -80,6 +87,9 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	if target {
 		tl := targetLines(m, iw, st)
 		rows = append(rows, box("Target", rw, targetH, pad(tl[:min(len(tl), targetH-2)], iw, targetH-2), st)...)
+	}
+	if consH > 0 {
+		rows = append(rows, box("Contracts (K)", rw, consH, consLines, st)...)
 	}
 	if nearby {
 		h := th - len(rows)
@@ -156,7 +166,11 @@ func nearbyList(m *model.Model) []nearby {
 		if e.GetDead() {
 			hp = "dead"
 		}
-		out = append(out, mk(entityGlyph(e), e.GetId(), e.GetName(), e.GetPos(), hp))
+		n := mk(entityGlyph(e), e.GetId(), e.GetName(), e.GetPos(), hp)
+		if model.IsRare(e) && !e.GetDead() {
+			n.note = "RARE"
+		}
+		out = append(out, n)
 	}
 	for _, id := range m.GroupIDs() {
 		ent(m.Group[id].Entity)
@@ -172,11 +186,16 @@ func nearbyList(m *model.Model) []nearby {
 		}
 		out = append(out, n)
 	}
-	for _, n := range m.NPCs {
-		out = append(out, mk(glyphTrader, n.GetId(), n.GetName(), n.GetPos(), n.GetRole()))
+	for _, n := range m.KnownNPCs() {
+		out = append(out, mk(npcGlyph(n), n.GetId(), n.GetName(), n.GetPos(), n.GetRole()))
 	}
 	for _, d := range m.Map.GetDoors() {
 		out = append(out, mk(glyphDoor, d.GetId(), d.GetId(), d.GetPos(), ""))
+	}
+	for _, c := range m.Self.Contracts {
+		if c.GetMarker() != "" && c.GetMarkerPos() != nil && c.GetHave() < c.GetNeed() {
+			out = append(out, mk(glyphMarker, "marker-"+c.GetMarker(), model.EventName(c.GetMarker()), c.GetMarkerPos(), "scout marker"))
+		}
 	}
 	sort.SliceStable(out, func(i, j int) bool {
 		if out[i].d != out[j].d {
@@ -269,10 +288,18 @@ func targetLines(m *model.Model, w int, st Styler) []string {
 		}
 	}
 	return []string{
-		st.Bold(fit(fmt.Sprintf(" %c %s  Lv %d", g, e.GetName(), e.GetLevel()), w)),
+		st.Bold(fit(fmt.Sprintf(" %c %s  Lv %d%s", g, e.GetName(), e.GetLevel(), rareTag(e)), w)),
 		fit(" "+state+bar(e.GetHp(), e.GetMaxHp(), max(w-width(state)-width(right)-4, 0))+" "+right, w),
 		fit(" "+fight, w),
 	}
+}
+
+// rareTag marks a roaming rare in the Target panel.
+func rareTag(e *pb.EntityState) string {
+	if model.IsRare(e) && !e.GetDead() {
+		return " RARE"
+	}
+	return ""
 }
 
 func logLines(m *model.Model, v View, w, h int, st Styler) []string {
@@ -296,6 +323,8 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 			if e.Actor == m.Self.ID {
 				fn = func(s string) string { return st.Yellow(st.Bold(s)) }
 			}
+		case e.Kind == "world_event" || e.Kind == "rare_appeared":
+			mark, fn = "*", func(s string) string { return st.Yellow(st.Bold(s)) }
 		case e.Kind == "reward":
 			mark, fn = "+", st.Green
 		case e.Kind == "cast_cancelled" || e.Kind == "cast_interrupted":

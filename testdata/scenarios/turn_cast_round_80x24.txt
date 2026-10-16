@@ -1,4 +1,4 @@
-┌─ Testgrounds (Quick Turns), north up ────────────┐┌─ You ────────────────────┐
+┌─ Testgrounds (Quick Turns), at 100,90 m, north… ─┐┌─ You ────────────────────┐
 │                                                  ││ zedd  Lv 1 Wizard   | 0cr│
 │                                                  ││ HP 80/80 ############### │
 │                                                  ││ MP 150/150 ############# │
@@ -8,7 +8,7 @@
 │                                                  │┌─ Round 2, 20 s left ─────┐
 │                                                  ││ 0 of 1 submitted         │
 │                                                  ││ Frost Bolt lands in roun…│
-│                                                  ││ Plan: empty, not sent    │
+│                         c                        ││ Plan: empty, not sent    │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Flame Dart   busy 2 Frost Bolt  busy 3 -          empty 4 -          empty │

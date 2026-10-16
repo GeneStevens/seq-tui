@@ -1,4 +1,4 @@
-┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Testgrounds, at 20,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │                   .                                                         #                  ││ aria  Lv 1  XP 0             | 0 crowns│
 │                   .                                                         #                  ││ DEAD  HP 0/6                           │
 │                   .                                                         #                  ││ Target: none                           │
@@ -7,13 +7,15 @@
 │                   .                $  $  $  $  $  $                         #                  │┌─ Target ───────────────────────────────┐
 │                   .                                                         #                  ││ no target (Tab to choose)              │
 │                   .                                                         #                  ││                                        │
-│                   .                $  $  $                                  #                  ││                                        │
+│                   .                $  $  $  &  ?                            #                  ││                                        │
 │                   .                                                         #                  │└────────────────────────────────────────┘
 │                   .                                                         #                  │┌─ Nearby ───────────────────────────────┐
 │                   .                                                         #                  ││ m Plain Scuttler            2m E 40/40 │
-│                   .                                                         #                  ││ $ Testgrounds Binder      9m NW binder │
-│                   .                              m                          #                  ││ $ Testgrounds Banker     10m NW banker │
-│                   .                            @                            #                  ││ $ Testgrounds Vendor     11m NW vendor │
+│                   .                                                         #                  ││ ? Testgrounds Captain 8m N quest_giver │
+│                   .                              m                          #                  ││ & Testgrounds Con… 8m N contract_board │
+│                   .                            @      c                     #                  ││ $ Testgrounds Binder      9m NW binder │
+│                   .                                                         #                  ││ $ Testgrounds Banker     10m NW banker │
+│                   .                                                         #                  ││ $ Testgrounds Vendor     11m NW vendor │
 │                   .                                                         #                  ││ $ Paladin Trainer        12m N trainer │
 │                   .                                                         #                  ││ $ Druid Trainer          12m N trainer │
 │                   .                                                         #                  ││ $ Wizard Trainer         12m N trainer │
@@ -22,8 +24,6 @@
 │                   .                                                         #                  ││ $ Warrior Trainer       14m NW trainer │
 │                   .                                                         #                  ││ D gate-north                    89m NE │
 │                   .                                                         #                  ││ D line-east                     180m E │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
 │                   .                                                         #                  ││                                        │
 │                   .                                                         #                  ││                                        │
 │                   .                                                         #                  ││                                        │

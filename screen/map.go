@@ -18,6 +18,11 @@ const (
 	glyphDrop      = '*'
 	glyphLocked    = '~' // a drop this character may not take (a Rare one)
 	glyphTrader    = '$' // a vendor, trainer, binder or banker
+	glyphBoard     = '&' // a contract board
+	glyphTalker    = '?' // someone who only talks (a quest giver)
+	glyphMarker    = '%' // where a held scout contract sends you
+	glyphCamp      = 'c' // a camp: where mobs were first seen (remembered)
+	glyphRare      = 'r' // a roaming rare in view
 	glyphDoor      = 'D'
 	glyphWall      = '#'
 	glyphBounds    = '.'
@@ -33,11 +38,13 @@ const (
 	kEmpty cellKind = iota
 	kBounds
 	kWall
+	kCamp
 	kDoor
 	kDrop
 	kPlan
 	kCharacter
 	kMob
+	kRare
 	kTarget
 	kSelf
 )
@@ -145,6 +152,8 @@ func entityGlyph(e *pb.EntityState) rune {
 	switch {
 	case e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB && e.GetDead():
 		return glyphDeadMob
+	case model.IsRare(e):
+		return glyphRare
 	case e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB:
 		return glyphMob
 	}
@@ -153,9 +162,45 @@ func entityGlyph(e *pb.EntityState) rune {
 
 func upper(r rune) rune { return []rune(strings.ToUpper(string(r)))[0] }
 
-// mapRows draws the map panel's interior: cw x ch cells, styled.
+// npcGlyph is the glyph of an NPC by what it does.
+func npcGlyph(n *pb.NpcInfo) rune {
+	switch n.GetRole() {
+	case "contract_board":
+		return glyphBoard
+	case "quest_giver":
+		return glyphTalker
+	}
+	return glyphTrader
+}
+
+// mapRows draws the map panel's interior: cw x ch cells, styled. It scrolls: the
+// picture is centred on the character and the scale never changes, so a zone
+// larger than the panel is seen a window at a time.
 func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	g := newGrid(newScale(m.Map.GetViewRadiusMm(), ch), cw, ch, m.Self.Pos)
+	paintWorld(g, m, v)
+	g.put(int64(cw/2), int64(ch/2), glyphSelf, kSelf)
+	return g.styled(st)
+}
+
+// overviewRows draws the whole zone in cw x ch cells: the bounds fit the panel,
+// so one cell spans many metres. What the character has not seen is not there.
+func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
+	b := m.Map.GetBounds()
+	w, h := b.GetMaxX()-b.GetMinX(), b.GetMaxY()-b.GetMinY()
+	col := max((w+int64(cw)-1)/int64(max(cw, 1)), (h+2*int64(ch)-1)/(2*int64(max(ch, 1))), 1)
+	centre := &pb.Pos{X: (b.GetMinX() + b.GetMaxX()) / 2, Y: (b.GetMinY() + b.GetMaxY()) / 2}
+	g := newGrid(scale{col: col, row: 2 * col}, cw, ch, centre)
+	paintWorld(g, m, v)
+	c, r := g.cellOf(m.Self.Pos)
+	g.put(c, r, glyphSelf, kSelf)
+	return g.styled(st)
+}
+
+// paintWorld puts everything the map shows on the grid except the character:
+// the bounds, walls, doors, the NPCs seen (remembered ones too), camps, the
+// markers of held scout contracts, drops, the plan, and what is in view.
+func paintWorld(g *grid, m *model.Model, v View) {
 	if b := m.Map.GetBounds(); b != nil {
 		corners := []*pb.Pos{{X: b.GetMinX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMaxY()}, {X: b.GetMinX(), Y: b.GetMaxY()}}
 		if b.GetMinX() != b.GetMaxX() || b.GetMinY() != b.GetMaxY() {
@@ -167,9 +212,23 @@ func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	for _, w := range m.Map.GetWalls() {
 		g.line(w.GetA(), w.GetB(), glyphWall, kWall)
 	}
+	for _, p := range m.Known().Camps {
+		c, r := g.cellOf(p)
+		g.put(c, r, glyphCamp, kCamp)
+	}
 	for _, d := range m.Map.GetDoors() {
 		c, r := g.cellOf(d.GetPos())
 		g.put(c, r, glyphDoor, kDoor)
+	}
+	for _, n := range m.KnownNPCs() {
+		c, r := g.cellOf(n.GetPos())
+		g.put(c, r, npcGlyph(n), kDoor)
+	}
+	for _, k := range m.Self.Contracts {
+		if k.GetMarker() != "" && k.GetMarkerPos() != nil && k.GetHave() < k.GetNeed() {
+			c, r := g.cellOf(k.GetMarkerPos())
+			g.put(c, r, glyphMarker, kPlan)
+		}
 	}
 	for _, id := range m.DropIDs() {
 		c, r := g.cellOf(m.Drops[id].GetPos())
@@ -178,10 +237,6 @@ func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 			gl = glyphLocked
 		}
 		g.put(c, r, gl, kDrop)
-	}
-	for _, n := range m.NPCs {
-		c, r := g.cellOf(n.GetPos())
-		g.put(c, r, glyphTrader, kDoor)
 	}
 	if v.Plan.Dest != nil {
 		c, r := g.cellOf(v.Plan.Dest)
@@ -192,6 +247,9 @@ func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 		gl, k := entityGlyph(e), kCharacter
 		if e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB {
 			k = kMob
+			if model.IsRare(e) && !e.GetDead() {
+				k = kRare
+			}
 		}
 		if e.GetId() == m.Self.Target {
 			gl, k = upper(gl), kTarget
@@ -204,9 +262,11 @@ func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	for _, id := range m.EntityIDs() {
 		put(m.Entities[id])
 	}
-	g.put(int64(cw/2), int64(ch/2), glyphSelf, kSelf)
+}
 
-	rows := make([]string, ch)
+// styled turns the grid into lines, with the colour of each kind of thing.
+func (g *grid) styled(st Styler) []string {
+	rows := make([]string, len(g.cells))
 	for r := range g.cells {
 		var b strings.Builder
 		for _, c := range g.cells[r] {
@@ -214,7 +274,7 @@ func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 			switch c.k {
 			case kEmpty:
 				s = " "
-			case kBounds:
+			case kBounds, kCamp:
 				s = st.Dim(s)
 			case kDoor:
 				s = st.Cyan(s)
@@ -224,6 +284,8 @@ func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 				s = st.Yellow(s)
 			case kMob:
 				s = st.Red(s)
+			case kRare:
+				s = st.Yellow(st.Bold(s))
 			case kTarget:
 				s = st.Reverse(st.Bold(s))
 			case kSelf:

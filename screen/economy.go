@@ -277,13 +277,17 @@ func roleWord(role string) string {
 		return "sets your bind point"
 	case "banker":
 		return "keeps your bank"
+	case "contract_board":
+		return "posts contracts"
+	case "quest_giver":
+		return "talks"
 	}
 	return role
 }
 
-// Traders lists the vendors, trainers, binders and bankers in view, nearest first.
+// tradersInView lists the NPCs the character has seen in this space, nearest first.
 func tradersInView(m *model.Model) []*pb.NpcInfo {
-	list := append([]*pb.NpcInfo(nil), m.NPCs...)
+	list := m.KnownNPCs()
 	sp := m.Self.Pos
 	sort.SliceStable(list, func(i, j int) bool {
 		di := dist(list[i].GetPos().GetX(), list[i].GetPos().GetY(), sp.GetX(), sp.GetY())
@@ -339,6 +343,10 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 		add(" Enter sets it here: you respawn and gate to the nearest bind point you set. It costs crowns.")
 	case "banker":
 		rows = append(rows, bankLines(m, t, w, body, st)...)
+	case "contract_board":
+		add(" Contracts: Enter opens the board, where you take them and hand them in.")
+	default:
+		add(" Nothing to buy or sell here. G talks to the nearest person.")
 	}
 	for len(rows) < h-2 {
 		rows = append(rows, strings.Repeat(" ", w))

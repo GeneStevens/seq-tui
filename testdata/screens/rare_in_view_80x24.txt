@@ -1,0 +1,24 @@
+┌─ Thornwick Downs, at 210,150 m, north up ────────┐┌─ You ────────────────────┐
+│                                                  ││ hale  Lv 12 Warrior | 0cr│
+│                                                  ││ HP 133/274 ######------- │
+│                                                  ││ XP --------- 316 to Lv 13│
+│                                                  ││ Atk off | Old Grimtusk   │
+│                                                  │└──────────────────────────┘
+│                         @                        │┌─ Target ─────────────────┐
+│                                                  ││ R Old Grimtusk  Lv 6 RARE│
+│                             R                    ││ HP 300/300 ##### 10m SE  │
+│                                                  ││ not in a fight           │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt       ready 2 Bash       range 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none   |   Old Grimtusk: none                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     6.0s hale healed 13                                                      │
+│ *  10.0s a rare, Old Grimtusk (Lv 6), is in view (mob-grimtusk-1)            │
+│    11.2s hale targeted Old Grimtusk                                          │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard 0.4s ago | target ok            ? help  q quit

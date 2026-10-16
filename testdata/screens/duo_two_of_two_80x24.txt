@@ -1,4 +1,4 @@
-┌─ Testgrounds (Duo Turns), north up ──────────────┐┌─ You ────────────────────┐
+┌─ Testgrounds (Duo Turns), at 103,90 m, north up ─┐┌─ You ────────────────────┐
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
 │                                                  ││ Target: none             │
@@ -11,7 +11,7 @@
 │                                                  ││ sleeps up to 7 d         │
 │                       m                          │└──────────────────────────┘
 │                                                  │┌─ Round 2, 6 s left ──────┐
-│                                                  ││ 0 of 2 submitted         │
+│                       c                          ││ 0 of 2 submitted         │
 │                                                  ││ [ ] you  [ ] bram        │
 │                                                  ││ Plan: empty, not sent    │
 └──────────────────────────────────────────────────┘└──────────────────────────┘

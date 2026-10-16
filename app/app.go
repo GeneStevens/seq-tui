@@ -37,6 +37,10 @@ type App struct {
 	inv      *screen.Inventory
 	traders  *screen.Traders
 	trade    *screen.TradeUI
+	talk     *screen.Talk // the conversation, nil when closed
+	board    *screen.Board
+	cons     *screen.ContractsUI
+	overview bool      // the whole-zone map
 	gameAt   time.Time // when the model's game time last moved
 	gameMs   int64
 	draft    Draft // the plan being built in a turn-based instance
@@ -74,6 +78,8 @@ type (
 		planSent  bool
 		planRound uint64
 		planVer   int
+		// talk: the talk was taken; open the conversation with this NPC.
+		talk string
 	}
 	reconnected struct{ err error }
 	// created answers a character creation: err is nil when the character was
@@ -160,6 +166,9 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case resultMsg:
 		a.inflight--
 		a.view.Notice, a.view.NoticeBad = msg.note, msg.bad
+		if msg.talk != "" {
+			a.talk = &screen.Talk{NPC: msg.talk}
+		}
 		if msg.planSent && msg.planRound == a.draft.Round && msg.planVer == a.draft.Ver {
 			a.draft.Sent = true
 		}
@@ -207,6 +216,14 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		switch {
 		case a.create != nil:
 			act = a.createKey(k, m)
+		case a.talk != nil:
+			act = a.talkKey(k, m)
+		case a.board != nil:
+			act = a.boardKey(k, m)
+		case a.cons != nil:
+			act = a.contractsKey(k, m)
+		case a.overview:
+			act = a.overviewKey(k)
 		case a.slots != nil:
 			act = a.slotKey(k, m)
 			if act.Kind == SetSlot && m.TurnBased() {
@@ -245,6 +262,15 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.sess.View(func(m *model.Model) { a.inv.Carried = len(m.Self.Inventory) > 0 })
 	case OpenTraders:
 		a.inv, a.traders = nil, &screen.Traders{}
+	case OpenTradersAt:
+		a.talk = nil
+		a.sess.View(func(m *model.Model) { a.traders = &screen.Traders{Sel: max(tradersAt(m, act.NPC), 0), Open: true} })
+	case OpenBoard:
+		a.talk, a.board = nil, &screen.Board{NPC: act.NPC, Pane: act.Count}
+	case OpenContracts:
+		a.cons = &screen.ContractsUI{}
+	case OpenOverview:
+		a.overview = true
 	case OpenTrade:
 		a.inv, a.trade = nil, &screen.TradeUI{}
 		a.sess.View(func(m *model.Model) { a.trade.Who = askerIndex(m) })
@@ -355,6 +381,8 @@ func (a *App) send(act Action) tea.Cmd {
 		case PlanSubmit:
 			what = "plan"
 			id, err = a.sess.SubmitPlan(ctx, act.Steps...)
+		case Talk, ContractAccept, ContractTurnIn, ContractAbandon:
+			what, id, err = a.people(ctx, act)
 		case Equip, Unequip, Buy, Sell, Train, Bind, BankDeposit, BankWithdraw, TradeOpen, TradeAdd, TradeCrowns, TradeRemove, TradeConfirm, TradeCancel:
 			what, id, err = a.economy(ctx, act)
 		case Logout:
@@ -380,6 +408,8 @@ func (a *App) send(act Action) tea.Cmd {
 			return resultMsg{note: "plan accepted, counts even if you disconnect", planSent: true, planRound: act.Round, planVer: act.Ver}
 		case act.Kind == OpenInstance:
 			return resultMsg{note: "instance requested; the log says when it is open"}
+		case act.Kind == Talk:
+			return resultMsg{note: what + " ok", talk: act.NPC}
 		}
 		return resultMsg{note: what + " ok"}
 	}
@@ -393,6 +423,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	var out string
 	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
 	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
+	v.Talk, v.Board, v.Contracts, v.Overview = a.talk, a.board, a.cons, a.overview
 	a.sess.View(func(m *model.Model) {
 		a.sync(m)
 		if !a.gameAt.IsZero() && a.gameMs == m.GameTimeMs && a.Clock == nil && !m.TurnBased() { // between events the game time runs on

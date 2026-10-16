@@ -136,6 +136,10 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 			if len(list) == 0 {
 				return Action{Note: "nobody here trades, teaches or binds"}
 			}
+			if list[t.Sel].GetRole() == "contract_board" {
+				a.traders = nil
+				return Action{Kind: OpenBoard, NPC: list[t.Sel].GetId()}
+			}
 			*t = screen.Traders{Sel: t.Sel, Open: true}
 		}
 		return Action{}

@@ -1,0 +1,24 @@
+┌─ Traders ────────────────────────────────────────────────────────────────────┐
+│ Hilda Brasswick, vendor, 4m SE away. You have 200 crowns.                    │
+│                                                                              │
+│ For sale (Enter buys one)            │ You carry (Enter sells one)           │
+│> Tanned Cap Common               8   │  (nothing)                            │
+│  Ringed Cap Common              24   │                                       │
+│  Studded Cap Common             48   │                                       │
+│  Tanned Jerkin Common           20   │                                       │
+│  Ringed Jerkin Common           60   │                                       │
+│  Studded Jerkin Common         120   │                                       │
+│  Tanned Leggings Common         16   │                                       │
+│  Ringed Leggings Common         48   │                                       │
+│  Studded Leggings Common        96   │                                       │
+│  Tanned Gloves Common            8   │                                       │
+│  Ringed Gloves Common           24   │                                       │
+│  Studded Gloves Common          48   │                                       │
+│  Tanned Boots Common            10   │                                       │
+│──────────────────────────────────────────────────────────────────────────────│
+│ Tanned Cap: Common, head; tradable once                                      │
+│ armor +2; a vendor pays 2                                                    │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.  │
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard 0.4s ago                              ? help  q quit

@@ -220,3 +220,23 @@ func (s *Session) TradeConfirm(ctx context.Context) (string, error) {
 func (s *Session) TradeCancel(ctx context.Context) (string, error) {
 	return s.intent(ctx, "trade_cancel", agentkit.TradeCancel())
 }
+
+// Talk speaks to an NPC within reach; the answer is a dialogue event.
+func (s *Session) Talk(ctx context.Context, npc string) (string, error) {
+	return s.intent(ctx, "talk", agentkit.Talk(npc))
+}
+
+// ContractAccept takes a contract the board offers now.
+func (s *Session) ContractAccept(ctx context.Context, npc, contract string) (string, error) {
+	return s.intent(ctx, "contract_accept", agentkit.ContractAccept(npc, contract))
+}
+
+// ContractAbandon gives a held contract up, anywhere.
+func (s *Session) ContractAbandon(ctx context.Context, contract string) (string, error) {
+	return s.intent(ctx, "contract_abandon", agentkit.ContractAbandon(contract))
+}
+
+// ContractTurnIn hands a finished contract in at its board.
+func (s *Session) ContractTurnIn(ctx context.Context, npc, contract string) (string, error) {
+	return s.intent(ctx, "contract_turn_in", agentkit.ContractTurnIn(npc, contract))
+}

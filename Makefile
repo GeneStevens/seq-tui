@@ -15,7 +15,7 @@ verify:
 # it, and review both diffs.
 fixtures:
 	go run ./cmd/mkfixtures testdata/logs
-	SEQ_FIXTURES=$(CURDIR)/testdata/logs go test ./scenario -count=1
+	SEQ_FIXTURES=$(CURDIR)/testdata/logs SEQ_GOLDEN=1 go test ./scenario -count=1
 
 # golden rewrites the golden screens: testdata/screens from the recorded logs,
 # testdata/scenarios from the scenarios' own screens.

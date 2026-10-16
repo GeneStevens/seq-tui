@@ -1,0 +1,24 @@
+┌─ Zone overview ──────────────────────────────────────────────────────────────┐
+│               .................................................              │
+│               .                                               .              │
+│               .                               #               .              │
+│               .                               #               .              │
+│               .                               #               .              │
+│               .                               #               .              │
+│               .                               #               .              │
+│               .                               #               .              │
+│               .                     & @                       .              │
+│               .                                             D .              │
+│               .                   $     $                     .              │
+│               .                                               .              │
+│               .           #                                   .              │
+│               .           #                                   .              │
+│               .           #                                   .              │
+│               .           #                                   .              │
+│               .           #                                   .              │
+│               .                                               .              │
+│ Thornwick, 120m by 90m. You: 60m E, 48m N of the south-west corner.          │
+│ @ you  D door  $ trader  & board  ? talker  % marker  c camp  r rare  # wall │
+│ North is up. Only what you have seen is marked. M or Esc closes.             │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard 0.4s ago                              ? help  q quit

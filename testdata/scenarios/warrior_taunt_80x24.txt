@@ -1,10 +1,10 @@
-┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You ────────────────────┐
 │                    .                   #         ││ gorm  Lv 1 Warrior  | 0cr│
 │                    .                   #         ││ HP 120/120 ############# │
 │                    .     $$$$$$        #         ││ XP ----------- 40 to Lv 2│
-│                    .     $$$           #         ││ Atk off | Plain Scuttler │
+│                    .     $$$&?         #         ││ Atk off | Plain Scuttler │
 │                    .                   #         │└──────────────────────────┘
-│                    .    @     M        #         │┌─ Target ─────────────────┐
+│                    .    @     Mc       #         │┌─ Target ─────────────────┐
 │                    .                   #         ││ M Plain Scuttler  Lv 1   │
 │                    .                   #         ││ HP 40/40 ######## 13m E  │
 │                    .                   #         ││ fighting you             │

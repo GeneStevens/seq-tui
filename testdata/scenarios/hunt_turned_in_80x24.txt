@@ -1,0 +1,24 @@
+┌─ Contract board ─────────────────────────────────────────────────────────────┐
+│ Thornwick Contract Board | you hold 0 of 3 contracts | 12 crowns             │
+│ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
+│> Boars in the Barley    Hunt   L1-3  │  (none)                               │
+│  Pelts for the Tanners  Gather L1-3  │                                       │
+│  Word from Wickett Mill Scout  L1-3  │                                       │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│──────────────────────────────────────────────────────────────────────────────│
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
+│ The answer is on the status line; every refusal says why.                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard N.Ns ago | hand in Thin the Meadow Wolves ok  ? help

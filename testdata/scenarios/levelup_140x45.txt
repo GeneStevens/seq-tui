@@ -1,4 +1,4 @@
-┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │                                    .                                               #           ││ zedd  Lv 2 Wizard            | 0 crowns│
 │                                    .                                               #           ││ HP 88/88 ############################# │
 │                                    .                                               #           ││ MP 142/173 ######################----- │
@@ -6,23 +6,23 @@
 │                                    .                                               #           ││ Atk off | none                         │
 │                                    .             $  $ $  $ $ $                     #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Target ───────────────────────────────┐
-│                                    .             $  $ $                            #           ││ no target (Tab to choose)              │
+│                                    .             $  $ $  & ?                       #           ││ no target (Tab to choose)              │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
-│                                    .           @   *                               #           ││ * Cracked Shell Fragment          3m E │
+│                                    .           @   *             c                 #           ││ * Cracked Shell Fragment          3m E │
 │                                    .                                               #           ││ $ Testgrounds Vendor       8m N vendor │
 │                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
 │                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
+│                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
 │                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
 │                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
+│                                    .                                               #           ││ ? Testgrounds Capt… 13m NE quest_giver │
 │                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
 │                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
 │                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │
-│                                    .                                               #           ││ $ Druid Trainer         17m NE trainer │
-│                                    .                                               #           ││ D gate-north                    98m NE │
-│                                    .                                               #           ││ D line-east                     189m E │
+│                                    .                                               #           ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Flame Dart              6mp tgt? 2 Frost Bolt            12mp tgt? 3 -                         empty 4 -                         empty │

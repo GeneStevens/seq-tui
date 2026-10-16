@@ -79,6 +79,11 @@ var reasons = map[string]string{
 	"nothing_worn":     "nothing is worn there",
 	"rooted":           "you are rooted",
 	"unavailable":      "that is not available right now",
+	// contracts and talk (SEQ-044)
+	"contract_held":     "you already hold that contract, or turned it in since the board changed",
+	"contract_limit":    "you hold as many contracts as you can; give one up first",
+	"no_such_contract":  "that contract is not on offer, or you do not hold it",
+	"contract_not_done": "that contract is not finished yet",
 	// the rest
 	"encounter_owned":  "that mob is in someone else's fight",
 	"out_of_range":     "the target is out of range",

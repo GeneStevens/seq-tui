@@ -1,0 +1,45 @@
+┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Gorran Stoutarm, trainer, 2m NW away. You have 192 crowns.                                                                               │
+│                                                                                                                                          │
+│ You are level 3. Enter buys the ability under the cursor.                                                                                │
+│  Taunt                  level 1   known                                                                                                  │
+│  Bash                   level 1   known                                                                                                  │
+│> Second Wind            level 3   45 crowns                                                                                              │
+│  Shield Wall            level 5   75 crowns                                                                                              │
+│  Cleave                 level 7   105 crowns                                                                                             │
+│  Rallying Shout         level 9   135 crowns                                                                                             │
+│  Sunder                 level 11  165 crowns                                                                                             │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Enter acts. Esc goes back.                                                                                                               │
+│ The answer is on the status line; every denial says why.                                                                                 │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard 0.4s ago                                                                                          ? help  q quit

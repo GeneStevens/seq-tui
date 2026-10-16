@@ -1,0 +1,24 @@
+┌─ Contract board ─────────────────────────────────────────────────────────────┐
+│ Thornwick Contract Board | you hold 1 of 3 contracts | 0 crowns              │
+│ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
+│> Boars in the Barley    Hunt   L1-3  │> Thin the Meadow Wolves          0/3  │
+│  Pelts for the Tanners  Gather L1-3  │                                       │
+│  Word from Wickett Mill Scout  L1-3  │                                       │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│──────────────────────────────────────────────────────────────────────────────│
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.            │
+│ Pays 30 XP, 14 crowns and Tin Ring.                                          │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
+│ The answer is on the status line; every refusal says why.                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard N.Ns ago | take Thin the Meadow Wolves ok     ? help
