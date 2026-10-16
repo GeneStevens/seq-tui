@@ -3,7 +3,7 @@
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
-│                                                                                                │└────────────────────────────────────────┘
+│                                                                                            c   │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
@@ -37,7 +37,7 @@
 │    NN.Ns c1's target Trophy Scuttler cleared: target_dead                                                                                │
 │    NN.Ns c1 stopped attacking                                                                                                            │
 │    NN.Ns Trophy Scuttler dropped Worn Cap (drop-enc-1-worn-cap): not yours to take                                                       │
-│    NN.Ns Trophy Scuttler dropped Scuttler Blade (drop-enc-1-scuttler-blade): not yours to take                                           │
+│    NN.Ns Trophy Scuttler dropped Scuttler Blade [Rare, bound on pickup] (drop-enc-1-scuttler-blade): not yours to take                   │
 │    NN.Ns Trophy Scuttler dropped 5 crowns (drop-enc-1-crowns): not yours to take                                                         │
 │    NN.Ns encounter enc-1 with Trophy Scuttler closed: mob_died                                                                           │
 │    NN.Ns Trophy Scuttler left view                                                                                                       │

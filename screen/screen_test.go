@@ -427,7 +427,7 @@ func TestEconomyScreens(t *testing.T) {
 		{"inventory_looted", []string{"Inventory and gear", "Gear worn", "Items carried", "Scuttler Blade", "Worn Cap", "Crowns 5"}},
 		{"inventory_worn", []string{"Worn Cap Common", "main_hand", "Scuttler Blade", "tradable once"}},
 		{"vendor", []string{"Testgrounds Vendor", "For sale (Enter buys one)", "Worn Cap", "Padded Vest", "You carry (Enter sells one)"}},
-		{"trainer", []string{"Wizard Trainer", "Arcane Ward", "45 crowns", "known"}},
+		{"trainer", []string{"Wizard Trainer", "Glyphshield", "45 crowns", "known"}},
 		{"bank", []string{"In the bank, 1", "Buckler"}},
 		{"trade_ask", []string{"Trade with another character in reach", "> c2"}},
 		{"trade_window", []string{"Your offer", "c2's offer", "crowns 7", "Worn Cap", "[bound]", "not confirmed"}},
@@ -457,6 +457,7 @@ func TestEconomyScreens(t *testing.T) {
 func TestDropsYouMayNotTakeAreMarked(t *testing.T) {
 	c := caseNamed(t, "play_looted")
 	m := replay(t, c)
+	m.Items["scuttler-blade"] = &pb.ItemInfo{Id: "scuttler-blade", Name: "Scuttler Blade", Tier: "rare", BindOnPickup: true}
 	m.Drops = map[string]*pb.LootDropState{
 		"d1": {Id: "d1", Item: "scuttler-blade", Pos: &pb.Pos{X: m.Self.Pos.GetX() + 4000, Y: m.Self.Pos.GetY()}},
 		"d2": {Id: "d2", Crowns: 5, CanLoot: true, Pos: &pb.Pos{X: m.Self.Pos.GetX() - 4000, Y: m.Self.Pos.GetY()}},

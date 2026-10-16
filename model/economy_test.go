@@ -33,7 +33,7 @@ func TestSnapshotCarriesTheEconomy(t *testing.T) {
 	if s.Crowns != 84 || s.Bank[0] != "buckler" || s.BindZone != "testgrounds" || s.InventorySize != 20 || m.Worn(0) != "worn-cap" || m.Worn(8) != "scuttler-blade" || m.Worn(1) != "" {
 		t.Fatalf("self %+v", s)
 	}
-	if m.ItemName("worn-cap!") != "Worn Cap" || m.ItemName("mystery-gem") != "Mystery Gem" || !m.Bound("worn-cap!") || m.Bound("worn-cap") || !m.Bound("scuttler-blade") {
+	if m.ItemName("worn-cap!") != "Worn Cap" || m.ItemName("mystery-gem") != "mystery-gem" || !m.Bound("worn-cap!") || m.Bound("worn-cap") || !m.Bound("scuttler-blade") {
 		t.Errorf("names or binding: %q %q", m.ItemName("worn-cap!"), m.ItemName("mystery-gem"))
 	}
 	if m.NPC("vendor").GetRole() != "vendor" || m.Trade.GetWith() != "bram" || !m.Trade.GetIncoming() {
@@ -51,12 +51,13 @@ func TestSnapshotCarriesTheEconomy(t *testing.T) {
 func TestLootDropsSayWhetherYouMayTakeThem(t *testing.T) {
 	m := model.New()
 	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "z", Seq: 1, Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me"}}}}})
-	event(m, 100, &pb.Event{Body: &pb.Event_LootDropped{LootDropped: &pb.LootDropped{Drop: "d1", Mob: "mob", Item: "scuttler-blade", Pos: &pb.Pos{}}}})
+	event(m, 100, &pb.Event{Body: &pb.Event_LootDropped{LootDropped: &pb.LootDropped{Drop: "d1", Mob: "mob", Item: "scuttler-blade", Pos: &pb.Pos{},
+		ItemInfo: &pb.ItemInfo{Id: "scuttler-blade", Name: "Scuttler Blade", Tier: "rare", BindOnPickup: true}}}})
 	event(m, 100, &pb.Event{Body: &pb.Event_LootDropped{LootDropped: &pb.LootDropped{Drop: "d2", Mob: "mob", Crowns: 5, CanLoot: true, Pos: &pb.Pos{}}}})
 	if m.Drops["d1"].GetCanLoot() || !m.Drops["d2"].GetCanLoot() || m.Drops["d2"].GetCrowns() != 5 {
 		t.Fatalf("drops %v", m.Drops)
 	}
-	if !strings.Contains(m.Log[0].Text, "Scuttler Blade") || !strings.Contains(m.Log[0].Text, "not yours to take") || !strings.Contains(m.Log[1].Text, "5 crowns") {
+	if !strings.Contains(m.Log[0].Text, "Scuttler Blade") || !strings.Contains(m.Log[0].Text, "[Rare, bound on pickup]") || !strings.Contains(m.Log[0].Text, "not yours to take") || !strings.Contains(m.Log[1].Text, "5 crowns") {
 		t.Errorf("log %q / %q", m.Log[0].Text, m.Log[1].Text)
 	}
 	if m.DropName(m.Drops["d2"]) != "5 crowns" {
@@ -145,9 +146,19 @@ func TestSnapshotEffectsOnEntitiesAndNextRoundCasts(t *testing.T) {
 	if got := lastText(m); !strings.Contains(got, "lands in round 3") {
 		t.Errorf("log %q", got)
 	}
-	// An ability the character does not know has only its id: the class's own is readable.
-	if m.AbilityName("wizard-arcane-ward") != "Arcane Ward" {
-		t.Errorf("name %q", m.AbilityName("wizard-arcane-ward"))
+	// A trainer's lesson names the ability the character does not know (D52); an
+	// ability nobody described has only its id, never a guessed name.
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "z", Seq: 2,
+		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me"}, Class: "wizard"},
+		Npcs: []*pb.NpcInfo{{Id: "t", Role: "trainer", Trains: []*pb.TrainInfo{{Ability: "wizard-ward", Info: &pb.AbilityInfo{Id: "wizard-ward", Name: "Ward of Glass", Description: "Absorbs damage."}}}}}}}})
+	if m.AbilityName("wizard-ward") != "Ward of Glass" || m.AbilityName("wizard-arcane-ward") != "wizard-arcane-ward" {
+		t.Errorf("names %q %q", m.AbilityName("wizard-ward"), m.AbilityName("wizard-arcane-ward"))
+	}
+	// A cast already under way at login says the round it lands in.
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "z", Seq: 3,
+		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me"}, Cast: &pb.CastState{Ability: "wizard-frost-bolt", Slot: 1, EndsAtMs: 5000, LandsInRound: 4}}}}})
+	if c := m.Self.Cast; c == nil || c.LandsInRound != 4 {
+		t.Errorf("cast after a fresh login: %+v", m.Self.Cast)
 	}
 }
 

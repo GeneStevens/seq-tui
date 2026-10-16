@@ -13,8 +13,8 @@
 │                .                                                                               ││ Thin the Meadow Wolves             0/3 │
 │                .                               @                                               │└────────────────────────────────────────┘
 │                .                                                                               │┌─ Nearby ───────────────────────────────┐
-│                .                                  m                                            ││ m Meadow Wolf              4m SE 36/36 │
-│                .                                      c                                        ││ D town-gate                     34m NW │
+│                .                                 m                                             ││ m Meadow Wolf              3m SE 36/36 │
+│                .                                     c                                         ││ D town-gate                     34m NW │
 │                .                                                                               ││ D hollow-warren                 374m E │
 │                .                                                                               ││                                        │
 │                .                                                                               ││                                        │
@@ -30,11 +30,11 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    NN.Ns Odalys Penn is out of view                                                                                                      │
 │    NN.Ns entered Thornwick Downs                                                                                                         │
 │    NN.Ns Meadow Wolf (mob-meadow-wolves-a-1) appeared                                                                                    │
 │    NN.Ns Meadow Wolf targeted Hale                                                                                                       │
 │    NN.Ns Hale opened an encounter with Meadow Wolf (enc-1)                                                                               │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

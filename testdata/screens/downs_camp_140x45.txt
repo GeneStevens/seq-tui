@@ -13,8 +13,8 @@
 │                .                                                                               ││ Thin the Meadow Wolves             0/3 │
 │                .                               @                                               │└────────────────────────────────────────┘
 │                .                                                                               │┌─ Nearby ───────────────────────────────┐
-│                .                                  m                                            ││ m Meadow Wolf              4m SE 36/36 │
-│                .                                      c                                        ││ D town-gate                     34m NW │
+│                .                                 m                                             ││ m Meadow Wolf              3m SE 36/36 │
+│                .                                     c                                         ││ D town-gate                     34m NW │
 │                .                                                                               ││ D hollow-warren                 374m E │
 │                .                                                                               ││                                        │
 │                .                                                                               ││                                        │
@@ -30,11 +30,11 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    18.2s Odalys Penn is out of view                                                                                                      │
 │    22.6s entered Thornwick Downs                                                                                                         │
 │    34.8s Meadow Wolf (mob-meadow-wolves-a-1) appeared                                                                                    │
-│    39.5s Meadow Wolf targeted Hale                                                                                                       │
-│    39.5s Hale opened an encounter with Meadow Wolf (enc-1)                                                                               │
-│                                                                                                                                          │
+│    39.4s Meadow Wolf targeted Hale                                                                                                       │
+│    39.4s Hale opened an encounter with Meadow Wolf (enc-1)                                                                               │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

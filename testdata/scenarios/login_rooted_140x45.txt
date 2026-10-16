@@ -11,7 +11,7 @@
 │                                    .                                               #           ││ fighting you                           │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
-│                                    .           @              M                    #           ││ $ Testgrounds Vendor       8m N vendor │
+│                                    .           @              M  c                 #           ││ $ Testgrounds Vendor       8m N vendor │
 │                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
 │                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
 │                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │

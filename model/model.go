@@ -135,8 +135,11 @@ type Model struct {
 	// vendors, trainers, binders and bankers in view, and Trade the character's
 	// trade window: nil when it has none.
 	Items map[string]*pb.ItemInfo
-	NPCs  []*pb.NpcInfo
-	Trade *pb.TradeState
+	// Lessons are the abilities the trainers in view teach, as they described
+	// them (D52): the names and words of abilities the character does not know.
+	Lessons map[string]*pb.AbilityInfo
+	NPCs    []*pb.NpcInfo
+	Trade   *pb.TradeState
 
 	// Dialogues are what each NPC last said to the character, by NPC id, and
 	// Talks counts them; WorldEvents are the last announcement of each timed
@@ -173,7 +176,6 @@ type Model struct {
 	// snapshots told, kept after they leave view.
 	npcNames      map[string]string
 	contractNames map[string]string
-	contractTexts map[string]contractText
 	last          uint64 // the stream number of the last event applied, or of the snapshot
 	selected      bool   // a snapshot has arrived
 	// levelPending: a reward raised the level and the snapshot that says what it
@@ -189,7 +191,7 @@ func New() *Model { return NewBounded(DefaultLogCap, DefaultIntentsCap) }
 // NewBounded returns an empty model with the given event log and intent list bounds.
 func NewBounded(logCap, intentCap int) *Model {
 	return &Model{logCap: max(logCap, 1), intentCap: max(intentCap, 1), Group: map[string]*Member{}, names: map[string]string{},
-		Items: map[string]*pb.ItemInfo{}, Entities: map[string]*pb.EntityState{}, Drops: map[string]*pb.LootDropState{}, Encounters: map[string]*pb.EncounterState{}}
+		Items: map[string]*pb.ItemInfo{}, Lessons: map[string]*pb.AbilityInfo{}, Entities: map[string]*pb.EntityState{}, Drops: map[string]*pb.LootDropState{}, Encounters: map[string]*pb.EncounterState{}}
 }
 
 // Last is the character's stream number of the last event applied, or of the
@@ -314,13 +316,8 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	m.NPCs, m.Trade = s.GetNpcs(), s.GetTrade()
 	m.noteContracts(s)
-	m.completeContracts()
-	m.noteNPCs()
-	if m.npcNames == nil {
-		m.npcNames = map[string]string{}
-	}
 	for _, n := range m.NPCs {
-		m.npcNames[n.GetId()] = n.GetName()
+		m.noteNPC(n)
 	}
 	m.Drops, m.Encounters = map[string]*pb.LootDropState{}, map[string]*pb.EncounterState{}
 	for _, g := range s.GetGroup() {
@@ -332,7 +329,6 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		m.remember(en)
 		noteEffects(en)
 		m.Entities[en.GetId()] = cloneEntity(en)
-		m.noteCamps(en)
 	}
 	for _, d := range s.GetDrops() {
 		m.Drops[d.GetId()] = d
@@ -369,6 +365,7 @@ func (m *Model) applyEvent(e *pb.Event) {
 
 func (m *Model) apply(e *pb.Event) {
 	m.GameTimeMs = max(m.GameTimeMs, e.GetGameTimeMs())
+	m.noteDescribed(e)      // before the log line, which names the item with its tier
 	if !m.repeatsRound(e) { // the server says the open round again after a snapshot: once in the log is enough
 		m.logEvent(e)
 	}
@@ -385,7 +382,6 @@ func (m *Model) apply(e *pb.Event) {
 			m.Group[en.GetId()].Entity = cloneEntity(en)
 		default:
 			m.Entities[en.GetId()] = cloneEntity(en)
-			m.noteCamps(en)
 		}
 	case *pb.Event_EntityMoved:
 		mv := b.EntityMoved
@@ -399,6 +395,10 @@ func (m *Model) apply(e *pb.Event) {
 		}
 	case *pb.Event_EntityLeft:
 		delete(m.Entities, b.EntityLeft.GetId())
+	case *pb.Event_NpcAppeared:
+		m.npcAppeared(b.NpcAppeared.GetNpc())
+	case *pb.Event_NpcLeft:
+		m.npcLeft(b.NpcLeft.GetId())
 	case *pb.Event_Combat:
 		m.combat(b.Combat)
 	case *pb.Event_EncounterOpened:
@@ -552,5 +552,5 @@ func clonePos(p *pb.Pos) *pb.Pos { return &pb.Pos{X: p.GetX(), Y: p.GetY(), Z: p
 
 func cloneEntity(e *pb.EntityState) *pb.EntityState {
 	return &pb.EntityState{Id: e.GetId(), Kind: e.GetKind(), Name: e.GetName(), Pos: clonePos(e.GetPos()),
-		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead()}
+		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare()}
 }

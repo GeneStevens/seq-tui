@@ -10,7 +10,7 @@
 │                                                  ││ party up to 1 | normal   │
 │                                                  ││ sleeps up to 7 d         │
 │                                                  │└──────────────────────────┘
-│                         c                        │┌─ Round 3, 19 s left ─────┐
+│                                                  │┌─ Round 3, 19 s left ─────┐
 │                         M                        ││ 0 of 1 submitted         │
 │                                                  ││ Plan: empty, not sent    │
 │                                                  ││                          │

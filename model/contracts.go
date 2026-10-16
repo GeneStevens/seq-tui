@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"slices"
 	"sort"
 	"strings"
 
@@ -33,19 +34,8 @@ type WorldEventState struct {
 	Active bool
 }
 
-// campCell is the size of the square, in millimetres, in which one camp is
-// remembered: two mobs first seen closer than this are one camp.
-const campCell = 12000
-
-// rareNames are the roaming rares the content has. The protocol does not mark a
-// mob as a rare (the snapshot has no such flag), so the client knows them by
-// name: this is a guess the screen makes, and a design question for the report.
-var rareNames = map[string]bool{"Old Grimtusk": true, "Ancient Scuttler": true}
-
-// IsRare says whether the entity is a roaming rare, as far as the client knows.
-func IsRare(e *pb.EntityState) bool {
-	return e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB && rareNames[e.GetName()]
-}
+// IsRare says whether the entity is a roaming rare: the server marks it (D52).
+func IsRare(e *pb.EntityState) bool { return e.GetRare() }
 
 // RaresInView lists the roaming rares in view, sorted by id.
 func (m *Model) RaresInView() []*pb.EntityState {
@@ -69,68 +59,28 @@ func (m *Model) Contract(id string) *pb.ContractInfo {
 }
 
 // ContractName is the name of a contract the model has seen held or offered, or
-// its id made readable.
+// its id.
 func (m *Model) ContractName(id string) string {
 	if n := m.contractNames[id]; n != "" {
 		return n
 	}
-	return readable(id)
+	return id
 }
 
-// contractText is what the model has been told of what a contract is called, says
-// and pays.
-type contractText struct {
-	name, description string
-	reward            *pb.RewardInfo
-}
-
-// noteContracts remembers the names, texts and rewards of the contracts a
-// snapshot offered or held, so a log line can name one that is gone by then, and
-// a held contract can be told in full away from its board: the server describes
-// a held contract from the zone it is in, and a zone without the board's contracts
-// (the Downs) gives only its id.
+// noteContracts remembers the names of the contracts a snapshot offered or held,
+// so a log line can name one that is gone by then. A held contract carries its
+// own name, text and reward wherever the character is (D52).
 func (m *Model) noteContracts(s *pb.Snapshot) {
 	if m.contractNames == nil {
 		m.contractNames = map[string]string{}
-		m.contractTexts = map[string]contractText{}
-	}
-	note := func(id, name, description string, reward *pb.RewardInfo) {
-		t := m.contractTexts[id]
-		t.name, m.contractNames[id] = name, name
-		if description != "" {
-			t.description = description
-		}
-		if reward != nil {
-			t.reward = reward
-		}
-		m.contractTexts[id] = t
 	}
 	for _, c := range s.GetSelf().GetContracts() {
-		if c.GetName() != c.GetId() && c.GetName() != "" {
-			note(c.GetId(), c.GetName(), c.GetDescription(), c.GetReward())
-		}
+		m.contractNames[c.GetId()] = c.GetName()
 	}
 	for _, n := range s.GetNpcs() {
 		for _, o := range n.GetOffers() {
-			note(o.GetId(), o.GetName(), o.GetDescription(), o.GetReward())
+			m.contractNames[o.GetId()] = o.GetName()
 		}
-	}
-}
-
-// completeContracts fills in the name, text and reward of a held contract the
-// server described by its id alone, from what an earlier snapshot told.
-func (m *Model) completeContracts() {
-	for i, c := range m.Self.Contracts {
-		t, ok := m.contractTexts[c.GetId()]
-		if !ok || (c.GetName() != c.GetId() && c.GetName() != "") {
-			continue
-		}
-		full := &pb.ContractInfo{Id: c.GetId(), Name: t.name, Description: t.description, Kind: c.GetKind(), Have: c.GetHave(),
-			Need: c.GetNeed(), Ready: c.GetReady(), Reward: c.GetReward(), Marker: c.GetMarker(), MarkerPos: c.GetMarkerPos()}
-		if full.Reward == nil {
-			full.Reward = t.reward
-		}
-		m.Self.Contracts[i] = full
 	}
 }
 
@@ -238,10 +188,9 @@ func (m *Model) applyWorldEvent(w *pb.WorldEvent, at int64) {
 }
 
 // Place is what the character has seen of a space, kept for the map: the NPCs
-// (they stand where they stand) and the camps (see noteCamps).
+// (they stand where they stand).
 type Place struct {
-	NPCs  map[string]*pb.NpcInfo
-	Camps []*pb.Pos
+	NPCs map[string]*pb.NpcInfo
 }
 
 func (m *Model) place() *Place {
@@ -256,40 +205,61 @@ func (m *Model) place() *Place {
 	return p
 }
 
-// noteNPCs remembers the NPCs in view in the character's space.
-func (m *Model) noteNPCs() {
-	if m.Space == "" {
-		return
+// noteNPC remembers an NPC seen in the character's space, and what it is called.
+func (m *Model) noteNPC(n *pb.NpcInfo) {
+	if m.npcNames == nil {
+		m.npcNames = map[string]string{}
 	}
-	for _, n := range m.NPCs {
+	m.npcNames[n.GetId()] = n.GetName()
+	for _, t := range n.GetTrains() {
+		if t.GetInfo().GetId() != "" {
+			m.Lessons[t.GetInfo().GetId()] = t.GetInfo()
+		}
+	}
+	if m.Space != "" {
 		m.place().NPCs[n.GetId()] = n
 	}
 }
 
-// noteCamps remembers where mobs were first seen, as camps, in the space the
-// character is in. It does not remember a mob that appears while a world event
-// is on (the event's mobs march; they are not a camp), or a rare.
-func (m *Model) noteCamps(e *pb.EntityState) {
-	if e.GetKind() != pb.EntityKind_ENTITY_KIND_MOB || e.GetDead() || IsRare(e) || len(m.ActiveEvents()) > 0 || m.Space == "" {
+// npcAppeared adds an NPC that came into view (D52), in place of one with its
+// id (a fresh description of it).
+func (m *Model) npcAppeared(n *pb.NpcInfo) {
+	if n.GetId() == "" {
 		return
 	}
-	p := m.place()
-	c := roundDiv(e.GetPos().GetX(), campCell)
-	r := roundDiv(e.GetPos().GetY(), campCell)
-	for _, q := range p.Camps {
-		if roundDiv(q.GetX(), campCell) == c && roundDiv(q.GetY(), campCell) == r {
+	m.noteNPC(n)
+	for i, o := range m.NPCs {
+		if o.GetId() == n.GetId() {
+			m.NPCs[i] = n
 			return
 		}
 	}
-	p.Camps = append(p.Camps, clonePos(e.GetPos()))
+	m.NPCs = append(m.NPCs, n)
 }
 
-func roundDiv(a, b int64) int64 {
-	if a < 0 {
-		return -((-a + b/2) / b)
-	}
-	return (a + b/2) / b
+// npcLeft removes an NPC that went out of view. What the character has seen of
+// it stays in Seen for the map.
+func (m *Model) npcLeft(id string) {
+	m.NPCs = slices.DeleteFunc(slices.Clone(m.NPCs), func(n *pb.NpcInfo) bool { return n.GetId() == id })
 }
+
+// Marker is where a held contract's scout marker is: the zone map's marker of
+// that id (D52), else the position the contract itself carries. Nil when the
+// contract has no marker, it is reached, or the character is not in its zone.
+func (m *Model) Marker(c *pb.ContractInfo) *pb.Pos {
+	if c.GetMarker() == "" || c.GetHave() >= c.GetNeed() {
+		return nil
+	}
+	for _, k := range m.Map.GetMarkers() {
+		if k.GetId() == c.GetMarker() {
+			return k.GetPos()
+		}
+	}
+	return c.GetMarkerPos()
+}
+
+// Camps are where the zone's mobs are found, from its map (D52).
+func (m *Model) Camps() []*pb.Camp { return m.Map.GetCamps() }
 
 // Known is what the character has seen of its space (never nil).
 func (m *Model) Known() *Place {
@@ -363,6 +333,11 @@ func (m *Model) describeContracts(e *pb.Event) (kind, text, reason string, ok bo
 		if en := b.EntityAppeared.GetEntity(); IsRare(en) {
 			return "rare_appeared", fmt.Sprintf("a rare, %s (Lv %d), is in view (%s)", en.GetName(), en.GetLevel(), en.GetId()), "", true
 		}
+	case *pb.Event_NpcAppeared:
+		n := b.NpcAppeared.GetNpc()
+		return "npc_appeared", fmt.Sprintf("%s (%s) is in view", n.GetName(), n.GetRole()), "", true
+	case *pb.Event_NpcLeft:
+		return "npc_left", m.NPCName(b.NpcLeft.GetId()) + " is out of view", "", true
 	case *pb.Event_Dialogue:
 		d := b.Dialogue
 		who := m.NPCName(d.GetNpc())

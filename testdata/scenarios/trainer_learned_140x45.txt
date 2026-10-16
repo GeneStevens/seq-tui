@@ -5,12 +5,12 @@
 │  Taunt                  level 1   known                                                                                                  │
 │  Bash                   level 1   known                                                                                                  │
 │> Second Wind            level 3   known                                                                                                  │
-│  Shield Wall            level 5   75 crowns                                                                                              │
+│  Bulwark Stance         level 5   75 crowns                                                                                              │
 │  Cleave                 level 7   105 crowns                                                                                             │
 │  Rallying Shout         level 9   135 crowns                                                                                             │
 │  Sunder                 level 11  165 crowns                                                                                             │
-│                                                                                                                                          │
-│                                                                                                                                          │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ Second Wind: Heals you for 35% of the damage you deal for 12 s. On yourself.                                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

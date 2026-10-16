@@ -33,13 +33,13 @@
 │     1.3s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │ +   1.4s you took the contract Word from Wickett Mill                                                                                    │
+│     4.2s Barnaby Tuck is out of view                                                                                                     │
+│     6.3s Odalys Penn (banker) is in view                                                                                                 │
+│     7.2s Thornwick Contract Board is out of view                                                                                         │
+│     9.5s Isolde Fenn is out of view                                                                                                      │
+│    10.3s Captain Rhosyn Hartley (quest_giver) is in view                                                                                 │
+│    18.2s Odalys Penn is out of view                                                                                                      │
 │    22.6s entered Thornwick Downs                                                                                                         │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | heard 0.4s ago | use door ok                                                                      ? help  q quit

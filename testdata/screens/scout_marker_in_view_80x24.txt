@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│            back here. Hunts, hauls and scouting: every job is paid in crowns │
-│            and experience.                                                   │
-│ +   1.4s you took the contract Word from Wickett Mill                        │
+│     9.5s Isolde Fenn is out of view                                          │
+│    10.3s Captain Rhosyn Hartley (quest_giver) is in view                     │
+│    18.2s Odalys Penn is out of view                                          │
 │    22.6s entered Thornwick Downs                                             │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | heard 0.4s ago | use door ok          ? help  q quit

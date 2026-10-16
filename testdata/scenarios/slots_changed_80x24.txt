@@ -8,7 +8,7 @@
 │                                                  │┌─ Round 2, 20 s left ─────┐
 │                                                  ││ 0 of 1 submitted         │
 │                                                  ││ Plan: empty, not sent    │
-│                         c                        ││                          │
+│                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Root         tgt? 2 Frost Bolt  tgt? 3 Root        tgt? 4 -          empty │

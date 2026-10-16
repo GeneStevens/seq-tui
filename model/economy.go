@@ -32,11 +32,54 @@ func (m *Model) ItemName(inst string) string {
 	if it := m.Item(inst); it != nil && it.GetName() != "" {
 		return it.GetName()
 	}
-	return readable(ItemID(inst))
+	return ItemID(inst)
 }
 
-// readable makes an id into something to read when the server never described
-// the item (a drop looted since the last snapshot): "worn-cap" is "Worn Cap".
+// itemTag says an item's tier and binding in a few words for a log line, as
+// the server described them (D52): " [Rare, bound on pickup]". Empty for an
+// ordinary tradable item, or one never described.
+func (m *Model) itemTag(inst string) string {
+	it := m.Item(inst)
+	if it == nil {
+		return ""
+	}
+	var parts []string
+	if t := it.GetTier(); t != "" && t != "common" {
+		parts = append(parts, strings.ToUpper(t[:1])+t[1:])
+	}
+	if it.GetBindOnPickup() {
+		parts = append(parts, "bound on pickup")
+	}
+	if len(parts) == 0 {
+		return ""
+	}
+	return " [" + strings.Join(parts, ", ") + "]"
+}
+
+// noteDescribed keeps the items an event describes (D52): a drop, a reward, the
+// stock and lessons of an NPC that came into view.
+func (m *Model) noteDescribed(e *pb.Event) {
+	switch b := e.GetBody().(type) {
+	case *pb.Event_LootDropped:
+		m.noteItem(b.LootDropped.GetItemInfo())
+	case *pb.Event_Reward:
+		m.noteItem(b.Reward.GetItemInfo())
+	case *pb.Event_NpcAppeared:
+		for _, it := range b.NpcAppeared.GetItems() {
+			m.noteItem(it)
+		}
+	}
+}
+
+// noteItem keeps an item a loot or reward event described (D52).
+func (m *Model) noteItem(it *pb.ItemInfo) {
+	if it.GetId() != "" {
+		m.Items[it.GetId()] = it
+	}
+}
+
+// readable makes an id into something to read where the protocol carries no
+// name (a world event's): "harvest-raid" is "Harvest Raid".
 func readable(id string) string {
 	words := strings.Fields(strings.ReplaceAll(id, "-", " "))
 	for i, w := range words {
@@ -65,6 +108,18 @@ func (m *Model) NPC(id string) *pb.NpcInfo {
 		}
 	}
 	return m.Known().NPCs[id]
+}
+
+// InReach says whether the character stands close enough to deal with the NPC:
+// the NPC's own reach (D52), measured from the NPC's place. Whether the server
+// agrees is its own call; this only tells the screen what to grey out.
+func (m *Model) InReach(n *pb.NpcInfo) bool {
+	if m.Self.Pos == nil || n.GetPos() == nil || n.GetReachMm() <= 0 {
+		return false
+	}
+	dx, dy := n.GetPos().GetX()-m.Self.Pos.GetX(), n.GetPos().GetY()-m.Self.Pos.GetY()
+	r := n.GetReachMm()
+	return dx*dx+dy*dy <= r*r
 }
 
 // Worn is what is worn in the gear slot at index i of GearSlots, "" if nothing.
@@ -101,7 +156,7 @@ func (m *Model) describeEconomy(e *pb.Event) (kind, text, reason string, ok bool
 		if d.GetItem() == "" {
 			what = crowns(d.GetCrowns())
 		}
-		text = fmt.Sprintf("%s dropped %s (%s)", m.label(d.GetMob()), what, d.GetDrop())
+		text = fmt.Sprintf("%s dropped %s%s (%s)", m.label(d.GetMob()), what, m.itemTag(d.GetItem()), d.GetDrop())
 		if !d.GetCanLoot() {
 			text += ": not yours to take"
 		}
@@ -122,7 +177,7 @@ func (m *Model) describeEconomy(e *pb.Event) (kind, text, reason string, ok bool
 		item := m.ItemName(w.GetItem())
 		switch w.GetKind() {
 		case "loot":
-			return "reward", fmt.Sprintf("%s received %s from %s", m.label(w.GetRecipient()), item, w.GetSource()), "", true
+			return "reward", fmt.Sprintf("%s received %s%s from %s", m.label(w.GetRecipient()), item, m.itemTag(w.GetItem()), w.GetSource()), "", true
 		case "crowns":
 			return "reward", fmt.Sprintf("%s took %s", who, crowns(w.GetAmount())), "", true
 		case "buy":

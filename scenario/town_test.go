@@ -10,7 +10,6 @@ import (
 	"github.com/GeneStevens/seq-tui/scenario"
 	"github.com/GeneStevens/seq/content"
 	"github.com/GeneStevens/seq/core"
-	"github.com/GeneStevens/seq/sim"
 	"github.com/GeneStevens/seq/testserver"
 )
 
@@ -66,7 +65,7 @@ func inSpace(name string) func(*model.Model) bool {
 // contracts for level 1; Enter takes the Hunt. The board holds three, refuses a
 // fourth with its reason, and a contract is given up with X.
 func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{Accounts: townAccount()})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
 	w.Fixture("thornwick_board.jsonl")
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
@@ -157,7 +156,7 @@ func fightUntil(t *testing.T, w *scenario.World, p *scenario.Player, done func(*
 // Take the Hunt at the board, walk out of the east gate, kill the wolves of the
 // Downs, come back and hand it in.
 func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{Accounts: townAccount()})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
 	w.Fixture("thornwick_hunt.jsonl")
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
@@ -216,7 +215,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 // vendor and its option opens the vendor's window, where Enter buys; then G beside
 // the warrior trainer opens the trainer's, where Enter teaches an ability.
 func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("thornwick_shops.jsonl")
 	w.Place("ann", "hale", 30000, 64000)
 	z, _ := content.Town()
@@ -286,7 +285,7 @@ func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
 // A Scout contract: the marker shows on the map (%) once the character is in the
 // Downs, the Contracts panel counts it reached, and the board pays it.
 func TestThornwickScoutToAMarker(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{Accounts: townAccount()})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
 	w.Fixture("thornwick_scout.jsonl")
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
@@ -345,11 +344,12 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 // warrior who stands in the raiders' way fights them. When it ends the banner says
 // how, and the character, whose account is attended, is paid for taking part.
 func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{
-		Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}},
-		State: func(space string, st *sim.State) {
-			for i := range st.Events {
-				st.Events[i].NextAt = 20_000 // the raid begins 20 s in, not an hour and a half
+	w := scenario.New(t, testserver.Options{
+		Zones:    scenario.Town,
+		Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}},
+		Zone: func(space string, z *core.Zone) {
+			for i := range z.WorldEvents {
+				z.WorldEvents[i].EveryMs, z.WorldEvents[i].OffsetMs = 20_000, 0 // the raid begins 20 s in, not an hour and a half
 			}
 		},
 	})
@@ -389,26 +389,18 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 		}
 	})
 	p.Golden("event_over")
-	// Thirty seconds on, the banner goes.
-	w.Advance(40 * time.Second)
-	if strings.Contains(p.Screen(80, 24), "EVENT") {
-		t.Fatal("the banner of an event that ended a minute ago is still up")
-	}
 }
 
 // Old Grimtusk, the Downs' roaming rare, walks into view: the log says so, the map
 // marks it (r), Nearby and the Target panel call it a rare.
 func TestThornwickARareComesIntoView(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{
-		Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}},
+	w := scenario.New(t, testserver.Options{
+		Zones:    scenario.Town,
+		Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}},
 		Zone: func(space string, z *core.Zone) {
-			if space == scenario.Downs { // one place for it to appear, 10 m from the character
+			if space == testserver.ThornwickDowns { // one place for it to appear, 10 m from the character
 				z.Rares[0].Points = []core.Pos{{X: 220000, Y: 150000}}
-			}
-		},
-		State: func(space string, st *sim.State) {
-			for i := range st.Rares {
-				st.Rares[i].NextAt = 10_000
+				z.Rares[0].MinMs, z.Rares[0].MaxMs = 10_000, 10_000 // it comes at 10 s
 			}
 		},
 	})

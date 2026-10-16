@@ -13,7 +13,7 @@
 │                                         .                                                      ││ D line-west                    0m here │
 │                                         .                                                      ││ m Plain Scuttler           11m E 40/40 │
 │                                         .                      m                               ││                                        │
-│                                         .      @                                               ││                                        │
+│                                         .      @              c                                ││                                        │
 │                                         .                                                      ││                                        │
 │                                         .                                                      ││                                        │
 │                                         .                                                      ││                                        │

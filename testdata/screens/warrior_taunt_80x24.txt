@@ -4,7 +4,7 @@
 │                    .     $$$$$$        #         ││ XP ----------- 40 to Lv 2│
 │                    .     $$$&?         #         ││ Atk off | Plain Scuttler │
 │                    .                   #         │└──────────────────────────┘
-│                    .    @     Mc       #         │┌─ Target ─────────────────┐
+│                    .    @     M c      #       c │┌─ Target ─────────────────┐
 │                    .                   #         ││ M Plain Scuttler  Lv 1   │
 │                    .                   #         ││ HP 40/40 ######## 13m E  │
 │                    .                   #         ││ fighting you             │

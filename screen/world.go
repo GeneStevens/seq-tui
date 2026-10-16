@@ -131,7 +131,7 @@ func markerWords(m *model.Model, c *pb.ContractInfo) string {
 	if c.GetMarker() == "" || c.GetHave() >= c.GetNeed() {
 		return ""
 	}
-	p := c.GetMarkerPos()
+	p := m.Marker(c)
 	if p == nil || m.Self.Pos == nil {
 		return "the marker is in another place"
 	}
