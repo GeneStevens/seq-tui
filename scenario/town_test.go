@@ -176,6 +176,11 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	p.Press("e")
 	notice(t, p, "use door ok", false)
 	p.Eventually("the Downs", inSpace("Thornwick Downs"))
+	p.Model(func(m *model.Model) {
+		if c := m.Camps(); len(c) == 0 || c[0].GetMob() == "" || c[0].GetCount() == 0 {
+			t.Fatalf("the Downs' map has camps %v", c)
+		}
+	})
 	p.Golden("downs_gate")
 
 	// To the wolves at (32, 118): they notice a character 8 m off.
@@ -309,6 +314,15 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 			t.Fatalf("in the Downs the scout contract is %v", c)
 		}
 	})
+	p.Model(func(m *model.Model) {
+		// The spot is the zone map's (D52), not something the client worked out.
+		if k := m.Map.GetMarkers(); len(k) == 0 || m.Marker(m.Contract("scout-wickett-mill")) == nil {
+			t.Fatalf("the Downs' map has markers %v; the contract's spot is %v", k, m.Marker(m.Contract("scout-wickett-mill")))
+		}
+	})
+	if s := p.Screen(140, 45); !strings.Contains(s, "scout marker") || !strings.Contains(s, "%") {
+		t.Fatalf("the marker is not on the map or in Nearby:\n%s", s)
+	}
 	p.Golden("scout_marker_in_view")
 
 	// Down to the mill's latitude, then east to it.
@@ -421,7 +435,7 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 	w.Advance(11 * time.Second)
 	p.Model(func(m *model.Model) {
 		r := m.RaresInView()
-		if len(r) != 1 || r[0].GetName() != "Old Grimtusk" || !hasLog(m, "rare_appeared", "a rare, Old Grimtusk") {
+		if len(r) != 1 || r[0].GetName() != "Old Grimtusk" || !r[0].GetRare() || !hasLog(m, "rare_appeared", "a rare, Old Grimtusk") {
 			t.Fatalf("rares in view: %v", r)
 		}
 	})
@@ -431,4 +445,93 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 	if s := p.Screen(80, 24); !strings.Contains(s, "RARE") {
 		t.Fatalf("the rare is not marked:\n%s", s)
 	}
+}
+
+// A trainer is not in view from 25 m; walking up to it, it appears by event
+// (npc_appeared) in Nearby and the log, and the traders' list greys it out as too
+// far until the character stands within its reach, which is the NPC's own.
+func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
+	w.Fixture("thornwick_trainer.jsonl")
+	w.Place("ann", "hale", 20000, 50000)
+	p := w.Login("ann", "hale")
+	p.Model(func(m *model.Model) {
+		if m.NPC("trainer-warrior") != nil {
+			t.Fatalf("the trainer, 25 m off, is in view already: %v", m.NPCs)
+		}
+	})
+	p.Golden("trainer_out_of_view")
+	walk(w, p, "up", 3)
+	p.Model(func(m *model.Model) {
+		n := m.NPC("trainer-warrior")
+		if n == nil || n.GetReachMm() <= 0 || m.InReach(n) || !hasLog(m, "npc_appeared", "Gorran Stoutarm (trainer) is in view") {
+			t.Fatalf("after three steps: %v; log ends %+v", n, m.Log[len(m.Log)-2:])
+		}
+	})
+	if s := p.Screen(140, 45); !strings.Contains(s, "Gorran Stoutarm") {
+		t.Fatalf("the trainer is not in Nearby:\n%s", s)
+	}
+	p.Golden("trainer_appears")
+	p.Press("n")
+	if s := p.Screen(140, 45); !strings.Contains(rowWith(s, "Gorran Stoutarm"), "too far") {
+		t.Fatalf("a trainer beyond its reach is not marked:\n%s", s)
+	}
+	p.Golden("trainer_too_far")
+	p.Press("esc")
+	walk(w, p, "up", 5)
+	p.Model(func(m *model.Model) {
+		if n := m.NPC("trainer-warrior"); n == nil || !m.InReach(n) {
+			t.Fatalf("the trainer is not in reach after eight steps: %v at %v", n, m.Self.Pos)
+		}
+	})
+	p.Press("n")
+	if s := p.Screen(140, 45); strings.Contains(rowWith(s, "Gorran Stoutarm"), "too far") {
+		t.Fatalf("a trainer in reach is marked too far:\n%s", s)
+	}
+	p.Press("esc")
+}
+
+// A warrior bound in Thornwick dies in the Downs, releases, and wakes in
+// Thornwick at the binder: the map, the NPCs in Nearby and the panels are the
+// town's.
+func TestThornwickDieInTheDownsAndWakeInThornwick(t *testing.T) {
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}}})
+	w.Fixture("thornwick_respawn.jsonl")
+	z, _ := content.Town()
+	bind := z.NPC("binder").Pos
+	w.Place("ann", "hale", 20000, 150000)
+	w.Srv.Give("hale", func(cs *core.CharacterSave) {
+		cs.Dead, cs.HP = true, 0
+		cs.BindZone, cs.BindPos = z.Name, &bind
+	})
+	p := w.Login("ann", "hale")
+	p.Model(func(m *model.Model) {
+		if !m.Self.Dead || m.Map.GetName() != "Thornwick Downs" {
+			t.Fatalf("dead %v in %q", m.Self.Dead, m.Map.GetName())
+		}
+	})
+	p.Golden("downs_dead")
+	p.Press("r")
+	notice(t, p, "release ok", false)
+	w.Advance(core.DefaultRespawnDelayMs*time.Millisecond + 2*time.Second)
+	p.Eventually("Thornwick", inSpace("Thornwick"))
+	p.Model(func(m *model.Model) {
+		if m.Self.Dead || m.Self.HP != m.Self.MaxHP || m.Self.Pos.GetX() != int64(bind.X) || m.Self.Pos.GetY() != int64(bind.Y) || m.NPC("binder") == nil {
+			t.Fatalf("after waking: dead %v, hp %d/%d at %v, binder %v", m.Self.Dead, m.Self.HP, m.Self.MaxHP, m.Self.Pos, m.NPC("binder"))
+		}
+	})
+	if s := p.Screen(140, 45); !strings.Contains(s, "Thornwick") || !strings.Contains(s, "binder") {
+		t.Fatalf("the screen does not follow:\n%s", s)
+	}
+	p.Golden("woke_in_thornwick")
+}
+
+// rowWith is the row of the screen that holds text, "" if none does.
+func rowWith(screen, text string) string {
+	for _, l := range strings.Split(screen, "\n") {
+		if strings.Contains(l, text) {
+			return l
+		}
+	}
+	return ""
 }

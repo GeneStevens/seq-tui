@@ -76,6 +76,14 @@ func TestEquipALootedItem(t *testing.T) {
 		w.Advance(time.Second)
 	}
 	b.Eventually("the bystander sees the drops", func(m *model.Model) bool { return len(m.Drops) >= 3 })
+	// The drop event describes the item (D52): its tier, binding and stats are
+	// known at once, before it is looted and before any snapshot comes.
+	p.Model(func(m *model.Model) {
+		it := m.Item("scuttler-blade")
+		if it == nil || it.GetTier() != "rare" || !it.GetBindOnPickup() || it.GetStats() == nil || !hasLog(m, "loot_dropped", "Scuttler Blade [Rare, bound on pickup]") {
+			t.Fatalf("the dropped blade is described as %v", it)
+		}
+	})
 	b.Model(func(m *model.Model) {
 		for id, d := range m.Drops {
 			if d.GetCanLoot() {

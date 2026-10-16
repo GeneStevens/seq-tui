@@ -11,8 +11,8 @@
 {"snapshot":{"seq":"2","game_time_ms":"300","tick":"3","space":"Testgrounds","self":{"entity":{"id":"c1","kind":"ENTITY_KIND_CHARACTER","name":"c1","pos":{"x":"100000","y":"89000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","crowns":"30","inventory_size":"20"},"entities":[{"id":"c2","kind":"ENTITY_KIND_CHARACTER","name":"c2","pos":{"x":"100000","y":"89000"},"hp":"100","max_hp":"100","level":"1"}]}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
 {"event":{"seq":"3","game_time_ms":"300","instance_opened":{"instance":"inst-1","preset":"peril-den","party_cap":"2"}}}
-{"pong":{"nonce":"105"}}
 {"intent_result":{"intent_id":"done-peril-den-3","accepted":true}}
+{"pong":{"nonce":"105"}}
 {"pong":{"nonce":"106"}}
 {"pong":{"nonce":"107"}}
 # mark peril_paid

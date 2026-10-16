@@ -1,0 +1,24 @@
+┌─ Thornwick, at 64,40 m, north up ────────────────┐┌─ You ────────────────────┐
+│                                 #                ││ hale  Lv 1 Warrior  | 0cr│
+│                                 #                ││ HP 120/120 ############# │
+│                     &                            ││ XP ----------- 40 to Lv 2│
+│                                                  ││ Atk off | none           │
+│                                                  │└──────────────────────────┘
+│                  $      @                        │┌─ Target ─────────────────┐
+│                                                  ││ no target (Tab to choose)│
+│        #                                         ││                          │
+│        #                                         ││                          │
+│        #                                         ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns hale released; respawns in 5 s                                      │
+│     N.Ns hale respawned at (12000, 150000) with 120 hp                       │
+│     N.Ns entered Thornwick                                                   │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard N.Ns ago | release ok                 ? help  q quit

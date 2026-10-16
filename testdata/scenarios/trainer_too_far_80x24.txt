@@ -1,0 +1,24 @@
+┌─ Traders ────────────────────────────────────────────────────────────────────┐
+│ Traders in view. Up / Down choose, Enter opens, Esc closes. Walk up to one f…│
+│                                                                              │
+│ > Gorran Stoutarm          teaches                16m N too far              │
+│   Hilda Brasswick          sells and buys         18m E too far              │
+│   Mother Elswyth           teaches                19m NE too far             │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard N.Ns ago                              ? help  q quit
