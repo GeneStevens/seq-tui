@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+	"time"
 	"unicode/utf8"
 
 	"github.com/GeneStevens/seq-tui/model"
@@ -179,6 +180,81 @@ func TestDenialReasonIsShown(t *testing.T) {
 			if !strings.Contains(out, "! ") || strings.Count(out, "encounter_owned") < 2 {
 				t.Errorf("at %v the reason is missing:\n%s", sz, out)
 			}
+		}
+	}
+}
+
+func caseNamed(t *testing.T, name string) screen.Case {
+	t.Helper()
+	for _, c := range screen.Cases {
+		if c.Name == name {
+			return c
+		}
+	}
+	t.Fatalf("no case %s", name)
+	return screen.Case{}
+}
+
+// The Round panel counts down to the server's deadline and shows who has
+// submitted and whether the plan was accepted.
+func TestRoundPanel(t *testing.T) {
+	c := caseNamed(t, "round_plan")
+	m := replay(t, c)
+	deadline := time.UnixMilli(m.Round.DeadlineMs)
+	draw := func(left time.Duration, sent bool, w, h int) string {
+		v := screen.View{Conn: screen.ConnOnline, Now: deadline.Add(-left), Plan: screen.Plan{Steps: c.Plan, Sent: sent}}
+		return screen.Render(m, v, w, h, screen.Plain())
+	}
+	for _, tc := range []struct {
+		left time.Duration
+		want string
+	}{{20 * time.Second, "Round 2, 20 s left"}, {1500 * time.Millisecond, "Round 2, 2 s left"}, {0, "Round 2, deadline now"}, {-time.Second, "Round 2, deadline now"}} {
+		if out := draw(tc.left, false, 80, 24); !strings.Contains(out, tc.want) {
+			t.Errorf("left %v: want %q\n%s", tc.left, tc.want, out)
+		}
+	}
+	if out := draw(5*time.Second, false, 140, 45); !strings.Contains(out, "Plan (4/16): not sent yet") || !strings.Contains(out, "Enter submits") {
+		t.Errorf("unsent:\n%s", out)
+	}
+	if out := draw(5*time.Second, true, 140, 45); !strings.Contains(out, "Plan (4/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
+		t.Errorf("sent:\n%s", out)
+	}
+	// Told again after a reconnect with our plan among the submitted: accepted,
+	// though this screen never held the plan.
+	m.Round.Submitted = []string{m.Self.ID}
+	out := screen.Render(m, screen.View{Conn: screen.ConnOnline, Now: deadline.Add(-time.Second)}, 140, 45, screen.Plain())
+	if !strings.Contains(out, "Plans in: you") || !strings.Contains(out, "accepted") {
+		t.Errorf("submitted:\n%s", out)
+	}
+}
+
+// Only a turn-based instance has a Round panel, only an instance (open, entered
+// or ended) has an Instance panel, and the world keeps its Nearby panel.
+func TestPanelsFollowTheInstance(t *testing.T) {
+	for _, tc := range []struct {
+		name            string
+		instance, round bool
+	}{{"live_login", false, false}, {"instance_menu", false, false}, {"instance_opened", true, false}, {"instance_inside", true, false}, {"instance_cleared", true, false}, {"round_plan", true, true}, {"round_missed", true, true}} {
+		c := caseNamed(t, tc.name)
+		out := c.Draw(replay(t, c), 140, 45)
+		if has := strings.Contains(out, "─ Instance ─"); has != tc.instance && !c.Menu {
+			t.Errorf("%s: instance panel %v", tc.name, has)
+		}
+		if has := strings.Contains(out, "─ Round "); has != tc.round {
+			t.Errorf("%s: round panel %v", tc.name, has)
+		}
+		if !c.Menu && !strings.Contains(out, "─ Nearby ─") {
+			t.Errorf("%s: no Nearby panel at 140x45", tc.name)
+		}
+	}
+}
+
+func TestMenuListsEveryPresetWithItsTimeMode(t *testing.T) {
+	c := caseNamed(t, "instance_menu")
+	out := c.Draw(replay(t, c), 80, 24)
+	for _, want := range []string{"Scuttler Skirmish", "real-time; party 2", "Solo Trial", "party 1; heroic", "Long Game", "100-tick rounds (10 s), 24 h to plan", "Quick Turns", "20-tick rounds (2 s), 20 s to plan", "Duo Turns", "6 s to plan", "> 4"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("missing %q:\n%s", want, out)
 		}
 	}
 }

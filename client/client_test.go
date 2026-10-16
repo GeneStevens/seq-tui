@@ -16,6 +16,7 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
+	"github.com/GeneStevens/seq/agentkit"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
@@ -166,6 +167,15 @@ func TestLoginAndEveryIntent(t *testing.T) {
 		{"loot", func() (string, error) { return s.Loot(c, "drop-1") }, func(i *pb.Intent) bool { return i.GetLoot().GetDrop() == "drop-1" }},
 		{"use_door", func() (string, error) { return s.UseDoor(c, "line-east") }, func(i *pb.Intent) bool { return i.GetUseDoor().GetDoor() == "line-east" }},
 		{"release", func() (string, error) { return s.Release(c) }, func(i *pb.Intent) bool { return i.GetRelease() != nil }},
+		{"instance_open", func() (string, error) { return s.OpenInstance(c, "quick-turns") }, func(i *pb.Intent) bool { return i.GetInstanceOpen().GetPreset() == "quick-turns" }},
+		{"plan", func() (string, error) {
+			return s.SubmitPlan(c, agentkit.StepMove(1000, 2000), agentkit.StepTarget("mob-1"), agentkit.StepAttack(true), agentkit.StepLoot("drop-1"), agentkit.StepUseDoor("gate-north"), agentkit.StepStop())
+		}, func(i *pb.Intent) bool {
+			ts := i.GetTurnSubmit()
+			st := ts.GetSteps()
+			return len(st) == 6 && !ts.GetStandIn() && st[0].GetMove().GetDestination().GetX() == 1000 && st[1].GetTarget().GetTarget() == "mob-1" &&
+				st[2].GetAttack().GetOn() && st[3].GetLoot().GetDrop() == "drop-1" && st[4].GetUseDoor().GetDoor() == "gate-north" && st[5].GetStop() != nil
+		}},
 	}
 	for n, k := range cmds {
 		id, err := k.send()

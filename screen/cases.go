@@ -8,6 +8,7 @@ import (
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
 // A Case is one golden screen: a recorded log replayed into the model up to a
@@ -21,6 +22,14 @@ type Case struct {
 	// Notice is the last command's answer shown on the status line.
 	Notice    string
 	NoticeBad bool
+	// Menu draws the instance menu with the cursor on MenuSel.
+	Menu    bool
+	MenuSel int
+	// Plan is the plan being built (as the Round panel lists it), ending at
+	// Dest on the map; Left is how long the round's deadline is away.
+	Plan []string
+	Dest *[2]int64
+	Left time.Duration
 }
 
 // Sizes the goldens are drawn at.
@@ -43,6 +52,18 @@ var Cases = []Case{
 	{Name: "door_before", Log: "live_door.jsonl", Upto: 681},
 	{Name: "door_across", Log: "live_door.jsonl", Upto: 684},
 	{Name: "door_back", Log: "live_door.jsonl"},
+	// Recorded from a live development server (TUI-007): the instance menu,
+	// solo-trial opened, entered and cleared with the hand-back, and
+	// quick-turns round by round.
+	{Name: "instance_menu", Log: "live_solo_trial.jsonl", Upto: 3, Menu: true, MenuSel: 3},
+	{Name: "instance_opened", Log: "live_solo_trial.jsonl", Upto: 386, Notice: "instance requested; the log says when it is open"},
+	{Name: "instance_inside", Log: "live_solo_trial.jsonl", Upto: 395},
+	{Name: "instance_cleared", Log: "live_solo_trial.jsonl"},
+	{Name: "round_plan", Log: "live_quick_turns.jsonl", Upto: 391, Left: 14 * time.Second,
+		Plan: []string{"move (100000,87000)", "move (100000,84000)", "target Plain Scuttler", "attack on"}, Dest: &[2]int64{100000, 84000}},
+	{Name: "round_resolved_own", Log: "live_quick_turns.jsonl", Upto: 457},
+	{Name: "round_missed", Log: "live_quick_turns.jsonl", Upto: 478},
+	{Name: "round_reconnected", Log: "live_quick_turns.jsonl", Upto: 462, Left: 15 * time.Second},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
 }
 
@@ -69,7 +90,17 @@ func (c Case) Replay(dir string) (*model.Model, error) {
 
 // Draw renders the case at w x h, plain, with the clock fixed.
 func (c Case) Draw(m *model.Model, w, h int) string {
-	return Render(m, View{Help: c.Help, Conn: ConnOnline, HasTick: true, Since: 400 * time.Millisecond, Notice: c.Notice, NoticeBad: c.NoticeBad}, w, h, Plain())
+	v := View{Help: c.Help, Conn: ConnOnline, HasTick: true, Since: 400 * time.Millisecond, Notice: c.Notice, NoticeBad: c.NoticeBad, Plan: Plan{Steps: c.Plan}}
+	if c.Menu {
+		v.Menu = &Menu{Sel: c.MenuSel}
+	}
+	if c.Dest != nil {
+		v.Plan.Dest = &pb.Pos{X: c.Dest[0], Y: c.Dest[1]}
+	}
+	if m.Round != nil { // the clock stands where the case says: Left before the deadline
+		v.Now = time.UnixMilli(m.Round.DeadlineMs).Add(-c.Left)
+	}
+	return Render(m, v, w, h, Plain())
 }
 
 // File is the golden file name for the case at w x h.

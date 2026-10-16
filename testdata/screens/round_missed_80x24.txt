@@ -1,0 +1,24 @@
+┌─ Testgrounds (Quick Turns), north up ────────────┐┌─ You ────────────────────┐
+│                                                  ││ Tester  Lv 1  XP 0       │
+│                                                  ││ HP 94/100 #############- │
+│                                                  ││ Target: Plain Scuttler   │
+│                       D                          ││ Auto-attack: ON          │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Instance ───────────────┐
+│                                                  ││ Quick Turns              │
+│                         @                        ││ turn-based | inside      │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Round 5 ran: deadline ──┐
+│                                                  ││ no plan from you: a stan…│
+│                                                  ││ or the safe default ran  │
+│                                                  ││ next round opening…      │
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│ <   9.6s Plain Scuttler hit Tester for 2                                     │
+│    10.0s round 5 ran (the deadline passed): you had no plan of your own, so  │
+│            your character played a stand-in plan if one was sent, else the   │
+│            safe default (stop, defend, start nothing)                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds (Quick Turns) | heard 0.4s ago              ? help  q quit

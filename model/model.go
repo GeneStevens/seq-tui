@@ -82,6 +82,16 @@ type Model struct {
 	Encounters map[string]*pb.EncounterState
 	Map        *pb.ZoneMap // nil until it arrives, which is after the snapshot (D40)
 
+	// Presets are the instance menu of the last zone map that listed one: the
+	// world zone's, kept while the character is inside an instance.
+	Presets []*pb.InstancePreset
+	// Opened is the instance the character's group opened, until it ends;
+	// Ended is the last one that ended. Round is the turn-based round, nil in
+	// a real-time space.
+	Opened *Opened
+	Ended  *Ended
+	Round  *Round
+
 	// Welcome is the latest welcome; Connections counts the welcomes seen
 	// (a resume after a drop is a second connection).
 	Welcome     *pb.Welcome
@@ -171,6 +181,9 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 	case *pb.ServerMessage_ZoneMap:
 		if !m.selected || m.Space == "" || b.ZoneMap.GetSpace() == m.Space {
 			m.Map = b.ZoneMap
+			if len(b.ZoneMap.GetInstancePresets()) > 0 {
+				m.Presets = b.ZoneMap.GetInstancePresets()
+			}
 		}
 	case *pb.ServerMessage_Event:
 		m.applyEvent(b.Event)
@@ -206,6 +219,9 @@ func (m *Model) applyResult(r *pb.IntentResult) {
 func (m *Model) applySnapshot(s *pb.Snapshot) {
 	if m.Map != nil && m.Map.GetSpace() != s.GetSpace() {
 		m.Map = nil // the map of the space the character left
+	}
+	if m.Space != s.GetSpace() {
+		m.Round = nil // a round belongs to its instance
 	}
 	self := s.GetSelf()
 	e := self.GetEntity()
@@ -258,11 +274,13 @@ func (m *Model) applyEvent(e *pb.Event) {
 
 func (m *Model) apply(e *pb.Event) {
 	m.GameTimeMs = max(m.GameTimeMs, e.GetGameTimeMs())
-	m.logEvent(e)
+	if !m.repeatsRound(e) { // the server says the open round again after a snapshot: once in the log is enough
+		m.logEvent(e)
+	}
 	switch b := e.GetBody().(type) {
 	case *pb.Event_SpaceChanged:
 		// The snapshot of the new space follows and replaces this view.
-		m.Space, m.Map = b.SpaceChanged.GetSpace(), nil
+		m.Space, m.Map, m.Round = b.SpaceChanged.GetSpace(), nil, nil
 	case *pb.Event_EntityAppeared:
 		en := b.EntityAppeared.GetEntity()
 		m.remember(en)
@@ -350,6 +368,8 @@ func (m *Model) apply(e *pb.Event) {
 		if en := m.Entities[b.MobReset.GetId()]; en != nil {
 			en.Hp, en.Dead = b.MobReset.GetHp(), false
 		}
+	case *pb.Event_InstanceOpened, *pb.Event_InstanceEnded, *pb.Event_RoundStarted, *pb.Event_RoundResolved:
+		m.applyInstanceEvent(e)
 	}
 }
 

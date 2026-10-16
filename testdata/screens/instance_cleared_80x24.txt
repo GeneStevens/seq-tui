@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                                                  ││ Tester  Lv 1  XP 20      │
+│                                                  ││ HP 95/100 #############- │
+│                                                  ││ Target: none             │
+│..................................................││ Auto-attack: off         │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Instance ───────────────┐
+│                                                  ││ Solo Trial ended         │
+│                         @                        ││ cleared                  │
+│                                                  ││ you were handed back     │
+│                                                  ││                          │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Target ─────────────────┐
+│                                                  ││ no target (Tab to choose)│
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    19.7s drop drop-inst-1.enc-1-shell-fragment is gone: taken                │
+│ +  19.7s Tester received shell-fragment from drop-inst-1.enc-1-shell-fragment│
+│    19.7s instance ended, cleared: every mob dead and the loot taken          │
+│    48.5s entered Testgrounds                                                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

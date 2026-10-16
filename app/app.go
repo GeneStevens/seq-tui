@@ -31,7 +31,9 @@ type App struct {
 	lastN    uint64
 	retrying bool
 	pings    int
-	Err      error // why the program ended, if it ended badly
+	menu     *screen.Menu // the instance menu, nil when closed
+	draft    Draft        // the plan being built in a turn-based instance
+	Err      error        // why the program ended, if it ended badly
 }
 
 // New returns the program's model for a session that has logged in.
@@ -45,6 +47,10 @@ type (
 	resultMsg  struct {
 		note string
 		bad  bool
+		// planSent: the note is the receipt for the plan of this round and edit.
+		planSent  bool
+		planRound uint64
+		planVer   int
 	}
 	reconnected struct{ err error }
 )
@@ -104,6 +110,9 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		a.retrying, a.view.Conn, a.view.Notice, a.view.NoticeBad = false, screen.ConnOnline, "reconnected", false
 	case resultMsg:
 		a.view.Notice, a.view.NoticeBad = msg.note, msg.bad
+		if msg.planSent && msg.planRound == a.draft.Round && msg.planVer == a.draft.Ver {
+			a.draft.Sent = true
+		}
 	case tea.KeyPressMsg:
 		return a.key(msg.String())
 	}
@@ -127,9 +136,32 @@ func (a *App) reconnect(after time.Duration) tea.Cmd {
 	}
 }
 
+// sync drops a plan that belongs to a round that is over: a new round has
+// opened, or the character is no longer in a round.
+func (a *App) sync(m *model.Model) {
+	switch {
+	case m.Round == nil:
+		if a.draft.Round != 0 || len(a.draft.Steps) > 0 {
+			a.draft = Draft{Ver: a.draft.Ver + 1}
+		}
+	case m.Round.Open && m.Round.Number != a.draft.Round:
+		a.draft = Draft{Round: m.Round.Number, Ver: a.draft.Ver + 1}
+	}
+}
+
 func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	var act Action
-	a.sess.View(func(m *model.Model) { act = Plan(k, m) })
+	a.sess.View(func(m *model.Model) {
+		a.sync(m)
+		switch {
+		case a.menu != nil:
+			act = a.menuKey(k, m)
+		case m.TurnBased():
+			act = TurnKey(k, m, &a.draft)
+		default:
+			act = Plan(k, m)
+		}
+	})
 	a.view.Notice, a.view.NoticeBad = "", false
 	switch act.Kind {
 	case Quit:
@@ -138,12 +170,58 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.view.Help = !a.view.Help
 	case ToggleVerbose:
 		a.view.Verbose = !a.view.Verbose
+	case OpenMenu:
+		a.menu = &screen.Menu{}
+	case PlanAdd:
+		if !a.draft.Add(*act.Step) {
+			a.view.Notice, a.view.NoticeBad = fmt.Sprintf("the plan is full (%d steps): Enter submits it, Backspace removes a step", screen.MaxPlanSteps), true
+		}
+	case PlanUndo:
+		if !a.draft.Undo() {
+			a.view.Notice = "the plan is empty"
+		}
+	case PlanClear:
+		if !a.draft.Clear() {
+			a.view.Notice = "the plan is empty"
+		}
 	case None:
 		a.view.Notice = act.Note
 	default:
+		if act.Kind == PlanSubmit {
+			act.Round, act.Ver, act.Steps = a.draft.Round, a.draft.Ver, a.draft.Agent()
+		}
 		return a, a.send(act)
 	}
 	return a, nil
+}
+
+// menuKey handles a key while the instance menu is open.
+func (a *App) menuKey(k string, m *model.Model) Action {
+	n := len(m.Presets)
+	switch k {
+	case "up", "w", "k":
+		a.menu.Sel = max(a.menu.Sel-1, 0)
+	case "down", "s", "j":
+		a.menu.Sel = min(a.menu.Sel+1, max(n-1, 0))
+	case "esc", "i", "q":
+		a.menu = nil
+	case "ctrl+c":
+		return Action{Kind: Quit}
+	case "enter", "space", " ":
+		if a.menu.Sel < n {
+			id := m.Presets[a.menu.Sel].GetId()
+			a.menu = nil
+			return Action{Kind: OpenInstance, ID: id}
+		}
+		return Action{Note: "this zone offers no instances"}
+	default:
+		if len(k) == 1 && k[0] >= '1' && k[0] <= '9' {
+			if i := int(k[0] - '1'); i < n {
+				a.menu.Sel = i
+			}
+		}
+	}
+	return Action{}
 }
 
 // send sends the intent for act and waits for the server's answer, which
@@ -176,25 +254,40 @@ func (a *App) send(act Action) tea.Cmd {
 		case Release:
 			what = "release"
 			id, err = a.sess.Release(ctx)
+		case Stop:
+			what = "stop"
+			id, err = a.sess.Stop(ctx)
+		case OpenInstance:
+			what = "open instance"
+			id, err = a.sess.OpenInstance(ctx, act.ID)
+		case PlanSubmit:
+			what = "plan"
+			id, err = a.sess.SubmitPlan(ctx, act.Steps...)
 		case Logout:
 			if err := a.sess.Logout(ctx); err != nil {
-				return resultMsg{"logout failed: " + err.Error(), true}
+				return resultMsg{note: "logout failed: " + err.Error(), bad: true}
 			}
-			return resultMsg{"logging out…", false}
+			return resultMsg{note: "logging out…"}
 		}
 		if err != nil {
-			return resultMsg{what + " not sent: " + err.Error(), true}
+			return resultMsg{note: what + " not sent: " + err.Error(), bad: true}
 		}
 		st, err := a.sess.Result(ctx, id)
 		switch {
 		case err != nil:
-			return resultMsg{what + ": " + err.Error(), true}
+			return resultMsg{note: what + ": " + err.Error(), bad: true}
 		case st.State == model.IntentDenied:
-			return resultMsg{fmt.Sprintf("%s denied: %s", what, st.Reason), true}
+			return resultMsg{note: fmt.Sprintf("%s denied: %s", what, model.Words(st.Reason)), bad: true}
+		case st.Unknown && act.Kind == PlanSubmit:
+			return resultMsg{note: "plan: already applied (result unknown)", planSent: true, planRound: act.Round, planVer: act.Ver}
 		case st.Unknown:
-			return resultMsg{what + ": already applied (result unknown)", false}
+			return resultMsg{note: what + ": already applied (result unknown)"}
+		case act.Kind == PlanSubmit:
+			return resultMsg{note: "plan accepted, counts even if you disconnect", planSent: true, planRound: act.Round, planVer: act.Ver}
+		case act.Kind == OpenInstance:
+			return resultMsg{note: "instance requested; the log says when it is open"}
 		}
-		return resultMsg{what + " ok", false}
+		return resultMsg{note: what + " ok"}
 	}
 }
 
@@ -202,7 +295,14 @@ func (a *App) View() tea.View {
 	v := a.view
 	v.Since = time.Since(a.lastTick)
 	var out string
-	a.sess.View(func(m *model.Model) { out = screen.Render(m, v, a.w, a.h, screen.ANSI()) })
+	v.Menu, v.Now = a.menu, time.Now()
+	a.sess.View(func(m *model.Model) {
+		a.sync(m)
+		if m.TurnBased() {
+			v.Plan = screen.Plan{Steps: a.draft.Lines(m), Sent: a.draft.Sent, Dest: a.draft.Dest()}
+		}
+		out = screen.Render(m, v, a.w, a.h, screen.ANSI())
+	})
 	tv := tea.NewView(out)
 	tv.AltScreen = true
 	tv.WindowTitle = "SEQ"

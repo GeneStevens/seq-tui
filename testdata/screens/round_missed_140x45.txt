@@ -1,0 +1,45 @@
+┌─ Testgrounds (Quick Turns), north up ──────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│................................................................................................││ Tester  Lv 1  XP 0                     │
+│                                                                                                ││ HP 94/100 ##########################-- │
+│                                                                                                ││ Target: Plain Scuttler                 │
+│                                                                                                ││ Auto-attack: ON                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Instance ─────────────────────────────┐
+│                                                                                                ││ Quick Turns                            │
+│                                                                                                ││ turn-based | inside                    │
+│                                            D                                                   │└────────────────────────────────────────┘
+│                                                                                                │┌─ Round 5 ran: deadline ────────────────┐
+│                                                                                                ││ no plan from you: a stand-in           │
+│                                                                                                ││ or the safe default ran                │
+│                                                                                                ││ next round opening…                    │
+│                                                                                                ││                                        │
+│                                                @                                               ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ M Plain Scuttler  Lv 1                 │
+│                                                                                                ││ HP 23/40 ###########--------- 0m here  │
+│                                                                                                ││ fighting you                           │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ M Plain Scuttler         0m here 23/40 │
+│                                                                                                ││ D gate-north                      9m N │
+│                                                                                                ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     6.0s round 4 is open: game time waits for plans (plans in: none yet)                                                                 │
+│     6.1s Tester targeted Plain Scuttler                                                                                                  │
+│     6.1s Tester began attacking Plain Scuttler                                                                                           │
+│     6.1s Tester hit Plain Scuttler for 5                                                                                                 │
+│ <   6.6s Plain Scuttler hit Tester for 4                                                                                                 │
+│     8.0s round 4 ran (everyone had a plan): your character played your own plan                                                          │
+│     8.0s round 5 is open: game time waits for plans (plans in: none yet)                                                                 │
+│     8.1s Tester hit Plain Scuttler for 8                                                                                                 │
+│ <   9.6s Plain Scuttler hit Tester for 2                                                                                                 │
+│    10.0s round 5 ran (the deadline passed): you had no plan of your own, so your character played a stand-in plan if one was sent, else  │
+│            the safe default (stop, defend, start nothing)                                                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds (Quick Turns) | heard 0.4s ago                                                                          ? help  q quit
