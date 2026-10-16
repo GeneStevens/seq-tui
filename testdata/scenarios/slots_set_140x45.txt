@@ -1,6 +1,6 @@
 ┌─ Ability slots ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Slots: keys 1 to 8 use them in play. Up / Down or 1-8 choose a slot, Enter picks its ability,                                            │
-│ Backspace empties it, Esc or B closes. Slots can only be changed out of combat.                                                          │
+│ Keys 1-8 use the slots in play. Up / Down or 1-8 choose; Enter picks an ability.                                                         │
+│ Backspace empties a slot, Esc closes. Slots change out of combat only.                                                                   │
 │   1  Root             1.5 s cast, 10 mana, range 25m, enemy                                                                              │
 │   2  Frost Bolt       2.0 s cast, 12 mana, range 25m, enemy                                                                              │
 │ > 3  Flame Dart       1.0 s cast, 6 mana, range 25m, enemy                                                                               │

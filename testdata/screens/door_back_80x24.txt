@@ -1,5 +1,5 @@
 ┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
-│                             .                    ││ Tester  Lv 1  XP 0       │
+│                             .                    ││ aria  Lv 1  XP 0    | 0cr│
 │                             .                    ││ HP 100/100 ############# │
 │                             .                    ││ Target: none             │
 │                             .                    ││ Auto-attack: off         │
@@ -17,8 +17,8 @@
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     0.4s entered Outskirts                                                   │
-│     0.5s Plain Scuttler targeted Tester                                      │
-│     0.5s Tester opened an encounter with Plain Scuttler (enc-1)              │
+│     0.5s Plain Scuttler targeted aria                                        │
+│     0.5s aria opened an encounter with Plain Scuttler (enc-1)                │
 │     0.7s entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago | use door ok              ? help  q quit

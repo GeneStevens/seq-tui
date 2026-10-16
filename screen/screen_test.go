@@ -251,8 +251,8 @@ func TestPanelsFollowTheInstance(t *testing.T) {
 
 func TestMenuListsEveryPresetWithItsTimeMode(t *testing.T) {
 	c := caseNamed(t, "instance_menu")
-	out := c.Draw(replay(t, c), 80, 24)
-	for _, want := range []string{"Scuttler Skirmish", "real-time", "party 2; normal", "Solo Trial", "party 1; heroic", "Long Game", "100-tick rounds (10 s), 24 h to plan", "Quick Turns", "20-tick rounds (2 s), 20 s to plan", "Duo Turns", "6 s to plan", "> 2"} {
+	out := c.Draw(replay(t, c), 140, 45)
+	for _, want := range []string{"Scuttler Skirmish", "real-time", "party 2; normal", "Solo Trial", "party 1; normal", "Venture Den", "Peril Den", "party 2; heroic", "Long Game", "100-tick rounds (10 s), 24 h to plan", "Quick Turns", "20-tick rounds (2 s), 20 s to plan", "Duo Turns", "6 s to plan", "> 2"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q:\n%s", want, out)
 		}
@@ -263,12 +263,12 @@ func TestMenuListsEveryPresetWithItsTimeMode(t *testing.T) {
 // real-time preset's, which has none.
 func TestMenuShowsTheSleepLimit(t *testing.T) {
 	c := caseNamed(t, "instance_menu")
-	out := c.Draw(replay(t, c), 80, 24)
+	out := c.Draw(replay(t, c), 140, 45)
 	if n := strings.Count(out, "sleeps up to 7 d"); n != 3 {
 		t.Errorf("%d presets show a sleep limit, want the 3 turn-based ones:\n%s", n, out)
 	}
 	for _, l := range strings.Split(out, "\n") {
-		if strings.Contains(l, "party 1; heroic") && strings.Contains(l, "sleeps") {
+		if strings.Contains(l, "party 2; heroic") && strings.Contains(l, "sleeps") {
 			t.Errorf("a real-time preset has a sleep limit: %q", l)
 		}
 	}
@@ -289,13 +289,13 @@ func TestInstanceAndRoundPanelsShowTheServersFields(t *testing.T) {
 		t.Errorf("gathered:\n%s", out)
 	}
 	c = caseNamed(t, "instance_inside")
-	if out := c.Draw(replay(t, c), 140, 45); !strings.Contains(out, "real-time | inside") || !strings.Contains(out, "party up to 1 | heroic") || strings.Contains(out, "sleeps") {
+	if out := c.Draw(replay(t, c), 140, 45); !strings.Contains(out, "real-time | inside") || !strings.Contains(out, "party up to 1 | normal") || strings.Contains(out, "sleeps") {
 		t.Errorf("solo-trial:\n%s", out)
 	}
 	// The panel does not read the space's name.
 	m := replay(t, c)
 	m.Space = "Somewhere (Else)"
-	if out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()); !strings.Contains(out, "party up to 1 | heroic") {
+	if out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()); !strings.Contains(out, "party up to 1 | normal") {
 		t.Errorf("the panel changed with the space's name:\n%s", out)
 	}
 	// A resolved round shows who played what.
@@ -377,10 +377,14 @@ func TestSlotScreenAndCreationScreen(t *testing.T) {
 		}
 	}
 	c = caseNamed(t, "create_class")
-	out = c.Draw(replay(t, c), 80, 24)
-	for _, cl := range screen.Classes {
-		if !strings.Contains(out, cl.Name) {
-			t.Errorf("creation: no %s\n%s", cl.Name, out)
+	m := replay(t, c)
+	out = c.Draw(m, 80, 24)
+	if len(m.Classes()) != 6 {
+		t.Fatalf("the welcome's class menu has %d classes", len(m.Classes()))
+	}
+	for _, cl := range m.Classes() {
+		if !strings.Contains(out, cl.GetName()) {
+			t.Errorf("creation: no %s\n%s", cl.GetName(), out)
 		}
 	}
 	if !strings.Contains(out, "Name   Zedd") || !strings.Contains(out, "> 4  Wizard") {
@@ -392,7 +396,7 @@ func TestLevelUpIsInTheLog(t *testing.T) {
 	c := caseNamed(t, "levelup")
 	for _, sz := range screen.Sizes {
 		out := c.Draw(replay(t, c), sz[0], sz[1])
-		if !strings.Contains(out, "you reached level 2: new ability Arcane Ward (key 3)") || !strings.Contains(out, "Lv 2 Wizard") {
+		if !strings.Contains(out, "you reached level 2") || !strings.Contains(out, "Lv 2 Wizard") {
 			t.Errorf("at %v:\n%s", sz, out)
 		}
 	}
@@ -410,5 +414,60 @@ func TestPlanSurvivesASmallScreenWithTheAbilityBar(t *testing.T) {
 	}
 	if out := c.Draw(replay(t, c), 140, 45); !strings.Contains(out, "use Frost Bolt (key 2)") || !strings.Contains(out, "─ Instance ─") {
 		t.Errorf("140x45:\n%s", out)
+	}
+}
+
+// The new screens say what they are for, at both sizes.
+func TestEconomyScreens(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		wants []string
+	}{
+		{"class_menu", []string{"Class (the server's menu)", "> 6  Druid", "healer + spell", "Starts with, free:", "Thorn Bolt"}},
+		{"inventory_looted", []string{"Inventory and gear", "Gear worn", "Items carried", "Scuttler Blade", "Worn Cap", "Crowns 5"}},
+		{"inventory_worn", []string{"Worn Cap Common", "main_hand", "Scuttler Blade", "tradable once"}},
+		{"vendor", []string{"Testgrounds Vendor", "For sale (Enter buys one)", "Worn Cap", "Padded Vest", "You carry (Enter sells one)"}},
+		{"trainer", []string{"Wizard Trainer", "Arcane Ward", "45 crowns", "known"}},
+		{"bank", []string{"In the bank, 1", "Buckler"}},
+		{"trade_ask", []string{"Trade with another character in reach", "> c2"}},
+		{"trade_window", []string{"Your offer", "c2's offer", "crowns 7", "Worn Cap", "[bound]", "not confirmed"}},
+		{"peril_menu", []string{"Peril Den", "party 2; heroic", "entry fee"}},
+		{"login_rooted", []string{"Plain Scuttler: Rooted"}},
+		{"slots_plan", []string{"Ability slots", "(in the plan)", "joins the plan"}},
+		{"turn_cast_round", []string{"Frost Bolt lands in round 2"}},
+		{"duo_one_of_two", []string{"[x] you  [ ] bram"}},
+	} {
+		c := caseNamed(t, tc.name)
+		m := replay(t, c)
+		for _, sz := range screen.Sizes {
+			out := c.Draw(m, sz[0], sz[1])
+			for _, want := range tc.wants {
+				if sz[0] == 80 && tc.name == "turn_cast_round" && want == "Frost Bolt lands in round 2" {
+					want = "lands in" // the panel is narrow
+				}
+				if !strings.Contains(out, want) {
+					t.Errorf("%s at %v: missing %q\n%s", tc.name, sz, want, out)
+				}
+			}
+		}
+	}
+}
+
+// A drop the character may not take is told apart on the map and in Nearby.
+func TestDropsYouMayNotTakeAreMarked(t *testing.T) {
+	c := caseNamed(t, "play_looted")
+	m := replay(t, c)
+	m.Drops = map[string]*pb.LootDropState{
+		"d1": {Id: "d1", Item: "scuttler-blade", Pos: &pb.Pos{X: m.Self.Pos.GetX() + 4000, Y: m.Self.Pos.GetY()}},
+		"d2": {Id: "d2", Crowns: 5, CanLoot: true, Pos: &pb.Pos{X: m.Self.Pos.GetX() - 4000, Y: m.Self.Pos.GetY()}},
+	}
+	out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain())
+	for _, want := range []string{"~ Scuttler Blade", "not lootable", "* 5 crowns", "~ a drop you may not take"} {
+		if want == "~ a drop you may not take" {
+			out = screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true}, 140, 45, screen.Plain())
+		}
+		if !strings.Contains(out, want) {
+			t.Errorf("missing %q\n%s", want, out)
+		}
 	}
 }

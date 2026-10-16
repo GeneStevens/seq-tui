@@ -1,9 +1,9 @@
 ┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
-│          .                             #         ││ Tester  Lv 1  XP 0       │
+│          .                             #         ││ aria  Lv 1  XP 0    | 0cr│
 │          .                             #         ││ DEAD  HP 0/6             │
 │          .                             #         ││ Target: none             │
-│          .                             #         ││ You are dead. R: release │
-│          .                             #         │└──────────────────────────┘
+│          .        $ $$ $$ $            #         ││ You are dead. R: release │
+│          .        $ $$                 #         │└──────────────────────────┘
 │          .                             #         │┌─ Target ─────────────────┐
 │          .                             #         ││ no target (Tab to choose)│
 │          .              @m             #         ││                          │
@@ -11,13 +11,13 @@
 │          .                             #         │└──────────────────────────┘
 │          .                             #         │┌─ Nearby ─────────────────┐
 │          .                             #         ││ m Plain Scut… 2m E 40/40 │
-│          .                             #         ││ D gate-north      89m NE │
-│          .                             #         ││ D line-east       180m E │
-│          .                             #         ││                          │
+│          .                             #         ││ $ Testgrou… 9m NW binder │
+│          .                             #         ││ $ Testgro… 10m NW banker │
+│          .                             #         ││ +9 more                  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│ <  NN.Ns Plain Scuttler hit Tester for 2                                     │
-│ x  NN.Ns Plain Scuttler killed Tester                                        │
+│ <  NN.Ns Plain Scuttler hit aria for 2                                       │
+│ x  NN.Ns Plain Scuttler killed aria                                          │
 │    NN.Ns encounter enc-1 with Plain Scuttler closed: participants_dead       │
 │    NN.Ns Plain Scuttler reset to 40 hp                                       │
 └──────────────────────────────────────────────────────────────────────────────┘

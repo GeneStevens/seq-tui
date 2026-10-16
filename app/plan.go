@@ -43,17 +43,39 @@ const (
 	SetSlot    // put the ability ID in Slot ("" empties it)
 	OpenSlots  // the slot screen
 	CreateCharacter
+	OpenInventory // the inventory and gear screen
+	OpenTraders   // the screen for the traders in view
+	OpenTrade     // the trade window
+	Equip         // wear the item ID
+	Unequip       // take off the gear slot Gear
+	Buy           // buy Count of the item ID from the trader NPC
+	Sell          // sell the item ID to the trader NPC
+	Train         // learn the ability ID from the trader NPC
+	Bind          // set the bind point at the trader NPC
+	BankDeposit   // bank the item ID at the trader NPC
+	BankWithdraw  // take the item ID out of the bank at the trader NPC
+	TradeOpen     // ask the character ID for a trade, or agree to its ask
+	TradeAdd      // put the item ID in the offer
+	TradeCrowns   // offer Amount crowns in all
+	TradeRemove   // take the item ID back out of the offer
+	TradeConfirm
+	TradeCancel
 )
 
 // Action is a key's meaning, with the choice it needs already made.
 type Action struct {
 	Kind Kind
-	X, Y int64   // Move: the destination
-	ID   string  // Target, Loot, UseDoor: what it names
-	On   bool    // Attack
-	Slot int     // UseAbility, SetSlot: 1 to 8
-	Note string  // None: why nothing happens, for the status line
-	Step *Action // PlanAdd: the step to add
+	X, Y int64  // Move: the destination
+	ID   string // Target, Loot, UseDoor: what it names
+	On   bool   // Attack
+	Slot int    // UseAbility, SetSlot: 1 to 8
+	NPC  string // Buy, Sell, Train, Bind, BankDeposit, BankWithdraw: the trader
+	Gear string // Unequip: the gear slot
+	// Count is how many Buy buys; Amount is the crowns of TradeCrowns.
+	Count  int
+	Amount int64
+	Note   string  // None: why nothing happens, for the status line
+	Step   *Action // PlanAdd: the step to add
 
 	// PlanSubmit: the plan as the toolkit takes it, and the round and edit it
 	// is a copy of.
@@ -86,10 +108,7 @@ func Plan(key string, m *model.Model) Action {
 	case "f", "space", " ":
 		return Action{Kind: Attack, On: !m.Self.AutoAttack}
 	case "l":
-		if id := nearestDrop(m); id != "" {
-			return Action{Kind: Loot, ID: id}
-		}
-		return Action{Note: "nothing to loot in view"}
+		return lootAction(m, m.Self.Pos)
 	case "e", "enter":
 		if id := nearestDoor(m); id != "" {
 			return Action{Kind: UseDoor, ID: id}
@@ -119,6 +138,12 @@ func common(key string) Action {
 		return Action{Kind: OpenMenu}
 	case "b":
 		return Action{Kind: OpenSlots}
+	case "c":
+		return Action{Kind: OpenInventory}
+	case "n":
+		return Action{Kind: OpenTraders}
+	case "t":
+		return Action{Kind: OpenTrade}
 	}
 	return Action{}
 }
@@ -168,6 +193,20 @@ func nextTargetFrom(m *model.Model, cur string) string {
 		return ids[0]
 	}
 	return ""
+}
+
+// lootAction loots the nearest drop this character may take from a point. A
+// drop the server marks as not its to take (can_loot false: a Rare drop it is
+// not entitled to) is not sent; the key says so.
+func lootAction(m *model.Model, from *pb.Pos) Action {
+	id := nearestDropTo(m, from)
+	switch {
+	case id == "":
+		return Action{Note: "nothing to loot in view"}
+	case !m.Drops[id].GetCanLoot():
+		return Action{Note: "not lootable: the drops in view are not yours to take"}
+	}
+	return Action{Kind: Loot, ID: id}
 }
 
 // nearestDrop prefers a drop this character may take.

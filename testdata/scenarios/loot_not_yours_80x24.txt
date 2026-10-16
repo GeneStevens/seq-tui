@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                                                  ││ c2  Lv 1  XP 0 | 0 crowns│
+│                                                  ││ HP 100/100 ############# │
+│                                                  ││ Target: none             │
+│                                                  ││ Auto-attack: off         │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Target ─────────────────┐
+│                                                  ││ no target (Tab to choose)│
+│                         @                        ││                          │
+│                                                  ││                          │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Nearby ─────────────────┐
+│                                                  ││ ~ 5 … 16m S not lootable │
+│                                                  ││ ~ Sc… 16m S not lootable │
+│                        p~                        ││ ~ Wo… 16m S not lootable │
+│                                                  ││ +3 more                  │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    NN.Ns Trophy Scuttler dropped 5 crowns (drop-enc-1-crowns): not yours to  │
+│            take                                                              │
+│    NN.Ns encounter enc-1 with Trophy Scuttler closed: mob_died               │
+│    NN.Ns Trophy Scuttler left view                                           │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | not lootable: the drops in view are not yours to take   ? help  q quit

@@ -1,0 +1,24 @@
+┌─ Trade ──────────────────────────────────────────────────────────────────────┐
+│ Trade with another character in reach. You have 0 crowns.                    │
+│ Up / Down choose a character; Enter asks them. They ask back to open it.     │
+│                                                                              │
+│ > c2                   1m E                                                  │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.   │
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

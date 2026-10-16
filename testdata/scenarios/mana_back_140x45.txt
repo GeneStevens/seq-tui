@@ -1,28 +1,28 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                    .                                               #           ││ Zedd  Lv 1 Wizard                      │
+│                                    .                                               #           ││ Zedd  Lv 1 Wizard            | 0 crowns│
 │                                    .                                               #           ││ HP 80/80 ############################# │
 │                                    .                                               #           ││ MP 150/150 ########################### │
 │                                    .                                               #           ││ XP ############------------- 20 to Lv 2│
 │                                    .                                               #           ││ Atk off | none                         │
-│                                    .                                               #           │└────────────────────────────────────────┘
+│                                    .             $  $ $  $ $ $                     #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Target ───────────────────────────────┐
-│                                    .                                               #           ││ no target (Tab to choose)              │
+│                                    .             $  $ $                            #           ││ no target (Tab to choose)              │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                            m                  #           │┌─ Nearby ───────────────────────────────┐
-│                                    .           @              *                    #           ││ * shell-fragment                 13m E │
-│                                    .                                               #           ││ m Plain Scuttler           14m E 40/40 │
-│                                    .                                               #           ││ D gate-north                    98m NE │
-│                                    .                                               #           ││ D line-east                     189m E │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
+│                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
+│                                    .           @              *  m                 #           ││ $ Testgrounds Vendor       8m N vendor │
+│                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
+│                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
+│                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
+│                                    .                                               #           ││ * Cracked Shell Fragment         13m E │
+│                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
+│                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
+│                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
+│                                    .                                               #           ││ m Plain Scuttler           15m E 40/40 │
+│                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │
+│                                    .                                               #           ││ $ Druid Trainer         17m NE trainer │
+│                                    .                                               #           ││ +2 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Root                   10mp tgt? 2 Frost Bolt            12mp tgt? 3 Flame Dart             6mp tgt? 4 -                         empty │
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Frost Bolt: snare on Plain Scuttler for 12 s                                                                                    │
-│     N.Ns Zedd began casting Frost Bolt (2.0 s)                                                                                           │
-│     N.Ns Zedd used Frost Bolt on Plain Scuttler                                                                                          │
-│     N.Ns Zedd's Frost Bolt hit Plain Scuttler for 15                                                                                     │
-│ x   N.Ns Zedd killed Plain Scuttler                                                                                                      │
-│     N.Ns Zedd's target Plain Scuttler cleared: target_dead                                                                               │
-│     N.Ns Plain Scuttler dropped shell-fragment (drop-enc-1-shell-fragment)                                                               │
-│     N.Ns encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
-│ +   N.Ns Zedd received 20 xp from Plain Scuttler                                                                                         │
-│     N.Ns Plain Scuttler left view                                                                                                        │
+│    NN.Ns Zedd began casting Frost Bolt (2.0 s)                                                                                           │
+│    NN.Ns Plain Scuttler healed 1                                                                                                         │
+│    NN.Ns Zedd used Frost Bolt on Plain Scuttler                                                                                          │
+│    NN.Ns Zedd's Frost Bolt hit Plain Scuttler for 12                                                                                     │
+│ x  NN.Ns Zedd killed Plain Scuttler                                                                                                      │
+│    NN.Ns Zedd's target Plain Scuttler cleared: target_dead                                                                               │
+│    NN.Ns Plain Scuttler dropped Cracked Shell Fragment (drop-enc-1-shell-fragment)                                                       │
+│    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
+│ +  NN.Ns Zedd received 20 xp from Plain Scuttler                                                                                         │
+│    NN.Ns Plain Scuttler left view                                                                                                        │
 │    NN.Ns Plain Scuttler (mob-near-2) appeared                                                                                            │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok                                                                  ? help  q quit

@@ -1,0 +1,45 @@
+┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Testgrounds Vendor, vendor, 3m SW away. You have 120 crowns.                                                                             │
+│                                                                                                                                          │
+│ For sale (Enter buys one)                                          │ You carry (Enter sells one)                                         │
+│  Cracked Shell Fragment Common                                 1   │  (nothing)                                                          │
+│> Worn Cap Common                                               8   │                                                                     │
+│  Padded Vest Common                                           20   │                                                                     │
+│  Padded Leggings Common                                       16   │                                                                     │
+│  Padded Gloves Common                                          8   │                                                                     │
+│  Stout Boots Common                                           10   │                                                                     │
+│  Copper Ring Fine                                             40   │                                                                     │
+│  Bone Charm Fine                                              45   │                                                                     │
+│  Plain Club Common                                            15   │                                                                     │
+│  Buckler Common                                               12   │                                                                     │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ Worn Cap: Common, head; tradable once                                                                                                    │
+│ armor +2; a vendor pays 2                                                                                                                │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                                                              │
+│ The answer is on the status line; every denial says why.                                                                                 │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

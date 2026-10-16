@@ -1,0 +1,45 @@
+┌─ Inventory and gear ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Crowns 5 | carrying 0 of 20 | bank 0 | bind point none yet                                                                               │
+│ Gear worn                                                          │ Items carried                                                       │
+│ > head      Worn Cap Common                                        │  (nothing)                                                          │
+│   chest     -                                                      │                                                                     │
+│   legs      -                                                      │                                                                     │
+│   hands     -                                                      │                                                                     │
+│   feet      -                                                      │                                                                     │
+│   ring1     -                                                      │                                                                     │
+│   ring2     -                                                      │                                                                     │
+│   neck      -                                                      │                                                                     │
+│   main_hand Scuttler Blade Rare [bound]                            │                                                                     │
+│   off_hand  -                                                      │                                                                     │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ Worn Cap: Common, head; tradable once                                                                                                    │
+│ armor +2; a vendor pays 2                                                                                                                │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                                                                     │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                                                                               │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago | wear Worn Cap ok                                                                     ? help  q quit

@@ -1,0 +1,24 @@
+┌─ Inventory and gear ─────────────────────────────────────────────────────────┐
+│ Crowns 13 | carrying 1 of 20 | bank 0 | bind point none yet                  │
+│ Gear worn                            │ Items carried                         │
+│ > head      -                        │> Worn Cap! Common [bound]             │
+│   chest     -                        │                                       │
+│   legs      -                        │                                       │
+│   hands     -                        │                                       │
+│   feet      -                        │                                       │
+│   ring1     -                        │                                       │
+│   ring2     -                        │                                       │
+│   neck      -                        │                                       │
+│   main_hand -                        │                                       │
+│   off_hand  -                        │                                       │
+│──────────────────────────────────────────────────────────────────────────────│
+│                                                                              │
+│                                                                              │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.         │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

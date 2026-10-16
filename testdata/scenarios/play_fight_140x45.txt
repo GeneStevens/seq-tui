@@ -1,27 +1,27 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                         .                                                         #            ││ Tester  Lv 1  XP 0                     │
+│                         .                                                         #            ││ aria  Lv 1  XP 0             | 0 crowns│
 │                         .                                                         #            ││ HP 96/100 ##########################-- │
 │                         .                                                         #            ││ Target: Plain Scuttler                 │
 │                         .                                                         #            ││ Auto-attack: ON                        │
 │                         .                                                         #            │└────────────────────────────────────────┘
-│                         .                                                         #            │┌─ Target ───────────────────────────────┐
+│                         .                $  $  $  $  $  $                         #            │┌─ Target ───────────────────────────────┐
 │                         .                                                         #            ││ M Plain Scuttler  Lv 1                 │
 │                         .                                                         #            ││ HP 22/40 ############----------- 2m E  │
-│                         .                                                         #            ││ fighting you                           │
+│                         .                $  $  $                                  #            ││ fighting you                           │
 │                         .                                                         #            │└────────────────────────────────────────┘
 │                         .                                                         #            │┌─ Nearby ───────────────────────────────┐
 │                         .                                                         #            ││ M Plain Scuttler            2m E 22/40 │
+│                         .                                                         #            ││ $ Testgrounds Binder       8m N binder │
+│                         .                                                         #            ││ $ Testgrounds Banker       8m N banker │
+│                         .                      @   M                              #            ││ $ Testgrounds Vendor      9m NW vendor │
+│                         .                                                         #            ││ $ Rogue Trainer          12m N trainer │
+│                         .                                                         #            ││ $ Cleric Trainer         12m N trainer │
+│                         .                                                         #            ││ $ Wizard Trainer         12m N trainer │
+│                         .                                                         #            ││ $ Paladin Trainer        13m N trainer │
+│                         .                                                         #            ││ $ Warrior Trainer        13m N trainer │
+│                         .                                                         #            ││ $ Druid Trainer         13m NE trainer │
 │                         .                                                         #            ││ D gate-north                    93m NE │
 │                         .                                                         #            ││ D line-east                     183m E │
-│                         .                      @   M                              #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
 │                         .                                                         #            ││                                        │
 │                         .                                                         #            ││                                        │
 │                         .                                                         #            ││                                        │
@@ -30,16 +30,16 @@
 │                         .                                                         #            ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ <   N.Ns Plain Scuttler hit Tester for 2                                                                                                 │
-│     N.Ns Tester began attacking Plain Scuttler                                                                                           │
-│     N.Ns Tester hit Plain Scuttler for 4                                                                                                 │
-│     N.Ns Tester hit Plain Scuttler for 6                                                                                                 │
-│ <   N.Ns Plain Scuttler hit Tester for 1                                                                                                 │
-│     N.Ns Tester healed 2                                                                                                                 │
+│ <   N.Ns Plain Scuttler hit aria for 2                                                                                                   │
+│     N.Ns aria began attacking Plain Scuttler                                                                                             │
+│     N.Ns aria hit Plain Scuttler for 4                                                                                                   │
+│     N.Ns aria hit Plain Scuttler for 6                                                                                                   │
+│ <   N.Ns Plain Scuttler hit aria for 1                                                                                                   │
+│     N.Ns aria healed 2                                                                                                                   │
 │     N.Ns Plain Scuttler healed 1                                                                                                         │
-│     N.Ns Tester missed Plain Scuttler                                                                                                    │
-│ <   N.Ns Plain Scuttler hit Tester for 3                                                                                                 │
-│     N.Ns Tester hit Plain Scuttler for 5                                                                                                 │
-│    NN.Ns Tester hit Plain Scuttler for 4                                                                                                 │
+│     N.Ns aria missed Plain Scuttler                                                                                                      │
+│ <   N.Ns Plain Scuttler hit aria for 3                                                                                                   │
+│     N.Ns aria hit Plain Scuttler for 5                                                                                                   │
+│    NN.Ns aria hit Plain Scuttler for 4                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago | attack ok                                                                            ? help  q quit

@@ -1,24 +1,24 @@
 ┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
-│                 .                             #  ││ Tester  Lv 1  XP 0       │
+│                 .                             #  ││ aria  Lv 1  XP 0    | 0cr│
 │                 .                             #  ││ HP 6/6 ################# │
 │                 .                             #  ││ Target: none             │
-│                 .                             #  ││ Auto-attack: off         │
-│                 .                             #  │└──────────────────────────┘
+│                 .        $ $$ $$ $            #  ││ Auto-attack: off         │
+│                 .        $ $$                 #  │└──────────────────────────┘
 │                 .                             #  │┌─ Target ─────────────────┐
 │                 .                             #  ││ no target (Tab to choose)│
 │                 .       @                     #  ││                          │
 │                 .                    m        #  ││                          │
 │                 .                             #  │└──────────────────────────┘
 │                 .                             #  │┌─ Nearby ─────────────────┐
-│                 .                             #  ││ m Plain Scu… 18m E 40/40 │
-│                 .                             #  ││ D gate-north      98m NE │
-│                 .                             #  ││ D line-east       189m E │
-│                 .                             #  ││                          │
+│                 .                             #  ││ $ Testgroun… 8m N vendor │
+│                 .                             #  ││ $ Testgrou… 9m NE banker │
+│                 .                             #  ││ $ Testgro… 10m NE binder │
+│                 .                             #  ││ +9 more                  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │    NN.Ns encounter enc-1 with Plain Scuttler closed: participants_dead       │
 │    NN.Ns Plain Scuttler reset to 40 hp                                       │
-│    NN.Ns Tester released; respawns in 5 s                                    │
-│    NN.Ns Tester respawned at (10000, 50000) with 6 hp                        │
+│    NN.Ns aria released; respawns in 5 s                                      │
+│    NN.Ns aria respawned at (10000, 50000) with 6 hp                          │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago | release ok               ? help  q quit

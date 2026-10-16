@@ -40,12 +40,11 @@ func wholeSecs(ms int64) string {
 	return fmt.Sprintf("%ds", (max(ms, 0)+999)/1000)
 }
 
-// className is a class id as a player reads it.
-func className(id string) string {
-	for _, c := range Classes {
-		if c.ID == id {
-			return c.Name
-		}
+// className is a class id as a player reads it: the name the class menu gives
+// it, else the id with a capital.
+func className(m *model.Model, id string) string {
+	if c := m.Class(id); c != nil && c.GetName() != "" {
+		return c.GetName()
 	}
 	if id == "" {
 		return ""
@@ -69,6 +68,11 @@ func xpLine(m *model.Model, w int) string {
 // the last cast did not land, the line says so until another begins.
 func castLine(m *model.Model, v View, w int, st Styler) string {
 	s := m.Self
+	if c := s.Cast; c != nil && c.LandsInRound > 0 {
+		// A cast that waits for a later round has no countdown: game time stands
+		// still between rounds.
+		return fit(fmt.Sprintf(" Cast %s: lands in round %d", m.AbilityName(c.Ability), c.LandsInRound), w)
+	}
 	if c := s.Cast; c != nil {
 		left := " Cast " + fit(m.AbilityName(c.Ability), max(min(w-18, 14), 6))
 		left = strings.TrimRight(left, " ")
@@ -108,7 +112,7 @@ func castShort(reason string) string {
 // and class, hit points, mana (for those that have it), XP, and the cast.
 func kitLines(m *model.Model, v View, w int, st Styler) []string {
 	s := m.Self
-	head := fmt.Sprintf(" %s  Lv %d %s", s.Name, s.Level, className(s.Class))
+	head := fmt.Sprintf(" %s  Lv %d %s", s.Name, s.Level, className(m, s.Class))
 	hp := fmt.Sprintf(" HP %d/%d ", s.HP, s.MaxHP)
 	hpLine := fit(hp+bar(s.HP, s.MaxHP, max(w-width(hp)-1, 0)), w)
 	if s.Dead {
@@ -116,7 +120,7 @@ func kitLines(m *model.Model, v View, w int, st Styler) []string {
 	} else if s.MaxHP > 0 && s.HP*4 <= s.MaxHP {
 		hpLine = st.Red(hpLine)
 	}
-	rows := []string{st.Bold(fit(head, w)), hpLine}
+	rows := []string{st.Bold(withCrowns(head, s.Crowns, w)), hpLine}
 	if s.MaxMana > 0 {
 		mp := fmt.Sprintf(" MP %d/%d ", s.Mana, s.MaxMana)
 		rows = append(rows, fit(mp+bar(s.Mana, s.MaxMana, max(w-width(mp)-1, 0)), w))
@@ -226,23 +230,9 @@ func abilityLines(m *model.Model, v View, w int, st Styler) []string {
 	return append(rows, fit(" "+strings.TrimSpace(fx), w))
 }
 
-// Class is a launch class as the creation screen offers it.
-type Class struct{ ID, Name, About string }
-
-// Classes are the six launch classes (doc 05 §3), each with one line on how it
-// plays. The server owns the kits; this is only what a player reads before
-// choosing.
-var Classes = []Class{
-	{"warrior", "Warrior", "Tank. Holds enemies with Taunt and Bash and heals itself; no mana."},
-	{"cleric", "Cleric", "Healer. Minor Heal for allies, Smite for enemies; mana."},
-	{"rogue", "Rogue", "Melee damage. Backstab from behind, Sneak to hide; no mana."},
-	{"wizard", "Wizard", "Spell damage. Flame Dart and Frost Bolt from range; fragile; mana."},
-	{"paladin", "Paladin", "Tank and healer. Holy Strike, Challenge and healing hands; mana."},
-	{"druid", "Druid", "Healer and nature damage. Thorn Bolt and Mend; mana."},
-}
-
 // Create is the character creation screen, when it is open: the name typed so
-// far, which class the cursor is on, and which of the two the keys go to.
+// far, which class of the server's class menu the cursor is on, and which of
+// the two the keys go to.
 type Create struct {
 	Name  string
 	Class int
@@ -256,9 +246,15 @@ type Create struct {
 // MaxName is the longest name the server takes.
 const MaxName = 16
 
-func createLines(c *Create, w, h int, st Styler) []string {
+// rolesWords names a class's roles: one base role, or two for a hybrid.
+func rolesWords(roles []string) string {
+	return strings.Join(roles, " + ")
+}
+
+func createLines(m *model.Model, c *Create, w, h int, st Styler) []string {
 	var rows []string
 	add := func(s string) { rows = append(rows, fit(s, w)) }
+	menu := m.Classes()
 	add(" Make a character: a name and a class.")
 	add("")
 	cursor := "_"
@@ -272,13 +268,16 @@ func createLines(c *Create, w, h int, st Styler) []string {
 		add(name + "   3 to 16 letters")
 	}
 	add("")
-	add(" Class")
-	for i, cl := range Classes {
+	add(" Class (the server's menu)")
+	if len(menu) == 0 {
+		add("  The server has sent no class menu yet.")
+	}
+	for i, cl := range menu {
 		mark := "  "
 		if i == c.Class {
 			mark = "> "
 		}
-		line := fit(fmt.Sprintf(" %s%d  %-8s %s", mark, i+1, cl.Name, cl.About), w)
+		line := fit(fmt.Sprintf(" %s%d  %-9s %s", mark, i+1, cl.GetName(), rolesWords(cl.GetRoles())), w)
 		if i == c.Class && c.Classes {
 			line = st.Reverse(line)
 		} else if i == c.Class {
@@ -287,17 +286,42 @@ func createLines(c *Create, w, h int, st Styler) []string {
 		rows = append(rows, line)
 	}
 	add("")
+	// The class under the cursor: what it is, and the kit it starts with, free.
+	var tail []string
 	switch {
 	case c.Busy:
-		add(" Making the character…")
+		tail = append(tail, fit(" Making the character…", w))
 	case c.Err != "":
-		rows = append(rows, st.Red(st.Bold(fit(" ! "+c.Err, w))))
+		tail = append(tail, st.Red(st.Bold(fit(" ! "+c.Err, w))))
 	default:
-		add("")
+		tail = append(tail, fit("", w))
 	}
-	add(" Type the name. Tab or Down moves to the classes: Up / Down or 1-6 choose.")
-	add(" Enter makes the character and plays it. Ctrl+C quits.")
-	return pad(rows[:min(len(rows), h)], w, h)
+	tail = append(tail, fit(" Type the name. Tab or Down moves to the classes: Up / Down or 1-"+fmt.Sprint(max(len(menu), 1))+" choose.", w),
+		fit(" Enter makes the character and plays it. Ctrl+C quits.", w))
+	if c.Class >= 0 && c.Class < len(menu) {
+		cl := menu[c.Class]
+		for _, l := range wrap(cl.GetDescription(), w-2) {
+			add(" " + l)
+		}
+		var kit []string
+		for _, a := range cl.GetKit() {
+			kit = append(kit, fmt.Sprintf("%s (%s)", a.GetName(), abilityDetail(a)))
+		}
+		if len(kit) > 0 {
+			add(" Starts with, free:")
+			for _, k := range kit {
+				if len(rows)+len(tail) >= h {
+					break
+				}
+				add("   " + k)
+			}
+		}
+	}
+	for len(rows)+len(tail) < h {
+		rows = append(rows, strings.Repeat(" ", w))
+	}
+	rows = rows[:min(len(rows), h-len(tail))]
+	return append(rows, tail...)
 }
 
 // Slots is the slot screen, when it is open: the slot the cursor is on and,
@@ -331,14 +355,23 @@ func slotScreenLines(m *model.Model, v View, w, h int, st Styler) []string {
 	sl := v.Slots
 	var rows []string
 	add := func(s string) { rows = append(rows, fit(s, w)) }
-	add(" Slots: keys 1 to 8 use them in play. Up / Down or 1-8 choose a slot, Enter picks its ability,")
-	add(" Backspace empties it, Esc or B closes. Slots can only be changed out of combat.")
+	add(" Keys 1-8 use the slots in play. Up / Down or 1-8 choose; Enter picks an ability.")
+	if m.TurnBased() {
+		add(" Backspace empties a slot, Esc closes. Here a change joins the plan (Enter submits).")
+	} else {
+		add(" Backspace empties a slot, Esc closes. Slots change out of combat only.")
+	}
 	for i := 0; i < model.Slots; i++ {
 		id := m.Self.Slots[i].Ability
+		planned := ""
+		if p, ok := v.PlanSlots[i+1]; ok {
+			id, planned = p, "  (in the plan)"
+		}
 		text := "(empty)"
 		if a := m.AbilityByID(id); a != nil {
 			text = fmt.Sprintf("%-16s %s", a.GetName(), abilityDetail(a))
 		}
+		text += planned
 		mark := "  "
 		if i == sl.Slot {
 			mark = "> "
@@ -378,4 +411,17 @@ func slotScreenLines(m *model.Model, v View, w, h int, st Styler) []string {
 		rows = append(rows, line)
 	}
 	return pad(rows[:min(len(rows), h)], w, h)
+}
+
+// withCrowns is the You panel's first line: the name and level, and the
+// character's crowns at the right end ("| 84 crowns", or "| 84cr" when the room is
+// short); the name gives way first.
+func withCrowns(head string, crowns int64, w int) string {
+	for _, c := range []string{fmt.Sprintf("| %d crowns", crowns), fmt.Sprintf("| %dcr", crowns)} {
+		if width(head)+1+width(c) <= w {
+			return fit(head, w-width(c)) + c
+		}
+	}
+	c := fmt.Sprintf("| %dcr", crowns)
+	return fit(head, max(w-width(c)-1, 1)) + " " + c
 }

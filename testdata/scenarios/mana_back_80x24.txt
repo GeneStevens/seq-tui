@@ -1,11 +1,11 @@
 ┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
-│                    .                   #         ││ Zedd  Lv 1 Wizard        │
+│                    .                   #         ││ Zedd  Lv 1 Wizard   | 0cr│
 │                    .                   #         ││ HP 80/80 ############### │
-│                    .                   #         ││ MP 150/150 ############# │
-│                    .                   #         ││ XP #####------ 20 to Lv 2│
+│                    .     $$$$$$        #         ││ MP 150/150 ############# │
+│                    .     $$$           #         ││ XP #####------ 20 to Lv 2│
 │                    .                   #         ││ Atk off | none           │
-│                    .    @     *m       #         │└──────────────────────────┘
-│                    .                   #         │┌─ Target ─────────────────┐
+│                    .    @     *        #         │└──────────────────────────┘
+│                    .           m       #         │┌─ Target ─────────────────┐
 │                    .                   #         ││ no target (Tab to choose)│
 │                    .                   #         ││                          │
 │                    .                   #         ││                          │
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns encounter enc-1 with Plain Scuttler closed: mob_died                │
-│ +   N.Ns Zedd received 20 xp from Plain Scuttler                             │
-│     N.Ns Plain Scuttler left view                                            │
+│    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                │
+│ +  NN.Ns Zedd received 20 xp from Plain Scuttler                             │
+│    NN.Ns Plain Scuttler left view                                            │
 │    NN.Ns Plain Scuttler (mob-near-2) appeared                                │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok      ? help  q quit

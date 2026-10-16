@@ -61,6 +61,16 @@ type Self struct {
 	Stats          *pb.Stats
 	Inventory      []string
 
+	// The economy (SEQ-040): crowns, what is worn (one entry for each gear
+	// slot in the order of GearSlots, "" for an empty one; empty when nothing
+	// is), the bank, the zone of the bind point ("" until the character binds)
+	// and how many items the inventory holds.
+	Crowns        int64
+	Equipped      []string
+	Bank          []string
+	BindZone      string
+	InventorySize int64
+
 	// Class, and the XP the level began at and ends at (XPNext 0: the cap).
 	Class           string
 	XPStart, XPNext int64
@@ -119,6 +129,14 @@ type Model struct {
 	// in a world zone.
 	Instance *pb.InstanceInfo
 
+	// Items are the items the snapshots described (the server sends every item
+	// the character carries, wears, banks, offers or sees on sale), NPCs the
+	// vendors, trainers, binders and bankers in view, and Trade the character's
+	// trade window: nil when it has none.
+	Items map[string]*pb.ItemInfo
+	NPCs  []*pb.NpcInfo
+	Trade *pb.TradeState
+
 	// Welcome is the latest welcome; Connections counts the welcomes seen
 	// (a resume after a drop is a second connection).
 	Welcome     *pb.Welcome
@@ -156,7 +174,7 @@ func New() *Model { return NewBounded(DefaultLogCap, DefaultIntentsCap) }
 // NewBounded returns an empty model with the given event log and intent list bounds.
 func NewBounded(logCap, intentCap int) *Model {
 	return &Model{logCap: max(logCap, 1), intentCap: max(intentCap, 1), Group: map[string]*Member{}, names: map[string]string{},
-		Entities: map[string]*pb.EntityState{}, Drops: map[string]*pb.LootDropState{}, Encounters: map[string]*pb.EncounterState{}}
+		Items: map[string]*pb.ItemInfo{}, Entities: map[string]*pb.EntityState{}, Drops: map[string]*pb.LootDropState{}, Encounters: map[string]*pb.EncounterState{}}
 }
 
 // Last is the character's stream number of the last event applied, or of the
@@ -255,9 +273,6 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	self := s.GetSelf()
 	e := self.GetEntity()
-	if m.Space != s.GetSpace() {
-		m.TargetEffects = nil
-	}
 	old := m.Self
 	m.Space, m.Tick, m.GameTimeMs, m.Instance = s.GetSpace(), s.GetTick(), s.GetGameTimeMs(), s.GetInstance()
 	m.Self = Self{
@@ -265,17 +280,33 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(),
 		HasDestination: self.GetHasDestination(), Destination: clonePos(self.GetDestination()),
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
+		Crowns: self.GetCrowns(), Equipped: slices.Clone(self.GetEquipped()), Bank: slices.Clone(self.GetBank()),
+		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
 	m.remember(e)
+	// Everything in view carries its effects (D50): a fresh snapshot, a login in
+	// the middle of a fight, tells what lies on each of them.
+	m.TargetEffects = map[string][]Effect{}
+	noteEffects := func(en *pb.EntityState) {
+		if fx := effectsFrom(en.GetEffects(), s.GetGameTimeMs()); len(fx) > 0 && en.GetId() != m.Self.ID {
+			m.TargetEffects[en.GetId()] = fx
+		}
+	}
+	for _, it := range s.GetItems() {
+		m.Items[it.GetId()] = it
+	}
+	m.NPCs, m.Trade = s.GetNpcs(), s.GetTrade()
 	m.Drops, m.Encounters = map[string]*pb.LootDropState{}, map[string]*pb.EncounterState{}
 	for _, g := range s.GetGroup() {
 		m.remember(g.GetEntity())
+		noteEffects(g.GetEntity())
 		m.Group[g.GetEntity().GetId()] = &Member{Entity: cloneEntity(g.GetEntity()), Target: g.GetTarget(), AutoAttack: g.GetAutoAttack(), XP: g.GetXp()}
 	}
 	for _, en := range s.GetEntities() {
 		m.remember(en)
+		noteEffects(en)
 		m.Entities[en.GetId()] = cloneEntity(en)
 	}
 	for _, d := range s.GetDrops() {
@@ -351,7 +382,7 @@ func (m *Model) apply(e *pb.Event) {
 		delete(m.Encounters, b.EncounterClosed.GetId())
 	case *pb.Event_Reward:
 		w := b.Reward
-		if w.GetKind() == "loot" {
+		if w.GetKind() == "loot" || w.GetKind() == "crowns" {
 			delete(m.Drops, w.GetSource()) // a loot reward names the drop it took (sim: Target is the drop)
 		}
 		if w.GetRecipient() == m.Self.ID {
@@ -363,7 +394,12 @@ func (m *Model) apply(e *pb.Event) {
 				}
 			case "loot":
 				m.Self.Inventory = append(m.Self.Inventory, w.GetItem())
+			case "crowns":
+				m.Self.Crowns += w.GetAmount()
 			}
+			// The other economic rewards (buy, sell, train, bind, fee, refund,
+			// equip, bank, trade) are followed by a fresh snapshot with the new
+			// state; the log line says what happened until it arrives.
 		} else if g := m.Group[w.GetRecipient()]; g != nil && w.GetKind() == "xp" {
 			g.XP += w.GetAmount()
 		}
@@ -390,7 +426,7 @@ func (m *Model) apply(e *pb.Event) {
 		}
 	case *pb.Event_LootDropped:
 		d := b.LootDropped
-		m.Drops[d.GetDrop()] = &pb.LootDropState{Id: d.GetDrop(), Item: d.GetItem(), Pos: d.GetPos()}
+		m.Drops[d.GetDrop()] = &pb.LootDropState{Id: d.GetDrop(), Item: d.GetItem(), Pos: d.GetPos(), CanLoot: d.GetCanLoot(), Crowns: d.GetCrowns()}
 	case *pb.Event_LootGone:
 		delete(m.Drops, b.LootGone.GetDrop()) // expired or taken (D41): gone now, not at the next snapshot
 	case *pb.Event_Released:

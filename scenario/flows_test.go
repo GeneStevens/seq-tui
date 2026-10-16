@@ -20,6 +20,27 @@ func one(account, character string) []testserver.Account {
 	return []testserver.Account{{Name: account, Characters: []string{character}}}
 }
 
+// openPreset opens the zone's menu and keys the number of the preset with that
+// id, found in the menu as the server listed it, then Enter opens it.
+func openPreset(t *testing.T, p *scenario.Player, id string, enter bool) {
+	t.Helper()
+	n := 0
+	p.Model(func(m *model.Model) {
+		for i, pr := range m.Presets {
+			if pr.GetId() == id {
+				n = i + 1
+			}
+		}
+	})
+	if n == 0 {
+		t.Fatalf("the zone's menu has no preset %q", id)
+	}
+	p.Press("i", string(rune('0'+n)))
+	if enter {
+		p.Press("enter")
+	}
+}
+
 func inside(m *model.Model) bool {
 	return m.InInstance() && m.Ready() && m.Map != nil && m.Map.GetSpace() == m.Space
 }
@@ -153,7 +174,7 @@ func TestSoloTrialClear(t *testing.T) {
 	w.Fixture("solo_trial.jsonl")
 	w.Place("ann", "aria", gateX, gateY)
 	p := w.Login("ann", "aria")
-	p.Press("i", "2")
+	openPreset(t, p, "solo-trial", false)
 	p.Golden("instance_menu")
 	p.Press("enter")
 	w.Advance(time.Second)
@@ -168,7 +189,7 @@ func TestSoloTrialClear(t *testing.T) {
 	p.Eventually("the instance", inside)
 	p.Model(func(m *model.Model) {
 		in := m.Instance
-		if in.GetPreset() != "solo-trial" || in.GetPartyCap() != 1 || in.GetTimeMode() != "realtime" || in.GetDifficulty() != "heroic" || m.TurnBased() {
+		if in.GetPreset() != "solo-trial" || in.GetPartyCap() != 1 || in.GetTimeMode() != "realtime" || in.GetDifficulty() != "normal" || m.TurnBased() {
 			t.Fatalf("the server says the instance is %v", in)
 		}
 	})
@@ -208,7 +229,7 @@ func TestQuickTurns(t *testing.T) {
 	w.Fixture("quick_turns.jsonl")
 	w.Place("ann", "aria", gateX, gateY)
 	p := w.Login("ann", "aria")
-	p.Press("i", "4", "enter")
+	openPreset(t, p, "quick-turns", true)
 	w.Advance(time.Second)
 	p.Press("e")
 	p.Eventually("round 1", openRound)
@@ -336,7 +357,7 @@ func TestDuoGatheringRound(t *testing.T) {
 	w.Place("ann", "bram", gateX, gateY)
 	a := w.Login("ann", "aria")
 	b := w.Login("ann", "bram")
-	a.Press("i", "5", "enter")
+	openPreset(t, a, "duo-turns", true)
 	w.Advance(time.Second)
 	for _, p := range []*scenario.Player{a, b} {
 		p.Model(func(m *model.Model) {

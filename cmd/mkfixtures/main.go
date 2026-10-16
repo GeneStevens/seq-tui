@@ -129,7 +129,7 @@ func fightLoot() []msg {
 			e.Body = &pb.Event_EncounterClosed{EncounterClosed: &pb.EncounterClosed{Id: "enc-1", Owner: me, Mob: mob, Reason: "mob_died"}}
 		}),
 		ev(19, func(e *pb.Event) {
-			e.Body = &pb.Event_LootDropped{LootDropped: &pb.LootDropped{Drop: "drop-enc-1-shell-fragment", Mob: mob, Item: "shell-fragment", Pos: pos(2000, 0), Encounter: "enc-1"}}
+			e.Body = &pb.Event_LootDropped{LootDropped: &pb.LootDropped{Drop: "drop-enc-1-shell-fragment", Mob: mob, Item: "shell-fragment", Pos: pos(2000, 0), Encounter: "enc-1", CanLoot: true}}
 		}),
 		ev(20, func(e *pb.Event) {
 			e.Body = &pb.Event_Reward{Reward: &pb.Reward{Recipient: me, Source: mob, Kind: "xp", Amount: 25}}

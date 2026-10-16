@@ -1,0 +1,24 @@
+┌─ New character ──────────────────────────────────────────────────────────────┐
+│ Make a character: a name and a class.                                        │
+│                                                                              │
+│ Name   Mira   3 to 16 letters                                                │
+│                                                                              │
+│ Class (the server's menu)                                                    │
+│   1  Warrior   tank                                                          │
+│   2  Cleric    healer                                                        │
+│   3  Rogue     melee                                                         │
+│   4  Wizard    spell                                                         │
+│   5  Paladin   tank + healer                                                 │
+│ > 6  Druid     healer + spell                                                │
+│                                                                              │
+│ Nature caster who heals over time, entangles and slows enemies, and poisons  │
+│ them.                                                                        │
+│ Starts with, free:                                                           │
+│   Thorn Bolt (1.5 s cast, 7 mana, range 25m, enemy)                          │
+│   Mend (1.5 s cast, 10 mana, range 25m, ally)                                │
+│                                                                              │
+│                                                                              │
+│ Type the name. Tab or Down moves to the classes: Up / Down or 1-6 choose.    │
+│ Enter makes the character and plays it. Ctrl+C quits.                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | no space | heard N.Ns ago                               ? help  q quit

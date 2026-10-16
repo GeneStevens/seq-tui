@@ -1,27 +1,27 @@
 ┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                   .                                                         #                  ││ Tester  Lv 1  XP 0                     │
+│                   .                                                         #                  ││ aria  Lv 1  XP 0             | 0 crowns│
 │                   .                                                         #                  ││ DEAD  HP 0/6                           │
 │                   .                                                         #                  ││ Target: none                           │
 │                   .                                                         #                  ││ Released: back in 5 s                  │
 │                   .                                                         #                  │└────────────────────────────────────────┘
-│                   .                                                         #                  │┌─ Target ───────────────────────────────┐
+│                   .                $  $  $  $  $  $                         #                  │┌─ Target ───────────────────────────────┐
 │                   .                                                         #                  ││ no target (Tab to choose)              │
 │                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
+│                   .                $  $  $                                  #                  ││                                        │
 │                   .                                                         #                  │└────────────────────────────────────────┘
 │                   .                                                         #                  │┌─ Nearby ───────────────────────────────┐
 │                   .                                                         #                  ││ m Plain Scuttler            2m E 40/40 │
+│                   .                                                         #                  ││ $ Testgrounds Binder      9m NW binder │
+│                   .                              m                          #                  ││ $ Testgrounds Banker     10m NW banker │
+│                   .                            @                            #                  ││ $ Testgrounds Vendor     11m NW vendor │
+│                   .                                                         #                  ││ $ Paladin Trainer        12m N trainer │
+│                   .                                                         #                  ││ $ Druid Trainer          12m N trainer │
+│                   .                                                         #                  ││ $ Wizard Trainer         12m N trainer │
+│                   .                                                         #                  ││ $ Rogue Trainer          13m N trainer │
+│                   .                                                         #                  ││ $ Cleric Trainer        13m NW trainer │
+│                   .                                                         #                  ││ $ Warrior Trainer       14m NW trainer │
 │                   .                                                         #                  ││ D gate-north                    89m NE │
-│                   .                              m                          #                  ││ D line-east                     180m E │
-│                   .                            @                            #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││ D line-east                     180m E │
 │                   .                                                         #                  ││                                        │
 │                   .                                                         #                  ││                                        │
 │                   .                                                         #                  ││                                        │
@@ -30,16 +30,16 @@
 │                   .                                                         #                  ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Tester opened an encounter with Plain Scuttler (enc-1)                                                                          │
-│     N.Ns Plain Scuttler began attacking Tester                                                                                           │
-│ <   N.Ns Plain Scuttler hit Tester for 2                                                                                                 │
-│ <   N.Ns Plain Scuttler hit Tester for 1                                                                                                 │
-│     N.Ns Tester healed 2                                                                                                                 │
-│ <   N.Ns Plain Scuttler hit Tester for 3                                                                                                 │
-│ <  NN.Ns Plain Scuttler hit Tester for 2                                                                                                 │
-│ x  NN.Ns Plain Scuttler killed Tester                                                                                                    │
+│     N.Ns aria opened an encounter with Plain Scuttler (enc-1)                                                                            │
+│     N.Ns Plain Scuttler began attacking aria                                                                                             │
+│ <   N.Ns Plain Scuttler hit aria for 2                                                                                                   │
+│ <   N.Ns Plain Scuttler hit aria for 1                                                                                                   │
+│     N.Ns aria healed 2                                                                                                                   │
+│ <   N.Ns Plain Scuttler hit aria for 3                                                                                                   │
+│ <  NN.Ns Plain Scuttler hit aria for 2                                                                                                   │
+│ x  NN.Ns Plain Scuttler killed aria                                                                                                      │
 │    NN.Ns encounter enc-1 with Plain Scuttler closed: participants_dead                                                                   │
 │    NN.Ns Plain Scuttler reset to 40 hp                                                                                                   │
-│    NN.Ns Tester released; respawns in 5 s                                                                                                │
+│    NN.Ns aria released; respawns in 5 s                                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago | release ok                                                                           ? help  q quit

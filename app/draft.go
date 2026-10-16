@@ -111,6 +111,21 @@ func (d *Draft) attack(m *model.Model) bool {
 	return m.Self.AutoAttack
 }
 
+// Slots are the slot changes the plan holds, slot (1 to 8) to the ability it
+// will hold ("" emptied); the last step for a slot wins.
+func (d *Draft) Slots() map[int]string {
+	var out map[int]string
+	for _, s := range d.Steps {
+		if s.Kind == SetSlot {
+			if out == nil {
+				out = map[int]string{}
+			}
+			out[s.Slot] = s.ID
+		}
+	}
+	return out
+}
+
 // Lines is the plan as the words the Round panel lists.
 func (d *Draft) Lines(m *model.Model) []string {
 	out := make([]string, len(d.Steps))
@@ -147,6 +162,11 @@ func stepText(s Action, m *model.Model) string {
 		return "release"
 	case UseAbility:
 		return "use " + slotWords(m, s.Slot)
+	case SetSlot:
+		if s.ID == "" {
+			return fmt.Sprintf("empty key %d", s.Slot)
+		}
+		return fmt.Sprintf("key %d: %s", s.Slot, m.AbilityName(s.ID))
 	}
 	return "?"
 }
@@ -193,6 +213,8 @@ func (d *Draft) Agent() []agentkit.Step {
 			out = append(out, agentkit.StepRelease())
 		case UseAbility:
 			out = append(out, agentkit.StepUseAbility(s.Slot, s.ID))
+		case SetSlot:
+			out = append(out, agentkit.StepSetSlot(s.Slot, s.ID))
 		}
 	}
 	return out
@@ -220,10 +242,11 @@ func TurnKey(key string, m *model.Model, d *Draft) Action {
 	case "f", "space", " ":
 		return step(Action{Kind: Attack, On: !d.attack(m)})
 	case "l":
-		if id := nearestDropTo(m, pos); id != "" {
-			return step(Action{Kind: Loot, ID: id})
+		a := lootAction(m, pos)
+		if a.Kind == Loot {
+			return step(a)
 		}
-		return Action{Note: "nothing to loot in view"}
+		return a
 	case "e":
 		if id := nearestDoorTo(m, pos); id != "" {
 			return step(Action{Kind: UseDoor, ID: id})

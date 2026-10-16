@@ -34,7 +34,10 @@ type App struct {
 	menu     *screen.Menu   // the instance menu, nil when closed
 	slots    *screen.Slots  // the slot screen, nil when closed
 	create   *screen.Create // character creation, nil once a character is chosen
-	gameAt   time.Time      // when the model's game time last moved
+	inv      *screen.Inventory
+	traders  *screen.Traders
+	trade    *screen.TradeUI
+	gameAt   time.Time // when the model's game time last moved
 	gameMs   int64
 	draft    Draft // the plan being built in a turn-based instance
 	Err      error // why the program ended, if it ended badly
@@ -203,9 +206,20 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.sync(m)
 		switch {
 		case a.create != nil:
-			act = a.createKey(k)
+			act = a.createKey(k, m)
 		case a.slots != nil:
 			act = a.slotKey(k, m)
+			if act.Kind == SetSlot && m.TurnBased() {
+				// Between rounds a slot changes by the plan (D50).
+				step := act
+				act = Action{Kind: PlanAdd, Step: &step}
+			}
+		case a.inv != nil:
+			act = a.invKey(k, m)
+		case a.traders != nil:
+			act = a.tradersKey(k, m)
+		case a.trade != nil:
+			act = a.tradeKey(k, m)
 		case a.menu != nil:
 			act = a.menuKey(k, m)
 		case m.TurnBased():
@@ -226,9 +240,19 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.menu = &screen.Menu{}
 	case OpenSlots:
 		a.slots = &screen.Slots{}
+	case OpenInventory:
+		a.inv = &screen.Inventory{}
+		a.sess.View(func(m *model.Model) { a.inv.Carried = len(m.Self.Inventory) > 0 })
+	case OpenTraders:
+		a.inv, a.traders = nil, &screen.Traders{}
+	case OpenTrade:
+		a.inv, a.trade = nil, &screen.TradeUI{}
+		a.sess.View(func(m *model.Model) { a.trade.Who = askerIndex(m) })
 	case PlanAdd:
 		if why := a.draft.Add(*act.Step); why != "" {
 			a.view.Notice, a.view.NoticeBad = why, true
+		} else if act.Step.Kind == SetSlot {
+			a.view.Notice = "slot change added to the plan: Esc closes this, Enter submits the plan"
 		}
 	case PlanUndo:
 		if !a.draft.Undo() {
@@ -243,7 +267,7 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	case CreateCharacter:
 		a.create.Busy, a.create.Err = true, ""
 		a.inflight++
-		return a, a.createCmd(a.create.Name, screen.Classes[a.create.Class].ID)
+		return a, a.createCmd(act.Note, act.ID)
 	default:
 		if act.Kind == PlanSubmit {
 			act.Round, act.Ver, act.Steps = a.draft.Round, a.draft.Ver, a.draft.Agent()
@@ -331,6 +355,8 @@ func (a *App) send(act Action) tea.Cmd {
 		case PlanSubmit:
 			what = "plan"
 			id, err = a.sess.SubmitPlan(ctx, act.Steps...)
+		case Equip, Unequip, Buy, Sell, Train, Bind, BankDeposit, BankWithdraw, TradeOpen, TradeAdd, TradeCrowns, TradeRemove, TradeConfirm, TradeCancel:
+			what, id, err = a.economy(ctx, act)
 		case Logout:
 			if err := a.sess.Logout(ctx); err != nil {
 				return resultMsg{note: "logout failed: " + err.Error(), bad: true}
@@ -366,6 +392,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v.Since = since
 	var out string
 	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
+	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
 	a.sess.View(func(m *model.Model) {
 		a.sync(m)
 		if !a.gameAt.IsZero() && a.gameMs == m.GameTimeMs && a.Clock == nil && !m.TurnBased() { // between events the game time runs on
@@ -373,6 +400,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 		}
 		if m.TurnBased() {
 			v.Plan = screen.Plan{Steps: a.draft.Lines(m), Sent: a.draft.Sent, Dest: a.draft.Dest()}
+			v.PlanSlots = a.draft.Slots()
 		}
 		out = screen.Render(m, v, w, h, st)
 	})

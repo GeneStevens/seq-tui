@@ -1,5 +1,5 @@
 ┌─ Outskirts, north up ──────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                                                                                ││ Aria  Lv 3  XP 275                     │
+│                                                                                                ││ Aria  Lv 3  XP 275           | 0 crowns│
 │                                                                                                ││ HP 115/120 #########################-- │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
@@ -36,10 +36,10 @@
 │     1.6s Aria hit Shell Rat for 12                                                                                                       │
 │ x   1.7s Aria killed Shell Rat                                                                                                           │
 │     1.8s encounter enc-1 with Shell Rat closed: mob_died                                                                                 │
-│     1.9s Shell Rat dropped shell-fragment (drop-enc-1-shell-fragment)                                                                    │
+│     1.9s Shell Rat dropped Shell Fragment (drop-enc-1-shell-fragment)                                                                    │
 │ +   2.0s Aria received 25 xp from Shell Rat                                                                                              │
 │     2.1s Aria's target Shell Rat cleared: target_dead                                                                                    │
 │     2.2s Aria stopped attacking                                                                                                          │
-│ +   2.3s Aria received shell-fragment from drop-enc-1-shell-fragment                                                                     │
+│ +   2.3s Aria received Shell Fragment from drop-enc-1-shell-fragment                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | outskirts | heard 0.4s ago | loot accepted                                                                          ? help  q quit

@@ -16,6 +16,8 @@ const (
 	glyphDeadMob   = 'x'
 	glyphCharacter = 'p' // another character
 	glyphDrop      = '*'
+	glyphLocked    = '~' // a drop this character may not take (a Rare one)
+	glyphTrader    = '$' // a vendor, trainer, binder or banker
 	glyphDoor      = 'D'
 	glyphWall      = '#'
 	glyphBounds    = '.'
@@ -171,7 +173,15 @@ func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	}
 	for _, id := range m.DropIDs() {
 		c, r := g.cellOf(m.Drops[id].GetPos())
-		g.put(c, r, glyphDrop, kDrop)
+		gl := glyphDrop
+		if !m.Drops[id].GetCanLoot() {
+			gl = glyphLocked
+		}
+		g.put(c, r, gl, kDrop)
+	}
+	for _, n := range m.NPCs {
+		c, r := g.cellOf(n.GetPos())
+		g.put(c, r, glyphTrader, kDoor)
 	}
 	if v.Plan.Dest != nil {
 		c, r := g.cellOf(v.Plan.Dest)

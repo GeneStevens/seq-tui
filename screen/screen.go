@@ -55,6 +55,17 @@ type View struct {
 	Slots   *Slots
 	Create  *Create
 	GameNow int64
+
+	// PlanSlots are the slot changes the plan being built holds (a turn-based
+	// instance changes slots between rounds, with the plan): slot 1 to 8 to the
+	// ability it will hold, "" for emptied.
+	PlanSlots map[int]string
+
+	// Inventory, Traders and Trade are the inventory and gear screen, the
+	// traders' screen and the trade window, nil when closed.
+	Inventory *Inventory
+	Traders   *Traders
+	Trade     *TradeUI
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -68,11 +79,17 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	var rows []string
 	switch {
 	case v.Create != nil:
-		rows = box("New character", w, th+lh, createLines(v.Create, w-2, th+lh-2, st), st)
+		rows = box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)
 	case v.Help:
 		rows = box("Keys", w, th+lh, helpLines(w-2, th+lh-2, st), st)
 	case v.Slots != nil:
 		rows = box("Ability slots", w, th+lh, slotScreenLines(m, v, w-2, th+lh-2, st), st)
+	case v.Inventory != nil:
+		rows = box("Inventory and gear", w, th+lh, inventoryScreenLines(m, v.Inventory, w-2, th+lh-2, st), st)
+	case v.Traders != nil:
+		rows = box("Traders", w, th+lh, tradersScreenLines(m, v.Traders, w-2, th+lh-2, st), st)
+	case v.Trade != nil:
+		rows = box("Trade", w, th+lh, tradeScreenLines(m, v.Trade, w-2, th+lh-2, st), st)
 	case v.Menu != nil:
 		rows = box("Instances", w, th+lh, menuLines(m, v, w-2, th+lh-2, st), st)
 	default:
@@ -154,24 +171,24 @@ func box(title string, w, h int, inner []string, st Styler) []string {
 func helpLines(w, h int, st Styler) []string {
 	keys := []string{
 		"Move             arrow keys or W A S D",
-		"Cycle target     Tab (Esc clears the target)",
-		"Auto-attack      F or Space: on / off",
-		"Loot             L: the nearest drop you may take",
-		"Use a door       E: the nearest door; stand at it first",
+		"Target, attack   Tab cycles the target (Esc clears); F or Space: auto-attack on / off",
+		"Loot, doors      L: the nearest drop you may take; E: the nearest door (stand at it)",
 		"Release          R: when you are dead, give up your body and respawn",
-		"Abilities        1-8 use that slot on your target; B sets slots (idle)",
+		"Abilities        1-8 use that slot on your target; B sets slots (out of combat)",
 		"Instances        I: this zone's menu (Enter opens one); then E at its door",
+		"Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank",
+		"Trade            T: ask a character in reach; each side offers, then confirms",
 		"Plans            in a turn-based instance the keys build a plan, not act:",
 		"                 arrows, Tab target, F attack, 1-8 ability, L loot, E door,",
-		"                 X stop, R release. One move or door, one ability or attack.",
-		"                 Enter submits, Backspace removes a step, Esc clears it",
+		"                 X stop, R release; B sets slots (they change when the round opens).",
+		"                 One move or door, one ability or attack. Enter submits it,",
+		"                 Backspace removes a step, Esc clears it",
 		"Leave            O logs out of the world; Q or Ctrl+C quits the screen only",
 		"Event log        V: also show movement, rules ticks and mana      Help  ?",
 		"Map: north is up, your position is always the centre.",
-		"  @ you     m mob     M your target     x dead mob     + end of your plan",
-		"  p another character     * a drop     D a door     # wall",
+		"  @ you  m mob  M your target  x dead mob  + end of your plan  p another character",
+		"  * a drop  ~ a drop you may not take  $ a trader  D a door  # wall",
 		"  Nearby lists the same, nearest first, with a distance and a compass point.",
-		"",
 		"Event log markers:  ! denied (with the reason) or a cast that did not land",
 		"                    < a hit on you   x a kill   + a reward or a level",
 	}

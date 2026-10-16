@@ -1,9 +1,9 @@
 ┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
-│          .                             #         ││ Tester  Lv 1  XP 0       │
+│          .                             #         ││ aria  Lv 1  XP 0    | 0cr│
 │          .                             #         ││ DEAD  HP 0/6             │
 │          .                             #         ││ Target: none             │
-│          .                             #         ││ Released: back in 5 s    │
-│          .                             #         │└──────────────────────────┘
+│          .        $ $$ $$ $            #         ││ Released: back in 5 s    │
+│          .        $ $$                 #         │└──────────────────────────┘
 │          .                             #         │┌─ Target ─────────────────┐
 │          .                             #         ││ no target (Tab to choose)│
 │          .              @m             #         ││                          │
@@ -11,14 +11,14 @@
 │          .                             #         │└──────────────────────────┘
 │          .                             #         │┌─ Nearby ─────────────────┐
 │          .                             #         ││ m Plain Scut… 2m E 40/40 │
-│          .                             #         ││ D gate-north      89m NE │
-│          .                             #         ││ D line-east       180m E │
-│          .                             #         ││                          │
+│          .                             #         ││ $ Testgrou… 9m NW binder │
+│          .                             #         ││ $ Testgro… 10m NW banker │
+│          .                             #         ││ +9 more                  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│ x  10.1s Plain Scuttler killed Tester                                        │
+│ x  10.1s Plain Scuttler killed aria                                          │
 │    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead       │
 │    11.0s Plain Scuttler reset to 40 hp                                       │
-│    30.2s Tester released; respawns in 5 s                                    │
+│    30.2s aria released; respawns in 5 s                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago | release ok               ? help  q quit

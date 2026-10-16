@@ -71,6 +71,16 @@ func tickOf(m *model.Model) time.Duration {
 	return 100 * time.Millisecond
 }
 
+// perilWords marks a preset of the heroic difficulty (Peril, D44): the server
+// takes an entry fee from the opener, in crowns, when it accepts the request.
+// The protocol does not say how much; the log does, once it is paid.
+func perilWords(p *pb.InstancePreset) string {
+	if p.GetDifficulty() == "heroic" {
+		return "; Peril: an entry fee in crowns is taken when it opens"
+	}
+	return ""
+}
+
 func menuLines(m *model.Model, v View, w, h int, st Styler) []string {
 	var rows []string
 	add := func(s string) { rows = append(rows, fit(s, w)) }
@@ -79,7 +89,11 @@ func menuLines(m *model.Model, v View, w, h int, st Styler) []string {
 	if len(m.Presets) == 0 {
 		add(" This zone offers no instances (or its map has not arrived).")
 	}
-	for i, p := range m.Presets {
+	// Three rows a preset; the list scrolls to keep the cursor in view.
+	room := max((h-len(rows)-4)/3, 1)
+	from, to := window(len(m.Presets), v.Menu.Sel, room)
+	for i := from; i < to; i++ {
+		p := m.Presets[i]
 		mark := "  "
 		if i == v.Menu.Sel {
 			mark = "> "
@@ -90,18 +104,24 @@ func menuLines(m *model.Model, v View, w, h int, st Styler) []string {
 		if sl := sleepWords(p.GetSleepLimitMs()); sl != "" {
 			rules += "; " + sl
 		}
+		rules += perilWords(p)
 		if i == v.Menu.Sel {
 			rows = append(rows, st.Reverse(fit(head, w)), st.Reverse(fit(detail, w)), st.Reverse(fit(rules, w)))
 		} else {
 			rows = append(rows, st.Bold(fit(head, w)), fit(detail, w), fit(rules, w))
 		}
 	}
-	add("")
-	add(" Up / Down or the number choose; Enter opens it; Esc closes the menu.")
-	add(" Denied inside an instance, and when your group already has one open.")
-	for len(rows) < h {
+	for len(rows) < h-3 {
 		rows = append(rows, strings.Repeat(" ", w))
 	}
+	rows = rows[:h-3]
+	if len(m.Presets) > to-from {
+		add(fmt.Sprintf(" Showing %d to %d of %d.", from+1, to, len(m.Presets)))
+	} else {
+		add("")
+	}
+	add(" Up / Down or the number choose; Enter opens it; Esc closes the menu.")
+	add(" Denied inside an instance, and when your group already has one open.")
 	return rows[:h]
 }
 
@@ -223,11 +243,16 @@ func roundLines(m *model.Model, v View, w, h int, st Styler) []string {
 		}
 		if r.Participants > 0 {
 			add(fmt.Sprintf(" %d of %d submitted", len(in), r.Participants))
-			if len(in) > 0 {
+			if line := partyLine(m, in, r.Participants); line != "" {
+				add(line)
+			} else if len(in) > 0 {
 				add(" " + who)
 			}
 		} else {
 			add(" Plans in: " + who)
+		}
+		if c := m.Self.Cast; c != nil && c.LandsInRound > 0 {
+			add(fmt.Sprintf(" %s lands in round %d", m.AbilityName(c.Ability), c.LandsInRound))
 		}
 	} else {
 		if r.ResolvedParticipants > 0 {
@@ -283,6 +308,33 @@ func roundLines(m *model.Model, v View, w, h int, st Styler) []string {
 		}
 	}
 	return pad(rows, w, h)
+}
+
+// partyLine is the party and who of it has submitted: "[x] you  [ ] Bram". It
+// is empty when the characters the model sees in the party are not the ones the
+// round waits for (then only the names that submitted are known).
+func partyLine(m *model.Model, in []string, participants int64) string {
+	ids := []string{m.Self.ID}
+	ids = append(ids, m.GroupIDs()...)
+	// The others in the instance are in view; one that has just arrived is
+	// among the entities until the next snapshot lists it with the group.
+	for _, id := range m.EntityIDs() {
+		if m.Entities[id].GetKind() == pb.EntityKind_ENTITY_KIND_CHARACTER {
+			ids = append(ids, id)
+		}
+	}
+	if participants < 2 || int64(len(ids)) != participants {
+		return "" // alone, "1 of 1 submitted" says it all
+	}
+	var parts []string
+	for _, id := range ids {
+		mark := "[ ]"
+		if contains(in, id) {
+			mark = "[x]"
+		}
+		parts = append(parts, mark+" "+nameList(m, []string{id}))
+	}
+	return " " + strings.Join(parts, "  ")
 }
 
 // playWords is what a round's character played, in few words (D49).

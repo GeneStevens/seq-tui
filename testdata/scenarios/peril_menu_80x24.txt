@@ -1,0 +1,24 @@
+┌─ Instances ──────────────────────────────────────────────────────────────────┐
+│ A private copy of this zone for your group; then press E at its door.        │
+│                                                                              │
+│   1  Scuttler Skirmish  (skirmish), door gate-north                          │
+│      real-time                                                               │
+│      party 2; normal                                                         │
+│   2  Solo Trial  (solo-trial), door gate-north                               │
+│      real-time                                                               │
+│      party 1; normal                                                         │
+│   3  Venture Den  (venture-den), door gate-north                             │
+│      real-time                                                               │
+│      party 2; normal                                                         │
+│ > 4  Peril Den  (peril-den), door gate-north                                 │
+│      real-time                                                               │
+│      party 2; heroic; Peril: an entry fee in crowns is taken when it opens   │
+│   5  Long Game  (long-game), door gate-north                                 │
+│      turn-based, 100-tick rounds (10 s), 24 h to plan                        │
+│      party 2; normal; sleeps up to 7 d                                       │
+│                                                                              │
+│ Showing 1 to 5 of 7.                                                         │
+│ Up / Down or the number choose; Enter opens it; Esc closes the menu.         │
+│ Denied inside an instance, and when your group already has one open.         │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

@@ -51,13 +51,19 @@ func screenOf(a *app.App) string { return sgr.ReplaceAllString(a.View().Content,
 func TestInstanceMenuOpensChoosesAndCloses(t *testing.T) {
 	a, _ := program(t, "solo_trial.jsonl@instance_menu", 0)
 	press(a, "i")
-	if s := screenOf(a); !strings.Contains(s, "Instances") || !strings.Contains(s, "Quick Turns") || !strings.Contains(s, "Duo Turns") {
+	if s := screenOf(a); !strings.Contains(s, "Instances") || !strings.Contains(s, "Solo Trial") || !strings.Contains(s, "Showing 1 to 5 of 7") {
 		t.Fatalf("no menu:\n%s", s)
 	}
 	press(a, "4")
 	if s := strings.Split(screenOf(a), "\n"); !strings.Contains(strings.Join(s, "\n"), "> 4") {
 		t.Errorf("the number did not choose:\n%s", strings.Join(s, "\n"))
 	}
+	// The list scrolls to keep the cursor in view.
+	press(a, "7")
+	if s := screenOf(a); !strings.Contains(s, "> 7  Duo Turns") || !strings.Contains(s, "Showing 3 to 7 of 7") {
+		t.Errorf("the menu did not scroll:\n%s", s)
+	}
+	press(a, "1")
 	press(a, "esc")
 	if strings.Contains(screenOf(a), "Instances") {
 		t.Error("esc did not close the menu")
@@ -65,7 +71,7 @@ func TestInstanceMenuOpensChoosesAndCloses(t *testing.T) {
 	press(a, "i")
 	press(a, "down")
 	press(a, "down")
-	cmd := press(a, "enter") // chooses Long Game, the third
+	cmd := press(a, "enter") // chooses the third
 	if cmd == nil || strings.Contains(screenOf(a), "Instances") {
 		t.Fatal("enter should close the menu and send the request")
 	}
@@ -187,7 +193,8 @@ func TestSlotScreenChoosesASlotAndAnAbility(t *testing.T) {
 }
 
 func TestCreationScreenKeys(t *testing.T) {
-	a := app.NewCreator(client.NewSession(client.Config{}))
+	// The classes are the server's: the welcome the log begins with.
+	a := app.NewCreator(client.NewSession(client.Config{Model: load(t, "class_menu.jsonl@class_menu", 0)}))
 	typeKeys := func(keys ...string) {
 		for _, k := range keys {
 			press(a, k)
