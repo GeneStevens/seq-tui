@@ -7,13 +7,15 @@
 │                         .                $  $  $  $  $  $                         #            │┌─ Target ───────────────────────────────┐
 │                         .                                                         #            ││ no target (Tab to choose)              │
 │                         .                                                         #            ││                                        │
-│                         .                $  $  $                                  #            ││                                        │
+│                         .                $  $  $  $  $                            #            ││                                        │
 │                         .                                                         #            │└────────────────────────────────────────┘
 │                         .                                                         #            │┌─ Nearby ───────────────────────────────┐
 │                         .                                                         #            ││ $ Testgrounds Binder       8m N binder │
 │                         .                                                         #            ││ $ Testgrounds Banker       8m N banker │
+│                         .                                                         #            ││ $ Testgrounds Con… 8m N contract_board │
+│                         .                      @                                  #            ││ $ Testgrounds Capta… 9m NE quest_giver │
 │                         .                                                         #            ││ $ Testgrounds Vendor      9m NW vendor │
-│                         .                      @                                  #            ││ $ Rogue Trainer          12m N trainer │
+│                         .                                                         #            ││ $ Rogue Trainer          12m N trainer │
 │                         .                                                         #            ││ $ Cleric Trainer         12m N trainer │
 │                         .                                                         #            ││ $ Wizard Trainer         12m N trainer │
 │                         .                                                         #            ││ $ Paladin Trainer        13m N trainer │
@@ -21,8 +23,6 @@
 │                         .                                                         #            ││ $ Druid Trainer         13m NE trainer │
 │                         .                                                         #            ││ D gate-north                    93m NE │
 │                         .                                                         #            ││ D line-east                     183m E │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
 │                         .                                                         #            ││                                        │
 │                         .                                                         #            ││                                        │
 │                         .                                                         #            ││                                        │

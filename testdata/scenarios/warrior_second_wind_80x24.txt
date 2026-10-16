@@ -2,7 +2,7 @@
 │                    .                   #         ││ gorm  Lv 1 Warrior  | 0cr│
 │                    .                   #         ││ HP 114/120 ############- │
 │                    .     $$$$$$        #         ││ XP ----------- 40 to Lv 2│
-│                    .     $$$           #         ││ Atk ON | Plain Scuttler  │
+│                    .     $$$$$         #         ││ Atk ON | Plain Scuttler  │
 │                    .                   #         │└──────────────────────────┘
 │                    .    @M             #         │┌─ Target ─────────────────┐
 │                    .                   #         ││ M Plain Scuttler  Lv 1   │

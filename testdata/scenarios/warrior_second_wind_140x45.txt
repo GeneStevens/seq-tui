@@ -6,7 +6,7 @@
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .             $  $ $  $ $ $                     #           │┌─ Target ───────────────────────────────┐
 │                                    .                                               #           ││ M Plain Scuttler  Lv 1                 │
-│                                    .             $  $ $                            #           ││ HP 40/40 ####################### 2m E  │
+│                                    .             $  $ $  $ $                       #           ││ HP 40/40 ####################### 2m E  │
 │                                    .                                               #           ││ fighting you                           │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
@@ -14,15 +14,15 @@
 │                                    .           @  M                                #           ││ $ Testgrounds Vendor       8m N vendor │
 │                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
 │                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
+│                                    .                                               #           ││ $ Testgrounds C… 11m NE contract_board │
 │                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
 │                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
+│                                    .                                               #           ││ $ Testgrounds Capt… 13m NE quest_giver │
 │                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
 │                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
 │                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │
 │                                    .                                               #           ││ $ Druid Trainer         17m NE trainer │
-│                                    .                                               #           ││ D gate-north                    98m NE │
-│                                    .                                               #           ││ D line-east                     189m E │
-│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││ +2 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt                       N.Ns 2 Bash                        gcd 3 Second Wind                 90s 4 -                         empty │

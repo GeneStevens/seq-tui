@@ -3,7 +3,7 @@
 │                 .                             #  ││ HP 6/6 ################# │
 │                 .                             #  ││ Target: none             │
 │                 .        $ $$ $$ $            #  ││ Auto-attack: off         │
-│                 .        $ $$                 #  │└──────────────────────────┘
+│                 .        $ $$ $$              #  │└──────────────────────────┘
 │                 .                             #  │┌─ Target ─────────────────┐
 │                 .                             #  ││ no target (Tab to choose)│
 │                 .       @                     #  ││                          │
@@ -13,7 +13,7 @@
 │                 .                             #  ││ $ Testgroun… 8m N vendor │
 │                 .                             #  ││ $ Testgrou… 9m NE banker │
 │                 .                             #  ││ $ Testgro… 10m NE binder │
-│                 .                             #  ││ +9 more                  │
+│                 .                             #  ││ +11 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │    NN.Ns encounter enc-1 with Plain Scuttler closed: participants_dead       │

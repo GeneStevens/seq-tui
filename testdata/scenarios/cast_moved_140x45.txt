@@ -6,7 +6,7 @@
 │                                     .                                               #          ││ ! Frost Bolt cancelled: you moved      │
 │                                     .             $  $ $  $ $ $                     #          │└────────────────────────────────────────┘
 │                                     .                                               #          │┌─ Target ───────────────────────────────┐
-│                                     .             $  $ $                            #          ││ M Plain Scuttler  Lv 1                 │
+│                                     .             $  $ $  $ $                       #          ││ M Plain Scuttler  Lv 1                 │
 │                                     .                                               #          ││ HP 400/400 #################### 14m E  │
 │                                     .                                               #          ││ not in a fight                         │
 │                                     .                                               #          │└────────────────────────────────────────┘
@@ -14,15 +14,15 @@
 │                                     .          @               M                    #          ││ $ Testgrounds Vendor       9m N vendor │
 │                                     .                                               #          ││ $ Testgrounds Banker     10m NE banker │
 │                                     .                                               #          ││ $ Testgrounds Binder     11m NE binder │
+│                                     .                                               #          ││ $ Testgrounds C… 12m NE contract_board │
 │                                     .                                               #          ││ $ Warrior Trainer        12m N trainer │
 │                                     .                                               #          ││ $ Cleric Trainer        13m NE trainer │
+│                                     .                                               #          ││ $ Testgrounds Capt… 14m NE quest_giver │
 │                                     .                                               #          ││ M Plain Scuttler         14m E 400/400 │
 │                                     .                                               #          ││ $ Rogue Trainer         14m NE trainer │
 │                                     .                                               #          ││ $ Wizard Trainer        15m NE trainer │
 │                                     .                                               #          ││ $ Paladin Trainer       16m NE trainer │
-│                                     .                                               #          ││ $ Druid Trainer         18m NE trainer │
-│                                     .                                               #          ││ D gate-north                   100m NE │
-│                                     .                                               #          ││ D line-east                     190m E │
+│                                     .                                               #          ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Flame Dart               6mp gcd 2 Frost Bolt             12mp gcd 3 -                         empty 4 -                         empty │
