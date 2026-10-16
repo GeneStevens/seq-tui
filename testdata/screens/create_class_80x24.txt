@@ -1,0 +1,24 @@
+┌─ New character ──────────────────────────────────────────────────────────────┐
+│ Make a character: a name and a class.                                        │
+│                                                                              │
+│ Name   Zedd   3 to 16 letters                                                │
+│                                                                              │
+│ Class                                                                        │
+│   1  Warrior  Tank. Holds enemies with Taunt and Bash and heals itself; no m…│
+│   2  Cleric   Healer. Minor Heal for allies, Smite for enemies; mana.        │
+│   3  Rogue    Melee damage. Backstab from behind, Sneak to hide; no mana.    │
+│ > 4  Wizard   Spell damage. Flame Dart and Frost Bolt from range; fragile; m…│
+│   5  Paladin  Tank and healer. Holy Strike, Challenge and healing hands; man…│
+│   6  Druid    Healer and nature damage. Thorn Bolt and Mend; mana.           │
+│                                                                              │
+│                                                                              │
+│ Type the name. Tab or Down moves to the classes: Up / Down or 1-6 choose.    │
+│ Enter makes the character and plays it. Ctrl+C quits.                        │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | no space | heard 0.4s ago                               ? help  q quit

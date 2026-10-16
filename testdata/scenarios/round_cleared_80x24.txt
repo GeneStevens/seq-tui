@@ -16,7 +16,7 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns round 16 is open: game time waits for plans (0 of 1 submitted: none │
+│    NN.Ns round 43 is open: game time waits for plans (0 of 1 submitted: none │
 │            yet)                                                              │
 │    NN.Ns instance ended, cleared: every mob dead and the loot taken          │
 │    NN.Ns entered Testgrounds                                                 │

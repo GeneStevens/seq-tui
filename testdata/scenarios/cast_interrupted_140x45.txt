@@ -1,0 +1,45 @@
+┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                        .                                               #       ││ zedd  Lv 1 Wizard                      │
+│                                        .                                               #       ││ HP 73/80 ##########################--- │
+│                                        .                                               #       ││ MP 110/150 ###################-------- │
+│                                        .                                               #       ││ XP ------------------------- 40 to Lv 2│
+│                                        .                                               #       ││ ! Frost Bolt interrupted: damage       │
+│                                        .                                               #       │└────────────────────────────────────────┘
+│                                        .                                               #       │┌─ Target ───────────────────────────────┐
+│                                        .                                               #       ││ M Plain Scuttler  Lv 1                 │
+│                                        .                                               #       ││ HP 337/400 #################---- 2m E  │
+│                                        .                                               #       ││ fighting you                           │
+│                                        .                                               #       │└────────────────────────────────────────┘
+│                                        .                                               #       │┌─ Nearby ───────────────────────────────┐
+│                                        .       @  M                                    #       ││ M Plain Scuttler          2m E 337/400 │
+│                                        .                                               #       ││ D gate-north                   101m NE │
+│                                        .                                               #       ││ D line-east                     192m E │
+│                                        .                                               #       ││                                        │
+│                                        .                                               #       ││                                        │
+│                                        .                                               #       ││                                        │
+│                                        .                                               #       ││                                        │
+│                                        .                                               #       ││                                        │
+│                                        .                                               #       ││                                        │
+│                                        .                                               #       ││                                        │
+│                                        .                                               #       ││                                        │
+│                                        .                                               #       ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1 Flame Dart             6mp ready 2 Frost Bolt           12mp ready 3 -                         empty 4 -                         empty │
+│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ You: none   |   Plain Scuttler: Snared 9s                                                                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ <  NN.Ns Plain Scuttler hit zedd for 1                                                                                                   │
+│    NN.Ns zedd began casting Frost Bolt (2.0 s)                                                                                           │
+│    NN.Ns zedd used Frost Bolt on Plain Scuttler                                                                                          │
+│    NN.Ns zedd's Frost Bolt hit Plain Scuttler for 12                                                                                     │
+│    NN.Ns Frost Bolt: snare on Plain Scuttler for 12 s                                                                                    │
+│ <  NN.Ns Plain Scuttler hit zedd for 3                                                                                                   │
+│    NN.Ns zedd began casting Frost Bolt (2.0 s)                                                                                           │
+│    NN.Ns Plain Scuttler healed 1                                                                                                         │
+│    NN.Ns zedd healed 1                                                                                                                   │
+│ <  NN.Ns Plain Scuttler hit zedd for 4                                                                                                   │
+│ !  NN.Ns zedd's Frost Bolt was interrupted: damage broke it                                                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok                                                                  ? help  q quit

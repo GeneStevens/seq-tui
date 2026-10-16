@@ -1,0 +1,45 @@
+┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                    .                                               #           ││ gorm  Lv 1 Warrior                     │
+│                                    .                                               #           ││ HP 120/120 ########################### │
+│                                    .                                               #           ││ XP ############------------- 20 to Lv 2│
+│                                    .                                               #           ││ Atk off | none                         │
+│                                    .                                               #           │└────────────────────────────────────────┘
+│                                    .                                               #           │┌─ Target ───────────────────────────────┐
+│                                    .                                               #           ││ no target (Tab to choose)              │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           │└────────────────────────────────────────┘
+│                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
+│                                    .                                               #           ││ * shell-fragment                  2m E │
+│                                    .           @  *                                #           ││ m Plain Scuttler           19m E 40/40 │
+│                                    .                                 m             #           ││ D gate-north                    98m NE │
+│                                    .                                               #           ││ D line-east                     189m E │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1 Taunt                       tgt? 2 Bash                       tgt? 3 Second Wind                 31s 4 -                         empty │
+│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ You: none                                                                                                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ x  22.9s gorm killed Plain Scuttler                                                                                                      │
+│    22.9s gorm's target Plain Scuttler cleared: target_dead                                                                               │
+│    22.9s gorm stopped attacking                                                                                                          │
+│    22.9s Plain Scuttler dropped shell-fragment (drop-enc-1-shell-fragment)                                                               │
+│    22.9s encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
+│ +  22.9s gorm received 20 xp from Plain Scuttler                                                                                         │
+│    22.9s Plain Scuttler left view                                                                                                        │
+│    24.0s gorm healed 2                                                                                                                   │
+│    30.0s gorm healed 2                                                                                                                   │
+│    36.0s gorm healed 1                                                                                                                   │
+│    52.9s Plain Scuttler (mob-near-2) appeared                                                                                            │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago | key 2 Bash ok                                                                        ? help  q quit

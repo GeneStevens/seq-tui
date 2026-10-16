@@ -5,6 +5,7 @@
 package app
 
 import (
+	"fmt"
 	"sort"
 
 	"github.com/GeneStevens/seq-tui/model"
@@ -38,6 +39,10 @@ const (
 	PlanClear  // remove every step
 	PlanSubmit // send the plan
 	OpenInstance
+	UseAbility // use the ability in Slot (1 to 8); ID is a target, "" the current one
+	SetSlot    // put the ability ID in Slot ("" empties it)
+	OpenSlots  // the slot screen
+	CreateCharacter
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -46,6 +51,7 @@ type Action struct {
 	X, Y int64   // Move: the destination
 	ID   string  // Target, Loot, UseDoor: what it names
 	On   bool    // Attack
+	Slot int     // UseAbility, SetSlot: 1 to 8
 	Note string  // None: why nothing happens, for the status line
 	Step *Action // PlanAdd: the step to add
 
@@ -92,6 +98,9 @@ func Plan(key string, m *model.Model) Action {
 	case "r":
 		return Action{Kind: Release} // the server denies it unless the character is dead
 	}
+	if n := slotKey(key); n > 0 {
+		return Action{Kind: UseAbility, Slot: n, Note: slotLabel(m, n)}
+	}
 	return common(key)
 }
 
@@ -108,8 +117,26 @@ func common(key string) Action {
 		return Action{Kind: ToggleVerbose}
 	case "i":
 		return Action{Kind: OpenMenu}
+	case "b":
+		return Action{Kind: OpenSlots}
 	}
 	return Action{}
+}
+
+// slotKey is the slot a number key names (1 to 8), 0 for any other key.
+func slotKey(key string) int {
+	if len(key) == 1 && key[0] >= '1' && key[0] <= '8' {
+		return int(key[0] - '0')
+	}
+	return 0
+}
+
+// slotLabel names a slot for the status line and the plan: "key 1 Flame Dart".
+func slotLabel(m *model.Model, n int) string {
+	if id := m.Self.Slots[n-1].Ability; id != "" {
+		return fmt.Sprintf("key %d %s", n, m.AbilityName(id))
+	}
+	return fmt.Sprintf("key %d", n)
 }
 
 func d2(a, b *pb.Pos) int64 {

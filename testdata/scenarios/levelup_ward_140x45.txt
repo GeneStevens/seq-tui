@@ -1,0 +1,45 @@
+┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                    .                                               #           ││ zedd  Lv 2 Wizard                      │
+│                                    .                                               #           ││ HP 88/88 ############################# │
+│                                    .                                               #           ││ MP 115/173 #################---------- │
+│                                    .                                               #           ││ XP ########----------------- 40 to Lv 3│
+│                                    .                                               #           ││ Atk off | none                         │
+│                                    .                                               #           │└────────────────────────────────────────┘
+│                                    .                                               #           │┌─ Target ───────────────────────────────┐
+│                                    .                                               #           ││ no target (Tab to choose)              │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           │└────────────────────────────────────────┘
+│                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
+│                                    .           @  *                                #           ││ * shell-fragment                  2m E │
+│                                    .                                               #           ││ D gate-north                    98m NE │
+│                                    .                                               #           ││ D line-east                     189m E │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+│                                    .                                               #           ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1 Flame Dart               6mp gcd 2 Frost Bolt             12mp gcd 3 Arcane Ward            15mp 60s 4 -                         empty │
+│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ You: Arcane Ward 36s                                                                                                                     │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    NN.Ns zedd used Frost Bolt on Plain Scuttler                                                                                          │
+│    NN.Ns zedd's Frost Bolt hit Plain Scuttler for 15                                                                                     │
+│ x  NN.Ns zedd killed Plain Scuttler                                                                                                      │
+│    NN.Ns zedd's target Plain Scuttler cleared: target_dead                                                                               │
+│    NN.Ns Plain Scuttler dropped shell-fragment (drop-enc-1-shell-fragment)                                                               │
+│    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
+│ +  NN.Ns zedd received 60 xp from Plain Scuttler and reached level 2                                                                     │
+│    NN.Ns Plain Scuttler left view                                                                                                        │
+│ +  NN.Ns you reached level 2: new ability Arcane Ward (key 3)                                                                            │
+│    NN.Ns zedd used Arcane Ward                                                                                                           │
+│    NN.Ns Arcane Ward: lifesteal on zedd for 36 s                                                                                         │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | key 3 Arcane Ward ok                                                                 ? help  q quit

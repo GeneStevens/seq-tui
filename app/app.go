@@ -31,9 +31,13 @@ type App struct {
 	lastN    uint64
 	retrying bool
 	pings    int
-	menu     *screen.Menu // the instance menu, nil when closed
-	draft    Draft        // the plan being built in a turn-based instance
-	Err      error        // why the program ended, if it ended badly
+	menu     *screen.Menu   // the instance menu, nil when closed
+	slots    *screen.Slots  // the slot screen, nil when closed
+	create   *screen.Create // character creation, nil once a character is chosen
+	gameAt   time.Time      // when the model's game time last moved
+	gameMs   int64
+	draft    Draft // the plan being built in a turn-based instance
+	Err      error // why the program ended, if it ended badly
 
 	// Clock tells the time the screen's countdowns and "heard ago" read; nil is
 	// the wall clock. A scenario sets it to its server's clock.
@@ -48,6 +52,15 @@ func New(sess *client.Session) *App {
 	return &App{sess: sess, w: screen.MinWidth, h: screen.MinHeight, view: screen.View{Conn: screen.ConnOnline}}
 }
 
+// NewCreator returns the program's model for a session that is connected and
+// has not chosen a character: it opens on the creation screen, and plays the
+// character once it is made.
+func NewCreator(sess *client.Session) *App {
+	a := New(sess)
+	a.create = &screen.Create{}
+	return a
+}
+
 type (
 	changedMsg struct{}
 	redrawMsg  struct{}
@@ -60,6 +73,9 @@ type (
 		planVer   int
 	}
 	reconnected struct{ err error }
+	// created answers a character creation: err is nil when the character was
+	// made and chosen.
+	created struct{ err error }
 )
 
 // now is the time the screen reads.
@@ -87,6 +103,9 @@ func (a *App) observe() {
 	a.sess.View(func(m *model.Model) {
 		if !a.view.HasTick || m.Heard != a.lastN {
 			a.lastTick, a.lastN, a.view.HasTick = a.now(), m.Heard, true
+		}
+		if m.GameTimeMs != a.gameMs {
+			a.gameMs, a.gameAt = m.GameTimeMs, a.now()
 		}
 	})
 }
@@ -126,6 +145,15 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case Probe:
 		msg.Fn(a)
 		close(msg.Done)
+	case created:
+		a.inflight--
+		switch {
+		case msg.err == nil:
+			a.create = nil
+			a.view.Notice, a.view.NoticeBad = "", false
+		default:
+			a.create.Busy, a.create.Err = false, createError(msg.err)
+		}
 	case resultMsg:
 		a.inflight--
 		a.view.Notice, a.view.NoticeBad = msg.note, msg.bad
@@ -174,6 +202,10 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	a.sess.View(func(m *model.Model) {
 		a.sync(m)
 		switch {
+		case a.create != nil:
+			act = a.createKey(k)
+		case a.slots != nil:
+			act = a.slotKey(k, m)
 		case a.menu != nil:
 			act = a.menuKey(k, m)
 		case m.TurnBased():
@@ -192,9 +224,11 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.view.Verbose = !a.view.Verbose
 	case OpenMenu:
 		a.menu = &screen.Menu{}
+	case OpenSlots:
+		a.slots = &screen.Slots{}
 	case PlanAdd:
-		if !a.draft.Add(*act.Step) {
-			a.view.Notice, a.view.NoticeBad = fmt.Sprintf("the plan is full (%d steps): Enter submits it, Backspace removes a step", screen.MaxPlanSteps), true
+		if why := a.draft.Add(*act.Step); why != "" {
+			a.view.Notice, a.view.NoticeBad = why, true
 		}
 	case PlanUndo:
 		if !a.draft.Undo() {
@@ -206,6 +240,10 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		}
 	case None:
 		a.view.Notice = act.Note
+	case CreateCharacter:
+		a.create.Busy, a.create.Err = true, ""
+		a.inflight++
+		return a, a.createCmd(a.create.Name, screen.Classes[a.create.Class].ID)
 	default:
 		if act.Kind == PlanSubmit {
 			act.Round, act.Ver, act.Steps = a.draft.Round, a.draft.Ver, a.draft.Agent()
@@ -275,6 +313,15 @@ func (a *App) send(act Action) tea.Cmd {
 		case Release:
 			what = "release"
 			id, err = a.sess.Release(ctx)
+		case UseAbility:
+			what = act.Note
+			if what == "" {
+				what = "ability"
+			}
+			id, err = a.sess.UseAbility(ctx, act.Slot, act.ID)
+		case SetSlot:
+			what = fmt.Sprintf("slot %d", act.Slot)
+			id, err = a.sess.SetSlot(ctx, act.Slot, act.ID)
 		case Stop:
 			what = "stop"
 			id, err = a.sess.Stop(ctx)
@@ -318,9 +365,12 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v := a.view
 	v.Since = since
 	var out string
-	v.Menu, v.Now = a.menu, a.now()
+	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
 	a.sess.View(func(m *model.Model) {
 		a.sync(m)
+		if !a.gameAt.IsZero() && a.gameMs == m.GameTimeMs && a.Clock == nil && !m.TurnBased() { // between events the game time runs on
+			v.GameNow = m.GameTimeMs + a.now().Sub(a.gameAt).Milliseconds()
+		}
 		if m.TurnBased() {
 			v.Plan = screen.Plan{Steps: a.draft.Lines(m), Sent: a.draft.Sent, Dest: a.draft.Dest()}
 		}

@@ -25,14 +25,29 @@ type Draft struct {
 
 func (d *Draft) edited() { d.Sent = false; d.Ver++ }
 
-// Add appends a step, up to the server's limit.
-func (d *Draft) Add(a Action) bool {
+// movement and action are the two kinds of step a plan holds one of (doc 05
+// §4.6): a move or a door, and an ability or an auto-attack toggle.
+func movement(k Kind) bool { return k == Move || k == UseDoor }
+func action(k Kind) bool   { return k == UseAbility || k == Attack }
+
+// Add appends a step. It says why not, in words, when the plan is full or
+// already holds the one movement or the one action it may; the server judges
+// the plan again when it runs.
+func (d *Draft) Add(a Action) string {
 	if len(d.Steps) >= screen.MaxPlanSteps {
-		return false
+		return fmt.Sprintf("the plan is full (%d steps): Enter submits it, Backspace removes a step", screen.MaxPlanSteps)
+	}
+	for _, s := range d.Steps {
+		switch {
+		case movement(a.Kind) && movement(s.Kind):
+			return "a plan holds one move or door: Backspace removes the one it has"
+		case action(a.Kind) && action(s.Kind):
+			return "a plan holds one ability or attack toggle: Backspace removes the one it has"
+		}
 	}
 	d.Steps = append(d.Steps, a)
 	d.edited()
-	return true
+	return ""
 }
 
 // Undo removes the last step.
@@ -130,8 +145,21 @@ func stepText(s Action, m *model.Model) string {
 		return "stop"
 	case Release:
 		return "release"
+	case UseAbility:
+		return "use " + slotWords(m, s.Slot)
 	}
 	return "?"
+}
+
+// slotWords is "Flame Dart (key 1)", or "key 1" for an empty slot.
+func slotWords(m *model.Model, n int) string {
+	if n < 1 || n > model.Slots {
+		return fmt.Sprintf("key %d", n)
+	}
+	if id := m.Self.Slots[n-1].Ability; id != "" {
+		return fmt.Sprintf("%s (key %d)", m.AbilityName(id), n)
+	}
+	return fmt.Sprintf("key %d (empty)", n)
 }
 
 func nameOf(m *model.Model, id string) string {
@@ -163,6 +191,8 @@ func (d *Draft) Agent() []agentkit.Step {
 			out = append(out, agentkit.StepStop())
 		case Release:
 			out = append(out, agentkit.StepRelease())
+		case UseAbility:
+			out = append(out, agentkit.StepUseAbility(s.Slot, s.ID))
 		}
 	}
 	return out
@@ -209,6 +239,9 @@ func TurnKey(key string, m *model.Model, d *Draft) Action {
 		return Action{Kind: PlanClear}
 	case "enter":
 		return Action{Kind: PlanSubmit}
+	}
+	if n := slotKey(key); n > 0 {
+		return step(Action{Kind: UseAbility, Slot: n})
 	}
 	return common(key)
 }

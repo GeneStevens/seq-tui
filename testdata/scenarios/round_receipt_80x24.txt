@@ -7,13 +7,13 @@
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Quick Turns              │
 │                         @                        ││ turn-based | inside      │
-│                                                  ││ party up to 1 | normal   │
-│                         +                        ││ sleeps up to 7 d         │
+│                         +                        ││ party up to 1 | normal   │
+│                                                  ││ sleeps up to 7 d         │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Round 1, 19 s left ─────┐
 │                         m                        ││ 1 of 1 submitted         │
 │                                                  ││ you                      │
-│                                                  ││ Plan (3/16): accepted    │
+│                                                  ││ Plan (2/16): accepted    │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │            with E                                                            │

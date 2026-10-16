@@ -1,8 +1,10 @@
 // Command seq-tui is the terminal client for a SEQ server (seq-design doc 07).
 //
 //	SEQ_SESSION_TOKEN=seq_st_... seq-tui -insecure -character me-1
+//	SEQ_SESSION_TOKEN=seq_st_... seq-tui -insecure -new
 //
-// connects to a local server and opens the screen. -replay draws a recorded
+// connects to a local server and opens the screen; -new opens it on the
+// character creation screen (a name and a class) instead of a character. -replay draws a recorded
 // log instead, with no server and no terminal; -record keeps the messages of a
 // live session in such a log.
 package main
@@ -37,6 +39,7 @@ func main() {
 func run() error {
 	addr := flag.String("url", "wss://127.0.0.1:8443/seq/v1", "the server's gateway")
 	char := flag.String("character", "me-1", "the character to play")
+	create := flag.Bool("new", false, "make a new character (a name and one of the six classes) and play it")
 	insecure := flag.Bool("insecure", false, "development only: accept a self-signed certificate (loopback addresses only)")
 	rec := flag.String("record", "", "write every message the server sends to this file")
 	replay := flag.String("replay", "", "draw this recorded log instead of connecting")
@@ -76,11 +79,16 @@ func run() error {
 	sess := client.NewSession(cfg)
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	if err := sess.Login(ctx); err != nil {
+	prog := app.New
+	login := sess.Login
+	if *create {
+		prog, login = app.NewCreator, sess.Connect
+	}
+	if err := login(ctx); err != nil {
 		return err
 	}
 	defer sess.Close()
-	_, err := tea.NewProgram(app.New(sess)).Run()
+	_, err := tea.NewProgram(prog(sess)).Run()
 	return err
 }
 

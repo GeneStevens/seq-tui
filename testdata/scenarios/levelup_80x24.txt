@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                    .                   #         ││ zedd  Lv 2 Wizard        │
+│                    .                   #         ││ HP 88/88 ############### │
+│                    .                   #         ││ MP 130/173 #########---- │
+│                    .                   #         ││ XP ###-------- 40 to Lv 3│
+│                    .                   #         ││ Atk off | none           │
+│                    .    @*             #         │└──────────────────────────┘
+│                    .                   #         │┌─ Target ─────────────────┐
+│                    .                   #         ││ no target (Tab to choose)│
+│                    .                   #         ││                          │
+│                    .                   #         ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Flame Dart   tgt? 2 Frost Bolt  tgt? 3 Arcane Wa… ready 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                │
+│ +  NN.Ns zedd received 60 xp from Plain Scuttler and reached level 2         │
+│    NN.Ns Plain Scuttler left view                                            │
+│ +  NN.Ns you reached level 2: new ability Arcane Ward (key 3)                │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok      ? help  q quit

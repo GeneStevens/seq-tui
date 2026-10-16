@@ -12,12 +12,12 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Round 1, 19 s left ───────────────────┐
 │                                                                                                ││ 0 of 1 submitted                       │
-│                                                                                                ││ Plan (3/16): not sent yet              │
+│                                                                                                ││ Plan (2/16): not sent yet              │
 │                                                @                                               ││  Enter submits; else safe default      │
 │                                                                                                ││  1 move (100000,87000)                 │
-│                                                                                                ││  2 move (100000,84000)                 │
-│                                                                                                ││  3 target Plain Scuttler               │
-│                                                +                                               ││                                        │
+│                                                +                                               ││  2 target Plain Scuttler               │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds (Quick Turns) | heard N.Ns ago                                                                          ? help  q quit
+ ONLINE | Testgrounds (Quick Turns) | heard N.Ns ago | ! a plan holds one move or door: Backspace removes the one it has      ? help  q quit

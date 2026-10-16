@@ -12,12 +12,12 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Round 1, 20 s left ───────────────────┐
 │                                                                                                ││ 0 of 1 submitted                       │
-│                                                                                                ││ Plan (3/16): not sent yet              │
+│                                                                                                ││ Plan (2/16): not sent yet              │
 │                                                @                                               ││  Enter submits; else safe default      │
 │                                                                                                ││  1 move (100000,87000)                 │
-│                                                                                                ││  2 move (100000,84000)                 │
-│                                                                                                ││  3 target Plain Scuttler               │
-│                                                +                                               ││                                        │
+│                                                +                                               ││  2 target Plain Scuttler               │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
