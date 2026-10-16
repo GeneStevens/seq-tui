@@ -20,7 +20,7 @@
 │                                                                                                ││ D gate-north                      1m N │
 │                                                                                                ││ D line-east                    124m SE │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                                                            c   ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

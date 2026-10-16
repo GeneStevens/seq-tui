@@ -10,14 +10,14 @@
 │                                                  ││ you were handed back     │
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
-│                                                  │┌─ Target ─────────────────┐
+│                                                c │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns drop drop-inst-1.enc-1-shell-fragment is gone: taken                │
-│ +  NN.Ns aria received Shell Fragment from drop-inst-1.enc-1-shell-fragment  │
+│ +  NN.Ns aria received Cracked Shell Fragment from                           │
+│            drop-inst-1.enc-1-shell-fragment                                  │
 │    NN.Ns instance ended, cleared: every mob dead and the loot taken          │
 │    NN.Ns entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘

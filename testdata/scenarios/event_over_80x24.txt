@@ -1,7 +1,7 @@
  EVENT OVER  Harvest Raid won: The raid is broken. The harvest at Barleycross i…
 ┌─ Thornwick Downs, at 110,131 m, north up ────────┐┌─ You ────────────────────┐
 │                                                  ││ hale  Lv 12 Warri… | 60cr│
-│                                                  ││ HP 255/274 ############- │
+│                                                  ││ HP 249/274 ###########-- │
 │                                                  ││ XP ###------ 192 to Lv 13│
 │                         *                        ││ Atk off | none           │
 │                         @                        │└──────────────────────────┘

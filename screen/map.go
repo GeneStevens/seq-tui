@@ -21,7 +21,7 @@ const (
 	glyphBoard     = '&' // a contract board
 	glyphTalker    = '?' // someone who only talks (a quest giver)
 	glyphMarker    = '%' // where a held scout contract sends you
-	glyphCamp      = 'c' // a camp: where mobs were first seen (remembered)
+	glyphCamp      = 'c' // a camp: where the zone's mobs are found (the zone map's)
 	glyphRare      = 'r' // a roaming rare in view
 	glyphDoor      = 'D'
 	glyphWall      = '#'
@@ -212,8 +212,8 @@ func paintWorld(g *grid, m *model.Model, v View) {
 	for _, w := range m.Map.GetWalls() {
 		g.line(w.GetA(), w.GetB(), glyphWall, kWall)
 	}
-	for _, p := range m.Known().Camps {
-		c, r := g.cellOf(p)
+	for _, camp := range m.Camps() {
+		c, r := g.cellOf(camp.GetPos())
 		g.put(c, r, glyphCamp, kCamp)
 	}
 	for _, d := range m.Map.GetDoors() {
@@ -225,8 +225,8 @@ func paintWorld(g *grid, m *model.Model, v View) {
 		g.put(c, r, npcGlyph(n), kDoor)
 	}
 	for _, k := range m.Self.Contracts {
-		if k.GetMarker() != "" && k.GetMarkerPos() != nil && k.GetHave() < k.GetNeed() {
-			c, r := g.cellOf(k.GetMarkerPos())
+		if p := m.Marker(k); p != nil {
+			c, r := g.cellOf(p)
 			g.put(c, r, glyphMarker, kPlan)
 		}
 	}

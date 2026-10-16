@@ -1,7 +1,7 @@
  EVENT OVER  Harvest Raid won: The raid is broken. The harvest at Barleycross is safe.                                                      
 ┌─ Thornwick Downs, at 110,131 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                                                                                ││ hale  Lv 12 Warrior         | 60 crowns│
-│                                                                                                ││ HP 255/274 #########################-- │
+│                      c                                                           c             ││ hale  Lv 12 Warrior         | 60 crowns│
+│                                                                                                ││ HP 249/274 ########################--- │
 │                                                                                                ││ XP #########-------------- 192 to Lv 13│
 │                                                                                                ││ Atk off | none                         │
 │                                                                                                │└────────────────────────────────────────┘
@@ -12,14 +12,14 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                  *                                             │┌─ Nearby ───────────────────────────────┐
 │                                                @                                               ││ * 4 crowns                       2m NE │
-│                                                                                                ││ * 6 crowns                       2m NE │
-│                                                                                                ││ * 6 crowns                       2m NE │
+│                                                                                                ││ * Goblin Charm Bead              2m NE │
+│                                                                                                ││ * 7 crowns                       2m NE │
+│                                                                                                ││ * Goblin Charm Bead              2m NE │
 │                                                                                                ││ * 5 crowns                       2m NE │
+│                                                                                                ││ * 4 crowns                       2m NE │
 │                                                                                                ││ * Goblin Charm Bead              2m NE │
 │                                                                                                ││ D town-gate                     106m W │
 │                                                                                                ││ D hollow-warren                 291m E │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -30,9 +30,9 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ < 138.1s Raiding Goblin hit hale for 5                                                                                                   │
+│   138.1s hale hit Raiding Goblin for 7                                                                                                   │
+│ < 138.1s Raiding Goblin missed hale                                                                                                      │
 │ < 138.4s Raiding Goblin hit hale for 5                                                                                                   │
-│   139.9s hale hit Raiding Goblin for 5                                                                                                   │
 │   140.0s encounter enc-4 with Raiding Goblin closed: event_ended                                                                         │
 │   140.0s encounter enc-6 with Raiding Goblin closed: event_ended                                                                         │
 │   140.0s hale's target Raiding Goblin cleared: gone                                                                                      │

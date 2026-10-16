@@ -11,9 +11,9 @@
 {"event":{"seq":"16","game_time_ms":"1600","combat":{"kind":"COMBAT_KIND_HIT","attacker":"char-aria","target":"mob-outskirts-rat-1-1","amount":"12"}}}
 {"event":{"seq":"17","game_time_ms":"1700","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"char-aria","target":"mob-outskirts-rat-1-1"}}}
 {"event":{"seq":"18","game_time_ms":"1800","encounter_closed":{"id":"enc-1","owner":"char-aria","mob":"mob-outskirts-rat-1-1","reason":"mob_died"}}}
-{"event":{"seq":"19","game_time_ms":"1900","loot_dropped":{"drop":"drop-enc-1-shell-fragment","mob":"mob-outskirts-rat-1-1","item":"shell-fragment","pos":{"x":"2000"},"encounter":"enc-1","can_loot":true}}}
+{"event":{"seq":"19","game_time_ms":"1900","loot_dropped":{"drop":"drop-enc-1-shell-fragment","mob":"mob-outskirts-rat-1-1","item":"shell-fragment","pos":{"x":"2000"},"encounter":"enc-1","can_loot":true,"item_info":{"id":"shell-fragment","name":"Shell Fragment","tier":"common"}}}}
 {"event":{"seq":"20","game_time_ms":"2000","reward":{"recipient":"char-aria","source":"mob-outskirts-rat-1-1","kind":"xp","amount":"25"}}}
 {"event":{"seq":"21","game_time_ms":"2100","target_cleared":{"actor":"char-aria","target":"mob-outskirts-rat-1-1","reason":"target_dead"}}}
 {"event":{"seq":"22","game_time_ms":"2200","auto_attack_changed":{"actor":"char-aria"}}}
 {"intent_result":{"intent_id":"tui-3","accepted":true}}
-{"event":{"seq":"23","game_time_ms":"2300","reward":{"recipient":"char-aria","source":"drop-enc-1-shell-fragment","kind":"loot","item":"shell-fragment"}}}
+{"event":{"seq":"23","game_time_ms":"2300","reward":{"recipient":"char-aria","source":"drop-enc-1-shell-fragment","kind":"loot","item":"shell-fragment","item_info":{"id":"shell-fragment","name":"Shell Fragment","tier":"common"}}}}

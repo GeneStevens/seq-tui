@@ -13,22 +13,20 @@ func snap(m *model.Model, seq uint64, space string, self *pb.SelfState, npcs []*
 	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: space, Seq: seq, Self: self, Npcs: npcs, Entities: ents}}})
 }
 
-// The board's offers come with the snapshot; the contracts held are named, and a
-// held one that a zone without the board describes by its id is filled in from
-// what the board offered.
+// A held contract carries its own name, text and reward wherever the character
+// is (D52): away from the board the model has nothing to fill in.
 func TestHeldContractsAreNamedAwayFromTheBoard(t *testing.T) {
 	m := model.New()
 	board := &pb.NpcInfo{Id: "board", Name: "The Board", Role: "contract_board", Pos: &pb.Pos{X: 2000, Y: 1000}, Offers: []*pb.ContractOffer{
 		{Id: "hunt-wolves", Name: "Thin the Wolves", Description: "Kill 3 wolves.", Kind: "hunt", Need: 3, MinLevel: 1, MaxLevel: 3, Reward: &pb.RewardInfo{Xp: 30, Crowns: 12, Item: "tin-ring"}},
 	}}
 	snap(m, 1, "town", &pb.SelfState{}, []*pb.NpcInfo{board})
+	m.Items["tin-ring"] = &pb.ItemInfo{Id: "tin-ring", Name: "Tin Ring"}
 	if got := m.RewardWords(board.Offers[0].Reward); got != "30 XP, 12 crowns and Tin Ring" {
 		t.Errorf("reward words %q", got)
 	}
-	// Held, in the town: described in full.
-	snap(m, 2, "town", &pb.SelfState{Contracts: []*pb.ContractInfo{{Id: "hunt-wolves", Name: "Thin the Wolves", Kind: "hunt", Have: 1, Need: 3, Reward: &pb.RewardInfo{Xp: 30, Crowns: 12, Item: "tin-ring"}}}}, nil)
-	// Away: only the id.
-	snap(m, 3, "downs", &pb.SelfState{Contracts: []*pb.ContractInfo{{Id: "hunt-wolves", Name: "hunt-wolves", Kind: "hunt", Have: 2, Need: 3}}}, nil)
+	// Away, in the Downs: the snapshot describes it in full.
+	snap(m, 3, "downs", &pb.SelfState{Contracts: []*pb.ContractInfo{{Id: "hunt-wolves", Name: "Thin the Wolves", Description: "Kill 3 wolves.", Kind: "hunt", Have: 2, Need: 3, Reward: &pb.RewardInfo{Xp: 30, Crowns: 12}}}}, nil)
 	c := m.Contract("hunt-wolves")
 	if c.GetName() != "Thin the Wolves" || c.GetDescription() != "Kill 3 wolves." || c.GetReward().GetCrowns() != 12 || c.GetHave() != 2 {
 		t.Errorf("held contract away from the board: %v", c)
@@ -36,7 +34,7 @@ func TestHeldContractsAreNamedAwayFromTheBoard(t *testing.T) {
 	if model.Progress(c) != "2 of 3 killed" {
 		t.Errorf("progress %q", model.Progress(c))
 	}
-	if m.ContractName("hunt-wolves") != "Thin the Wolves" || m.ContractName("gather-dust") != "Gather Dust" {
+	if m.ContractName("hunt-wolves") != "Thin the Wolves" || m.ContractName("gather-dust") != "gather-dust" {
 		t.Errorf("names %q %q", m.ContractName("hunt-wolves"), m.ContractName("gather-dust"))
 	}
 }
@@ -81,9 +79,9 @@ func TestDialogueAndRewardsInTheLog(t *testing.T) {
 		r    *pb.Reward
 		want string
 	}{
-		{&pb.Reward{Recipient: "me", Source: "board", Kind: "contract_accept", Detail: "hunt-wolves"}, "you took the contract Hunt Wolves"},
-		{&pb.Reward{Recipient: "me", Kind: "contract_abandon", Detail: "hunt-wolves"}, "you gave up the contract Hunt Wolves"},
-		{&pb.Reward{Recipient: "me", Source: "board", Kind: "contract_turn_in", Detail: "hunt-wolves", Xp: 30, Amount: 12, Item: "tin-ring"}, "you handed in Hunt Wolves to The Board and got 30 XP, 12 crowns and Tin Ring"},
+		{&pb.Reward{Recipient: "me", Source: "board", Kind: "contract_accept", Detail: "hunt-wolves"}, "you took the contract hunt-wolves"},
+		{&pb.Reward{Recipient: "me", Kind: "contract_abandon", Detail: "hunt-wolves"}, "you gave up the contract hunt-wolves"},
+		{&pb.Reward{Recipient: "me", Source: "board", Kind: "contract_turn_in", Detail: "hunt-wolves", Xp: 30, Amount: 12, Item: "tin-ring"}, "you handed in hunt-wolves to The Board and got 30 XP, 12 crowns and tin-ring"},
 		{&pb.Reward{Recipient: "me", Source: "raid", Kind: "world_event", Detail: "harvest-raid", Xp: 120, Amount: 60}, "you was paid for the Harvest Raid: 120 XP and 60 crowns"},
 	} {
 		event(m, 2000, &pb.Event{Body: &pb.Event_Reward{Reward: tc.r}})
@@ -121,39 +119,67 @@ func TestWorldEventAnnouncements(t *testing.T) {
 	}
 }
 
-// Rares are known by name; one coming into view is a log line of its own, and a
-// camp is where a mob was first seen: not a rare, not an event's marching mob.
+// A rare is the mob the server flags (D52); one coming into view is a log line of
+// its own. The camps are the zone map's. NPCs stream: one comes into view and goes
+// out of it by event, and what has been seen stays known.
 func TestRaresCampsAndPeopleAreRemembered(t *testing.T) {
 	m := model.New()
 	wolf := &pb.EntityState{Id: "mob-a-1", Kind: pb.EntityKind_ENTITY_KIND_MOB, Name: "Wolf", Hp: 10, MaxHp: 10, Pos: &pb.Pos{X: 30000, Y: 30000}}
 	snap(m, 1, "downs", &pb.SelfState{}, []*pb.NpcInfo{{Id: "captain", Name: "Captain", Role: "quest_giver", Pos: &pb.Pos{X: 5000, Y: 5000}}}, wolf)
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ZoneMap{ZoneMap: &pb.ZoneMap{Space: "downs",
+		Camps:   []*pb.Camp{{Id: "wolves", Mob: "Wolf", Level: 2, Count: 3, Pos: &pb.Pos{X: 30000, Y: 30000}}},
+		Markers: []*pb.Marker{{Id: "old-oak", Kind: "scout", Pos: &pb.Pos{X: 70000, Y: 1000}}}}}})
+	if c := m.Camps(); len(c) != 1 || c[0].GetMob() != "Wolf" {
+		t.Errorf("camps: %v", c)
+	}
 	event(m, 1000, &pb.Event{Body: &pb.Event_EntityAppeared{EntityAppeared: &pb.EntityAppeared{Entity: &pb.EntityState{
-		Id: "mob-grimtusk-1", Kind: pb.EntityKind_ENTITY_KIND_MOB, Name: "Old Grimtusk", Level: 6, Hp: 300, MaxHp: 300, Pos: &pb.Pos{X: 50000, Y: 50000}}}}})
+		Id: "mob-grimtusk-1", Kind: pb.EntityKind_ENTITY_KIND_MOB, Name: "Old Grimtusk", Level: 6, Hp: 300, MaxHp: 300, Rare: true, Pos: &pb.Pos{X: 50000, Y: 50000}}}}})
 	if r := m.RaresInView(); len(r) != 1 || r[0].GetName() != "Old Grimtusk" {
 		t.Fatalf("rares in view: %v", r)
 	}
 	if e := m.Log[len(m.Log)-1]; e.Kind != "rare_appeared" || !strings.Contains(e.Text, "a rare, Old Grimtusk (Lv 6)") {
 		t.Errorf("log: %+v", e)
 	}
-	if !model.IsRare(m.Entities["mob-grimtusk-1"]) || model.IsRare(wolf) {
+	// A rare is the flag, never the name.
+	if !model.IsRare(m.Entities["mob-grimtusk-1"]) || model.IsRare(wolf) || model.IsRare(&pb.EntityState{Kind: pb.EntityKind_ENTITY_KIND_MOB, Name: "Old Grimtusk"}) {
 		t.Error("IsRare")
 	}
-	// The wolf's place is a camp, the rare's is not; a second wolf in the same
-	// spot is the same camp; one that comes while an event is on is no camp.
-	event(m, 2000, &pb.Event{Body: &pb.Event_EntityAppeared{EntityAppeared: &pb.EntityAppeared{Entity: &pb.EntityState{
-		Id: "mob-a-2", Kind: pb.EntityKind_ENTITY_KIND_MOB, Name: "Wolf", Pos: &pb.Pos{X: 33000, Y: 30000}}}}})
-	event(m, 3000, &pb.Event{Body: &pb.Event_WorldEvent{WorldEvent: &pb.WorldEvent{Event: "raid", Kind: "started"}}})
-	event(m, 4000, &pb.Event{Body: &pb.Event_EntityAppeared{EntityAppeared: &pb.EntityAppeared{Entity: &pb.EntityState{
-		Id: "mob-ev-1", Kind: pb.EntityKind_ENTITY_KIND_MOB, Name: "Raider", Pos: &pb.Pos{X: 90000, Y: 90000}}}}})
-	if c := m.Known().Camps; len(c) != 1 || c[0].GetX() != 30000 {
-		t.Errorf("camps: %v", c)
+	// A scout contract's marker is the zone map's spot.
+	held := &pb.ContractInfo{Id: "scout", Marker: "old-oak", Need: 1}
+	if p := m.Marker(held); p.GetX() != 70000 {
+		t.Errorf("marker: %v", p)
+	}
+	held.Have = 1
+	if m.Marker(held) != nil {
+		t.Error("a reached marker is not drawn")
+	}
+
+	// An NPC walks into view by event, with the items it names, and out of it.
+	event(m, 2000, &pb.Event{Body: &pb.Event_NpcAppeared{NpcAppeared: &pb.NpcAppeared{
+		Npc:   &pb.NpcInfo{Id: "smith", Name: "Smith", Role: "vendor", ReachMm: 5000, Pos: &pb.Pos{X: 9000, Y: 9000}},
+		Items: []*pb.ItemInfo{{Id: "hammer", Name: "Hammer", Tier: "fine"}}}}})
+	if m.NPC("smith") == nil || len(m.NPCs) != 2 || m.ItemName("hammer") != "Hammer" {
+		t.Fatalf("npc_appeared: %v, %q", m.NPCs, m.ItemName("hammer"))
+	}
+	event(m, 3000, &pb.Event{Body: &pb.Event_NpcLeft{NpcLeft: &pb.NpcLeft{Id: "smith"}}})
+	if len(m.NPCs) != 1 || m.NPCs[0].GetId() != "captain" {
+		t.Errorf("npc_left: %v", m.NPCs)
 	}
 	// The people seen stay known after a snapshot that no longer lists them.
 	snap(m, 2, "downs", &pb.SelfState{}, nil)
-	if n := m.KnownNPCs(); len(n) != 1 || n[0].GetId() != "captain" || m.NPC("captain") == nil || m.NearestNPC().GetId() != "captain" {
+	if n := m.KnownNPCs(); len(n) != 2 || m.NPC("captain") == nil {
 		t.Errorf("known people: %v", n)
 	}
-	if len(m.Known().Camps) != 1 {
-		t.Error("camps are lost with a snapshot")
+}
+
+// Reach is the NPC's own (D52), not a number the client knows.
+func TestInReachIsTheNPCsOwn(t *testing.T) {
+	m := model.New()
+	snap(m, 1, "town", &pb.SelfState{}, nil)
+	m.Self.Pos = &pb.Pos{}
+	near := &pb.NpcInfo{Pos: &pb.Pos{X: 3000, Y: 0}, ReachMm: 3000}
+	far := &pb.NpcInfo{Pos: &pb.Pos{X: 3001, Y: 0}, ReachMm: 3000}
+	if !m.InReach(near) || m.InReach(far) || m.InReach(&pb.NpcInfo{Pos: &pb.Pos{}}) {
+		t.Error("InReach")
 	}
 }

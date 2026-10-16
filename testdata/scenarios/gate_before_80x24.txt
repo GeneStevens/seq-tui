@@ -1,8 +1,8 @@
 ┌─ Thornwick, at 114,45 m, north up ───────────────┐┌─ You ────────────────────┐
 │        #                   .                     ││ Hale  Lv 1 Warrior  | 0cr│
-│        #                   .                     ││ HP 120/120 ############# │
+│        #    $              .                     ││ HP 120/120 ############# │
 │        #                   .                     ││ XP ----------- 40 to Lv 2│
-│                            .                     ││ Atk off | none           │
+│                    ?       .                     ││ Atk off | none           │
 │                            .                     │└──────────────────────────┘
 │                         @  .                     │┌─ Target ─────────────────┐
 │$                           .                     ││ no target (Tab to choose)│
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│            fresh each half hour. Take what suits you, and bring the proof    │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns │
-│            and experience.                                                   │
-│ +   N.Ns you took the contract Thin the Meadow Wolves                        │
+│     N.Ns Thornwick Contract Board is out of view                             │
+│     N.Ns Isolde Fenn is out of view                                          │
+│    NN.Ns Captain Rhosyn Hartley (quest_giver) is in view                     │
+│    NN.Ns Odalys Penn is out of view                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick | heard N.Ns ago | move ok                    ? help  q quit

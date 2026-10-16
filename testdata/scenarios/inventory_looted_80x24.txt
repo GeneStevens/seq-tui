@@ -1,8 +1,8 @@
 ┌─ Inventory and gear ─────────────────────────────────────────────────────────┐
 │ Crowns 5 | carrying 2 of 20 | bank 0 | bind point none yet                   │
 │ Gear worn                            │ Items carried                         │
-│   head      -                        │> Scuttler Blade                       │
-│   chest     -                        │  Worn Cap                             │
+│   head      -                        │> Scuttler Blade Rare [bound]          │
+│   chest     -                        │  Worn Cap Common                      │
 │   legs      -                        │                                       │
 │   hands     -                        │                                       │
 │   feet      -                        │                                       │
@@ -12,8 +12,8 @@
 │   main_hand -                        │                                       │
 │   off_hand  -                        │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
-│                                                                              │
-│                                                                              │
+│ Scuttler Blade: Rare, main_hand; bound on pickup                             │
+│ damage 4-9 / N.Ns, str +3; a vendor pays 15                                  │
 │ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.         │
 │ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
 │                                                                              │

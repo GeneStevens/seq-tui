@@ -1,6 +1,6 @@
  EVENT  Harvest Raid: Goblins pour out of the east to raid the harvest at Barleycross. Defend the farms!                                    
 ┌─ Thornwick Downs, at 110,131 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                                                                                ││ hale  Lv 12 Warrior          | 0 crowns│
+│                      c                                                           c             ││ hale  Lv 12 Warrior          | 0 crowns│
 │                                                                                                ││ HP 159/274 ###############------------ │
 │                                                                                                ││ XP ----------------------- 316 to Lv 13│
 │                                                                                                ││ Atk off | none                         │

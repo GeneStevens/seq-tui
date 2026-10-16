@@ -193,8 +193,8 @@ func nearbyList(m *model.Model) []nearby {
 		out = append(out, mk(glyphDoor, d.GetId(), d.GetId(), d.GetPos(), ""))
 	}
 	for _, c := range m.Self.Contracts {
-		if c.GetMarker() != "" && c.GetMarkerPos() != nil && c.GetHave() < c.GetNeed() {
-			out = append(out, mk(glyphMarker, "marker-"+c.GetMarker(), model.EventName(c.GetMarker()), c.GetMarkerPos(), "scout marker"))
+		if p := m.Marker(c); p != nil {
+			out = append(out, mk(glyphMarker, "marker-"+c.GetMarker(), model.EventName(c.GetMarker()), p, "scout marker"))
 		}
 	}
 	sort.SliceStable(out, func(i, j int) bool {

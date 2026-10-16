@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math"
 	"slices"
-	"strings"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
@@ -65,15 +64,14 @@ func (m *Model) AbilityByID(id string) *pb.AbilityInfo {
 	return nil
 }
 
-// AbilityName is the ability's name, or its id if the character does not know it.
+// AbilityName is the ability's name, as the character's snapshot or a trainer's
+// lesson gave it, or its id if the server never described it.
 func (m *Model) AbilityName(id string) string {
 	if a := m.AbilityByID(id); a != nil && a.GetName() != "" {
 		return a.GetName()
 	}
-	if m.Self.Class != "" && strings.HasPrefix(id, m.Self.Class+"-") {
-		// An ability the character does not know yet (a trainer's lesson) has
-		// only its id: the class's own ones are "wizard-arcane-ward".
-		return readable(strings.TrimPrefix(id, m.Self.Class+"-"))
+	if a := m.Lessons[id]; a.GetName() != "" {
+		return a.GetName() // a trainer's lesson the character does not know yet (D52)
 	}
 	return id
 }
@@ -173,7 +171,7 @@ func (s *Self) setKit(self *pb.SelfState, now int64) {
 	}
 	s.Cast = nil
 	if c := self.GetCast(); c.GetAbility() != "" {
-		s.Cast = &Cast{Ability: c.GetAbility(), Target: c.GetTarget(), Slot: int(c.GetSlot()), EndsAtMs: c.GetEndsAtMs()}
+		s.Cast = &Cast{Ability: c.GetAbility(), Target: c.GetTarget(), Slot: int(c.GetSlot()), EndsAtMs: c.GetEndsAtMs(), LandsInRound: c.GetLandsInRound()}
 	}
 	s.Effects = effectsFrom(self.GetEffects(), now)
 }

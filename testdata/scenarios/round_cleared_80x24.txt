@@ -10,7 +10,7 @@
 │                                                  ││ you were handed back     │
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
-│                                                  │┌─ Target ─────────────────┐
+│                                                c │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │
 │                                                  ││                          │

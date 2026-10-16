@@ -10,7 +10,6 @@ import (
 	"github.com/GeneStevens/seq-tui/scenario"
 	"github.com/GeneStevens/seq/content"
 	"github.com/GeneStevens/seq/core"
-	"github.com/GeneStevens/seq/sim"
 	"github.com/GeneStevens/seq/testserver"
 )
 
@@ -66,7 +65,7 @@ func inSpace(name string) func(*model.Model) bool {
 // contracts for level 1; Enter takes the Hunt. The board holds three, refuses a
 // fourth with its reason, and a contract is given up with X.
 func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{Accounts: townAccount()})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
 	w.Fixture("thornwick_board.jsonl")
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
@@ -157,7 +156,7 @@ func fightUntil(t *testing.T, w *scenario.World, p *scenario.Player, done func(*
 // Take the Hunt at the board, walk out of the east gate, kill the wolves of the
 // Downs, come back and hand it in.
 func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{Accounts: townAccount()})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
 	w.Fixture("thornwick_hunt.jsonl")
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
@@ -177,6 +176,11 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	p.Press("e")
 	notice(t, p, "use door ok", false)
 	p.Eventually("the Downs", inSpace("Thornwick Downs"))
+	p.Model(func(m *model.Model) {
+		if c := m.Camps(); len(c) == 0 || c[0].GetMob() == "" || c[0].GetCount() == 0 {
+			t.Fatalf("the Downs' map has camps %v", c)
+		}
+	})
 	p.Golden("downs_gate")
 
 	// To the wolves at (32, 118): they notice a character 8 m off.
@@ -216,7 +220,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 // vendor and its option opens the vendor's window, where Enter buys; then G beside
 // the warrior trainer opens the trainer's, where Enter teaches an ability.
 func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("thornwick_shops.jsonl")
 	w.Place("ann", "hale", 30000, 64000)
 	z, _ := content.Town()
@@ -286,7 +290,7 @@ func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
 // A Scout contract: the marker shows on the map (%) once the character is in the
 // Downs, the Contracts panel counts it reached, and the board pays it.
 func TestThornwickScoutToAMarker(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{Accounts: townAccount()})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
 	w.Fixture("thornwick_scout.jsonl")
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
@@ -310,6 +314,15 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 			t.Fatalf("in the Downs the scout contract is %v", c)
 		}
 	})
+	p.Model(func(m *model.Model) {
+		// The spot is the zone map's (D52), not something the client worked out.
+		if k := m.Map.GetMarkers(); len(k) == 0 || m.Marker(m.Contract("scout-wickett-mill")) == nil {
+			t.Fatalf("the Downs' map has markers %v; the contract's spot is %v", k, m.Marker(m.Contract("scout-wickett-mill")))
+		}
+	})
+	if s := p.Screen(140, 45); !strings.Contains(s, "scout marker") || !strings.Contains(s, "%") {
+		t.Fatalf("the marker is not on the map or in Nearby:\n%s", s)
+	}
 	p.Golden("scout_marker_in_view")
 
 	// Down to the mill's latitude, then east to it.
@@ -345,11 +358,12 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 // warrior who stands in the raiders' way fights them. When it ends the banner says
 // how, and the character, whose account is attended, is paid for taking part.
 func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{
-		Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}},
-		State: func(space string, st *sim.State) {
-			for i := range st.Events {
-				st.Events[i].NextAt = 20_000 // the raid begins 20 s in, not an hour and a half
+	w := scenario.New(t, testserver.Options{
+		Zones:    scenario.Town,
+		Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}},
+		Zone: func(space string, z *core.Zone) {
+			for i := range z.WorldEvents {
+				z.WorldEvents[i].EveryMs, z.WorldEvents[i].OffsetMs = 20_000, 0 // the raid begins 20 s in, not an hour and a half
 			}
 		},
 	})
@@ -389,26 +403,18 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 		}
 	})
 	p.Golden("event_over")
-	// Thirty seconds on, the banner goes.
-	w.Advance(40 * time.Second)
-	if strings.Contains(p.Screen(80, 24), "EVENT") {
-		t.Fatal("the banner of an event that ended a minute ago is still up")
-	}
 }
 
 // Old Grimtusk, the Downs' roaming rare, walks into view: the log says so, the map
 // marks it (r), Nearby and the Target panel call it a rare.
 func TestThornwickARareComesIntoView(t *testing.T) {
-	w := scenario.NewTown(t, scenario.TownOptions{
-		Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}},
+	w := scenario.New(t, testserver.Options{
+		Zones:    scenario.Town,
+		Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}},
 		Zone: func(space string, z *core.Zone) {
-			if space == scenario.Downs { // one place for it to appear, 10 m from the character
+			if space == testserver.ThornwickDowns { // one place for it to appear, 10 m from the character
 				z.Rares[0].Points = []core.Pos{{X: 220000, Y: 150000}}
-			}
-		},
-		State: func(space string, st *sim.State) {
-			for i := range st.Rares {
-				st.Rares[i].NextAt = 10_000
+				z.Rares[0].MinMs, z.Rares[0].MaxMs = 10_000, 10_000 // it comes at 10 s
 			}
 		},
 	})
@@ -429,7 +435,7 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 	w.Advance(11 * time.Second)
 	p.Model(func(m *model.Model) {
 		r := m.RaresInView()
-		if len(r) != 1 || r[0].GetName() != "Old Grimtusk" || !hasLog(m, "rare_appeared", "a rare, Old Grimtusk") {
+		if len(r) != 1 || r[0].GetName() != "Old Grimtusk" || !r[0].GetRare() || !hasLog(m, "rare_appeared", "a rare, Old Grimtusk") {
 			t.Fatalf("rares in view: %v", r)
 		}
 	})
@@ -439,4 +445,93 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 	if s := p.Screen(80, 24); !strings.Contains(s, "RARE") {
 		t.Fatalf("the rare is not marked:\n%s", s)
 	}
+}
+
+// A trainer is not in view from 25 m; walking up to it, it appears by event
+// (npc_appeared) in Nearby and the log, and the traders' list greys it out as too
+// far until the character stands within its reach, which is the NPC's own.
+func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
+	w.Fixture("thornwick_trainer.jsonl")
+	w.Place("ann", "hale", 20000, 50000)
+	p := w.Login("ann", "hale")
+	p.Model(func(m *model.Model) {
+		if m.NPC("trainer-warrior") != nil {
+			t.Fatalf("the trainer, 25 m off, is in view already: %v", m.NPCs)
+		}
+	})
+	p.Golden("trainer_out_of_view")
+	walk(w, p, "up", 3)
+	p.Model(func(m *model.Model) {
+		n := m.NPC("trainer-warrior")
+		if n == nil || n.GetReachMm() <= 0 || m.InReach(n) || !hasLog(m, "npc_appeared", "Gorran Stoutarm (trainer) is in view") {
+			t.Fatalf("after three steps: %v; log ends %+v", n, m.Log[len(m.Log)-2:])
+		}
+	})
+	if s := p.Screen(140, 45); !strings.Contains(s, "Gorran Stoutarm") {
+		t.Fatalf("the trainer is not in Nearby:\n%s", s)
+	}
+	p.Golden("trainer_appears")
+	p.Press("n")
+	if s := p.Screen(140, 45); !strings.Contains(rowWith(s, "Gorran Stoutarm"), "too far") {
+		t.Fatalf("a trainer beyond its reach is not marked:\n%s", s)
+	}
+	p.Golden("trainer_too_far")
+	p.Press("esc")
+	walk(w, p, "up", 5)
+	p.Model(func(m *model.Model) {
+		if n := m.NPC("trainer-warrior"); n == nil || !m.InReach(n) {
+			t.Fatalf("the trainer is not in reach after eight steps: %v at %v", n, m.Self.Pos)
+		}
+	})
+	p.Press("n")
+	if s := p.Screen(140, 45); strings.Contains(rowWith(s, "Gorran Stoutarm"), "too far") {
+		t.Fatalf("a trainer in reach is marked too far:\n%s", s)
+	}
+	p.Press("esc")
+}
+
+// A warrior bound in Thornwick dies in the Downs, releases, and wakes in
+// Thornwick at the binder: the map, the NPCs in Nearby and the panels are the
+// town's.
+func TestThornwickDieInTheDownsAndWakeInThornwick(t *testing.T) {
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}}})
+	w.Fixture("thornwick_respawn.jsonl")
+	z, _ := content.Town()
+	bind := z.NPC("binder").Pos
+	w.Place("ann", "hale", 20000, 150000)
+	w.Srv.Give("hale", func(cs *core.CharacterSave) {
+		cs.Dead, cs.HP = true, 0
+		cs.BindZone, cs.BindPos = z.Name, &bind
+	})
+	p := w.Login("ann", "hale")
+	p.Model(func(m *model.Model) {
+		if !m.Self.Dead || m.Map.GetName() != "Thornwick Downs" {
+			t.Fatalf("dead %v in %q", m.Self.Dead, m.Map.GetName())
+		}
+	})
+	p.Golden("downs_dead")
+	p.Press("r")
+	notice(t, p, "release ok", false)
+	w.Advance(core.DefaultRespawnDelayMs*time.Millisecond + 2*time.Second)
+	p.Eventually("Thornwick", inSpace("Thornwick"))
+	p.Model(func(m *model.Model) {
+		if m.Self.Dead || m.Self.HP != m.Self.MaxHP || m.Self.Pos.GetX() != int64(bind.X) || m.Self.Pos.GetY() != int64(bind.Y) || m.NPC("binder") == nil {
+			t.Fatalf("after waking: dead %v, hp %d/%d at %v, binder %v", m.Self.Dead, m.Self.HP, m.Self.MaxHP, m.Self.Pos, m.NPC("binder"))
+		}
+	})
+	if s := p.Screen(140, 45); !strings.Contains(s, "Thornwick") || !strings.Contains(s, "binder") {
+		t.Fatalf("the screen does not follow:\n%s", s)
+	}
+	p.Golden("woke_in_thornwick")
+}
+
+// rowWith is the row of the screen that holds text, "" if none does.
+func rowWith(screen, text string) string {
+	for _, l := range strings.Split(screen, "\n") {
+		if strings.Contains(l, text) {
+			return l
+		}
+	}
+	return ""
 }

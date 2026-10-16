@@ -320,9 +320,16 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 			if i == t.Sel {
 				mark = "> "
 			}
-			line := fit(fmt.Sprintf(" %s%-24s %-22s %s %s", mark, n.GetName(), roleWord(n.GetRole()), metres(d), bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY())), w)
-			if i == t.Sel {
+			far := ""
+			if !m.InReach(n) {
+				far = " too far"
+			}
+			line := fit(fmt.Sprintf(" %s%-24s %-22s %s %s%s", mark, n.GetName(), roleWord(n.GetRole()), metres(d), bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY()), far), w)
+			switch {
+			case i == t.Sel:
 				line = st.Reverse(line)
+			case far != "":
+				line = st.Dim(line) // beyond its reach: greyed out
 			}
 			rows = append(rows, line)
 		}
@@ -331,7 +338,11 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 	n := list[t.Sel]
 	d := dist(n.GetPos().GetX(), n.GetPos().GetY(), sp.GetX(), sp.GetY())
 	add(fmt.Sprintf(" %s, %s, %s %s away. You have %s.", n.GetName(), n.GetRole(), metres(d), bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY()), inCrowns(m)))
-	add("")
+	if !m.InReach(n) {
+		add(fmt.Sprintf(" Too far: stand within %s of %s to deal with them.", metres(n.GetReachMm()), n.GetName()))
+	} else {
+		add("")
+	}
 	body := h - len(rows) - 3
 	switch n.GetRole() {
 	case "vendor":
@@ -340,7 +351,7 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 		rows = append(rows, trainerLines(m, n, t, w, body, st)...)
 	case "binder":
 		add(fmt.Sprintf(" Bind point now: %s.", bindWords(m)))
-		add(" Enter sets it here: you respawn and gate to the nearest bind point you set. It costs crowns.")
+		add(fmt.Sprintf(" Enter sets it here for %s: you respawn there, and Homeward brings you back to it.", crownsWord(n.GetBindFee())))
 	case "banker":
 		rows = append(rows, bankLines(m, t, w, body, st)...)
 	case "contract_board":
@@ -412,7 +423,13 @@ func trainerLines(m *model.Model, n *pb.NpcInfo, t *Traders, w, h int, st Styler
 	if len(texts) == 0 {
 		rows = append(rows, fit("  (nothing to teach you)", w))
 	}
-	return append(rows, listRows(texts, t.Cur[0], max(h-1, 1), w, true, st)...)
+	rows = append(rows, listRows(texts, t.Cur[0], max(h-4, 1), w, true, st)...)
+	if lessons := n.GetTrains(); t.Cur[0] < len(lessons) {
+		// What the ability is, as the trainer describes it (D52).
+		rows = append(rows, strings.Repeat("─", w))
+		rows = append(rows, wrapped(lessonWords(lessons[t.Cur[0]].GetInfo()), w, " ")...)
+	}
+	return rows
 }
 
 func bankLines(m *model.Model, t *Traders, w, h int, st Styler) []string {
@@ -561,4 +578,13 @@ func tradeScreenLines(m *model.Model, tu *TradeUI, w, h int, st Styler) []string
 	add(" Esc closes the screen and leaves the trade open.")
 	add(" The server refuses Rare and Named items, and ones already traded.")
 	return pad(rows[:min(len(rows), h)], w, h)
+}
+
+// lessonWords is the trainer's description of an ability: its description and
+// numbers, as the server wrote them.
+func lessonWords(a *pb.AbilityInfo) string {
+	if a.GetDescription() == "" {
+		return a.GetName()
+	}
+	return a.GetName() + ": " + a.GetDescription()
 }

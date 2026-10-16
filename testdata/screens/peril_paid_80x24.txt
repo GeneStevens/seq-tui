@@ -9,7 +9,7 @@
 │                         @                        ││ real-time | open         │
 │                                                  ││ party up to 2 | heroic   │
 │                                                  ││ enter at gate-north (E)  │
-│                                                  │└──────────────────────────┘
+│                                                c │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │

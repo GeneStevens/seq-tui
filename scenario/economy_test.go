@@ -76,6 +76,14 @@ func TestEquipALootedItem(t *testing.T) {
 		w.Advance(time.Second)
 	}
 	b.Eventually("the bystander sees the drops", func(m *model.Model) bool { return len(m.Drops) >= 3 })
+	// The drop event describes the item (D52): its tier, binding and stats are
+	// known at once, before it is looted and before any snapshot comes.
+	p.Model(func(m *model.Model) {
+		it := m.Item("scuttler-blade")
+		if it == nil || it.GetTier() != "rare" || !it.GetBindOnPickup() || it.GetStats() == nil || !hasLog(m, "loot_dropped", "Scuttler Blade [Rare, bound on pickup]") {
+			t.Fatalf("the dropped blade is described as %v", it)
+		}
+	})
 	b.Model(func(m *model.Model) {
 		for id, d := range m.Drops {
 			if d.GetCanLoot() {
@@ -173,24 +181,24 @@ func TestBuySellTrainBindAndBank(t *testing.T) {
 	notice(t, p, "buy Buckler ok", false)
 	p.Press("esc", "esc")
 
-	arcane := 0
-	// The wizard trainer teaches Arcane Ward, level 3, for 45 crowns, into the first empty slot.
+	lesson := 0
+	// The wizard trainer teaches Glyphshield, level 3, for 45 crowns, into the first empty slot.
 	openTrader(t, p, "Wizard Trainer")
 	p.Model(func(m *model.Model) {
 		for i, tr := range m.NPC("trainer-wizard").GetTrains() {
-			if tr.GetAbility() == "wizard-arcane-ward" {
-				arcane = i
+			if tr.GetAbility() == "wizard-glyphshield" {
+				lesson = i
 			}
 		}
 	})
-	for range arcane {
+	for range lesson {
 		p.Press("down")
 	}
 	p.Golden("trainer")
 	p.Press("enter")
-	notice(t, p, "train Arcane Ward ok", false)
+	notice(t, p, "train Glyphshield ok", false)
 	p.Model(func(m *model.Model) {
-		if m.AbilityByID("wizard-arcane-ward") == nil || m.SlotOf("wizard-arcane-ward") != 3 || m.Self.Crowns != 114-12-45 || !hasLog(m, "reward", "you learned Arcane Ward") {
+		if m.AbilityByID("wizard-glyphshield") == nil || m.SlotOf("wizard-glyphshield") != 3 || m.Self.Crowns != 114-12-45 || !hasLog(m, "reward", "you learned Glyphshield") {
 			t.Fatalf("after training: slots %s, %d crowns", slotsOf(m), m.Self.Crowns)
 		}
 	})

@@ -2,23 +2,23 @@
 │       #                                               .                                        ││ Hale  Lv 1 Warrior           | 0 crowns│
 │       #                                               .                                        ││ HP 120/120 ########################### │
 │       #                                               .                                        ││ XP ------------------------- 40 to Lv 2│
-│       #                                               .                                        ││ Atk off | none                         │
+│       #           $                                   .                                        ││ Atk off | none                         │
 │       #                                               .                                        │└────────────────────────────────────────┘
 │       #                                               .                                        │┌─ Target ───────────────────────────────┐
 │       #                                               .                                        ││ no target (Tab to choose)              │
 │                                                       .                                        ││                                        │
 │                                                       .                                        ││                                        │
-│                                                       .                                        │└────────────────────────────────────────┘
+│                                    ?                  .                                        │└────────────────────────────────────────┘
 │                                                       .                                        │┌─ Contracts (K) ────────────────────────┐
 │                                                       .                                        ││ Thin the Meadow Wolves             0/3 │
 │                                                @      .                                        │└────────────────────────────────────────┘
 │                                                       .                                        │┌─ Nearby ───────────────────────────────┐
 │                                                       .                                        ││ D east-gate                    0m here │
+│                                                       .                                        ││ ? Captain Rhosyn H… 11m NW quest_giver │
+│                                                       .                                        ││ $ Odalys Penn            28m NW banker │
 │                                                       .                                        ││ $ Isolde Fenn             50m W binder │
 │                                                       .                                        ││ & Thornwick Cont… 58m W contract_board │
 │                                                       .                                        ││ $ Barnaby Tuck            64m W vendor │
-│                                                       .                                        ││                                        │
-│                                                       .                                        ││                                        │
 │                                                       .                                        ││                                        │
 │                                                       .                                        ││                                        │
 │                                                       .                                        ││                                        │
@@ -33,12 +33,12 @@
 │     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │ +   N.Ns you took the contract Thin the Meadow Wolves                                                                                    │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
+│     N.Ns Barnaby Tuck is out of view                                                                                                     │
+│     N.Ns Odalys Penn (banker) is in view                                                                                                 │
+│     N.Ns Thornwick Contract Board is out of view                                                                                         │
+│     N.Ns Isolde Fenn is out of view                                                                                                      │
+│    NN.Ns Captain Rhosyn Hartley (quest_giver) is in view                                                                                 │
+│    NN.Ns Odalys Penn is out of view                                                                                                      │
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

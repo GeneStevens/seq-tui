@@ -71,14 +71,17 @@ func tickOf(m *model.Model) time.Duration {
 	return 100 * time.Millisecond
 }
 
-// perilWords marks a preset of the heroic difficulty (Peril, D44): the server
-// takes an entry fee from the opener, in crowns, when it accepts the request.
-// The protocol does not say how much; the log does, once it is paid.
+// perilWords says the preset's tier and, when there is one, the entry fee the
+// server takes from the opener when it accepts the request (D44, D52).
 func perilWords(p *pb.InstancePreset) string {
-	if p.GetDifficulty() == "heroic" {
-		return "; Peril: an entry fee in crowns is taken when it opens"
+	words := ""
+	if t := p.GetTier(); t != "" {
+		words = "; " + strings.ToUpper(t[:1]) + t[1:]
 	}
-	return ""
+	if f := p.GetEntryFee(); f > 0 {
+		words += ": entry fee " + crownsWord(f) + ", taken when it opens"
+	}
+	return words
 }
 
 func menuLines(m *model.Model, v View, w, h int, st Styler) []string {
