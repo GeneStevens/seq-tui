@@ -94,16 +94,25 @@ func (m *Model) noteContracts(s *pb.Snapshot) {
 		m.contractNames = map[string]string{}
 		m.contractTexts = map[string]contractText{}
 	}
+	note := func(id, name, description string, reward *pb.RewardInfo) {
+		t := m.contractTexts[id]
+		t.name, m.contractNames[id] = name, name
+		if description != "" {
+			t.description = description
+		}
+		if reward != nil {
+			t.reward = reward
+		}
+		m.contractTexts[id] = t
+	}
 	for _, c := range s.GetSelf().GetContracts() {
 		if c.GetName() != c.GetId() && c.GetName() != "" {
-			m.contractNames[c.GetId()] = c.GetName()
-			m.contractTexts[c.GetId()] = contractText{c.GetName(), c.GetDescription(), c.GetReward()}
+			note(c.GetId(), c.GetName(), c.GetDescription(), c.GetReward())
 		}
 	}
 	for _, n := range s.GetNpcs() {
 		for _, o := range n.GetOffers() {
-			m.contractNames[o.GetId()] = o.GetName()
-			m.contractTexts[o.GetId()] = contractText{o.GetName(), o.GetDescription(), o.GetReward()}
+			note(o.GetId(), o.GetName(), o.GetDescription(), o.GetReward())
 		}
 	}
 }

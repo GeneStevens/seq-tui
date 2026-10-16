@@ -16,6 +16,10 @@ This file lists each content item in `seq-tui` and its source (for example "inve
 | `screen/kit.go` class lines (`Classes`) | The six launch classes are those of seq-design doc 05 §3 (D42); each one-line description is written new for the creation screen, 2026-10-16, from the kits in seq's `content/placeholder/classes.yaml` and invented for SEQ. |
 | `screen/map.go` rasterizer | The technique (Bresenham lines into cells, a player-centred viewport whose centre is snapped to a whole cell) is that of `mapgeo.go` at `pre-reset`; the code is written new for the protocol's zone map, and no map data or name from before the reset is used. Glyphs (`@ m M x p * D #`) are invented for SEQ, 2026-10-15. |
 
+| `testdata/logs/thornwick_board.jsonl`, `thornwick_hunt.jsonl`, `thornwick_shops.jsonl`, `thornwick_scout.jsonl`, `thornwick_raid.jsonl`, `thornwick_rare.jsonl` | Recorded by the Thornwick scenarios (`scenario/town_test.go`, `make fixtures`) from seq's Thornwick pack (seq at a8443eb, SEQ-045); every name, id and line in them is the pack's own. The scenarios are invented for SEQ. |
+| `scenario/town.go` | Written for SEQ, 2026-10-16, following the structure of seq's `testserver/testserver.go` (our own sibling repo, same author): the same cluster, manual clock and pacer, with Thornwick and the Downs as the spaces. No outside code. |
+| `screen/world.go`, `app/people.go`, `model/contracts.go` | Written for SEQ, 2026-10-16. The map glyphs `& ? % c r` and the screens' wording are invented for SEQ. `model.IsRare` names two mobs of seq's packs ("Old Grimtusk", "Ancient Scuttler"), both invented for SEQ. |
+
 ## Exclusions
 
 All content that existed before the reset is excluded: nothing from the tree at tag `pre-reset` (commit `9d04d89`) is carried into this tree. It stays in git history only. Any later salvage (for example the map rasterizer, see `README.md`) must be recorded in the table above, with its source, in the mission that brings it in.
