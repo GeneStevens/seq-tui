@@ -11,6 +11,7 @@
 #   SEQ_PG_PORT=55432   host port of the database
 #   SEQ_ADDR=127.0.0.1:8443   where the server listens
 #   SEQ_CHARACTER=me-1  the character to play (me-1 or me-2)
+#   SEQ_NEW=1           make a new character on the creation screen instead
 set -eu
 
 cd "$(dirname "$0")/.."
@@ -94,5 +95,10 @@ done
 [ -n "$token" ] || { echo "seqd did not start; see $log"; exit 1; }
 
 go build -o tmp/seq-tui ./cmd/seq-tui
-echo "playing $character on $addr (? for keys, q to quit) ..."
-SEQ_SESSION_TOKEN="$token" tmp/seq-tui -insecure -url "wss://$addr/seq/v1" -character "$character"
+if [ "${SEQ_NEW:-}" = 1 ]; then
+	echo "making a character on $addr (? for keys once playing, Ctrl+C to quit) ..."
+	SEQ_SESSION_TOKEN="$token" tmp/seq-tui -insecure -url "wss://$addr/seq/v1" -new
+else
+	echo "playing $character on $addr (? for keys, q to quit) ..."
+	SEQ_SESSION_TOKEN="$token" tmp/seq-tui -insecure -url "wss://$addr/seq/v1" -character "$character"
+fi

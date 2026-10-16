@@ -10,7 +10,6 @@ import (
 )
 
 const (
-	youRows    = 6
 	targetRows = 5
 )
 
@@ -20,19 +19,39 @@ const (
 // Instance panel, or to the Round panel when Nearby does not fit.
 func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	iw := rw - 2
-	rows := box("You", rw, youRows, youLines(m, iw, st), st)
-	left := th - youRows
+	you := youLines(m, v, iw, st)
+	rows := box("You", rw, len(you)+2, you, st)
+	left := th - len(rows)
 	inst, round := 0, 0
 	if instanceShown(m) {
 		inst = max(instanceRows(m), 2) + 2
-		left -= inst
 	}
 	turn := m.TurnBased()
 	if turn {
 		round = 7
-		left -= round
+	}
+	if left < inst+round {
+		// Too little room for both: the plan comes first, the Instance panel
+		// takes what is left of the column or is left out.
+		switch {
+		case turn:
+			round = min(round, max(min(5, left), left-inst))
+			inst = left - round
+		default:
+			inst = left
+		}
+		if inst < 3 {
+			inst = 0
+		}
+		if round < 3 {
+			round = 0
+		}
+		left = 0
+	} else {
+		left -= inst + round
 	}
 	target := left >= targetRows
+	targetH := targetRows
 	if target {
 		left -= targetRows
 	}
@@ -48,15 +67,17 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		round += left
 	case inst > 0:
 		inst += left
+	case target:
+		targetH += left
 	}
 	if inst > 0 {
 		rows = append(rows, box("Instance", rw, inst, instanceLines(m, iw, inst-2, st), st)...)
 	}
-	if turn {
+	if turn && round > 0 {
 		rows = append(rows, box(roundTitle(m, v), rw, round, roundLines(m, v, iw, round-2, st), st)...)
 	}
 	if target {
-		rows = append(rows, box("Target", rw, targetRows, targetLines(m, iw, st), st)...)
+		rows = append(rows, box("Target", rw, targetH, pad(targetLines(m, iw, st), iw, targetH-2), st)...)
 	}
 	if nearby {
 		h := th - len(rows)
@@ -75,7 +96,10 @@ func onOff(b bool) string {
 	return "off"
 }
 
-func youLines(m *model.Model, w int, st Styler) []string {
+func youLines(m *model.Model, v View, w int, st Styler) []string {
+	if m.HasKit() {
+		return kitLines(m, v, w, st)
+	}
 	s := m.Self
 	name := s.Name
 	if name == "" {
@@ -245,7 +269,7 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 	}
 	var all []styled
 	for _, e := range m.Log {
-		if !v.Verbose && (e.Kind == "entity_moved" || e.Kind == "rules_tick") {
+		if !v.Verbose && (e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed") {
 			continue
 		}
 		mark, fn := " ", func(s string) string { return s }
@@ -261,7 +285,14 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 			}
 		case e.Kind == "reward":
 			mark, fn = "+", st.Green
-		case e.Kind == "entity_moved" || e.Kind == "rules_tick":
+		case e.Kind == "cast_cancelled" || e.Kind == "cast_interrupted":
+			mark, fn = "!", func(s string) string { return st.Red(st.Bold(s)) }
+			if e.Actor != m.Self.ID {
+				mark, fn = " ", st.Dim
+			}
+		case e.Kind == "level_up":
+			mark, fn = "+", func(s string) string { return st.Green(st.Bold(s)) }
+		case e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed":
 			fn = st.Dim
 		}
 		prefix := fmt.Sprintf(" %s %5.1fs ", mark, float64(e.GameTimeMs)/1000)

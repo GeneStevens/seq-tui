@@ -4,7 +4,7 @@ go 1.27.2
 
 require (
 	charm.land/bubbletea/v2 v2.1.0
-	github.com/GeneStevens/seq v0.0.0-20261016055508-7351faf392af
+	github.com/GeneStevens/seq v0.0.0-20261016090509-f44915e59211
 	github.com/coder/websocket v1.8.15
 	google.golang.org/protobuf v1.36.12
 )
@@ -31,4 +31,5 @@ require (
 	golang.org/x/sync v0.22.0 // indirect
 	golang.org/x/sys v0.47.0 // indirect
 	golang.org/x/text v0.29.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

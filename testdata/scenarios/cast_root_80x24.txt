@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                    .                   #         ││ Zedd  Lv 1 Wizard        │
+│                    .                   #         ││ HP 80/80 ############### │
+│                    .                   #         ││ MP 150/150 ############# │
+│                    .                   #         ││ XP ----------- 40 to Lv 2│
+│                    .                   #         ││ Cast Root #--------- N.Ns│
+│                    .    @     M        #         │└──────────────────────────┘
+│                    .                   #         │┌─ Target ─────────────────┐
+│                    .                   #         ││ M Plain Scuttler  Lv 1   │
+│                    .                   #         ││ HP 40/40 ######## 13m E  │
+│                    .                   #         ││ not in a fight           │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Root         busy 2 Frost Bolt  busy 3 Flame Dart  busy 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none   |   Plain Scuttler: none                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns slot 1 holds Root                                                   │
+│     N.Ns slot 3 holds Flame Dart                                             │
+│     N.Ns Zedd targeted Plain Scuttler                                        │
+│     N.Ns Zedd began casting Root (1.5 s)                                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | key 1 Root ok            ? help  q quit

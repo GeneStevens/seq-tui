@@ -13,11 +13,11 @@
 │                                                                                                │┌─ Round 1, 19 s left ───────────────────┐
 │                                                                                                ││ 1 of 1 submitted                       │
 │                                                                                                ││ you                                    │
-│                                                @                                               ││ Plan (3/16): accepted                  │
+│                                                @                                               ││ Plan (2/16): accepted                  │
 │                                                                                                ││  counts even if you disconnect         │
-│                                                                                                ││  1 move (100000,87000)                 │
-│                                                                                                ││  2 move (100000,84000)                 │
-│                                                +                                               ││  3 target Plain Scuttler               │
+│                                                +                                               ││  1 move (100000,87000)                 │
+│                                                                                                ││  2 target Plain Scuttler               │
+│                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │

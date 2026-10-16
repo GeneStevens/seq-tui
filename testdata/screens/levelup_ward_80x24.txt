@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                    .                   #         ││ zedd  Lv 2 Wizard        │
+│                    .                   #         ││ HP 88/88 ############### │
+│                    .                   #         ││ MP 115/173 ########----- │
+│                    .                   #         ││ XP ###-------- 40 to Lv 3│
+│                    .                   #         ││ Atk off | none           │
+│                    .    @*             #         │└──────────────────────────┘
+│                    .                   #         │┌─ Target ─────────────────┐
+│                    .                   #         ││ no target (Tab to choose)│
+│                    .                   #         ││                          │
+│                    .                   #         ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Flame Dart    gcd 2 Frost Bolt   gcd 3 Arcane Ward  60s 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: Arcane Ward 36s                                                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    10.1s Plain Scuttler left view                                            │
+│ +  10.1s you reached level 2: new ability Arcane Ward (key 3)                │
+│    10.7s zedd used Arcane Ward                                               │
+│    10.7s Arcane Ward: lifesteal on zedd for 36 s                             │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago | key 3 Arcane Ward ok     ? help  q quit

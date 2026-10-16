@@ -48,6 +48,13 @@ type View struct {
 	Menu *Menu
 	Plan Plan
 	Now  time.Time
+
+	// Slots is the slot screen and Create the character creation screen, nil
+	// when closed. GameNow is the game time the cooldowns and the cast bar read
+	// (0: the last time the server said).
+	Slots   *Slots
+	Create  *Create
+	GameNow int64
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -60,16 +67,26 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	th := h - lh - 1 // rows above the log
 	var rows []string
 	switch {
+	case v.Create != nil:
+		rows = box("New character", w, th+lh, createLines(v.Create, w-2, th+lh-2, st), st)
 	case v.Help:
 		rows = box("Keys", w, th+lh, helpLines(w-2, th+lh-2, st), st)
+	case v.Slots != nil:
+		rows = box("Ability slots", w, th+lh, slotScreenLines(m, v, w-2, th+lh-2, st), st)
 	case v.Menu != nil:
 		rows = box("Instances", w, th+lh, menuLines(m, v, w-2, th+lh-2, st), st)
 	default:
 		mapW := w - rw
+		if m.HasKit() {
+			th -= abilityRows
+		}
 		mp := box(mapTitle(m), mapW, th, mapPanel(m, v, mapW-2, th-2, st), st)
 		right := rightColumn(m, v, rw, th, st)
 		for i := range mp {
 			rows = append(rows, mp[i]+right[i])
+		}
+		if m.HasKit() {
+			rows = append(rows, box("Abilities (keys 1-8, B sets the slots)", w, abilityRows, abilityLines(m, v, w-2, st), st)...)
 		}
 		rows = append(rows, box(fmt.Sprintf("Events (%s)", logMode(v)), w, lh, logLines(m, v, w-2, lh-2, st), st)...)
 	}
@@ -142,20 +159,21 @@ func helpLines(w, h int, st Styler) []string {
 		"Loot             L: the nearest drop you may take",
 		"Use a door       E: the nearest door; stand at it first",
 		"Release          R: when you are dead, give up your body and respawn",
+		"Abilities        1-8 use that slot on your target; B sets slots (idle)",
 		"Instances        I: this zone's menu (Enter opens one); then E at its door",
 		"Plans            in a turn-based instance the keys build a plan, not act:",
-		"                 arrows move, Tab target, F attack, L loot, E door, X stop, R release",
-		"                 Enter submits it, Backspace removes a step, Esc clears the plan",
+		"                 arrows, Tab target, F attack, 1-8 ability, L loot, E door,",
+		"                 X stop, R release. One move or door, one ability or attack.",
+		"                 Enter submits, Backspace removes a step, Esc clears it",
 		"Leave            O logs out of the world; Q or Ctrl+C quits the screen only",
-		"Event log        V: also show movement and rules ticks      Help  ?",
-		"",
+		"Event log        V: also show movement, rules ticks and mana      Help  ?",
 		"Map: north is up, your position is always the centre.",
 		"  @ you     m mob     M your target     x dead mob     + end of your plan",
 		"  p another character     * a drop     D a door     # wall",
-		"  Nearby lists the same things nearest first, with a distance and a compass point.",
+		"  Nearby lists the same, nearest first, with a distance and a compass point.",
 		"",
-		"Event log markers:  ! denied (with the reason)   < a hit on you",
-		"                    x a kill   + a reward",
+		"Event log markers:  ! denied (with the reason) or a cast that did not land",
+		"                    < a hit on you   x a kill   + a reward or a level",
 	}
 	rows := make([]string, h)
 	for i := range rows {

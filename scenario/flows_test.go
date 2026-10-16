@@ -219,20 +219,26 @@ func TestQuickTurns(t *testing.T) {
 	})
 
 	// Build a plan, take a step back with Backspace, throw it away with Esc, build it again.
-	p.Press("down", "down", "tab", "f")
-	if got := p.Plan(); len(got) != 4 || got[3] != "attack on" {
+	p.Press("down", "tab", "f")
+	if got := p.Plan(); len(got) != 3 || got[2] != "attack on" {
 		t.Fatalf("plan %q", got)
 	}
 	p.Press("backspace")
-	if got := p.Plan(); len(got) != 3 {
+	if got := p.Plan(); len(got) != 2 {
 		t.Fatalf("after Backspace: plan %q", got)
 	}
 	p.Press("esc")
 	if got := p.Plan(); len(got) != 0 {
 		t.Fatalf("after Esc: plan %q", got)
 	}
-	p.Press("down", "down", "tab")
-	if got := p.Plan(); len(got) != 3 {
+	p.Press("down", "tab")
+	if got := p.Plan(); len(got) != 2 {
+		t.Fatalf("plan %q", got)
+	}
+	// A second move is not taken: a plan holds one (doc 05 §4.6).
+	p.Press("down")
+	notice(t, p, "a plan holds one move or door", true)
+	if got := p.Plan(); len(got) != 2 {
 		t.Fatalf("plan %q", got)
 	}
 	p.Golden("round_plan")

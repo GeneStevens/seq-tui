@@ -134,3 +134,16 @@ func (s *Session) OpenInstance(ctx context.Context, preset string) (string, erro
 func (s *Session) SubmitPlan(ctx context.Context, steps ...agentkit.Step) (string, error) {
 	return s.intent(ctx, "plan", agentkit.TurnSubmit(steps...))
 }
+
+// UseAbility uses the ability in a slot (1 to 8) on the target; "" is the
+// current target, or the character itself for a self ability. The server
+// decides whether it can be used now; the answer is the intent's result.
+func (s *Session) UseAbility(ctx context.Context, slot int, target string) (string, error) {
+	return s.intent(ctx, "use_ability", agentkit.UseAbility(slot, target))
+}
+
+// SetSlot puts a known ability in a slot (1 to 8); "" empties the slot. The
+// server allows it out of combat only.
+func (s *Session) SetSlot(ctx context.Context, slot int, ability string) (string, error) {
+	return s.intent(ctx, "set_slot", agentkit.SetSlot(slot, ability))
+}

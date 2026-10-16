@@ -22,8 +22,11 @@ type LogEntry struct {
 }
 
 func (m *Model) logEvent(e *pb.Event) {
-	kind, text, reason := describe(e, m.label)
+	kind, text, reason := describe(e, m.label, m.AbilityName)
 	if k, t, r, ok := m.describeInstance(e); ok {
+		kind, text, reason = k, t, r
+	}
+	if k, t, r, ok := describeCombat(e, m.label, m.AbilityName); ok {
 		kind, text, reason = k, t, r
 	}
 	var actor, target string
@@ -32,6 +35,12 @@ func (m *Model) logEvent(e *pb.Event) {
 		actor, target = b.Combat.GetAttacker(), b.Combat.GetTarget()
 	case *pb.Event_Denied:
 		actor, target = b.Denied.GetActor(), b.Denied.GetTarget()
+	case *pb.Event_AbilityUsed:
+		actor, target = b.AbilityUsed.GetActor(), b.AbilityUsed.GetTarget()
+	case *pb.Event_CastCancelled:
+		actor, target = b.CastCancelled.GetActor(), b.CastCancelled.GetTarget()
+	case *pb.Event_CastInterrupted:
+		actor, target = b.CastInterrupted.GetActor(), b.CastInterrupted.GetTarget()
 	}
 	m.Log = append(m.Log, LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target})
 	if over := len(m.Log) - m.logCap; over > 0 {
@@ -48,7 +57,7 @@ func (m *Model) label(id string) string {
 	return id
 }
 
-func describe(e *pb.Event, label func(string) string) (kind, text, reason string) {
+func describe(e *pb.Event, label, ability func(string) string) (kind, text, reason string) {
 	switch b := e.GetBody().(type) {
 	case *pb.Event_EntityAppeared:
 		en := b.EntityAppeared.GetEntity()
@@ -61,13 +70,21 @@ func describe(e *pb.Event, label func(string) string) (kind, text, reason string
 		c := b.Combat
 		switch c.GetKind() {
 		case pb.CombatKind_COMBAT_KIND_HIT:
+			if c.GetAbility() != "" {
+				return "combat_hit", fmt.Sprintf("%s's %s hit %s for %d", label(c.GetAttacker()), ability(c.GetAbility()), label(c.GetTarget()), c.GetAmount()), ""
+			}
 			return "combat_hit", fmt.Sprintf("%s hit %s for %d", label(c.GetAttacker()), label(c.GetTarget()), c.GetAmount()), ""
 		case pb.CombatKind_COMBAT_KIND_MISS:
 			return "combat_miss", fmt.Sprintf("%s missed %s", label(c.GetAttacker()), label(c.GetTarget())), ""
 		case pb.CombatKind_COMBAT_KIND_DEATH:
 			return "combat_death", fmt.Sprintf("%s killed %s", label(c.GetAttacker()), label(c.GetTarget())), ""
 		case pb.CombatKind_COMBAT_KIND_HEAL:
+			if c.GetAbility() != "" {
+				return "combat_heal", fmt.Sprintf("%s's %s healed %s for %d", label(c.GetAttacker()), ability(c.GetAbility()), label(c.GetTarget()), c.GetAmount()), ""
+			}
 			return "combat_heal", fmt.Sprintf("%s healed %d", label(c.GetTarget()), c.GetAmount()), ""
+		case pb.CombatKind_COMBAT_KIND_ABSORB:
+			return "combat_absorb", fmt.Sprintf("a shield on %s took %d", label(c.GetTarget()), c.GetAmount()), ""
 		}
 		return "combat", "combat", ""
 	case *pb.Event_EncounterOpened:
@@ -84,7 +101,11 @@ func describe(e *pb.Event, label func(string) string) (kind, text, reason string
 		if w.GetKind() == "loot" {
 			return "reward", fmt.Sprintf("%s received %s from %s", label(w.GetRecipient()), w.GetItem(), w.GetSource()), ""
 		}
-		return "reward", fmt.Sprintf("%s received %d %s from %s", label(w.GetRecipient()), w.GetAmount(), w.GetKind(), label(w.GetSource())), ""
+		text = fmt.Sprintf("%s received %d %s from %s", label(w.GetRecipient()), w.GetAmount(), w.GetKind(), label(w.GetSource()))
+		if w.GetLevel() > 0 {
+			text += fmt.Sprintf(" and reached level %d", w.GetLevel())
+		}
+		return "reward", text, ""
 	case *pb.Event_RulesTick:
 		return "rules_tick", "rules tick", ""
 	case *pb.Event_SpaceChanged:

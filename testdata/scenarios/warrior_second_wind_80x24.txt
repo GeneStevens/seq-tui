@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                    .                   #         ││ gorm  Lv 1 Warrior       │
+│                    .                   #         ││ HP 114/120 ############- │
+│                    .                   #         ││ XP ----------- 40 to Lv 2│
+│                    .                   #         ││ Atk ON | Plain Scuttler  │
+│                    .                   #         │└──────────────────────────┘
+│                    .    @M             #         │┌─ Target ─────────────────┐
+│                    .                   #         ││ M Plain Scuttler  Lv 1   │
+│                    .                   #         ││ HP 40/40 ######### 2m E  │
+│                    .                   #         ││ fighting you             │
+│                    .                   #         ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        N.Ns 2 Bash         gcd 3 Second Wind  90s 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: Second Wind 12s   |   Plain Scuttler: none                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns gorm missed Plain Scuttler                                          │
+│     N.Ns gorm used Second Wind                                               │
+│     N.Ns Second Wind: lifesteal on gorm for 12 s                             │
+│ <   N.Ns Plain Scuttler hit gorm for 4                                       │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | key 3 Second Wind ok     ? help  q quit

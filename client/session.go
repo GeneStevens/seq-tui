@@ -130,6 +130,65 @@ func (s *Session) Login(ctx context.Context) error {
 	return nil
 }
 
+// Connect dials and presents the credential without choosing a character: the
+// connection a player makes a new character on (CreateCharacter, then Select).
+func (s *Session) Connect(ctx context.Context) error {
+	a, err := agentkit.Connect(ctx, agentkit.Config{
+		URL: s.cfg.URL, TLS: s.cfg.TLS, Credential: s.cfg.Credential, Character: s.cfg.Character,
+		Session: s.cfg.Session, OnMessage: s.onMessage,
+	})
+	if err != nil {
+		return err
+	}
+	s.mu.Lock()
+	s.agent, s.cur = a, a.Client()
+	s.mu.Unlock()
+	s.watch(a.Client())
+	return nil
+}
+
+// Refused is a create_character the server refused: Reason is its code
+// ("bad_name", "name_taken", "unknown_class", "too_many_characters").
+type Refused struct{ Reason string }
+
+func (r Refused) Error() string { return "refused: " + r.Reason }
+
+// CreateCharacter makes a character of the account and returns its id, which
+// Select takes (D46). A refusal is a Refused.
+func (s *Session) CreateCharacter(ctx context.Context, name, class string) (string, error) {
+	s.mu.Lock()
+	a, before := s.agent, len(s.m.Errors)
+	s.mu.Unlock()
+	if a == nil {
+		return "", errors.New("not connected")
+	}
+	id, err := a.CreateCharacter(ctx, name, class)
+	if err != nil {
+		s.mu.Lock()
+		defer s.mu.Unlock()
+		for _, e := range s.m.Errors[min(before, len(s.m.Errors)):] {
+			if e.GetCode() == pb.ErrorCode_ERROR_CODE_CREATE_REFUSED {
+				return "", Refused{e.GetMessage()}
+			}
+		}
+		return "", err
+	}
+	return id, nil
+}
+
+// Select chooses the character to play; the first snapshot is in the model
+// when it returns.
+func (s *Session) Select(ctx context.Context, id string) error {
+	s.mu.Lock()
+	a := s.agent
+	s.mu.Unlock()
+	if a == nil {
+		return errors.New("not connected")
+	}
+	_, err := a.Select(ctx, id)
+	return err
+}
+
 // client is the connection now in use, nil before a login. It is the one the
 // session last saw up: the toolkit holds its own lock for the whole of a
 // reconnect, while the pong it waits for comes through onMessage, which needs

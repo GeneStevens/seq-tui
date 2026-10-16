@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                    .                   #         ││ Zedd  Lv 1 Wizard        │
+│                    .                   #         ││ HP 80/80 ############### │
+│                    .                   #         ││ MP 140/150 ############- │
+│                    .                   #         ││ XP ----------- 40 to Lv 2│
+│                    .                   #         ││ Atk off | Plain Scuttler │
+│                    .    @     M        #         │└──────────────────────────┘
+│                    .                   #         │┌─ Target ─────────────────┐
+│                    .                   #         ││ M Plain Scuttler  Lv 1   │
+│                    .                   #         ││ HP 40/40 ######## 13m E  │
+│                    .                   #         ││ fighting you             │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Root        ready 2 Frost Bolt ready 3 Flame Dart ready 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none   |   Plain Scuttler: Rooted 18s                                   │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     2.2s Zedd used Root on Plain Scuttler                                    │
+│     2.2s Zedd opened an encounter with Plain Scuttler (enc-1)                │
+│     2.2s Root: root on Plain Scuttler for 18 s                               │
+│     2.3s Plain Scuttler targeted Zedd                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago | key 1 Root ok            ? help  q quit

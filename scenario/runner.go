@@ -139,6 +139,7 @@ type Player struct {
 	done      chan struct{}
 	keys      int
 	rec       *record.Writer
+	creating  bool // the program opened on the creation screen
 }
 
 // Login starts a TUI for the account's character: it logs in with a session
@@ -155,6 +156,31 @@ func (w *World) Login(account, character string) *Player {
 	return p
 }
 
+// NewCharacter starts a TUI for the account with no character chosen: it
+// connects and opens on the creation screen, as `seq-tui -new` does. Press the
+// keys that make the character; Created says which it is. The first player of a
+// world with a fixture is recorded.
+func (w *World) NewCharacter(account string) *Player {
+	w.T.Helper()
+	p := &Player{w: w, Account: account, creating: true}
+	if len(w.players) == 0 {
+		p.rec = w.rec
+	}
+	w.players = append(w.players, p)
+	p.start()
+	return p
+}
+
+// Created waits for the character the creation screen made to be playing, and
+// names the player after it: the character's id.
+func (p *Player) Created() {
+	t := p.w.T
+	t.Helper()
+	p.Eventually("the new character", func(m *model.Model) bool { return m.Ready() && m.Map != nil && m.Map.GetSpace() == m.Space })
+	p.Model(func(m *model.Model) { p.Character = m.Self.ID })
+	p.creating = false
+}
+
 func (p *Player) start() {
 	t := p.w.T
 	t.Helper()
@@ -162,10 +188,17 @@ func (p *Player) start() {
 	p.Sess = client.NewSession(cfg)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	if err := p.Sess.Login(ctx); err != nil {
+	login := p.Sess.Login
+	if p.creating {
+		login = p.Sess.Connect
+	}
+	if err := login(ctx); err != nil {
 		t.Fatalf("%s: login: %v", p.Character, err)
 	}
 	a := app.New(p.Sess)
+	if p.creating {
+		a = app.NewCreator(p.Sess)
+	}
 	a.Clock = p.w.Now
 	pr, pw := io.Pipe()
 	p.in, p.keys, p.done = pw, 0, make(chan struct{})
@@ -265,6 +298,14 @@ func (p *Player) idle() {
 			t.Fatalf("%s: the program did not finish handling %d key presses", p.Character, p.keys)
 		}
 		time.Sleep(200 * time.Microsecond)
+	}
+}
+
+// Type presses the keys of the text, one letter at a time.
+func (p *Player) Type(text string) {
+	p.w.T.Helper()
+	for _, r := range text {
+		p.Press(string(r))
 	}
 }
 

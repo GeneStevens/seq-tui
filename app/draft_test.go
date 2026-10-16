@@ -1,6 +1,7 @@
 package app_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/GeneStevens/seq-tui/app"
@@ -13,57 +14,74 @@ func TestPlanKeysBuildASequenceOfSteps(t *testing.T) {
 		t.Fatal("not turn-based")
 	}
 	var d app.Draft
-	press := func(key string) app.Action {
+	press := func(key string) (app.Action, string) {
 		a := app.TurnKey(key, m, &d)
+		why := ""
 		if a.Kind == app.PlanAdd {
-			d.Add(*a.Step)
+			why = d.Add(*a.Step)
 		}
-		return a
+		return a, why
 	}
-	// Arrow steps start where the previous move of the plan ends, not where the
-	// character stands now.
+	// A move step starts where the character stands now; a plan holds one move
+	// (doc 05 §4.6), so a second is refused and says why.
 	press("down")
-	press("down")
-	press("left")
-	want := [][2]int64{{100000, 90000 - app.StepMm}, {100000, 90000 - 2*app.StepMm}, {100000 - app.StepMm, 90000 - 2*app.StepMm}}
-	for i, w := range want {
-		if s := d.Steps[i]; s.Kind != app.Move || s.X != w[0] || s.Y != w[1] {
-			t.Errorf("step %d: %+v, want move to %v", i+1, s, w)
-		}
+	if s := d.Steps[0]; s.Kind != app.Move || s.X != 100000 || s.Y != 90000-app.StepMm {
+		t.Errorf("move: %+v", s)
 	}
-	if p := d.Dest(); p.GetX() != want[2][0] || p.GetY() != want[2][1] {
+	if _, why := press("left"); !strings.Contains(why, "one move or door") || len(d.Steps) != 1 {
+		t.Errorf("a second move: %q, %d steps", why, len(d.Steps))
+	}
+	if _, why := press("e"); !strings.Contains(why, "one move or door") {
+		t.Errorf("a door after a move: %q", why)
+	}
+	if p := d.Dest(); p.GetX() != 100000 || p.GetY() != 90000-app.StepMm {
 		t.Errorf("dest %v", p)
 	}
 	press("tab")
-	if s := d.Steps[3]; s.Kind != app.Target || s.ID == "" {
+	if s := d.Steps[1]; s.Kind != app.Target || s.ID == "" {
 		t.Errorf("tab: %+v", s)
 	}
-	// Auto-attack is off now; the plan turns it on, then off again.
+	// Auto-attack is off now; the plan turns it on. That is the plan's one
+	// action: neither a second toggle nor an ability is taken after it.
 	press("f")
-	press("f")
-	if !d.Steps[4].On || d.Steps[5].On {
-		t.Errorf("attack steps %+v %+v", d.Steps[4], d.Steps[5])
+	if !d.Steps[2].On {
+		t.Errorf("attack step %+v", d.Steps[2])
+	}
+	for _, key := range []string{"f", "1", "8"} {
+		if _, why := press(key); !strings.Contains(why, "one ability or attack toggle") || len(d.Steps) != 3 {
+			t.Errorf("%s after an attack: %q, %d steps", key, why, len(d.Steps))
+		}
 	}
 	press("x")
 	press("r")
-	if d.Steps[6].Kind != app.Stop || d.Steps[7].Kind != app.Release {
-		t.Errorf("%+v", d.Steps[6:])
+	if d.Steps[3].Kind != app.Stop || d.Steps[4].Kind != app.Release {
+		t.Errorf("%+v", d.Steps[3:])
 	}
-	if got := len(d.Agent()); got != 8 {
+	if got := len(d.Agent()); got != 5 {
 		t.Errorf("%d toolkit steps", got)
 	}
 	lines := d.Lines(m)
-	if lines[3] != "target Plain Scuttler" || lines[4] != "attack on" || lines[5] != "attack off" || lines[6] != "stop" {
+	if lines[1] != "target Plain Scuttler" || lines[2] != "attack on" || lines[3] != "stop" {
 		t.Errorf("lines %q", lines)
 	}
+	// Removing the attack frees the action for an ability.
+	d.Undo()
+	d.Undo()
+	d.Undo()
+	if _, why := press("2"); why != "" || d.Steps[len(d.Steps)-1].Kind != app.UseAbility || d.Steps[len(d.Steps)-1].Slot != 2 {
+		t.Errorf("an ability after removing the attack: %q %+v", why, d.Steps)
+	}
+	if got := d.Lines(m); got[len(got)-1] != "use key 2 (empty)" {
+		t.Errorf("lines %q", got)
+	}
 	// Backspace removes the last step, Esc all of them; Enter submits.
-	if a := press("backspace"); a.Kind != app.PlanUndo {
+	if a, _ := press("backspace"); a.Kind != app.PlanUndo {
 		t.Errorf("%+v", a)
 	}
-	if a := press("esc"); a.Kind != app.PlanClear {
+	if a, _ := press("esc"); a.Kind != app.PlanClear {
 		t.Errorf("%+v", a)
 	}
-	if a := press("enter"); a.Kind != app.PlanSubmit {
+	if a, _ := press("enter"); a.Kind != app.PlanSubmit {
 		t.Errorf("%+v", a)
 	}
 }
@@ -74,12 +92,12 @@ func TestPlanDraft(t *testing.T) {
 		t.Error("an empty plan has nothing to remove")
 	}
 	for i := 0; i < screen.MaxPlanSteps; i++ {
-		if !d.Add(app.Action{Kind: app.Stop}) {
-			t.Fatalf("step %d refused", i+1)
+		if why := d.Add(app.Action{Kind: app.Stop}); why != "" {
+			t.Fatalf("step %d refused: %s", i+1, why)
 		}
 	}
-	if d.Add(app.Action{Kind: app.Stop}) {
-		t.Error("a 17th step was taken: the server takes 16")
+	if why := d.Add(app.Action{Kind: app.Stop}); !strings.Contains(why, "plan is full") {
+		t.Errorf("a 17th step was taken: the server takes 16 (%q)", why)
 	}
 	d.Sent = true
 	if !d.Undo() || d.Sent || len(d.Steps) != screen.MaxPlanSteps-1 {
@@ -101,6 +119,9 @@ func TestPlanLootAndDoorAreChosenFromWhereThePlanEnds(t *testing.T) {
 	}
 	if a := app.TurnKey("e", m, &d); a.Kind != app.PlanAdd || a.Step.Kind != app.UseDoor || a.Step.ID != "gate-north" {
 		t.Errorf("%+v", a.Step)
+	}
+	if a := app.TurnKey("3", m, &d); a.Kind != app.PlanAdd || a.Step.Kind != app.UseAbility || a.Step.Slot != 3 {
+		t.Errorf("a number key adds an ability step: %+v", a)
 	}
 	// A bare key that would act in real time never does in a plan.
 	for _, key := range []string{"up", "tab", "f", "l", "e", "r"} {

@@ -60,7 +60,27 @@ type Self struct {
 	Destination    *pb.Pos
 	Stats          *pb.Stats
 	Inventory      []string
+
+	// Class, and the XP the level began at and ends at (XPNext 0: the cap).
+	Class           string
+	XPStart, XPNext int64
+	// The combat model (SEQ-038): mana, the global cooldown, what the
+	// character knows, what is in each slot and when each ability is ready,
+	// the cast in progress and the effects on it. LastCastEnd is the last cast
+	// that did not land, until another begins.
+	Mana, MaxMana int64
+	GCDUntilMs    int64
+	GCDMs         int64
+	Abilities     []*pb.AbilityInfo
+	Slots         [Slots]SlotState
+	ReadyAtMs     map[string]int64
+	Cast          *Cast
+	Effects       []Effect
+	LastCastEnd   *CastEnd
 }
+
+// SlotState is what an ability slot holds.
+type SlotState struct{ Ability string }
 
 // Member is a group member, seen wherever it is.
 type Member struct {
@@ -91,6 +111,9 @@ type Model struct {
 	Opened *Opened
 	Ended  *Ended
 	Round  *Round
+	// TargetEffects are the effects on the other entities in view, as the
+	// events told (the snapshot lists only the character's own).
+	TargetEffects map[string][]Effect
 	// Instance is what the server says of the instance the character is in
 	// (D49): its preset, party cap, time mode, difficulty and sleep limit. Nil
 	// in a world zone.
@@ -117,11 +140,14 @@ type Model struct {
 	Duplicates int
 	Faults     []string
 
-	names     map[string]string // id to name, for every entity ever seen, so the log can name those that left
-	last      uint64            // the stream number of the last event applied, or of the snapshot
-	selected  bool              // a snapshot has arrived
-	logCap    int
-	intentCap int
+	names    map[string]string // id to name, for every entity ever seen, so the log can name those that left
+	last     uint64            // the stream number of the last event applied, or of the snapshot
+	selected bool              // a snapshot has arrived
+	// levelPending: a reward raised the level and the snapshot that says what it
+	// taught has not come yet.
+	levelPending bool
+	logCap       int
+	intentCap    int
 }
 
 // New returns an empty model with the default bounds.
@@ -229,6 +255,10 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	self := s.GetSelf()
 	e := self.GetEntity()
+	if m.Space != s.GetSpace() {
+		m.TargetEffects = nil
+	}
+	old := m.Self
 	m.Space, m.Tick, m.GameTimeMs, m.Instance = s.GetSpace(), s.GetTick(), s.GetGameTimeMs(), s.GetInstance()
 	m.Self = Self{
 		ID: e.GetId(), Name: e.GetName(), Level: e.GetLevel(), HP: e.GetHp(), MaxHP: e.GetMaxHp(), Dead: e.GetDead(),
@@ -236,6 +266,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		HasDestination: self.GetHasDestination(), Destination: clonePos(self.GetDestination()),
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
 	}
+	m.Self.setKit(self, s.GetGameTimeMs())
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
 	m.remember(e)
 	m.Drops, m.Encounters = map[string]*pb.LootDropState{}, map[string]*pb.EncounterState{}
@@ -255,6 +286,10 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	m.last = s.GetSeq()
 	m.selected = true
+	if old.ID == m.Self.ID && (m.levelPending || m.Self.Level > old.Level) && len(old.Abilities) > 0 {
+		m.levelUp(old)
+	}
+	m.levelPending = false
 }
 
 func (m *Model) applyEvent(e *pb.Event) {
@@ -323,6 +358,9 @@ func (m *Model) apply(e *pb.Event) {
 			switch w.GetKind() {
 			case "xp":
 				m.Self.XP += w.GetAmount()
+				if w.GetLevel() > m.Self.Level {
+					m.Self.Level, m.levelPending = w.GetLevel(), true // the fresh snapshot follows
+				}
 			case "loot":
 				m.Self.Inventory = append(m.Self.Inventory, w.GetItem())
 			}
@@ -365,6 +403,7 @@ func (m *Model) apply(e *pb.Event) {
 		r := b.Respawned
 		if r.GetActor() == m.Self.ID {
 			m.Self.Dead, m.Self.Released, m.Self.HP, m.Self.Pos = false, false, r.GetHp(), clonePos(r.GetPos())
+			m.Self.Mana = m.Self.MaxMana // a respawn restores the mana as well as the hit points
 		} else if en := m.entity(r.GetActor()); en != nil {
 			en.Dead, en.Hp, en.Pos = false, r.GetHp(), clonePos(r.GetPos())
 		}
@@ -374,6 +413,8 @@ func (m *Model) apply(e *pb.Event) {
 		}
 	case *pb.Event_InstanceOpened, *pb.Event_InstanceEnded, *pb.Event_RoundStarted, *pb.Event_RoundResolved:
 		m.applyInstanceEvent(e)
+	default:
+		m.applyCombatEvent(e)
 	}
 }
 
@@ -412,6 +453,7 @@ func (m *Model) combat(c *pb.Combat) {
 		} else if en := m.entity(c.GetTarget()); en != nil {
 			en.Dead = true
 		}
+		delete(m.TargetEffects, c.GetTarget())
 		// Nothing else is inferred from a death: the server says when the
 		// target is cleared (target_cleared, then auto_attack_changed off).
 	case pb.CombatKind_COMBAT_KIND_HEAL:

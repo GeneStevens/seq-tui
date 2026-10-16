@@ -213,10 +213,10 @@ func TestRoundPanel(t *testing.T) {
 			t.Errorf("left %v: want %q\n%s", tc.left, tc.want, out)
 		}
 	}
-	if out := draw(5*time.Second, false, 140, 45); !strings.Contains(out, "Plan (3/16): not sent yet") || !strings.Contains(out, "Enter submits") {
+	if out := draw(5*time.Second, false, 140, 45); !strings.Contains(out, "Plan (2/16): not sent yet") || !strings.Contains(out, "Enter submits") {
 		t.Errorf("unsent:\n%s", out)
 	}
-	if out := draw(5*time.Second, true, 140, 45); !strings.Contains(out, "Plan (3/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
+	if out := draw(5*time.Second, true, 140, 45); !strings.Contains(out, "Plan (2/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
 		t.Errorf("sent:\n%s", out)
 	}
 	// Told again after a reconnect with our plan among the submitted: accepted,
@@ -303,5 +303,112 @@ func TestInstanceAndRoundPanelsShowTheServersFields(t *testing.T) {
 	m.Round.Open = false
 	if out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()); !strings.Contains(out, "2 of 2 submitted") || !strings.Contains(out, "own plan") {
 		t.Errorf("resolved:\n%s", out)
+	}
+}
+
+// The ability bar names each slot's ability and says in a word whether it can
+// be used now; the You panel has the mana, the XP and the cast.
+func TestAbilityBarAndYouPanelShowTheKit(t *testing.T) {
+	c := caseNamed(t, "cast_root")
+	out := c.Draw(replay(t, c), 140, 45)
+	for _, want := range []string{"Abilities (keys 1-8", "1 Root", "10mp busy", "2 Frost Bolt", "3 Flame Dart", "8 - ", "empty", "Zedd  Lv 1 Wizard", "MP 150/150", "XP ", "40 to Lv 2", "Cast Root"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("cast in progress: missing %q\n%s", want, out)
+		}
+	}
+	c = caseNamed(t, "rooted")
+	out = c.Draw(replay(t, c), 80, 24)
+	for _, want := range []string{"MP 140/150", "ready", "Plain Scuttler: Rooted 18s", "You: none"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("rooted: missing %q\n%s", want, out)
+		}
+	}
+	// A character with no abilities has no bar.
+	c = caseNamed(t, "play_login")
+	if out := c.Draw(replay(t, c), 80, 24); strings.Contains(out, "Abilities") || strings.Contains(out, "MP ") {
+		t.Errorf("a character with no kit has a bar:\n%s", out)
+	}
+	// A Warrior has no mana line.
+	c = caseNamed(t, "warrior_new")
+	if out := c.Draw(replay(t, c), 80, 24); strings.Contains(out, "MP ") || !strings.Contains(out, "Lv 1 Warrior") {
+		t.Errorf("warrior:\n%s", out)
+	}
+}
+
+// Each slot says what stops it: a cooldown, mana, the target or the range.
+func TestSlotsSayWhatStopsThem(t *testing.T) {
+	m := replay(t, caseNamed(t, "kit_slotted"))
+	draw := func() string { return screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()) }
+	if out := draw(); strings.Count(out, "tgt?") != 3 {
+		t.Errorf("no target:\n%s", out)
+	}
+	m.Self.Target = "mob-near-1"
+	for _, id := range m.EntityIDs() {
+		m.Self.Target = id
+	}
+	if out := draw(); strings.Contains(out, "tgt?") || strings.Count(out, "ready") != 3 {
+		t.Errorf("a target in range:\n%s", out)
+	}
+	m.Self.Mana = 8
+	if out := draw(); strings.Count(out, "mana") != 2 { // Flame Dart costs 6 and still can be cast; Root and Frost Bolt cannot
+		t.Errorf("not enough mana:\n%s", out)
+	}
+}
+
+func TestCastEndedLineShowsWhy(t *testing.T) {
+	for name, want := range map[string]string{"cast_moved": "Cancelled: you moved", "cast_interrupted": "Interrupted: damage"} {
+		c := caseNamed(t, name)
+		out := c.Draw(replay(t, c), 80, 24)
+		if !strings.Contains(out, "! "+want) {
+			t.Errorf("%s: missing %q\n%s", name, want, out)
+		}
+		if out := c.Draw(replay(t, c), 140, 45); !strings.Contains(out, "Frost Bolt") || !strings.Contains(out, "! Frost Bolt") {
+			t.Errorf("%s at 140x45:\n%s", name, out)
+		}
+	}
+}
+
+func TestSlotScreenAndCreationScreen(t *testing.T) {
+	c := caseNamed(t, "slots_pick")
+	out := c.Draw(replay(t, c), 80, 24)
+	for _, want := range []string{"Ability slots", "> 1  Flame Dart", "Choose the ability for slot 1", "> Root", "(empty)"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("slot screen: missing %q\n%s", want, out)
+		}
+	}
+	c = caseNamed(t, "create_class")
+	out = c.Draw(replay(t, c), 80, 24)
+	for _, cl := range screen.Classes {
+		if !strings.Contains(out, cl.Name) {
+			t.Errorf("creation: no %s\n%s", cl.Name, out)
+		}
+	}
+	if !strings.Contains(out, "Name   Zedd") || !strings.Contains(out, "> 4  Wizard") {
+		t.Errorf("creation:\n%s", out)
+	}
+}
+
+func TestLevelUpIsInTheLog(t *testing.T) {
+	c := caseNamed(t, "levelup")
+	for _, sz := range screen.Sizes {
+		out := c.Draw(replay(t, c), sz[0], sz[1])
+		if !strings.Contains(out, "you reached level 2: new ability Arcane Ward (key 3)") || !strings.Contains(out, "Lv 2 Wizard") {
+			t.Errorf("at %v:\n%s", sz, out)
+		}
+	}
+}
+
+// A turn-based instance on a small screen keeps the plan: the Round panel comes
+// before the Instance panel when the You panel is tall.
+func TestPlanSurvivesASmallScreenWithTheAbilityBar(t *testing.T) {
+	c := caseNamed(t, "turn_cast_plan")
+	out := c.Draw(replay(t, c), 80, 24)
+	for _, want := range []string{"Round 1", "Plan (2/16)", "2 use Frost Bolt (key 2)"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("missing %q\n%s", want, out)
+		}
+	}
+	if out := c.Draw(replay(t, c), 140, 45); !strings.Contains(out, "use Frost Bolt (key 2)") || !strings.Contains(out, "─ Instance ─") {
+		t.Errorf("140x45:\n%s", out)
 	}
 }

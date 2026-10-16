@@ -1,0 +1,115 @@
+{"welcome":{"protocol_version":1,"min_protocol_version":1,"tick_ms":100,"limits":{"max_message_bytes":4096,"max_intents_per_second":20}}}
+{"pong":{"nonce":"101"}}
+{"pong":{"nonce":"102"}}
+# mark create_name
+{"pong":{"nonce":"103"}}
+{"pong":{"nonce":"104"}}
+{"pong":{"nonce":"105"}}
+{"pong":{"nonce":"106"}}
+{"pong":{"nonce":"107"}}
+{"pong":{"nonce":"108"}}
+{"pong":{"nonce":"109"}}
+# mark create_class
+{"character_created":{"character":"zedd","name":"Zedd","class":"wizard"}}
+{"snapshot":{"game_time_ms":"100","tick":"1","space":"Testgrounds","self":{"entity":{"id":"zedd","kind":"ENTITY_KIND_CHARACTER","name":"Zedd","pos":{"x":"10000","y":"50000"},"hp":"80","max_hp":"80","level":"1"},"stats":{"level":"1","max_hp":"80","regen":"1","armor":"4","strength":"8","weapon_min":"1","weapon_max":"3","weapon_delay_ms":"2500","speed_mm_s":"4000","melee_range_mm":"2500","intellect":"12","wisdom":"6","max_mana":"150","mana_regen":"4"},"mana":"150","max_mana":"150","abilities":[{"id":"wizard-flame-dart","name":"Flame Dart","cast_ms":"1000","mana_cost":"6","range_mm":"25000","target":"enemy"},{"id":"wizard-frost-bolt","name":"Frost Bolt","cast_ms":"2000","mana_cost":"12","range_mm":"25000","target":"enemy"},{"id":"wizard-root","name":"Root","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"enemy"}],"slots":[{"slot":1,"ability":"wizard-flame-dart"},{"slot":2,"ability":"wizard-frost-bolt"},{"slot":3,"ability":"wizard-root"}],"gcd_ms":"1500","class":"wizard","xp_next_level":"40"},"entities":[{"id":"mob-near-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"24701","y":"50023"},"hp":"40","max_hp":"40","level":"1"}]}}
+{"zone_map":{"space":"Testgrounds","name":"Testgrounds","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"line-east","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"195000","y":"10000"}},{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"}}],"view_radius_mm":"20000","instance_presets":[{"id":"skirmish","name":"Scuttler Skirmish","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000"},{"id":"solo-trial","name":"Solo Trial","time_mode":"realtime","party_cap":"1","difficulty":"heroic","presence":"directed","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000"},{"id":"long-game","name":"Long Game","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"gate-north","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"100","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000"},{"id":"quick-turns","name":"Quick Turns","time_mode":"turn_based","party_cap":"1","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"20000","sleep_limit_ms":"604800000"},{"id":"duo-turns","name":"Duo Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"6000","sleep_limit_ms":"604800000"}]}}
+{"pong":{"nonce":"110"}}
+{"pong":{"nonce":"111"}}
+{"pong":{"nonce":"112"}}
+# mark kit_new
+{"pong":{"nonce":"113"}}
+{"pong":{"nonce":"114"}}
+{"pong":{"nonce":"115"}}
+{"pong":{"nonce":"116"}}
+{"pong":{"nonce":"117"}}
+# mark slots_pick
+{"event":{"seq":"1","game_time_ms":"200","slot_set":{"actor":"zedd","slot":1,"ability":"wizard-root"}}}
+{"event":{"seq":"2","game_time_ms":"200","entity_moved":{"id":"mob-near-1","pos":{"x":"24402","y":"50046"}}}}
+{"intent_result":{"intent_id":"tui-1","accepted":true}}
+{"pong":{"nonce":"118"}}
+{"pong":{"nonce":"119"}}
+{"pong":{"nonce":"120"}}
+{"pong":{"nonce":"121"}}
+{"pong":{"nonce":"122"}}
+{"event":{"seq":"3","game_time_ms":"300","slot_set":{"actor":"zedd","slot":3,"ability":"wizard-flame-dart"}}}
+{"event":{"seq":"4","game_time_ms":"300","entity_moved":{"id":"mob-near-1","pos":{"x":"24103","y":"50069"}}}}
+{"intent_result":{"intent_id":"tui-2","accepted":true}}
+{"pong":{"nonce":"123"}}
+{"event":{"seq":"5","game_time_ms":"400","entity_moved":{"id":"mob-near-1","pos":{"x":"23804","y":"50092"}}}}
+{"event":{"seq":"6","game_time_ms":"500","entity_moved":{"id":"mob-near-1","pos":{"x":"23505","y":"50115"}}}}
+{"pong":{"nonce":"124"}}
+{"pong":{"nonce":"125"}}
+# mark slots_set
+{"pong":{"nonce":"126"}}
+{"pong":{"nonce":"127"}}
+# mark kit_slotted
+{"event":{"seq":"7","game_time_ms":"600","target_changed":{"actor":"zedd","target":"mob-near-1"}}}
+{"event":{"seq":"8","game_time_ms":"600","entity_moved":{"id":"mob-near-1","pos":{"x":"23206","y":"50138"}}}}
+{"intent_result":{"intent_id":"tui-3","accepted":true}}
+{"pong":{"nonce":"128"}}
+{"event":{"seq":"9","game_time_ms":"700","cast_started":{"actor":"zedd","target":"mob-near-1","ability":"wizard-root","cast_ms":"1500"}}}
+{"event":{"seq":"10","game_time_ms":"700","entity_moved":{"id":"mob-near-1","pos":{"x":"22907","y":"50161"}}}}
+{"intent_result":{"intent_id":"tui-4","accepted":true}}
+{"pong":{"nonce":"129"}}
+{"event":{"seq":"11","game_time_ms":"800","entity_moved":{"id":"mob-near-1","pos":{"x":"22646","y":"50182"}}}}
+{"pong":{"nonce":"130"}}
+{"pong":{"nonce":"131"}}
+# mark cast_root
+{"event":{"seq":"12","game_time_ms":"2200","resource_changed":{"actor":"zedd","resource":"mana","delta":"-10","reason":"cost"}}}
+{"event":{"seq":"13","game_time_ms":"2200","ability_used":{"actor":"zedd","target":"mob-near-1","ability":"wizard-root","slot":1}}}
+{"event":{"seq":"14","game_time_ms":"2200","encounter_opened":{"id":"enc-1","owner":"zedd","mob":"mob-near-1"}}}
+{"event":{"seq":"15","game_time_ms":"2200","effect_applied":{"source":"zedd","target":"mob-near-1","ability":"wizard-root","kind":"root","duration_ms":"18000"}}}
+{"event":{"seq":"16","game_time_ms":"2300","target_changed":{"actor":"mob-near-1","target":"zedd"}}}
+{"pong":{"nonce":"132"}}
+{"pong":{"nonce":"133"}}
+# mark rooted
+{"event":{"seq":"17","game_time_ms":"2400","cast_started":{"actor":"zedd","target":"mob-near-1","ability":"wizard-flame-dart","cast_ms":"1000"}}}
+{"intent_result":{"intent_id":"tui-5","accepted":true}}
+{"pong":{"nonce":"134"}}
+{"event":{"seq":"18","game_time_ms":"3400","resource_changed":{"actor":"zedd","resource":"mana","delta":"-6","reason":"cost"}}}
+{"event":{"seq":"19","game_time_ms":"3400","ability_used":{"actor":"zedd","target":"mob-near-1","ability":"wizard-flame-dart","slot":3}}}
+{"event":{"seq":"20","game_time_ms":"3400","combat":{"kind":"COMBAT_KIND_HIT","attacker":"zedd","target":"mob-near-1","amount":"12","ability":"wizard-flame-dart","school":"fire"}}}
+{"pong":{"nonce":"135"}}
+{"event":{"seq":"21","game_time_ms":"5000","cast_started":{"actor":"zedd","target":"mob-near-1","ability":"wizard-frost-bolt","cast_ms":"2000"}}}
+{"intent_result":{"intent_id":"tui-6","accepted":true}}
+{"pong":{"nonce":"136"}}
+{"event":{"seq":"22","game_time_ms":"6000","rules_tick":{}}}
+{"event":{"seq":"23","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
+{"event":{"seq":"24","game_time_ms":"6000","resource_changed":{"actor":"zedd","resource":"mana","delta":"5","reason":"regen"}}}
+{"event":{"seq":"25","game_time_ms":"7000","resource_changed":{"actor":"zedd","resource":"mana","delta":"-12","reason":"cost"}}}
+{"event":{"seq":"26","game_time_ms":"7000","ability_used":{"actor":"zedd","target":"mob-near-1","ability":"wizard-frost-bolt","slot":2}}}
+{"event":{"seq":"27","game_time_ms":"7000","combat":{"kind":"COMBAT_KIND_HIT","attacker":"zedd","target":"mob-near-1","amount":"14","ability":"wizard-frost-bolt","school":"cold"}}}
+{"event":{"seq":"28","game_time_ms":"7000","effect_applied":{"source":"zedd","target":"mob-near-1","ability":"wizard-frost-bolt","kind":"snare","duration_ms":"12000"}}}
+{"pong":{"nonce":"137"}}
+{"event":{"seq":"29","game_time_ms":"7600","cast_started":{"actor":"zedd","target":"mob-near-1","ability":"wizard-frost-bolt","cast_ms":"2000"}}}
+{"intent_result":{"intent_id":"tui-7","accepted":true}}
+{"pong":{"nonce":"138"}}
+{"event":{"seq":"30","game_time_ms":"9600","resource_changed":{"actor":"zedd","resource":"mana","delta":"-12","reason":"cost"}}}
+{"event":{"seq":"31","game_time_ms":"9600","ability_used":{"actor":"zedd","target":"mob-near-1","ability":"wizard-frost-bolt","slot":2}}}
+{"event":{"seq":"32","game_time_ms":"9600","combat":{"kind":"COMBAT_KIND_HIT","attacker":"zedd","target":"mob-near-1","amount":"15","ability":"wizard-frost-bolt","school":"cold"}}}
+{"event":{"seq":"33","game_time_ms":"9600","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"zedd","target":"mob-near-1"}}}
+{"event":{"seq":"34","game_time_ms":"9600","target_cleared":{"actor":"zedd","target":"mob-near-1","reason":"target_dead"}}}
+{"event":{"seq":"35","game_time_ms":"9600","loot_dropped":{"drop":"drop-enc-1-shell-fragment","mob":"mob-near-1","item":"shell-fragment","pos":{"x":"22646","y":"50182"},"encounter":"enc-1"}}}
+{"event":{"seq":"36","game_time_ms":"9600","encounter_closed":{"id":"enc-1","owner":"zedd","mob":"mob-near-1","reason":"mob_died"}}}
+{"event":{"seq":"37","game_time_ms":"9600","reward":{"recipient":"zedd","source":"mob-near-1","kind":"xp","amount":"20"}}}
+{"event":{"seq":"38","game_time_ms":"9600","entity_left":{"id":"mob-near-1"}}}
+{"pong":{"nonce":"139"}}
+{"pong":{"nonce":"140"}}
+# mark nuked
+{"event":{"seq":"39","game_time_ms":"12000","rules_tick":{}}}
+{"event":{"seq":"40","game_time_ms":"12000","resource_changed":{"actor":"zedd","resource":"mana","delta":"15","reason":"regen"}}}
+{"event":{"seq":"41","game_time_ms":"18000","rules_tick":{}}}
+{"event":{"seq":"42","game_time_ms":"18000","resource_changed":{"actor":"zedd","resource":"mana","delta":"15","reason":"regen"}}}
+{"event":{"seq":"43","game_time_ms":"24000","rules_tick":{}}}
+{"event":{"seq":"44","game_time_ms":"24000","resource_changed":{"actor":"zedd","resource":"mana","delta":"5","reason":"regen"}}}
+{"event":{"seq":"45","game_time_ms":"30000","rules_tick":{}}}
+{"event":{"seq":"46","game_time_ms":"36000","rules_tick":{}}}
+{"event":{"seq":"47","game_time_ms":"39600","entity_appeared":{"entity":{"id":"mob-near-2","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"24819","y":"50239"},"hp":"40","max_hp":"40","level":"1"}}}}
+{"event":{"seq":"48","game_time_ms":"39700","entity_moved":{"id":"mob-near-2","pos":{"x":"24638","y":"50478"}}}}
+{"event":{"seq":"49","game_time_ms":"39800","entity_moved":{"id":"mob-near-2","pos":{"x":"24457","y":"50717"}}}}
+{"event":{"seq":"50","game_time_ms":"39900","entity_moved":{"id":"mob-near-2","pos":{"x":"24276","y":"50956"}}}}
+{"event":{"seq":"51","game_time_ms":"40000","entity_moved":{"id":"mob-near-2","pos":{"x":"24095","y":"51195"}}}}
+{"event":{"seq":"52","game_time_ms":"40100","entity_moved":{"id":"mob-near-2","pos":{"x":"23914","y":"51434"}}}}
+{"pong":{"nonce":"141"}}
+{"pong":{"nonce":"142"}}
+# mark mana_back

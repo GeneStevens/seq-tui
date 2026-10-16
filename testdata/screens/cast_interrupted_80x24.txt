@@ -1,0 +1,24 @@
+┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+│                     .                   #        ││ zedd  Lv 1 Wizard        │
+│                     .                   #        ││ HP 73/80 #############-- │
+│                     .                   #        ││ MP 110/150 #########---- │
+│                     .                   #        ││ XP ----------- 40 to Lv 2│
+│                     .                   #        ││ ! Interrupted: damage    │
+│                     .   @M              #        │└──────────────────────────┘
+│                     .                   #        │┌─ Target ─────────────────┐
+│                     .                   #        ││ M Plain Scuttler  Lv 1   │
+│                     .                   #        ││ HP 337/400 #####-- 2m E  │
+│                     .                   #        ││ fighting you             │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Flame Dart  ready 2 Frost Bolt ready 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none   |   Plain Scuttler: Snared 9s                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    24.0s Plain Scuttler healed 1                                             │
+│    24.0s zedd healed 1                                                       │
+│ <  24.5s Plain Scuttler hit zedd for 4                                       │
+│ !  24.5s zedd's Frost Bolt was interrupted: damage broke it                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok      ? help  q quit
