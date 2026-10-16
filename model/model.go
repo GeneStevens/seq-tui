@@ -66,6 +66,7 @@ type Self struct {
 	// is), the bank, the zone of the bind point ("" until the character binds)
 	// and how many items the inventory holds.
 	Crowns        int64
+	Contracts     []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
 	Equipped      []string
 	Bank          []string
 	BindZone      string
@@ -137,6 +138,15 @@ type Model struct {
 	NPCs  []*pb.NpcInfo
 	Trade *pb.TradeState
 
+	// Dialogues are what each NPC last said to the character, by NPC id, and
+	// Talks counts them; WorldEvents are the last announcement of each timed
+	// event of the zone; Seen is what the character has seen of each space
+	// (its NPCs and where mobs first stood), remembered for the map.
+	Dialogues   map[string]*Dialogue
+	Talks       int
+	WorldEvents map[string]*WorldEventState
+	Seen        map[string]*Place
+
 	// Welcome is the latest welcome; Connections counts the welcomes seen
 	// (a resume after a drop is a second connection).
 	Welcome     *pb.Welcome
@@ -158,9 +168,14 @@ type Model struct {
 	Duplicates int
 	Faults     []string
 
-	names    map[string]string // id to name, for every entity ever seen, so the log can name those that left
-	last     uint64            // the stream number of the last event applied, or of the snapshot
-	selected bool              // a snapshot has arrived
+	names map[string]string // id to name, for every entity ever seen, so the log can name those that left
+	// npcNames and contractNames are the names of the NPCs and contracts the
+	// snapshots told, kept after they leave view.
+	npcNames      map[string]string
+	contractNames map[string]string
+	contractTexts map[string]contractText
+	last          uint64 // the stream number of the last event applied, or of the snapshot
+	selected      bool   // a snapshot has arrived
 	// levelPending: a reward raised the level and the snapshot that says what it
 	// taught has not come yet.
 	levelPending bool
@@ -281,7 +296,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		HasDestination: self.GetHasDestination(), Destination: clonePos(self.GetDestination()),
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
 		Crowns: self.GetCrowns(), Equipped: slices.Clone(self.GetEquipped()), Bank: slices.Clone(self.GetBank()),
-		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(),
+		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(), Contracts: slices.Clone(self.GetContracts()),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
@@ -298,6 +313,15 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		m.Items[it.GetId()] = it
 	}
 	m.NPCs, m.Trade = s.GetNpcs(), s.GetTrade()
+	m.noteContracts(s)
+	m.completeContracts()
+	m.noteNPCs()
+	if m.npcNames == nil {
+		m.npcNames = map[string]string{}
+	}
+	for _, n := range m.NPCs {
+		m.npcNames[n.GetId()] = n.GetName()
+	}
 	m.Drops, m.Encounters = map[string]*pb.LootDropState{}, map[string]*pb.EncounterState{}
 	for _, g := range s.GetGroup() {
 		m.remember(g.GetEntity())
@@ -308,6 +332,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		m.remember(en)
 		noteEffects(en)
 		m.Entities[en.GetId()] = cloneEntity(en)
+		m.noteCamps(en)
 	}
 	for _, d := range s.GetDrops() {
 		m.Drops[d.GetId()] = d
@@ -360,6 +385,7 @@ func (m *Model) apply(e *pb.Event) {
 			m.Group[en.GetId()].Entity = cloneEntity(en)
 		default:
 			m.Entities[en.GetId()] = cloneEntity(en)
+			m.noteCamps(en)
 		}
 	case *pb.Event_EntityMoved:
 		mv := b.EntityMoved
@@ -447,6 +473,10 @@ func (m *Model) apply(e *pb.Event) {
 		if en := m.Entities[b.MobReset.GetId()]; en != nil {
 			en.Hp, en.Dead = b.MobReset.GetHp(), false
 		}
+	case *pb.Event_Dialogue:
+		m.applyDialogue(b.Dialogue)
+	case *pb.Event_WorldEvent:
+		m.applyWorldEvent(b.WorldEvent, e.GetGameTimeMs())
 	case *pb.Event_InstanceOpened, *pb.Event_InstanceEnded, *pb.Event_RoundStarted, *pb.Event_RoundResolved:
 		m.applyInstanceEvent(e)
 	default:

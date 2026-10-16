@@ -1,4 +1,4 @@
-┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │                                 .                                                         #    ││ aria  Lv 1  XP 0             | 0 crowns│
 │                                 .                                                         #    ││ HP 6/6 ############################### │
 │                                 .                                                         #    ││ Target: none                           │
@@ -7,16 +7,16 @@
 │                                 .                $  $  $  $  $  $                         #    │┌─ Target ───────────────────────────────┐
 │                                 .                                                         #    ││ no target (Tab to choose)              │
 │                                 .                                                         #    ││                                        │
-│                                 .                $  $  $  $  $                            #    ││                                        │
+│                                 .                $  $  $  &  ?                            #    ││                                        │
 │                                 .                                                         #    │└────────────────────────────────────────┘
 │                                 .                                                         #    │┌─ Nearby ───────────────────────────────┐
 │                                 .                                                         #    ││ $ Testgrounds Vendor       8m N vendor │
 │                                 .                                                         #    ││ $ Testgrounds Banker      9m NE banker │
 │                                 .                                                         #    ││ $ Testgrounds Binder     10m NE binder │
-│                                 .              @                                          #    ││ $ Testgrounds C… 11m NE contract_board │
+│                                 .              @                    c                     #    ││ & Testgrounds C… 11m NE contract_board │
 │                                 .                                       m                 #    ││ $ Warrior Trainer        12m N trainer │
 │                                 .                                                         #    ││ $ Cleric Trainer         13m N trainer │
-│                                 .                                                         #    ││ $ Testgrounds Capt… 13m NE quest_giver │
+│                                 .                                                         #    ││ ? Testgrounds Capt… 13m NE quest_giver │
 │                                 .                                                         #    ││ $ Rogue Trainer         13m NE trainer │
 │                                 .                                                         #    ││ $ Wizard Trainer        14m NE trainer │
 │                                 .                                                         #    ││ $ Paladin Trainer       16m NE trainer │

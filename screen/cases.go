@@ -48,6 +48,12 @@ type Case struct {
 	Trade     *TradeUI
 	// TraderName puts the traders' screen's cursor on the trader with that name.
 	TraderName string
+	// Talk, Board and Contracts draw the conversation, the contract board and the
+	// Contracts screen; Overview the whole-zone map.
+	Talk      *Talk
+	Board     *Board
+	Contracts *ContractsUI
+	Overview  bool
 }
 
 // Sizes the goldens are drawn at.
@@ -132,6 +138,25 @@ var Cases = []Case{
 		Plan: []string{"key 1: Root"}, Notice: "slot change added to the plan: Esc closes this, Enter submits the plan"},
 	{Name: "slots_plan_round", Log: "slots_round.jsonl", Mark: "slots_plan_round", Left: 20 * time.Second, Plan: []string{"key 1: Root"}},
 	{Name: "slots_changed", Log: "slots_round.jsonl", Mark: "slots_changed", Left: 20 * time.Second, Notice: "plan accepted, counts even if you disconnect"},
+	// SEQ-044 and SEQ-045 (TUI-011): Thornwick's square, talking, the contract
+	// board, the Contracts screen, the scout's marker, the zone overview, the
+	// Harvest Raid's banner and a rare in view.
+	{Name: "thornwick_square", Log: "thornwick_board.jsonl", Mark: "thornwick_square"},
+	{Name: "talk_board", Log: "thornwick_board.jsonl", Mark: "talk_board", Notice: "talk to Thornwick Contract Board ok", Talk: &Talk{NPC: "board"}},
+	{Name: "board_offers", Log: "thornwick_board.jsonl", Mark: "board_offers", Board: &Board{NPC: "board"}},
+	{Name: "board_taken", Log: "thornwick_board.jsonl", Mark: "board_taken", Notice: "take Thin the Meadow Wolves ok", Board: &Board{NPC: "board"}},
+	{Name: "contracts_held", Log: "thornwick_board.jsonl", Mark: "contracts_held", Contracts: &ContractsUI{}},
+	{Name: "town_overview", Log: "thornwick_board.jsonl", Mark: "town_overview", Overview: true},
+	{Name: "downs_camp", Log: "thornwick_hunt.jsonl", Mark: "downs_camp", Notice: "move ok"},
+	{Name: "hunt_ready", Log: "thornwick_hunt.jsonl", Mark: "hunt_ready", Notice: "attack ok"},
+	{Name: "board_turn_in", Log: "thornwick_hunt.jsonl", Mark: "board_turn_in", Board: &Board{NPC: "board", Pane: 1}},
+	{Name: "hunt_turned_in", Log: "thornwick_hunt.jsonl", Mark: "hunt_turned_in", Notice: "hand in Thin the Meadow Wolves ok", Board: &Board{NPC: "board"}},
+	{Name: "scout_marker_in_view", Log: "thornwick_scout.jsonl", Mark: "scout_marker_in_view", Notice: "use door ok"},
+	{Name: "scout_reached", Log: "thornwick_scout.jsonl", Mark: "scout_reached", Notice: "move ok"},
+	{Name: "zone_overview", Log: "thornwick_scout.jsonl", Mark: "zone_overview", Overview: true},
+	{Name: "event_banner", Log: "thornwick_raid.jsonl", Mark: "event_banner"},
+	{Name: "event_over", Log: "thornwick_raid.jsonl", Mark: "event_over", Notice: "attack ok"},
+	{Name: "rare_in_view", Log: "thornwick_rare.jsonl", Mark: "rare_in_view", Notice: "target ok"},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
 }
 
@@ -172,6 +197,7 @@ func (c Case) Draw(m *model.Model, w, h int) string {
 	}
 	v.Slots, v.Create, v.PlanSlots = c.Slots, c.Create, c.PlanSlots
 	v.Inventory, v.Traders, v.Trade = c.Inventory, c.Traders, c.Trade
+	v.Talk, v.Board, v.Contracts, v.Overview = c.Talk, c.Board, c.Contracts, c.Overview
 	if c.Traders != nil && c.TraderName != "" {
 		t := *c.Traders
 		for i, n := range TradersInView(m) {

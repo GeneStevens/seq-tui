@@ -1,0 +1,45 @@
+┌─ Contract board ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Thornwick Contract Board | you hold 1 of 3 contracts | 0 crowns                                                                          │
+│ On offer now (Enter takes it)                                      │ You hold (Enter hands in, X gives up)                               │
+│> Boars in the Barley                                  Hunt   L1-3  │> Thin the Meadow Wolves                                      READY  │
+│  Pelts for the Tanners                                Gather L1-3  │                                                                     │
+│  Word from Wickett Mill                               Scout  L1-3  │                                                                     │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ Thin the Meadow Wolves: Hunt, 3 of 3 killed.                                                                                             │
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.                                                 │
+│ Pays 30 XP and 12 crowns. Finished: hand it in at the board.                                                                             │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                                                                        │
+│ The answer is on the status line; every refusal says why.                                                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard N.Ns ago                                                                                          ? help  q quit

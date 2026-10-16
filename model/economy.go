@@ -55,14 +55,16 @@ func (m *Model) Bound(inst string) bool {
 	return it != nil && it.GetBindOnPickup()
 }
 
-// NPC is the vendor, trainer, binder or banker in view with that id, or nil.
+// NPC is the NPC with that id: the one in the last snapshot (which the server
+// sends after each talk and each trade, with the stock and the offers as they
+// are then), else the one the character has seen in this space; nil if neither.
 func (m *Model) NPC(id string) *pb.NpcInfo {
 	for _, n := range m.NPCs {
 		if n.GetId() == id {
 			return n
 		}
 	}
-	return nil
+	return m.Known().NPCs[id]
 }
 
 // Worn is what is worn in the gear slot at index i of GearSlots, "" if nothing.

@@ -60,6 +60,14 @@ const (
 	TradeRemove   // take the item ID back out of the offer
 	TradeConfirm
 	TradeCancel
+	Talk            // talk to the NPC NPC
+	OpenTradersAt   // the traders' window of the NPC NPC
+	OpenBoard       // the contract board of the NPC NPC (Count 1: on the held contracts)
+	OpenContracts   // the Contracts screen
+	OpenOverview    // the whole-zone map
+	ContractAccept  // take the contract ID from the board NPC
+	ContractTurnIn  // hand the contract ID in at the board NPC
+	ContractAbandon // give the contract ID up
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -116,6 +124,12 @@ func Plan(key string, m *model.Model) Action {
 		return Action{Note: "no door on this map"}
 	case "r":
 		return Action{Kind: Release} // the server denies it unless the character is dead
+	case "g":
+		return talkAction(m)
+	case "k":
+		return Action{Kind: OpenContracts}
+	case "m":
+		return Action{Kind: OpenOverview}
 	}
 	if n := slotKey(key); n > 0 {
 		return Action{Kind: UseAbility, Slot: n, Note: slotLabel(m, n)}

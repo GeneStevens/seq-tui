@@ -1,4 +1,4 @@
-┌─ Testgrounds, north up ──────────────────────────┐┌─ You ────────────────────┐
+┌─ Testgrounds, at 194,10 m, north up ─────────────┐┌─ You ────────────────────┐
 │                             .                    ││ aria  Lv 1  XP 0    | 0cr│
 │                             .                    ││ HP 100/100 ############# │
 │                             .                    ││ Target: none             │

@@ -1,4 +1,4 @@
-┌─ Testgrounds (Quick Turns), north up ────────────┐┌─ You ────────────────────┐
+┌─ Testgrounds (Quick Turns), at 100,90 m, north… ─┐┌─ You ────────────────────┐
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
 │                                                  ││ Target: none             │

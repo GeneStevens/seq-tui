@@ -1,0 +1,24 @@
+┌─ Contracts ──────────────────────────────────────────────────────────────────┐
+│ You hold 2 of 3 contracts. Take them at a contract board (G beside it); only…│
+│                                                                              │
+│> Thin the Meadow Wolves (Hunt)                                               │
+│   0 of 3 killed                                                              │
+│   Pays 30 XP and 12 crowns                                                   │
+│   Kill 3 wolves in the Thornwick Downs. The meadows west of the river are    │
+│   thick with them.                                                           │
+│  Pelts for the Tanners (Gather)                                              │
+│   0 of 3 carried                                                             │
+│   Pays 25 XP, 10 crowns and Cord Pendant                                     │
+│   Bring back 3 wolf pelts from the wolves of the Downs. Tanner's Row pays by │
+│   the pelt.                                                                  │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Up / Down choose. X gives the contract up (anywhere). Hand a finished one in…│
+│ Esc closes.                                                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard 0.4s ago                              ? help  q quit

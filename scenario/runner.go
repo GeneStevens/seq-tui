@@ -69,7 +69,7 @@ func TooSlow(what string, took, limit time.Duration) string {
 // World is a server and the players in it.
 type World struct {
 	T       *testing.T
-	Srv     *testserver.Server
+	Srv     Server
 	began   time.Time
 	players []*Player
 	rec     *record.Writer
@@ -78,8 +78,12 @@ type World struct {
 // New starts a server for the scenario t and holds the scenario to MaxScenario.
 func New(t *testing.T, o testserver.Options) *World {
 	t.Helper()
-	w := &World{T: t, began: time.Now()}
-	w.Srv = testserver.Start(t, o)
+	return newOn(t, testserver.Start(t, o))
+}
+
+func newOn(t *testing.T, srv Server) *World {
+	t.Helper()
+	w := &World{T: t, began: time.Now(), Srv: srv}
 	t.Cleanup(func() {
 		if d, err := time.ParseDuration(os.Getenv(EnvSlow)); err == nil {
 			time.Sleep(d)
@@ -92,6 +96,13 @@ func New(t *testing.T, o testserver.Options) *World {
 		}
 	})
 	return w
+}
+
+// NewTown starts the town server (Thornwick and the Downs) for the scenario t and
+// holds the scenario to MaxScenario.
+func NewTown(t *testing.T, o TownOptions) *World {
+	t.Helper()
+	return newOn(t, StartTown(t, o))
 }
 
 // Fixture says the first player of this world is recorded to the named log in

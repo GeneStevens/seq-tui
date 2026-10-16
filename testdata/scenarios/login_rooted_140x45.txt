@@ -1,4 +1,4 @@
-┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │                                    .                                               #           ││ zedd  Lv 1 Wizard            | 0 crowns│
 │                                    .                                               #           ││ HP 80/80 ############################# │
 │                                    .                                               #           ││ MP 140/150 #########################-- │
@@ -6,7 +6,7 @@
 │                                    .                                               #           ││ Atk off | Plain Scuttler               │
 │                                    .             $  $ $  $ $ $                     #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Target ───────────────────────────────┐
-│                                    .             $  $ $  $ $                       #           ││ M Plain Scuttler  Lv 1                 │
+│                                    .             $  $ $  & ?                       #           ││ M Plain Scuttler  Lv 1                 │
 │                                    .                                               #           ││ HP 400/400 #################### 13m E  │
 │                                    .                                               #           ││ fighting you                           │
 │                                    .                                               #           │└────────────────────────────────────────┘
@@ -14,11 +14,11 @@
 │                                    .           @              M                    #           ││ $ Testgrounds Vendor       8m N vendor │
 │                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
 │                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
-│                                    .                                               #           ││ $ Testgrounds C… 11m NE contract_board │
+│                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
 │                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
 │                                    .                                               #           ││ M Plain Scuttler         13m E 400/400 │
 │                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
-│                                    .                                               #           ││ $ Testgrounds Capt… 13m NE quest_giver │
+│                                    .                                               #           ││ ? Testgrounds Capt… 13m NE quest_giver │
 │                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
 │                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
 │                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │

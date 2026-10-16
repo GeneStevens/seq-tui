@@ -1,4 +1,4 @@
-┌─ Testgrounds, north up ────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │                                    .                                               #           ││ gorm  Lv 1 Warrior           | 0 crowns│
 │                                    .                                               #           ││ HP 120/120 ########################### │
 │                                    .                                               #           ││ XP ############------------- 20 to Lv 2│
@@ -6,18 +6,18 @@
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .             $  $ $  $ $ $                     #           │┌─ Target ───────────────────────────────┐
 │                                    .                                               #           ││ no target (Tab to choose)              │
-│                                    .             $  $ $  $ $                       #           ││                                        │
+│                                    .             $  $ $  & ?                       #           ││                                        │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
 │                                    .                                               #           ││ * Cracked Shell Fragment          2m E │
-│                                    .           @  *                                #           ││ $ Testgrounds Vendor       8m N vendor │
+│                                    .           @  *              c                 #           ││ $ Testgrounds Vendor       8m N vendor │
 │                                    .                                 m             #           ││ $ Testgrounds Banker      9m NE banker │
 │                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
-│                                    .                                               #           ││ $ Testgrounds C… 11m NE contract_board │
+│                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
 │                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
 │                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
-│                                    .                                               #           ││ $ Testgrounds Capt… 13m NE quest_giver │
+│                                    .                                               #           ││ ? Testgrounds Capt… 13m NE quest_giver │
 │                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
 │                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
 │                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │

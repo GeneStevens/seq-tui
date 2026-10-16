@@ -66,6 +66,13 @@ type View struct {
 	Inventory *Inventory
 	Traders   *Traders
 	Trade     *TradeUI
+
+	// Talk, Board and Contracts are the conversation, the contract board and
+	// the Contracts screen, nil when closed; Overview shows the whole zone.
+	Talk      *Talk
+	Board     *Board
+	Contracts *ContractsUI
+	Overview  bool
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -77,21 +84,32 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	lh := min(6+(h-MinHeight)/3, 14)
 	th := h - lh - 1 // rows above the log
 	var rows []string
+	if b := eventBanner(m, v, w, st); b != "" {
+		rows, th = append(rows, b), th-1
+	}
 	switch {
 	case v.Create != nil:
-		rows = box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)
+		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Help:
-		rows = box("Keys", w, th+lh, helpLines(w-2, th+lh-2, st), st)
+		rows = append(rows, box("Keys", w, th+lh, helpLines(w-2, th+lh-2, st), st)...)
 	case v.Slots != nil:
-		rows = box("Ability slots", w, th+lh, slotScreenLines(m, v, w-2, th+lh-2, st), st)
+		rows = append(rows, box("Ability slots", w, th+lh, slotScreenLines(m, v, w-2, th+lh-2, st), st)...)
 	case v.Inventory != nil:
-		rows = box("Inventory and gear", w, th+lh, inventoryScreenLines(m, v.Inventory, w-2, th+lh-2, st), st)
+		rows = append(rows, box("Inventory and gear", w, th+lh, inventoryScreenLines(m, v.Inventory, w-2, th+lh-2, st), st)...)
 	case v.Traders != nil:
-		rows = box("Traders", w, th+lh, tradersScreenLines(m, v.Traders, w-2, th+lh-2, st), st)
+		rows = append(rows, box("Traders", w, th+lh, tradersScreenLines(m, v.Traders, w-2, th+lh-2, st), st)...)
 	case v.Trade != nil:
-		rows = box("Trade", w, th+lh, tradeScreenLines(m, v.Trade, w-2, th+lh-2, st), st)
+		rows = append(rows, box("Trade", w, th+lh, tradeScreenLines(m, v.Trade, w-2, th+lh-2, st), st)...)
+	case v.Talk != nil:
+		rows = append(rows, box("Talking", w, th+lh, talkLines(m, v.Talk, w-2, th+lh-2, st), st)...)
+	case v.Board != nil:
+		rows = append(rows, box("Contract board", w, th+lh, boardLines(m, v.Board, w-2, th+lh-2, st), st)...)
+	case v.Contracts != nil:
+		rows = append(rows, box("Contracts", w, th+lh, contractsScreenLines(m, v.Contracts, w-2, th+lh-2, st), st)...)
+	case v.Overview && m.Map != nil && m.Self.Pos != nil:
+		rows = append(rows, box("Zone overview", w, th+lh, overviewLines(m, w-2, th+lh-2, st), st)...)
 	case v.Menu != nil:
-		rows = box("Instances", w, th+lh, menuLines(m, v, w-2, th+lh-2, st), st)
+		rows = append(rows, box("Instances", w, th+lh, menuLines(m, v, w-2, th+lh-2, st), st)...)
 	default:
 		mapW := w - rw
 		if m.HasKit() {
@@ -132,6 +150,8 @@ func logMode(v View) string {
 
 func mapTitle(m *model.Model) string {
 	switch {
+	case m.Map != nil && m.Map.GetName() != "" && m.Self.Pos != nil:
+		return fmt.Sprintf("%s, at %d,%d m, north up", m.Map.GetName(), m.Self.Pos.GetX()/1000, m.Self.Pos.GetY()/1000)
 	case m.Map != nil && m.Map.GetName() != "":
 		return m.Map.GetName() + ", north up"
 	case m.Space != "":
@@ -178,19 +198,19 @@ func helpLines(w, h int, st Styler) []string {
 		"Instances        I: this zone's menu (Enter opens one); then E at its door",
 		"Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank",
 		"Trade            T: ask a character in reach; each side offers, then confirms",
-		"Plans            in a turn-based instance the keys build a plan, not act:",
-		"                 arrows, Tab target, F attack, 1-8 ability, L loot, E door,",
-		"                 X stop, R release; B sets slots (they change when the round opens).",
-		"                 One move or door, one ability or attack. Enter submits it,",
-		"                 Backspace removes a step, Esc clears it",
+		"People           G: talk to the nearest; its options open the trader or board",
+		"Contracts        K: those you hold (X gives up); the board takes, hands in",
+		"Plans            turn-based: keys build a plan. Arrows, Tab, F, 1-8, L, E, X,",
+		"                 R release, B slots; one move or door, one ability or attack.",
+		"                 Enter submits it, Backspace removes a step, Esc clears it",
 		"Leave            O logs out of the world; Q or Ctrl+C quits the screen only",
 		"Event log        V: also show movement, rules ticks and mana      Help  ?",
-		"Map: north is up, your position is always the centre.",
-		"  @ you  m mob  M your target  x dead mob  + end of your plan  p another character",
-		"  * a drop  ~ a drop you may not take  $ a trader  D a door  # wall",
-		"  Nearby lists the same, nearest first, with a distance and a compass point.",
+		"Map              north is up, you are the centre; M: the whole zone seen",
+		"  @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end",
+		"  * drop  ~ a drop you may not take  $ trader  & board  ? talker",
+		"  % scout marker  D door  # wall.  Nearby lists the same, nearest first.",
 		"Event log markers:  ! denied (with the reason) or a cast that did not land",
-		"                    < a hit on you   x a kill   + a reward or a level",
+		"                    < hit on you  x kill  + reward or level  * world event",
 	}
 	rows := make([]string, h)
 	for i := range rows {

@@ -1,0 +1,45 @@
+┌─ Thornwick Downs, at 27,123 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                .                                                                               ││ Hale  Lv 1 Warrior           | 0 crowns│
+│                .                                                                               ││ HP 120/120 ########################### │
+│                .                                                                               ││ XP #####-------------------- 31 to Lv 2│
+│                .                                                                               ││ Atk off | none                         │
+│                .                                                                               │└────────────────────────────────────────┘
+│                .                                                                               │┌─ Target ───────────────────────────────┐
+│                .                                                                               ││ no target (Tab to choose)              │
+│                .                                                                               ││                                        │
+│                .                                                                               ││                                        │
+│                .                                                                               │└────────────────────────────────────────┘
+│                .                                                                               │┌─ Contracts (K) ────────────────────────┐
+│                .                                                                               ││ Thin the Meadow Wolves           READY │
+│                .                               @                                               │└────────────────────────────────────────┘
+│                .                                 *                                             │┌─ Nearby ───────────────────────────────┐
+│                .                                                                               ││ * 2 crowns                       2m SE │
+│                .                                      c                                        ││ * Wolf Pelt                      2m SE │
+│                .                                                                               ││ * 1 crowns                       2m SE │
+│                .                                                                               ││ * Wolf Pelt                      2m SE │
+│                .                                                                               ││ D town-gate                     34m NW │
+│                .                                                                               ││ D hollow-warren                 374m E │
+│                .                                                                               ││                                        │
+│                .                                                                               ││                                        │
+│                .                                                                               ││                                        │
+│                .                                                                               ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ 1 Taunt                       tgt? 2 Bash                       tgt? 3 -                         empty 4 -                         empty │
+│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ You: none                                                                                                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│   205.2s Hale hit Meadow Wolf for 7                                                                                                      │
+│ x 205.2s Hale killed Meadow Wolf                                                                                                         │
+│   205.2s Hale's target Meadow Wolf cleared: target_dead                                                                                  │
+│   205.2s Hale stopped attacking                                                                                                          │
+│   205.2s Meadow Wolf dropped Wolf Pelt (drop-enc-3-wolf-pelt)                                                                            │
+│   205.2s Meadow Wolf dropped 1 crown (drop-enc-3-crowns)                                                                                 │
+│   205.2s encounter enc-3 with Meadow Wolf closed: mob_died                                                                               │
+│ + 205.2s Hale received 3 xp from Meadow Wolf                                                                                             │
+│ + 205.2s contract Thin the Meadow Wolves: 3 of 3                                                                                         │
+│   205.2s Meadow Wolf left view                                                                                                           │
+│   210.0s Hale healed 2                                                                                                                   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard 0.4s ago | attack ok                                                                        ? help  q quit
