@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"slices"
 	"time"
 
 	tea "charm.land/bubbletea/v2"
@@ -10,6 +11,7 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/screen"
+	"github.com/GeneStevens/seq/agentkit"
 )
 
 const (
@@ -40,8 +42,11 @@ type App struct {
 	talk     *screen.Talk // the conversation, nil when closed
 	board    *screen.Board
 	cons     *screen.ContractsUI
-	overview bool      // the whole-zone map
-	gameAt   time.Time // when the model's game time last moved
+	role     *screen.Role // the choice of the recruit's role, nil when closed
+	duo      *client.Duo  // the second character on a stance, nil when there is none
+	toDuo    bool         // the helper keys talk to it, not to the house companion
+	overview bool         // the whole-zone map
+	gameAt   time.Time    // when the model's game time last moved
 	gameMs   int64
 	draft    Draft // the plan being built in a turn-based instance
 	Err      error // why the program ended, if it ended badly
@@ -220,6 +225,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.talkKey(k, m)
 		case a.board != nil:
 			act = a.boardKey(k, m)
+		case a.role != nil:
+			act = a.roleKey(k, m)
 		case a.cons != nil:
 			act = a.contractsKey(k, m)
 		case a.overview:
@@ -239,6 +246,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.tradeKey(k, m)
 		case a.menu != nil:
 			act = a.menuKey(k, m)
+		case helperKey(k):
+			act = a.helperAction(k, m)
 		case m.TurnBased():
 			act = TurnKey(k, m, &a.draft)
 		default:
@@ -271,6 +280,15 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.cons = &screen.ContractsUI{}
 	case OpenOverview:
 		a.overview = true
+	case OpenRole:
+		a.talk, a.role = nil, &screen.Role{NPC: act.NPC}
+		a.sess.View(func(m *model.Model) {
+			a.role.Sel = max(slices.Index(agentkit.CompanionRoles, m.Companion().GetRole()), 0)
+		})
+	case DuoSummon, DuoDismiss, DuoStance, DuoOrder:
+		cmd, note := a.duoDo(act)
+		a.view.Notice = note
+		return a, cmd
 	case OpenTrade:
 		a.inv, a.trade = nil, &screen.TradeUI{}
 		a.sess.View(func(m *model.Model) { a.trade.Who = askerIndex(m) })
@@ -383,9 +401,14 @@ func (a *App) send(act Action) tea.Cmd {
 			id, err = a.sess.SubmitPlan(ctx, act.Steps...)
 		case Talk, ContractAccept, ContractTurnIn, ContractAbandon:
 			what, id, err = a.people(ctx, act)
+		case CompanionSummon, CompanionDismiss, CompanionStance, CompanionRole, CompanionOrder:
+			what, id, err = a.companion(ctx, act)
 		case Equip, Unequip, Buy, Sell, Train, Bind, BankDeposit, BankWithdraw, TradeOpen, TradeAdd, TradeCrowns, TradeRemove, TradeConfirm, TradeCancel:
 			what, id, err = a.economy(ctx, act)
 		case Logout:
+			if a.duo != nil && a.duo.Active() {
+				_ = a.duo.Dismiss(ctx)
+			}
 			if err := a.sess.Logout(ctx); err != nil {
 				return resultMsg{note: "logout failed: " + err.Error(), bad: true}
 			}
@@ -423,9 +446,16 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	var out string
 	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
 	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
-	v.Talk, v.Board, v.Contracts, v.Overview = a.talk, a.board, a.cons, a.overview
+	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
+	if a.duo != nil {
+		v.Duo = &screen.DuoView{ID: a.duo.Character(), Active: a.duo.Active(), Stance: a.duo.Stance(), Order: a.duo.Order().Kind}
+		if s := a.duo.Session(); s != nil {
+			s.View(func(dm *model.Model) { v.Duo.Target = dm.Self.Target })
+		}
+	}
 	a.sess.View(func(m *model.Model) {
 		a.sync(m)
+		v.KeysToDuo = a.keysToDuo(m)
 		if !a.gameAt.IsZero() && a.gameMs == m.GameTimeMs && a.Clock == nil && !m.TurnBased() { // between events the game time runs on
 			v.GameNow = m.GameTimeMs + a.now().Sub(a.gameAt).Milliseconds()
 		}

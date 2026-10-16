@@ -19,6 +19,9 @@ This file lists each content item in `seq-tui` and its source (for example "inve
 | `testdata/logs/thornwick_board.jsonl`, `thornwick_hunt.jsonl`, `thornwick_shops.jsonl`, `thornwick_scout.jsonl`, `thornwick_raid.jsonl`, `thornwick_rare.jsonl`, `thornwick_trainer.jsonl`, `thornwick_respawn.jsonl` | Recorded by the Thornwick scenarios (`scenario/town_test.go`, `make fixtures`) from seq's Thornwick pack (seq at 067000d, SEQ-047), run on seq's own test server; every name, id and line in them is the pack's own. The scenarios are invented for SEQ. |
 | `screen/world.go`, `app/people.go`, `model/contracts.go` | Written for SEQ, 2026-10-16. The map glyphs `& ? % c r` and the screens' wording are invented for SEQ. The rare list is gone: the server flags rares (D52). |
 
+| `testdata/logs/companion_quest.jsonl`, `companion_lookout.jsonl`, `companion_role.jsonl`, `companion_fight.jsonl`, `companion_reconnect.jsonl`, `companion_turns.jsonl`, `duo_guard.jsonl` | Recorded by the companion scenarios (`scenario/companion_test.go`, `make fixtures`) from seq's in-process test server (seq at 0251257, SEQ-049) running its Thornwick pack and Testgrounds; every name, id and line in them (Captain Rhosyn Hartley, Watch Shieldman, Eyes on the Goblins, ...) is the server's own. The scenarios are invented for SEQ. |
+| `screen/companion.go`, `app/companion.go`, `model/companion.go`, `client/duo.go` | Written for SEQ, 2026-10-16. The keys (P H Y U J Z .), the panels' wording and the `[ ] [>] [!] [x]` marks are invented for SEQ. |
+
 ## Exclusions
 
 All content that existed before the reset is excluded: nothing from the tree at tag `pre-reset` (commit `9d04d89`) is carried into this tree. It stays in git history only. Any later salvage (for example the map rasterizer, see `README.md`) must be recorded in the table above, with its source, in the mission that brings it in.

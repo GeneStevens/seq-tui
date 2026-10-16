@@ -1,0 +1,24 @@
+┌─ Thornwick Downs, at 146,95 m, north up ─────────┐┌─ You ────────────────────┐
+│                                                  ││ hale  Lv 5 Warrior  | 0cr│
+│                                                  ││ HP 176/176 ############# │
+│                                                  ││ XP ---------- 145 to Lv 6│
+│                                     #            ││ Atk off | none           │
+│                                     #            │└──────────────────────────┘
+│                        p@   mc      #            │┌─ Party, 2nd character ───┐
+│                                     #            ││ bram  Lv 5               │
+│                                     #            ││ HP 140/140 ############# │
+│               c                     #            ││ stance follow            │
+│                                     #            ││ following you            │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns bram (bram) appeared                                                │
+│     N.Ns Bramble Tusker targeted hale                                        │
+│     N.Ns hale opened an encounter with Bramble Tusker (enc-1)                │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard N.Ns ago | second character in play     ? help

@@ -1,0 +1,24 @@
+┌─ Thornwick Downs, at 100,100 m, north up ────────┐┌─ You ────────────────────┐
+│                                                  ││ hale  Lv 5 Warrior  | 0cr│
+│                                                  ││ HP 176/176 ############# │
+│                                                  ││ XP ---------- 145 to Lv 6│
+│                                                  ││ Atk off | none           │
+│                                                  │└──────────────────────────┘
+│                         @                        │┌─ Companion, caster ──────┐
+│                                                  ││ your recruit  Lv 5       │
+│         c                                        ││ not with you: P calls it │
+│                                                  ││ stance guard             │
+│                                      c           ││ away                     │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│ nothing has happened yet                                                     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

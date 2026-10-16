@@ -92,6 +92,8 @@ func (a *App) option(m *model.Model, npc string, o *pb.DialogueOption) Action {
 		return Action{Kind: OpenBoard, NPC: npc, Count: 0}
 	case "contract_turn_in":
 		return Action{Kind: OpenBoard, NPC: npc, Count: 1}
+	case "companion_role":
+		return Action{Kind: OpenRole, NPC: npc}
 	}
 	return Action{Note: fmt.Sprintf("%s has nothing for you to do here yet", m.NPCName(npc))}
 }

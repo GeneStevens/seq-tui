@@ -30,6 +30,10 @@ func (d *Draft) edited() { d.Sent = false; d.Ver++ }
 func movement(k Kind) bool { return k == Move || k == UseDoor }
 func action(k Kind) bool   { return k == UseAbility || k == Attack }
 
+// companionStep says a step is a word to the house companion: a plan holds one
+// stance and one order for it.
+func companionStep(k Kind) bool { return k == CompanionStance || k == CompanionOrder }
+
 // Add appends a step. It says why not, in words, when the plan is full or
 // already holds the one movement or the one action it may; the server judges
 // the plan again when it runs.
@@ -43,6 +47,8 @@ func (d *Draft) Add(a Action) string {
 			return "a plan holds one move or door: Backspace removes the one it has"
 		case action(a.Kind) && action(s.Kind):
 			return "a plan holds one ability or attack toggle: Backspace removes the one it has"
+		case companionStep(a.Kind) && a.Kind == s.Kind:
+			return "a plan holds one companion stance and one companion order: Backspace removes the one it has"
 		}
 	}
 	d.Steps = append(d.Steps, a)
@@ -162,6 +168,8 @@ func stepText(s Action, m *model.Model) string {
 		return "release"
 	case UseAbility:
 		return "use " + slotWords(m, s.Slot)
+	case CompanionStance, CompanionOrder:
+		return companionStepText(s, m)
 	case SetSlot:
 		if s.ID == "" {
 			return fmt.Sprintf("empty key %d", s.Slot)
@@ -215,6 +223,14 @@ func (d *Draft) Agent() []agentkit.Step {
 			out = append(out, agentkit.StepUseAbility(s.Slot, s.ID))
 		case SetSlot:
 			out = append(out, agentkit.StepSetSlot(s.Slot, s.ID))
+		case CompanionStance:
+			out = append(out, agentkit.StepCompanionStance(s.ID))
+		case CompanionOrder:
+			var dest *pb.Pos
+			if s.ID == "move" {
+				dest = &pb.Pos{X: s.X, Y: s.Y}
+			}
+			out = append(out, agentkit.StepCompanionOrder(s.ID, s.Target, dest, 0))
 		}
 	}
 	return out
