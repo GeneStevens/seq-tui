@@ -130,6 +130,9 @@ func (m *Model) describeInstance(e *pb.Event) (kind, text, reason string, ok boo
 			name, door = p.GetName(), p.GetEntrance()
 		}
 		text = fmt.Sprintf("instance opened: %s (up to %d in it)", name, o.GetPartyCap())
+		if m.InParty() {
+			text = fmt.Sprintf("instance opened for your party: %s (up to %d in it)", name, o.GetPartyCap())
+		}
 		if door != "" {
 			text += "; enter at " + door + " with E"
 		}

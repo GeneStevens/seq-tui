@@ -1,0 +1,24 @@
+┌─ Hollow Warren, at 11,70 m, north up ────────────┐┌─ You ────────────────────┐
+│                   .     #.................#      ││ hale  Lv 7 Warrior  | 0cr│
+│                  #.######.................#      ││ HP 204/204 ############# │
+│                  #..................#############││ XP ---------- 181 to Lv 8│
+│                  #..................#   #........││ Atk off | none           │
+│                  #..................#####........│└──────────────────────────┘
+│                  #..D..D@........#...............│┌─ Instance ───────────────┐
+│                  #...............................││ Warren Venture Delve     │
+│                  #..................#####........││ real-time | open         │
+│                  #..................#   #........││ party up to 2 | normal   │
+│                  #..................#   #########││ enter at delve-gate (E)  │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
+│     N.Ns bram left view                     ││ [party] bram: the delve gate  │
+│     N.Ns instance opened for your party:    ││   is right here               │
+│            Warren Venture Delve (up to 2 in ││ [say] hale: I will take the   │
+│            it); enter at delve-gate with E  ││   front                       │
+└─────────────────────────────────────────────┘└───────────────────────────────┘
+ ONLINE | Hollow Warren | heard N.Ns ago                          ? help  q quit

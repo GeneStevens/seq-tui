@@ -164,6 +164,9 @@ type Model struct {
 	WorldEvents map[string]*WorldEventState
 	Seen        map[string]*Place
 
+	// Social is playing together (M9): chat, the party, who and friends.
+	Social Social
+
 	// Welcome is the latest welcome; Connections counts the welcomes seen
 	// (a resume after a drop is a second connection).
 	Welcome     *pb.Welcome
@@ -287,6 +290,8 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 		if over := len(m.Errors) - errorsCap; over > 0 {
 			m.Errors = slices.Clone(m.Errors[over:])
 		}
+	case *pb.ServerMessage_Chat, *pb.ServerMessage_Party, *pb.ServerMessage_Notice, *pb.ServerMessage_Who, *pb.ServerMessage_Friends:
+		m.applySocial(msg)
 	case *pb.ServerMessage_Pong:
 		// nothing to show
 	}

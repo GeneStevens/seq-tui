@@ -1,0 +1,45 @@
+┌─ Social: Chat ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ [Chat]  Who   Friends    Tab switches, Esc closes, / types                                                                               │
+│                                                                                                                                          │
+│ [say] ann1: hello there                                                                                                                  │
+│ [say] ann1: spam a                                                                                                                       │
+│ [say] ann1: spam b                                                                                                                       │
+│ [say] ann1: spam c                                                                                                                       │
+│ [say] ann1: spam d                                                                                                                       │
+│ [say] ann1: line number a                                                                                                                │
+│ [say] ann1: line number b                                                                                                                │
+│ [say] ann1: line number c                                                                                                                │
+│ [say] ann1: line number d                                                                                                                │
+│ [say] ann1: line number e                                                                                                                │
+│ [say] ann1: line number f                                                                                                                │
+│ [say] ann1: line number g                                                                                                                │
+│ [say] ann1: line number h                                                                                                                │
+│ [say] ann1: line number i                                                                                                                │
+│ [say] ann1: line number j                                                                                                                │
+│ [say] ann1: line number k                                                                                                                │
+│ [say] ann1: line number l                                                                                                                │
+│ [say] ann1: line number m                                                                                                                │
+│ [say] ann1: line number n                                                                                                                │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Up / Down, PgUp / PgDn scroll                                                                                                            │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit

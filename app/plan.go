@@ -80,6 +80,8 @@ const (
 	DuoStance       // set the second character's stance to ID
 	DuoOrder        // order the second character, as CompanionOrder
 	Focus           // switch the keys and the screen between the two characters (D56)
+	OpenLine        // the command line for chat and the social commands
+	SocialDo        // a request about playing together: ID is the verb, Note its argument
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -174,6 +176,8 @@ func common(key string) Action {
 		return Action{Kind: OpenTraders}
 	case "t":
 		return Action{Kind: OpenTrade}
+	case "/":
+		return Action{Kind: OpenLine}
 	}
 	return Action{}
 }

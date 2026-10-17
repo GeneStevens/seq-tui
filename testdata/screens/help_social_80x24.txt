@@ -1,0 +1,24 @@
+┌─ Keys: chat, parties, who and friends (? closes) ────────────────────────────┐
+│ Command line     /  opens it (the slash is in it). Enter sends, Esc cancels  │
+│                  Plain text is said to the characters within 40 m of you     │
+│ Chat             /say TEXT   /p TEXT: the party   /tell NAME TEXT            │
+│                  /r TEXT: answer the last tell   /mute NAME   /unmute NAME   │
+│                  /mute alone lists who you muted. 200 characters a line;     │
+│                  the server limits how fast you talk                         │
+│                  say is white, party cyan, tell yellow, and each is tagged   │
+│ Scrollback       /chat: Up / Down, PgUp / PgDn, End; Tab: Who, Friends       │
+│ Party            /invite NAME   /accept   /decline   /leave   /party         │
+│                  /kick NAME (the leader). An invitation shows at the top:    │
+│                  Y accepts it, N declines it                                 │
+│                  The Party panel: * leads, health, mana, level, zone         │
+│ Instances        any member opens one with I; all walk to its door, E        │
+│                  turn-based: the Round panel marks each member's plan        │
+│ Who              /who zone=NAME class=ID 3-7 (every filter optional)         │
+│                  Up / Down choose; I invites, F makes a friend, R asks again │
+│ Friends          /friends   /friend add NAME   /friend remove NAME           │
+│                  D removes, I invites; the log says who logs in or out       │
+│ Anonymous        /anon on hides your zone from who and friends; /anon off    │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

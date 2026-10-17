@@ -1,0 +1,24 @@
+┌─ Social: Who ────────────────────────────────────────────────────────────────┐
+│  Chat  [Who]  Friends    Tab switches, Esc closes, / types                   │
+│                                                                              │
+│  Name             Class       Lv  Zone                                       │
+│> ann1             warrior      1  Testgrounds                                │
+│  bob1             warrior      1  Testgrounds                                │
+│  cy1              warrior      1  Testgrounds                                │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ I invite  F add friend  R ask again | /who zone=NAME class=ID 3-7            │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit
