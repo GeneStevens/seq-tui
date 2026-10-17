@@ -199,7 +199,7 @@ func TestOwedPayArrivesAtTheNextJoin(t *testing.T) {
 	})
 	p.Press("e")
 	p.Eventually("the Downs", inSpace("Thornwick Downs"))
-		p.Eventually("owed pay in the log", func(m *model.Model) bool { return hasLog(m, "reward", "owed pay arrived with the join") })
+	p.Eventually("owed pay in the log", func(m *model.Model) bool { return hasLog(m, "reward", "owed pay arrived with the join") })
 	p.Model(func(m *model.Model) {
 		// Half of the 120 XP and 60 crowns: the raid was lost, and an account's pay
 		// owed to an absent character is the XP and crowns only.
