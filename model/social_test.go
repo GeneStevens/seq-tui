@@ -121,3 +121,22 @@ func TestSocialReasonsAreInWords(t *testing.T) {
 		t.Errorf("an unknown reason is shown as sent, not %q", got)
 	}
 }
+
+func TestPartyVitalsChangeOnlyTheFieldsTheyCarry(t *testing.T) {
+	m := New()
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Party{Party: &pb.PartyState{Id: "p", Leader: "ann1", Members: []*pb.PartyMemberInfo{
+		{Name: "ann1", Online: true, Zone: "Testgrounds", Level: 3, Hp: 90, MaxHp: 100, Mana: 20, MaxMana: 30}}}}})
+	before := m.Social.Party
+	hp := int32(55)
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_PartyVitals{PartyVitals: &pb.PartyVitals{Name: "Ann1", Hp: &hp}}})
+	mt := m.Mates()[0]
+	if mt.HP != 55 || mt.MaxHP != 100 || mt.Mana != 20 || mt.MaxMana != 30 || mt.Zone != "Testgrounds" || mt.Level != 3 {
+		t.Fatalf("mate: %+v", mt)
+	}
+	if before.Members[0].Hp != 90 {
+		t.Fatal("the party handed out earlier was edited")
+	}
+	// A member the party does not have, and no party at all: nothing happens.
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_PartyVitals{PartyVitals: &pb.PartyVitals{Name: "zed", Hp: &hp}}})
+	New().Apply(&pb.ServerMessage{Body: &pb.ServerMessage_PartyVitals{PartyVitals: &pb.PartyVitals{Name: "zed", Hp: &hp}}})
+}
