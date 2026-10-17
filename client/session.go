@@ -33,6 +33,10 @@ type Config struct {
 	Session string
 	// Record, if set, receives every incoming message.
 	Record *record.Writer
+	// Agent, for a second character on a stance (client.Duo), is an agent
+	// credential for it: with one its turn-based plans are stand-ins (D10);
+	// without, they are the character's own, sent as the player.
+	Agent string
 	// Model is the model to feed; nil makes a new one.
 	Model *model.Model
 }

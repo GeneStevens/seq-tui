@@ -1,14 +1,14 @@
 ┌─ Thornwick Downs, at 6,150 m, north up ──────────┐┌─ You ────────────────────┐
 │                      .                           ││ Hale  Lv 1 Warrior  | 0cr│
 │                      .                           ││ HP 120/120 ############# │
-│                      .                           ││ XP ----------- 40 to Lv 2│
-│                      .                           ││ Atk off | none           │
-│                      .                           │└──────────────────────────┘
-│                      .  @                        │┌─ Target ─────────────────┐
-│                      .                           ││ no target (Tab to choose)│
-│                      .                           ││                          │
-│                      .                           ││                          │
-│                      .                      %    ││                          │
+│                      .      """""""""""""""""""""││ XP ----------- 40 to Lv 2│
+│                      .      """""""""""""""""""""││ Atk off | none           │
+│                      .···························│└──────────────────────────┘
+│                      .··@························│┌─ Target ─────────────────┐
+│                      .···························││ no target (Tab to choose)│
+│                      .·····                      ││                          │
+│                      .      """"""""""           ││                          │
+│                      .      """"""""""      %    ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
@@ -21,4 +21,4 @@
 │    NN.Ns Odalys Penn is out of view                                          │
 │    NN.Ns entered Thornwick Downs                                             │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | heard N.Ns ago | use door ok          ? help  q quit
+ ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok   

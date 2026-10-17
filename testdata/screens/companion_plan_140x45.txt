@@ -22,7 +22,7 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Companion, tank ──────────────────────┐
 │                                                                                                ││ Watch Shieldman  Lv 1                  │
-│                                                                                                ││ HP 120/120 ########################### │
+│                                                                                                ││ HP 96/96 ############################# │
 │                                                m                                               ││ stance follow                          │
 │                                                                                                ││ following you                          │
 │                                                                                                ││ P call or send away   H stance         │

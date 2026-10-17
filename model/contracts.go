@@ -27,6 +27,7 @@ type Dialogue struct {
 // Active is true from "started" until "won" or "lost".
 type WorldEventState struct {
 	Event  string
+	Name   string // the event's display name, as the server sent it (D55)
 	Kind   string
 	Text   string
 	Leaks  int64
@@ -77,6 +78,7 @@ func (m *Model) noteContracts(s *pb.Snapshot) {
 	for _, c := range s.GetSelf().GetContracts() {
 		m.contractNames[c.GetId()] = c.GetName()
 	}
+	m.noteQuestHeld(s.GetSelf().GetContracts())
 	for _, n := range s.GetNpcs() {
 		for _, o := range n.GetOffers() {
 			m.contractNames[o.GetId()] = o.GetName()
@@ -133,9 +135,22 @@ func (m *Model) NPCName(id string) string {
 // Said is the last dialogue the NPC gave the character, nil if it has none.
 func (m *Model) Said(npc string) *Dialogue { return m.Dialogues[npc] }
 
-// EventName is a world event's name: its id made readable ("harvest-raid" is
-// "Harvest Raid").
-func EventName(id string) string { return readable(id) }
+// EventName is a world event's name as the server announced it (D55); its id
+// when the event has not been announced to this model.
+func (m *Model) EventName(id string) string {
+	if s := m.WorldEvents[id]; s != nil && s.Name != "" {
+		return s.Name
+	}
+	return id
+}
+
+// Title is the event's name, its id if the server sent none.
+func (s *WorldEventState) Title() string {
+	if s.Name != "" {
+		return s.Name
+	}
+	return s.Event
+}
 
 // ActiveEvents lists the world events announced as started and not yet over,
 // sorted by id.
@@ -165,6 +180,31 @@ func (m *Model) RecentEvent(now, window int64) *WorldEventState {
 	return best
 }
 
+// owedEventPay says a world event's pay is owed pay (D55): the event ended while
+// the character was away, so the pay waited for its next join and arrives with
+// it, with no announcement of the event's end before it.
+func (m *Model) owedEventPay(w *pb.Reward) bool {
+	e := m.WorldEvents[w.GetDetail()]
+	return e == nil || e.Active
+}
+
+// joinPay is the log line of a snapshot that follows a join and shows more XP or
+// crowns than the character had before it (D55): what a world event owed it, or
+// a refund, paid by the join. The server tells nothing else of it: a stream
+// starts from the snapshot, which already shows the join's tick, so the reward
+// events of the join are not sent.
+func (m *Model) joinPay(old Self) {
+	xp, crowns := m.Self.XP-old.XP, m.Self.Crowns-old.Crowns
+	if xp <= 0 && crowns <= 0 {
+		return
+	}
+	text := "owed pay arrived with the join: " + m.RewardWords(&pb.RewardInfo{Xp: max(xp, 0), Crowns: max(crowns, 0)})
+	m.Log = append(m.Log, LogEntry{Seq: m.last, GameTimeMs: m.GameTimeMs, Kind: "reward", Text: text, Actor: m.Self.ID})
+	if over := len(m.Log) - m.logCap; over > 0 {
+		m.Log = append([]LogEntry(nil), m.Log[over:]...)
+	}
+}
+
 // applyDialogue keeps what an NPC said to the character.
 func (m *Model) applyDialogue(d *pb.Dialogue) {
 	if d.GetActor() != m.Self.ID {
@@ -182,7 +222,7 @@ func (m *Model) applyWorldEvent(w *pb.WorldEvent, at int64) {
 	if m.WorldEvents == nil {
 		m.WorldEvents = map[string]*WorldEventState{}
 	}
-	s := &WorldEventState{Event: w.GetEvent(), Kind: w.GetKind(), Text: w.GetText(), Leaks: w.GetLeaks(), At: at}
+	s := &WorldEventState{Event: w.GetEvent(), Name: w.GetName(), Kind: w.GetKind(), Text: w.GetText(), Leaks: w.GetLeaks(), At: at}
 	s.Active = w.GetKind() == "started" || w.GetKind() == "leak"
 	m.WorldEvents[w.GetEvent()] = s
 }
@@ -216,7 +256,7 @@ func (m *Model) noteNPC(n *pb.NpcInfo) {
 			m.Lessons[t.GetInfo().GetId()] = t.GetInfo()
 		}
 	}
-	m.noteQuestGiver(n)
+	m.noteQuestOffers(n)
 	if m.Space != "" {
 		m.place().NPCs[n.GetId()] = n
 	}
@@ -348,7 +388,10 @@ func (m *Model) describeContracts(e *pb.Event) (kind, text, reason string, ok bo
 		return "dialogue", fmt.Sprintf("%s says: %s", who, strings.Join(d.GetLines(), " ")), "", true
 	case *pb.Event_WorldEvent:
 		w := b.WorldEvent
-		name := EventName(w.GetEvent())
+		name := w.GetName()
+		if name == "" {
+			name = m.EventName(w.GetEvent())
+		}
 		switch w.GetKind() {
 		case "started":
 			return "world_event", fmt.Sprintf("World event, %s, has begun: %s", name, w.GetText()), "", true
@@ -385,8 +428,11 @@ func (m *Model) describeContracts(e *pb.Event) (kind, text, reason string, ok bo
 			return "reward", fmt.Sprintf("%s handed in %s to %s and got %s", who, name, m.NPCName(w.GetSource()),
 				m.RewardWords(&pb.RewardInfo{Xp: w.GetXp(), Crowns: w.GetAmount(), Item: w.GetItem()})), "", true
 		case "world_event":
-			return "reward", fmt.Sprintf("%s was paid for the %s: %s", who, EventName(w.GetDetail()),
-				m.RewardWords(&pb.RewardInfo{Xp: w.GetXp(), Crowns: w.GetAmount(), Item: w.GetItem()})), "", true
+			pay := m.RewardWords(&pb.RewardInfo{Xp: w.GetXp(), Crowns: w.GetAmount(), Item: w.GetItem()})
+			if m.owedEventPay(w) {
+				return "reward", fmt.Sprintf("owed pay arrived for the %s, which ended while you were away: %s", m.EventName(w.GetDetail()), pay), "", true
+			}
+			return "reward", fmt.Sprintf("%s was paid for the %s: %s", who, m.EventName(w.GetDetail()), pay), "", true
 		}
 	}
 	return "", "", "", false

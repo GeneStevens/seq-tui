@@ -3,25 +3,25 @@
 │                                         .                                                      ││ HP 120/120 ########################### │
 │                                         .                                                      ││ XP ------------------------- 40 to Lv 2│
 │                                         .                                                      ││ Atk off | none                         │
-│                                         .                                                      │└────────────────────────────────────────┘
-│                                         .                                                      │┌─ Target ───────────────────────────────┐
+│                                         .                """"""""""""""""""""""""""""""""""""""│└────────────────────────────────────────┘
+│                                         .                """"""""""""""""""""""""""""""""""""""│┌─ Target ───────────────────────────────┐
 │                                         .                                                      ││ no target (Tab to choose)              │
 │                                         .                                                      ││                                        │
-│                                         .                                                      ││                                        │
-│                                         .                                                      │└────────────────────────────────────────┘
-│                                         .                                                      │┌─ Contracts (K) ────────────────────────┐
-│                                         .                                                      ││ Word from Wickett Mill              go │
-│                                         .      @                                               │└────────────────────────────────────────┘
-│                                         .                                                      │┌─ Nearby ───────────────────────────────┐
-│                                         .                                                      ││ D town-gate                    0m here │
-│                                         .                                                      ││ % Wickett Mill      42m E scout marker │
+│                                         .                                     ·················││                                        │
+│                                         .······················································│└────────────────────────────────────────┘
+│                                         .······················································│┌─ Contracts (K) ────────────────────────┐
+│                                         .······················································││ Word from Wickett Mill              go │
+│                                         .······@···············································│└────────────────────────────────────────┘
+│                                         .······················································│┌─ Nearby ───────────────────────────────┐
+│                                         .······················································││ D town-gate                    0m here │
+│                                         .··················                                    ││ % wickett-mill      42m E scout marker │
 │                                         .                                                      ││ D hollow-warren                 394m E │
 │                                         .                                                      ││                                        │
 │                                         .                                                      ││                                        │
-│                                         .                                                      ││                                        │
+│                                         .                """"""""""""""""""""""                ││                                        │
+│                                         .                """"""""""""""""""""""                ││                                        │
 │                                         .                                                      ││                                        │
 │                                         .                                                     %││                                        │
-│                                         .                                                      ││                                        │
 │                                         .                                                      ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -33,6 +33,7 @@
 │     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │ +   N.Ns you took the contract Word from Wickett Mill                                                                                    │
+│     N.Ns Town Guard (guard) is in view                                                                                                   │
 │     N.Ns Barnaby Tuck is out of view                                                                                                     │
 │     N.Ns Odalys Penn (banker) is in view                                                                                                 │
 │     N.Ns Thornwick Contract Board is out of view                                                                                         │
@@ -40,6 +41,5 @@
 │    NN.Ns Captain Rhosyn Hartley (quest_giver) is in view                                                                                 │
 │    NN.Ns Odalys Penn is out of view                                                                                                      │
 │    NN.Ns entered Thornwick Downs                                                                                                         │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | heard N.Ns ago | use door ok                                                                      ? help  q quit
+ ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok                                                 ? help  q quit

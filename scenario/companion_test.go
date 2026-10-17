@@ -28,7 +28,7 @@ func levelUp(level int, edit func(*core.CharacterSave)) func(*core.CharacterSave
 // levelUpAs is levelUp for a character of any class.
 func levelUpAs(class string, level int, edit func(*core.CharacterSave)) func(*core.CharacterSave) {
 	return func(cs *core.CharacterSave) {
-		z, _ := content.Town()
+		z, _ := content.Zone(scenario.Thornwick)
 		cl := z.Class(class)
 		cs.Stats, cs.Known, cs.Slots, cs.XP = core.ClassCharacter(cl, *z.CharacterTemplate(class), level)
 		cs.Known, cs.Slots = cl.KnownAt(1), core.DefaultSlots(cl.KnownAt(1))
@@ -64,7 +64,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 			t.Fatalf("the Captain said %+v", d)
 		}
 		steps := m.QuestSteps()
-		if len(steps) != 1 || steps[0].Name != "Eyes on the Goblins" || steps[0].State != model.StepOffered || !m.QuestShown() {
+		if len(steps) != 1 || steps[0].Name != "Eyes on the Goblins" || steps[0].Quest != "companion" || steps[0].Step != 1 || steps[0].State != model.StepOffered || !m.QuestShown() {
 			t.Fatalf("the quest as seen: %+v", steps)
 		}
 	})
@@ -78,7 +78,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 	p.Model(func(m *model.Model) {
 		c := m.Contract("companion-goblin-lookout")
 		steps := m.QuestSteps()
-		if c == nil || c.GetKind() != "scout" || len(steps) != 1 || steps[0].State != model.StepHeld {
+		if c == nil || c.GetKind() != "scout" || c.GetQuest() != "companion" || c.GetStep() != 1 || len(steps) != 1 || steps[0].State != model.StepHeld {
 			t.Fatalf("after taking the step: %v, %+v", c, steps)
 		}
 	})
@@ -88,7 +88,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 // Back from the lookout the step is ready; the Quest panel says to hand it in.
 // The Downs are another zone, so this one begins with the contract held.
 func TestCompanionQuestScoutTheLookout(t *testing.T) {
-	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}}})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("companion_lookout.jsonl")
 	w.Place("ann", "hale", 216000, 140000)
 	w.Srv.Give("hale", levelUp(6, func(cs *core.CharacterSave) {
@@ -166,7 +166,7 @@ func TestCompanionQuestEndsWithTheChoiceOfARole(t *testing.T) {
 
 // downsAccount is an account whose warrior wakes in the Downs.
 func downsAccount() []testserver.Account {
-	return []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}}
+	return []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}}
 }
 
 // companionRecord is a finished quest with the role chosen and the recruit called.
@@ -396,7 +396,7 @@ func TestTurnBasedRoundWithACompanionStep(t *testing.T) {
 // A second character of the account plays by a stance beside the first (D42):
 // P brings it in, H and the orders command it, and it fights on guard. (Sending it away logs it out; the test server can stall five seconds when a session ends while it settles, so no scenario does that.)
 func TestSecondCharacterOnGuard(t *testing.T) {
-	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns,
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs,
 		Classed: map[string]string{"hale": "warrior", "bram": "cleric"}}}})
 	w.Fixture("duo_guard.jsonl")
 	w.Place("ann", "hale", 146000, 95000)

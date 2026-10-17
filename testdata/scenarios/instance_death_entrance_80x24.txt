@@ -1,0 +1,24 @@
+┌─ Testgrounds (Solo Trial), at 100,90 m, north … ─┐┌─ You ────────────────────┐
+│                                                  ││ aria  Lv 1  XP 0    | 0cr│
+│                                                  ││ HP 6/6 ################# │
+│                                                  ││ Target: none             │
+│..................................................││ Auto-attack: off         │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Instance ───────────────┐
+│                                                  ││ Solo Trial               │
+│                         @                        ││ real-time | inside       │
+│                                                  ││ party up to 1 | normal   │
+│                                                  ││                          │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Target ─────────────────┐
+│                                                  ││ no target (Tab to choose)│
+│                       m                          ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: participants_dead│
+│    NN.Ns aria released; respawns in 5 s                                      │
+│    NN.Ns Plain Scuttler reset to 40 hp                                       │
+│    NN.Ns aria respawned at (100000, 90000) with 6 hp                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | release ok  ? help  q quit

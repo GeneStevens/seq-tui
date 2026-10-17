@@ -3,12 +3,12 @@
 │                    .                   #         ││ HP 88/88 ############### │
 │                    .     $$$$$$        #         ││ MP 142/173 ##########--- │
 │                    .     $$$&?         #         ││ XP ###-------- 40 to Lv 3│
-│                    .                   #         ││ Atk off | none           │
+│                    .          ?        #         ││ Atk off | none           │
 │                    .    @ *     c      #       c │└──────────────────────────┘
-│                    .                   #         │┌─ Target ─────────────────┐
-│                    .                   #         ││ no target (Tab to choose)│
-│                    .                   #         ││                          │
-│                    .                   #         ││                          │
+│                    .                   #         │┌─ Quest ──────────────────┐
+│                    .                   #         ││ [ ] 1. Scout the Lookout │
+│                    .                   #         ││ Testgrounds Recruiter has│
+│                    .                   #         ││ work for you: G.         │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Flame Dart   tgt? 2 Frost Bolt  tgt? 3 -          empty 4 -          empty │

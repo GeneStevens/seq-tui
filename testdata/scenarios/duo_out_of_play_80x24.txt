@@ -1,14 +1,14 @@
 ┌─ Thornwick Downs, at 146,95 m, north up ─────────┐┌─ You ────────────────────┐
-│                                                  ││ hale  Lv 5 Warrior  | 0cr│
-│                                                  ││ HP 176/176 ############# │
-│                                                  ││ XP ---------- 145 to Lv 6│
-│                                     #            ││ Atk off | none           │
-│                                     #            │└──────────────────────────┘
-│                         @    m      #            │┌─ Party, 2nd character ───┐
-│                                     #            ││ bram                     │
-│                                     #            ││ out of play: P brings it…│
-│               c                     #            ││ stance follow            │
-│                                     #            ││ out of play              │
+│                """""c"""""""""""    ≈≈≈≈≈≈≈      ││ hale  Lv 5 Warrior  | 0cr│
+│               """"""""""""""""""""   ≈≈≈≈≈≈      ││ HP 176/176 ############# │
+│               """"""""""""""""""""   ≈≈≈≈≈≈≈     ││ XP ---------- 145 to Lv 6│
+│              """""""""""""""""""""   ≈≈≈≈≈≈≈     ││ Atk off | none           │
+│              """"""""""""""""""""    ≈≈≈≈≈≈≈     │└──────────────────────────┘
+│              """""""""""@""""m"""    ≈≈≈≈≈≈≈     │┌─ Party, 2nd character ───┐
+│              """"""""""""""""""""    ≈≈≈≈≈≈      ││ bram                     │
+│              """"""""""""""""""""   ≈≈≈≈≈≈≈      ││ out of play: P brings it…│
+│             """""""""""""""""""""   ≈≈≈≈≈≈≈      ││ stance follow            │
+│             """"""""""""""""""""    ≈≈≈≈≈≈≈      ││ out of play              │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
@@ -21,4 +21,4 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit
+ ONLINE | Thornwick Downs | forest: slowed to 75% | heard N.Ns ago        ? help

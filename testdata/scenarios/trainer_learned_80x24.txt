@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Gorran Stoutarm, trainer, 2m NW away. You have 147 crowns.                   │
+│ Gorran Stoutarm, trainer, 0m here away. You have 147 crowns.                 │
 │                                                                              │
 │ You are level 3. Enter buys the ability under the cursor.                    │
 │  Taunt                  level 1   known                                      │
@@ -10,8 +10,8 @@
 │  Rallying Shout         level 9   135 crowns                                 │
 │  Sunder                 level 11  165 crowns                                 │
 │──────────────────────────────────────────────────────────────────────────────│
-│ Second Wind: Heals you for 35% of the damage you deal for 12 s. On yourself. │
-│                                                                              │
+│ Second Wind: For a short while, a share of the damage you deal comes back to │
+│ you as health. Use it in the thick of a long fight.                          │
 │                                                                              │
 │                                                                              │
 │                                                                              │
@@ -21,4 +21,4 @@
 │ Enter acts. Esc goes back.                                                   │
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | heard N.Ns ago | train Second Wind ok       ? help  q quit
+ ONLINE | road: faster, 125% | heard N.Ns ago | train Second Wind ok      ? help

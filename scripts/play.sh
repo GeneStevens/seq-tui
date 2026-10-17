@@ -12,6 +12,7 @@
 #   SEQ_ADDR=127.0.0.1:8443   where the server listens
 #   SEQ_CHARACTER=me-1  the character to play (me-1 or me-2)
 #   SEQ_NEW=1           make a new character on the creation screen instead
+#   SEQ_WORLD_PACKS=DIR  serve the packs in DIR (a seq-world checkout under work) instead of the pinned seq-world's
 set -eu
 
 cd "$(dirname "$0")/.."
@@ -36,7 +37,7 @@ Then run make play again.
 HELP
 }
 
-fetch() { go mod download "$module" >"$dlog" 2>&1; }
+fetch() { go mod download "$module" github.com/GeneStevens/seq-world >"$dlog" 2>&1; }
 
 dlog=$(mktemp)
 if ! fetch; then
@@ -65,6 +66,14 @@ if ! docker info >/dev/null 2>&1; then
 	echo "make play: docker is not running (start OrbStack); the server's database runs in a container" >&2
 	exit 1
 fi
+# The world (D54) is seq-world, at the version go.mod pins: the server serves its
+# packs; the TUI reads everything about the zones from the server (the zone map).
+world=$(go list -m -f '{{.Dir}}' github.com/GeneStevens/seq-world)
+packs="${SEQ_WORLD_PACKS:-$world/packs}"
+if [ ! -d "$packs" ]; then
+	echo "make play: seq-world's packs are not at '$packs'; try: go mod download github.com/GeneStevens/seq-world" >&2
+	exit 1
+fi
 mkdir -p tmp
 log=tmp/seqd.log
 export SEQ_PG_PORT="$port"
@@ -82,7 +91,7 @@ echo "building seqd $seqver ..."
 GOBIN="$PWD/tmp" go install "github.com/GeneStevens/seq/cmd/seqd@$seqver"
 
 SEQ_DATABASE_URL="postgres://seq:seq@127.0.0.1:$port/seq?sslmode=disable" \
-	tmp/seqd -listen "$addr" -dev-account me >"$log" 2>&1 &
+	tmp/seqd -listen "$addr" -packs "$packs" -dev-account me >"$log" 2>&1 &
 seqd_pid=$!
 
 token=""

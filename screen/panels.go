@@ -207,7 +207,7 @@ func nearbyList(m *model.Model) []nearby {
 	}
 	for _, c := range m.Self.Contracts {
 		if p := m.Marker(c); p != nil {
-			out = append(out, mk(glyphMarker, "marker-"+c.GetMarker(), model.EventName(c.GetMarker()), p, "scout marker"))
+			out = append(out, mk(glyphMarker, "marker-"+c.GetMarker(), c.GetMarker(), p, "scout marker"))
 		}
 	}
 	sort.SliceStable(out, func(i, j int) bool {

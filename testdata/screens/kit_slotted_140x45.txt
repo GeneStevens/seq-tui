@@ -5,24 +5,24 @@
 │                                    .                                               #           ││ XP ------------------------- 40 to Lv 2│
 │                                    .                                               #           ││ Atk off | none                         │
 │                                    .             $  $ $  $ $ $                     #           │└────────────────────────────────────────┘
+│                                    .                                               #           │┌─ Quest ────────────────────────────────┐
+│                                    .             $  $ $  & ?                       #           ││ [ ] 1. Scout the Lookout               │
+│                                    .                         ?                     #           ││ Testgrounds Recruiter has work for you:│
+│                                    .                                               #           ││ G.                                     │
+│                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Target ───────────────────────────────┐
-│                                    .             $  $ $  & ?                       #           ││ no target (Tab to choose)              │
+│                                    .           @               m c                 #           ││ no target (Tab to choose)              │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           ││                                        │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
-│                                    .           @               m c                 #           ││ $ Testgrounds Vendor       8m N vendor │
+│                                    .                                               #           ││ $ Testgrounds Vendor       8m N vendor │
 │                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
 │                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
 │                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
 │                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
 │                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
-│                                    .                                               #           ││ ? Testgrounds Capt… 13m NE quest_giver │
-│                                    .                                               #           ││ $ Rogue Trainer         13m NE trainer │
-│                                    .                                               #           ││ m Plain Scuttler           14m E 40/40 │
-│                                    .                                               #           ││ $ Wizard Trainer        14m NE trainer │
-│                                    .                                               #           ││ $ Paladin Trainer       16m NE trainer │
-│                                    .                                               #           ││ +3 more                                │
+│                                    .                                               #           ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Root                   10mp tgt? 2 Frost Bolt            12mp tgt? 3 Flame Dart             6mp tgt? 4 -                         empty │

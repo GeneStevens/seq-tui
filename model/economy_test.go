@@ -76,6 +76,7 @@ func TestEconomyRewardsInTheLog(t *testing.T) {
 		Self:  &pb.SelfState{Entity: &pb.EntityState{Id: "me"}},
 		Items: []*pb.ItemInfo{{Id: "worn-cap", Name: "Worn Cap"}},
 		Npcs:  []*pb.NpcInfo{{Id: "vendor", Name: "Testgrounds Vendor"}}}}})
+	event(m, 50, &pb.Event{Body: &pb.Event_InstanceOpenFailed{InstanceOpenFailed: &pb.InstanceOpenFailed{Reason: "instance_unavailable"}}})
 	for _, tc := range []struct {
 		r    *pb.Reward
 		want string

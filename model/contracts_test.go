@@ -74,6 +74,8 @@ func TestDialogueAndRewardsInTheLog(t *testing.T) {
 		t.Errorf("another character's talk replaced mine: %+v", m.Said("board"))
 	}
 
+	event(m, 1500, &pb.Event{Body: &pb.Event_WorldEvent{WorldEvent: &pb.WorldEvent{Event: "harvest-raid", Name: "Harvest Raid", Kind: "won", Text: "The farms are safe."}}})
+
 	// Rewards of the contract kinds.
 	for _, tc := range []struct {
 		r    *pb.Reward
@@ -88,6 +90,27 @@ func TestDialogueAndRewardsInTheLog(t *testing.T) {
 		if got := lastText(m); got != tc.want {
 			t.Errorf("%s: %q, want %q", tc.r.Kind, got, tc.want)
 		}
+	}
+}
+
+// Pay that waited for a join (D55) is told as owed: the reward of an event whose
+// end this model was not told, and a refund with no failed opening before it.
+func TestOwedPayIsToldAsOwed(t *testing.T) {
+	m := model.New()
+	snap(m, 1, "town", &pb.SelfState{}, nil)
+	event(m, 100, &pb.Event{Body: &pb.Event_Reward{Reward: &pb.Reward{Recipient: "me", Source: "raid", Kind: "world_event", Detail: "harvest-raid", Xp: 120, Amount: 60}}})
+	if got := lastText(m); got != "owed pay arrived for the harvest-raid, which ended while you were away: 120 XP and 60 crowns" {
+		t.Errorf("owed event pay: %q", got)
+	}
+	event(m, 200, &pb.Event{Body: &pb.Event_Reward{Reward: &pb.Reward{Recipient: "me", Kind: "refund", Amount: 50, Detail: "peril-den"}}})
+	if got := lastText(m); !strings.Contains(got, "an owed refund arrived") {
+		t.Errorf("owed refund: %q", got)
+	}
+	// A refund that answers a failed opening is not owed.
+	event(m, 300, &pb.Event{Body: &pb.Event_InstanceOpenFailed{InstanceOpenFailed: &pb.InstanceOpenFailed{Reason: "instance_unavailable"}}})
+	event(m, 310, &pb.Event{Body: &pb.Event_Reward{Reward: &pb.Reward{Recipient: "me", Kind: "refund", Amount: 50, Detail: "peril-den"}}})
+	if got := lastText(m); !strings.Contains(got, "was refunded to you") {
+		t.Errorf("refund after a failure: %q", got)
 	}
 }
 
@@ -181,5 +204,51 @@ func TestInReachIsTheNPCsOwn(t *testing.T) {
 	far := &pb.NpcInfo{Pos: &pb.Pos{X: 3001, Y: 0}, ReachMm: 3000}
 	if !m.InReach(near) || m.InReach(far) || m.InReach(&pb.NpcInfo{Pos: &pb.Pos{}}) {
 		t.Error("InReach")
+	}
+}
+
+// A world event's name is the server's (D55); a snapshot after a join that shows
+// more than the character had is owed pay arriving; an offer of no quest is no
+// quest step; party and companion mana are the group's.
+func TestD55Reads(t *testing.T) {
+	m := model.New()
+	snap(m, 1, "downs", &pb.SelfState{Crowns: 5}, nil)
+	event(m, 100, &pb.Event{Body: &pb.Event_WorldEvent{WorldEvent: &pb.WorldEvent{Event: "harvest-raid", Name: "Harvest Raid", Kind: "started", Text: "Defend!"}}})
+	if got := m.EventName("harvest-raid"); got != "Harvest Raid" || m.WorldEvents["harvest-raid"].Title() != "Harvest Raid" {
+		t.Errorf("the event's name: %q", got)
+	}
+	if got := m.EventName("unheard-of"); got != "unheard-of" {
+		t.Errorf("an event never announced is its id: %q", got)
+	}
+
+	// Across a door the snapshot shows 30 crowns more: the join paid them.
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: &pb.Event{Body: &pb.Event_SpaceChanged{SpaceChanged: &pb.SpaceChanged{Space: "town"}}}}})
+	snap(m, 1, "town", &pb.SelfState{Crowns: 35, Xp: 60}, nil)
+	if got := lastText(m); got != "owed pay arrived with the join: 60 XP and 30 crowns" {
+		t.Errorf("after the join: %q", got)
+	}
+	before := len(m.Log)
+	snap(m, 3, "town", &pb.SelfState{Crowns: 99, Xp: 99}, nil)
+	if len(m.Log) != before {
+		t.Errorf("a snapshot with no join added a line: %q", lastText(m))
+	}
+
+	// An offer that is no quest step is none, whoever offers it.
+	board := &pb.NpcInfo{Id: "board", Name: "Board", Role: "contract_board", Pos: &pb.Pos{X: 2000, Y: 1000}, Offers: []*pb.ContractOffer{{Id: "hunt", Name: "Hunt", Kind: "hunt", Need: 3}}}
+	snap(m, 4, "town", &pb.SelfState{}, []*pb.NpcInfo{board})
+	if len(m.QuestSteps()) != 0 || m.QuestGiver() != "" {
+		t.Errorf("quest steps from a plain board: %+v", m.QuestSteps())
+	}
+
+	// Mana of the group's members.
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "town", Seq: 5,
+		Self:  &pb.SelfState{Entity: &pb.EntityState{Id: "me"}, Companion: &pb.CompanionState{Unlocked: true, Role: "healer", Present: true, Id: "comp-me", Mana: 40, MaxMana: 100}},
+		Group: []*pb.GroupMember{{Entity: &pb.EntityState{Id: "comp-me", Owner: "me"}, Mana: 40, MaxMana: 100}, {Entity: &pb.EntityState{Id: "bram"}, Mana: 7, MaxMana: 20}}}}})
+	if cur, most := m.CompanionMana(); cur != 40 || most != 100 || m.Group["bram"].Mana != 7 || m.Group["bram"].MaxMana != 20 {
+		t.Errorf("mana: companion %d of %d, bram %+v", cur, most, m.Group["bram"])
+	}
+	event(m, 200, &pb.Event{Body: &pb.Event_ResourceChanged{ResourceChanged: &pb.ResourceChanged{Actor: "bram", Resource: "mana", Delta: -5}}})
+	if m.Group["bram"].Mana != 2 {
+		t.Errorf("bram's mana after an event: %d", m.Group["bram"].Mana)
 	}
 }

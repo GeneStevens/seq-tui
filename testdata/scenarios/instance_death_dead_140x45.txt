@@ -1,0 +1,45 @@
+┌─ Testgrounds (Solo Trial), at 100,87 m, north up ──────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                                                                                ││ aria  Lv 1  XP 0             | 0 crowns│
+│                                                                                                ││ DEAD  HP 0/6                           │
+│                                                                                                ││ Target: none                           │
+│                                                                                                ││ You are dead. R: release               │
+│................................................................................................│└────────────────────────────────────────┘
+│                                                                                                │┌─ Instance ─────────────────────────────┐
+│                                                                                                ││ Solo Trial                             │
+│                                                                                                ││ real-time | inside                     │
+│                                                                                                ││ party up to 1 | normal                 │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                D                                               ││                                        │
+│                                                                                                ││                                        │
+│                                                @                                               │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                m                                               ││ m Plain Scuttler            3m S 40/40 │
+│                                                                                                ││ D gate-north                      3m N │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns Plain Scuttler targeted aria                                                                                                    │
+│     N.Ns aria opened an encounter with Plain Scuttler (inst-1.enc-1)                                                                     │
+│     N.Ns Plain Scuttler began attacking aria                                                                                             │
+│ <   N.Ns Plain Scuttler missed aria                                                                                                      │
+│ <   N.Ns Plain Scuttler hit aria for 4                                                                                                   │
+│ <  NN.Ns Plain Scuttler hit aria for 1                                                                                                   │
+│    NN.Ns aria healed 2                                                                                                                   │
+│ <  NN.Ns Plain Scuttler hit aria for 1                                                                                                   │
+│ <  NN.Ns Plain Scuttler hit aria for 3                                                                                                   │
+│ x  NN.Ns Plain Scuttler killed aria                                                                                                      │
+│    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: participants_dead                                                            │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | move ok                                                                 ? help  q quit

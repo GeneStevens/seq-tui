@@ -129,9 +129,10 @@ func TestHelperKeysCommandTheSecondCharacter(t *testing.T) {
 	if got := a.helperAction("p", m); got.Kind != DuoSummon {
 		t.Errorf("p, pointed at the second character: %+v", got)
 	}
-	// A second character cannot plan in a turn-based round.
+	// A second character is not planned for in a turn-based round (D55): its keys
+	// change its stance as before, and the stance makes its plan each round.
 	m.Instance = &pb.InstanceInfo{TimeMode: "turn_based"}
-	if got := a.helperAction("h", m); got.Kind != None || got.Note == "" {
+	if got := a.helperAction("h", m); got.Kind != DuoStance {
 		t.Errorf("h in a round: %+v", got)
 	}
 }

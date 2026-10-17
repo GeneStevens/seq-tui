@@ -4,16 +4,22 @@
 │                   .                                                         #                  ││ Target: none                           │
 │                   .                                                         #                  ││ Released: back in 5 s                  │
 │                   .                                                         #                  │└────────────────────────────────────────┘
-│                   .                $  $  $  $  $  $                         #                  │┌─ Target ───────────────────────────────┐
+│                   .                $  $  $  $  $  $                         #                  │┌─ Quest ────────────────────────────────┐
+│                   .                                                         #                  ││ [ ] 1. Scout the Lookout               │
+│                   .                                                         #                  ││ Testgrounds Recruiter has work for you:│
+│                   .                $  $  $  &  ?                            #                  ││ G.                                     │
+│                   .                               ?                         #                  │└────────────────────────────────────────┘
+│                   .                                                         #                  │┌─ Target ───────────────────────────────┐
 │                   .                                                         #                  ││ no target (Tab to choose)              │
 │                   .                                                         #                  ││                                        │
-│                   .                $  $  $  &  ?                            #                  ││                                        │
-│                   .                                                         #                  │└────────────────────────────────────────┘
+│                   .                              m                          #                  ││                                        │
+│                   .                            @      c                     #                  │└────────────────────────────────────────┘
 │                   .                                                         #                  │┌─ Nearby ───────────────────────────────┐
 │                   .                                                         #                  ││ m Plain Scuttler            2m E 40/40 │
+│                   .                                                         #                  ││ ? Testgrounds Recrui… 6m N quest_giver │
 │                   .                                                         #                  ││ ? Testgrounds Captain 8m N quest_giver │
-│                   .                              m                          #                  ││ & Testgrounds Con… 8m N contract_board │
-│                   .                            @      c                     #                  ││ $ Testgrounds Binder      9m NW binder │
+│                   .                                                         #                  ││ & Testgrounds Con… 8m N contract_board │
+│                   .                                                         #                  ││ $ Testgrounds Binder      9m NW binder │
 │                   .                                                         #                  ││ $ Testgrounds Banker     10m NW banker │
 │                   .                                                         #                  ││ $ Testgrounds Vendor     11m NW vendor │
 │                   .                                                         #                  ││ $ Paladin Trainer        12m N trainer │
@@ -21,13 +27,7 @@
 │                   .                                                         #                  ││ $ Wizard Trainer         12m N trainer │
 │                   .                                                         #                  ││ $ Rogue Trainer          13m N trainer │
 │                   .                                                         #                  ││ $ Cleric Trainer        13m NW trainer │
-│                   .                                                         #                  ││ $ Warrior Trainer       14m NW trainer │
-│                   .                                                         #                  ││ D gate-north                    89m NE │
-│                   .                                                         #                  ││ D line-east                     180m E │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
-│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s aria opened an encounter with Plain Scuttler (enc-1)                                                                            │

@@ -1,14 +1,14 @@
 ┌─ Thornwick Downs, at 152,95 m, north up ─────────┐┌─ You ────────────────────┐
-│                                                  ││ hale  Lv 5 Warrior  | 0cr│
-│                                                  ││ HP 176/176 ############# │
-│                                                  ││ XP ---------- 145 to Lv 6│
-│                                  #               ││ Atk ON | Bramble Tusker  │
-│                                  #               │└──────────────────────────┘
-│                        p@ c      #               │┌─ Companion, tank ────────┐
-│                                  #               ││ Watch Shieldman  Lv 5    │
-│                                  #               ││ HP 170/176 ############- │
-│            c                     #               ││ stance assist            │
-│                                  #               ││ fighting Bramble Tusker  │
+│             """""c"""""""""""    ≈≈≈≈≈≈≈         ││ hale  Lv 5 Warrior  | 0cr│
+│            """"""""""""""""""""   ≈≈≈≈≈≈         ││ HP 176/176 ############# │
+│            """"""""""""""""""""   ≈≈≈≈≈≈≈        ││ XP ---------- 145 to Lv 6│
+│           """""""""""""""""""""   ≈≈≈≈≈≈≈        ││ Atk ON | Bramble Tusker  │
+│           """"""""""""""""""""    ≈≈≈≈≈≈≈        │└──────────────────────────┘
+│           """""""""""""p@"c"""    ≈≈≈≈≈≈≈        │┌─ Companion, tank ────────┐
+│           """"""""""""""""""""    ≈≈≈≈≈≈         ││ Watch Shieldman  Lv 5    │
+│           """"""""""""""""""""   ≈≈≈≈≈≈≈         ││ HP 135/140 ############- │
+│          """""""""""""""""""""   ≈≈≈≈≈≈≈         ││ stance assist            │
+│          """"""""""""""""""""    ≈≈≈≈≈≈≈         ││ fighting Bramble Tusker  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt       ready 2 Bash       ready 3 -          empty 4 -          empty │
@@ -17,8 +17,8 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     N.Ns Bramble Tusker began attacking Watch Shieldman                      │
-│     N.Ns Bramble Tusker hit Watch Shieldman for 6                            │
+│     N.Ns Bramble Tusker hit Watch Shieldman for 5                            │
 │     N.Ns hale began attacking Bramble Tusker                                 │
-│     N.Ns hale hit Bramble Tusker for 8                                       │
+│     N.Ns hale hit Bramble Tusker for 5                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | heard N.Ns ago | attack ok            ? help  q quit
+ ONLINE | Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | attack ok  

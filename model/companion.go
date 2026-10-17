@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
@@ -28,6 +29,19 @@ func (m *Model) CompanionMember() *Member {
 	return nil
 }
 
+// CompanionMana is the companion's mana and its most (0, 0: it has none, or is
+// away), from its group entry, else from the snapshot's companion state.
+func (m *Model) CompanionMana() (cur, max int64) {
+	if g := m.CompanionMember(); g != nil && g.MaxMana > 0 {
+		return g.Mana, g.MaxMana
+	}
+	c := m.Companion()
+	if c.GetPresent() {
+		return c.GetMana(), c.GetMaxMana()
+	}
+	return 0, 0
+}
+
 // QuestStepState says where a step of the quest stands.
 type QuestStepState string
 
@@ -38,46 +52,71 @@ const (
 	StepDone    QuestStepState = "done"    // handed in
 )
 
-// QuestStep is one contract of a quest giver's chain, as seen.
+// QuestStep is one contract of a quest, as seen. Quest names the quest and Step
+// is the step's place in it (from 1), both as the server said (D55).
 type QuestStep struct {
-	ID, Name, Description, Kind string
-	Have, Need                  int64
-	State                       QuestStepState
+	ID, Quest, Name, Description, Kind string
+	Step                               int64
+	Have, Need                         int64
+	State                              QuestStepState
 }
 
-// noteQuestGiver remembers what a quest giver offers. The protocol marks the
-// quest giver by its role and no contract as a quest step, so a step is a
-// contract that a quest giver's board offered; the board offers a step only
-// once the one before is handed in, so the offers in view now are the steps not
-// yet taken.
-func (m *Model) noteQuestGiver(n *pb.NpcInfo) {
-	if n.GetRole() != "quest_giver" {
-		return
+// questSeen is a step of a quest the character has been told of.
+type questSeen struct {
+	quest, name, desc, kind string
+	step, need              int64
+}
+
+// noteQuestOffers remembers the quest steps a board offers (D55: an offer says
+// which quest and step it is). The offers in view now are the steps not yet
+// taken. A board that has offered a step is the quest giver.
+func (m *Model) noteQuestOffers(n *pb.NpcInfo) {
+	if n.GetId() == m.questGiver {
+		m.questOffered = map[string]bool{}
 	}
-	m.questGiver = n.GetId()
-	m.questOffered = map[string]bool{}
 	for _, o := range n.GetOffers() {
+		if o.GetQuest() == "" {
+			continue
+		}
+		m.questGiver = n.GetId()
+		if m.questOffered == nil {
+			m.questOffered = map[string]bool{}
+		}
 		m.questOffered[o.GetId()] = true
-		if _, seen := m.questSteps[o.GetId()]; !seen {
-			if m.questSteps == nil {
-				m.questSteps = map[string]*pb.ContractOffer{}
-			}
-			m.questSteps[o.GetId()] = o
-			m.questOrder = append(m.questOrder, o.GetId())
+		m.seeQuestStep(o.GetId(), questSeen{o.GetQuest(), o.GetName(), o.GetDescription(), o.GetKind(), o.GetStep(), o.GetNeed()})
+	}
+}
+
+// noteQuestHeld remembers the quest steps the character holds.
+func (m *Model) noteQuestHeld(cs []*pb.ContractInfo) {
+	for _, c := range cs {
+		if c.GetQuest() != "" {
+			m.seeQuestStep(c.GetId(), questSeen{c.GetQuest(), c.GetName(), c.GetDescription(), c.GetKind(), c.GetStep(), c.GetNeed()})
 		}
 	}
 }
 
-// QuestGiver is the NPC id of the quest giver the character has seen, "" if none.
+func (m *Model) seeQuestStep(id string, q questSeen) {
+	if m.questSteps == nil {
+		m.questSteps = map[string]questSeen{}
+	}
+	if _, seen := m.questSteps[id]; !seen {
+		m.questOrder = append(m.questOrder, id)
+	}
+	m.questSteps[id] = q
+}
+
+// QuestGiver is the NPC id of the board that offered a quest step, "" if none
+// has been seen.
 func (m *Model) QuestGiver() string { return m.questGiver }
 
-// QuestSteps lists the steps of the companion quest the character has seen, in
-// the order the quest giver offered them.
+// QuestSteps lists the steps of the quests the character has been told of, by
+// step. A step the character neither holds nor is offered is done.
 func (m *Model) QuestSteps() []QuestStep {
 	var out []QuestStep
 	for _, id := range m.questOrder {
-		o := m.questSteps[id]
-		s := QuestStep{ID: id, Name: o.GetName(), Description: o.GetDescription(), Kind: o.GetKind(), Need: o.GetNeed(), State: StepDone}
+		q := m.questSteps[id]
+		s := QuestStep{ID: id, Quest: q.quest, Name: q.name, Description: q.desc, Kind: q.kind, Step: q.step, Need: q.need, State: StepDone}
 		switch c := m.Contract(id); {
 		case c != nil:
 			s.Name, s.Description, s.Kind, s.Have, s.Need, s.State = c.GetName(), c.GetDescription(), c.GetKind(), c.GetHave(), c.GetNeed(), StepHeld
@@ -89,6 +128,12 @@ func (m *Model) QuestSteps() []QuestStep {
 		}
 		out = append(out, s)
 	}
+	sort.SliceStable(out, func(i, j int) bool {
+		if out[i].Quest != out[j].Quest {
+			return out[i].Quest < out[j].Quest
+		}
+		return out[i].Step < out[j].Step
+	})
 	return out
 }
 

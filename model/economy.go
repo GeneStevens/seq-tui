@@ -78,16 +78,6 @@ func (m *Model) noteItem(it *pb.ItemInfo) {
 	}
 }
 
-// readable makes an id into something to read where the protocol carries no
-// name (a world event's): "harvest-raid" is "Harvest Raid".
-func readable(id string) string {
-	words := strings.Fields(strings.ReplaceAll(id, "-", " "))
-	for i, w := range words {
-		words[i] = strings.ToUpper(w[:1]) + w[1:]
-	}
-	return strings.Join(words, " ")
-}
-
 // Bound says whether the item cannot be traded: it is Rare or Named (bound on
 // pickup), or it has already been traded once (D45, D50).
 func (m *Model) Bound(inst string) bool {
@@ -191,6 +181,9 @@ func (m *Model) describeEconomy(e *pb.Event) (kind, text, reason string, ok bool
 		case "fee":
 			return "reward", fmt.Sprintf("%s paid an entry fee of %s", who, crowns(w.GetAmount())), "", true
 		case "refund":
+			if m.refunds >= m.openFailed { // no failed opening told: the refund was owed, and paid at this join (D55)
+				return "reward", fmt.Sprintf("an owed refund arrived: the entry fee of %s for an instance that could not be opened", crowns(w.GetAmount())), "", true
+			}
 			return "reward", fmt.Sprintf("the entry fee of %s was refunded to %s: the instance could not be opened", crowns(w.GetAmount()), who), "", true
 		case "equip":
 			if w.GetDetail() == "" {

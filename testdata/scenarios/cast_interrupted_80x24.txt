@@ -3,12 +3,12 @@
 │                     .                   #        ││ HP 73/80 #############-- │
 │                     .     $$$$$$        #        ││ MP 110/150 #########---- │
 │                     .     $$$&?         #        ││ XP ----------- 40 to Lv 2│
-│                     .                   #        ││ ! Interrupted: damage    │
+│                     .          ?        #        ││ ! Interrupted: damage    │
 │                     .   @M       c      #       c│└──────────────────────────┘
-│                     .                   #        │┌─ Target ─────────────────┐
-│                     .                   #        ││ M Plain Scuttler  Lv 1   │
-│                     .                   #        ││ HP 339/400 #####-- 2m E  │
-│                     .                   #        ││ fighting you             │
+│                     .                   #        │┌─ Quest ──────────────────┐
+│                     .                   #        ││ [ ] 1. Scout the Lookout │
+│                     .                   #        ││ Testgrounds Recruiter has│
+│                     .                   #        ││ work for you: G.         │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Flame Dart  ready 2 Frost Bolt ready 3 -          empty 4 -          empty │

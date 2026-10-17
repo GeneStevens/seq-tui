@@ -41,7 +41,7 @@ func run() error {
 	char := flag.String("character", "me-1", "the character to play")
 	create := flag.Bool("new", false, "make a new character (a name and one of the six classes) and play it")
 	insecure := flag.Bool("insecure", false, "development only: accept a self-signed certificate (loopback addresses only)")
-	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it)")
+	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it); SEQ_DUO_AGENT_SECRET, if set, is an agent credential for it, so that in a turn-based instance its plans go as stand-ins")
 	rec := flag.String("record", "", "write every message the server sends to this file")
 	replay := flag.String("replay", "", "draw this recorded log instead of connecting")
 	text := flag.Bool("text", false, "with -replay: print the model as plain text instead of the screen")
@@ -93,6 +93,7 @@ func run() error {
 	if *duo != "" && !*create {
 		dc := cfg
 		dc.Character, dc.Record = *duo, nil
+		dc.Agent = os.Getenv("SEQ_DUO_AGENT_SECRET") // an agent credential for it: its turn-based plans are then stand-ins
 		d := client.NewDuo(dc, *char)
 		defer d.Close()
 		a.SetDuo(d)

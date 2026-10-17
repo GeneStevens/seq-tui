@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -50,6 +51,9 @@ const (
 	// EnvGolden set to 1 rewrites the golden screens instead of comparing them
 	// (`make golden`).
 	EnvGolden = "SEQ_GOLDEN"
+	// EnvWorld names a directory of packs to load instead of the pinned
+	// seq-world's.
+	EnvWorld = "SEQ_WORLD_PACKS"
 	// EnvSlow is a duration each scenario waits at its end, to show a speed
 	// gate failing.
 	EnvSlow = "SEQ_SCENARIO_SLOW"
@@ -78,6 +82,9 @@ type World struct {
 // New starts a server for the scenario t and holds the scenario to MaxScenario.
 func New(t *testing.T, o testserver.Options) *World {
 	t.Helper()
+	if len(o.Packs) == 0 && usesWorld(o.Zones) {
+		o.Packs = []string{WorldPacks(t)}
+	}
 	return newOn(t, testserver.Start(t, o))
 }
 
@@ -98,9 +105,42 @@ func newOn(t *testing.T, srv *testserver.Server) *World {
 	return w
 }
 
-// Town is the zones of the Thornwick pack, as seq's test server loads them:
-// the town and the Downs outside its gate. A World on them starts at Thornwick.
-var Town = []string{testserver.Thornwick, testserver.ThornwickDowns}
+// The zones of seq-world's Thornwick pack (D54), by id. The scenarios load
+// them from seq-world through the test server: this repo holds no copy.
+const (
+	Thornwick = "thornwick"
+	Downs     = "thornwick-downs"
+	Warren    = "hollow-warren"
+)
+
+// Town is the town and the Downs outside its gate. A World on them starts at
+// Thornwick.
+var Town = []string{Thornwick, Downs}
+
+func usesWorld(zones []string) bool {
+	for _, z := range zones {
+		if z != testserver.Testgrounds && z != testserver.Outskirts {
+			return true
+		}
+	}
+	return false
+}
+
+// WorldPacks is the directory of seq-world's packs: the pinned module's
+// (go.mod), found by asking the go tool where it is. SEQ_WORLD_PACKS names
+// another directory (a checkout of seq-world under work), for a run that wants
+// one.
+func WorldPacks(t testing.TB) string {
+	t.Helper()
+	if d := os.Getenv(EnvWorld); d != "" {
+		return d
+	}
+	out, err := exec.Command("go", "list", "-m", "-f", "{{.Dir}}", "github.com/GeneStevens/seq-world").Output()
+	if err != nil || len(strings.TrimSpace(string(out))) == 0 {
+		t.Fatalf("seq-world is not in the module cache (go list: %v)", err)
+	}
+	return filepath.Join(strings.TrimSpace(string(out)), "packs")
+}
 
 // Fixture says the first player of this world is recorded to the named log in
 // the fixtures directory, when a run asks for fixtures (EnvFixtures); else it
@@ -150,6 +190,7 @@ type Player struct {
 	creating  bool // the program opened on the creation screen
 	second    string
 	duo       *client.Duo // the account's second character on a stance, if the player has one
+	duoAgent  bool        // the second character logs in with an agent credential (its turn-based plans are stand-ins)
 }
 
 // Login starts a TUI for the account's character: it logs in with a session
@@ -173,6 +214,20 @@ func (w *World) Login(account, character string) *Player {
 func (w *World) LoginWithDuo(account, character, second string) *Player {
 	w.T.Helper()
 	p := &Player{w: w, Account: account, Character: character, second: second}
+	if len(w.players) == 0 {
+		p.rec = w.rec
+	}
+	w.players = append(w.players, p)
+	p.start()
+	return p
+}
+
+// LoginWithDuoAgent is LoginWithDuo with the second character on an agent
+// credential, as SEQ_DUO_AGENT_SECRET gives the program: in a turn-based
+// instance its stance sends a stand-in plan each round (D55).
+func (w *World) LoginWithDuoAgent(account, character, second string) *Player {
+	w.T.Helper()
+	p := &Player{w: w, Account: account, Character: character, second: second, duoAgent: true}
 	if len(w.players) == 0 {
 		p.rec = w.rec
 	}
@@ -227,6 +282,9 @@ func (p *Player) start() {
 	if p.second != "" {
 		dc := cfg
 		dc.Character = p.second
+		if p.duoAgent {
+			dc.Agent = p.w.Srv.AgentSecret(p.Account, p.second)
+		}
 		p.duo = client.NewDuo(dc, p.Character)
 		a.SetDuo(p.duo)
 	}
@@ -351,6 +409,10 @@ func (p *Player) Duo(f func(*model.Model)) {
 	p.duo.Session().View(f)
 }
 
+// DuoPlan is what the second character's stance sent for the last round it
+// played, in words, and the round.
+func (p *Player) DuoPlan() ([]string, uint64) { return p.duo.Plan() }
+
 func (p *Player) idle() {
 	t := p.w.T
 	t.Helper()
@@ -409,6 +471,26 @@ func (p *Player) Eventually(what string, pred func(*model.Model) bool) {
 		}
 		if time.Now().After(deadline) {
 			t.Fatalf("%s: gave up waiting for %s", p.Character, what)
+		}
+		time.Sleep(time.Millisecond)
+	}
+}
+
+// DuoEventually waits for pred to hold of the second character's model, for what
+// the server does outside the clock (its own handoff).
+func (p *Player) DuoEventually(what string, pred func(*model.Model) bool) {
+	t := p.w.T
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)
+	for {
+		ok := false
+		p.Duo(func(m *model.Model) { ok = pred(m) })
+		if ok {
+			p.Sync()
+			return
+		}
+		if time.Now().After(deadline) {
+			t.Fatalf("%s: gave up waiting for %s", p.second, what)
 		}
 		time.Sleep(time.Millisecond)
 	}

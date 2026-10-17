@@ -4,16 +4,16 @@
 │             .                             #      ││ Target: Plain Scuttler   │
 │             .        $ $$ $$ $            #      ││ Auto-attack: ON          │
 │             .        $ $$ &?              #      │└──────────────────────────┘
+│             .                ?            #      │┌─ Quest ──────────────────┐
+│             .                             #      ││ [ ] 1. Scout the Lookout │
+│             .           @ M    c          #      ││ Testgrounds Recruiter has│
+│             .                             #      ││ work for you: G.         │
+│             .                             #      │└──────────────────────────┘
 │             .                             #      │┌─ Target ─────────────────┐
 │             .                             #      ││ M Plain Scuttler  Lv 1   │
-│             .           @ M    c          #      ││ HP 22/40 ####----- 2m E  │
+│             .                             #      ││ HP 22/40 ####----- 2m E  │
 │             .                             #      ││ fighting you             │
-│             .                             #      │└──────────────────────────┘
-│             .                             #      │┌─ Nearby ─────────────────┐
-│             .                             #      ││ M Plain Scut… 2m E 22/40 │
-│             .                             #      ││ $ Testgroun… 8m N binder │
-│             .                             #      ││ $ Testgroun… 8m N banker │
-│             .                             #      ││ +11 more                 │
+│             .                             #      ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     6.5s aria missed Plain Scuttler                                          │
