@@ -27,6 +27,7 @@ import (
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
 	"github.com/GeneStevens/seq-tui/screen"
+	"github.com/GeneStevens/seq-tui/world"
 )
 
 func main() {
@@ -46,10 +47,11 @@ func run() error {
 	replay := flag.String("replay", "", "draw this recorded log instead of connecting")
 	text := flag.Bool("text", false, "with -replay: print the model as plain text instead of the screen")
 	size := flag.String("size", "80x24", "with -replay: the screen size, WxH")
+	worldDir := flag.String("world", os.Getenv(world.EnvPacks), "seq-world's packs directory: the zones' areas and patrol paths are drawn from it (the protocol does not carry them yet)")
 	flag.Parse()
 
 	if *replay != "" {
-		return runReplay(*replay, *text, *size)
+		return runReplay(*replay, *text, *size, *worldDir)
 	}
 	token := os.Getenv("SEQ_SESSION_TOKEN")
 	if token == "" {
@@ -69,6 +71,13 @@ func run() error {
 		}
 	}
 	cfg := client.Config{URL: *addr, TLS: tlsCfg, Credential: token, Character: *char}
+	if *worldDir != "" {
+		src, err := world.Load(*worldDir)
+		if err != nil {
+			return fmt.Errorf("-world: %w", err)
+		}
+		cfg.Terrain = src
+	}
 	if *rec != "" {
 		f, err := os.Create(*rec)
 		if err != nil {
@@ -104,7 +113,7 @@ func run() error {
 	return err
 }
 
-func runReplay(path string, text bool, size string) error {
+func runReplay(path string, text bool, size, worldDir string) error {
 	f, err := os.Open(path)
 	if err != nil {
 		return err
@@ -115,6 +124,13 @@ func runReplay(path string, text bool, size string) error {
 		return err
 	}
 	m := model.New()
+	if worldDir != "" {
+		src, err := world.Load(worldDir)
+		if err != nil {
+			return fmt.Errorf("-world: %w", err)
+		}
+		m.UseTerrain(src)
+	}
 	for _, msg := range msgs {
 		m.Apply(msg)
 	}

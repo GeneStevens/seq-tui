@@ -3,12 +3,12 @@
 │                    .                   #         ││ HP 80/80 ############### │
 │                    .     $$$$$$        #         ││ MP 150/150 ############# │
 │                    .     $$$&?         #         ││ XP ----------- 40 to Lv 2│
-│                    .                   #         ││ Cast Root #--------- 1.5s│
+│                    .          ?        #         ││ Cast Root #--------- 1.5s│
 │                    .    @     M c      #       c │└──────────────────────────┘
-│                    .                   #         │┌─ Target ─────────────────┐
-│                    .                   #         ││ M Plain Scuttler  Lv 1   │
-│                    .                   #         ││ HP 40/40 ######## 13m E  │
-│                    .                   #         ││ not in a fight           │
+│                    .                   #         │┌─ Quest ──────────────────┐
+│                    .                   #         ││ [ ] Scout the Lookout    │
+│                    .                   #         ││ Testgrounds Recruiter has│
+│                    .                   #         ││ work for you: G.         │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Root         busy 2 Frost Bolt  busy 3 Flame Dart  busy 4 -          empty │

@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -31,6 +32,7 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
+	"github.com/GeneStevens/seq-tui/world"
 	"github.com/GeneStevens/seq/core"
 	"github.com/GeneStevens/seq/server"
 	"github.com/GeneStevens/seq/testserver"
@@ -50,6 +52,9 @@ const (
 	// EnvGolden set to 1 rewrites the golden screens instead of comparing them
 	// (`make golden`).
 	EnvGolden = "SEQ_GOLDEN"
+	// EnvWorld names a directory of packs to load instead of the pinned
+	// seq-world's.
+	EnvWorld = "SEQ_WORLD_PACKS"
 	// EnvSlow is a duration each scenario waits at its end, to show a speed
 	// gate failing.
 	EnvSlow = "SEQ_SCENARIO_SLOW"
@@ -73,11 +78,15 @@ type World struct {
 	began   time.Time
 	players []*Player
 	rec     *record.Writer
+	ground  world.Source
 }
 
 // New starts a server for the scenario t and holds the scenario to MaxScenario.
 func New(t *testing.T, o testserver.Options) *World {
 	t.Helper()
+	if len(o.Packs) == 0 && usesWorld(o.Zones) {
+		o.Packs = []string{WorldPacks(t)}
+	}
 	return newOn(t, testserver.Start(t, o))
 }
 
@@ -98,9 +107,42 @@ func newOn(t *testing.T, srv *testserver.Server) *World {
 	return w
 }
 
-// Town is the zones of the Thornwick pack, as seq's test server loads them:
-// the town and the Downs outside its gate. A World on them starts at Thornwick.
-var Town = []string{testserver.Thornwick, testserver.ThornwickDowns}
+// The zones of seq-world's Thornwick pack (D54), by id. The scenarios load
+// them from seq-world through the test server: this repo holds no copy.
+const (
+	Thornwick = "thornwick"
+	Downs     = "thornwick-downs"
+	Warren    = "hollow-warren"
+)
+
+// Town is the town and the Downs outside its gate. A World on them starts at
+// Thornwick.
+var Town = []string{Thornwick, Downs}
+
+func usesWorld(zones []string) bool {
+	for _, z := range zones {
+		if z != testserver.Testgrounds && z != testserver.Outskirts {
+			return true
+		}
+	}
+	return false
+}
+
+// WorldPacks is the directory of seq-world's packs: the pinned module's
+// (go.mod), found by asking the go tool where it is. SEQ_WORLD_PACKS names
+// another directory (a checkout of seq-world under work), for a run that wants
+// one.
+func WorldPacks(t testing.TB) string {
+	t.Helper()
+	if d := os.Getenv(EnvWorld); d != "" {
+		return d
+	}
+	out, err := exec.Command("go", "list", "-m", "-f", "{{.Dir}}", "github.com/GeneStevens/seq-world").Output()
+	if err != nil || len(strings.TrimSpace(string(out))) == 0 {
+		t.Fatalf("seq-world is not in the module cache (go list: %v)", err)
+	}
+	return filepath.Join(strings.TrimSpace(string(out)), "packs")
+}
 
 // Fixture says the first player of this world is recorded to the named log in
 // the fixtures directory, when a run asks for fixtures (EnvFixtures); else it
@@ -116,6 +158,19 @@ func (w *World) Fixture(name string) {
 	}
 	w.T.Cleanup(func() { _ = f.Close() })
 	w.rec = record.NewWriter(f)
+}
+
+// terrain is the ground of the zones the server loaded, read from the packs it
+// was given (the protocol does not carry it yet): nil when it loaded none.
+func (w *World) terrain() model.TerrainSource {
+	if w.ground == nil {
+		src, err := world.FromLoaded()
+		if err != nil {
+			w.T.Fatal(err)
+		}
+		w.ground = src
+	}
+	return w.ground
 }
 
 // Advance moves the server's clock by d and returns when every player has
@@ -209,7 +264,7 @@ func (p *Player) Created() {
 func (p *Player) start() {
 	t := p.w.T
 	t.Helper()
-	cfg := client.Config{URL: p.w.Srv.URL(), TLS: p.w.Srv.TLS(), Credential: p.w.Srv.SessionToken(p.Account), Character: p.Character, Record: p.rec}
+	cfg := client.Config{URL: p.w.Srv.URL(), TLS: p.w.Srv.TLS(), Credential: p.w.Srv.SessionToken(p.Account), Character: p.Character, Record: p.rec, Terrain: p.w.terrain()}
 	p.Sess = client.NewSession(cfg)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

@@ -2,7 +2,7 @@
 
 `seq-tui` is the terminal client for SEQ. It is a thin client (seq-design `docs/07`): it renders state it is given and sends explicit player intents, and owns no gameplay truth.
 
-Design lives in the `seq-design` repo. This repo is at milestone M8: a human can make a character of one of the six classes, play the placeholder zone in a terminal against a local server with the ability bar on keys 1 to 8, mana, casts, cooldowns, effects, levels and XP, open an instance, walk in, and play it, including turn-based rounds with plans; and (D50) the class menu from the server, who in the party has submitted, effects seen on login, slots changed between rounds, casts that land in a later round, gear, loot, crowns, vendors, trainers, the binder, the bank, trade between characters, and the Peril fee; and (M8 content) Thornwick and the Thornwick Downs: talking to the people, the contract board and the Contracts panel, timed world events and roaming rares, and a map that scrolls with the character and shows the whole zone on a key; and (M8n) the Watch Captain's companion quest, choosing a recruit's role, a Companion panel with stances and orders, and a second character of the account played by a stance.
+Design lives in the `seq-design` repo. This repo is at milestone M8: a human can make a character of one of the six classes, play the placeholder zone in a terminal against a local server with the ability bar on keys 1 to 8, mana, casts, cooldowns, effects, levels and XP, open an instance, walk in, and play it, including turn-based rounds with plans; and (D50) the class menu from the server, who in the party has submitted, effects seen on login, slots changed between rounds, casts that land in a later round, gear, loot, crowns, vendors, trainers, the binder, the bank, trade between characters, and the Peril fee; and (M8 content) Thornwick and the Thornwick Downs: talking to the people, the contract board and the Contracts panel, timed world events and roaming rares, and a map that scrolls with the character and shows the whole zone on a key; and (M8n) the Watch Captain's companion quest, choosing a recruit's role, a Companion panel with stances and orders, and a second character of the account played by a stance; and (D53, D54) the world from `seq-world`, and the ground of its zones: buildings, rock, water, fords and bridges, forest, roads and tunnel floor, and the patrol paths of mobs.
 
 - `model/`: a pure Go type built only from protocol messages (snapshot, events, intent results, zone map): you, entities in view, drops, encounters, the map, a bounded event log that keeps each event's reason, and the status of recent intents. It tracks the per-character stream number and takes each event exactly once (D39). `Text()` prints it as plain text.
 - `client/`: a `Session` on the agent toolkit's connection (`agentkit` from the `seq` module, which owns the WebSocket, the login and the resume); its raw-message hook records each message and feeds the model. One command per intent (`Move`, `Stop`, `Target`, `Attack`, `Loot`, `UseDoor`, `Release`, `UseAbility`, `SetSlot`, `Logout`), and `Connect`, `CreateCharacter` and `Select` for a new character with `Result` matching each `intent_result`. There is no transport of the TUI's own.
@@ -59,6 +59,24 @@ A plan holds **one move or door and one ability or auto-attack toggle** (doc 05 
 On a small screen (80x24) the right column keeps what fits: inside an instance the Nearby panel (and in a turn-based one the Target panel) is left out to make room for the Instance and Round panels, and with the ability bar the Round panel (the plan) comes before the Instance panel.
 
 Keys (`?` shows them in the program): arrows or WASD move; Tab cycles targets (Esc clears); F or Space toggles auto-attack; 1 to 8 use the abilities in those slots; B sets the slots; L loots the nearest drop; E uses the nearest door; R releases a dead character (it respawns after a short wait; the You panel says so); I opens the instance menu; O logs out; Q quits the screen and leaves the character in the world; V also shows movement, rules ticks and mana in the event log; G talks to the nearest person; K opens the Contracts screen; M shows the whole zone.
+
+## The world and the ground (D53, D54)
+
+The world is not in this repository. The zones, people, items and contracts of Thornwick, the Thornwick Downs and the Hollow Warren are `seq-world`'s (a pinned Go module in `go.mod`), and the scenarios load them from it through the test server (`testserver.Options{Packs, Zones}`); `make play` serves the same packs with `seqd -packs`. `SEQ_WORLD_PACKS=dir` points scenarios and `make play` at a checkout of `seq-world` under work instead. Move the pin with `go get github.com/GeneStevens/seq-world@<commit>`, then `make fixtures golden` and review the diff.
+
+The map draws the ground under everything else, one glyph per kind, so it reads on a monochrome terminal and at 80x24; colour only repeats it:
+
+| glyph | ground | glyph | ground |
+| --- | --- | --- | --- |
+| `#` | building (also a wall) | `"` | forest (slows you) |
+| `^` | rock | `·` | road (speeds you) |
+| `≈` | water | `.` | a dungeon's floor |
+| `:` | ford | `'` | a patrol path (overview only) |
+| `=` | bridge | | |
+
+In a dungeon (a zone with floor, like the Warren) only the floor is drawn, with the rock that touches it as walls. The **status line** says `forest: slowed` or `road: faster` while the character stands in one. **M** draws the whole zone with the patrol paths faintly; the mobs themselves move along them (the server does that), and the map shows them where they are.
+
+**The ground is not in the protocol yet**: the zone map carries walls, doors, camps and markers, not areas or patrols. Until it does, the `world` package reads areas and patrols from the packs (`-world dir`, which `make play` passes; the scenarios give the model the packs their server loaded), and the model finds them by the zone's name (`model.TerrainSource`). A client given no packs draws the map as before, without the ground. This is the only place the client reads world content.
 
 ## People, contracts, events and the map
 

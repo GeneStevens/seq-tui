@@ -1,14 +1,14 @@
 ┌─ Thornwick Downs, at 152,95 m, north up ─────────┐┌─ You ────────────────────┐
-│                                                  ││ hale  Lv 5 Warrior  | 0cr│
-│                                                  ││ HP 176/176 ############# │
-│                                                  ││ XP ---------- 145 to Lv 6│
-│                                  #               ││ Atk ON | Bramble Tusker  │
-│                                  #               │└──────────────────────────┘
-│                        p@ c      #               │┌─ Companion, tank ────────┐
-│                                  #               ││ Watch Shieldman  Lv 5    │
-│                                  #               ││ HP 170/176 ############- │
-│            c                     #               ││ stance assist            │
-│                                  #               ││ ordered to stand         │
+│             """""c"""""""""""    ≈≈≈≈≈≈≈         ││ hale  Lv 5 Warrior  | 0cr│
+│            """"""""""""""""""""   ≈≈≈≈≈≈         ││ HP 176/176 ############# │
+│            """"""""""""""""""""   ≈≈≈≈≈≈≈        ││ XP ---------- 145 to Lv 6│
+│           """""""""""""""""""""   ≈≈≈≈≈≈≈        ││ Atk ON | Bramble Tusker  │
+│           """"""""""""""""""""    ≈≈≈≈≈≈≈        │└──────────────────────────┘
+│           """""""""""""p@"c"""    ≈≈≈≈≈≈≈        │┌─ Companion, tank ────────┐
+│           """"""""""""""""""""    ≈≈≈≈≈≈         ││ Watch Shieldman  Lv 5    │
+│           """"""""""""""""""""   ≈≈≈≈≈≈≈         ││ HP 172/176 ############- │
+│          """""""""""""""""""""   ≈≈≈≈≈≈≈         ││ stance assist            │
+│          """"""""""""""""""""    ≈≈≈≈≈≈≈         ││ ordered to stand         │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt       ready 2 Bash       ready 3 -          empty 4 -          empty │
@@ -21,4 +21,4 @@
 │     3.7s Bramble Tusker targeted hale                                        │
 │     3.8s Bramble Tusker began attacking hale                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | heard 0.4s ago | companion order: stop ok     ? help
+ ONLINE | forest: slowed | heard 0.4s ago | companion order: stop ok      ? help

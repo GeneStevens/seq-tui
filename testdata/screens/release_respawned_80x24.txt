@@ -4,16 +4,16 @@
 │                 .                             #  ││ Target: none             │
 │                 .        $ $$ $$ $            #  ││ Auto-attack: off         │
 │                 .        $ $$ &?              #  │└──────────────────────────┘
+│                 .                ?            #  │┌─ Quest ──────────────────┐
+│                 .                             #  ││ [ ] Scout the Lookout    │
+│                 .       @          c          #  ││ Testgrounds Recruiter has│
+│                 .                    m        #  ││ work for you: G.         │
+│                 .                             #  │└──────────────────────────┘
 │                 .                             #  │┌─ Target ─────────────────┐
 │                 .                             #  ││ no target (Tab to choose)│
-│                 .       @          c          #  ││                          │
-│                 .                    m        #  ││                          │
-│                 .                             #  │└──────────────────────────┘
-│                 .                             #  │┌─ Nearby ─────────────────┐
-│                 .                             #  ││ $ Testgroun… 8m N vendor │
-│                 .                             #  ││ $ Testgrou… 9m NE banker │
-│                 .                             #  ││ $ Testgro… 10m NE binder │
-│                 .                             #  ││ +11 more                 │
+│                 .                             #  ││                          │
+│                 .                             #  ││                          │
+│                 .                             #  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead       │

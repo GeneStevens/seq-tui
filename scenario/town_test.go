@@ -54,6 +54,46 @@ func walk(w *scenario.World, p *scenario.Player, key string, n int) {
 	}
 }
 
+// walkVia walks the character leg by leg to each point (in mm), pressing the
+// arrows a second of game time apart: along x first, then along y, so a leg
+// follows the street a reader of the map would. It stops within a step of the
+// point, and fails the test if a press moves the character nowhere.
+func walkVia(t *testing.T, w *scenario.World, p *scenario.Player, pts ...[2]int64) {
+	t.Helper()
+	const step = 3000
+	pos := func() (x, y int64) {
+		p.Model(func(m *model.Model) { x, y = m.Self.Pos.GetX(), m.Self.Pos.GetY() })
+		return
+	}
+	for _, pt := range pts {
+		for range 400 {
+			x, y := pos()
+			dx, dy := pt[0]-x, pt[1]-y
+			key := ""
+			switch {
+			case dx >= step:
+				key = "right"
+			case dx <= -step:
+				key = "left"
+			case dy >= step:
+				key = "up"
+			case dy <= -step:
+				key = "down"
+			default:
+				key = ""
+			}
+			if key == "" {
+				break
+			}
+			p.Press(key)
+			w.Advance(time.Second)
+			if nx, ny := pos(); nx == x && ny == y {
+				t.Fatalf("pressing %s at (%d, %d) on the way to (%d, %d) moves nowhere", key, x, y, pt[0], pt[1])
+			}
+		}
+	}
+}
+
 func inSpace(name string) func(*model.Model) bool {
 	return func(m *model.Model) bool {
 		return m.Ready() && m.Map != nil && m.Map.GetSpace() == m.Space && m.Map.GetName() == name
@@ -169,9 +209,8 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 		}
 	})
 
-	// East along the square to the gate, 54 m.
-	walk(w, p, "right", 18)
-	walk(w, p, "down", 1)
+	// East along the square and Gatehouse Way to the gate, 54 m.
+	walkVia(t, w, p, [2]int64{114000, 45000})
 	p.Golden("gate_before")
 	p.Press("e")
 	notice(t, p, "use door ok", false)
@@ -183,10 +222,10 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	})
 	p.Golden("downs_gate")
 
-	// To the wolves at (32, 118): they notice a character 8 m off.
-	walk(w, p, "right", 7)
-	walk(w, p, "down", 9)
+	// Across the fields to the wolves at (45, 94): they notice a character 8 m off.
+	walkVia(t, w, p, [2]int64{30000, 150000}, [2]int64{30000, 104000}, [2]int64{45000, 104000})
 	p.Golden("downs_camp")
+	walkVia(t, w, p, [2]int64{45000, 98000})
 	fightUntil(t, w, p, func(m *model.Model) bool { c := m.Contract("hunt-meadow-wolves"); return c != nil && c.GetReady() }, 25)
 	p.Model(func(m *model.Model) {
 		if c := m.Contract("hunt-meadow-wolves"); c == nil || c.GetHave() != 3 || !hasLog(m, "reward", "contract Thin the Meadow Wolves: 3 of 3") {
@@ -196,13 +235,11 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	p.Golden("hunt_ready")
 
 	// Home: back to the door, through it, and across the square to the board.
-	walk(w, p, "left", 7)
-	walk(w, p, "up", 9)
+	walkVia(t, w, p, [2]int64{30000, 104000}, [2]int64{30000, 150000}, [2]int64{8000, 150000})
 	p.Press("e")
 	notice(t, p, "use door ok", false)
 	p.Eventually("Thornwick", inSpace("Thornwick"))
-	walk(w, p, "left", 18)
-	walk(w, p, "up", 1)
+	walkVia(t, w, p, [2]int64{60000, 45000}, [2]int64{60000, 48000})
 	p.Press("g")
 	p.Press("2")
 	p.Golden("board_turn_in")
@@ -222,8 +259,8 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("thornwick_shops.jsonl")
-	w.Place("ann", "hale", 30000, 64000)
-	z, _ := content.Town()
+	w.Place("ann", "hale", 28000, 64000)
+	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
 		cs.Stats, cs.Known, cs.Slots, cs.XP = core.ClassCharacter(cl, *z.CharacterTemplate("warrior"), 3)
@@ -232,8 +269,7 @@ func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
 	})
 	p := w.Login("ann", "hale")
 
-	// The vendor is 12 m off: close the gap, then talk.
-	walk(w, p, "right", 2)
+	// The vendor is 8 m off, up the row: close the gap, then talk.
 	walk(w, p, "down", 2)
 	p.Press("g")
 	p.Model(func(m *model.Model) {
@@ -252,9 +288,9 @@ func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
 	}
 	p.Press("esc", "esc")
 
-	// To the warrior trainer in the north-west corner of the row.
-	walk(w, p, "left", 5)
-	walk(w, p, "up", 5)
+	// To the warrior trainer: up Tanner's Row to Candlemakers' Lane, then west.
+	walk(w, p, "down", 14)
+	walk(w, p, "left", 4)
 	p.Press("g")
 	p.Model(func(m *model.Model) {
 		if d := m.Said("trainer-warrior"); d == nil || d.Options[0].GetAction() != "train" {
@@ -360,7 +396,7 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 	w := scenario.New(t, testserver.Options{
 		Zones:    scenario.Town,
-		Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}},
+		Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}},
 		Zone: func(space string, z *core.Zone) {
 			for i := range z.WorldEvents {
 				z.WorldEvents[i].EveryMs, z.WorldEvents[i].OffsetMs = 20_000, 0 // the raid begins 20 s in, not an hour and a half
@@ -369,7 +405,7 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 	})
 	w.Fixture("thornwick_raid.jsonl")
 	w.Place("ann", "hale", 110000, 131000)
-	z, _ := content.Town()
+	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
 		cs.Stats, cs.Known, cs.Slots, cs.XP = core.ClassCharacter(cl, *z.CharacterTemplate("warrior"), 12)
@@ -410,17 +446,17 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 func TestThornwickARareComesIntoView(t *testing.T) {
 	w := scenario.New(t, testserver.Options{
 		Zones:    scenario.Town,
-		Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}},
+		Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}},
 		Zone: func(space string, z *core.Zone) {
-			if space == testserver.ThornwickDowns { // one place for it to appear, 10 m from the character
-				z.Rares[0].Points = []core.Pos{{X: 220000, Y: 150000}}
+			if space == scenario.Downs { // one place for it to appear, 10 m from the character
+				z.Rares[0].Points = []core.Pos{{X: 215000, Y: 70000}}
 				z.Rares[0].MinMs, z.Rares[0].MaxMs = 10_000, 10_000 // it comes at 10 s
 			}
 		},
 	})
 	w.Fixture("thornwick_rare.jsonl")
-	w.Place("ann", "hale", 210000, 150000)
-	z, _ := content.Town()
+	w.Place("ann", "hale", 205000, 70000)
+	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
 		cs.Stats, cs.Known, cs.Slots, cs.XP = core.ClassCharacter(cl, *z.CharacterTemplate("warrior"), 12)
@@ -453,7 +489,7 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("thornwick_trainer.jsonl")
-	w.Place("ann", "hale", 20000, 50000)
+	w.Place("ann", "hale", 28000, 40000)
 	p := w.Login("ann", "hale")
 	p.Model(func(m *model.Model) {
 		if m.NPC("trainer-warrior") != nil {
@@ -461,7 +497,7 @@ func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 		}
 	})
 	p.Golden("trainer_out_of_view")
-	walk(w, p, "up", 3)
+	walk(w, p, "down", 3)
 	p.Model(func(m *model.Model) {
 		n := m.NPC("trainer-warrior")
 		if n == nil || n.GetReachMm() <= 0 || m.InReach(n) || !hasLog(m, "npc_appeared", "Gorran Stoutarm (trainer) is in view") {
@@ -478,10 +514,10 @@ func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 	}
 	p.Golden("trainer_too_far")
 	p.Press("esc")
-	walk(w, p, "up", 5)
+	walkVia(t, w, p, [2]int64{28000, 19000}, [2]int64{16000, 19000})
 	p.Model(func(m *model.Model) {
 		if n := m.NPC("trainer-warrior"); n == nil || !m.InReach(n) {
-			t.Fatalf("the trainer is not in reach after eight steps: %v at %v", n, m.Self.Pos)
+			t.Fatalf("the trainer is not in reach after the walk: %v at %v", n, m.Self.Pos)
 		}
 	})
 	p.Press("n")
@@ -495,9 +531,9 @@ func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 // Thornwick at the binder: the map, the NPCs in Nearby and the panels are the
 // town's.
 func TestThornwickDieInTheDownsAndWakeInThornwick(t *testing.T) {
-	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: testserver.ThornwickDowns, Classed: map[string]string{"hale": "warrior"}}}})
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("thornwick_respawn.jsonl")
-	z, _ := content.Town()
+	z, _ := content.Zone(scenario.Thornwick)
 	bind := z.NPC("binder").Pos
 	w.Place("ann", "hale", 20000, 150000)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {

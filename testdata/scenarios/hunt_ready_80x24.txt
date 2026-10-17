@@ -1,14 +1,14 @@
-┌─ Thornwick Downs, at 27,123 m, north up ─────────┐┌─ You ────────────────────┐
-│           .                                      ││ Hale  Lv 1 Warrior  | 0cr│
-│           .                                      ││ HP 119/120 ############- │
-│           .                                      ││ XP ##--------- 31 to Lv 2│
-│           .                                      ││ Atk off | none           │
-│           .                                      │└──────────────────────────┘
-│           .             @                        │┌─ Target ─────────────────┐
-│           .             * c                      ││ no target (Tab to choose)│
-│           .                                      ││                          │
-│           .                                      ││                          │
-│           .                                      ││                          │
+┌─ Thornwick Downs, at 45,99 m, north up ──────────┐┌─ You ────────────────────┐
+│  .                   ######≈≈≈≈####   #####      ││ Hale  Lv 1 Warrior  | 0cr│
+│  .                                               ││ HP 117/120 ############- │
+│  .                                               ││ XP ##--------- 31 to Lv 2│
+│  .                                               ││ Atk off | none           │
+│  .                                               │└──────────────────────────┘
+│  .                      @                        │┌─ Target ─────────────────┐
+│  .                      *                c       ││ no target (Tab to choose)│
+│  .                                               ││                          │
+│  .                                               ││                          │
+│  .                                               ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│   NNN.Ns encounter enc-3 with Meadow Wolf closed: mob_died                   │
 │ + NNN.Ns Hale received 3 xp from Meadow Wolf                                 │
 │ + NNN.Ns contract Thin the Meadow Wolves: 3 of 3                             │
 │   NNN.Ns Meadow Wolf left view                                               │
+│   NNN.Ns Hale healed 2                                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | heard N.Ns ago | attack ok            ? help  q quit

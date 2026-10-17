@@ -1,28 +1,28 @@
  EVENT OVER  Harvest Raid won: The raid is broken. The harvest at Barleycross is safe.                                                      
 ┌─ Thornwick Downs, at 110,131 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                      c                                                           c             ││ hale  Lv 12 Warrior         | 60 crowns│
-│                                                                                                ││ HP 249/274 ########################--- │
-│                                                                                                ││ XP #########-------------- 192 to Lv 13│
-│                                                                                                ││ Atk off | none                         │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Target ───────────────────────────────┐
-│                                                                                                ││ no target (Tab to choose)              │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                  *                                             │┌─ Nearby ───────────────────────────────┐
-│                                                @                                               ││ * 4 crowns                       2m NE │
-│                                                                                                ││ * Goblin Charm Bead              2m NE │
-│                                                                                                ││ * 7 crowns                       2m NE │
-│                                                                                                ││ * Goblin Charm Bead              2m NE │
-│                                                                                                ││ * 5 crowns                       2m NE │
-│                                                                                                ││ * 4 crowns                       2m NE │
-│                                                                                                ││ * Goblin Charm Bead              2m NE │
-│                                                                                                ││ D town-gate                     106m W │
-│                                                                                                ││ D hollow-warren                 291m E │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│·······································································c························││ hale  Lv 12 Warrior         | 60 crowns│
+│································································································││ HP 271/274 ##########################- │
+│································································································││ XP ########--------------- 193 to Lv 13│
+│······              ·········································································   ││ Atk off | none                         │
+│······                                       ·······                                            │└────────────────────────────────────────┘
+│······                                                                                          │┌─ Target ───────────────────────────────┐
+│······   """""""""""""""""""""""                                                                ││ no target (Tab to choose)              │
+│······   """""""""""""""""""""""                                                                ││                                        │
+│······   #########                                                                              ││                                        │
+│······   #########                             *                                                │└────────────────────────────────────────┘
+│······   #########                                                     """                      │┌─ Nearby ───────────────────────────────┐
+│······   #########                              @                     """"""""""""""            ││ * 4 crowns                        2m N │
+│······                                                                """"""""""""""""""""""""  ││ * Goblin Charm Bead               2m N │
+│      ##########                                                      """"""""""""""""""""""""""││ * 7 crowns                        2m N │
+│      ##########                                                     """""""""""""""""""""""""""││ * 6 crowns                        2m N │
+│      ##########                                                     """""""""""""""""""""""""""││ * Goblin Charm Bead               2m N │
+│      ##########                             m                      """"""""""""""""""""""""""""││ m Roadside Cutpurse         9m S 96/96 │
+│      ##########                                                    """"""""""""""""""""""""""""││ D town-gate                     106m W │
+│                                                                    """"""""""""""""""""""""""""││ D hollow-warren                 291m E │
+│                                                                   """""""""""""c"""""""""""""""││                                        │
+│                                                                   """""""""""""""""""""""""""""││                                        │
+│                                                                   """""""""""""""""""""""""""""││                                        │
+│                                                                  """"""""""""""""""""""""""""""││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt                       tgt? 2 Bash                       tgt? 3 -                         empty 4 -                         empty │
@@ -30,15 +30,15 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   NNN.Ns hale hit Raiding Goblin for 7                                                                                                   │
-│ < NNN.Ns Raiding Goblin missed hale                                                                                                      │
-│ < NNN.Ns Raiding Goblin hit hale for 5                                                                                                   │
-│   NNN.Ns encounter enc-4 with Raiding Goblin closed: event_ended                                                                         │
-│   NNN.Ns encounter enc-6 with Raiding Goblin closed: event_ended                                                                         │
+│   NNN.Ns hale hit Raiding Goblin for 9                                                                                                   │
+│   NNN.Ns encounter enc-3 with Raiding Goblin closed: event_ended                                                                         │
+│   NNN.Ns encounter enc-5 with Raiding Goblin closed: event_ended                                                                         │
 │   NNN.Ns hale's target Raiding Goblin cleared: gone                                                                                      │
 │   NNN.Ns hale stopped attacking                                                                                                          │
+│   NNN.Ns encounter enc-6 with Raiding Goblin closed: event_ended                                                                         │
 │ * NNN.Ns Harvest Raid is won: The raid is broken. The harvest at Barleycross is safe.                                                    │
 │ + NNN.Ns you was paid for the Harvest Raid: 120 XP, 60 crowns and Harvest Garland                                                        │
+│   NNN.Ns Raiding Goblin left view                                                                                                        │
 │   NNN.Ns Raiding Goblin left view                                                                                                        │
 │   NNN.Ns Raiding Goblin left view                                                                                                        │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

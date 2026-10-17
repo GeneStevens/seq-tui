@@ -1,14 +1,14 @@
 ┌─ Thornwick, at 114,45 m, north up ───────────────┐┌─ You ────────────────────┐
-│        #                   .                     ││ Hale  Lv 1 Warrior  | 0cr│
-│        #    $              .                     ││ HP 120/120 ############# │
-│        #                   .                     ││ XP ----------- 40 to Lv 2│
-│                    ?       .                     ││ Atk off | none           │
-│                            .                     │└──────────────────────────┘
-│                         @  .                     │┌─ Target ─────────────────┐
-│$                           .                     ││ no target (Tab to choose)│
-│                            .                     ││                          │
-│                            .                     ││                          │
-│                            .                     ││                          │
+│         ################  #.                     ││ Hale  Lv 1 Warrior  | 0cr│
+│······      $   #########  #.                     ││ HP 120/120 ############# │
+│······          #########  #.                     ││ XP ----------- 40 to Lv 2│
+│······          ####?####  #.                     ││ Atk off | none           │
+│···························#.                     │└──────────────────────────┘
+│·······c········m········@··.                     │┌─ Target ─────────────────┐
+│$··························#.                     ││ no target (Tab to choose)│
+│······            #######  #.                     ││                          │
+│······            #######  #.                     ││                          │
+│                  #######  #.                     ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns Thornwick Contract Board is out of view                             │
-│     N.Ns Isolde Fenn is out of view                                          │
 │    NN.Ns Captain Rhosyn Hartley (quest_giver) is in view                     │
 │    NN.Ns Odalys Penn is out of view                                          │
+│                                                                              │
+│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | heard N.Ns ago | move ok                    ? help  q quit
+ ONLINE | Thornwick | road: faster | heard N.Ns ago | move ok     ? help  q quit

@@ -3,12 +3,12 @@
 │                    .                   #         ││ HP 80/80 ############### │
 │                    .     $$$$$$        #         ││ MP 150/150 ############# │
 │                    .     $$$&?         #         ││ XP #####------ 20 to Lv 2│
-│                    .                   #         ││ Atk off | none           │
+│                    .          ?        #         ││ Atk off | none           │
 │                    .    @     * c      #       c │└──────────────────────────┘
-│                    .           m       #         │┌─ Target ─────────────────┐
-│                    .                   #         ││ no target (Tab to choose)│
-│                    .                   #         ││                          │
-│                    .                   #         ││                          │
+│                    .           m       #         │┌─ Quest ──────────────────┐
+│                    .                   #         ││ [ ] Scout the Lookout    │
+│                    .                   #         ││ Testgrounds Recruiter has│
+│                    .                   #         ││ work for you: G.         │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Root         tgt? 2 Frost Bolt  tgt? 3 Flame Dart  tgt? 4 -          empty │

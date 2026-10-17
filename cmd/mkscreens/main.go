@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 
 	"github.com/GeneStevens/seq-tui/screen"
+	"github.com/GeneStevens/seq-tui/world"
 )
 
 func main() {
@@ -17,8 +18,16 @@ func main() {
 	if err := os.MkdirAll(out, 0o755); err != nil {
 		fail(err)
 	}
+	dir, err := world.PinnedPacks()
+	if err != nil {
+		fail(err)
+	}
+	ground, err := world.Load(dir)
+	if err != nil {
+		fail(err)
+	}
 	for _, c := range screen.Cases {
-		m, err := c.Replay(filepath.Join("testdata", "logs"))
+		m, err := c.Replay(filepath.Join("testdata", "logs"), ground)
 		if err != nil {
 			fail(err)
 		}

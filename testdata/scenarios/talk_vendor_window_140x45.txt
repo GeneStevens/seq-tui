@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Hilda Brasswick, vendor, 4m SE away. You have 200 crowns.                                                                                │
+│ Hilda Brasswick, vendor, 2m S away. You have 200 crowns.                                                                                 │
 │                                                                                                                                          │
 │ For sale (Enter buys one)                                          │ You carry (Enter sells one)                                         │
 │> Tanned Cap Common                                             8   │  (nothing)                                                          │
@@ -42,4 +42,4 @@
 │ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                                                              │
 │ The answer is on the status line; every denial says why.                                                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | heard N.Ns ago                                                                                          ? help  q quit
+ ONLINE | Thornwick | road: faster | heard N.Ns ago                                                                           ? help  q quit

@@ -3,12 +3,12 @@
 │                     .                   #        ││ HP 80/80 ############### │
 │                     .     $$$$$$        #        ││ MP 150/150 ############# │
 │                     .     $$$&?         #        ││ XP ----------- 40 to Lv 2│
-│                     .                   #        ││ ! Cancelled: you moved   │
+│                     .          ?        #        ││ ! Cancelled: you moved   │
 │                     .   @      M c      #       c│└──────────────────────────┘
-│                     .                   #        │┌─ Target ─────────────────┐
-│                     .                   #        ││ M Plain Scuttler  Lv 1   │
-│                     .                   #        ││ HP 400/400 ###### 14m E  │
-│                     .                   #        ││ not in a fight           │
+│                     .                   #        │┌─ Quest ──────────────────┐
+│                     .                   #        ││ [ ] Scout the Lookout    │
+│                     .                   #        ││ Testgrounds Recruiter has│
+│                     .                   #        ││ work for you: G.         │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Flame Dart    gcd 2 Frost Bolt   gcd 3 -          empty 4 -          empty │

@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Gorran Stoutarm, trainer, 2m NW away. You have 192 crowns.                                                                               │
+│ Gorran Stoutarm, trainer, 0m here away. You have 192 crowns.                                                                             │
 │                                                                                                                                          │
 │ You are level 3. Enter buys the ability under the cursor.                                                                                │
 │  Taunt                  level 1   known                                                                                                  │
@@ -42,4 +42,4 @@
 │ Enter acts. Esc goes back.                                                                                                               │
 │ The answer is on the status line; every denial says why.                                                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | heard 0.4s ago                                                                                          ? help  q quit
+ ONLINE | Thornwick | road: faster | heard 0.4s ago                                                                           ? help  q quit

@@ -1,5 +1,5 @@
 ┌─ Talking ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Captain Rhosyn Hartley, 1m E of you                                                                                                      │
+│ Captain Rhosyn Hartley, 1m NE of you                                                                                                     │
 │                                                                                                                                          │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”                                               │
 │ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are seasoned.”                                        │

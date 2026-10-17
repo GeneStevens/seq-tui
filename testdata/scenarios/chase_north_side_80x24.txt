@@ -1,0 +1,24 @@
+┌─ Thornwick Downs, at 36,112 m, north up ─────────┐┌─ You ────────────────────┐
+│       .                                 ··· #####││ hale  Lv 1 Warrior  | 0cr│
+│       .                   ######≈≈≈≈####···##### ││ HP 119/120 ############- │
+│       .                   ######≈≈≈≈####   ##### ││ XP ----------- 40 to Lv 2│
+│       .                   ######≈≈≈≈####   ##### ││ Atk off | none           │
+│       .                                          │└──────────────────────────┘
+│       .                 @m                       │┌─ Target ─────────────────┐
+│       .                                          ││ no target (Tab to choose)│
+│       .                                          ││                          │
+│       .                                          ││                          │
+│       .                      c                c  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns Meadow Wolf targeted hale                                           │
+│     N.Ns hale opened an encounter with Meadow Wolf (enc-1)                   │
+│     N.Ns Meadow Wolf began attacking hale                                    │
+│ <   N.Ns Meadow Wolf hit hale for 1                                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard N.Ns ago | move ok              ? help  q quit

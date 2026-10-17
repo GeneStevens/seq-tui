@@ -2,6 +2,7 @@ package screen
 
 import (
 	"strings"
+	"sync"
 
 	"github.com/GeneStevens/seq-tui/model"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
@@ -27,6 +28,20 @@ const (
 	glyphWall      = '#'
 	glyphBounds    = '.'
 	glyphPlan      = '+' // where the plan being built ends
+	// The ground (D53). Each says what it is without colour, and none is a
+	// glyph above; a building is a solid block like a wall, a road a dotted
+	// band, a forest a stand of quotes, water waves, a ford its stepping
+	// stones and a bridge its planks. In a dungeon (floor) the floor is
+	// dots, the rock beside it is walls, and the rest is blank.
+	glyphBuilding = '#'
+	glyphRock     = '^'
+	glyphWater    = '≈'
+	glyphFord     = ':'
+	glyphBridge   = '='
+	glyphForest   = '"'
+	glyphRoad     = '·'
+	glyphFloor    = '.'
+	glyphPatrol   = '\'' // a patrol path, faint, in the overview only
 	// The target is its glyph in upper case: M, X, P.
 )
 
@@ -36,6 +51,8 @@ type cellKind int
 
 const (
 	kEmpty cellKind = iota
+	kGround
+	kPatrol
 	kBounds
 	kWall
 	kCamp
@@ -52,6 +69,7 @@ const (
 type cell struct {
 	r rune
 	k cellKind
+	a model.AreaKind // for kGround: which ground
 }
 
 // scale is the map's projection: how many millimetres a cell spans. A cell is
@@ -109,7 +127,7 @@ func (g *grid) put(c, r int64, ch rune, k cellKind) {
 		return
 	}
 	if cur := &g.cells[r][c]; k >= cur.k {
-		*cur = cell{ch, k}
+		*cur = cell{r: ch, k: k}
 	}
 }
 
@@ -178,7 +196,7 @@ func npcGlyph(n *pb.NpcInfo) rune {
 // larger than the panel is seen a window at a time.
 func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	g := newGrid(newScale(m.Map.GetViewRadiusMm(), ch), cw, ch, m.Self.Pos)
-	paintWorld(g, m, v)
+	paintWorld(g, m, v, false)
 	g.put(int64(cw/2), int64(ch/2), glyphSelf, kSelf)
 	return g.styled(st)
 }
@@ -191,16 +209,164 @@ func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	col := max((w+int64(cw)-1)/int64(max(cw, 1)), (h+2*int64(ch)-1)/(2*int64(max(ch, 1))), 1)
 	centre := &pb.Pos{X: (b.GetMinX() + b.GetMaxX()) / 2, Y: (b.GetMinY() + b.GetMaxY()) / 2}
 	g := newGrid(scale{col: col, row: 2 * col}, cw, ch, centre)
-	paintWorld(g, m, v)
+	paintWorld(g, m, v, true)
 	c, r := g.cellOf(m.Self.Pos)
 	g.put(c, r, glyphSelf, kSelf)
 	return g.styled(st)
 }
 
+// groundGlyph is the glyph of a kind of ground; 0 for open ground.
+func groundGlyph(k model.AreaKind) rune {
+	switch k {
+	case model.Building:
+		return glyphBuilding
+	case model.Rock:
+		return glyphRock
+	case model.Water:
+		return glyphWater
+	case model.Ford:
+		return glyphFord
+	case model.Bridge:
+		return glyphBridge
+	case model.Forest:
+		return glyphForest
+	case model.Road:
+		return glyphRoad
+	case model.Floor:
+		return glyphFloor
+	}
+	return 0
+}
+
+// groundShown is what a cell shows when several kinds of ground fall in it:
+// what blocks the way first, then what crosses water, then the rest, so a thin
+// ford, bridge, road or hedge is not lost to the open ground round it.
+var groundShown = []model.AreaKind{model.Building, model.Rock, model.Bridge, model.Ford, model.Water, model.Road, model.Forest, model.Floor}
+
+// paintGround puts the zone's ground on the grid. Each cell samples nine points
+// across it, so a feature narrower than a cell still shows. In a dungeon (a
+// zone with floor, where floor is the only walkable ground) the floor is drawn,
+// the rock that touches it is drawn as a wall, and the rest stays blank.
+func paintGround(g *grid, t *model.Terrain) {
+	key := groundKey{t, g.sc, g.pcol, g.prow, g.cw, g.ch}
+	groundMu.Lock()
+	rows, ok := groundMemo[key]
+	groundMu.Unlock()
+	if !ok {
+		scratch := &grid{sc: g.sc, cw: g.cw, ch: g.ch, pcol: g.pcol, prow: g.prow, cells: make([][]cell, g.ch)}
+		for i := range scratch.cells {
+			scratch.cells[i] = make([]cell, g.cw)
+		}
+		rasterGround(scratch, t)
+		rows = scratch.cells
+		groundMu.Lock()
+		if len(groundMemo) >= 16 {
+			clear(groundMemo)
+		}
+		groundMemo[key] = rows
+		groundMu.Unlock()
+	}
+	for r := range rows {
+		copy(g.cells[r], rows[r])
+	}
+}
+
+// The program draws the same ground again and again while the character stands
+// still, so the last few rasters are kept, by terrain, scale and place.
+type groundKey struct {
+	t          *model.Terrain
+	sc         scale
+	pcol, prow int64
+	cw, ch     int
+}
+
+var (
+	groundMu   sync.Mutex
+	groundMemo = map[groundKey][][]cell{}
+)
+
+func rasterGround(g *grid, t *model.Terrain) {
+	sub := [3]int64{-1, 0, 1}
+	kindAt := func(c, r int) model.AreaKind {
+		var seen [8]bool
+		cx := (int64(c) - int64(g.cw/2) + g.pcol) * g.sc.col
+		cy := (int64(g.ch/2) - int64(r) + g.prow) * g.sc.row
+		for _, dx := range sub {
+			for _, dy := range sub {
+				k := t.Ground(cx+dx*g.sc.col/3, cy+dy*g.sc.row/3)
+				for i, s := range groundShown {
+					if s == k {
+						seen[i] = true
+					}
+				}
+			}
+		}
+		for i, s := range groundShown {
+			if seen[i] {
+				return s
+			}
+		}
+		return ""
+	}
+	if t.HasFloor() {
+		floor := make([][]bool, g.ch)
+		for r := range floor {
+			floor[r] = make([]bool, g.cw)
+			for c := range floor[r] {
+				floor[r][c] = kindAt(c, r) == model.Floor
+			}
+		}
+		for r := range floor {
+			for c := range floor[r] {
+				switch {
+				case floor[r][c]:
+					g.cells[r][c] = cell{r: glyphFloor, k: kGround, a: model.Floor}
+				case touches(floor, c, r):
+					g.cells[r][c] = cell{r: glyphBuilding, k: kGround, a: model.Rock}
+				}
+			}
+		}
+		return
+	}
+	for r := range g.ch {
+		for c := range g.cw {
+			if k := kindAt(c, r); groundGlyph(k) != 0 {
+				g.cells[r][c] = cell{r: groundGlyph(k), k: kGround, a: k}
+			}
+		}
+	}
+}
+
+// touches says a cell has floor in one of the eight cells round it.
+func touches(floor [][]bool, c, r int) bool {
+	for dr := -1; dr <= 1; dr++ {
+		for dc := -1; dc <= 1; dc++ {
+			rr, cc := r+dr, c+dc
+			if rr >= 0 && rr < len(floor) && cc >= 0 && cc < len(floor[rr]) && floor[rr][cc] {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // paintWorld puts everything the map shows on the grid except the character:
 // the bounds, walls, doors, the NPCs seen (remembered ones too), camps, the
 // markers of held scout contracts, drops, the plan, and what is in view.
-func paintWorld(g *grid, m *model.Model, v View) {
+func paintWorld(g *grid, m *model.Model, v View, overview bool) {
+	if t := m.Ground(); t != nil {
+		paintGround(g, t)
+		if overview {
+			for _, p := range t.Patrols {
+				for i := 0; i+1 < len(p.Points); i++ {
+					g.line(p.Points[i], p.Points[i+1], glyphPatrol, kPatrol)
+				}
+				if p.Loop {
+					g.line(p.Points[len(p.Points)-1], p.Points[0], glyphPatrol, kPatrol)
+				}
+			}
+		}
+	}
 	if b := m.Map.GetBounds(); b != nil {
 		corners := []*pb.Pos{{X: b.GetMinX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMaxY()}, {X: b.GetMinX(), Y: b.GetMaxY()}}
 		if b.GetMinX() != b.GetMaxX() || b.GetMinY() != b.GetMaxY() {
@@ -274,7 +440,9 @@ func (g *grid) styled(st Styler) []string {
 			switch c.k {
 			case kEmpty:
 				s = " "
-			case kBounds, kCamp:
+			case kGround:
+				s = groundStyle(c.a, st)(s)
+			case kBounds, kCamp, kPatrol:
 				s = st.Dim(s)
 			case kDoor:
 				s = st.Cyan(s)
@@ -296,4 +464,19 @@ func (g *grid) styled(st Styler) []string {
 		rows[r] = b.String()
 	}
 	return rows
+}
+
+// groundStyle is the colour of a kind of ground; it only repeats the glyph.
+func groundStyle(k model.AreaKind, st Styler) func(string) string {
+	switch k {
+	case model.Water:
+		return st.Blue
+	case model.Ford, model.Bridge:
+		return st.Cyan
+	case model.Forest:
+		return st.Green
+	case model.Rock, model.Road, model.Floor:
+		return st.Dim
+	}
+	return func(s string) string { return s }
 }

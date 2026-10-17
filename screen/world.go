@@ -310,13 +310,21 @@ func contractsBox(m *model.Model, w int, st Styler) (h int, lines []string) {
 }
 
 func overviewLines(m *model.Model, w, h int, st Styler) []string {
-	rows := overviewRows(m, View{}, w, h-3, st)
+	ground := m.Ground() != nil
+	foot := 3
+	if ground {
+		foot = 4
+	}
+	rows := overviewRows(m, View{}, w, h-foot, st)
 	add := func(l string) { rows = append(rows, fit(l, w)) }
 	b := m.Map.GetBounds()
 	sp := m.Self.Pos
 	add(fmt.Sprintf(" %s, %dm by %dm. You: %dm E, %dm N of the south-west corner.", m.Map.GetName(),
 		(b.GetMaxX()-b.GetMinX())/1000, (b.GetMaxY()-b.GetMinY())/1000, (sp.GetX()-b.GetMinX())/1000, (sp.GetY()-b.GetMinY())/1000))
 	add(" @ you  D door  $ trader  & board  ? talker  % marker  c camp  r rare  # wall")
+	if ground {
+		add(" # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor  ' mobs patrol")
+	}
 	add(" North is up. Only what you have seen is marked. M or Esc closes.")
 	return pad(rows, w, h)
 }

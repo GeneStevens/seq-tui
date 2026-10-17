@@ -105,6 +105,7 @@ type Member struct {
 // Model is what a client knows of the world.
 type Model struct {
 	Space      string
+	terrain    TerrainSource // where the ground of a space comes from (UseTerrain)
 	Tick       uint64
 	GameTimeMs int64
 	Self       Self

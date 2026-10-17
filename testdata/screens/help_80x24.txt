@@ -18,7 +18,7 @@
 │   @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end       │
 │   * drop  ~ a drop you may not take  $ trader  & board  ? talker             │
 │   % scout marker  D door  # wall.  Nearby lists the same, nearest first.     │
-│ Event log markers:  ! denied (with the reason) or a cast that did not land   │
-│                     < hit on you  x kill  + reward or level  * world event   │
+│ Ground            # building  ^ rock  ≈ water  : ford  = bridge  " forest  ·…│
+│                  The status line says when a forest slows you or a road spee…│
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | outskirts | heard 0.4s ago                              ? help  q quit

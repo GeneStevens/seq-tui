@@ -1,28 +1,28 @@
-┌─ Thornwick Downs, at 27,123 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                .                                                                               ││ Hale  Lv 1 Warrior           | 0 crowns│
-│                .                                                                               ││ HP 119/120 ##########################- │
-│                .                                                                               ││ XP #####-------------------- 31 to Lv 2│
-│                .                                                                               ││ Atk off | none                         │
-│                .                                                                               │└────────────────────────────────────────┘
-│                .                                                                               │┌─ Target ───────────────────────────────┐
-│                .                                                                               ││ no target (Tab to choose)              │
-│                .                                                                               ││                                        │
-│                .                                                                               ││                                        │
-│                .                                                                               │└────────────────────────────────────────┘
-│                .                                                                               │┌─ Contracts (K) ────────────────────────┐
-│                .                                                                               ││ Thin the Meadow Wolves           READY │
-│                .                               @                                               │└────────────────────────────────────────┘
-│                .                                 *                                             │┌─ Nearby ───────────────────────────────┐
-│                .                                                                               ││ * 2 crowns                       2m SE │
-│                .                                     c                                         ││ * Wolf-Fang Dirk                 2m SE │
-│                .                                                                               ││ * Wolf Pelt                      2m SE │
-│                .                                                                               ││ * Wolfhide Cap                   2m SE │
-│                .                                                                               ││ * 3 crowns                       2m SE │
-│                .                                                                               ││ D town-gate                     34m NW │
-│                .                                                                               ││ D hollow-warren                 374m E │
-│                .                                                                               ││                                        │
-│                .                                                                               ││                                        │
-│                .                                                                               ││                                        │
+┌─ Thornwick Downs, at 45,99 m, north up ────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                          #############                                         ││ Hale  Lv 1 Warrior           | 0 crowns│
+│                                                                                                ││ HP 117/120 ##########################- │
+│                                                                                                ││ XP #####-------------------- 31 to Lv 2│
+│                                                                                                ││ Atk off | none                         │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Contracts (K) ────────────────────────┐
+│                                                                                                ││ Thin the Meadow Wolves           READY │
+│                                                @                                               │└────────────────────────────────────────┘
+│                                                *                                         c     │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ * 3 crowns                        2m S │
+│                                                c                                               ││ * Linen Hood                      2m S │
+│                                                                                                ││ * Wolf Pelt                       2m S │
+│                                                                                                ││ * 2 crowns                        2m S │
+│                                                                                                ││ * Wolf Pelt                       2m S │
+│                                                                                                ││ D town-gate                     64m NW │
+│                                                                                                ││ D hollow-warren                 359m E │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt                       tgt? 2 Bash                       tgt? 3 -                         empty 4 -                         empty │
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   198.0s Hale healed 2                                                                                                                   │
-│   198.0s Meadow Wolf healed 1                                                                                                            │
-│   199.0s Hale hit Meadow Wolf for 8                                                                                                      │
-│ x 199.0s Hale killed Meadow Wolf                                                                                                         │
-│   199.0s Hale's target Meadow Wolf cleared: target_dead                                                                                  │
-│   199.0s Hale stopped attacking                                                                                                          │
-│   199.0s Meadow Wolf dropped 3 crowns (drop-enc-3-crowns)                                                                                │
-│   199.0s encounter enc-3 with Meadow Wolf closed: mob_died                                                                               │
-│ + 199.0s Hale received 3 xp from Meadow Wolf                                                                                             │
-│ + 199.0s contract Thin the Meadow Wolves: 3 of 3                                                                                         │
-│   199.0s Meadow Wolf left view                                                                                                           │
+│   212.4s Hale hit Meadow Wolf for 8                                                                                                      │
+│ x 212.4s Hale killed Meadow Wolf                                                                                                         │
+│   212.4s Hale's target Meadow Wolf cleared: target_dead                                                                                  │
+│   212.4s Hale stopped attacking                                                                                                          │
+│   212.4s Meadow Wolf dropped Wolf Pelt (drop-enc-3-wolf-pelt)                                                                            │
+│   212.4s Meadow Wolf dropped 2 crowns (drop-enc-3-crowns)                                                                                │
+│   212.4s encounter enc-3 with Meadow Wolf closed: mob_died                                                                               │
+│ + 212.4s Hale received 3 xp from Meadow Wolf                                                                                             │
+│ + 212.4s contract Thin the Meadow Wolves: 3 of 3                                                                                         │
+│   212.4s Meadow Wolf left view                                                                                                           │
+│   216.0s Hale healed 2                                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | heard 0.4s ago | attack ok                                                                        ? help  q quit

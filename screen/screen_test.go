@@ -5,20 +5,43 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"sync"
 	"testing"
 	"time"
 	"unicode/utf8"
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/screen"
+	"github.com/GeneStevens/seq-tui/world"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
 const logs = "../testdata/logs"
 
+var (
+	groundOnce sync.Once
+	ground     world.Source
+	groundErr  error
+)
+
+// groundOfWorld is the ground of seq-world's zones, read once from the pinned module.
+func groundOfWorld(t testing.TB) world.Source {
+	t.Helper()
+	groundOnce.Do(func() {
+		var dir string
+		if dir, groundErr = world.PinnedPacks(); groundErr == nil {
+			ground, groundErr = world.Load(dir)
+		}
+	})
+	if groundErr != nil {
+		t.Fatal(groundErr)
+	}
+	return ground
+}
+
 func replay(t *testing.T, c screen.Case) *model.Model {
 	t.Helper()
-	m, err := c.Replay(logs)
+	m, err := c.Replay(logs, groundOfWorld(t))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -1,28 +1,28 @@
 ┌─ Thornwick, at 103,50 m, north up ─────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                    #                                               .                           ││ hale  Lv 6 Warrior          | 40 crowns│
-│                    #                                               .                           ││ HP 190/190 ########################### │
-│                    #                                               .                           ││ XP ###############---------- 62 to Lv 7│
-│                    #                                               .                           ││ Atk off | none                         │
-│                    #                                               .                           │└────────────────────────────────────────┘
-│                    #                                               .                           │┌─ Companion, melee ─────────────────────┐
-│                    #           $                                   .                           ││ Watch Skirmisher  Lv 6                 │
-│                    #                                               .                           ││ HP 145/145 ########################### │
-│                    #                                               .                           ││ stance follow                          │
-│                    #                                               .                           ││ following you                          │
-│                                                                    .                           ││ P call or send away   H stance         │
-│                                                                    .                           ││ Y attack my target    U come here      │
-│                                                @p                  .                           ││ J stop    Z drop the order             │
-│                                                                    .                           │└────────────────────────────────────────┘
-│                                                                    .                           │┌─ Target ───────────────────────────────┐
-│                                                             D      .                           ││ no target (Tab to choose)              │
-│                                                                    .                           ││                                        │
-│                                                                    .                           ││                                        │
-│                                                                    .                           │└────────────────────────────────────────┘
-│                                                                    .                           │┌─ Nearby ───────────────────────────────┐
-│                                                                    .                           ││ ? Captain Rhosyn Har… 1m E quest_giver │
-│                                                                    .                           ││ p Watch Skirmisher        2m E 145/145 │
-│                                                                    .                           ││ D east-gate                     12m SE │
-│                                                                    .                           ││ $ Odalys Penn            16m NW banker │
+│   #############       ###############    ###############        ###.                           ││ hale  Lv 6 Warrior          | 40 crowns│
+│   #############       ###############                           ###.                           ││ HP 190/190 ########################### │
+│   #############       ############### ####################      ###.                           ││ XP ###############---------- 62 to Lv 7│
+│                       ############### ####################      ###.                           ││ Atk off | none                         │
+│                       ############### ####################      ###.                           │└────────────────────────────────────────┘
+│                       ############### ####################      ###.                           │┌─ Companion, melee ─────────────────────┐
+│                                       ####################      ###.                           ││ Watch Skirmisher  Lv 6                 │
+│··············                $        ####################      ###.                           ││ HP 145/145 ########################### │
+│··············                         ####################      ###.                           ││ stance follow                          │
+│··············                         ####################      ###.                           ││ following you                          │
+│··············                         ####################      ###.                           ││ P call or send away   H stance         │
+│··············                                   ?               ###.                           ││ Y attack my target    U come here      │
+│··············                                  @p               ###.                           ││ J stop    Z drop the order             │
+│····································································.                           │└────────────────────────────────────────┘
+│····································································.                           │┌─ Target ───────────────────────────────┐
+│··················c········m·································D······.                           ││ no target (Tab to choose)              │
+│····································································.                           ││                                        │
+│····································································.                           ││                                        │
+│··············                                                   ###.                           │└────────────────────────────────────────┘
+│··············                                                   ###.                           │┌─ Nearby ───────────────────────────────┐
+│··············                                                   ###.                           ││ ? Captain Rhosyn Ha… 1m NE quest_giver │
+│··············                              ###############      ###.                           ││ p Watch Skirmisher        2m E 145/145 │
+│··············                              ###############      ###.                           ││ D east-gate                     12m SE │
+│··············                              ###############      ###.                           ││ +2 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt                       tgt? 2 Bash                       tgt? 3 -                         empty 4 -                         empty │
@@ -30,7 +30,6 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│            medic, a blade or a spellcaster. You may change your mind here whenever you like.                                             │
 │     N.Ns your quest is done: choose your recruit's role at the Watch Captain                                                             │
 │ +   N.Ns you handed in Break the Raiding Party to Captain Rhosyn Hartley and got 100 XP and 40 crowns                                    │
 │     N.Ns Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
@@ -39,6 +38,7 @@
 │            recruit of the Watch to fight beside you. Once the Watch has vouched for you, tell me what the recruit should be: a shield, a │
 │            medic, a blade or a spellcaster. You may change your mind here whenever you like.                                             │
 │     N.Ns your recruit is now a melee                                                                                                     │
+│     N.Ns Town Guard (mob-guard-gate-1) appeared                                                                                          │
 │     N.Ns your companion melee came to its side                                                                                           │
 │     N.Ns Watch Skirmisher (comp-hale) appeared                                                                                           │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
