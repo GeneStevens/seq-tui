@@ -58,6 +58,13 @@ type Case struct {
 	// second character on a stance (its own state is not in the recorded log).
 	Role *Role
 	Duo  *DuoView
+	// Line draws the command line with its text; Social the Social screen, whose
+	// who list is the model's Known characters when WhoKnown is set (the answer to
+	// a who request is not in the recorded messages' model state).
+	Line     *Line
+	Social   *SocialUI
+	WhoKnown bool
+	HelpMore bool
 }
 
 // Sizes the goldens are drawn at.
@@ -196,6 +203,17 @@ var Cases = []Case{
 	{Name: "warren_digger", Log: "duo_warren.jsonl", Mark: "warren_digger", Notice: "target ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "warren_room_cleared", Log: "duo_warren.jsonl", Mark: "warren_room_cleared", Notice: "attack ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
+	// M9: chat, the party, who and friends (the logs are the first player's side
+	// of the two- and three-account scenarios).
+	{Name: "chat_refused", Log: "chat_social.jsonl", Mark: "chat_refused", Notice: "say: you are talking too fast: wait a moment (rate_limited)", NoticeBad: true},
+	{Name: "chat_line", Log: "chat_social.jsonl", Mark: "chat_refused", Line: &Line{Text: "/tell cy1 are you the"}},
+	{Name: "chat_scrolled", Log: "chat_social.jsonl", Mark: "chat_scrolled", Social: &SocialUI{Scroll: 2}},
+	{Name: "party_chat", Log: "party_accounts.jsonl", Mark: "party_chat"},
+	{Name: "who_list", Log: "who_friends.jsonl", Mark: "who_list", Social: &SocialUI{Tab: TabWho}, WhoKnown: true},
+	{Name: "friends_list", Log: "who_friends.jsonl", Mark: "friends_list", Social: &SocialUI{Tab: TabFriends}},
+	{Name: "help_social", Log: "chat_social.jsonl", Mark: "chat_refused", Help: true, HelpMore: true},
+	{Name: "party_warren", Log: "party_warren.jsonl", Mark: "warren_party_opened"},
+	{Name: "party_round", Log: "party_turns.jsonl", Mark: "party_round_bob_sent"},
 }
 
 // Replay reads the log named by c from dir (testdata/logs) into a new model.
@@ -237,6 +255,15 @@ func (c Case) Draw(m *model.Model, w, h int) string {
 	v.Inventory, v.Traders, v.Trade = c.Inventory, c.Traders, c.Trade
 	v.Talk, v.Board, v.Contracts, v.Overview = c.Talk, c.Board, c.Contracts, c.Overview
 	v.Role, v.Duo = c.Role, c.Duo
+	v.Line, v.Social, v.HelpMore = c.Line, c.Social, c.HelpMore
+	if c.Social != nil && c.WhoKnown {
+		ui := *c.Social
+		for _, k := range m.KnownCharacters() {
+			ui.Who = append(ui.Who, &pb.WhoEntry{Name: k.Name, ClassId: k.Class, Level: k.Level, Zone: k.Zone})
+		}
+		ui.WhoAsked = true
+		v.Social = &ui
+	}
 	if c.Traders != nil && c.TraderName != "" {
 		t := *c.Traders
 		for i, n := range TradersInView(m) {

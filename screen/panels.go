@@ -55,7 +55,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	var helpers []panel
 	for _, hp := range helperPanels(m, v, iw, st) {
 		h := min(len(hp.lines)+2, left)
-		if h < 4 {
+		if h < 3 {
 			break
 		}
 		helpers, left = append(helpers, panel{hp.title, hp.lines[:min(len(hp.lines), h-2)]}), left-h

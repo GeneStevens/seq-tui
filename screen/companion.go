@@ -81,6 +81,9 @@ func helperPanels(m *model.Model, v View, iw int, st Styler) []panel {
 		}
 		out = append(out, panel{title, duoLines(m, v.Duo, iw, st)})
 	}
+	if pp := partyPanel(m, iw, st); pp != nil {
+		out = append(out, *pp)
+	}
 	if m.QuestShown() {
 		out = append(out, panel{"Quest", questLines(m, iw, st)})
 	}

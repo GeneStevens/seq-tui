@@ -336,6 +336,11 @@ func partyLine(m *model.Model, in []string, participants int64) string {
 			ids = append(ids, id)
 		}
 	}
+	if int64(len(ids)) != participants {
+		// A party member may be out of the view the server streams: the party's own
+		// list names the same characters.
+		ids = m.PartyIDs()
+	}
 	if participants < 2 || int64(len(ids)) != participants {
 		return "" // alone, "1 of 1 submitted" says it all
 	}

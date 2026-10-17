@@ -32,9 +32,11 @@ const (
 
 // View is everything the screen shows that is not in the model.
 type View struct {
-	Help    bool
-	Verbose bool // log routine movement and rules ticks too
-	Conn    Conn
+	Help bool
+	// HelpMore is the second page of the help: playing together.
+	HelpMore bool
+	Verbose  bool // log routine movement and rules ticks too
+	Conn     Conn
 	// Since is how long ago the server last said anything (an event, a result,
 	// a pong); HasTick is false before any.
 	Since   time.Duration
@@ -87,6 +89,10 @@ type View struct {
 	// screen are its (D56): the screen is then its own, and the status line says
 	// whom the player is directing.
 	Directing string
+
+	// Line is the command line, Social the Social screen: nil when closed.
+	Line   *Line
+	Social *SocialUI
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -101,11 +107,20 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	if b := eventBanner(m, v, w, st); b != "" {
 		rows, th = append(rows, b), th-1
 	}
+	if b := inviteBanner(m, w, st); b != "" {
+		rows, th = append(rows, b), th-1
+	}
 	switch {
 	case v.Create != nil:
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Help:
-		rows = append(rows, box("Keys", w, th+lh, helpLines(m, v, w-2, th+lh-2, st), st)...)
+		title := "Keys (? again: chat and parties)"
+		if v.HelpMore {
+			title = "Keys: chat, parties, who and friends (? closes)"
+		}
+		rows = append(rows, box(title, w, th+lh, helpLines(m, v, w-2, th+lh-2, st), st)...)
+	case v.Social != nil:
+		rows = append(rows, box("Social: "+tabNames[v.Social.Tab], w, th+lh, socialScreenLines(m, v.Social, w-2, th+lh-2, st), st)...)
 	case v.Slots != nil:
 		rows = append(rows, box("Ability slots", w, th+lh, slotScreenLines(m, v, w-2, th+lh-2, st), st)...)
 	case v.Inventory != nil:
@@ -139,9 +154,23 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		if m.HasKit() {
 			rows = append(rows, box("Abilities (keys 1-8, B sets the slots)", w, abilityRows, abilityLines(m, v, w-2, st), st)...)
 		}
-		rows = append(rows, box(fmt.Sprintf("Events (%s)", logMode(v)), w, lh, logLines(m, v, w-2, lh-2, st), st)...)
+		if chatShown(m, v) {
+			// Chat takes the right part of the log's row once anything has been said.
+			cw := min(max(w*5/12, 30), 60)
+			ev := box(fmt.Sprintf("Events (%s)", logMode(v)), w-cw, lh, logLines(m, v, w-cw-2, lh-2, st), st)
+			ch := box("Chat (/ types)", cw, lh, chatLines(m, cw-2, lh-2, st), st)
+			for i := range ev {
+				rows = append(rows, ev[i]+ch[i])
+			}
+		} else {
+			rows = append(rows, box(fmt.Sprintf("Events (%s)", logMode(v)), w, lh, logLines(m, v, w-2, lh-2, st), st)...)
+		}
 	}
-	rows = append(rows, statusLine(m, v, w, st))
+	if v.Line != nil {
+		rows = append(rows, lineRow(v.Line, w, st))
+	} else {
+		rows = append(rows, statusLine(m, v, w, st))
+	}
 	return strings.Join(rows, "\n")
 }
 
@@ -206,6 +235,9 @@ func box(title string, w, h int, inner []string, st Styler) []string {
 
 func helpLines(m *model.Model, v View, w, h int, st Styler) []string {
 	keys := helpKeys(m, v)
+	if v.HelpMore {
+		keys = socialHelp()
+	}
 	rows := make([]string, h)
 	for i := range rows {
 		s := ""

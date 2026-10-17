@@ -1,0 +1,24 @@
+┌─ Social: Chat ───────────────────────────────────────────────────────────────┐
+│ [Chat]  Who   Friends    Tab switches, Esc closes, / types                   │
+│                                                                              │
+│ [say] ann1: spam a                                                           │
+│ [say] ann1: spam b                                                           │
+│ [say] ann1: spam c                                                           │
+│ [say] ann1: spam d                                                           │
+│ [tell] to cy1: are you there                                                 │
+│ [tell] to cy1: are you back                                                  │
+│ [say] ann1: line number a                                                    │
+│ [say] ann1: line number b                                                    │
+│ [say] ann1: line number c                                                    │
+│ [say] ann1: line number d                                                    │
+│ [say] ann1: line number e                                                    │
+│ [say] ann1: line number f                                                    │
+│ [say] ann1: line number g                                                    │
+│ [say] ann1: line number h                                                    │
+│ [say] ann1: line number i                                                    │
+│ [say] ann1: line number j                                                    │
+│ [say] ann1: line number k                                                    │
+│ [say] ann1: line number l                                                    │
+│ scrolled back 2 lines: End goes to the newest                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

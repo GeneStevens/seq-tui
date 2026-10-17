@@ -169,6 +169,15 @@ func (w *World) Advance(d time.Duration) {
 	}
 }
 
+// Settle returns when every player has taken in what the server sent so far,
+// without moving the clock: what one player did for the others to see.
+func (w *World) Settle() {
+	w.T.Helper()
+	for _, p := range w.players {
+		p.Sync()
+	}
+}
+
 // Now is the server's clock as a time, the clock the programs read.
 func (w *World) Now() time.Time { return time.UnixMilli(server.ManualEpochMs + w.Srv.NowMs()) }
 
@@ -432,12 +441,16 @@ func (p *Player) idle() {
 	}
 }
 
-// Type presses the keys of the text, one letter at a time.
+// Type presses the keys of the text, one letter at a time, all written before
+// the player syncs once (so a line of text costs the connection one round trip,
+// not one for each letter). "\r" is Enter and "\x7f" Backspace.
 func (p *Player) Type(text string) {
 	p.w.T.Helper()
-	for _, r := range text {
-		p.Press(string(r))
+	if _, err := io.WriteString(p.in, text); err != nil {
+		p.w.T.Fatalf("%s: typing %q: %v", p.Character, text, err)
 	}
+	p.keys += len([]rune(text))
+	p.Sync()
 }
 
 // Model runs f on the model.

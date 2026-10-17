@@ -26,33 +26,38 @@ const (
 type App struct {
 	sess *client.Session
 
-	w, h     int
-	view     screen.View
-	watch    <-chan struct{}
-	lastTick time.Time
-	lastN    uint64
-	retrying bool
-	pings    int
-	menu     *screen.Menu   // the instance menu, nil when closed
-	slots    *screen.Slots  // the slot screen, nil when closed
-	create   *screen.Create // character creation, nil once a character is chosen
-	inv      *screen.Inventory
-	traders  *screen.Traders
-	trade    *screen.TradeUI
-	talk     *screen.Talk // the conversation, nil when closed
-	board    *screen.Board
-	cons     *screen.ContractsUI
-	role     *screen.Role // the choice of the recruit's role, nil when closed
-	duo      *client.Duo  // the second character on a stance, nil when there is none
-	toDuo    bool         // the helper keys talk to it, not to the house companion
-	focus    bool         // directing the second character: the keys and the screen are its (D56)
-	focusCmd bool         // a command went to it since the focus changed
-	draftAlt Draft        // the other character's plan while its focus is away
-	overview bool         // the whole-zone map
-	gameAt   time.Time    // when the model's game time last moved
-	gameMs   int64
-	draft    Draft // the plan being built in a turn-based instance
-	Err      error // why the program ended, if it ended badly
+	w, h      int
+	view      screen.View
+	watch     <-chan struct{}
+	lastTick  time.Time
+	lastN     uint64
+	retrying  bool
+	pings     int
+	menu      *screen.Menu   // the instance menu, nil when closed
+	slots     *screen.Slots  // the slot screen, nil when closed
+	create    *screen.Create // character creation, nil once a character is chosen
+	inv       *screen.Inventory
+	traders   *screen.Traders
+	trade     *screen.TradeUI
+	talk      *screen.Talk // the conversation, nil when closed
+	board     *screen.Board
+	cons      *screen.ContractsUI
+	role      *screen.Role     // the choice of the recruit's role, nil when closed
+	duo       *client.Duo      // the second character on a stance, nil when there is none
+	toDuo     bool             // the helper keys talk to it, not to the house companion
+	focus     bool             // directing the second character: the keys and the screen are its (D56)
+	focusCmd  bool             // a command went to it since the focus changed
+	draftAlt  Draft            // the other character's plan while its focus is away
+	overview  bool             // the whole-zone map
+	line      *screen.Line     // the command line, nil when closed
+	soc       *screen.SocialUI // the Social screen, nil when closed
+	inviteN   int              // the invitation the prompt is for, and when it came
+	inviteAt  time.Time
+	partySeen int       // the party states seen, as of the last time members were asked after
+	gameAt    time.Time // when the model's game time last moved
+	gameMs    int64
+	draft     Draft // the plan being built in a turn-based instance
+	Err       error // why the program ended, if it ended badly
 
 	// Clock tells the time the screen's countdowns and "heard ago" read; nil is
 	// the wall clock. A scenario sets it to its server's clock.
@@ -88,6 +93,11 @@ type (
 		planVer   int
 		// talk: the talk was taken; open the conversation with this NPC.
 		talk string
+		// quiet: the answer to a request that shows nothing. after runs on the
+		// program; clearInvite drops the invitation the prompt shows.
+		quiet       bool
+		after       func(*App)
+		clearInvite bool
 	}
 	reconnected struct{ err error }
 	// created answers a character creation: err is nil when the character was
@@ -141,6 +151,15 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		a.watch = a.sess.Changed() // before reading, so no change is missed
 		a.observe()
 		cmds := []tea.Cmd{a.waitChange()}
+		ask := false
+		a.sess.View(func(m *model.Model) {
+			a.watchInvite(m)
+			ask = a.partyChanged(m)
+		})
+		if ask {
+			a.inflight++
+			cmds = append(cmds, a.askKnown)
+		}
 		if closed, _ := a.sess.Closed(); closed {
 			if a.sess.LoggedOut() {
 				a.view.Conn = screen.ConnLoggedOut
@@ -173,7 +192,16 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 	case resultMsg:
 		a.inflight--
+		if msg.quiet {
+			return a, nil
+		}
 		a.view.Notice, a.view.NoticeBad = msg.note, msg.bad
+		if msg.clearInvite {
+			a.sess.View(func(m *model.Model) { m.ClearInvite() })
+		}
+		if msg.after != nil {
+			msg.after(a)
+		}
 		if msg.talk != "" {
 			a.talk = &screen.Talk{NPC: msg.talk}
 		}
@@ -182,6 +210,9 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 	case tea.KeyPressMsg:
 		a.keys++
+		if a.line != nil {
+			return a.lineKey(msg)
+		}
 		return a.key(msg.String())
 	}
 	return a, nil
@@ -225,6 +256,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		switch {
 		case a.create != nil:
 			act = a.createKey(k, m)
+		case a.soc != nil:
+			act = a.socialKey(k, m)
 		case a.talk != nil:
 			act = a.talkKey(k, m)
 		case a.board != nil:
@@ -250,6 +283,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.tradeKey(k, m)
 		case a.menu != nil:
 			act = a.menuKey(k, m)
+		case m.Social.Invite != nil && (k == "y" || k == "n"):
+			act = Action{Kind: SocialDo, ID: map[bool]string{true: "accept", false: "decline"}[k == "y"], Note: m.Social.Invite.From}
 		case k == "x":
 			act = a.focusAction()
 		case helperKey(k):
@@ -265,7 +300,15 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	case Quit:
 		return a, tea.Quit
 	case ToggleHelp:
-		a.view.Help = !a.view.Help
+		// ? opens the keys, again the page on playing together, again closes.
+		switch {
+		case !a.view.Help:
+			a.view.Help = true
+		case !a.view.HelpMore:
+			a.view.HelpMore = true
+		default:
+			a.view.Help, a.view.HelpMore = false, false
+		}
 	case ToggleVerbose:
 		a.view.Verbose = !a.view.Verbose
 	case OpenMenu:
@@ -286,6 +329,11 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.cons = &screen.ContractsUI{}
 	case OpenOverview:
 		a.overview = true
+	case OpenLine:
+		a.line = &screen.Line{Text: "/"}
+	case SocialDo:
+		a.inflight++
+		return a, a.send(act)
 	case OpenRole:
 		a.talk, a.role = nil, &screen.Role{NPC: act.NPC}
 		a.sess.View(func(m *model.Model) {
@@ -391,6 +439,8 @@ func (a *App) send(act Action) tea.Cmd {
 			extra string // what to add to an "ok": the second character's refusal of a door
 		)
 		switch act.Kind {
+		case SocialDo:
+			return a.socialSend(ctx, act)
 		case Move:
 			what = "move"
 			id, err = a.sess.Move(ctx, act.X, act.Y)
@@ -483,6 +533,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
 	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
 	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
+	v.Line, v.Social = a.line, a.soc
 	a.checkFocus()
 	if a.focus {
 		v.Directing = a.duoName()

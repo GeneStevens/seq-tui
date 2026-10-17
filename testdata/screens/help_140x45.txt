@@ -1,4 +1,4 @@
-┌─ Keys ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Keys (? again: chat and parties) ───────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ Move             arrow keys or W A S D                                                                                                   │
 │ Target, attack   Tab cycles the target (Esc clears); F or Space: auto-attack on / off                                                    │
 │ Loot, doors      L: the nearest drop you may take; E: the nearest door (stand at it)                                                     │
