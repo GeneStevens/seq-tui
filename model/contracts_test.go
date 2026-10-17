@@ -252,3 +252,74 @@ func TestD55Reads(t *testing.T) {
 		t.Errorf("bram's mana after an event: %d", m.Group["bram"].Mana)
 	}
 }
+
+// The cleanup of M8 (D56): a reward names its world event itself, an NPC the
+// server streams moves, marker names are the pack's, owed pay is listed once at
+// login, and the House Companion's recruit option is not offered when the
+// snapshot carries no companion.
+func TestM8CleanupReads(t *testing.T) {
+	m := model.New()
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "downs", Seq: 1,
+		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me", Name: "Me", Pos: &pb.Pos{X: 1000, Y: 1000}}, Owed: []*pb.OwedPay{
+			{Kind: "event", Name: "Harvest Raid", Xp: 30, Crowns: 15}, {Kind: "refund", Name: "Warren Peril Delve", Crowns: 50}}},
+		Npcs: []*pb.NpcInfo{{Id: "watchman", Name: "Watchman", Pos: &pb.Pos{X: 5000, Y: 5000}}}}}})
+	if got := strings.Count(logText(m), "owed pay waiting"); got != 2 {
+		t.Fatalf("%d owed pay lines at login: %q", got, logText(m))
+	}
+	if !strings.Contains(logText(m), "owed pay waiting from the Harvest Raid: 30 XP and 15 crowns, paid at your next join") ||
+		!strings.Contains(logText(m), "owed pay waiting from a refund for Warren Peril Delve: 50 crowns, paid at your next join") {
+		t.Errorf("the owed pay lines: %q", logText(m))
+	}
+	// A later snapshot of the same character is not a login.
+	n := len(m.Log)
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "downs", Seq: 2,
+		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me"}, Owed: []*pb.OwedPay{{Kind: "event", Name: "Harvest Raid", Xp: 30}}}}}})
+	if len(m.Log) != n {
+		t.Errorf("a second snapshot listed the owed pay again: %q", logText(m))
+	}
+
+	// A guard the server streams moves where it is told.
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "downs", Seq: 3,
+		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me"}},
+		Npcs: []*pb.NpcInfo{{Id: "watchman", Name: "Watchman", Pos: &pb.Pos{X: 5000, Y: 5000}}}}}})
+	event(m, 300, &pb.Event{Body: &pb.Event_NpcMoved{NpcMoved: &pb.NpcMoved{Id: "watchman", Pos: &pb.Pos{X: 6500, Y: 5000}}}})
+	if g := m.NPC("watchman"); g.GetPos().GetX() != 6500 || g.GetName() != "Watchman" {
+		t.Errorf("the guard after npc_moved: %v", g)
+	}
+	if k := m.KnownNPCs(); len(k) != 1 || k[0].GetPos().GetX() != 6500 {
+		t.Errorf("the guard remembered for the map: %v", k)
+	}
+	event(m, 400, &pb.Event{Body: &pb.Event_NpcMoved{NpcMoved: &pb.NpcMoved{Id: "nobody", Pos: &pb.Pos{X: 1}}}}) // not in view: nothing
+
+	// A world event's reward uses the event's name it carries, else the announced one.
+	event(m, 500, &pb.Event{Body: &pb.Event_WorldEvent{WorldEvent: &pb.WorldEvent{Event: "raid", Name: "Announced Raid", Kind: "started"}}})
+	event(m, 600, &pb.Event{Body: &pb.Event_Reward{Reward: &pb.Reward{Recipient: "me", Kind: "world_event", Detail: "raid", EventName: "Harvest Raid", Xp: 60, Amount: 30}}})
+	if got := lastText(m); !strings.Contains(got, "for the Harvest Raid") {
+		t.Errorf("the reward line %q", got)
+	}
+	event(m, 700, &pb.Event{Body: &pb.Event_Reward{Reward: &pb.Reward{Recipient: "me", Kind: "world_event", Detail: "raid", Xp: 60, Amount: 30}}})
+	if got := lastText(m); !strings.Contains(got, "for the Announced Raid") {
+		t.Errorf("the reward line without the event's own name %q", got)
+	}
+
+	// Markers show the names the zone map gives; one without a name shows its id.
+	m.Map = &pb.ZoneMap{Space: "downs", Markers: []*pb.Marker{{Id: "goblin-lookout", Kind: "scout", Name: "Goblin Lookout"}, {Id: "plain", Kind: "scout"}}}
+	if m.MarkerName("goblin-lookout") != "Goblin Lookout" || m.MarkerName("plain") != "plain" || m.MarkerName("unknown") != "unknown" {
+		t.Errorf("marker names: %q %q %q", m.MarkerName("goblin-lookout"), m.MarkerName("plain"), m.MarkerName("unknown"))
+	}
+
+	// With no companion in the snapshot the Captain's role option is dropped.
+	event(m, 800, &pb.Event{Body: &pb.Event_Dialogue{Dialogue: &pb.Dialogue{Actor: "me", Npc: "captain",
+		Options: []*pb.DialogueOption{{Action: "companion_role", Label: "Choose your recruit's role"}, {Action: "contract_accept", Label: "Take a contract"}}}}})
+	if d := m.Said("captain"); d == nil || len(d.Options) != 1 || d.Options[0].GetAction() != "contract_accept" {
+		t.Errorf("the Captain's options: %+v", d)
+	}
+}
+
+func logText(m *model.Model) string {
+	var b strings.Builder
+	for _, e := range m.Log {
+		b.WriteString(e.Text + "\n")
+	}
+	return b.String()
+}

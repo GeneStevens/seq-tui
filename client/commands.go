@@ -70,6 +70,15 @@ func (s *Session) LoggedOut() bool {
 	return s.out
 }
 
+type directedKey struct{}
+
+// Directing makes the commands sent with the returned context ones for another
+// online character of the account (D56, directed play): the server plays them
+// as that character's and answers the directing session.
+func Directing(ctx context.Context, character string) context.Context {
+	return context.WithValue(ctx, directedKey{}, character)
+}
+
 // intent sends a new intent through the toolkit. The toolkit numbers it and
 // calls the body with the id and sequence number set, just before the write;
 // the body is where the model learns of it, so a fast result finds it there.
@@ -78,8 +87,10 @@ func (s *Session) intent(ctx context.Context, kind string, fill func(*pb.Intent)
 	if c == nil {
 		return "", errors.New("not connected")
 	}
+	who, _ := ctx.Value(directedKey{}).(string)
 	body := func(i *pb.Intent) {
 		fill(i)
+		i.Character = who
 		s.mu.Lock()
 		if _, ok := s.m.Intent(i.IntentId); !ok { // a resend names it again
 			s.m.IntentSent(i.IntentId, i.Seq, kind)

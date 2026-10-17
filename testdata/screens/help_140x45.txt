@@ -7,10 +7,8 @@
 │ Instances        I: this zone's menu (Enter opens one); then E at its door                                                               │
 │ Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank                                                              │
 │ Trade            T: ask a character in reach; each side offers, then confirms                                                            │
-│ People           G: talk to the nearest; options open a trader, board or role                                                            │
+│ People           G: talk to the nearest; options open a trader or a board                                                                │
 │ Contracts        K: those you hold (X gives up); the board takes, hands in                                                               │
-│ Companion        P call/send away  H stance  Y attack my target  U come here                                                             │
-│                  J stop  Z drop the order  . the other helper (a second one)                                                             │
 │ Plans            turn-based: keys build a plan, one move or door, one ability                                                            │
 │                  or attack. Enter submits, Backspace drops a step, Esc clears                                                            │
 │ Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log                                                              │
@@ -22,6 +20,8 @@
 │                  The status line gives the server's speed on forest, road, ford...                                                       │
 │ Event log markers:  ! denied (with the reason) or a cast that did not land                                                               │
 │                     < hit on you  x kill  + reward or level  * world event                                                               │
+│                                                                                                                                          │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

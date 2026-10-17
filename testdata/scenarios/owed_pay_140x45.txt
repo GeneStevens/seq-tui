@@ -11,14 +11,14 @@
 │                                         .······················································││                                        │
 │                                         .······················································│└────────────────────────────────────────┘
 │                                         .······················································│┌─ Nearby ───────────────────────────────┐
-│                                         .······@······G········································││ D town-gate                    0m here │
-│                                         .······················································││ D hollow-warren                 394m E │
-│                                         .······················································││                                        │
-│                                         .                                                      ││                                        │
-│                                         .                                                      ││                                        │
-│                                         .                                                      ││                                        │
-│                                         .               """"""""""""""""""""""                 ││                                        │
-│                                         .               """"""""""""""""""""""                 ││                                        │
+│                                         .······@······G········································││ D Town Gate                    0m here │
+│                                         .······················································││ G Barleycross          6m E event goal │
+│                                         .······················································││ ; Wickett Mill      42m E scout marker │
+│                                         .                                                      ││ ! Raid Edge          54m E event spawn │
+│                                         .                                                      ││ ; Millrace Ford    168m E scout marker │
+│                                         .                                                      ││ ; Goblin Lookout   224m E scout marker │
+│                                         .               """"""""""""""""""""""                 ││ ; Hollow Warren    382m E scout marker │
+│                                         .               """"""""""""""""""""""                 ││ D Hollow Warren                 394m E │
 │                                         .                                                      ││                                        │
 │                                         .                                                   ;  ││                                        │
 │                                         .                                                      ││                                        │
@@ -30,15 +30,15 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ <  NN.Ns Raiding Goblin hit hale for 5                                                                                                   │
-│    NN.Ns entered Thornwick                                                                                                               │
-│    NN.Ns hale healed 13                                                                                                                  │
-│    NN.Ns hale healed 13                                                                                                                  │
-│    NN.Ns hale healed 13                                                                                                                  │
-│    NN.Ns Town Guard is out of view                                                                                                       │
-│    NN.Ns hale healed 13                                                                                                                  │
-│    NN.Ns hale healed 4                                                                                                                   │
-│   NNN.Ns Town Guard (guard) is in view                                                                                                   │
+│   NNN.Ns an event this client does not know                                                                                              │
+│   NNN.Ns an event this client does not know                                                                                              │
+│   NNN.Ns an event this client does not know                                                                                              │
+│   NNN.Ns an event this client does not know                                                                                              │
+│   NNN.Ns an event this client does not know                                                                                              │
+│   NNN.Ns an event this client does not know                                                                                              │
+│   NNN.Ns an event this client does not know                                                                                              │
+│   NNN.Ns an event this client does not know                                                                                              │
+│   NNN.Ns an event this client does not know                                                                                              │
 │   NNN.Ns entered Thornwick Downs                                                                                                         │
 │ + NNN.Ns owed pay arrived with the join: 60 XP and 30 crowns                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

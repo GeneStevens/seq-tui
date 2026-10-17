@@ -186,6 +186,15 @@ var Cases = []Case{
 	{Name: "duo_out_of_play", Log: "duo_guard.jsonl", Mark: "duo_out_of_play", Duo: &DuoView{ID: "bram", Stance: "follow"}},
 	{Name: "duo_party", Log: "duo_guard.jsonl", Mark: "duo_party", Notice: "second character in play", Duo: &DuoView{ID: "bram", Active: true, Stance: "follow"}},
 	{Name: "duo_guard_fight", Log: "duo_guard.jsonl", Mark: "duo_guard_fight", Notice: "attack ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "guard", Target: "mob-bramble-tuskers-a-1"}},
+	// SEQ-055 and WLD-004 (TUI-017): no companion panel with the default setting,
+	// owed pay listed at login, and a duo in the Hollow Warren.
+	{Name: "shelved_captain", Log: "shelved.jsonl", Mark: "shelved_captain", Notice: "talk to Captain Rhosyn Hartley ok", Talk: &Talk{NPC: "captain"}},
+	{Name: "shelved_help", Log: "shelved.jsonl", Mark: "shelved_help", Help: true},
+	{Name: "owed_pay_login", Log: "owed_login.jsonl", Mark: "owed_pay_login"},
+	{Name: "warren_duo", Log: "duo_warren.jsonl", Mark: "warren_duo", Notice: "second character: stance assist", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
+	{Name: "warren_entered", Log: "duo_warren.jsonl", Mark: "warren_entered", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
+	{Name: "warren_digger", Log: "duo_warren.jsonl", Mark: "warren_digger", Notice: "target ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
+	{Name: "warren_room_cleared", Log: "duo_warren.jsonl", Mark: "warren_room_cleared", Notice: "attack ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
 }
 

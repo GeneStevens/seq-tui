@@ -13,14 +13,14 @@
 │                                         .······················································││ Word from Wickett Mill              go │
 │                                         .······@···············································│└────────────────────────────────────────┘
 │                                         .······················································│┌─ Nearby ───────────────────────────────┐
-│                                         .······················································││ D town-gate                    0m here │
-│                                         .··················                                    ││ % wickett-mill      42m E scout marker │
-│                                         .                                                      ││ D hollow-warren                 394m E │
-│                                         .                                                      ││                                        │
-│                                         .                                                      ││                                        │
-│                                         .                """"""""""""""""""""""                ││                                        │
-│                                         .                """"""""""""""""""""""                ││                                        │
-│                                         .                                                      ││                                        │
+│                                         .······················································││ D Town Gate                    0m here │
+│                                         .··················                                    ││ % Wickett Mill      42m E scout marker │
+│                                         .                                                      ││ G Barleycross         67m E event goal │
+│                                         .                                                      ││ ; Millrace Ford    168m E scout marker │
+│                                         .                                                      ││ ; Goblin Lookout   224m E scout marker │
+│                                         .                """"""""""""""""""""""                ││ ! Raid Edge         229m E event spawn │
+│                                         .                """"""""""""""""""""""                ││ ; Hollow Warren    382m E scout marker │
+│                                         .                                                      ││ D Hollow Warren                 394m E │
 │                                         .                                                     %││                                        │
 │                                         .                                                      ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.3s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   1.4s you took the contract Word from Wickett Mill                                                                                    │
-│     1.5s Town Guard (guard) is in view                                                                                                   │
-│     4.1s Barnaby Tuck is out of view                                                                                                     │
-│     5.2s Odalys Penn (banker) is in view                                                                                                 │
-│     7.1s Thornwick Contract Board is out of view                                                                                         │
-│     9.4s Isolde Fenn is out of view                                                                                                      │
-│    10.3s Captain Rhosyn Hartley (quest_giver) is in view                                                                                 │
-│    17.4s Odalys Penn is out of view                                                                                                      │
+│    21.5s an event this client does not know                                                                                              │
+│    21.6s an event this client does not know                                                                                              │
+│    21.7s an event this client does not know                                                                                              │
+│    21.8s an event this client does not know                                                                                              │
+│    21.9s an event this client does not know                                                                                              │
+│    22.0s an event this client does not know                                                                                              │
+│    22.1s an event this client does not know                                                                                              │
+│    22.2s an event this client does not know                                                                                              │
+│    22.3s an event this client does not know                                                                                              │
+│    22.4s an event this client does not know                                                                                              │
 │    22.6s entered Thornwick Downs                                                                                                         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | road: faster, 125% | heard 0.4s ago | use door ok                                                 ? help  q quit

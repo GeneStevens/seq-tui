@@ -52,7 +52,7 @@ func TestAConcavePolygonIsNotItsBoundingBox(t *testing.T) {
 }
 
 // The model reads the terrain out of the zone map the server sent, and gives
-// none for a map without areas or patrols.
+// none for a map without areas.
 func TestTheModelReadsTheGroundFromTheZoneMap(t *testing.T) {
 	m := model.New()
 	m.Self.Pos = &pb.Pos{X: 5, Y: 5}
@@ -60,14 +60,10 @@ func TestTheModelReadsTheGroundFromTheZoneMap(t *testing.T) {
 		t.Error("no map, no terrain")
 	}
 	m.Map = &pb.ZoneMap{
-		Areas:   []*pb.Area{{Id: "r", Kind: "road", Poly: rect(0, 0, 10, 10)}},
-		Patrols: []*pb.Patrol{{Id: "camp-a", Owner: "camp", Loop: true, Points: rect(0, 0, 10, 10)}, {Id: "stub", Owner: "npc", Points: rect(0, 0, 1, 1)[:1]}},
+		Areas: []*pb.Area{{Id: "r", Kind: "road", Poly: rect(0, 0, 10, 10)}},
 	}
 	if m.Underfoot() != model.Road {
 		t.Errorf("underfoot %q", m.Underfoot())
-	}
-	if ps := m.Ground().Patrols; len(ps) != 1 || ps[0].ID != "camp-a" || ps[0].Owner != "camp" || !ps[0].Loop {
-		t.Errorf("patrols %+v (a path of one point is no patrol)", ps)
 	}
 	m.Map = &pb.ZoneMap{Walls: []*pb.Wall{{}}}
 	if m.Ground() != nil || m.Underfoot() != "" {

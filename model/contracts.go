@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
+	"google.golang.org/protobuf/proto"
 )
 
 // Contracts, talk, rares and world events (SEQ-044, SEQ-045). As everywhere in
@@ -214,7 +215,11 @@ func (m *Model) applyDialogue(d *pb.Dialogue) {
 		m.Dialogues = map[string]*Dialogue{}
 	}
 	m.Talks++
-	m.Dialogues[d.GetNpc()] = &Dialogue{NPC: d.GetNpc(), Lines: d.GetLines(), Options: d.GetOptions(), Talks: m.Talks}
+	opts := d.GetOptions()
+	if m.Companion() == nil && len(m.questOrder) == 0 { // the house companion is shelved (D56): its option leads nowhere
+		opts = slices.DeleteFunc(slices.Clone(opts), func(o *pb.DialogueOption) bool { return o.GetAction() == "companion_role" })
+	}
+	m.Dialogues[d.GetNpc()] = &Dialogue{NPC: d.GetNpc(), Lines: d.GetLines(), Options: opts, Talks: m.Talks}
 }
 
 // applyWorldEvent keeps the last announcement of a world event.
@@ -278,6 +283,36 @@ func (m *Model) npcAppeared(n *pb.NpcInfo) {
 	m.NPCs = append(m.NPCs, n)
 }
 
+// npcMoved puts an NPC the server streams (a guard on its patrol, D56) where
+// it now is.
+func (m *Model) npcMoved(id string, pos *pb.Pos) {
+	for i, n := range m.NPCs {
+		if n.GetId() == id {
+			c := proto.Clone(n).(*pb.NpcInfo)
+			c.Pos = clonePos(pos)
+			m.NPCs[i] = c
+			m.noteNPC(c)
+			return
+		}
+	}
+}
+
+// owedAtLogin lists the owed pay the first snapshot of a login shows, in the
+// log, one line for each (D55, D56): it is paid at the character's next join.
+func (m *Model) owedAtLogin() {
+	for _, o := range m.Self.Owed {
+		what := "the " + o.GetName()
+		if o.GetKind() == "refund" {
+			what = "a refund for " + o.GetName()
+		}
+		text := fmt.Sprintf("owed pay waiting from %s: %s, paid at your next join", what, m.RewardWords(&pb.RewardInfo{Xp: o.GetXp(), Crowns: o.GetCrowns()}))
+		m.Log = append(m.Log, LogEntry{Seq: m.last, GameTimeMs: m.GameTimeMs, Kind: "reward", Text: text, Actor: m.Self.ID})
+	}
+	if over := len(m.Log) - m.logCap; over > 0 {
+		m.Log = append([]LogEntry(nil), m.Log[over:]...)
+	}
+}
+
 // npcLeft removes an NPC that went out of view. What the character has seen of
 // it stays in Seen for the map.
 func (m *Model) npcLeft(id string) {
@@ -297,6 +332,16 @@ func (m *Model) Marker(c *pb.ContractInfo) *pb.Pos {
 		}
 	}
 	return c.GetMarkerPos()
+}
+
+// MarkerName is a marker's display name from the zone map (D56), else its id.
+func (m *Model) MarkerName(id string) string {
+	for _, k := range m.Map.GetMarkers() {
+		if k.GetId() == id && k.GetName() != "" {
+			return k.GetName()
+		}
+	}
+	return id
 }
 
 // Camps are where the zone's mobs are found, from its map (D52).
@@ -429,10 +474,14 @@ func (m *Model) describeContracts(e *pb.Event) (kind, text, reason string, ok bo
 				m.RewardWords(&pb.RewardInfo{Xp: w.GetXp(), Crowns: w.GetAmount(), Item: w.GetItem()})), "", true
 		case "world_event":
 			pay := m.RewardWords(&pb.RewardInfo{Xp: w.GetXp(), Crowns: w.GetAmount(), Item: w.GetItem()})
-			if m.owedEventPay(w) {
-				return "reward", fmt.Sprintf("owed pay arrived for the %s, which ended while you were away: %s", m.EventName(w.GetDetail()), pay), "", true
+			event := w.GetEventName() // the world event's own name (D56)
+			if event == "" {
+				event = m.EventName(w.GetDetail())
 			}
-			return "reward", fmt.Sprintf("%s was paid for the %s: %s", who, m.EventName(w.GetDetail()), pay), "", true
+			if m.owedEventPay(w) {
+				return "reward", fmt.Sprintf("owed pay arrived for the %s, which ended while you were away: %s", event, pay), "", true
+			}
+			return "reward", fmt.Sprintf("%s was paid for the %s: %s", who, event, pay), "", true
 		}
 	}
 	return "", "", "", false

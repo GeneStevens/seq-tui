@@ -61,8 +61,20 @@ func nextIn(list []string, cur string) string {
 
 // helperAction decides what a helper key does against the model and the draft.
 func (a *App) helperAction(k string, m *model.Model) Action {
+	if a.focus { // directing: the ordinary keys give the orders; these hand it back
+		switch k {
+		case "z":
+			return Action{Kind: DuoOrder, ID: "clear"}
+		case "h":
+			return Action{Kind: DuoStance, ID: nextIn(agentkit.CompanionStances, a.duo.Stance())}
+		}
+		return Action{Note: "directing: the usual keys command it; Z hands it back to its stance, H changes the stance, X gives you back"}
+	}
 	duo := a.keysToDuo(m)
 	if !duo && !companionReady(m) && k != "." {
+		if m.Companion() == nil && !m.QuestShown() { // the house companion is shelved (D56)
+			return Action{Note: "there is no helper to command"}
+		}
 		return Action{Note: "no companion yet: the Watch Captain's quest (G) earns one"}
 	}
 	turn := m.TurnBased()
@@ -166,6 +178,7 @@ func (a *App) duoDo(act Action) (tea.Cmd, string) {
 	switch act.Kind {
 	case DuoStance:
 		a.duo.SetStance(act.ID)
+		a.focusCmd = false // handed back
 		return nil, "second character: stance " + act.ID
 	case DuoOrder:
 		switch act.ID {
@@ -177,7 +190,8 @@ func (a *App) duoDo(act Action) (tea.Cmd, string) {
 			a.duo.SetOrder(client.Order{Kind: "stop"})
 		default:
 			a.duo.SetOrder(client.Order{})
-			return nil, "second character: back to its stance"
+			a.focusCmd = false // handed back
+			return nil, "second character: back to its stance, " + a.duo.Stance()
 		}
 		return nil, "second character ordered: " + act.ID
 	}

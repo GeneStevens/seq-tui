@@ -10,10 +10,10 @@
 │·                                   ?               ###.                                        ││                                        │
 │·                                                   ###.                                        │└────────────────────────────────────────┘
 │·······················································.                                        │┌─ Nearby ───────────────────────────────┐
-│·······················································.                                        ││ D east-gate                    0m here │
-│·····$··········································@······.                                        ││ ? Captain Rhosyn H… 12m NW quest_giver │
+│·······················································.                                        ││ D East Gate                    0m here │
+│········································$·······@······.                                        ││ $ Town Guard                6m W guard │
+│·······················································.                                        ││ ? Captain Rhosyn H… 12m NW quest_giver │
 │·······················································.                                        ││ $ Odalys Penn            30m NW banker │
-│·······················································.                                        ││ $ Town Guard               36m W guard │
 │·                                                   ###.                                        ││ $ Isolde Fenn             50m W binder │
 │·                                                   ###.                                        ││ & Thornwick Cont… 58m W contract_board │
 │·                                                   ###.                                        ││ $ Barnaby Tuck            64m W vendor │
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Barnaby Tuck is out of view                                                                                                     │
-│     N.Ns Odalys Penn (banker) is in view                                                                                                 │
-│     N.Ns Thornwick Contract Board is out of view                                                                                         │
-│     N.Ns Isolde Fenn is out of view                                                                                                      │
-│     N.Ns Captain Rhosyn Hartley (quest_giver) is in view                                                                                 │
-│    NN.Ns Odalys Penn is out of view                                                                                                      │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago | move ok                                                           ? help  q quit

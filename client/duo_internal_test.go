@@ -151,3 +151,31 @@ func TestTheStancesIntentsBecomeAPlan(t *testing.T) {
 		t.Fatalf("an empty plan is %v", w)
 	}
 }
+
+// The player commanding the character pauses its stance until it is handed
+// back by a stance or by dropping the order (D56).
+func TestDirectingPausesTheStance(t *testing.T) {
+	d, _ := duoRig()
+	if d.Directed() {
+		t.Fatal("directed before anyone commanded it")
+	}
+	d.SetOrder(Order{Kind: "stop"})
+	d.SetDirected(true)
+	if !d.Directed() || d.Order().Kind != "" {
+		t.Errorf("directed %v, order %q: commanding drops a standing order", d.Directed(), d.Order().Kind)
+	}
+	d.SetStance("assist")
+	if d.Directed() {
+		t.Error("a stance did not hand it back")
+	}
+	d.SetDirected(true)
+	d.SetOrder(Order{})
+	if d.Directed() {
+		t.Error("dropping the order did not hand it back")
+	}
+	d.SetDirected(true)
+	d.SetOrder(Order{Kind: "move", Dest: &pb.Pos{X: 1}})
+	if d.Directed() {
+		t.Error("an order of the stance driver did not hand it back")
+	}
+}

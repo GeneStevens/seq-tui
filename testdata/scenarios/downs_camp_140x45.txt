@@ -14,14 +14,14 @@
 │                                                @                                               │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ m Meadow Wolf              12m S 36/36 │
-│                                                                                                ││ D town-gate                     60m NW │
-│                                                                                                ││ D hollow-warren                 358m E │
-│                                                                                          c     ││                                        │
-│                                                                                                ││                                        │
-│                                                m                                               ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                                                                ││ ; Wickett Mill      29m N scout marker │
+│                                                                                                ││ G Barleycross        36m NE event goal │
+│                                                                                          c     ││ D Town Gate                     60m NW │
+│                                                                                                ││ ; Millrace Ford   146m NE scout marker │
+│                                                m                                               ││ ; Goblin Lookout   188m E scout marker │
+│                                                                                                ││ ! Raid Edge         195m E event spawn │
+│                                                                                                ││ ; Hollow Warren    346m E scout marker │
+│                                                                                                ││ D Hollow Warren                 358m E │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐

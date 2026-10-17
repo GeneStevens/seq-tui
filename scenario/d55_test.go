@@ -275,6 +275,18 @@ func TestAllTheZonesMarkersAreOnTheMap(t *testing.T) {
 			t.Fatalf("the zone map's markers: %v", kinds)
 		}
 	})
+	// The spots are named as the pack names them (D56), not by their ids.
+	near := p.Screen(140, 45)
+	for _, name := range []string{"Barleycross", "Raid Edge", "Wickett Mill", "Goblin Lookout"} {
+		if !strings.Contains(near, name) {
+			t.Errorf("the screen does not name %q:\n%s", name, near)
+		}
+	}
+	for _, id := range []string{"barleycross", "raid-edge", "wickett-mill", "goblin-lookout"} {
+		if strings.Contains(near, id) {
+			t.Errorf("the screen shows the marker's id %q:\n%s", id, near)
+		}
+	}
 	p.Press("m")
 	s := p.Screen(140, 45)
 	for _, glyph := range []string{";", "!", "G"} {

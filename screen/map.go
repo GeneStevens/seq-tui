@@ -44,7 +44,6 @@ const (
 	glyphForest   = '"'
 	glyphRoad     = '·'
 	glyphFloor    = '.'
-	glyphPatrol   = '\'' // a patrol path, faint, in the overview only
 	// The target is its glyph in upper case: M, X, P.
 )
 
@@ -55,7 +54,6 @@ type cellKind int
 const (
 	kEmpty cellKind = iota
 	kGround
-	kPatrol
 	kBounds
 	kWall
 	kCamp
@@ -359,16 +357,6 @@ func touches(floor [][]bool, c, r int) bool {
 func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 	if t := m.Ground(); t != nil {
 		paintGround(g, t)
-		if overview {
-			for _, p := range t.Patrols {
-				for i := 0; i+1 < len(p.Points); i++ {
-					g.line(p.Points[i], p.Points[i+1], glyphPatrol, kPatrol)
-				}
-				if p.Loop {
-					g.line(p.Points[len(p.Points)-1], p.Points[0], glyphPatrol, kPatrol)
-				}
-			}
-		}
 	}
 	if b := m.Map.GetBounds(); b != nil {
 		corners := []*pb.Pos{{X: b.GetMinX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMaxY()}, {X: b.GetMinX(), Y: b.GetMaxY()}}
@@ -461,7 +449,7 @@ func (g *grid) styled(st Styler) []string {
 				s = " "
 			case kGround:
 				s = groundStyle(c.a, st)(s)
-			case kBounds, kCamp, kPatrol:
+			case kBounds, kCamp:
 				s = st.Dim(s)
 			case kDoor:
 				s = st.Cyan(s)

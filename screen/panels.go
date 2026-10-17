@@ -203,11 +203,27 @@ func nearbyList(m *model.Model) []nearby {
 		out = append(out, mk(npcGlyph(n), n.GetId(), n.GetName(), n.GetPos(), n.GetRole()))
 	}
 	for _, d := range m.Map.GetDoors() {
-		out = append(out, mk(glyphDoor, d.GetId(), d.GetId(), d.GetPos(), ""))
+		out = append(out, mk(glyphDoor, d.GetId(), m.MarkerName(d.GetId()), d.GetPos(), ""))
 	}
+	held := map[string]bool{}
 	for _, c := range m.Self.Contracts {
 		if p := m.Marker(c); p != nil {
-			out = append(out, mk(glyphMarker, "marker-"+c.GetMarker(), c.GetMarker(), p, "scout marker"))
+			held[c.GetMarker()] = true
+			out = append(out, mk(glyphMarker, "marker-"+c.GetMarker(), m.MarkerName(c.GetMarker()), p, "scout marker"))
+		}
+	}
+	// The zone's other named spots, by the names its pack gives them (D56).
+	for _, k := range m.Map.GetMarkers() {
+		if k.GetName() == "" || held[k.GetId()] {
+			continue
+		}
+		switch k.GetKind() {
+		case "scout":
+			out = append(out, mk(glyphScout, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "scout marker"))
+		case "event_spawn":
+			out = append(out, mk(glyphSpawn, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "event spawn"))
+		case "event_goal":
+			out = append(out, mk(glyphGoal, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "event goal"))
 		}
 	}
 	sort.SliceStable(out, func(i, j int) bool {

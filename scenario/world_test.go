@@ -43,7 +43,7 @@ func status(p *scenario.Player) string {
 
 // From Hawthorn Square along Gatehouse Way to the east gate: the streets are
 // roads (the status line says so), the buildings stand either side, and a town
-// guard walks its patrol along the way (the overview draws the path).
+// guard walks its patrol along the way.
 func TestThornwickWalkTheStreetsFromTheSquareToTheGate(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
 	p := w.NewCharacter("ann")
@@ -57,20 +57,8 @@ func TestThornwickWalkTheStreetsFromTheSquareToTheGate(t *testing.T) {
 	// East along the way, to where a town guard walks.
 	walkVia(t, w, p, [2]int64{100000, 45000})
 	// The guard at the gate is an NPC (D55) that walks (78, 45) to (112, 45) and
-	// back. The server sends no move event for it, so the screen draws it where it
-	// was told of it; its path comes from the zone map's patrols.
+	// back. The server streams its moves (D56); the zone map tells no path.
 	p.Eventually("the gate guard in view", func(m *model.Model) bool { return m.NPC("guard-gate") != nil })
-	p.Model(func(m *model.Model) {
-		var path *model.Patrol
-		for i, pa := range m.Ground().Patrols {
-			if pa.ID == "guard-gate" {
-				path = &m.Ground().Patrols[i]
-			}
-		}
-		if path == nil || path.Owner != "npc" || path.Loop || len(path.Points) != 2 || path.Points[1].GetX() != 112000 {
-			t.Fatalf("the guard's patrol from the zone map: %+v", path)
-		}
-	})
 
 	walkVia(t, w, p, [2]int64{114000, 45000})
 	p.Golden("thornwick_gate")

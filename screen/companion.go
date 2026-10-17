@@ -28,6 +28,8 @@ type DuoView struct {
 	Active bool
 	Stance string
 	Order  string
+	// Directed: the player commands it, so its stance waits (D56).
+	Directed bool
 	// Target is what the character itself is fighting (its own state, which only
 	// its own connection knows), "" for nothing.
 	Target string
@@ -135,6 +137,14 @@ func companionLines(m *model.Model, w int, st Styler) []string {
 	return append(rows, controls(w)...)
 }
 
+// duoControls are the second character's keys, in the words of its panel.
+func duoControls(w int) []string {
+	if w >= 36 {
+		return append(controls(w), fit(" X direct it: its screen, your keys", w))
+	}
+	return nil
+}
+
 func duoLines(m *model.Model, d *DuoView, w int, st Styler) []string {
 	g := m.InView(d.ID)
 	name, level := d.ID, int64(0)
@@ -175,9 +185,12 @@ func duoLines(m *model.Model, d *DuoView, w int, st Styler) []string {
 			own.Entity = g.Entity
 		}
 		action = model.HelperAction(m, own, d.Order, d.Stance)
+		if d.Directed {
+			action = "directed by you (Z: its stance)"
+		}
 	}
 	rows = append(rows, fit(" stance "+d.Stance, w), fit(" "+action, w))
-	return append(rows, controls(w)...)
+	return append(rows, duoControls(w)...)
 }
 
 // questLines are the steps of the Watch Captain's quest as the character has

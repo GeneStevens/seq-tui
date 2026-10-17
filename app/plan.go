@@ -79,6 +79,7 @@ const (
 	DuoDismiss      // log the second character out
 	DuoStance       // set the second character's stance to ID
 	DuoOrder        // order the second character, as CompanionOrder
+	Focus           // switch the keys and the screen between the two characters (D56)
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -103,6 +104,8 @@ type Action struct {
 	Steps []agentkit.Step
 	Round uint64
 	Ver   int
+	// For is the character the action is for when it is not the player's own (D56).
+	For string
 }
 
 // Plan decides what a key does against the model. It is pure.

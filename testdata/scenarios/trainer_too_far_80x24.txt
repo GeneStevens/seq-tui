@@ -2,8 +2,8 @@
 │ Traders in view. Up / Down choose, Enter opens, Esc closes. Walk up to one f…│
 │                                                                              │
 │ > Dunstan Reeve            sells and buys         5m N                       │
+│   Town Guard               guard                  15m S too far              │
 │   Mother Elswyth           teaches                16m S too far              │
-│   Town Guard               guard                  16m S too far              │
 │   Gorran Stoutarm          teaches                19m SW too far             │
 │   Hilda Brasswick          sells and buys         25m N too far              │
 │                                                                              │

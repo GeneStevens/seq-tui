@@ -288,6 +288,12 @@ func roundLines(m *model.Model, v View, w, h int, st Styler) []string {
 		if len(v.Plan.Steps) == 0 && !in {
 			head = " Plan: empty, not sent"
 		}
+		if v.Directing != "" { // the plan of the character being directed (D56)
+			head = fmt.Sprintf(" %s's plan (%d/%d): %s", m.Self.Name, len(v.Plan.Steps), MaxPlanSteps, state)
+			if len(v.Plan.Steps) == 0 && !in {
+				head = fmt.Sprintf(" %s's plan: empty, not sent", m.Self.Name)
+			}
+		}
 		add(head)
 		if h >= 7 {
 			if in {
