@@ -37,63 +37,93 @@
 {"pong":{"nonce":"118"}}
 {"pong":{"nonce":"119"}}
 {"pong":{"nonce":"120"}}
-{"social_result":{"request_id":"s25","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number a","at_ms":"1735689602300"}}
 {"pong":{"nonce":"121"}}
 {"pong":{"nonce":"122"}}
-{"social_result":{"request_id":"s26","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number b","at_ms":"1735689603300"}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
-{"social_result":{"request_id":"s27","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number c","at_ms":"1735689604300"}}
+{"social_result":{"request_id":"s25","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number a","at_ms":"1735689602300"}}
 {"pong":{"nonce":"125"}}
 {"pong":{"nonce":"126"}}
-{"social_result":{"request_id":"s28","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number d","at_ms":"1735689605300"}}
 {"pong":{"nonce":"127"}}
-{"event":{"seq":"2","game_time_ms":"6000","rules_tick":{}}}
 {"pong":{"nonce":"128"}}
-{"social_result":{"request_id":"s29","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number e","at_ms":"1735689606300"}}
+{"social_result":{"request_id":"s26","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number b","at_ms":"1735689603300"}}
 {"pong":{"nonce":"129"}}
 {"pong":{"nonce":"130"}}
-{"social_result":{"request_id":"s30","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number f","at_ms":"1735689607300"}}
 {"pong":{"nonce":"131"}}
 {"pong":{"nonce":"132"}}
-{"social_result":{"request_id":"s31","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number g","at_ms":"1735689608300"}}
+{"social_result":{"request_id":"s27","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number c","at_ms":"1735689604300"}}
 {"pong":{"nonce":"133"}}
 {"pong":{"nonce":"134"}}
-{"social_result":{"request_id":"s32","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number h","at_ms":"1735689609300"}}
 {"pong":{"nonce":"135"}}
 {"pong":{"nonce":"136"}}
-{"social_result":{"request_id":"s33","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number i","at_ms":"1735689610300"}}
+{"social_result":{"request_id":"s28","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number d","at_ms":"1735689605300"}}
 {"pong":{"nonce":"137"}}
 {"pong":{"nonce":"138"}}
-{"social_result":{"request_id":"s34","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number j","at_ms":"1735689611300"}}
 {"pong":{"nonce":"139"}}
-{"event":{"seq":"3","game_time_ms":"12000","rules_tick":{}}}
+{"event":{"seq":"2","game_time_ms":"6000","rules_tick":{}}}
 {"pong":{"nonce":"140"}}
-{"social_result":{"request_id":"s35","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number k","at_ms":"1735689612300"}}
+{"social_result":{"request_id":"s29","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number e","at_ms":"1735689606300"}}
 {"pong":{"nonce":"141"}}
 {"pong":{"nonce":"142"}}
-{"social_result":{"request_id":"s36","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number l","at_ms":"1735689613300"}}
 {"pong":{"nonce":"143"}}
 {"pong":{"nonce":"144"}}
-{"social_result":{"request_id":"s37","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number m","at_ms":"1735689614300"}}
+{"social_result":{"request_id":"s30","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number f","at_ms":"1735689607300"}}
 {"pong":{"nonce":"145"}}
 {"pong":{"nonce":"146"}}
-{"social_result":{"request_id":"s38","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number n","at_ms":"1735689615300"}}
 {"pong":{"nonce":"147"}}
 {"pong":{"nonce":"148"}}
+{"social_result":{"request_id":"s31","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number g","at_ms":"1735689608300"}}
 {"pong":{"nonce":"149"}}
+{"pong":{"nonce":"150"}}
+{"pong":{"nonce":"151"}}
+{"pong":{"nonce":"152"}}
+{"social_result":{"request_id":"s32","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number h","at_ms":"1735689609300"}}
+{"pong":{"nonce":"153"}}
+{"pong":{"nonce":"154"}}
+{"pong":{"nonce":"155"}}
+{"pong":{"nonce":"156"}}
+{"social_result":{"request_id":"s33","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number i","at_ms":"1735689610300"}}
+{"pong":{"nonce":"157"}}
+{"pong":{"nonce":"158"}}
+{"pong":{"nonce":"159"}}
+{"pong":{"nonce":"160"}}
+{"social_result":{"request_id":"s34","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number j","at_ms":"1735689611300"}}
+{"pong":{"nonce":"161"}}
+{"pong":{"nonce":"162"}}
+{"pong":{"nonce":"163"}}
+{"event":{"seq":"3","game_time_ms":"12000","rules_tick":{}}}
+{"pong":{"nonce":"164"}}
+{"social_result":{"request_id":"s35","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number k","at_ms":"1735689612300"}}
+{"pong":{"nonce":"165"}}
+{"pong":{"nonce":"166"}}
+{"pong":{"nonce":"167"}}
+{"pong":{"nonce":"168"}}
+{"social_result":{"request_id":"s36","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number l","at_ms":"1735689613300"}}
+{"pong":{"nonce":"169"}}
+{"pong":{"nonce":"170"}}
+{"pong":{"nonce":"171"}}
+{"pong":{"nonce":"172"}}
+{"social_result":{"request_id":"s37","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number m","at_ms":"1735689614300"}}
+{"pong":{"nonce":"173"}}
+{"pong":{"nonce":"174"}}
+{"pong":{"nonce":"175"}}
+{"pong":{"nonce":"176"}}
+{"social_result":{"request_id":"s38","ok":true}}
+{"chat":{"channel":"say","from":"ann1","text":"line number n","at_ms":"1735689615300"}}
+{"pong":{"nonce":"177"}}
+{"pong":{"nonce":"178"}}
+{"pong":{"nonce":"179"}}
 # mark chat_scrolled

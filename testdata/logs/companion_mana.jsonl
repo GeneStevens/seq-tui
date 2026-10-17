@@ -11,6 +11,8 @@
 {"event":{"seq":"4","game_time_ms":"200","entity_appeared":{"entity":{"id":"bram","kind":"ENTITY_KIND_CHARACTER","name":"bram","pos":{"x":"144000","y":"95000"},"hp":"140","max_hp":"140","level":"5"}}}}
 {"pong":{"nonce":"104"}}
 {"pong":{"nonce":"105"}}
+{"pong":{"nonce":"106"}}
+{"pong":{"nonce":"107"}}
 {"event":{"seq":"5","game_time_ms":"300","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"155582","y":"94606"}}}}
 {"event":{"seq":"6","game_time_ms":"400","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"155358","y":"94616"}}}}
 {"event":{"seq":"7","game_time_ms":"500","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"155134","y":"94626"}}}}
@@ -21,8 +23,8 @@
 {"event":{"seq":"12","game_time_ms":"1000","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"154014","y":"94681"}}}}
 {"event":{"seq":"13","game_time_ms":"1100","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153790","y":"94692"}}}}
 {"event":{"seq":"14","game_time_ms":"1200","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153566","y":"94703"}}}}
-{"pong":{"nonce":"106"}}
-{"pong":{"nonce":"107"}}
 {"pong":{"nonce":"108"}}
 {"pong":{"nonce":"109"}}
+{"pong":{"nonce":"110"}}
+{"pong":{"nonce":"111"}}
 # mark party_mana

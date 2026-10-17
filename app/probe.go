@@ -26,6 +26,10 @@ func (a *App) Idle(keys int) bool {
 	return a.keys >= keys && a.inflight == 0 && seen
 }
 
+// Commanding says a command the program sent has not been answered: it is
+// waiting for the server's result.
+func (a *App) Commanding() bool { return a.inflight > 0 }
+
 // Notice is the answer to the last command, as the status line shows it.
 func (a *App) Notice() (text string, bad bool) { return a.view.Notice, a.view.NoticeBad }
 

@@ -3,6 +3,7 @@ package scenario_test
 import (
 	"context"
 	"math"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -162,6 +163,12 @@ func hardy(cs *core.CharacterSave) {
 	cs.HP = core.MaxHP(cs.Stats)
 }
 
+// killed says the log tells of the mob's death: a mob that is out of view is not
+// dead.
+func killed(m *model.Model, mob string) bool {
+	return slices.ContainsFunc(m.Log, func(l model.LogEntry) bool { return l.Kind == "combat_death" && l.Target == mob })
+}
+
 // killCamp fights the camp's mob with both until it is down, a few seconds of
 // game time at a time, and takes what it dropped.
 func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Player) {
@@ -175,7 +182,7 @@ func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Pla
 			p.Model(func(m *model.Model) {
 				e := m.Entities[mob]
 				seen = seen || e != nil
-				dead = dead || (seen && (e == nil || e.GetDead()))
+				dead = dead || (seen && e != nil && e.GetDead()) || killed(m, mob)
 				switch {
 				case e == nil || e.GetDead():
 				case m.Self.Target != mob:
@@ -290,7 +297,7 @@ func TestTwoAccountsClearTheWholeWarren(t *testing.T) {
 		}
 		w.Advance(time.Second)
 		notYetCleared(t, ann, bob)
-		overviewGolden(ann, "warren_full_diggings")
+		ann.Golden("warren_full_diggings")
 	})
 	w.Step("the den", func() {
 		for _, c := range camps[7:14] {
@@ -299,7 +306,7 @@ func TestTwoAccountsClearTheWholeWarren(t *testing.T) {
 		}
 		w.Advance(time.Second)
 		notYetCleared(t, ann, bob)
-		overviewGolden(ann, "warren_full_den")
+		ann.Golden("warren_full_den")
 	})
 	w.Step("the deep and the Warren Chief", func() {
 		for _, c := range camps[14:20] {
@@ -308,7 +315,7 @@ func TestTwoAccountsClearTheWholeWarren(t *testing.T) {
 		}
 		notYetCleared(t, ann, bob)
 		walkCamp(t, w, &from, camps[20], ann, bob)
-		overviewGolden(ann, "warren_full_chief")
+		ann.Golden("warren_full_chief")
 		killCamp(t, w, "chief", ann, bob)
 		// The delve is cleared: the server ends it and hands both back.
 		for _, p := range []*scenario.Player{ann, bob} {
@@ -345,9 +352,11 @@ func notYetCleared(t *testing.T, ps ...*scenario.Player) {
 }
 
 // overviewGolden takes the golden screen of the whole-zone map, and closes it.
-// The map shows where the two stand and what the delve is; the normal screen's
-// event log and experience bar depend on which of the two struck a mob and in
-// which tick, which is not the same from one run to the next.
+// The map shows where the two stand and what the delve is. It is for the golden
+// after the hand-back: the normal screen's event log there tells whether bram's
+// arrival in the zone has been heard, and the server hands the two back on its
+// own, outside the clock. (The golden screens inside the delve are the normal
+// ones: the run is the same every time, TUI-021.)
 func overviewGolden(p *scenario.Player, name string) {
 	p.Press("m")
 	p.Golden(name)

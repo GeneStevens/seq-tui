@@ -61,6 +61,9 @@ const (
 	EnvSlow = "SEQ_SCENARIO_SLOW"
 )
 
+// Tick is the server's tick: how far the clock moves for a wait on one intent.
+const Tick = 100 * time.Millisecond
+
 // Sizes the scenario goldens are drawn at.
 var Sizes = [][2]int{{80, 24}, {140, 45}}
 
@@ -91,6 +94,7 @@ func New(t *testing.T, o testserver.Options) *World {
 	if len(o.Packs) == 0 && usesWorld(o.Zones) {
 		o.Packs = []string{WorldPacks(t)}
 	}
+	o.Manual = true
 	return newOn(t, testserver.Start(t, o))
 }
 
@@ -191,6 +195,7 @@ func (w *World) Fixture(name string) {
 // taken in what the server sent for it.
 func (w *World) Advance(d time.Duration) {
 	w.T.Helper()
+	w.barrier() // every player's intents are in before the clock moves
 	w.Srv.Advance(d)
 	for _, p := range w.players {
 		p.Sync()
@@ -464,7 +469,19 @@ func (p *Player) driveDuo(ctx context.Context) {
 	if err := s.Ping(ctx); err != nil {
 		t.Fatalf("%s: waiting for the server: %v", p.second, err)
 	}
-	p.duo.Step(ctx)
+	// Step waits for the results of what it sends: the clock moves for them.
+	stepped := make(chan struct{})
+	go func() { defer close(stepped); p.duo.Step(ctx) }()
+	for done := false; !done; {
+		select {
+		case <-stepped:
+			done = true
+		case <-time.After(200 * time.Microsecond):
+			if p.waitingOn(s) {
+				p.tick(s)
+			}
+		}
+	}
 	if err := s.Ping(ctx); err != nil {
 		t.Fatalf("%s: waiting for the server: %v", p.second, err)
 	}
@@ -484,21 +501,96 @@ func (p *Player) Duo(f func(*model.Model)) {
 // played, in words, and the round.
 func (p *Player) DuoPlan() ([]string, uint64) { return p.duo.Plan() }
 
+// idle returns when the program has handled every key and heard everything the
+// server sent. The program's commands wait for their results, and under the
+// Manual clock only the scenario moves it: while the program waits on an intent
+// of its own, idle gives the server one tick (see tick).
 func (p *Player) idle() {
 	t := p.w.T
 	t.Helper()
 	deadline := time.Now().Add(5 * time.Second)
 	for {
-		ok := false
-		p.probe(func(a *app.App) { ok = a.Idle(p.keys) })
+		ok, commanding := false, false
+		p.probe(func(a *app.App) { ok, commanding = a.Idle(p.keys), a.Commanding() })
 		if ok {
 			return
+		}
+		// Only a command of the program's own moves the clock: an intent the
+		// scenario sent itself waits for its own advance.
+		if commanding && p.waiting() {
+			p.tick(p.sessions()...)
+			continue
 		}
 		if time.Now().After(deadline) {
 			t.Fatalf("%s: the program did not finish handling %d key presses", p.Character, p.keys)
 		}
 		time.Sleep(200 * time.Microsecond)
 	}
+}
+
+// waiting says an intent this player sent has no result yet: the program's
+// command is waiting for the clock.
+func (p *Player) waiting() bool { return p.waitingOn(p.sessions()...) }
+
+// waitingOn is waiting for the intents of the sessions.
+func (p *Player) waitingOn(ss ...*client.Session) bool {
+	n := 0
+	for _, s := range ss {
+		if s.Writing() {
+			return false // not on the wire yet: look again
+		}
+		s.View(func(m *model.Model) { n += len(m.PendingIntents()) })
+	}
+	return n > 0
+}
+
+// sessions are the player's own and, once it is in play, its second character's.
+func (p *Player) sessions() []*client.Session {
+	ss := []*client.Session{p.Sess}
+	if p.duo != nil && p.duo.Session() != nil {
+		ss = append(ss, p.duo.Session())
+	}
+	return ss
+}
+
+// tick moves the server's clock by one tick (100 ms) for the intents the
+// program waits on, after the barrier: every player's intents are in before the
+// clock moves, and land in the same tick, whatever the speed of the sockets.
+func (p *Player) tick(ss ...*client.Session) {
+	// What the server answers without a tick (a slot set, say) may still be on
+	// its way: take it in first, and move the clock only for what is still
+	// waiting for it, or the number of ticks would depend on the race.
+	p.w.barrier()
+	if !p.waitingOn(ss...) {
+		return
+	}
+	p.w.Srv.Advance(Tick)
+	// What the tick sent is on the sockets, not yet in the models: a pending
+	// intent the tick answered must not look pending to the next look.
+	p.w.barrier()
+}
+
+// barrier returns when the server has taken in everything every player's
+// sessions sent so far and every player has everything the server sent: a
+// ping on each session (a session answers in the order it was written to), then
+// the server idle, then a ping again. The clock does not move.
+func (w *World) barrier() {
+	t := w.T
+	t.Helper()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	pingAll := func() {
+		for _, q := range w.players {
+			for _, s := range q.sessions() {
+				if err := s.Ping(ctx); err != nil {
+					t.Fatalf("%s: waiting for the server: %v", q.Character, err)
+				}
+			}
+		}
+	}
+	pingAll()
+	w.Srv.Idle()
+	pingAll()
 }
 
 // Type presses the keys of the text, one letter at a time, all written before
@@ -623,8 +715,9 @@ var age = regexp.MustCompile(`\d+\.\ds`)
 
 // maskAges replaces the digits of every age in the screen ("24.1s", the event
 // log's) with N, keeping its width. An age is a difference of game times, and
-// the server's pump may add a tick of 100 ms to one between two runs, so it is
-// not what a golden screen is about.
+// the server's pump used to add a tick of 100 ms to one between two runs; the
+// clock is the scenario's now, but an age is still not what a golden screen is
+// about.
 func maskAges(s string) string {
 	return age.ReplaceAllStringFunc(s, func(a string) string {
 		return strings.Map(func(r rune) rune {

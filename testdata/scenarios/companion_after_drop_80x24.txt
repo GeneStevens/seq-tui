@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns your companion Watch Spellcaster went with its owner's connection   │
+│     N.Ns Watch Spellcaster left view                                         │
 │     N.Ns your companion Watch Spellcaster is back                            │
 │     N.Ns Watch Spellcaster (comp-hale) appeared                              │
-│                                                                              │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | heard N.Ns ago | reconnected          ? help  q quit
