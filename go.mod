@@ -4,7 +4,7 @@ go 1.27.2
 
 require (
 	charm.land/bubbletea/v2 v2.1.0
-	github.com/GeneStevens/seq v0.0.0-20261017050711-7f0c830b6222
+	github.com/GeneStevens/seq v0.0.0-20261017060111-6c4d4df039af
 	github.com/coder/websocket v1.8.15
 	google.golang.org/protobuf v1.36.12
 )
