@@ -30,7 +30,6 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Plain Scuttler targeted aria                                                                                                    │
 │     N.Ns aria opened an encounter with Plain Scuttler (inst-1.enc-1)                                                                     │
 │     N.Ns Plain Scuttler began attacking aria                                                                                             │
 │ <   N.Ns Plain Scuttler missed aria                                                                                                      │
@@ -40,6 +39,7 @@
 │ <  NN.Ns Plain Scuttler hit aria for 1                                                                                                   │
 │ <  NN.Ns Plain Scuttler hit aria for 3                                                                                                   │
 │ x  NN.Ns Plain Scuttler killed aria                                                                                                      │
+│    NN.Ns Plain Scuttler's target aria cleared: target_dead                                                                               │
 │    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: participants_dead                                                            │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | move ok                                                                 ? help  q quit

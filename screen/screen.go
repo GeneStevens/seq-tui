@@ -28,6 +28,7 @@ const (
 	ConnReconnecting Conn = "RECONNECTING"
 	ConnOffline      Conn = "OFFLINE"
 	ConnLoggedOut    Conn = "LOGGED OUT"
+	ConnReplay       Conn = "REPLAY"
 )
 
 // View is everything the screen shows that is not in the model.
@@ -93,6 +94,9 @@ type View struct {
 	// Line is the command line, Social the Social screen: nil when closed.
 	Line   *Line
 	Social *SocialUI
+
+	// Sessions is the sessions view (D64), nil when closed.
+	Sessions *SessionsUI
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -111,6 +115,12 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		rows, th = append(rows, b), th-1
 	}
 	switch {
+	case v.Sessions != nil:
+		title := "Sessions: your logs"
+		if v.Sessions.Log != nil {
+			title = "Sessions: the server's log"
+		}
+		rows = append(rows, box(title, w, th+lh, sessionsScreenLines(v.Sessions, w-2, th+lh-2, st), st)...)
 	case v.Create != nil:
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Help:
@@ -267,6 +277,7 @@ func helpKeys(m *model.Model, v View) []string {
 		"Plans            turn-based: keys build a plan, one move or door, one ability",
 		"                 or attack. Enter submits, Backspace drops a step, Esc clears",
 		"Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log",
+		"Sessions         Ctrl+L: your logs, local and the server's (replay, read, export)",
 		"Map              north is up, you are the centre; M: the whole zone seen",
 		"  @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end",
 		"  * drop  ~ a drop you may not take  $ trader  & board  ? talker",

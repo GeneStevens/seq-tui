@@ -300,5 +300,7 @@ func socialHelp() []string {
 		"Friends          /friends   /friend add NAME   /friend remove NAME",
 		"                 D removes, I invites; the log says who logs in or out",
 		"Anonymous        /anon on hides your zone from who and friends; /anon off",
+		"Logs             Ctrl+L: sessions. Every session is recorded under its id in",
+		"                 seq-tui/sessions in your data dir (-log-dir, -no-record)",
 	}
 }

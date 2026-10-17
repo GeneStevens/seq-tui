@@ -12,6 +12,7 @@
 │ Plans            turn-based: keys build a plan, one move or door, one ability                                                            │
 │                  or attack. Enter submits, Backspace drops a step, Esc clears                                                            │
 │ Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log                                                              │
+│ Sessions         Ctrl+L: your logs, local and the server's (replay, read, export)                                                        │
 │ Map              north is up, you are the centre; M: the whole zone seen                                                                 │
 │   @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end                                                                   │
 │   * drop  ~ a drop you may not take  $ trader  & board  ? talker                                                                         │
@@ -20,7 +21,6 @@
 │                  The status line gives the server's speed on forest, road, ford...                                                       │
 │ Event log markers:  ! denied (with the reason) or a cast that did not land                                                               │
 │                     < hit on you  x kill  + reward or level  * world event                                                               │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
