@@ -106,6 +106,21 @@ func (s *Session) intent(ctx context.Context, kind string, fill func(*pb.Intent)
 	return sent.ID, err
 }
 
+// Writing reports whether an intent is being written: the model knows of it, as
+// a pending one, from just before the write, and Send has not yet returned. A
+// scenario that moves a clock on the server's side waits for this to end, so the
+// intent is on the wire ahead of its next ping.
+func (s *Session) Writing() bool {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	for _, id := range s.m.PendingIntents() {
+		if _, ok := s.sent[id]; !ok {
+			return true
+		}
+	}
+	return false
+}
+
 // Result waits for the intent_result of the intent with id and returns its status.
 func (s *Session) Result(ctx context.Context, id string) (model.IntentStatus, error) {
 	var st model.IntentStatus

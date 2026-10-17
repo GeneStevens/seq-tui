@@ -4,22 +4,34 @@
 {"pong":{"nonce":"101"}}
 {"pong":{"nonce":"102"}}
 # mark door_before
-{"intent_result":{"intent_id":"tui-1","accepted":true}}
 {"pong":{"nonce":"103"}}
+{"pong":{"nonce":"104"}}
+{"intent_result":{"intent_id":"tui-1","accepted":true}}
+{"pong":{"nonce":"105"}}
+{"pong":{"nonce":"106"}}
+{"pong":{"nonce":"107"}}
 {"event":{"seq":"1","game_time_ms":"400","space_changed":{"space":"Outskirts"}}}
 {"snapshot":{"seq":"1","game_time_ms":"400","tick":"4","space":"Outskirts","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"5000","y":"10000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000"},"entities":[{"id":"mob-bramble-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"16012","y":"10641"},"hp":"40","max_hp":"40","level":"1"}]}}
 {"zone_map":{"space":"Outskirts","name":"Outskirts","bounds":{"max_x":"120000","max_y":"80000"},"doors":[{"id":"line-west","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"5000","y":"10000"}}],"view_radius_mm":"20000","markers":[{"id":"line-west","kind":"zone_line","pos":{"x":"5000","y":"10000"}}],"camps":[{"id":"bramble","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"15000","y":"10000"}}]}}
-{"pong":{"nonce":"104"}}
-{"pong":{"nonce":"105"}}
+{"pong":{"nonce":"108"}}
+{"pong":{"nonce":"109"}}
 # mark door_across
+{"pong":{"nonce":"110"}}
+{"pong":{"nonce":"111"}}
+{"pong":{"nonce":"112"}}
+{"pong":{"nonce":"113"}}
+{"pong":{"nonce":"114"}}
+{"pong":{"nonce":"115"}}
 {"event":{"seq":"2","game_time_ms":"500","target_changed":{"actor":"mob-bramble-1","target":"aria"}}}
 {"event":{"seq":"3","game_time_ms":"500","encounter_opened":{"id":"enc-1","owner":"aria","mob":"mob-bramble-1"}}}
 {"event":{"seq":"4","game_time_ms":"500","entity_moved":{"id":"mob-bramble-1","pos":{"x":"16265","y":"10802"}}}}
 {"intent_result":{"intent_id":"tui-2","accepted":true}}
-{"pong":{"nonce":"106"}}
+{"pong":{"nonce":"116"}}
+{"pong":{"nonce":"117"}}
+{"pong":{"nonce":"118"}}
 {"event":{"seq":"1","game_time_ms":"700","space_changed":{"space":"Testgrounds"}}}
 {"snapshot":{"seq":"1","game_time_ms":"700","tick":"7","space":"Testgrounds","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"195000","y":"10000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000"}}}
 {"zone_map":{"space":"Testgrounds","name":"Testgrounds","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"line-east","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"195000","y":"10000"}},{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"}}],"view_radius_mm":"20000","instance_presets":[{"id":"skirmish","name":"Scuttler Skirmish","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"solo-trial","name":"Solo Trial","time_mode":"realtime","party_cap":"1","difficulty":"normal","presence":"directed","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"venture-den","name":"Venture Den","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"peril-den","name":"Peril Den","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"peril","entry_fee":"50"},{"id":"long-game","name":"Long Game","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"gate-north","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"100","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"quick-turns","name":"Quick Turns","time_mode":"turn_based","party_cap":"1","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"20000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"duo-turns","name":"Duo Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"6000","sleep_limit_ms":"604800000","tier":"venture"}],"markers":[{"id":"line-east","kind":"zone_line","pos":{"x":"195000","y":"10000"}},{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}},{"id":"overlook","kind":"scout","pos":{"x":"30000","y":"20000"}},{"id":"lookout","kind":"scout","pos":{"x":"35000","y":"8000"}},{"id":"raid-edge","kind":"event_spawn","pos":{"x":"150000","y":"20000"}},{"id":"raid-farms","kind":"event_goal","pos":{"x":"100000","y":"20000"}}],"camps":[{"id":"near","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"25000","y":"50000"}},{"id":"behind-wall","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"55000","y":"50000"}},{"id":"far","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"180000","y":"80000"}},{"id":"post","mob":"Placeholder Warden","level":"1","count":"1","pos":{"x":"10000","y":"20000"}},{"id":"trophy","mob":"Trophy Scuttler","level":"1","count":"1","pos":{"x":"100000","y":"50000"}},{"id":"lair","mob":"Den Brute","level":"1","count":"1","pos":{"x":"130000","y":"80000"}}]}}
-{"pong":{"nonce":"107"}}
-{"pong":{"nonce":"108"}}
+{"pong":{"nonce":"119"}}
+{"pong":{"nonce":"120"}}
 # mark door_back

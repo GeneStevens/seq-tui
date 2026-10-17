@@ -1,6 +1,6 @@
 ┌─ Hollow Warren (Warren Venture Delve), at 58,70 m, north up ───────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│..................................#                        #..........#       #.................││ hale  Lv 7 Warrior          | 10 crowns│
-│..................................#                        #..........#       #.................││ HP 197/204 ##########################- │
+│..................................#                        #..........#       #.................││ hale  Lv 7 Warrior           | 9 crowns│
+│..................................#                        #..........#       #.................││ HP 204/204 ########################### │
 │#########...........###############                        #..........#       #.................││ XP #----------------------- 178 to Lv 8│
 │....................#                                      #..........#       #.................││ Atk off | none                         │
 │....................#           ############################..........#########.................│└────────────────────────────────────────┘
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
-│    NN.Ns hale stopped attacking                                                ││ [party] bram: the delve gate is right here             │
-│    NN.Ns Warren Digger dropped Digger's Claw (drop-inst-1.enc-1-digger-claw)   ││ [say] hale: I will take the front                      │
-│    NN.Ns Warren Digger dropped 10 crowns (drop-inst-1.enc-1-crowns)            ││                                                        │
-│    NN.Ns encounter inst-1.enc-1 with Warren Digger closed: mob_died            ││                                                        │
-│ +  NN.Ns bram received 4 xp from Warren Digger                                 ││                                                        │
+│    NN.Ns encounter inst-1.enc-1 with Warren Digger closed: mob_died            ││ [party] bram: the delve gate is right here             │
+│ +  NN.Ns bram received 4 xp from Warren Digger                                 ││ [say] hale: I will take the front                      │
 │ +  NN.Ns hale received 3 xp from Warren Digger                                 ││                                                        │
 │    NN.Ns Warren Digger left view                                               ││                                                        │
 │    NN.Ns drop drop-inst-1.enc-1-crowns is gone: taken                          ││                                                        │
-│ +  NN.Ns you took 10 crowns                                                    ││                                                        │
+│ +  NN.Ns you took 9 crowns                                                     ││                                                        │
+│    NN.Ns drop drop-inst-1.enc-1-digger-cap is gone: taken                      ││                                                        │
+│ +  NN.Ns hale received Digger's Cap [Fine] from drop-inst-1.enc-1-digger-cap   ││                                                        │
 │    NN.Ns drop drop-inst-1.enc-1-digger-claw is gone: taken                     ││                                                        │
 │ +  NN.Ns hale received Digger's Claw from drop-inst-1.enc-1-digger-claw        ││                                                        │
+│    NN.Ns hale healed 8                                                         ││                                                        │
 └────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok                                                     ? help  q quit

@@ -1,6 +1,6 @@
 ┌─ Hollow Warren (Warren Venture Delve), at 58,7… ─┐┌─ You ────────────────────┐
-│  #.................#        #.....# #............││ hale  Lv 7 Warrior | 10cr│
-│###.................#        #.....# #............││ HP 197/204 ############- │
+│  #.................#        #.....# #............││ hale  Lv 7 Warrior  | 9cr│
+│###.................#        #.....# #............││ HP 204/204 ############# │
 │..............################.....###............││ XP #--------- 178 to Lv 8│
 │..............#   #...................####.....###││ Atk off | none           │
 │..............#####...................####.....###│└──────────────────────────┘
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
-│    NN.Ns drop drop-inst-1.enc-1-digger-claw ││ [party] bram: the delve gate  │
-│            is gone: taken                   ││   is right here               │
-│ +  NN.Ns hale received Digger's Claw from   ││ [say] hale: I will take the   │
-│            drop-inst-1.enc-1-digger-claw    ││   front                       │
+│            is gone: taken                   ││ [party] bram: the delve gate  │
+│ +  NN.Ns hale received Digger's Claw from   ││   is right here               │
+│            drop-inst-1.enc-1-digger-claw    ││ [say] hale: I will take the   │
+│    NN.Ns hale healed 8                      ││   front                       │
 └─────────────────────────────────────────────┘└───────────────────────────────┘
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

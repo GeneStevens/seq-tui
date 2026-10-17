@@ -7,12 +7,22 @@
 {"pong":{"nonce":"103"}}
 {"pong":{"nonce":"104"}}
 # mark peril_menu
+{"pong":{"nonce":"105"}}
+{"pong":{"nonce":"106"}}
 {"event":{"seq":"2","game_time_ms":"300","reward":{"recipient":"c1","kind":"fee","amount":"50"}}}
 {"snapshot":{"seq":"2","game_time_ms":"300","tick":"3","space":"Testgrounds","self":{"entity":{"id":"c1","kind":"ENTITY_KIND_CHARACTER","name":"c1","pos":{"x":"100000","y":"89000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","crowns":"30","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000"},"entities":[{"id":"c2","kind":"ENTITY_KIND_CHARACTER","name":"c2","pos":{"x":"100000","y":"89000"},"hp":"100","max_hp":"100","level":"1"}]}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
 {"event":{"seq":"3","game_time_ms":"300","instance_opened":{"instance":"inst-1","preset":"peril-den","party_cap":"2"}}}
-{"pong":{"nonce":"105"}}
-{"intent_result":{"intent_id":"done-peril-den-3","accepted":true}}
-{"pong":{"nonce":"106"}}
 {"pong":{"nonce":"107"}}
+{"pong":{"nonce":"108"}}
+{"pong":{"nonce":"109"}}
+{"pong":{"nonce":"110"}}
+{"pong":{"nonce":"111"}}
+{"intent_result":{"intent_id":"done-peril-den-3","accepted":true}}
+{"pong":{"nonce":"112"}}
+{"pong":{"nonce":"113"}}
 # mark peril_paid
+{"pong":{"nonce":"114"}}
+{"pong":{"nonce":"115"}}
+{"pong":{"nonce":"116"}}
+{"pong":{"nonce":"117"}}
