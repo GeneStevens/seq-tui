@@ -30,14 +30,14 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│            medic, a blade or a spellcaster. You may change your mind here whenever you like.                                             │
+│     N.Ns Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
+│            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
+│            Watch can trust. Prove yourself first, and come and see me.                                                                   │
 │     N.Ns your quest is done: choose your recruit's role at the Watch Captain                                                             │
 │ +   N.Ns you handed in Break the Raiding Party to Captain Rhosyn Hartley and got 100 XP and 40 crowns                                    │
 │     N.Ns Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
 │            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
-│            Watch can trust. Prove yourself first, and come and see me. Show me what you can do out in the Downs and I will give you a    │
-│            recruit of the Watch to fight beside you. Once the Watch has vouched for you, tell me what the recruit should be: a shield, a │
-│            medic, a blade or a spellcaster. You may change your mind here whenever you like.                                             │
+│            Watch can trust. Prove yourself first, and come and see me.                                                                   │
 │     N.Ns your recruit is now a melee                                                                                                     │
 │     N.Ns your companion melee came to its side                                                                                           │
 │     N.Ns Watch Skirmisher (comp-hale) appeared                                                                                           │

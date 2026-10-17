@@ -33,7 +33,7 @@
 │     0.2s bram (bram) appeared                                                                                                            │
 │     1.4s instance opened: Warren Venture Delve (up to 2 in it); enter at delve-gate with E                                               │
 │     1.3s entered Hollow Warren (Warren Venture Delve)                                                                                    │
-│     3.4s bram (bram) appeared                                                                                                            │
+│     2.5s bram (bram) appeared                                                                                                            │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -72,21 +72,26 @@ func TestAnInvitationWaitsForAnAnswerAndAPartyStateClearsIt(t *testing.T) {
 	}
 }
 
-func TestMatesCarryTheGroupsStateAndTheWhoListsZone(t *testing.T) {
+func TestMatesCarryThePartyStatesVitals(t *testing.T) {
 	m := New()
 	m.Self = Self{ID: "ann1", Name: "ann1", Level: 3, HP: 10, MaxHP: 20}
-	m.Group["bob1"] = &Member{Entity: &pb.EntityState{Id: "bob1", Name: "bob1", Level: 4, Hp: 15, MaxHp: 30}, Mana: 5, MaxMana: 9}
-	m.Apply(partyOf("p1", "ann1", "ann1", "bob1", "cy1"))
-	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Who{Who: &pb.WhoList{Entries: []*pb.WhoEntry{{Name: "Cy1", ClassId: "cleric", Level: 6, Zone: "Downs"}}}}})
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Party{Party: &pb.PartyState{Id: "p1", Leader: "ann1", Members: []*pb.PartyMemberInfo{
+		{Name: "ann1", Online: true, Leader: true},
+		{Name: "bob1", Online: true, Zone: "Testgrounds", Level: 4, Hp: 15, MaxHp: 30, Mana: 5, MaxMana: 9},
+		{Name: "cy1", Online: true, Zone: "Downs", Level: 6, Hp: 0, MaxHp: 40},
+		{Name: "dan1"}}}}})
 	mates := m.Mates()
-	if len(mates) != 3 || !mates[0].Me || !mates[0].Leader {
+	if len(mates) != 4 || !mates[0].Me || !mates[0].Leader || mates[0].Level != 3 {
 		t.Fatalf("mates: %+v", mates)
 	}
-	if b := mates[1]; !b.Here || b.Level != 4 || b.HP != 15 || b.MaxMana != 9 || b.Leader {
+	if b := mates[1]; b.Zone != "Testgrounds" || b.Level != 4 || b.HP != 15 || b.MaxMana != 9 || b.Leader {
 		t.Fatalf("bob: %+v", b)
 	}
-	if c := mates[2]; c.Here || c.Level != 6 || c.Zone != "Downs" || !c.ZoneKnown {
+	if c := mates[2]; c.Zone != "Downs" || c.Level != 6 || !c.Dead {
 		t.Fatalf("cy: %+v", c)
+	}
+	if d := mates[3]; d.Online || d.Zone != "" {
+		t.Fatalf("dan: %+v", d)
 	}
 	if got := m.PartyIDs(); len(got) != 3 || got[0] != "ann1" {
 		t.Fatalf("ids %v", got)

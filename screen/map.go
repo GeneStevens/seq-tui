@@ -287,6 +287,12 @@ var (
 )
 
 func rasterGround(g *grid, t *model.Terrain) {
+	dungeon := t.HasFloor()
+	// Only the areas that reach the view are asked about the cells in it: a
+	// dungeon has fifty, and the view is a few of them.
+	c0, c1 := (int64(0)-int64(g.cw/2)+g.pcol-1)*g.sc.col, (int64(g.cw)-int64(g.cw/2)+g.pcol+1)*g.sc.col
+	r0, r1 := (int64(g.ch/2)-int64(g.ch)+g.prow-1)*g.sc.row, (int64(g.ch/2)+g.prow+1)*g.sc.row
+	t = t.Within(c0, r0, c1, r1)
 	sub := [3]int64{-1, 0, 1}
 	kindAt := func(c, r int) model.AreaKind {
 		var seen [8]bool
@@ -309,7 +315,7 @@ func rasterGround(g *grid, t *model.Terrain) {
 		}
 		return ""
 	}
-	if t.HasFloor() {
+	if dungeon {
 		floor := make([][]bool, g.ch)
 		for r := range floor {
 			floor[r] = make([]bool, g.cw)

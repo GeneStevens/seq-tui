@@ -50,9 +50,7 @@ type Social struct {
 	// order; HasFriends says one has been.
 	Friends    []*pb.FriendEntry
 	HasFriends bool
-	// PartyChanges counts the party states seen.
-	PartyChanges int
-	invites      int
+	invites    int
 }
 
 // Known is what is known of another character from the who list.
@@ -81,7 +79,6 @@ func (m *Model) applySocial(msg *pb.ServerMessage) {
 		}
 	case *pb.ServerMessage_Party:
 		s.Party = b.Party
-		s.PartyChanges++
 		if b.Party.GetId() != "" {
 			s.Invite = nil
 		}
@@ -168,23 +165,19 @@ func (m *Model) IsLeader() bool {
 	return m.InParty() && Key(m.Social.Party.GetLeader()) == Key(m.Self.Name)
 }
 
-// Mate is a party member as the Party panel shows it: the party's word on it,
-// and, for one in the same space, the group's (health, mana, level).
+// Mate is a party member as the Party panel shows it: what the server's party
+// state says of it (zone, level, health, mana), or, for the character itself,
+// what the character knows of itself.
 type Mate struct {
-	Name   string
-	Leader bool
-	Online bool
-	Me     bool
-	// Here is set for a member in the character's space, with its state.
-	Here          bool
+	Name          string
+	Leader        bool
+	Online        bool
+	Me            bool
+	Zone          string
 	Level         int64
 	HP, MaxHP     int64
 	Mana, MaxMana int64
 	Dead          bool
-	Zone          string // from the who list ("" if not known or hidden)
-	KnownClass    string
-	KnownLevel    uint32
-	ZoneKnown     bool
 }
 
 // Mates are the party's members for the Party panel, in the order they joined.
@@ -192,47 +185,17 @@ func (m *Model) Mates() []Mate {
 	var out []Mate
 	for _, pm := range m.PartyMembers() {
 		mt := Mate{Name: pm.GetName(), Leader: pm.GetLeader(), Online: pm.GetOnline()}
-		k := Key(pm.GetName())
-		if k == Key(m.Self.Name) {
-			mt.Me, mt.Here, mt.Level = true, true, m.Self.Level
+		if Key(pm.GetName()) == Key(m.Self.Name) {
+			mt.Me, mt.Level = true, m.Self.Level
 			mt.HP, mt.MaxHP, mt.Mana, mt.MaxMana, mt.Dead = m.Self.HP, m.Self.MaxHP, m.Self.Mana, m.Self.MaxMana, m.Self.Dead
-			out = append(out, mt)
-			continue
-		}
-		if g := m.groupByName(k); g != nil {
-			e := g.Entity
-			mt.Here, mt.Level, mt.HP, mt.MaxHP, mt.Dead = true, e.GetLevel(), e.GetHp(), e.GetMaxHp(), e.GetDead()
-			mt.Mana, mt.MaxMana = g.Mana, g.MaxMana
-		} else if e := m.characterByName(k); e != nil {
-			mt.Here, mt.Level, mt.HP, mt.MaxHP, mt.Dead = true, e.GetLevel(), e.GetHp(), e.GetMaxHp(), e.GetDead()
-		}
-		if kn, ok := m.Social.Known[k]; ok {
-			mt.KnownClass, mt.KnownLevel, mt.Zone, mt.ZoneKnown = kn.Class, kn.Level, kn.Zone, true
-			if mt.Level == 0 {
-				mt.Level = int64(kn.Level)
-			}
+		} else if mt.Online {
+			mt.Zone, mt.Level = pm.GetZone(), int64(pm.GetLevel())
+			mt.HP, mt.MaxHP, mt.Mana, mt.MaxMana = int64(pm.GetHp()), int64(pm.GetMaxHp()), int64(pm.GetMana()), int64(pm.GetMaxMana())
+			mt.Dead = mt.MaxHP > 0 && mt.HP <= 0
 		}
 		out = append(out, mt)
 	}
 	return out
-}
-
-func (m *Model) groupByName(key string) *Member {
-	for _, id := range m.GroupIDs() {
-		if g := m.Group[id]; Key(g.Entity.GetName()) == key {
-			return g
-		}
-	}
-	return nil
-}
-
-func (m *Model) characterByName(key string) *pb.EntityState {
-	for _, id := range m.EntityIDs() {
-		if e := m.Entities[id]; e.GetKind() == pb.EntityKind_ENTITY_KIND_CHARACTER && Key(e.GetName()) == key {
-			return e
-		}
-	}
-	return nil
 }
 
 // String is a line of chat as one string, for a log and a plain-text screen.

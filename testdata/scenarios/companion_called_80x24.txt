@@ -16,7 +16,7 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│            spellcaster. You may change your mind here whenever you like.     │
+│            trust. Prove yourself first, and come and see me.                 │
 │     N.Ns your recruit is now a melee                                         │
 │     N.Ns your companion melee came to its side                               │
 │     N.Ns Watch Skirmisher (comp-hale) appeared                               │

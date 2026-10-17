@@ -4,14 +4,14 @@ go 1.27.2
 
 require (
 	charm.land/bubbletea/v2 v2.1.0
-	github.com/GeneStevens/seq v0.0.0-20261017060111-6c4d4df039af
+	github.com/GeneStevens/seq v0.0.0-20261017142530-5b7a24609ef2
 	github.com/coder/websocket v1.8.15
 	google.golang.org/protobuf v1.36.12
 )
 
 require (
 	ergo.services/ergo v1.999.330 // indirect
-	github.com/GeneStevens/seq-world v0.0.0-20261017051812-05f6345391b5 // indirect
+	github.com/GeneStevens/seq-world v0.0.0-20261017143030-290f275f1454 // indirect
 	github.com/charmbracelet/colorprofile v0.4.3 // indirect
 	github.com/charmbracelet/ultraviolet v0.0.0-20261008173134-6b8d4baf91b4 // indirect
 	github.com/charmbracelet/x/ansi v0.11.9 // indirect

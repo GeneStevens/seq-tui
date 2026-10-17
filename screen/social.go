@@ -118,39 +118,28 @@ func partyPanel(m *model.Model, iw int, st Styler) *panel {
 		if mt.Level > 0 {
 			head += fmt.Sprintf("  Lv %d", mt.Level)
 		}
-		switch {
-		case !mt.Online:
+		if !mt.Online {
 			rows = append(rows, st.Dim(fit(" "+head+"  away", iw)))
-		case mt.Here:
-			where := m.Space
-			if m.Map != nil && m.Map.GetName() != "" {
-				where = m.Map.GetName()
-			}
-			rows = append(rows, fit(" "+head, iw))
-			if iw >= 30 || mt.Dead {
-				rows[len(rows)-1] = fit(" "+head+"  "+where, iw)
-			}
-			if mt.Dead {
-				rows = append(rows, st.Red(fit("   DEAD", iw)))
-				break
-			}
-			hp := fmt.Sprintf("   HP %d/%d ", mt.HP, mt.MaxHP)
-			line := hp + bar(mt.HP, mt.MaxHP, max(min(iw-width(hp)-8, 8), 0))
-			if mt.MaxMana > 0 {
-				line += fmt.Sprintf(" MP %d", mt.Mana)
-			}
-			row := fit(line, iw)
-			if mt.MaxHP > 0 && mt.HP*4 <= mt.MaxHP {
-				row = st.Red(row)
-			}
-			rows = append(rows, row)
-		default:
-			zone := "elsewhere"
-			if mt.ZoneKnown && mt.Zone != "" {
-				zone = mt.Zone
-			}
-			rows = append(rows, fit(" "+head+"  "+zone, iw))
+			continue
 		}
+		rows = append(rows, fit(" "+head, iw))
+		if mt.Zone != "" && (iw >= 30 || mt.Dead) {
+			rows[len(rows)-1] = fit(" "+head+"  "+mt.Zone, iw)
+		}
+		if mt.Dead {
+			rows = append(rows, st.Red(fit("   DEAD", iw)))
+			continue
+		}
+		hp := fmt.Sprintf("   HP %d/%d ", mt.HP, mt.MaxHP)
+		line := hp + bar(mt.HP, mt.MaxHP, max(min(iw-width(hp)-8, 8), 0))
+		if mt.MaxMana > 0 {
+			line += fmt.Sprintf(" MP %d", mt.Mana)
+		}
+		row := fit(line, iw)
+		if mt.MaxHP > 0 && mt.HP*4 <= mt.MaxHP {
+			row = st.Red(row)
+		}
+		rows = append(rows, row)
 	}
 	if len(rows) == 0 {
 		rows = append(rows, st.Dim(fit(" just you so far", iw)))

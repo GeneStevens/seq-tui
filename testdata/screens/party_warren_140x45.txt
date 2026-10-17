@@ -32,9 +32,9 @@
 ┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │     0.2s bram (bram) appeared                                                  ││ [party] bram: the delve gate is right here             │
 │     0.0s bram joined the party                                                 ││ [say] hale: I will take the front                      │
-│     1.3s bram left view                                                        ││                                                        │
 │     1.4s instance opened for your party: Warren Venture Delve (up to 2 in it); ││                                                        │
 │            enter at delve-gate with E                                          ││                                                        │
+│                                                                                ││                                                        │
 │                                                                                ││                                                        │
 │                                                                                ││                                                        │
 │                                                                                ││                                                        │

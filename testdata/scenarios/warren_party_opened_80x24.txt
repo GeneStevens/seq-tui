@@ -16,7 +16,7 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
-│     N.Ns bram left view                     ││ [party] bram: the delve gate  │
+│     N.Ns bram joined the party              ││ [party] bram: the delve gate  │
 │     N.Ns instance opened for your party:    ││   is right here               │
 │            Warren Venture Delve (up to 2 in ││ [say] hale: I will take the   │
 │            it); enter at delve-gate with E  ││   front                       │
