@@ -10,8 +10,8 @@ import (
 
 // The Quest panel, the Companion panel, the Party panel for a second character
 // on a stance, and the screen where the recruit's role is chosen (SEQ-049, D35,
-// D42, D46). Everything shown is what the server said; the protocol tells no
-// mana for another character, so none is drawn.
+// D42, D46). Everything shown is what the server said: the quest's steps are the
+// contracts that name their quest and step (D55), and the mana is the group's.
 
 // Role is the screen for choosing the recruit's role at the quest giver, when
 // it is open.
@@ -31,6 +31,27 @@ type DuoView struct {
 	// Target is what the character itself is fighting (its own state, which only
 	// its own connection knows), "" for nothing.
 	Target string
+	// Plan is what the stance sent for the turn-based round PlanRound (D55), in
+	// words; empty if it has sent none.
+	Plan      []string
+	PlanRound uint64
+	// Mana is the character's own mana and most, from its own connection (0, 0:
+	// unknown or none).
+	Mana struct{ Cur, Max int64 }
+}
+
+// manaOf is a mana reading.
+type manaOf struct{ Cur, Max int64 }
+
+func mana(cur, most int64) manaOf { return manaOf{cur, most} }
+
+// manaRow is the MP row of a helper's panel, none for one with no mana.
+func manaRow(x manaOf, w int) []string {
+	if x.Max <= 0 {
+		return nil
+	}
+	mp := fmt.Sprintf(" MP %d/%d ", x.Cur, x.Max)
+	return []string{fit(mp+bar(x.Cur, x.Max, max(w-width(mp)-1, 0)), w)}
 }
 
 // panel is a boxed block of the right column.
@@ -100,6 +121,7 @@ func companionLines(m *model.Model, w int, st Styler) []string {
 			line = st.Red(line)
 		}
 		rows = append(rows, line)
+		rows = append(rows, manaRow(mana(m.CompanionMana()), w)...)
 	case c.GetSummoned():
 		rows = append(rows, fit(" on its way: it comes when you join a space", w))
 	default:
@@ -138,6 +160,11 @@ func duoLines(m *model.Model, d *DuoView, w int, st Styler) []string {
 			line = st.Red(line)
 		}
 		rows = append(rows, line)
+		cur, most := g.Mana, g.MaxMana
+		if d.Mana.Max > 0 { // the character's own connection knows its mana as it changes
+			cur, most = d.Mana.Cur, d.Mana.Max
+		}
+		rows = append(rows, manaRow(manaOf{cur, most}, w)...)
 	default:
 		rows = append(rows, fit(" not in your group (a stance follows)", w))
 	}
@@ -182,7 +209,11 @@ func questLines(m *model.Model, w int, st Styler) []string {
 			mark, right = "[x]", "done"
 		}
 		room := max(w-width(right)-6, 4)
-		rows = append(rows, fit(padTo(" "+mark+" "+fit(s.Name, room), w-width(right)-1)+right, w))
+		label := s.Name
+		if s.Step > 0 {
+			label = fmt.Sprintf("%d. %s", s.Step, s.Name)
+		}
+		rows = append(rows, fit(padTo(" "+mark+" "+fit(label, room), w-width(right)-1)+right, w))
 	}
 	var next string
 	switch {

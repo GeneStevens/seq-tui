@@ -311,9 +311,9 @@ func contractsBox(m *model.Model, w int, st Styler) (h int, lines []string) {
 
 func overviewLines(m *model.Model, w, h int, st Styler) []string {
 	ground := m.Ground() != nil
-	foot := 3
+	foot := 4
 	if ground {
-		foot = 4
+		foot = 5
 	}
 	rows := overviewRows(m, View{}, w, h-foot, st)
 	add := func(l string) { rows = append(rows, fit(l, w)) }
@@ -321,7 +321,8 @@ func overviewLines(m *model.Model, w, h int, st Styler) []string {
 	sp := m.Self.Pos
 	add(fmt.Sprintf(" %s, %dm by %dm. You: %dm E, %dm N of the south-west corner.", m.Map.GetName(),
 		(b.GetMaxX()-b.GetMinX())/1000, (b.GetMaxY()-b.GetMinY())/1000, (sp.GetX()-b.GetMinX())/1000, (sp.GetY()-b.GetMinY())/1000))
-	add(" @ you  D door  $ trader  & board  ? talker  % marker  c camp  r rare  # wall")
+	add(" @ you  D door  $ trader  & board  ? talker  % your marker  c camp  r rare  # wall")
+	add(" ; scout marker  ! event spawn  G event goal")
 	if ground {
 		add(" # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor  ' mobs patrol")
 	}
@@ -340,7 +341,7 @@ func eventBanner(m *model.Model, v View, w int, st Styler) string {
 	if e == nil {
 		return ""
 	}
-	name := model.EventName(e.Event)
+	name := e.Title()
 	var text string
 	switch e.Kind {
 	case "started":

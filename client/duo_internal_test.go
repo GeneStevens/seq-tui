@@ -130,3 +130,24 @@ func TestDuoStopOrderStopsOnceAndHoldsEmptyHanded(t *testing.T) {
 		t.Errorf("a stance left the order: %+v", d.order)
 	}
 }
+
+// In a turn-based instance what the stance would send is a plan (D55): one move
+// and one action at most, and the plan is told in words with names.
+func TestTheStancesIntentsBecomeAPlan(t *testing.T) {
+	d, r := duoRig()
+	d.stance = "assist"
+	r.Self = "c2"
+	steps := agentkit.PlanSteps(d.next(r))
+	words := stepWords(steps, func(id string) string { return map[string]string{"mob-1": "Scuttler"}[id] })
+	if len(words) == 0 || words[0] != "target Scuttler" {
+		t.Fatalf("the plan in words: %v", words)
+	}
+	// Two moves and two actions are one of each.
+	got := agentkit.PlanSteps([]agentkit.Intent{agentkit.MoveTo(1, 1), agentkit.MoveTo(2, 2), agentkit.Attack(true), agentkit.UseAbility(1, "")})
+	if w := stepWords(got, func(s string) string { return s }); len(w) != 2 || w[0] != "move" || w[1] != "attack" {
+		t.Fatalf("plan of two of each: %v", w)
+	}
+	if w := stepWords(nil, nil); len(w) != 1 || w[0] != "wait" {
+		t.Fatalf("an empty plan is %v", w)
+	}
+}

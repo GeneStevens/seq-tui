@@ -64,7 +64,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 			t.Fatalf("the Captain said %+v", d)
 		}
 		steps := m.QuestSteps()
-		if len(steps) != 1 || steps[0].Name != "Eyes on the Goblins" || steps[0].State != model.StepOffered || !m.QuestShown() {
+		if len(steps) != 1 || steps[0].Name != "Eyes on the Goblins" || steps[0].Quest != "companion" || steps[0].Step != 1 || steps[0].State != model.StepOffered || !m.QuestShown() {
 			t.Fatalf("the quest as seen: %+v", steps)
 		}
 	})
@@ -78,7 +78,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 	p.Model(func(m *model.Model) {
 		c := m.Contract("companion-goblin-lookout")
 		steps := m.QuestSteps()
-		if c == nil || c.GetKind() != "scout" || len(steps) != 1 || steps[0].State != model.StepHeld {
+		if c == nil || c.GetKind() != "scout" || c.GetQuest() != "companion" || c.GetStep() != 1 || len(steps) != 1 || steps[0].State != model.StepHeld {
 			t.Fatalf("after taking the step: %v, %+v", c, steps)
 		}
 	})

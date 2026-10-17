@@ -42,4 +42,4 @@
 │ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                                                               │
 │ The answer is on the status line; every refusal says why.                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster | heard N.Ns ago | talk to Hilda Brasswick ok                                              ? help  q quit
+ ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago | talk to Hilda Brasswick ok                                        ? help  q quit

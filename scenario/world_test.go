@@ -56,26 +56,21 @@ func TestThornwickWalkTheStreetsFromTheSquareToTheGate(t *testing.T) {
 
 	// East along the way, to where a town guard walks.
 	walkVia(t, w, p, [2]int64{100000, 45000})
-	// The guard at the gate walks (78, 45) to (112, 45) and back, along the street.
-	guard := func() (x, y int64) {
-		p.Model(func(m *model.Model) {
-			for _, id := range m.EntityIDs() {
-				if e := m.Entities[id]; strings.HasPrefix(id, "mob-guard-gate") {
-					x, y = e.GetPos().GetX(), e.GetPos().GetY()
-				}
+	// The guard at the gate is an NPC (D55) that walks (78, 45) to (112, 45) and
+	// back. The server sends no move event for it, so the screen draws it where it
+	// was told of it; its path comes from the zone map's patrols.
+	p.Eventually("the gate guard in view", func(m *model.Model) bool { return m.NPC("guard-gate") != nil })
+	p.Model(func(m *model.Model) {
+		var path *model.Patrol
+		for i, pa := range m.Ground().Patrols {
+			if pa.ID == "guard-gate" {
+				path = &m.Ground().Patrols[i]
 			}
-		})
-		return
-	}
-	x0, y0 := guard()
-	if x0 == 0 {
-		t.Fatalf("the gate guard is not in view from the street")
-	}
-	w.Advance(2 * time.Second)
-	x1, y1 := guard()
-	if x1 == 0 || x1 == x0 || math.Abs(float64(y1-45000)) > 2000 || x1 > 113000 || x1 < 77000 {
-		t.Fatalf("the guard went from (%d, %d) to (%d, %d), not along its patrol", x0, y0, x1, y1)
-	}
+		}
+		if path == nil || path.Owner != "npc" || path.Loop || len(path.Points) != 2 || path.Points[1].GetX() != 112000 {
+			t.Fatalf("the guard's patrol from the zone map: %+v", path)
+		}
+	})
 
 	walkVia(t, w, p, [2]int64{114000, 45000})
 	p.Golden("thornwick_gate")

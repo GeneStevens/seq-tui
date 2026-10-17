@@ -1,0 +1,24 @@
+ EVENT  Harvest Raid: Goblins pour out of the east to raid the harvest at Barle…
+┌─ Thornwick Downs, at 6,150 m, north up ──────────┐┌─ You ────────────────────┐
+│                      .                           ││ hale  Lv 12 Warri… | 30cr│
+│                      .     """"""""""""""""""""""││ HP 274/274 ############# │
+│                      .     """"""""""""""""""""""││ XP #-------- 255 to Lv 13│
+│                      .···························││ Atk off | none           │
+│                      .··@·G·····················!│└──────────────────────────┘
+│                      .···························│┌─ Target ─────────────────┐
+│                      .                           ││ no target (Tab to choose)│
+│                      .     """""""""             ││                          │
+│                      .                   ;       ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    NN.Ns hale healed 4                                                       │
+│   NNN.Ns Town Guard (guard) is in view                                       │
+│   NNN.Ns entered Thornwick Downs                                             │
+│ + NNN.Ns owed pay arrived with the join: 60 XP and 30 crowns                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok   

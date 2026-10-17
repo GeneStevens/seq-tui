@@ -5,7 +5,7 @@
 │  .·····                            ···    ·······││ Atk off | none           │
 │  .      """"""""""                 ··· """"""""""│└──────────────────────────┘
 │  .      """"""""""      @          ··· #####"""""│┌─ Target ─────────────────┐
-│  .                                 ··· #####     ││ no target (Tab to choose)│
+│  .                                 ·G· #####     ││ no target (Tab to choose)│
 │  .                   ######≈≈≈≈####···#####      ││                          │
 │  .                   ######≈≈≈≈####   #####      ││                          │
 │  .                   ######≈≈≈≈####   #####      ││                          │
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│    NN.Ns Odalys Penn is out of view                                          │
 │    NN.Ns entered Thornwick Downs                                             │
 │ +  NN.Ns contract Word from Wickett Mill: the marker is reached; return to   │
 │            the board                                                         │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | heard N.Ns ago | move ok              ? help  q quit

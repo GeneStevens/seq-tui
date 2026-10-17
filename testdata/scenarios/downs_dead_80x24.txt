@@ -8,7 +8,7 @@
 │               .··································││ no target (Tab to choose)│
 │               .·····                            ·││                          │
 │               .      """"""""""                 ·││                          │
-│               .      """"""""""                 ·││                          │
+│               .      """"""""""      ;          ·││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
@@ -21,4 +21,4 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | road: faster | heard N.Ns ago         ? help  q quit
+ ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago   ? help  q quit

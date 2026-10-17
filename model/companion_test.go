@@ -13,13 +13,13 @@ func captain(offers ...*pb.ContractOffer) *pb.NpcInfo {
 }
 
 var (
-	stepOne = &pb.ContractOffer{Id: "lookout", Name: "Eyes on the Goblins", Description: "Walk out to the lookout.", Kind: "scout", Need: 1}
-	stepTwo = &pb.ContractOffer{Id: "raiders", Name: "Break the Raiding Party", Description: "Kill 5 goblins.", Kind: "hunt", Need: 5}
+	stepOne = &pb.ContractOffer{Id: "lookout", Name: "Eyes on the Goblins", Description: "Walk out to the lookout.", Kind: "scout", Need: 1, Quest: "companion", Step: 1}
+	stepTwo = &pb.ContractOffer{Id: "raiders", Name: "Break the Raiding Party", Description: "Kill 5 goblins.", Kind: "hunt", Need: 5, Quest: "companion", Step: 2}
 )
 
-// The quest is the contracts a quest giver's board offers: the protocol marks no
-// contract as a step, so a step is one that board offered. Each state of a step
-// follows from what the snapshot says is offered and held.
+// The quest is the contracts that name their quest and step (D55), on a board's
+// offers and among those held. Each state of a step follows from what the
+// snapshot says is offered and held.
 func TestQuestStepsFollowTheBoardAndWhatIsHeld(t *testing.T) {
 	m := model.New()
 	if m.QuestShown() {
@@ -51,10 +51,10 @@ func TestQuestStepsFollowTheBoardAndWhatIsHeld(t *testing.T) {
 	}
 
 	// Taken: the board no longer offers it, the character holds it.
-	held := &pb.ContractInfo{Id: "lookout", Name: "Eyes on the Goblins", Kind: "scout", Have: 0, Need: 1}
+	held := &pb.ContractInfo{Id: "lookout", Name: "Eyes on the Goblins", Kind: "scout", Have: 0, Need: 1, Quest: "companion", Step: 1}
 	snap(m, 2, "town", &pb.SelfState{Contracts: []*pb.ContractInfo{held}, Companion: &pb.CompanionState{}}, []*pb.NpcInfo{captain()})
 	want(model.StepHeld)
-	held = &pb.ContractInfo{Id: "lookout", Name: "Eyes on the Goblins", Kind: "scout", Have: 1, Need: 1, Ready: true}
+	held = &pb.ContractInfo{Id: "lookout", Name: "Eyes on the Goblins", Kind: "scout", Have: 1, Need: 1, Ready: true, Quest: "companion", Step: 1}
 	snap(m, 3, "town", &pb.SelfState{Contracts: []*pb.ContractInfo{held}, Companion: &pb.CompanionState{}}, []*pb.NpcInfo{captain()})
 	want(model.StepReady)
 

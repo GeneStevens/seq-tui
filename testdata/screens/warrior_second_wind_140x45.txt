@@ -5,7 +5,7 @@
 │                                    .                                               #           ││ Atk ON | Plain Scuttler                │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .             $  $ $  $ $ $                     #           │┌─ Quest ────────────────────────────────┐
-│                                    .                                               #           ││ [ ] Scout the Lookout                  │
+│                                    .                                               #           ││ [ ] 1. Scout the Lookout               │
 │                                    .             $  $ $  & ?                       #           ││ Testgrounds Recruiter has work for you:│
 │                                    .                         ?                     #           ││ G.                                     │
 │                                    .                                               #           │└────────────────────────────────────────┘

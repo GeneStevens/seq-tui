@@ -1,10 +1,10 @@
 ┌─ Thornwick Downs, at 152,95 m, north up ─────────┐┌─ You ────────────────────┐
 │             """""c"""""""""""    ≈≈≈≈≈≈≈         ││ hale  Lv 5 Warrior  | 0cr│
-│            """"""""""""""""""""   ≈≈≈≈≈≈         ││ HP 172/176 ############- │
+│            """"""""""""""""""""   ≈≈≈≈≈≈         ││ HP 176/176 ############# │
 │            """"""""""""""""""""   ≈≈≈≈≈≈≈        ││ XP ---------- 145 to Lv 6│
 │           """""""""""""""""""""   ≈≈≈≈≈≈≈        ││ Atk ON | Bramble Tusker  │
 │           """"""""""""""""""""    ≈≈≈≈≈≈≈        │└──────────────────────────┘
-│           """"""""""p"""@"c"""    ≈≈≈≈≈≈≈        │┌─ Party, 2nd character ───┐
+│           """""""""""""p@"c"""    ≈≈≈≈≈≈≈        │┌─ Party, 2nd character ───┐
 │           """"""""""""""""""""    ≈≈≈≈≈≈         ││ bram  Lv 5               │
 │           """"""""""""""""""""   ≈≈≈≈≈≈≈         ││ HP 140/140 ############# │
 │          """""""""""""""""""""   ≈≈≈≈≈≈≈         ││ stance guard             │
@@ -16,9 +16,9 @@
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     5.2s bram used cleric-smite on Bramble Tusker                            │
-│     5.2s bram's cleric-smite hit Bramble Tusker for 10                       │
-│     5.3s Bramble Tusker targeted bram                                        │
-│     5.8s hale hit Bramble Tusker for 7                                       │
+│     6.0s hale healed 4                                                       │
+│     6.0s Bramble Tusker healed 1                                             │
+│     6.0s bram began attacking Bramble Tusker                                 │
+│     6.0s bram hit Bramble Tusker for 4                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | forest: slowed | heard 0.4s ago | attack ok   ? help
+ ONLINE | Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | attack ok  

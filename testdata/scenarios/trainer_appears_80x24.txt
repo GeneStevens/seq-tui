@@ -8,7 +8,7 @@
 │           .#  ########·····            ···       ││ no target (Tab to choose)│
 │           .#  ########·····            ···       ││                          │
 │           .#   ··································││                          │
-│           .#   ···$·c···m·$······················││                          │
+│           .#   ···$··$····$······················││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
@@ -18,7 +18,7 @@
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     N.Ns Mother Elswyth (trainer) is in view                                 │
 │     N.Ns Hilda Brasswick is out of view                                      │
-│     N.Ns Town Guard (mob-guard-lane-1) appeared                              │
+│     N.Ns Town Guard (guard) is in view                                       │
 │     N.Ns Gorran Stoutarm (trainer) is in view                                │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster | heard N.Ns ago | move ok     ? help  q quit
+ ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago | move ok       ? help

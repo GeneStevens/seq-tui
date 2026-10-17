@@ -51,25 +51,55 @@ func TestAConcavePolygonIsNotItsBoundingBox(t *testing.T) {
 	}
 }
 
-type fixed struct{ t *model.Terrain }
-
-func (f fixed) Terrain(space string) *model.Terrain {
-	if space == "Here" {
-		return f.t
-	}
-	return nil
-}
-
-// The model finds the terrain of the space it is in, by the space's name.
-func TestTheModelFindsTheGroundOfItsSpace(t *testing.T) {
+// The model reads the terrain out of the zone map the server sent, and gives
+// none for a map without areas or patrols.
+func TestTheModelReadsTheGroundFromTheZoneMap(t *testing.T) {
 	m := model.New()
-	m.UseTerrain(fixed{&model.Terrain{Areas: []model.Area{model.NewArea("r", model.Road, rect(0, 0, 10, 10))}}})
-	m.Space, m.Self.Pos = "Here", &pb.Pos{X: 5, Y: 5}
+	m.Self.Pos = &pb.Pos{X: 5, Y: 5}
+	if m.Ground() != nil || m.Underfoot() != "" {
+		t.Error("no map, no terrain")
+	}
+	m.Map = &pb.ZoneMap{
+		Areas:   []*pb.Area{{Id: "r", Kind: "road", Poly: rect(0, 0, 10, 10)}},
+		Patrols: []*pb.Patrol{{Id: "camp-a", Owner: "camp", Loop: true, Points: rect(0, 0, 10, 10)}, {Id: "stub", Owner: "npc", Points: rect(0, 0, 1, 1)[:1]}},
+	}
 	if m.Underfoot() != model.Road {
 		t.Errorf("underfoot %q", m.Underfoot())
 	}
-	m.Space = "Elsewhere"
+	if ps := m.Ground().Patrols; len(ps) != 1 || ps[0].ID != "camp-a" || ps[0].Owner != "camp" || !ps[0].Loop {
+		t.Errorf("patrols %+v (a path of one point is no patrol)", ps)
+	}
+	m.Map = &pb.ZoneMap{Walls: []*pb.Wall{{}}}
 	if m.Ground() != nil || m.Underfoot() != "" {
-		t.Error("another space has no terrain")
+		t.Error("a map without areas has no terrain")
+	}
+}
+
+// The server's word on speed (D55) is used while the map's areas still put the
+// character on the ground it named, else only the ground is named.
+func TestSpeedWordsFollowTheServerAndStopClaimingOnOtherGround(t *testing.T) {
+	m := model.New()
+	m.Map = &pb.ZoneMap{Areas: []*pb.Area{{Id: "wood", Kind: "forest", Poly: rect(0, 0, 10, 10)}, {Id: "way", Kind: "road", Poly: rect(20, 0, 30, 10)}}}
+	m.Self.Pos, m.Self.Ground, m.Self.SpeedPct = &pb.Pos{X: 5, Y: 5}, "forest", 75
+	if got := m.SpeedWords(); got != "forest: slowed to 75%" {
+		t.Errorf("in the forest: %q", got)
+	}
+	m.Self.Pos = &pb.Pos{X: 25, Y: 5} // on the road since the snapshot: the server has said nothing of it
+	if got := m.SpeedWords(); got != "road" {
+		t.Errorf("walked onto the road: %q", got)
+	}
+	m.Self.Pos = &pb.Pos{X: 50, Y: 50}
+	if got := m.SpeedWords(); got != "" {
+		t.Errorf("out in the open: %q", got)
+	}
+	m.Self.Ground, m.Self.SpeedPct = "road", 125
+	m.Self.Pos = &pb.Pos{X: 25, Y: 5}
+	if got := m.SpeedWords(); got != "road: faster, 125%" {
+		t.Errorf("on the road, told: %q", got)
+	}
+	m.Self.Ground, m.Self.SpeedPct = "open", 100
+	m.Self.Pos = &pb.Pos{X: 50, Y: 50}
+	if got := m.SpeedWords(); got != "" {
+		t.Errorf("normal speed: %q", got)
 	}
 }

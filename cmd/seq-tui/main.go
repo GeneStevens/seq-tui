@@ -27,7 +27,6 @@ import (
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
 	"github.com/GeneStevens/seq-tui/screen"
-	"github.com/GeneStevens/seq-tui/world"
 )
 
 func main() {
@@ -42,16 +41,15 @@ func run() error {
 	char := flag.String("character", "me-1", "the character to play")
 	create := flag.Bool("new", false, "make a new character (a name and one of the six classes) and play it")
 	insecure := flag.Bool("insecure", false, "development only: accept a self-signed certificate (loopback addresses only)")
-	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it)")
+	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it); SEQ_DUO_AGENT_SECRET, if set, is an agent credential for it, so that in a turn-based instance its plans go as stand-ins")
 	rec := flag.String("record", "", "write every message the server sends to this file")
 	replay := flag.String("replay", "", "draw this recorded log instead of connecting")
 	text := flag.Bool("text", false, "with -replay: print the model as plain text instead of the screen")
 	size := flag.String("size", "80x24", "with -replay: the screen size, WxH")
-	worldDir := flag.String("world", os.Getenv(world.EnvPacks), "seq-world's packs directory: the zones' areas and patrol paths are drawn from it (the protocol does not carry them yet)")
 	flag.Parse()
 
 	if *replay != "" {
-		return runReplay(*replay, *text, *size, *worldDir)
+		return runReplay(*replay, *text, *size)
 	}
 	token := os.Getenv("SEQ_SESSION_TOKEN")
 	if token == "" {
@@ -71,13 +69,6 @@ func run() error {
 		}
 	}
 	cfg := client.Config{URL: *addr, TLS: tlsCfg, Credential: token, Character: *char}
-	if *worldDir != "" {
-		src, err := world.Load(*worldDir)
-		if err != nil {
-			return fmt.Errorf("-world: %w", err)
-		}
-		cfg.Terrain = src
-	}
 	if *rec != "" {
 		f, err := os.Create(*rec)
 		if err != nil {
@@ -102,6 +93,7 @@ func run() error {
 	if *duo != "" && !*create {
 		dc := cfg
 		dc.Character, dc.Record = *duo, nil
+		dc.Agent = os.Getenv("SEQ_DUO_AGENT_SECRET") // an agent credential for it: its turn-based plans are then stand-ins
 		d := client.NewDuo(dc, *char)
 		defer d.Close()
 		a.SetDuo(d)
@@ -113,7 +105,7 @@ func run() error {
 	return err
 }
 
-func runReplay(path string, text bool, size, worldDir string) error {
+func runReplay(path string, text bool, size string) error {
 	f, err := os.Open(path)
 	if err != nil {
 		return err
@@ -124,13 +116,6 @@ func runReplay(path string, text bool, size, worldDir string) error {
 		return err
 	}
 	m := model.New()
-	if worldDir != "" {
-		src, err := world.Load(worldDir)
-		if err != nil {
-			return fmt.Errorf("-world: %w", err)
-		}
-		m.UseTerrain(src)
-	}
 	for _, msg := range msgs {
 		m.Apply(msg)
 	}

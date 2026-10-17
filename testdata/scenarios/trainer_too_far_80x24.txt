@@ -3,6 +3,7 @@
 │                                                                              │
 │ > Dunstan Reeve            sells and buys         5m N                       │
 │   Mother Elswyth           teaches                16m S too far              │
+│   Town Guard               guard                  16m S too far              │
 │   Gorran Stoutarm          teaches                19m SW too far             │
 │   Hilda Brasswick          sells and buys         25m N too far              │
 │                                                                              │
@@ -19,6 +20,5 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster | heard N.Ns ago               ? help  q quit
+ ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago         ? help  q quit

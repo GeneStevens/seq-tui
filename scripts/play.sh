@@ -12,7 +12,7 @@
 #   SEQ_ADDR=127.0.0.1:8443   where the server listens
 #   SEQ_CHARACTER=me-1  the character to play (me-1 or me-2)
 #   SEQ_NEW=1           make a new character on the creation screen instead
-#   SEQ_WORLD_PACKS=DIR  serve and draw the packs in DIR (a seq-world checkout under work) instead of the pinned seq-world's
+#   SEQ_WORLD_PACKS=DIR  serve the packs in DIR (a seq-world checkout under work) instead of the pinned seq-world's
 set -eu
 
 cd "$(dirname "$0")/.."
@@ -67,8 +67,7 @@ if ! docker info >/dev/null 2>&1; then
 	exit 1
 fi
 # The world (D54) is seq-world, at the version go.mod pins: the server serves its
-# packs, and the TUI reads the zones' areas and patrol paths from the same ones
-# (the protocol does not carry them yet).
+# packs; the TUI reads everything about the zones from the server (the zone map).
 world=$(go list -m -f '{{.Dir}}' github.com/GeneStevens/seq-world)
 packs="${SEQ_WORLD_PACKS:-$world/packs}"
 if [ ! -d "$packs" ]; then
@@ -107,8 +106,8 @@ done
 go build -o tmp/seq-tui ./cmd/seq-tui
 if [ "${SEQ_NEW:-}" = 1 ]; then
 	echo "making a character on $addr (? for keys once playing, Ctrl+C to quit) ..."
-	SEQ_SESSION_TOKEN="$token" tmp/seq-tui -insecure -world "$packs" -url "wss://$addr/seq/v1" -new
+	SEQ_SESSION_TOKEN="$token" tmp/seq-tui -insecure -url "wss://$addr/seq/v1" -new
 else
 	echo "playing $character on $addr (? for keys, q to quit) ..."
-	SEQ_SESSION_TOKEN="$token" tmp/seq-tui -insecure -world "$packs" -url "wss://$addr/seq/v1" -character "$character"
+	SEQ_SESSION_TOKEN="$token" tmp/seq-tui -insecure -url "wss://$addr/seq/v1" -character "$character"
 fi

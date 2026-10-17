@@ -21,4 +21,4 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | forest: slowed | heard 0.4s ago | second character in play      ? help
+ ONLINE | forest: slowed to 75% | heard 0.4s ago | second character in play     

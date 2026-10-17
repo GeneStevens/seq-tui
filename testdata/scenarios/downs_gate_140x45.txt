@@ -21,7 +21,7 @@
 │                                         .                """"""""""""""""""""""                ││                                        │
 │                                         .                """"""""""""""""""""""                ││                                        │
 │                                         .                                                      ││                                        │
-│                                         .                                                      ││                                        │
+│                                         .                                                     ;││                                        │
 │                                         .                                                      ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
+│ +   N.Ns you took the contract Thin the Meadow Wolves                                                                                    │
+│     N.Ns Town Guard (guard) is in view                                                                                                   │
+│     N.Ns Barnaby Tuck is out of view                                                                                                     │
+│     N.Ns Odalys Penn (banker) is in view                                                                                                 │
+│     N.Ns Thornwick Contract Board is out of view                                                                                         │
+│     N.Ns Isolde Fenn is out of view                                                                                                      │
 │    NN.Ns Captain Rhosyn Hartley (quest_giver) is in view                                                                                 │
 │    NN.Ns Odalys Penn is out of view                                                                                                      │
 │    NN.Ns entered Thornwick Downs                                                                                                         │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | road: faster | heard N.Ns ago | use door ok                                                       ? help  q quit
+ ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok                                                 ? help  q quit

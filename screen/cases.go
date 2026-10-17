@@ -189,13 +189,9 @@ var Cases = []Case{
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
 }
 
-// Replay reads the log named by c from dir (testdata/logs) into a new model,
-// which finds the ground of its zones in ground (nil: there is none).
-func (c Case) Replay(dir string, ground model.TerrainSource) (*model.Model, error) {
+// Replay reads the log named by c from dir (testdata/logs) into a new model.
+func (c Case) Replay(dir string) (*model.Model, error) {
 	m := model.New()
-	if ground != nil {
-		m.UseTerrain(ground)
-	}
 	if c.Log == "" {
 		return m, nil
 	}

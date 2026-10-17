@@ -1,0 +1,24 @@
+┌─ Testgrounds (Duo Turns), at 100,90 m, north up ─┐┌─ You ────────────────────┐
+│                                                  ││ aria  Lv 1  XP 0    | 0cr│
+│                                                  ││ HP 100/100 ############# │
+│                                                  ││ Target: none             │
+│..................................................││ Auto-attack: off         │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Instance ───────────────┐
+│                                                  ││ Duo Turns                │
+│                         @                        ││ turn-based | inside      │
+│                         +                        ││ party up to 2 | normal   │
+│                                                  ││ sleeps up to 7 d         │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Round 1, 6 s left ──────┐
+│                         m                        ││ 1 of 2 submitted         │
+│                                                  ││ [x] you  [ ] bram        │
+│                                                  ││ bram plans: wait         │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns entered Testgrounds (Duo Turns)                                     │
+│     N.Ns round 1 is open: game time waits for plans (0 of 2 submitted: none  │
+│            yet)                                                              │
+│     N.Ns round 1 is open: game time waits for plans (1 of 2 submitted: you)  │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | heard N.Ns ago | plan accepted, counts even if you disconnect   ? help

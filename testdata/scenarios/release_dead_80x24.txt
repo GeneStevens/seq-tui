@@ -5,7 +5,7 @@
 │          .        $ $$ $$ $            #         ││ You are dead. R: release │
 │          .        $ $$ &?              #         │└──────────────────────────┘
 │          .                ?            #         │┌─ Quest ──────────────────┐
-│          .                             #         ││ [ ] Scout the Lookout    │
+│          .                             #         ││ [ ] 1. Scout the Lookout │
 │          .              @m  c          #         ││ Testgrounds Recruiter has│
 │          .                             #         ││ work for you: G.         │
 │          .                             #         │└──────────────────────────┘

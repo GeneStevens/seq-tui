@@ -257,6 +257,10 @@ func roundLines(m *model.Model, v View, w, h int, st Styler) []string {
 		if c := m.Self.Cast; c != nil && c.LandsInRound > 0 {
 			add(fmt.Sprintf(" %s lands in round %d", m.AbilityName(c.Ability), c.LandsInRound))
 		}
+		// The second character on a stance plans by itself each round (D55).
+		if d := v.Duo; d != nil && d.Active && d.PlanRound == r.Number && len(d.Plan) > 0 {
+			add(fmt.Sprintf(" %s plans: %s", nameList(m, []string{d.ID}), strings.Join(d.Plan, ", ")))
+		}
 	} else {
 		if r.ResolvedParticipants > 0 {
 			add(fmt.Sprintf(" %d of %d submitted", len(r.ResolvedSubmitted), r.ResolvedParticipants))

@@ -421,7 +421,7 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 	w.Advance(21 * time.Second)
 	p.Model(func(m *model.Model) {
 		e := m.WorldEvents["harvest-raid"]
-		if e == nil || !e.Active || e.Kind != "started" || !strings.Contains(e.Text, "Defend the farms") || !hasLog(m, "world_event", "Harvest Raid") {
+		if e == nil || !e.Active || e.Kind != "started" || e.Name != "Harvest Raid" || !strings.Contains(e.Text, "Defend the farms") || !hasLog(m, "world_event", "Harvest Raid") {
 			t.Fatalf("the announcement: %+v", e)
 		}
 	})

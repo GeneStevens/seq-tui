@@ -358,9 +358,10 @@ func (a *App) send(act Action) tea.Cmd {
 		ctx, cancel := context.WithTimeout(context.Background(), commandTimeout)
 		defer cancel()
 		var (
-			id   string
-			err  error
-			what string
+			id    string
+			err   error
+			what  string
+			extra string // what to add to an "ok": the second character's refusal of a door
 		)
 		switch act.Kind {
 		case Move:
@@ -378,6 +379,12 @@ func (a *App) send(act Action) tea.Cmd {
 		case UseDoor:
 			what = "use door"
 			id, err = a.sess.UseDoor(ctx, act.ID)
+			if err == nil && a.duo != nil {
+				// The second character takes the same door; the server decides.
+				if why := a.duo.UseDoor(ctx, act.ID); why != "" {
+					extra = "; second character: " + why
+				}
+			}
 		case Release:
 			what = "release"
 			id, err = a.sess.Release(ctx)
@@ -434,7 +441,7 @@ func (a *App) send(act Action) tea.Cmd {
 		case act.Kind == Talk:
 			return resultMsg{note: what + " ok", talk: act.NPC}
 		}
-		return resultMsg{note: what + " ok"}
+		return resultMsg{note: what + " ok" + extra}
 	}
 }
 
@@ -449,8 +456,12 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
 	if a.duo != nil {
 		v.Duo = &screen.DuoView{ID: a.duo.Character(), Active: a.duo.Active(), Stance: a.duo.Stance(), Order: a.duo.Order().Kind}
+		v.Duo.Plan, v.Duo.PlanRound = a.duo.Plan()
 		if s := a.duo.Session(); s != nil {
-			s.View(func(dm *model.Model) { v.Duo.Target = dm.Self.Target })
+			s.View(func(dm *model.Model) {
+				v.Duo.Target = dm.Self.Target
+				v.Duo.Mana.Cur, v.Duo.Mana.Max = dm.Self.Mana, dm.Self.MaxMana
+			})
 		}
 	}
 	a.sess.View(func(m *model.Model) {

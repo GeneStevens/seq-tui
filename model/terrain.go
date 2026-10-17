@@ -1,14 +1,15 @@
 package model
 
 import (
+	"fmt"
+
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
-// Terrain is the ground of a zone (D53): areas with a kind, and the patrol
-// paths of its mobs. The protocol's zone map does not carry either yet, so the
-// model does not build them from messages: a TerrainSource gives them by the
-// space's name (the `world` package reads them from seq-world's packs). With no
-// source the map shows walls, camps and doors only, as before.
+// Terrain is the ground of a zone (D53, D55): areas with a kind, and the patrol
+// paths of its mobs and guards. It is read from the zone map the server sent
+// (areas and patrols), never from anywhere else; a zone map with neither gives
+// none, and the map then shows walls, camps and doors only.
 type Terrain struct {
 	Areas   []Area
 	Patrols []Patrol
@@ -83,10 +84,12 @@ func (a *Area) Contains(x, y int64) bool {
 	return in
 }
 
-// Patrol is the path a mob walks instead of wandering. Loop: it goes round
-// and round; else it goes to the end and back.
+// Patrol is the path a camp's mobs or a guard walk instead of wandering. Owner
+// is "camp" or "npc" and ID the camp's or the NPC's id. Loop: it goes round and
+// round; else it goes to the end and back.
 type Patrol struct {
-	Camp   string
+	ID     string
+	Owner  string
 	Loop   bool
 	Points []*pb.Pos
 }
@@ -140,23 +143,63 @@ func (t *Terrain) HasFloor() bool {
 	return false
 }
 
-// TerrainSource gives the terrain of a space by its name, nil if it has none.
-type TerrainSource interface {
-	Terrain(space string) *Terrain
-}
-
-// UseTerrain sets where the model finds the ground of the space it is in.
-func (m *Model) UseTerrain(src TerrainSource) { m.terrain = src }
-
-// Ground is the terrain of the space the character is in, nil if it has none.
-func (m *Model) Ground() *Terrain {
-	if m.terrain == nil || m.Space == "" {
+// TerrainOf reads the ground out of a zone map: its areas and patrols. It
+// returns nil for a map with neither.
+func TerrainOf(zm *pb.ZoneMap) *Terrain {
+	if len(zm.GetAreas()) == 0 && len(zm.GetPatrols()) == 0 {
 		return nil
 	}
-	return m.terrain.Terrain(m.Space)
+	t := &Terrain{}
+	for _, a := range zm.GetAreas() {
+		t.Areas = append(t.Areas, NewArea(a.GetId(), AreaKind(a.GetKind()), a.GetPoly()))
+	}
+	for _, p := range zm.GetPatrols() {
+		if len(p.GetPoints()) > 1 {
+			t.Patrols = append(t.Patrols, Patrol{ID: p.GetId(), Owner: p.GetOwner(), Loop: p.GetLoop(), Points: p.GetPoints()})
+		}
+	}
+	return t
 }
 
-// Underfoot is the ground the character stands on; "" for open ground.
+// Ground is the terrain of the zone map the character has, nil if it has none.
+func (m *Model) Ground() *Terrain {
+	if m.terrainOf != m.Map {
+		m.terrain, m.terrainOf = TerrainOf(m.Map), m.Map
+	}
+	return m.terrain
+}
+
+// SpeedWords says in a few words how fast the server says the character moves,
+// "forest: slowed to 75%", "road: faster, 125%"; "" when it moves at its normal
+// speed or the server has not said. The server states ground and speed only in
+// a snapshot, and a move does not refresh them, so they are used while the zone
+// map's areas still put the character on the ground the snapshot named; once it
+// has walked onto other ground, the line gives that ground and no speed until
+// the next snapshot.
+func (m *Model) SpeedWords() string {
+	here := string(m.Underfoot())
+	if here == "" {
+		here = "open"
+	}
+	if m.Self.Ground != "" && m.Self.Ground != here {
+		if here == "open" {
+			return ""
+		}
+		return here
+	}
+	switch p := m.Self.SpeedPct; {
+	case p == 0 || p == 100:
+		return ""
+	case p < 100:
+		return fmt.Sprintf("%s: slowed to %d%%", here, p)
+	default:
+		return fmt.Sprintf("%s: faster, %d%%", here, p)
+	}
+}
+
+// Underfoot is the ground the character stands on, read from the zone map's
+// areas; "" for open ground. The server states the same fact as
+// Self.Ground (and the speed it brings), which the status line uses.
 func (m *Model) Underfoot() AreaKind {
 	if m.Self.Pos == nil {
 		return ""

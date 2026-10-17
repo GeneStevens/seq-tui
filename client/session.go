@@ -33,11 +33,12 @@ type Config struct {
 	Session string
 	// Record, if set, receives every incoming message.
 	Record *record.Writer
+	// Agent, for a second character on a stance (client.Duo), is an agent
+	// credential for it: with one its turn-based plans are stand-ins (D10);
+	// without, they are the character's own, sent as the player.
+	Agent string
 	// Model is the model to feed; nil makes a new one.
 	Model *model.Model
-	// Terrain, if set, is where the model finds the ground of a zone (areas and
-	// patrols), which the protocol does not carry yet.
-	Terrain model.TerrainSource
 }
 
 // Session is one play session: the agent toolkit's connection (D41) with the
@@ -66,9 +67,6 @@ func NewSession(cfg Config) *Session {
 	}
 	if cfg.Model == nil {
 		cfg.Model = model.New()
-	}
-	if cfg.Terrain != nil {
-		cfg.Model.UseTerrain(cfg.Terrain)
 	}
 	return &Session{cfg: cfg, m: cfg.Model, changed: make(chan struct{}), sent: map[string]agentkit.Sent{}}
 }

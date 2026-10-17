@@ -22,6 +22,9 @@ const (
 	glyphBoard     = '&' // a contract board
 	glyphTalker    = '?' // someone who only talks (a quest giver)
 	glyphMarker    = '%' // where a held scout contract sends you
+	glyphScout     = ';' // any other scout marker of the zone map
+	glyphSpawn     = '!' // where a world event's raiders appear
+	glyphGoal      = 'G' // where a world event's raiders are heading
 	glyphCamp      = 'c' // a camp: where the zone's mobs are found (the zone map's)
 	glyphRare      = 'r' // a roaming rare in view
 	glyphDoor      = 'D'
@@ -385,6 +388,22 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 	for _, d := range m.Map.GetDoors() {
 		c, r := g.cellOf(d.GetPos())
 		g.put(c, r, glyphDoor, kDoor)
+	}
+	// Every marker the zone map lists (D55): zone lines and instance entrances
+	// are doors, a scout marker is yours when a held contract names it, and a
+	// world event has its spawn and its goal.
+	for _, k := range m.Map.GetMarkers() {
+		c, r := g.cellOf(k.GetPos())
+		switch k.GetKind() {
+		case "zone_line", "instance_entrance":
+			g.put(c, r, glyphDoor, kDoor)
+		case "scout":
+			g.put(c, r, glyphScout, kPlan)
+		case "event_spawn":
+			g.put(c, r, glyphSpawn, kPlan)
+		case "event_goal":
+			g.put(c, r, glyphGoal, kPlan)
+		}
 	}
 	for _, n := range m.KnownNPCs() {
 		c, r := g.cellOf(n.GetPos())

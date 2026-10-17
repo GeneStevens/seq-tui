@@ -21,4 +21,4 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | forest: slowed | heard N.Ns ago       ? help  q quit
+ ONLINE | Thornwick Downs | forest: slowed to 75% | heard N.Ns ago        ? help

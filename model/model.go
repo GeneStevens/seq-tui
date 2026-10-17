@@ -65,13 +65,19 @@ type Self struct {
 	// slot in the order of GearSlots, "" for an empty one; empty when nothing
 	// is), the bank, the zone of the bind point ("" until the character binds)
 	// and how many items the inventory holds.
-	Crowns        int64
-	Contracts     []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
-	Companion     *pb.CompanionState // the house companion (SEQ-049); nil before the quest is begun
-	Equipped      []string
-	Bank          []string
-	BindZone      string
-	InventorySize int64
+	Crowns int64
+	// Ground, SpeedPct and EffectiveSpeedMmS are what the server said of the
+	// ground under the character and how fast it moves there (D55), as of the
+	// last snapshot: moving does not refresh them.
+	Ground            string
+	SpeedPct          int64
+	EffectiveSpeedMmS int64
+	Contracts         []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
+	Companion         *pb.CompanionState // the house companion (SEQ-049); nil before the quest is begun
+	Equipped          []string
+	Bank              []string
+	BindZone          string
+	InventorySize     int64
 
 	// Class, and the XP the level began at and ends at (XPNext 0: the cap).
 	Class           string
@@ -100,12 +106,16 @@ type Member struct {
 	Target     string
 	AutoAttack bool
 	XP         int64
+	// Mana and MaxMana are the member's mana (D55; MaxMana 0: it has none) as the
+	// last snapshot told it, moved by the resource events the server sends for it.
+	Mana, MaxMana int64
 }
 
 // Model is what a client knows of the world.
 type Model struct {
 	Space      string
-	terrain    TerrainSource // where the ground of a space comes from (UseTerrain)
+	terrain    *Terrain    // the ground of Map (areas and patrols), built on first use
+	terrainOf  *pb.ZoneMap // the map terrain was built from
 	Tick       uint64
 	GameTimeMs int64
 	Self       Self
@@ -178,14 +188,22 @@ type Model struct {
 	// snapshots told, kept after they leave view.
 	npcNames      map[string]string
 	contractNames map[string]string
-	// questGiver is the quest giver seen (an NPC with that role), questOffered the
-	// contract ids it offers now and questSteps/questOrder every one it has offered.
+	// questGiver is the NPC whose board offered a quest step (D55), questOffered
+	// the contract ids it offers now and questSteps/questOrder every quest step
+	// seen, offered or held.
 	questGiver   string
 	questOffered map[string]bool
-	questSteps   map[string]*pb.ContractOffer
+	questSteps   map[string]questSeen
 	questOrder   []string
-	last         uint64 // the stream number of the last event applied, or of the snapshot
-	selected     bool   // a snapshot has arrived
+	// openFailed and refunds count the instance openings the server said failed
+	// and the entry fees it refunded: a refund with no failed opening to answer
+	// for was owed to a character that was away (D55).
+	openFailed, refunds int
+	// joining: a space_changed was seen and the snapshot of the space joined has
+	// not come; the join may have paid what was owed (D55).
+	joining  bool
+	last     uint64 // the stream number of the last event applied, or of the snapshot
+	selected bool   // a snapshot has arrived
 	// levelPending: a reward raised the level and the snapshot that says what it
 	// taught has not come yet.
 	levelPending bool
@@ -299,12 +317,15 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	self := s.GetSelf()
 	e := self.GetEntity()
 	old := m.Self
+	joining := m.joining
+	m.joining = false
 	m.Space, m.Tick, m.GameTimeMs, m.Instance = s.GetSpace(), s.GetTick(), s.GetGameTimeMs(), s.GetInstance()
 	m.Self = Self{
 		ID: e.GetId(), Name: e.GetName(), Level: e.GetLevel(), HP: e.GetHp(), MaxHP: e.GetMaxHp(), Dead: e.GetDead(),
 		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(),
 		HasDestination: self.GetHasDestination(), Destination: clonePos(self.GetDestination()),
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
+		Ground: self.GetGround(), SpeedPct: self.GetSpeedPct(), EffectiveSpeedMmS: self.GetEffectiveSpeedMmS(),
 		Crowns: self.GetCrowns(), Equipped: slices.Clone(self.GetEquipped()), Bank: slices.Clone(self.GetBank()),
 		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(), Contracts: slices.Clone(self.GetContracts()), Companion: cloneCompanion(self.GetCompanion()),
 	}
@@ -331,7 +352,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	for _, g := range s.GetGroup() {
 		m.remember(g.GetEntity())
 		noteEffects(g.GetEntity())
-		m.Group[g.GetEntity().GetId()] = &Member{Entity: cloneEntity(g.GetEntity()), Target: g.GetTarget(), AutoAttack: g.GetAutoAttack(), XP: g.GetXp()}
+		m.Group[g.GetEntity().GetId()] = &Member{Entity: cloneEntity(g.GetEntity()), Target: g.GetTarget(), AutoAttack: g.GetAutoAttack(), XP: g.GetXp(), Mana: g.GetMana(), MaxMana: g.GetMaxMana()}
 	}
 	for _, en := range s.GetEntities() {
 		m.remember(en)
@@ -348,6 +369,9 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	m.selected = true
 	if old.ID == m.Self.ID && (m.levelPending || m.Self.Level > old.Level) && len(old.Abilities) > 0 {
 		m.levelUp(old)
+	}
+	if joining && old.ID == m.Self.ID {
+		m.joinPay(old)
 	}
 	m.levelPending = false
 }
@@ -381,6 +405,7 @@ func (m *Model) apply(e *pb.Event) {
 	case *pb.Event_SpaceChanged:
 		// The snapshot of the new space follows and replaces this view.
 		m.Space, m.Map, m.Round, m.Instance = b.SpaceChanged.GetSpace(), nil, nil, nil
+		m.joining = true
 	case *pb.Event_EntityAppeared:
 		en := b.EntityAppeared.GetEntity()
 		m.remember(en)
@@ -414,8 +439,13 @@ func (m *Model) apply(e *pb.Event) {
 		m.Encounters[o.GetId()] = &pb.EncounterState{Id: o.GetId(), Mob: o.GetMob(), Owner: o.GetOwner()}
 	case *pb.Event_EncounterClosed:
 		delete(m.Encounters, b.EncounterClosed.GetId())
+	case *pb.Event_InstanceOpenFailed:
+		m.openFailed++
 	case *pb.Event_Reward:
 		w := b.Reward
+		if w.GetKind() == "refund" && m.refunds < m.openFailed {
+			m.refunds++ // it answers a failed opening; with none unanswered it was owed
+		}
 		if w.GetKind() == "loot" || w.GetKind() == "crowns" {
 			delete(m.Drops, w.GetSource()) // a loot reward names the drop it took (sim: Target is the drop)
 		}

@@ -218,9 +218,9 @@ func helpLines(w, h int, st Styler) []string {
 		"Map              north is up, you are the centre; M: the whole zone seen",
 		"  @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end",
 		"  * drop  ~ a drop you may not take  $ trader  & board  ? talker",
-		"  % scout marker  D door  # wall.  Nearby lists the same, nearest first.",
+		"  % your marker  ; scout marker  ! G event spawn, goal  D door  # wall",
 		"Ground            # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . dungeon floor",
-		"                 The status line says when a forest slows you or a road speeds you.",
+		"                 The status line gives the server's speed on forest, road, ford...",
 		"Event log markers:  ! denied (with the reason) or a cast that did not land",
 		"                    < hit on you  x kill  + reward or level  * world event",
 	}
@@ -255,15 +255,9 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	// answer. When it is short, the key hint goes first, then the space and the
 	// clock: a denial's reason is never cut for them.
 	var tries [][]string
-	// Standing in a forest or on a road changes how fast the character walks
-	// (D53): the line says so, and keeps saying so when it is short.
-	ground := ""
-	switch m.Underfoot() {
-	case model.Forest:
-		ground = "forest: slowed"
-	case model.Road:
-		ground = "road: faster"
-	}
+	// Ground changes how fast the character walks (D53): the line says what the
+	// server says of its speed (D55), and keeps saying so when it is short.
+	ground := m.SpeedWords()
 	for _, parts := range [][]string{{string(v.Conn), space, ground, heard, note}, {string(v.Conn), ground, heard, note}, {string(v.Conn), ground, note}, {string(v.Conn), heard, note}, {string(v.Conn), note}} {
 		var kept []string
 		for _, p := range parts {

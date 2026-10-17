@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns Isolde Fenn is out of view                                          │
 │    NN.Ns Captain Rhosyn Hartley (quest_giver) is in view                     │
 │    NN.Ns Odalys Penn is out of view                                          │
 │    NN.Ns entered Thornwick Downs                                             │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | road: faster | heard N.Ns ago | use door ok   ? help
+ ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok   

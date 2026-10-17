@@ -5,7 +5,7 @@
 │             .        $ $$ $$ $            #      ││ Auto-attack: ON          │
 │             .        $ $$ &?              #      │└──────────────────────────┘
 │             .                ?            #      │┌─ Quest ──────────────────┐
-│             .                             #      ││ [ ] Scout the Lookout    │
+│             .                             #      ││ [ ] 1. Scout the Lookout │
 │             .           @ M    c          #      ││ Testgrounds Recruiter has│
 │             .                             #      ││ work for you: G.         │
 │             .                             #      │└──────────────────────────┘

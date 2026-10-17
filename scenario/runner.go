@@ -32,7 +32,6 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
-	"github.com/GeneStevens/seq-tui/world"
 	"github.com/GeneStevens/seq/core"
 	"github.com/GeneStevens/seq/server"
 	"github.com/GeneStevens/seq/testserver"
@@ -78,7 +77,6 @@ type World struct {
 	began   time.Time
 	players []*Player
 	rec     *record.Writer
-	ground  world.Source
 }
 
 // New starts a server for the scenario t and holds the scenario to MaxScenario.
@@ -160,19 +158,6 @@ func (w *World) Fixture(name string) {
 	w.rec = record.NewWriter(f)
 }
 
-// terrain is the ground of the zones the server loaded, read from the packs it
-// was given (the protocol does not carry it yet): nil when it loaded none.
-func (w *World) terrain() model.TerrainSource {
-	if w.ground == nil {
-		src, err := world.FromLoaded()
-		if err != nil {
-			w.T.Fatal(err)
-		}
-		w.ground = src
-	}
-	return w.ground
-}
-
 // Advance moves the server's clock by d and returns when every player has
 // taken in what the server sent for it.
 func (w *World) Advance(d time.Duration) {
@@ -205,6 +190,7 @@ type Player struct {
 	creating  bool // the program opened on the creation screen
 	second    string
 	duo       *client.Duo // the account's second character on a stance, if the player has one
+	duoAgent  bool        // the second character logs in with an agent credential (its turn-based plans are stand-ins)
 }
 
 // Login starts a TUI for the account's character: it logs in with a session
@@ -228,6 +214,20 @@ func (w *World) Login(account, character string) *Player {
 func (w *World) LoginWithDuo(account, character, second string) *Player {
 	w.T.Helper()
 	p := &Player{w: w, Account: account, Character: character, second: second}
+	if len(w.players) == 0 {
+		p.rec = w.rec
+	}
+	w.players = append(w.players, p)
+	p.start()
+	return p
+}
+
+// LoginWithDuoAgent is LoginWithDuo with the second character on an agent
+// credential, as SEQ_DUO_AGENT_SECRET gives the program: in a turn-based
+// instance its stance sends a stand-in plan each round (D55).
+func (w *World) LoginWithDuoAgent(account, character, second string) *Player {
+	w.T.Helper()
+	p := &Player{w: w, Account: account, Character: character, second: second, duoAgent: true}
 	if len(w.players) == 0 {
 		p.rec = w.rec
 	}
@@ -264,7 +264,7 @@ func (p *Player) Created() {
 func (p *Player) start() {
 	t := p.w.T
 	t.Helper()
-	cfg := client.Config{URL: p.w.Srv.URL(), TLS: p.w.Srv.TLS(), Credential: p.w.Srv.SessionToken(p.Account), Character: p.Character, Record: p.rec, Terrain: p.w.terrain()}
+	cfg := client.Config{URL: p.w.Srv.URL(), TLS: p.w.Srv.TLS(), Credential: p.w.Srv.SessionToken(p.Account), Character: p.Character, Record: p.rec}
 	p.Sess = client.NewSession(cfg)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -282,6 +282,9 @@ func (p *Player) start() {
 	if p.second != "" {
 		dc := cfg
 		dc.Character = p.second
+		if p.duoAgent {
+			dc.Agent = p.w.Srv.AgentSecret(p.Account, p.second)
+		}
 		p.duo = client.NewDuo(dc, p.Character)
 		a.SetDuo(p.duo)
 	}
@@ -406,6 +409,10 @@ func (p *Player) Duo(f func(*model.Model)) {
 	p.duo.Session().View(f)
 }
 
+// DuoPlan is what the second character's stance sent for the last round it
+// played, in words, and the round.
+func (p *Player) DuoPlan() ([]string, uint64) { return p.duo.Plan() }
+
 func (p *Player) idle() {
 	t := p.w.T
 	t.Helper()
@@ -464,6 +471,26 @@ func (p *Player) Eventually(what string, pred func(*model.Model) bool) {
 		}
 		if time.Now().After(deadline) {
 			t.Fatalf("%s: gave up waiting for %s", p.Character, what)
+		}
+		time.Sleep(time.Millisecond)
+	}
+}
+
+// DuoEventually waits for pred to hold of the second character's model, for what
+// the server does outside the clock (its own handoff).
+func (p *Player) DuoEventually(what string, pred func(*model.Model) bool) {
+	t := p.w.T
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)
+	for {
+		ok := false
+		p.Duo(func(m *model.Model) { ok = pred(m) })
+		if ok {
+			p.Sync()
+			return
+		}
+		if time.Now().After(deadline) {
+			t.Fatalf("%s: gave up waiting for %s", p.second, what)
 		}
 		time.Sleep(time.Millisecond)
 	}

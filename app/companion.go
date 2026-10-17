@@ -77,12 +77,10 @@ func (a *App) helperAction(k string, m *model.Model) Action {
 		}
 		return Action{Note: "the companion keys now command your recruit"}
 	}
-	if duo && turn && k != "p" {
-		return Action{Note: "your second character cannot plan: it waits out a turn-based round"}
-	}
 	c := m.Companion()
 	step := func(a Action) Action {
-		if turn {
+		if turn && !duo { // the second character is not planned for: its stance makes its plan each round
+
 			return Action{Kind: PlanAdd, Step: &a}
 		}
 		return a
@@ -105,7 +103,7 @@ func (a *App) helperAction(k string, m *model.Model) Action {
 		return step(Action{Kind: CompanionStance, ID: nextIn(agentkit.CompanionStances, c.GetStance())})
 	case "y":
 		t := m.Self.Target
-		if turn {
+		if turn && !duo {
 			t = a.draft.target(m)
 		}
 		if t == "" {
@@ -117,7 +115,7 @@ func (a *App) helperAction(k string, m *model.Model) Action {
 		return step(Action{Kind: CompanionOrder, ID: "attack", Target: t, Note: nameOf(m, t)})
 	case "u":
 		at := m.Self.Pos
-		if turn {
+		if turn && !duo {
 			at = a.draft.Pos(m)
 		}
 		if duo {

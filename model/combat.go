@@ -234,8 +234,13 @@ func (m *Model) applyCombatEvent(e *pb.Event) {
 	at := e.GetGameTimeMs()
 	switch b := e.GetBody().(type) {
 	case *pb.Event_ResourceChanged:
-		if o := b.ResourceChanged; o.GetActor() == me && o.GetResource() == "mana" {
-			m.Self.Mana = max(m.Self.Mana+o.GetDelta(), 0)
+		if o := b.ResourceChanged; o.GetResource() == "mana" {
+			switch g := m.Group[o.GetActor()]; {
+			case o.GetActor() == me:
+				m.Self.Mana = max(m.Self.Mana+o.GetDelta(), 0)
+			case g != nil && g.MaxMana > 0:
+				g.Mana = min(max(g.Mana+o.GetDelta(), 0), g.MaxMana)
+			}
 		}
 	case *pb.Event_SlotSet:
 		if o := b.SlotSet; o.GetActor() == me && o.GetSlot() >= 1 && o.GetSlot() <= Slots {
