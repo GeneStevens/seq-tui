@@ -1,0 +1,24 @@
+┌─ Keys ───────────────────────────────────────────────────────────────────────┐
+│ Move             arrow keys or W A S D                                       │
+│ Target, attack   Tab cycles the target (Esc clears); F or Space: auto-attack…│
+│ Loot, doors      L: the nearest drop you may take; E: the nearest door (stan…│
+│ Release          R: when you are dead, give up your body and respawn         │
+│ Abilities        1-8 use that slot on your target; B sets slots (out of comb…│
+│ Instances        I: this zone's menu (Enter opens one); then E at its door   │
+│ Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank  │
+│ Trade            T: ask a character in reach; each side offers, then confirms│
+│ People           G: talk to the nearest; options open a trader or a board    │
+│ Contracts        K: those you hold (X gives up); the board takes, hands in   │
+│ Plans            turn-based: keys build a plan, one move or door, one ability│
+│                  or attack. Enter submits, Backspace drops a step, Esc clears│
+│ Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log  │
+│ Map              north is up, you are the centre; M: the whole zone seen     │
+│   @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end       │
+│   * drop  ~ a drop you may not take  $ trader  & board  ? talker             │
+│   % your marker  ; scout marker  ! G event spawn, goal  D door  # wall       │
+│ Ground            # building  ^ rock  ≈ water  : ford  = bridge  " forest  ·…│
+│                  The status line gives the server's speed on forest, road, f…│
+│ Event log markers:  ! denied (with the reason) or a cast that did not land   │
+│                     < hit on you  x kill  + reward or level  * world event   │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard 0.4s ago                              ? help  q quit

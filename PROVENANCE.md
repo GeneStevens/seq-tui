@@ -28,6 +28,9 @@ This file lists each content item in `seq-tui` and its source (for example "inve
 | `testdata/logs/duo_stance_turns.jsonl`, `instance_death.jsonl`, `owed_pay.jsonl`, `companion_mana.jsonl` | Recorded by the D55 scenarios (`scenario/d55_test.go`, `make fixtures`) from seq's in-process test server (seq at b59952d, SEQ-054) running its Testgrounds and seq-world's Thornwick pack (e102c28, WLD-003); every name, id and line in them is the server's own. The scenarios are invented for SEQ. |
 | `model/terrain.go` (`TerrainOf`), the `;` `!` `G` map glyphs, the Round panel's duo plan line, `client/duo.go`'s turn-based plans | Written for SEQ, 2026-10-17. Areas, patrols and markers are read from the protocol's zone map; the glyphs and wording are invented for SEQ. The `world/` package (areas and patrols read from seq-world's packs, TUI-015) is gone. |
 
+| `scenario/m8_test.go`, `app/focus.go`, `model/contracts.go` (`MarkerName`, `npcMoved`, `owedAtLogin`) | Written for SEQ, 2026-10-17 (TUI-017). The key `X`, the status line's `directing <name>`, the Round panel's `<name>'s plan` and the owed-pay log wording are invented for SEQ. The `Terrain.Patrols` and the `'` glyph are gone (D56). |
+| `testdata/logs/shelved.jsonl`, `owed_login.jsonl`, `direct_second.jsonl`, `duo_warren.jsonl` (and the logs re-recorded) | Recorded by the M8 cleanup scenarios (`scenario/m8_test.go`, `make fixtures`) from seq's in-process test server (seq at 7f0c830, SEQ-055) running seq-world's Thornwick pack (05f6345, WLD-004) and the Testgrounds; every name, id and line in them is the server's own. The scenarios are invented for SEQ. |
+
 ## Exclusions
 
 All content that existed before the reset is excluded: nothing from the tree at tag `pre-reset` (commit `9d04d89`) is carried into this tree. It stays in git history only. Any later salvage (for example the map rasterizer, see `README.md`) must be recorded in the table above, with its source, in the mission that brings it in.

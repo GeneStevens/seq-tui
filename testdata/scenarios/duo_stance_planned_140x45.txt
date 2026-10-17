@@ -16,18 +16,18 @@
 │                                                @                                               ││ bram plans: wait                       │
 │                                                                                                ││ Plan (3/16): accepted                  │
 │                                                +                                               ││  counts even if you disconnect         │
-│                                                                                                ││  1 move (100000,87000)                 │
-│                                                                                                ││  2 target Plain Scuttler               │
+│                                                                                                ││  …2 earlier                            │
 │                                                                                                ││  3 attack on                           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Party, 2nd character ─────────────────┐
 │                                                                                                ││ bram  Lv 1                             │
 │                                                                                                ││ HP 100/100 ########################### │
-│                                                m                                               ││ stance assist                          │
-│                                                                                                ││ waiting for a fight                    │
+│                                                                                                ││ stance assist                          │
+│                                                m                                               ││ waiting for a fight                    │
 │                                                                                                ││ P call or send away   H stance         │
 │                                                                                                ││ Y attack my target    U come here      │
 │                                                                                                ││ J stop    Z drop the order             │
+│                                                                                                ││ X direct it: its screen, your keys     │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns bram (bram) appeared                                                                                                            │

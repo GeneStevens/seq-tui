@@ -6,13 +6,12 @@ import (
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
-// Terrain is the ground of a zone (D53, D55): areas with a kind, and the patrol
-// paths of its mobs and guards. It is read from the zone map the server sent
-// (areas and patrols), never from anywhere else; a zone map with neither gives
-// none, and the map then shows walls, camps and doors only.
+// Terrain is the ground of a zone (D53, D55): areas with a kind. It is read from
+// the zone map the server sent, never from anywhere else; a zone map with no
+// areas gives none, and the map then shows walls, camps and doors only. The
+// paths mobs and guards walk are not told (D56): a client sees them walk.
 type Terrain struct {
-	Areas   []Area
-	Patrols []Patrol
+	Areas []Area
 }
 
 // AreaKind is what an area is.
@@ -84,16 +83,6 @@ func (a *Area) Contains(x, y int64) bool {
 	return in
 }
 
-// Patrol is the path a camp's mobs or a guard walk instead of wandering. Owner
-// is "camp" or "npc" and ID the camp's or the NPC's id. Loop: it goes round and
-// round; else it goes to the end and back.
-type Patrol struct {
-	ID     string
-	Owner  string
-	Loop   bool
-	Points []*pb.Pos
-}
-
 // Ground is what the ground is at a point, by the rules of doc 02 §4a: a
 // building or rock first; then a bridge or ford, then water; a road wins over a
 // forest (a road through a forest is a road); then a forest; then a floor.
@@ -143,20 +132,15 @@ func (t *Terrain) HasFloor() bool {
 	return false
 }
 
-// TerrainOf reads the ground out of a zone map: its areas and patrols. It
-// returns nil for a map with neither.
+// TerrainOf reads the ground out of a zone map: its areas. It returns nil
+// for a map with none.
 func TerrainOf(zm *pb.ZoneMap) *Terrain {
-	if len(zm.GetAreas()) == 0 && len(zm.GetPatrols()) == 0 {
+	if len(zm.GetAreas()) == 0 {
 		return nil
 	}
 	t := &Terrain{}
 	for _, a := range zm.GetAreas() {
 		t.Areas = append(t.Areas, NewArea(a.GetId(), AreaKind(a.GetKind()), a.GetPoly()))
-	}
-	for _, p := range zm.GetPatrols() {
-		if len(p.GetPoints()) > 1 {
-			t.Patrols = append(t.Patrols, Patrol{ID: p.GetId(), Owner: p.GetOwner(), Loop: p.GetLoop(), Points: p.GetPoints()})
-		}
 	}
 	return t
 }

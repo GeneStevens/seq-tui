@@ -41,7 +41,7 @@ func run() error {
 	char := flag.String("character", "me-1", "the character to play")
 	create := flag.Bool("new", false, "make a new character (a name and one of the six classes) and play it")
 	insecure := flag.Bool("insecure", false, "development only: accept a self-signed certificate (loopback addresses only)")
-	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it); SEQ_DUO_AGENT_SECRET, if set, is an agent credential for it, so that in a turn-based instance its plans go as stand-ins")
+	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it by its stance; X directs it from this session); SEQ_DUO_AGENT_SECRET, if set, is an agent credential for it, so that in a turn-based instance its plans go as stand-ins")
 	rec := flag.String("record", "", "write every message the server sends to this file")
 	replay := flag.String("replay", "", "draw this recorded log instead of connecting")
 	text := flag.Bool("text", false, "with -replay: print the model as plain text instead of the screen")

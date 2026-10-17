@@ -4,7 +4,7 @@
 │······          #########  #.                     ││ XP ----------- 40 to Lv 2│
 │······          ####?####  #.                     ││ Atk off | none           │
 │···························#.                     │└──────────────────────────┘
-│·······$·················@··.                     │┌─ Target ─────────────────┐
+│······················$··@··.                     │┌─ Target ─────────────────┐
 │$··························#.                     ││ no target (Tab to choose)│
 │······            #######  #.                     ││                          │
 │······            #######  #.                     ││                          │
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns Thornwick Contract Board is out of view                             │
-│     N.Ns Isolde Fenn is out of view                                          │
-│     N.Ns Captain Rhosyn Hartley (quest_giver) is in view                     │
-│    NN.Ns Odalys Penn is out of view                                          │
+│    NN.Ns an event this client does not know                                  │
+│    NN.Ns an event this client does not know                                  │
+│    NN.Ns an event this client does not know                                  │
+│    NN.Ns an event this client does not know                                  │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago | move ok       ? help

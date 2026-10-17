@@ -72,12 +72,14 @@ type Self struct {
 	Ground            string
 	SpeedPct          int64
 	EffectiveSpeedMmS int64
-	Contracts         []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
-	Companion         *pb.CompanionState // the house companion (SEQ-049); nil before the quest is begun
-	Equipped          []string
-	Bank              []string
-	BindZone          string
-	InventorySize     int64
+	// Owed is the character's unpaid owed pay (D55, D56), paid at its next join.
+	Owed          []*pb.OwedPay
+	Contracts     []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
+	Companion     *pb.CompanionState // the house companion (SEQ-049); nil before the quest is begun
+	Equipped      []string
+	Bank          []string
+	BindZone      string
+	InventorySize int64
 
 	// Class, and the XP the level began at and ends at (XPNext 0: the cap).
 	Class           string
@@ -328,6 +330,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		Ground: self.GetGround(), SpeedPct: self.GetSpeedPct(), EffectiveSpeedMmS: self.GetEffectiveSpeedMmS(),
 		Crowns: self.GetCrowns(), Equipped: slices.Clone(self.GetEquipped()), Bank: slices.Clone(self.GetBank()),
 		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(), Contracts: slices.Clone(self.GetContracts()), Companion: cloneCompanion(self.GetCompanion()),
+		Owed: slices.Clone(self.GetOwed()),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
@@ -366,6 +369,9 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		m.Encounters[en.GetId()] = en
 	}
 	m.last = s.GetSeq()
+	if old.ID != m.Self.ID {
+		m.owedAtLogin()
+	}
 	m.selected = true
 	if old.ID == m.Self.ID && (m.levelPending || m.Self.Level > old.Level) && len(old.Abilities) > 0 {
 		m.levelUp(old)
@@ -430,6 +436,8 @@ func (m *Model) apply(e *pb.Event) {
 		delete(m.Entities, b.EntityLeft.GetId())
 	case *pb.Event_NpcAppeared:
 		m.npcAppeared(b.NpcAppeared.GetNpc())
+	case *pb.Event_NpcMoved:
+		m.npcMoved(b.NpcMoved.GetId(), b.NpcMoved.GetPos())
 	case *pb.Event_NpcLeft:
 		m.npcLeft(b.NpcLeft.GetId())
 	case *pb.Event_Combat:

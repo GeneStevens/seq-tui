@@ -13,14 +13,14 @@
 │           """"""""""""""""""""""                                          ·······   """""""""""││ Word from Wickett Mill           READY │
 │                                                @                          ·······   ###########│└────────────────────────────────────────┘
 │                                                ;                          ·······   ###########│┌─ Nearby ───────────────────────────────┐
-│                                                                           ···G···   ###########││ D town-gate                      42m W │
-│                                                                           ·······   ###########││ D hollow-warren                 355m E │
-│                                          #############  ≈≈≈≈≈≈≈≈≈≈        ······· ##########   ││                                        │
-│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││                                        │
-│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││                                        │
-│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││                                        │
-│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││                                        │
-│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││                                        │
+│                                                                           ···G···   ###########││ ; Wickett Mill       1m S scout marker │
+│                                                                           ·······   ###########││ G Barleycross         25m E event goal │
+│                                          #############  ≈≈≈≈≈≈≈≈≈≈        ······· ##########   ││ D Town Gate                      42m W │
+│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││ ; Millrace Ford    134m E scout marker │
+│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││ ; Goblin Lookout   185m E scout marker │
+│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││ ! Raid Edge         191m E event spawn │
+│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││ ; Hollow Warren    343m E scout marker │
+│                                          #############  ≈≈≈≈≈≈≈≈≈########         ##########   ││ D Hollow Warren                 355m E │
 │                                          #############                                         ││                                        │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns Odalys Penn is out of view                                                                                                      │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
 │    NN.Ns entered Thornwick Downs                                                                                                         │
 │ +  NN.Ns contract Word from Wickett Mill: the marker is reached; return to the board                                                     │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | heard N.Ns ago | move ok                                                                          ? help  q quit

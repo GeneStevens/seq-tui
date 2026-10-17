@@ -136,7 +136,11 @@ func markerWords(m *model.Model, c *pb.ContractInfo) string {
 		return "the marker is in another place"
 	}
 	sp := m.Self.Pos
-	return fmt.Sprintf("the marker is %s %s", metres(dist(p.GetX(), p.GetY(), sp.GetX(), sp.GetY())), bearing(p.GetX()-sp.GetX(), p.GetY()-sp.GetY()))
+	name := "the marker"
+	if n := m.MarkerName(c.GetMarker()); n != c.GetMarker() {
+		name = n
+	}
+	return fmt.Sprintf("%s is %s %s", name, metres(dist(p.GetX(), p.GetY(), sp.GetX(), sp.GetY())), bearing(p.GetX()-sp.GetX(), p.GetY()-sp.GetY()))
 }
 
 func offerRow(o *pb.ContractOffer, w int) string {
@@ -324,7 +328,7 @@ func overviewLines(m *model.Model, w, h int, st Styler) []string {
 	add(" @ you  D door  $ trader  & board  ? talker  % your marker  c camp  r rare  # wall")
 	add(" ; scout marker  ! event spawn  G event goal")
 	if ground {
-		add(" # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor  ' mobs patrol")
+		add(" # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor")
 	}
 	add(" North is up. Only what you have seen is marked. M or Esc closes.")
 	return pad(rows, w, h)

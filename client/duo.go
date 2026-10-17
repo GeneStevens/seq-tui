@@ -38,12 +38,21 @@ type Duo struct {
 	cfg    Config
 	leader string
 
+	// Clock tells the time the stance's pace falls back on when the character's
+	// replica hears nothing and its game time stands still (a quiet space sends no
+	// events); nil is the wall clock. A scenario sets it to its server's clock.
+	Clock func() time.Time
+
 	mu     sync.Mutex
 	sess   *Session
 	stance string
 	order  Order
 	sent   bool // the move order has been sent
-	last   int64
+	// directed: the player gives the character its commands (D56), so the stance
+	// does nothing until it is handed back with a stance or by dropping the order.
+	directed bool
+	last     int64
+	lastAt   time.Time // when the stance last sent anything
 	// In a turn-based instance (D55) the character is played by a plan each
 	// round: the one the stance makes of the replica. own says it goes as the
 	// character's own plan (a human session may not send a stand-in); played is
@@ -97,7 +106,7 @@ func (d *Duo) Summon(ctx context.Context) error {
 	if err := s.Login(ctx); err != nil {
 		return err
 	}
-	d.sess, d.last, d.sent, d.order = s, 0, false, Order{}
+	d.sess, d.last, d.sent, d.order, d.directed = s, 0, false, Order{}, false
 	d.played, d.plan, d.planRound = 0, nil, 0
 	return nil
 }
@@ -138,7 +147,26 @@ func (d *Duo) Stance() string {
 func (d *Duo) SetStance(name string) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
-	d.stance, d.order = name, Order{}
+	d.stance, d.order, d.directed = name, Order{}, false
+}
+
+// Directed says the player is giving the character its commands, so its stance
+// is waiting.
+func (d *Duo) Directed() bool {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+	return d.directed
+}
+
+// SetDirected pauses the stance while the player commands the character, or
+// hands the character back to it.
+func (d *Duo) SetDirected(on bool) {
+	d.mu.Lock()
+	defer d.mu.Unlock()
+	d.directed = on
+	if on {
+		d.order = Order{}
+	}
 }
 
 // Order is the standing order.
@@ -152,7 +180,7 @@ func (d *Duo) Order() Order {
 func (d *Duo) SetOrder(o Order) {
 	d.mu.Lock()
 	defer d.mu.Unlock()
-	d.order, d.sent = o, false
+	d.order, d.sent, d.directed = o, false, false
 }
 
 // Session is the second character's session, nil out of play.
@@ -163,12 +191,19 @@ func (d *Duo) Session() *Session {
 }
 
 // UseDoor sends the second character through the same door as the player, if it
-// is in play. The server decides (it must be within reach of the door); the
+// is in play and in the space (the player's) the door is in. The server decides (it must be within reach of the door); the
 // answer is "" when the door took it, else the reason in words, and "" too when
 // the character is out of play.
-func (d *Duo) UseDoor(ctx context.Context, door string) string {
+func (d *Duo) UseDoor(ctx context.Context, door, space string) string {
 	s := d.Session()
 	if s == nil {
+		return ""
+	}
+	// A character in another space is not at the door the player is at: the
+	// same id there is another door (the entrance of an instance, say).
+	here := ""
+	s.View(func(m *model.Model) { here = m.Space })
+	if here != space {
 		return ""
 	}
 	id, err := s.UseDoor(ctx, door)
@@ -214,9 +249,9 @@ func (d *Duo) Plan() ([]string, uint64) {
 // instance it sends the stance's plan once for each round that opens (D55).
 func (d *Duo) Step(ctx context.Context) {
 	d.mu.Lock()
-	s := d.sess
+	s, directed := d.sess, d.directed
 	d.mu.Unlock()
-	if s == nil {
+	if s == nil || directed {
 		return
 	}
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
@@ -242,10 +277,13 @@ func (d *Duo) Step(ctx context.Context) {
 			}
 			return
 		}
-		if r.GameTimeMs < d.last+duoStepMs && r.GameTimeMs >= d.last {
+		// The game time of a replica moves with what it hears, which is nothing in
+		// a quiet space: a step is then due after the same time on the clock.
+		now := d.now()
+		if r.GameTimeMs < d.last+duoStepMs && r.GameTimeMs >= d.last && now.Sub(d.lastAt) < duoStepMs*time.Millisecond {
 			return
 		}
-		d.last = r.GameTimeMs
+		d.last, d.lastAt = r.GameTimeMs, now
 		ins = d.next(r)
 	})
 	if round > 0 {
@@ -263,6 +301,13 @@ func (d *Duo) Step(ctx context.Context) {
 			return
 		}
 	}
+}
+
+func (d *Duo) now() time.Time {
+	if d.Clock != nil {
+		return d.Clock()
+	}
+	return time.Now()
 }
 
 // next is what the character does now; the caller holds d.mu.

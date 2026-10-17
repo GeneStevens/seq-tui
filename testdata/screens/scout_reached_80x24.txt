@@ -16,7 +16,7 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    17.4s Odalys Penn is out of view                                          │
+│    22.4s an event this client does not know                                  │
 │    22.6s entered Thornwick Downs                                             │
 │ +  40.3s contract Word from Wickett Mill: the marker is reached; return to   │
 │            the board                                                         │

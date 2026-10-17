@@ -1,0 +1,24 @@
+┌─ Talking ────────────────────────────────────────────────────────────────────┐
+│ Captain Rhosyn Hartley, 1m NE of you                                         │
+│                                                                              │
+│ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are    │
+│ another matter.”                                                             │
+│ “Wolves and bandits on the near roads, goblins farther out. Go carefully     │
+│ until you are seasoned.”                                                     │
+│ “There is a larger task for those the Watch can trust. Prove yourself first, │
+│ and come and see me.”                                                        │
+│ “Show me what you can do out in the Downs and I will give you a recruit of   │
+│ the Watch to fight beside you.”                                              │
+│ “Once the Watch has vouched for you, tell me what the recruit should be: a   │
+│ shield, a medic, a blade or a spellcaster. You may change your mind here     │
+│ whenever you like.”                                                          │
+│                                                                              │
+│ What they can do for you:                                                    │
+│ > 1  Take a contract                                                         │
+│   2  Turn in a contract                                                      │
+│                                                                              │
+│                                                                              │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.   │
+│ The answer is on the status line; every refusal says why.                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick | heard N.Ns ago | talk to Captain Rhosyn Hartley ok  ? help

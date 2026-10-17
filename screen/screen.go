@@ -7,6 +7,7 @@ package screen
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 	"time"
 
@@ -81,6 +82,11 @@ type View struct {
 	Role      *Role
 	Duo       *DuoView
 	KeysToDuo bool
+
+	// Directing is the name of the second character while the keys and the
+	// screen are its (D56): the screen is then its own, and the status line says
+	// whom the player is directing.
+	Directing string
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -99,7 +105,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	case v.Create != nil:
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Help:
-		rows = append(rows, box("Keys", w, th+lh, helpLines(w-2, th+lh-2, st), st)...)
+		rows = append(rows, box("Keys", w, th+lh, helpLines(m, v, w-2, th+lh-2, st), st)...)
 	case v.Slots != nil:
 		rows = append(rows, box("Ability slots", w, th+lh, slotScreenLines(m, v, w-2, th+lh-2, st), st)...)
 	case v.Inventory != nil:
@@ -198,7 +204,23 @@ func box(title string, w, h int, inner []string, st Styler) []string {
 	return append(rows, st.Dim("└"+strings.Repeat("─", w-2)+"┘"))
 }
 
-func helpLines(w, h int, st Styler) []string {
+func helpLines(m *model.Model, v View, w, h int, st Styler) []string {
+	keys := helpKeys(m, v)
+	rows := make([]string, h)
+	for i := range rows {
+		s := ""
+		if i < len(keys) {
+			s = keys[i]
+		}
+		rows[i] = fit(" "+s, w)
+	}
+	return rows
+}
+
+// helpKeys are the lines of the key help. The companion keys are listed only
+// for a character that has a house companion (shelved by default, D56), the
+// second character's only for a client that has one.
+func helpKeys(m *model.Model, v View) []string {
 	keys := []string{
 		"Move             arrow keys or W A S D",
 		"Target, attack   Tab cycles the target (Esc clears); F or Space: auto-attack on / off",
@@ -208,10 +230,8 @@ func helpLines(w, h int, st Styler) []string {
 		"Instances        I: this zone's menu (Enter opens one); then E at its door",
 		"Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank",
 		"Trade            T: ask a character in reach; each side offers, then confirms",
-		"People           G: talk to the nearest; options open a trader, board or role",
+		"People           G: talk to the nearest; options open a trader or a board",
 		"Contracts        K: those you hold (X gives up); the board takes, hands in",
-		"Companion        P call/send away  H stance  Y attack my target  U come here",
-		"                 J stop  Z drop the order  . the other helper (a second one)",
 		"Plans            turn-based: keys build a plan, one move or door, one ability",
 		"                 or attack. Enter submits, Backspace drops a step, Esc clears",
 		"Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log",
@@ -224,15 +244,22 @@ func helpLines(w, h int, st Styler) []string {
 		"Event log markers:  ! denied (with the reason) or a cast that did not land",
 		"                    < hit on you  x kill  + reward or level  * world event",
 	}
-	rows := make([]string, h)
-	for i := range rows {
-		s := ""
-		if i < len(keys) {
-			s = keys[i]
-		}
-		rows[i] = fit(" "+s, w)
+	var helper []string
+	if m.Companion() != nil {
+		helper = append(helper,
+			"Companion        P call/send away  H stance  Y attack my target  U come here",
+			"                 J stop  Z drop the order  . the other helper (a second one)")
 	}
-	return rows
+	if v.Duo != nil || v.Directing != "" {
+		helper = append(helper,
+			"Second character P brings it in or out  H its stance  Y attack my target  U come here",
+			"                 J stop  Z back to its stance  X: direct it (its screen, its keys), X again: back")
+	}
+	if len(helper) > 0 {
+		at := slices.Index(keys, "Plans            turn-based: keys build a plan, one move or door, one ability")
+		keys = slices.Insert(keys, at, helper...)
+	}
+	return keys
 }
 
 func statusLine(m *model.Model, v View, w int, st Styler) string {
@@ -258,7 +285,11 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	// Ground changes how fast the character walks (D53): the line says what the
 	// server says of its speed (D55), and keeps saying so when it is short.
 	ground := m.SpeedWords()
-	for _, parts := range [][]string{{string(v.Conn), space, ground, heard, note}, {string(v.Conn), ground, heard, note}, {string(v.Conn), ground, note}, {string(v.Conn), heard, note}, {string(v.Conn), note}} {
+	conn := string(v.Conn)
+	if v.Directing != "" {
+		conn += " | directing " + v.Directing
+	}
+	for _, parts := range [][]string{{conn, space, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}} {
 		var kept []string
 		for _, p := range parts {
 			if p != "" {
@@ -275,5 +306,5 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 			}
 		}
 	}
-	return st.Reverse(fit(" "+string(v.Conn)+" | "+note, w))
+	return st.Reverse(fit(" "+conn+" | "+note, w))
 }

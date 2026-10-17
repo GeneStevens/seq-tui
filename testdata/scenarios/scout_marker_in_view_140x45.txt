@@ -13,14 +13,14 @@
 │                                         .······················································││ Word from Wickett Mill              go │
 │                                         .······@···············································│└────────────────────────────────────────┘
 │                                         .······················································│┌─ Nearby ───────────────────────────────┐
-│                                         .······················································││ D town-gate                    0m here │
-│                                         .··················                                    ││ % wickett-mill      42m E scout marker │
-│                                         .                                                      ││ D hollow-warren                 394m E │
-│                                         .                                                      ││                                        │
-│                                         .                                                      ││                                        │
-│                                         .                """"""""""""""""""""""                ││                                        │
-│                                         .                """"""""""""""""""""""                ││                                        │
-│                                         .                                                      ││                                        │
+│                                         .······················································││ D Town Gate                    0m here │
+│                                         .··················                                    ││ % Wickett Mill      42m E scout marker │
+│                                         .                                                      ││ G Barleycross         67m E event goal │
+│                                         .                                                      ││ ; Millrace Ford    168m E scout marker │
+│                                         .                                                      ││ ; Goblin Lookout   224m E scout marker │
+│                                         .                """"""""""""""""""""""                ││ ! Raid Edge         229m E event spawn │
+│                                         .                """"""""""""""""""""""                ││ ; Hollow Warren    382m E scout marker │
+│                                         .                                                      ││ D Hollow Warren                 394m E │
 │                                         .                                                     %││                                        │
 │                                         .                                                      ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   N.Ns you took the contract Word from Wickett Mill                                                                                    │
-│     N.Ns Town Guard (guard) is in view                                                                                                   │
-│     N.Ns Barnaby Tuck is out of view                                                                                                     │
-│     N.Ns Odalys Penn (banker) is in view                                                                                                 │
-│     N.Ns Thornwick Contract Board is out of view                                                                                         │
-│     N.Ns Isolde Fenn is out of view                                                                                                      │
-│    NN.Ns Captain Rhosyn Hartley (quest_giver) is in view                                                                                 │
-│    NN.Ns Odalys Penn is out of view                                                                                                      │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
+│    NN.Ns an event this client does not know                                                                                              │
 │    NN.Ns entered Thornwick Downs                                                                                                         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok                                                 ? help  q quit

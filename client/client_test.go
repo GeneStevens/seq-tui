@@ -207,6 +207,42 @@ func TestLoginAndEveryIntent(t *testing.T) {
 	}
 }
 
+// A command sent with Directing is one for another character of the account
+// (D56): the intent names it, and the answer comes back to this session.
+func TestDirectedIntentsNameTheirCharacter(t *testing.T) {
+	srv := newServer(t)
+	s := newSession(srv, nil)
+	f := login(t, srv, s)
+	c := ctx(t)
+	for _, k := range []struct {
+		send func(context.Context) (string, error)
+		ok   func(*pb.Intent) bool
+	}{
+		{func(c context.Context) (string, error) { return s.Move(c, 5000, 6000) }, func(i *pb.Intent) bool { return i.GetMove().GetDestination().GetY() == 6000 }},
+		{func(c context.Context) (string, error) { return s.UseAbility(c, 2, "mob-1") }, func(i *pb.Intent) bool { return i.GetUseAbility().GetSlot() == 2 }},
+		{func(c context.Context) (string, error) { return s.SubmitPlan(c, agentkit.StepStop()) }, func(i *pb.Intent) bool { return len(i.GetTurnSubmit().GetSteps()) == 1 }},
+	} {
+		id, err := k.send(client.Directing(c, "me-2"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got := f.next(t).GetIntent(); got.GetIntentId() != id || got.GetCharacter() != "me-2" || !k.ok(got) {
+			t.Errorf("directed intent %v for id %s", got, id)
+		}
+		f.say(&pb.IntentResult{IntentId: id, Accepted: true})
+		if st, err := s.Result(c, id); err != nil || st.State != model.IntentAccepted {
+			t.Errorf("the answer to a directed intent: %+v %v", st, err)
+		}
+	}
+	id, err := s.Stop(c) // an ordinary command is the session's own character's
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := f.next(t).GetIntent(); got.GetIntentId() != id || got.GetCharacter() != "" {
+		t.Errorf("an ordinary intent names %q", got.GetCharacter())
+	}
+}
+
 func TestSelectRefused(t *testing.T) {
 	srv := newServer(t)
 	s := newSession(srv, nil)

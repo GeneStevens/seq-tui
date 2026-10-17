@@ -32,6 +32,7 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
+	"github.com/GeneStevens/seq/agentkit"
 	"github.com/GeneStevens/seq/core"
 	"github.com/GeneStevens/seq/server"
 	"github.com/GeneStevens/seq/testserver"
@@ -286,6 +287,7 @@ func (p *Player) start() {
 			dc.Agent = p.w.Srv.AgentSecret(p.Account, p.second)
 		}
 		p.duo = client.NewDuo(dc, p.Character)
+		p.duo.Clock = p.w.Now
 		a.SetDuo(p.duo)
 	}
 	a.Clock = p.w.Now
@@ -637,3 +639,6 @@ func (p *Player) Plan() []string {
 	p.probe(func(a *app.App) { lines = a.PlanLines() })
 	return lines
 }
+
+// DuoReplica runs f on the toolkit's replica of the second character.
+func (p *Player) DuoReplica(f func(*agentkit.Replica)) { p.duo.Session().Replica(f) }

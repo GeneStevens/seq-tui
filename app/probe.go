@@ -33,6 +33,6 @@ func (a *App) Online() bool { return a.view.Conn == screen.ConnOnline && !a.retr
 // PlanLines is the plan being built, one line a step, as the Round panel lists it.
 func (a *App) PlanLines() []string {
 	var lines []string
-	a.sess.View(func(m *model.Model) { lines = a.draft.Lines(m) })
+	a.focusSess().View(func(m *model.Model) { lines = a.draft.Lines(m) })
 	return lines
 }

@@ -45,6 +45,9 @@ type App struct {
 	role     *screen.Role // the choice of the recruit's role, nil when closed
 	duo      *client.Duo  // the second character on a stance, nil when there is none
 	toDuo    bool         // the helper keys talk to it, not to the house companion
+	focus    bool         // directing the second character: the keys and the screen are its (D56)
+	focusCmd bool         // a command went to it since the focus changed
+	draftAlt Draft        // the other character's plan while its focus is away
 	overview bool         // the whole-zone map
 	gameAt   time.Time    // when the model's game time last moved
 	gameMs   int64
@@ -216,7 +219,8 @@ func (a *App) sync(m *model.Model) {
 
 func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	var act Action
-	a.sess.View(func(m *model.Model) {
+	a.checkFocus()
+	a.focusSess().View(func(m *model.Model) {
 		a.sync(m)
 		switch {
 		case a.create != nil:
@@ -246,6 +250,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.tradeKey(k, m)
 		case a.menu != nil:
 			act = a.menuKey(k, m)
+		case k == "x":
+			act = a.focusAction()
 		case helperKey(k):
 			act = a.helperAction(k, m)
 		case m.TurnBased():
@@ -285,6 +291,13 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.sess.View(func(m *model.Model) {
 			a.role.Sel = max(slices.Index(agentkit.CompanionRoles, m.Companion().GetRole()), 0)
 		})
+	case Focus:
+		a.setFocus(!a.focus)
+		if a.focus {
+			a.view.Notice = "directing " + a.duoName() + ": X back, Z its stance"
+		} else {
+			a.view.Notice = "you are back on your own character"
+		}
 	case DuoSummon, DuoDismiss, DuoStance, DuoOrder:
 		cmd, note := a.duoDo(act)
 		a.view.Notice = note
@@ -312,7 +325,18 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.create.Busy, a.create.Err = true, ""
 		a.inflight++
 		return a, a.createCmd(act.Note, act.ID)
+	case Logout:
+		if a.focus {
+			a.view.Notice = "X gives you back to yourself first: O logs yourself out"
+			return a, nil
+		}
+		a.inflight++
+		return a, a.send(act)
 	default:
+		if a.focus {
+			act.For, a.focusCmd = a.duo.Character(), true
+			a.duo.SetDirected(true)
+		}
 		if act.Kind == PlanSubmit {
 			act.Round, act.Ver, act.Steps = a.draft.Round, a.draft.Ver, a.draft.Agent()
 		}
@@ -357,6 +381,9 @@ func (a *App) send(act Action) tea.Cmd {
 	return func() tea.Msg {
 		ctx, cancel := context.WithTimeout(context.Background(), commandTimeout)
 		defer cancel()
+		if act.For != "" {
+			ctx = client.Directing(ctx, act.For)
+		}
 		var (
 			id    string
 			err   error
@@ -379,9 +406,11 @@ func (a *App) send(act Action) tea.Cmd {
 		case UseDoor:
 			what = "use door"
 			id, err = a.sess.UseDoor(ctx, act.ID)
-			if err == nil && a.duo != nil {
+			if err == nil && a.duo != nil && act.For == "" {
 				// The second character takes the same door; the server decides.
-				if why := a.duo.UseDoor(ctx, act.ID); why != "" {
+				space := ""
+				a.sess.View(func(m *model.Model) { space = m.Space })
+				if why := a.duo.UseDoor(ctx, act.ID, space); why != "" {
 					extra = "; second character: " + why
 				}
 			}
@@ -454,8 +483,12 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
 	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
 	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
-	if a.duo != nil {
-		v.Duo = &screen.DuoView{ID: a.duo.Character(), Active: a.duo.Active(), Stance: a.duo.Stance(), Order: a.duo.Order().Kind}
+	a.checkFocus()
+	if a.focus {
+		v.Directing = a.duoName()
+	}
+	if a.duo != nil && !a.focus {
+		v.Duo = &screen.DuoView{ID: a.duo.Character(), Active: a.duo.Active(), Stance: a.duo.Stance(), Order: a.duo.Order().Kind, Directed: a.duo.Directed()}
 		v.Duo.Plan, v.Duo.PlanRound = a.duo.Plan()
 		if s := a.duo.Session(); s != nil {
 			s.View(func(dm *model.Model) {
@@ -464,7 +497,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 			})
 		}
 	}
-	a.sess.View(func(m *model.Model) {
+	a.focusSess().View(func(m *model.Model) {
 		a.sync(m)
 		v.KeysToDuo = a.keysToDuo(m)
 		if !a.gameAt.IsZero() && a.gameMs == m.GameTimeMs && a.Clock == nil && !m.TurnBased() { // between events the game time runs on
