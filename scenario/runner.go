@@ -741,12 +741,18 @@ func (p *Player) Screen(w, h int) string {
 
 var age = regexp.MustCompile(`\d+\.\ds`)
 
+// connectStamp is the time of a server log's connect line. The server stamps it
+// when the session starts, which can be before or after the first 100 ms tick
+// of the pump, so its fraction of a second differs between two runs.
+var connectStamp = regexp.MustCompile(`(\d\d:\d\d:\d\d\.)\d{3}(  connect:)`)
+
 // maskAges replaces the digits of every age in the screen ("24.1s", the event
 // log's) with N, keeping its width. An age is a difference of game times, and
 // the server's pump used to add a tick of 100 ms to one between two runs; the
 // clock is the scenario's now, but an age is still not what a golden screen is
 // about.
 func maskAges(s string) string {
+	s = connectStamp.ReplaceAllString(s, "${1}NNN${2}")
 	return age.ReplaceAllStringFunc(s, func(a string) string {
 		return strings.Map(func(r rune) rune {
 			if r >= '0' && r <= '9' {

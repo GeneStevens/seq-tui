@@ -1,6 +1,6 @@
 ┌─ Sessions: the server's log ─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ tui-ann-1: the server's log, 7 lines (UTC)                                                                                               │
-│ 2025-01-01 00:00:00.000  connect: aria in testgrounds (client agentkit)                                                                  │
+│ 2025-01-01 00:00:00.NNN  connect: aria in testgrounds (client agentkit)                                                                  │
 │ 2025-01-01 00:00:00.100  intent tui-1: move {"move":{"destination":{"x":"13000","y":"50000"}}}                                           │
 │ 2025-01-01 00:00:00.200  result attend-1-ann-here: accepted                                                                              │
 │ 2025-01-01 00:00:00.200  result tui-1: accepted                                                                                          │
