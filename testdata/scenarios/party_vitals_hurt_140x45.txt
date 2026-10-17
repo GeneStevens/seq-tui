@@ -1,0 +1,45 @@
+┌─ Testgrounds, at 20,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                   .                                                         #                  ││ bob1  Lv 1  XP 0             | 0 crowns│
+│                   .                                                         #                  ││ HP 100/100 ########################### │
+│                   .                                                         #                  ││ Target: none                           │
+│                   .                                                         #                  ││ Auto-attack: off                       │
+│                   .                                                         #                  │└────────────────────────────────────────┘
+│                   .                                                         #                  │┌─ Party, led by ann1 ───────────────────┐
+│                   .                $  $  $  $  $  $                         #                  ││ *ann1  Lv 1  Testgrounds               │
+│                   .                                                         #                  ││   HP 98/100 #######-                   │
+│                   .                                                         #                  │└────────────────────────────────────────┘
+│                   .                $  $  $  &  ?                            #                  │┌─ Quest ────────────────────────────────┐
+│                   .                               ?                         #                  ││ [ ] 1. Scout the Lookout               │
+│                   .                                                         #                  ││ Testgrounds Recruiter has work for you:│
+│                   .                                                         #                  ││ G.                                     │
+│                   .                                                         #                  │└────────────────────────────────────────┘
+│                   .                            @                            #                  │┌─ Target ───────────────────────────────┐
+│                   .                            p  m   c                     #                  ││ no target (Tab to choose)              │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  ││                                        │
+│                   .                                                         #                  │└────────────────────────────────────────┘
+│                   .                                                         #                  │┌─ Nearby ───────────────────────────────┐
+│                   .                                                         #                  ││ p ann1                     1m S 98/100 │
+│                   .                                                         #                  ││ m Plain Scuttler            2m E 40/40 │
+│                   .                                                         #                  ││ ? Testgrounds Recrui… 6m N quest_giver │
+│                   .                                                         #                  ││ ? Testgrounds Captain 8m N quest_giver │
+│                   .                                                         #                  ││ & Testgrounds Con… 8m N contract_board │
+│                   .                                                         #                  ││ $ Testgrounds Binder      9m NW binder │
+│                   .                                                         #                  ││ $ Testgrounds Banker     10m NW banker │
+│                   .                                                         #                  ││ $ Testgrounds Vendor     11m NW vendor │
+│                   .                                                         #                  ││ +8 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns ann1 invites you to a party                                                                                                     │
+│     N.Ns Plain Scuttler began attacking ann1                                                                                             │
+│     N.Ns Plain Scuttler missed ann1                                                                                                      │
+│     N.Ns Plain Scuttler hit ann1 for 2                                                                                                   │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago | accepted the invitation                                                              ? help  q quit

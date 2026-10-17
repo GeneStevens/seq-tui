@@ -290,7 +290,7 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 		if over := len(m.Errors) - errorsCap; over > 0 {
 			m.Errors = slices.Clone(m.Errors[over:])
 		}
-	case *pb.ServerMessage_Chat, *pb.ServerMessage_Party, *pb.ServerMessage_Notice, *pb.ServerMessage_Who, *pb.ServerMessage_Friends:
+	case *pb.ServerMessage_Chat, *pb.ServerMessage_Party, *pb.ServerMessage_PartyVitals, *pb.ServerMessage_Notice, *pb.ServerMessage_Who, *pb.ServerMessage_Friends:
 		m.applySocial(msg)
 	case *pb.ServerMessage_Pong:
 		// nothing to show

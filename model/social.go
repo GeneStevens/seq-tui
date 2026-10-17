@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
+	"google.golang.org/protobuf/proto"
 )
 
 // Playing together (M9, D58): chat, the party, who is online and friends. None of
@@ -82,6 +83,8 @@ func (m *Model) applySocial(msg *pb.ServerMessage) {
 		if b.Party.GetId() != "" {
 			s.Invite = nil
 		}
+	case *pb.ServerMessage_PartyVitals:
+		s.Party = withVitals(s.Party, b.PartyVitals)
 	case *pb.ServerMessage_Notice:
 		m.applyNotice(b.Notice)
 	case *pb.ServerMessage_Who:
@@ -94,6 +97,35 @@ func (m *Model) applySocial(msg *pb.ServerMessage) {
 	case *pb.ServerMessage_Friends:
 		s.Friends, s.HasFriends = b.Friends.GetFriends(), true
 	}
+}
+
+// withVitals is the party with one member's changed fields applied (D60): only
+// the fields the message carries, the rest as they were. The party is copied, so
+// a Party already handed out stays as it was; a member or party not known yet is
+// ignored, the whole state follows on its first sighting.
+func withVitals(p *pb.PartyState, v *pb.PartyVitals) *pb.PartyState {
+	if p == nil {
+		return p
+	}
+	next := proto.Clone(p).(*pb.PartyState)
+	for _, mi := range next.GetMembers() {
+		if Key(mi.GetName()) != Key(v.GetName()) {
+			continue
+		}
+		if v.Hp != nil {
+			mi.Hp = v.GetHp()
+		}
+		if v.MaxHp != nil {
+			mi.MaxHp = v.GetMaxHp()
+		}
+		if v.Mana != nil {
+			mi.Mana = v.GetMana()
+		}
+		if v.MaxMana != nil {
+			mi.MaxMana = v.GetMaxMana()
+		}
+	}
+	return next
 }
 
 func (m *Model) applyNotice(n *pb.SocialNotice) {

@@ -205,7 +205,7 @@ func TestPartiesAcrossAccounts(t *testing.T) {
 			t.Fatalf("ann leads? %v", m.Social.Party)
 		}
 	})
-	w.Advance(time.Second) // the space tells the party's vitals on its pulse
+	w.Advance(100 * time.Millisecond) // the space tells the whole party state on first sight, in its next tick (D60)
 	bob.Eventually("ann's vitals in the party state", func(m *model.Model) bool { return mate(m, "ann1") })
 	bob.Model(func(m *model.Model) {
 		if m.IsLeader() {
@@ -479,7 +479,7 @@ func TestTwoAccountsClearAWarrenRoomTogether(t *testing.T) {
 	}
 	// Each has the other in view for the screens (the server tells a mover's
 	// appearance and departure as it walks, and the walk is over).
-	advanceUntil(t, w, ann, "bram in hale's view", time.Second, 12, func(m *model.Model) bool { return mate(m, "bram") })
+	advanceUntil(t, w, ann, "bram in hale's view", 100*time.Millisecond, 12, func(m *model.Model) bool { return mate(m, "bram") })
 	ann.Golden("warren_pair_room_cleared")
 
 	// Out again, together; the party chat still reaches both.
