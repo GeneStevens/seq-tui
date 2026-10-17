@@ -472,3 +472,22 @@ func TestDropsYouMayNotTakeAreMarked(t *testing.T) {
 		}
 	}
 }
+
+// The Round panel's title fits the panel at 80 columns, whatever the round ran
+// by: it is not cut with an ellipsis.
+func TestRoundTitleFitsAt80Columns(t *testing.T) {
+	seen := 0
+	for _, c := range screen.Cases {
+		for _, l := range strings.Split(c.Draw(replay(t, c), 80, 24), "\n") {
+			if strings.Contains(l, "┌─ Round") {
+				seen++
+				if strings.Contains(l, "…") {
+					t.Errorf("%s: the Round title is cut: %q", c.Name, l)
+				}
+			}
+		}
+	}
+	if seen == 0 {
+		t.Fatal("no case shows a Round panel")
+	}
+}

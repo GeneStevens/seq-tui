@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│            to fight beside you. Once the Watch has vouched for you, tell me  │
-│            what the recruit should be: a shield, a medic, a blade or a       │
-│            spellcaster. You may change your mind here whenever you like.     │
+│            bandits on the near roads, goblins farther out. Go carefully until│
+│            you are seasoned. There is a larger task for those the Watch can  │
+│            trust. Prove yourself first, and come and see me.                 │
 │     1.5s your recruit is now a melee                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick | heard 0.4s ago                              ? help  q quit

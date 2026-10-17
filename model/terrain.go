@@ -118,6 +118,24 @@ func kindRank(k AreaKind) int {
 	return -1
 }
 
+// Within is the terrain of the areas that reach the box (millimetres, corners in
+// any order): what is asked about points inside the box is answered the same, from
+// fewer areas.
+func (t *Terrain) Within(x0, y0, x1, y1 int64) *Terrain {
+	if t == nil {
+		return nil
+	}
+	x0, x1 = min(x0, x1), max(x0, x1)
+	y0, y1 = min(y0, y1), max(y0, y1)
+	out := &Terrain{}
+	for _, a := range t.Areas {
+		if a.maxX >= x0 && a.minX <= x1 && a.maxY >= y0 && a.minY <= y1 {
+			out.Areas = append(out.Areas, a)
+		}
+	}
+	return out
+}
+
 // HasFloor says the zone is a dungeon: it has floor, which is then the only
 // walkable ground.
 func (t *Terrain) HasFloor() bool {

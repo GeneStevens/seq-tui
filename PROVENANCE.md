@@ -31,6 +31,9 @@ This file lists each content item in `seq-tui` and its source (for example "inve
 | `scenario/m8_test.go`, `app/focus.go`, `model/contracts.go` (`MarkerName`, `npcMoved`, `owedAtLogin`) | Written for SEQ, 2026-10-17 (TUI-017). The key `X`, the status line's `directing <name>`, the Round panel's `<name>'s plan` and the owed-pay log wording are invented for SEQ. The `Terrain.Patrols` and the `'` glyph are gone (D56). |
 | `testdata/logs/shelved.jsonl`, `owed_login.jsonl`, `direct_second.jsonl`, `duo_warren.jsonl` (and the logs re-recorded) | Recorded by the M8 cleanup scenarios (`scenario/m8_test.go`, `make fixtures`) from seq's in-process test server (seq at 7f0c830, SEQ-055) running seq-world's Thornwick pack (05f6345, WLD-004) and the Testgrounds; every name, id and line in them is the server's own. The scenarios are invented for SEQ. |
 
+| `scenario/m9_polish_test.go`, `testdata/scenarios/warren_full_*.txt`, `testdata/scenarios/directed_online_*.txt` | Written for SEQ, 2026-10-17 (TUI-019). The scenarios run seq's in-process test server on seq-world's Thornwick pack (seq at 5b7a246, SEQ-057; seq-world at 290f275, WLD-006); every name, id and line on the screens is the server's own. The scenarios are invented for SEQ. |
+| `testdata/logs/*.jsonl`, `testdata/screens/*.txt`, `testdata/scenarios/*.txt` (regenerated) | Re-recorded by the scenarios (`make fixtures golden`, 2026-10-17, TUI-019) on seq at 5b7a246 and seq-world at 290f275; every name, id and line in them is the server's own. |
+
 ## Exclusions
 
 All content that existed before the reset is excluded: nothing from the tree at tag `pre-reset` (commit `9d04d89`) is carried into this tree. It stays in git history only. Any later salvage (for example the map rasterizer, see `README.md`) must be recorded in the table above, with its source, in the mission that brings it in.

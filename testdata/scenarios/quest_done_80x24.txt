@@ -16,7 +16,7 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│            spellcaster. You may change your mind here whenever you like.     │
+│            trust. Prove yourself first, and come and see me.                 │
 │     N.Ns your quest is done: choose your recruit's role at the Watch Captain │
 │ +   N.Ns you handed in Break the Raiding Party to Captain Rhosyn Hartley and │
 │            got 100 XP and 40 crowns                                          │

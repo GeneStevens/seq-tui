@@ -368,14 +368,16 @@ func playWords(source string) string {
 	return source
 }
 
+// ranBy is why a round ran, in few enough words for the Round panel's title,
+// which has 22 columns at 80 wide.
 func ranBy(reason string) string {
 	switch reason {
 	case "all_submitted":
-		return "all submitted"
+		return "all in"
 	case "deadline":
 		return "deadline"
 	case "instance_ended":
-		return "instance ended"
+		return "ended"
 	}
 	return reason
 }

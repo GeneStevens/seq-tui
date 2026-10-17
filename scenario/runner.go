@@ -21,6 +21,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strings"
 	"sync"
 	"testing"
@@ -78,6 +79,10 @@ type World struct {
 	began   time.Time
 	players []*Player
 	rec     *record.Writer
+	// stepped: the scenario is held to MaxScenario a step (see Step), not as a
+	// whole.
+	stepped bool
+	stepAt  time.Time
 }
 
 // New starts a server for the scenario t and holds the scenario to MaxScenario.
@@ -98,12 +103,35 @@ func newOn(t *testing.T, srv *testserver.Server) *World {
 		}
 		took := time.Since(w.began)
 		t.Logf("scenario %s: %v", t.Name(), took.Round(time.Millisecond))
+		if w.stepped {
+			return // every step was held to the limit as it ended
+		}
 		note(t.Name(), took)
 		if msg := TooSlow("scenario "+t.Name(), took, MaxScenario); msg != "" {
 			t.Error(msg)
 		}
 	})
 	return w
+}
+
+// Step runs one step of a scenario that is too long for MaxScenario as a whole
+// (a delve cleared from end to end): the steps are held to the limit one by one,
+// the first from the start of the scenario, each of the others from the end of the
+// one before, and the suite is still held to MaxSuite. A scenario of one piece
+// stays under MaxScenario in all.
+func (w *World) Step(name string, f func()) {
+	w.T.Helper()
+	if !w.stepped {
+		w.stepped, w.stepAt = true, w.began
+	}
+	f()
+	took := time.Since(w.stepAt)
+	w.stepAt = time.Now()
+	w.T.Logf("scenario %s, step %s: %v", w.T.Name(), name, took.Round(time.Millisecond))
+	note(w.T.Name()+" "+name, took)
+	if msg := TooSlow("scenario "+w.T.Name()+", step "+name, took, MaxScenario); msg != "" {
+		w.T.Error(msg)
+	}
 }
 
 // The zones of seq-world's Thornwick pack (D54), by id. The scenarios load
@@ -361,6 +389,27 @@ func (p *Player) Press(keys ...string) {
 	}
 }
 
+// LogOut presses O, the logout key, and waits for the program to end, as it
+// does once the server has let the character go. The player is then done and
+// leaves the world: the scenario goes on with the others.
+func (p *Player) LogOut() {
+	p.w.T.Helper()
+	if _, err := io.WriteString(p.in, "o"); err != nil {
+		p.w.T.Fatalf("%s: pressing the logout key: %v", p.Character, err)
+	}
+	select {
+	case <-p.done:
+	case <-time.After(5 * time.Second):
+		p.w.T.Fatalf("%s: the program did not end after the logout key", p.Character)
+	}
+	loggedOut := p.Sess.LoggedOut()
+	p.stop()
+	p.w.players = slices.DeleteFunc(p.w.players, func(q *Player) bool { return q == p })
+	if !loggedOut {
+		p.w.T.Fatalf("%s: the session does not say it is logged out", p.Character)
+	}
+}
+
 // probe runs f inside the program's loop.
 func (p *Player) probe(f func(*app.App)) {
 	d := make(chan struct{})
@@ -381,11 +430,28 @@ func (p *Player) Sync() {
 	p.idle()
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
+	// A pong comes from the session's actor and can overtake an event still on its
+	// way from a space; the server is made idle first, so that what it sent is on
+	// the socket ahead of the pong, and the player has all of it when this returns
+	// (and what a scenario decides on what it sees does not depend on luck).
+	p.w.Srv.Idle()
+	p.ping(ctx)
+	if p.duo != nil && p.duo.Session() != nil {
+		p.driveDuo(ctx)
+		p.w.Srv.Idle()
+		p.ping(ctx)
+	}
+}
+
+// ping returns when the server has answered this player's ping and the player
+// has taken in everything the server sent before the answer.
+func (p *Player) ping(ctx context.Context) {
+	t := p.w.T
+	t.Helper()
 	if err := p.Sess.Ping(ctx); err != nil {
 		t.Fatalf("%s: waiting for the server: %v", p.Character, err)
 	}
 	p.idle()
-	p.driveDuo(ctx)
 }
 
 // driveDuo lets the second character's stance see what the server has sent and
@@ -394,13 +460,7 @@ func (p *Player) Sync() {
 func (p *Player) driveDuo(ctx context.Context) {
 	t := p.w.T
 	t.Helper()
-	if p.duo == nil {
-		return
-	}
 	s := p.duo.Session()
-	if s == nil {
-		return
-	}
 	if err := s.Ping(ctx); err != nil {
 		t.Fatalf("%s: waiting for the server: %v", p.second, err)
 	}

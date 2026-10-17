@@ -26,38 +26,37 @@ const (
 type App struct {
 	sess *client.Session
 
-	w, h      int
-	view      screen.View
-	watch     <-chan struct{}
-	lastTick  time.Time
-	lastN     uint64
-	retrying  bool
-	pings     int
-	menu      *screen.Menu   // the instance menu, nil when closed
-	slots     *screen.Slots  // the slot screen, nil when closed
-	create    *screen.Create // character creation, nil once a character is chosen
-	inv       *screen.Inventory
-	traders   *screen.Traders
-	trade     *screen.TradeUI
-	talk      *screen.Talk // the conversation, nil when closed
-	board     *screen.Board
-	cons      *screen.ContractsUI
-	role      *screen.Role     // the choice of the recruit's role, nil when closed
-	duo       *client.Duo      // the second character on a stance, nil when there is none
-	toDuo     bool             // the helper keys talk to it, not to the house companion
-	focus     bool             // directing the second character: the keys and the screen are its (D56)
-	focusCmd  bool             // a command went to it since the focus changed
-	draftAlt  Draft            // the other character's plan while its focus is away
-	overview  bool             // the whole-zone map
-	line      *screen.Line     // the command line, nil when closed
-	soc       *screen.SocialUI // the Social screen, nil when closed
-	inviteN   int              // the invitation the prompt is for, and when it came
-	inviteAt  time.Time
-	partySeen int       // the party states seen, as of the last time members were asked after
-	gameAt    time.Time // when the model's game time last moved
-	gameMs    int64
-	draft     Draft // the plan being built in a turn-based instance
-	Err       error // why the program ended, if it ended badly
+	w, h     int
+	view     screen.View
+	watch    <-chan struct{}
+	lastTick time.Time
+	lastN    uint64
+	retrying bool
+	pings    int
+	menu     *screen.Menu   // the instance menu, nil when closed
+	slots    *screen.Slots  // the slot screen, nil when closed
+	create   *screen.Create // character creation, nil once a character is chosen
+	inv      *screen.Inventory
+	traders  *screen.Traders
+	trade    *screen.TradeUI
+	talk     *screen.Talk // the conversation, nil when closed
+	board    *screen.Board
+	cons     *screen.ContractsUI
+	role     *screen.Role     // the choice of the recruit's role, nil when closed
+	duo      *client.Duo      // the second character on a stance, nil when there is none
+	toDuo    bool             // the helper keys talk to it, not to the house companion
+	focus    bool             // directing the second character: the keys and the screen are its (D56)
+	focusCmd bool             // a command went to it since the focus changed
+	draftAlt Draft            // the other character's plan while its focus is away
+	overview bool             // the whole-zone map
+	line     *screen.Line     // the command line, nil when closed
+	soc      *screen.SocialUI // the Social screen, nil when closed
+	inviteN  int              // the invitation the prompt is for, and when it came
+	inviteAt time.Time
+	gameAt   time.Time // when the model's game time last moved
+	gameMs   int64
+	draft    Draft // the plan being built in a turn-based instance
+	Err      error // why the program ended, if it ended badly
 
 	// Clock tells the time the screen's countdowns and "heard ago" read; nil is
 	// the wall clock. A scenario sets it to its server's clock.
@@ -151,15 +150,7 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		a.watch = a.sess.Changed() // before reading, so no change is missed
 		a.observe()
 		cmds := []tea.Cmd{a.waitChange()}
-		ask := false
-		a.sess.View(func(m *model.Model) {
-			a.watchInvite(m)
-			ask = a.partyChanged(m)
-		})
-		if ask {
-			a.inflight++
-			cmds = append(cmds, a.askKnown)
-		}
+		a.sess.View(a.watchInvite)
 		if closed, _ := a.sess.Closed(); closed {
 			if a.sess.LoggedOut() {
 				a.view.Conn = screen.ConnLoggedOut

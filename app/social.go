@@ -149,25 +149,6 @@ func (a *App) watchInvite(m *model.Model) {
 	}
 }
 
-// partyChanged is true once for each new party state that leaves members to
-// ask the zone of. The model is locked by the caller.
-func (a *App) partyChanged(m *model.Model) bool {
-	if m.Social.PartyChanges == a.partySeen {
-		return false
-	}
-	a.partySeen = m.Social.PartyChanges
-	return len(m.PartyMembers()) > 1
-}
-
-// askKnown asks the server who is online, to learn the class, level and zone of
-// the party's members who are elsewhere. It shows nothing itself.
-func (a *App) askKnown() tea.Msg {
-	ctx, cancel := context.WithTimeout(context.Background(), commandTimeout)
-	defer cancel()
-	_, _, _ = a.sess.Who(ctx, "", "", 0, 0)
-	return resultMsg{quiet: true}
-}
-
 // words splits a command line: the command (lower case, without its slash) and
 // the rest of the line.
 func splitLine(text string) (cmd, rest string) {

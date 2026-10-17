@@ -6,23 +6,23 @@
 │                       ############### ####################      ###.                           │└────────────────────────────────────────┘
 │                       ############### ####################      ###.                           │┌─ Quest ────────────────────────────────┐
 │                                       ####################      ###.                           ││ [>] 1. Eyes on the Goblins       scout │
-│··············                $        ####################      ###.                           ││ Walk out to the goblin lookout beyond  │
-│··············                         ####################      ###.                           ││ the ford, see what the raiders are     │
-│··············                         ####################      ###.                           ││ about, and report to Captain Hartley.  │
-│··············                         ####################      ###.                           │└────────────────────────────────────────┘
-│··············                                   ?               ###.                           │┌─ Target ───────────────────────────────┐
-│··············                                  @                ###.                           ││ no target (Tab to choose)              │
+│··············                $        ####################      ###.                           ││ Scout the goblin lookout beyond the    │
+│··············                         ####################      ###.                           ││ ford and report to Captain Hartley;    │
+│··············                         ####################      ###.                           ││ prove yourself and the Watch will      │
+│··············                         ####################      ###.                           ││ lend you a recruit.                    │
+│··············                                   ?               ###.                           │└────────────────────────────────────────┘
+│··············                                  @                ###.                           │┌─ Target ───────────────────────────────┐
+│····································································.                           ││ no target (Tab to choose)              │
 │····································································.                           ││                                        │
-│····································································.                           ││                                        │
-│·····························································D······.                           │└────────────────────────────────────────┘
+│·····························································D······.                           ││                                        │
+│····································································.                           │└────────────────────────────────────────┘
 │····································································.                           │┌─ Contracts (K) ────────────────────────┐
-│····································································.                           ││ Eyes on the Goblins                 go │
+│··············                                                   ###.                           ││ Eyes on the Goblins                 go │
 │··············                                                   ###.                           │└────────────────────────────────────────┘
 │··············                                                   ###.                           │┌─ Nearby ───────────────────────────────┐
-│··············                                                   ###.                           ││ ? Captain Rhosyn Ha… 1m NE quest_giver │
+│··············                              ###############      ###.                           ││ ? Captain Rhosyn Ha… 1m NE quest_giver │
 │··············                              ###############      ###.                           ││ D East Gate                     12m SE │
 │··············                              ###############      ###.                           ││ $ Odalys Penn            17m NW banker │
-│··············                              ###############      ###.                           ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt                       tgt? 2 Bash                       tgt? 3 -                         empty 4 -                         empty │
@@ -32,11 +32,11 @@
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
 │            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
-│            Watch can trust. Prove yourself first, and come and see me. Show me what you can do out in the Downs and I will give you a    │
-│            recruit of the Watch to fight beside you. Once the Watch has vouched for you, tell me what the recruit should be: a shield, a │
-│            medic, a blade or a spellcaster. You may change your mind here whenever you like.                                             │
+│            Watch can trust. Prove yourself first, and come and see me.                                                                   │
 │ !   0.3s hale denied companion_role on captain: no_companion                                                                             │
 │ +   0.4s you took the contract Eyes on the Goblins                                                                                       │
+│                                                                                                                                          │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

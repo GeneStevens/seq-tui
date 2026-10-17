@@ -7,7 +7,7 @@ import (
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/scenario"
-	"github.com/GeneStevens/seq/server"
+	"github.com/GeneStevens/seq/core"
 	"github.com/GeneStevens/seq/testserver"
 )
 
@@ -74,7 +74,7 @@ func threeFriends(t *testing.T, fixture string) (*scenario.World, *scenario.Play
 	w.Fixture(fixture)
 	w.Place("ann", "ann1", 100000, 89000)
 	w.Place("bob", "bob1", 100000, 89500)
-	w.Place("cy", "cy1", 100000+2*server.SayRadiusMM, 89000)
+	w.Place("cy", "cy1", 100000+2*core.DefaultViewRadiusMM, 89000)
 	ann := w.Login("ann", "ann1")
 	bob := w.Login("bob", "bob1")
 	cy := w.Login("cy", "cy1")
@@ -205,12 +205,14 @@ func TestPartiesAcrossAccounts(t *testing.T) {
 			t.Fatalf("ann leads? %v", m.Social.Party)
 		}
 	})
+	w.Advance(time.Second) // the space tells the party's vitals on its pulse
+	bob.Eventually("ann's vitals in the party state", func(m *model.Model) bool { return mate(m, "ann1") })
 	bob.Model(func(m *model.Model) {
 		if m.IsLeader() {
 			t.Fatalf("bob leads")
 		}
 		mates := m.Mates()
-		if len(mates) != 2 || !mates[0].Leader || mates[0].Name != "ann1" || !mates[0].Here || mates[0].MaxHP == 0 {
+		if len(mates) != 2 || !mates[0].Leader || mates[0].Name != "ann1" || mates[0].Zone == "" || mates[0].MaxHP == 0 {
 			t.Fatalf("bob's mates: %+v", mates)
 		}
 	})
@@ -495,11 +497,11 @@ func TestTwoAccountsClearAWarrenRoomTogether(t *testing.T) {
 	mustHear(t, bob, "[party] hale: out safe")
 }
 
-// mate says the party member is in the character's view, with its state.
+// mate says the party state has the member online, with its state.
 func mate(m *model.Model, name string) bool {
 	for _, mt := range m.Mates() {
 		if mt.Name == name {
-			return mt.Here && mt.MaxHP > 0
+			return mt.Online && mt.Zone != "" && mt.MaxHP > 0
 		}
 	}
 	return false
