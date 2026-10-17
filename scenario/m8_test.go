@@ -211,14 +211,17 @@ func TestDirectedPlanInATurnBasedRound(t *testing.T) {
 	w.Advance(time.Second)
 
 	// Bram is sent through the gate by a direct order, then Aria goes in.
+	// Bram has to be in, and have been told so, before Aria goes: how his log reads
+	// (Aria appears, or is there already) is otherwise a matter of timing.
 	p.Press("x")
 	p.Press("e")
 	notice(t, p, "use door ok", false)
+	p.DuoEventually("bram in the instance", func(m *model.Model) bool { return m.InInstance() && m.Round != nil && m.Round.Open })
 	p.Press("x")
 	p.Press("e")
 	p.Eventually("round 1", openRound)
 	p.Eventually("two in round 1", func(m *model.Model) bool { return m.Round != nil && m.Round.Participants == 2 })
-	p.DuoEventually("bram in the instance", func(m *model.Model) bool { return m.InInstance() && m.Round != nil && m.Round.Open })
+	p.DuoEventually("aria with bram in round 1", func(m *model.Model) bool { return m.Round != nil && m.Round.Participants == 2 && m.InView("aria") != nil })
 
 	// Bram's plan, built from his own screen: he is the one who moves and targets.
 	p.Press("x")
