@@ -81,6 +81,8 @@ const (
 	DuoOrder        // order the second character, as CompanionOrder
 	Focus           // switch the keys and the screen between the two characters (D56)
 	OpenLine        // the command line for chat and the social commands
+	OpenSessions    // the sessions view (D64)
+	SessionsDo      // a request of the sessions view: ID is the verb, Note the session
 	SocialDo        // a request about playing together: ID is the verb, Note its argument
 )
 
@@ -178,6 +180,8 @@ func common(key string) Action {
 		return Action{Kind: OpenTrade}
 	case "/":
 		return Action{Kind: OpenLine}
+	case "ctrl+l":
+		return Action{Kind: OpenSessions}
 	}
 	return Action{}
 }

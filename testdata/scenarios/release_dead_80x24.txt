@@ -16,8 +16,8 @@
 │          .                             #         ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│ <  NN.Ns Plain Scuttler hit aria for 2                                       │
 │ x  NN.Ns Plain Scuttler killed aria                                          │
+│    NN.Ns Plain Scuttler's target aria cleared: target_dead                   │
 │    NN.Ns encounter enc-1 with Plain Scuttler closed: participants_dead       │
 │    NN.Ns Plain Scuttler reset to 40 hp                                       │
 └──────────────────────────────────────────────────────────────────────────────┘

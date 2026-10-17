@@ -26,6 +26,8 @@ func (a *App) createKey(k string, m *model.Model) Action {
 	switch k {
 	case "ctrl+c":
 		return Action{Kind: Quit}
+	case "ctrl+l":
+		return Action{Kind: OpenSessions}
 	case "enter":
 		if n := len([]rune(c.Name)); n < 3 {
 			c.Err = "a name is 3 to 16 letters"
