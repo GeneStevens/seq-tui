@@ -1,0 +1,24 @@
+┌─ Sessions: your logs ────────────────────────────────────────────────────────┐
+│ Logs live in <the scenario's log directory>                                  │
+│ On this machine (replay, export)                                             │
+│ > 2025-01-01 00:00  aria        Testgrounds     1s       tui-ann-2           │
+│   2025-01-01 00:00  aria        Testgrounds     2s       tui-ann-1           │
+│ On the server (its log of your sessions: view, export)                       │
+│   2025-01-01 00:00  aria        testgrounds     -        tui-ann-2 (open)    │
+│   2025-01-01 00:00  aria        testgrounds     2s       tui-ann-1           │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Up, Down choose   Enter: replay a recording, read a server log   E export   …│
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

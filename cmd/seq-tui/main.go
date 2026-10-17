@@ -7,6 +7,12 @@
 // character creation screen (a name and a class) instead of a character. -replay draws a recorded
 // log instead, with no server and no terminal; -record keeps the messages of a
 // live session in such a log.
+//
+// Every session is also recorded by default (D64), under its play-session id, in
+// its own directory of the data dir (-log-dir changes it; -no-record turns it
+// off): record.jsonl and session.json. Ctrl+L opens the sessions view, which lists
+// them with the server's own log of the account's sessions. -replay takes such a
+// directory, or a session id, as well as a file.
 package main
 
 import (
@@ -27,6 +33,7 @@ import (
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
 	"github.com/GeneStevens/seq-tui/screen"
+	"github.com/GeneStevens/seq-tui/sessionlog"
 )
 
 func main() {
@@ -43,13 +50,26 @@ func run() error {
 	insecure := flag.Bool("insecure", false, "development only: accept a self-signed certificate (loopback addresses only)")
 	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it by its stance; X directs it from this session); SEQ_DUO_AGENT_SECRET, if set, is an agent credential for it, so that in a turn-based instance its plans go as stand-ins")
 	rec := flag.String("record", "", "write every message the server sends to this file")
-	replay := flag.String("replay", "", "draw this recorded log instead of connecting")
+	noRec := flag.Bool("no-record", false, "do not record the session in the log directory (it is recorded by default)")
+	logDir := flag.String("log-dir", "", "where the sessions are recorded (default: seq-tui/sessions in your data dir)")
+	replay := flag.String("replay", "", "draw this recorded log (a file, a session directory, or a session id) instead of connecting")
 	text := flag.Bool("text", false, "with -replay: print the model as plain text instead of the screen")
 	size := flag.String("size", "80x24", "with -replay: the screen size, WxH")
 	flag.Parse()
 
+	root := *logDir
+	if root == "" {
+		var err error
+		if root, err = sessionlog.DefaultDir(); err != nil && !*noRec {
+			return fmt.Errorf("no place for the session log (use -log-dir or -no-record): %w", err)
+		}
+	}
 	if *replay != "" {
-		return runReplay(*replay, *text, *size)
+		path, err := sessionlog.Find(root, *replay)
+		if err != nil {
+			return err
+		}
+		return runReplay(path, *text, *size)
 	}
 	token := os.Getenv("SEQ_SESSION_TOKEN")
 	if token == "" {
@@ -77,6 +97,20 @@ func run() error {
 		defer f.Close()
 		cfg.Record = record.NewWriter(f)
 	}
+	cfg.Session = client.NewSessionID()
+	who := *char
+	if *create {
+		who = "" // not known until it is made
+	}
+	slog, err := sessionlog.Start(root, *noRec, sessionlog.Options{Credential: token, Meta: sessionlog.Meta{
+		Session: cfg.Session, Server: *addr, Character: who, Client: "seq-tui", Versions: sessionlog.Versions(client.ProtocolVersion)}})
+	if err != nil {
+		return fmt.Errorf("opening the session log (-no-record turns it off): %w", err)
+	}
+	if slog != nil {
+		defer slog.Close()
+		cfg.Log = slog.Rec
+	}
 	sess := client.NewSession(cfg)
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
@@ -90,9 +124,10 @@ func run() error {
 	}
 	defer sess.Close()
 	a := prog(sess)
+	a.SetLogs(root, slog)
 	if *duo != "" && !*create {
 		dc := cfg
-		dc.Character, dc.Record = *duo, nil
+		dc.Character, dc.Record, dc.Log = *duo, nil, nil
 		dc.Agent = os.Getenv("SEQ_DUO_AGENT_SECRET") // an agent credential for it: its turn-based plans are then stand-ins
 		d := client.NewDuo(dc, *char)
 		defer d.Close()
@@ -101,7 +136,7 @@ func run() error {
 		defer stop()
 		go d.Run(dctx)
 	}
-	_, err := tea.NewProgram(a).Run()
+	_, err = tea.NewProgram(a).Run()
 	return err
 }
 

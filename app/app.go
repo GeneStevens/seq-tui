@@ -11,6 +11,7 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/screen"
+	"github.com/GeneStevens/seq-tui/sessionlog"
 	"github.com/GeneStevens/seq/agentkit"
 )
 
@@ -42,16 +43,20 @@ type App struct {
 	talk     *screen.Talk // the conversation, nil when closed
 	board    *screen.Board
 	cons     *screen.ContractsUI
-	role     *screen.Role     // the choice of the recruit's role, nil when closed
-	duo      *client.Duo      // the second character on a stance, nil when there is none
-	toDuo    bool             // the helper keys talk to it, not to the house companion
-	focus    bool             // directing the second character: the keys and the screen are its (D56)
-	focusCmd bool             // a command went to it since the focus changed
-	draftAlt Draft            // the other character's plan while its focus is away
-	overview bool             // the whole-zone map
-	line     *screen.Line     // the command line, nil when closed
-	soc      *screen.SocialUI // the Social screen, nil when closed
-	inviteN  int              // the invitation the prompt is for, and when it came
+	role     *screen.Role       // the choice of the recruit's role, nil when closed
+	duo      *client.Duo        // the second character on a stance, nil when there is none
+	toDuo    bool               // the helper keys talk to it, not to the house companion
+	focus    bool               // directing the second character: the keys and the screen are its (D56)
+	focusCmd bool               // a command went to it since the focus changed
+	draftAlt Draft              // the other character's plan while its focus is away
+	overview bool               // the whole-zone map
+	line     *screen.Line       // the command line, nil when closed
+	soc      *screen.SocialUI   // the Social screen, nil when closed
+	ses      *screen.SessionsUI // the sessions view, nil when closed
+	replay   *replay            // a recording drawn in place of the screen, nil when none
+	log      *sessionlog.Log    // this session's own log, nil when recording is off
+	logRoot  string             // the directory of the player's session logs
+	inviteN  int                // the invitation the prompt is for, and when it came
 	inviteAt time.Time
 	gameAt   time.Time // when the model's game time last moved
 	gameMs   int64
@@ -61,6 +66,10 @@ type App struct {
 	// Clock tells the time the screen's countdowns and "heard ago" read; nil is
 	// the wall clock. A scenario sets it to its server's clock.
 	Clock func() time.Time
+
+	// LogLabel, if set, is what the sessions view says of where the logs live,
+	// in place of the directory (a scenario's is a temporary one).
+	LogLabel string
 
 	keys     int // key presses handled, and commands sent and answered: what a scenario waits on
 	inflight int
@@ -130,6 +139,7 @@ func (a *App) observe() {
 		if !a.view.HasTick || m.Heard != a.lastN {
 			a.lastTick, a.lastN, a.view.HasTick = a.now(), m.Heard, true
 		}
+		a.noteLog(m)
 		if m.GameTimeMs != a.gameMs {
 			a.gameMs, a.gameAt = m.GameTimeMs, a.now()
 		}
@@ -169,6 +179,8 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return a, a.reconnect(retryEvery)
 		}
 		a.retrying, a.view.Conn, a.view.Notice, a.view.NoticeBad = false, screen.ConnOnline, "reconnected", false
+	case sessionsLoaded, logLoaded:
+		a.sessionsMsg(msg)
 	case Probe:
 		msg.Fn(a)
 		close(msg.Done)
@@ -245,6 +257,10 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	a.focusSess().View(func(m *model.Model) {
 		a.sync(m)
 		switch {
+		case a.replay != nil:
+			act = a.replayKey(k)
+		case a.ses != nil:
+			act = a.sessionsKey(k)
 		case a.create != nil:
 			act = a.createKey(k, m)
 		case a.soc != nil:
@@ -322,6 +338,10 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.overview = true
 	case OpenLine:
 		a.line = &screen.Line{Text: "/"}
+	case OpenSessions:
+		return a, a.openSessions()
+	case SessionsDo:
+		return a, a.sessionsDo(act)
 	case SocialDo:
 		a.inflight++
 		return a, a.send(act)
@@ -518,13 +538,16 @@ func (a *App) send(act Action) tea.Cmd {
 // render draws the screen at w x h; since is how long ago the server was last
 // heard.
 func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
+	if a.replay != nil {
+		return a.replayView(w, h, st)
+	}
 	v := a.view
 	v.Since = since
 	var out string
 	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
 	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
 	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
-	v.Line, v.Social = a.line, a.soc
+	v.Line, v.Social, v.Sessions = a.line, a.soc, a.ses
 	a.checkFocus()
 	if a.focus {
 		v.Directing = a.duoName()

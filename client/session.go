@@ -33,6 +33,8 @@ type Config struct {
 	Session string
 	// Record, if set, receives every incoming message.
 	Record *record.Writer
+	// Log, if set, receives them too: the session's own log (D64).
+	Log *record.Writer
 	// Agent, for a second character on a stance (client.Duo), is an agent
 	// credential for it: with one its turn-based plans are stand-ins (D10);
 	// without, they are the character's own, sent as the player.
@@ -58,12 +60,17 @@ type Session struct {
 	nping   uint64
 }
 
+// NewSessionID makes a play-session id (D64).
+func NewSessionID() string {
+	var b [8]byte
+	_, _ = rand.Read(b[:])
+	return "tui-" + hex.EncodeToString(b[:])
+}
+
 // NewSession returns a Session; Login connects it.
 func NewSession(cfg Config) *Session {
 	if cfg.Session == "" {
-		var b [8]byte
-		_, _ = rand.Read(b[:])
-		cfg.Session = "tui-" + hex.EncodeToString(b[:])
+		cfg.Session = NewSessionID()
 	}
 	if cfg.Model == nil {
 		cfg.Model = model.New()
@@ -101,6 +108,9 @@ func (s *Session) onMessage(_ []byte, msg *pb.ServerMessage) {
 	} else {
 		if s.cfg.Record != nil {
 			_ = s.cfg.Record.Write(msg)
+		}
+		if s.cfg.Log != nil {
+			_ = s.cfg.Log.Write(msg)
 		}
 		s.m.Apply(msg)
 	}
@@ -149,6 +159,46 @@ func (s *Session) Connect(ctx context.Context) error {
 	s.mu.Unlock()
 	s.watch(a.Client())
 	return nil
+}
+
+// MySessions lists the account's own sessions from the server's session log
+// (D64); the server answers for the account of the credential only. A refusal
+// is an error carrying its reason.
+func (s *Session) MySessions(ctx context.Context) ([]*pb.SessionSummary, error) {
+	a := s.agentOrNil()
+	if a == nil {
+		return nil, errors.New("not connected")
+	}
+	rep, err := a.MySessions(ctx, 0)
+	if err != nil {
+		return nil, err
+	}
+	if r := rep.GetRefused(); r != "" {
+		return nil, fmt.Errorf("the server refused: %s", model.Words(r))
+	}
+	return rep.GetSessions(), nil
+}
+
+// SessionLog fetches the server's log of one of the account's own sessions.
+func (s *Session) SessionLog(ctx context.Context, session string) (*pb.SessionsReply, error) {
+	a := s.agentOrNil()
+	if a == nil {
+		return nil, errors.New("not connected")
+	}
+	rep, err := a.SessionLog(ctx, session, 0)
+	if err != nil {
+		return nil, err
+	}
+	if r := rep.GetRefused(); r != "" {
+		return nil, fmt.Errorf("the server refused: %s", model.Words(r))
+	}
+	return rep, nil
+}
+
+func (s *Session) agentOrNil() *agentkit.Agent {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	return s.agent
 }
 
 // Refused is a create_character the server refused: Reason is its code

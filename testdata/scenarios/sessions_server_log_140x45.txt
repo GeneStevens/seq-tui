@@ -1,0 +1,45 @@
+┌─ Sessions: the server's log ─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ tui-ann-1: the server's log, 7 lines (UTC)                                                                                               │
+│ 2025-01-01 00:00:00.000  connect: aria in testgrounds (client agentkit)                                                                  │
+│ 2025-01-01 00:00:00.100  intent tui-1: move {"move":{"destination":{"x":"13000","y":"50000"}}}                                           │
+│ 2025-01-01 00:00:00.200  result attend-1-ann-here: accepted                                                                              │
+│ 2025-01-01 00:00:00.200  result tui-1: accepted                                                                                          │
+│ 2025-01-01 00:00:01.200  intent tui-2: move {"move":{"destination":{"x":"16000","y":"50000"}}}                                           │
+│ 2025-01-01 00:00:01.300  result tui-2: accepted                                                                                          │
+│ 2025-01-01 00:00:02.300  disconnect: connection closed                                                                                   │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Up, Down, PgUp, PgDn scroll   E exports this log to a file   Esc back                                                                    │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

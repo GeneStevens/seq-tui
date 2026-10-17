@@ -30,13 +30,13 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ <   N.Ns Plain Scuttler missed aria                                                                                                      │
 │ <   N.Ns Plain Scuttler hit aria for 4                                                                                                   │
 │ <  NN.Ns Plain Scuttler hit aria for 1                                                                                                   │
 │    NN.Ns aria healed 2                                                                                                                   │
 │ <  NN.Ns Plain Scuttler hit aria for 1                                                                                                   │
 │ <  NN.Ns Plain Scuttler hit aria for 3                                                                                                   │
 │ x  NN.Ns Plain Scuttler killed aria                                                                                                      │
+│    NN.Ns Plain Scuttler's target aria cleared: target_dead                                                                               │
 │    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: participants_dead                                                            │
 │    NN.Ns aria released; respawns in 5 s                                                                                                  │
 │    NN.Ns Plain Scuttler reset to 40 hp                                                                                                   │

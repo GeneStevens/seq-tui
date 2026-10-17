@@ -33,6 +33,7 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
+	"github.com/GeneStevens/seq-tui/sessionlog"
 	"github.com/GeneStevens/seq/agentkit"
 	"github.com/GeneStevens/seq/core"
 	"github.com/GeneStevens/seq/server"
@@ -82,6 +83,8 @@ type World struct {
 	began   time.Time
 	players []*Player
 	rec     *record.Writer
+	logRoot string // where the players' own session logs are kept (D64)
+	nlogs   int    // sessions started, for their ids
 	// stepped: the scenario is held to MaxScenario a step (see Step), not as a
 	// whole.
 	stepped bool
@@ -100,7 +103,7 @@ func New(t *testing.T, o testserver.Options) *World {
 
 func newOn(t *testing.T, srv *testserver.Server) *World {
 	t.Helper()
-	w := &World{T: t, began: time.Now(), Srv: srv}
+	w := &World{T: t, began: time.Now(), Srv: srv, logRoot: filepath.Join(t.TempDir(), "sessions")}
 	t.Cleanup(func() {
 		if d, err := time.ParseDuration(os.Getenv(EnvSlow)); err == nil {
 			time.Sleep(d)
@@ -211,6 +214,9 @@ func (w *World) Settle() {
 	}
 }
 
+// LogRoot is the directory the players' session logs are kept in.
+func (w *World) LogRoot() string { return w.logRoot }
+
 // Now is the server's clock as a time, the clock the programs read.
 func (w *World) Now() time.Time { return time.UnixMilli(server.ManualEpochMs + w.Srv.NowMs()) }
 
@@ -230,6 +236,7 @@ type Player struct {
 	done      chan struct{}
 	keys      int
 	rec       *record.Writer
+	log       *sessionlog.Log
 	creating  bool // the program opened on the creation screen
 	second    string
 	duo       *client.Duo // the account's second character on a stance, if the player has one
@@ -307,7 +314,21 @@ func (p *Player) Created() {
 func (p *Player) start() {
 	t := p.w.T
 	t.Helper()
-	cfg := client.Config{URL: p.w.Srv.URL(), TLS: p.w.Srv.TLS(), Credential: p.w.Srv.SessionToken(p.Account), Character: p.Character, Record: p.rec}
+	// Like the program, a player records its session under its id (D64); the id
+	// is counted, not random, so a screen that shows it is stable.
+	p.w.nlogs++
+	cfg := client.Config{URL: p.w.Srv.URL(), TLS: p.w.Srv.TLS(), Credential: p.w.Srv.SessionToken(p.Account), Character: p.Character, Record: p.rec,
+		Session: fmt.Sprintf("tui-%s-%d", p.Account, p.w.nlogs)}
+	who := p.Character
+	if p.creating {
+		who = ""
+	}
+	slog, err := sessionlog.Open(p.w.logRoot, sessionlog.Options{Credential: cfg.Credential, Now: p.w.Now, Meta: sessionlog.Meta{
+		Session: cfg.Session, Server: p.w.Srv.URL(), Character: who, Client: "seq-tui", Versions: sessionlog.Versions(client.ProtocolVersion)}})
+	if err != nil {
+		t.Fatalf("%s: the session log: %v", p.Account, err)
+	}
+	p.log, cfg.Log = slog, slog.Rec
 	p.Sess = client.NewSession(cfg)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -324,6 +345,7 @@ func (p *Player) start() {
 	}
 	if p.second != "" {
 		dc := cfg
+		dc.Log = nil // the second character is not a session of its own
 		dc.Character = p.second
 		if p.duoAgent {
 			dc.Agent = p.w.Srv.AgentSecret(p.Account, p.second)
@@ -333,6 +355,8 @@ func (p *Player) start() {
 		a.SetDuo(p.duo)
 	}
 	a.Clock = p.w.Now
+	a.SetLogs(p.w.logRoot, slog)
+	a.LogLabel = "<the scenario's log directory>"
 	pr, pw := io.Pipe()
 	p.in, p.keys, p.done = pw, 0, make(chan struct{})
 	p.prog = tea.NewProgram(a, tea.WithInput(pr), tea.WithOutput(io.Discard), tea.WithoutRenderer(), tea.WithoutSignalHandler(),
@@ -356,6 +380,10 @@ func (p *Player) stop() {
 	<-p.done
 	_ = p.in.Close()
 	p.Sess.Close()
+	if p.log != nil {
+		_ = p.log.Close()
+		p.log = nil
+	}
 	if p.duo != nil {
 		p.duo.Close()
 	}
@@ -372,7 +400,7 @@ func (p *Player) Fresh() {
 
 var keyBytes = map[string]string{
 	"enter": "\r", "backspace": "\x7f", "esc": "\x1b", "tab": "\t", "space": " ",
-	"up": "\x1b[A", "down": "\x1b[B", "right": "\x1b[C", "left": "\x1b[D",
+	"ctrl+l": "\x0c", "home": "\x1b[H", "end": "\x1b[F", "up": "\x1b[A", "down": "\x1b[B", "right": "\x1b[C", "left": "\x1b[D",
 }
 
 // Press presses the keys, one after another, waiting after each until the
