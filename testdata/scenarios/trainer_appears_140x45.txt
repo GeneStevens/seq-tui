@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns an event this client does not know                                                                                              │
-│     N.Ns an event this client does not know                                                                                              │
+│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square. It is optional;    │
+│            /dismiss gives it up for good.                                                                                                │
+│     N.Ns Mother Elswyth (trainer) is in view                                                                                             │
+│     N.Ns Hilda Brasswick is out of view                                                                                                  │
+│     N.Ns Town Guard (guard) is in view                                                                                                   │
 │     N.Ns Gorran Stoutarm (trainer) is in view                                                                                            │
-│     N.Ns an event this client does not know                                                                                              │
-│     N.Ns an event this client does not know                                                                                              │
-│     N.Ns an event this client does not know                                                                                              │
-│     N.Ns an event this client does not know                                                                                              │
-│     N.Ns an event this client does not know                                                                                              │
-│     N.Ns an event this client does not know                                                                                              │
-│     N.Ns an event this client does not know                                                                                              │
-│     N.Ns an event this client does not know                                                                                              │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 1/4 | Thornwick | road: faster, 125% | heard N.Ns ago | move ok                                         ? help  q quit

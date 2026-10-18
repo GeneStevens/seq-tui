@@ -34,7 +34,7 @@
 │     N.Ns Bramble Tusker began attacking Watch Shieldman                                                                                  │
 │     N.Ns Bramble Tusker hit Watch Shieldman for 5                                                                                        │
 │     N.Ns hale began attacking Bramble Tusker                                                                                             │
-│     N.Ns Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
+│ !   N.Ns Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
 │     N.Ns hale hit Bramble Tusker for 5                                                                                                   │
 │     N.Ns your companion is ordered: stop                                                                                                 │
 │     N.Ns Watch Shieldman's target Bramble Tusker cleared: ordered                                                                        │

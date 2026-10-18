@@ -30,8 +30,8 @@
 │                         .                                                         #            ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ <   2.4s Plain Scuttler hit aria for 2                                                                                                   │
 │     2.5s aria began attacking Plain Scuttler                                                                                             │
-│     2.5s Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
 │     2.5s aria hit Plain Scuttler for 4                                                                                                   │
 │     4.5s aria hit Plain Scuttler for 6                                                                                                   │
 │ <   5.4s Plain Scuttler hit aria for 1                                                                                                   │

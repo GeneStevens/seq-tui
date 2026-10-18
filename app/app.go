@@ -214,7 +214,7 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 	case tea.KeyPressMsg:
 		a.keys++
-		if a.line != nil {
+		if a.line != nil && !a.view.Help {
 			return a.lineKey(msg)
 		}
 		return a.key(msg.String())

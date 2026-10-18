@@ -1,0 +1,24 @@
+┌─ Quest chain ────────────────────────────────────────────────────────────────┐
+│ First Steps, step 1 of 4                                                     │
+│ A short walk through Thornwick for a new arrival.                            │
+│                                                                              │
+│ Now:                                                                         │
+│   Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square.        │
+│   (npc: Tamsin Hale)                                                         │
+│ The whole chain pays 20 XP at its end.                                       │
+│                                                                              │
+│ It is optional: nothing waits for it and nothing reminds you.                │
+││
+││
+││
+││
+││
+││
+││
+││
+││
+││
+││
+│ Dismiss First Steps for good? It is never offered again.  Y: yes   any other…│
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | First Steps 1/4 | Thornwick | road: faster, 125% | heard N.Ns ago     

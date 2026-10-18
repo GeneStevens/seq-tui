@@ -17,7 +17,7 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     N.Ns hale began attacking Bramble Tusker                                 │
-│     N.Ns Your walk stopped: you began attacking; a fight stops a walk. Move  │
+│ !   N.Ns Your walk stopped: you began attacking; a fight stops a walk. Move  │
 │            again to go on.                                                   │
 │     N.Ns hale hit Bramble Tusker for 5                                       │
 └──────────────────────────────────────────────────────────────────────────────┘

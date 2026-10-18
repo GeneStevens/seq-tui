@@ -35,8 +35,8 @@ var Bindings = []Binding{
 	{Keys: []string{"m"}, Show: "M", What: "the whole zone you have seen", Group: "Moving"},
 	{Keys: []string{"tab"}, Show: "Tab", What: "choose the next target", Group: "Fighting"},
 	{Keys: []string{"esc"}, Show: "Esc", What: "clear the target", Group: "Fighting"},
-	{Keys: []string{"f", "space"}, Show: "F, Space", What: "auto-attack on or off; with no target, the one attacking you", Group: "Fighting"},
-	{Keys: []string{"1", "2", "3", "4", "5", "6", "7", "8"}, Show: "1-8", What: "use that slot's ability on your target (none: what attacks you)", Group: "Fighting"},
+	{Keys: []string{"f", "space"}, Show: "F, Space", What: "auto-attack on or off (none targeted: what attacks you)", Group: "Fighting"},
+	{Keys: []string{"1", "2", "3", "4", "5", "6", "7", "8"}, Show: "1-8", What: "use that slot's ability on your target", Group: "Fighting"},
 	{Keys: []string{"b"}, Show: "B", What: "set the ability slots (out of combat)", Group: "Fighting"},
 	{Keys: []string{"r"}, Show: "R", What: "when you are dead: give up your body and respawn", Group: "Fighting"},
 	{Keys: []string{"g"}, Show: "G", What: "talk to the nearest person", Group: "People and things"},
@@ -145,12 +145,13 @@ func sections(w int, ss []section) []string {
 // wrapIndent breaks s at spaces into lines of at most w cells, each after the first
 // starting with indent.
 func wrapIndent(s string, w int, indent string) []string {
+	lead := s[:len(s)-len(strings.TrimLeft(s, " "))]
 	var out []string
-	line := ""
+	line := lead
 	for _, word := range strings.Fields(s) {
 		switch {
-		case line == "":
-			line = word
+		case strings.TrimSpace(line) == "":
+			line += word
 		case width(line)+1+width(word) <= w:
 			line += " " + word
 		default:
@@ -158,12 +159,8 @@ func wrapIndent(s string, w int, indent string) []string {
 			line = indent + word
 		}
 	}
-	if line != "" {
+	if strings.TrimSpace(line) != "" {
 		out = append(out, line)
-	}
-	// Fields ate the first line's indent: put it back.
-	if len(out) > 0 && strings.HasPrefix(s, indent) && !strings.HasPrefix(out[0], indent) {
-		out[0] = indent + out[0]
 	}
 	return out
 }
@@ -194,7 +191,8 @@ func KeyLines(m *model.Model, v View, w int) []string {
 		"  * drop  ~ a drop you may not take  $ trader  & board  ? talker  D door  # wall",
 		"  % your marker  ; scout marker  ! event spawn, goal",
 		"Ground  # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor",
-		"Log markers  ! denied or a cast that did not land  < hit on you  x kill  + reward  * world event")
+		"Log markers  ! denied, a cast that did not land, a walk a fight stopped  < hit on you",
+		"  x kill  + reward, level or quest step  * world event")
 	return out
 }
 

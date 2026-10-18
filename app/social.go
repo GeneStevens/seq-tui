@@ -32,6 +32,8 @@ func (a *App) lineKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 	switch k := msg.String(); k {
 	case "esc", "ctrl+c":
 		a.line = nil
+	case "f1":
+		a.view.Help, a.view.HelpPage, a.view.HelpScroll = true, 0, 0 // ? is a letter here
 	case "enter":
 		text := strings.TrimSpace(l.Text)
 		a.line = nil

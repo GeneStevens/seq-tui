@@ -10,9 +10,10 @@ import (
 // character is on is the snapshot's; the quest events say in words what changed
 // and the fresh snapshot after each one carries the new step.
 
-// walkWindowMs is how recently the character's own moves must have been told
-// for it to count as walking when no snapshot says where it is going.
-const walkWindowMs = 1000
+// walkWindowMs is how recently the character's own move must have been told for
+// it to count as walking when no snapshot says where it is going: a walk tells
+// a move every tick (100 ms), so one that ended earlier is not stopped by a fight.
+const walkWindowMs = 250
 
 // Quest is the quest chain the character is on, nil when it is on none.
 func (m *Model) Quest() *pb.QuestInfo { return m.Self.Quest }
@@ -92,11 +93,29 @@ func (m *Model) noteWalkStop(e *pb.Event) {
 		return
 	}
 	m.Self.HasDestination, m.Self.Destination, m.lastSelfMoveMs = false, nil, 0
-	m.Log = append(m.Log, LogEntry{Kind: "walk_stopped", GameTimeMs: e.GetGameTimeMs(), Seq: e.GetSeq(),
+	m.addLog(LogEntry{Kind: "walk_stopped", GameTimeMs: e.GetGameTimeMs(), Seq: e.GetSeq(),
 		Text: "Your walk stopped: " + why + "; a fight stops a walk. Move again to go on."})
+}
+
+func (m *Model) addLog(e LogEntry) {
+	m.Log = append(m.Log, e)
 	if over := len(m.Log) - m.logCap; over > 0 {
 		m.Log = append([]LogEntry(nil), m.Log[over:]...)
 	}
+}
+
+// noteQuestAtLogin logs the chain a character comes into the world on: its first
+// snapshot carries it with no event to say so (the offer was made before).
+func (m *Model) noteQuestAtLogin(gameMs int64) {
+	q := m.Self.Quest
+	if q == nil {
+		return
+	}
+	text := fmt.Sprintf("On the quest chain %s, step %d of %d: %s", q.GetName(), q.GetStep(), q.GetSteps(), q.GetText())
+	if q.GetStep() <= 1 {
+		text = fmt.Sprintf("Quest chain offered: %s. First: %s", q.GetName(), q.GetText())
+	}
+	m.addLog(LogEntry{Kind: "quest", GameTimeMs: gameMs, Text: text + " It is optional; /dismiss gives it up for good."})
 }
 
 // hostile reports whether id is a mob in view.
@@ -112,4 +131,11 @@ func (m *Model) Name(id string) string { return m.label(id) }
 // HasReward reports whether a reward pays anything.
 func HasReward(r *pb.RewardInfo) bool {
 	return r.GetXp() > 0 || r.GetCrowns() > 0 || r.GetItem() != ""
+}
+
+// questLedger reports whether e is the reward the server records a quest change
+// by: it carries nothing the quest event does not say in words.
+func questLedger(e *pb.Event) bool {
+	w, ok := e.GetBody().(*pb.Event_Reward)
+	return ok && w.Reward.GetKind() == "quest"
 }

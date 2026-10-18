@@ -30,7 +30,7 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                                  │
+│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                                  │
 │     N.Ns Plain Scuttler began attacking aria                                                                                             │
 │ <   N.Ns Plain Scuttler missed aria                                                                                                      │
 │ <   N.Ns Plain Scuttler hit aria for 4                                                                                                   │

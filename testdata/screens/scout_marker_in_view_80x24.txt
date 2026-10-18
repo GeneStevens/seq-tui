@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    22.2s an event this client does not know                                  │
-│    22.3s an event this client does not know                                  │
-│    22.4s an event this client does not know                                  │
+│    10.3s Captain Rhosyn Hartley (quest_giver) is in view                     │
+│    17.4s Odalys Penn is out of view                                          │
 │    22.6s entered Thornwick Downs                                             │
+│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | road: faster, 125% | heard 0.4s ago | use door ok   

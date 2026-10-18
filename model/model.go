@@ -379,6 +379,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	m.last = s.GetSeq()
 	if old.ID != m.Self.ID {
 		m.owedAtLogin()
+		m.noteQuestAtLogin(s.GetGameTimeMs())
 	}
 	m.selected = true
 	if old.ID == m.Self.ID && (m.levelPending || m.Self.Level > old.Level) && len(old.Abilities) > 0 {
@@ -411,8 +412,8 @@ func (m *Model) applyEvent(e *pb.Event) {
 
 func (m *Model) apply(e *pb.Event) {
 	m.GameTimeMs = max(m.GameTimeMs, e.GetGameTimeMs())
-	m.noteDescribed(e)      // before the log line, which names the item with its tier
-	if !m.repeatsRound(e) { // the server says the open round again after a snapshot: once in the log is enough
+	m.noteDescribed(e)                         // before the log line, which names the item with its tier
+	if !m.repeatsRound(e) && !questLedger(e) { // the server says the open round again after a snapshot: once in the log is enough
 		m.logEvent(e)
 	}
 	m.noteWalkStop(e)

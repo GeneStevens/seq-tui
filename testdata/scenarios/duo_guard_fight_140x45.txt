@@ -30,11 +30,11 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ !   N.Ns Your walk stopped: you are fighting Bramble Tusker; a fight stops a walk. Move again to go on.                                  │
 │     N.Ns Bramble Tusker began attacking hale                                                                                             │
 │ <   N.Ns Bramble Tusker hit hale for 4                                                                                                   │
 │     N.Ns bram targeted Bramble Tusker                                                                                                    │
 │     N.Ns hale began attacking Bramble Tusker                                                                                             │
-│     N.Ns Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
 │     N.Ns hale hit Bramble Tusker for 5                                                                                                   │
 │     N.Ns hale hit Bramble Tusker for 7                                                                                                   │
 │     N.Ns hale healed 4                                                                                                                   │

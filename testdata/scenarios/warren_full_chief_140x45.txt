@@ -36,7 +36,7 @@
 │   NNN.Ns Warren Chief (mob-chief-1) appeared                                                                                             │
 │   NNN.Ns Warren Chief targeted hale                                                                                                      │
 │   NNN.Ns hale opened an encounter with Warren Chief (inst-1.enc-21)                                                                      │
-│   NNN.Ns Your walk stopped: you are fighting Warren Chief; a fight stops a walk. Move again to go on.                                    │
+│ ! NNN.Ns Your walk stopped: you are fighting Warren Chief; a fight stops a walk. Move again to go on.                                    │
 │   NNN.Ns Warren Chief used chief-pack-cry                                                                                                │
 │   NNN.Ns chief-pack-cry: buff strength on Warren Chief for 18 s                                                                          │
 │   NNN.Ns Warren Chief began attacking hale                                                                                               │

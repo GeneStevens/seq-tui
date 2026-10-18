@@ -7,8 +7,8 @@
 │           .#  ########··@··      ··············· │┌─ Quest chain (Ctrl+K) ───┐
 │           .#  ########·····            ···       ││ First Steps              │
 │           .#  ########·····            ···       ││ Step 1 of 4              │
-│           .#   ··································││ Speak to Tamsin Hale, the│
-│           .#   ···$····$··$·······$·······$······││ Watch's greeter, here in │
+│           .#   ··································││ Speak to Tamsin Hale,    │
+│           .#   ···$····$··$·······$·······$······││ the Watch's greeter,     │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns an event this client does not know                                  │
-│     N.Ns an event this client does not know                                  │
-│     N.Ns an event this client does not know                                  │
-│     N.Ns an event this client does not know                                  │
+│     N.Ns Mother Elswyth (trainer) is in view                                 │
+│     N.Ns Hilda Brasswick is out of view                                      │
+│     N.Ns Town Guard (guard) is in view                                       │
+│     N.Ns Gorran Stoutarm (trainer) is in view                                │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 1/4 | road: faster, 125% | heard N.Ns ago | move ok ? help

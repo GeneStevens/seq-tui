@@ -203,6 +203,11 @@ var Cases = []Case{
 	{Name: "warren_digger", Log: "duo_warren.jsonl", Mark: "warren_digger", Notice: "target ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "warren_room_cleared", Log: "duo_warren.jsonl", Mark: "warren_room_cleared", Notice: "attack ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
+	// TUI-024: the quest chain, from a recorded session on seq at SEQ-067.
+	{Name: "first_steps_offered", Log: "first_steps.jsonl", Mark: "first_steps_offered"},
+	{Name: "first_steps_trainer", Log: "first_steps.jsonl", Mark: "first_steps_trainer"},
+	{Name: "first_steps_gate", Log: "first_steps.jsonl", Mark: "first_steps_gate"},
+	{Name: "first_steps_done", Log: "first_steps.jsonl", Mark: "first_steps_done"},
 	{Name: "help_chains", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 1},
 	{Name: "help_logs", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 2},
 	{Name: "help_keys", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 3},

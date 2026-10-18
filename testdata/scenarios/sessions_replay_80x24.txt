@@ -18,7 +18,7 @@
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     N.Ns Plain Scuttler targeted aria                                        │
 │     N.Ns aria opened an encounter with Plain Scuttler (enc-1)                │
-│     N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a │
+│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a │
 │            walk. Move again to go on.                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
  REPLAY | tui-ann-1: message 59 of 59  Left, Right step  Home, End  Esc back    

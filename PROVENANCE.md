@@ -34,6 +34,9 @@ This file lists each content item in `seq-tui` and its source (for example "inve
 | `scenario/m9_polish_test.go`, `testdata/scenarios/warren_full_*.txt`, `testdata/scenarios/directed_online_*.txt` | Written for SEQ, 2026-10-17 (TUI-019). The scenarios run seq's in-process test server on seq-world's Thornwick pack (seq at 5b7a246, SEQ-057; seq-world at 290f275, WLD-006); every name, id and line on the screens is the server's own. The scenarios are invented for SEQ. |
 | `testdata/logs/*.jsonl`, `testdata/screens/*.txt`, `testdata/scenarios/*.txt` (regenerated) | Re-recorded by the scenarios (`make fixtures golden`, 2026-10-17, TUI-019) on seq at 5b7a246 and seq-world at 290f275; every name, id and line in them is the server's own. |
 
+| `model/quest.go`, `screen/help.go`, `screen/quest.go`, `scenario/quest_test.go`, `scenario/help_test.go`, `scenario/d66_test.go`, `app/bindings_internal_test.go` | Written for SEQ, 2026-10-18 (TUI-024). The help's wording, the quest screen, the Ctrl+K key and the log lines for quests and a stopped walk are invented for SEQ. The chain's own name and step texts are the server's (seq-world's, signed in WLD-008); nothing of them is copied here. |
+| `testdata/logs/*.jsonl`, `testdata/screens/*.txt`, `testdata/scenarios/*.txt` (regenerated) | Screens re-drawn by `make golden` on seq at 7050bc8 (SEQ-067) and seq-world at f33ef03 (WLD-008, TUI-024); every name, id and line in them is the server's own. |
+
 ## Exclusions
 
 All content that existed before the reset is excluded: nothing from the tree at tag `pre-reset` (commit `9d04d89`) is carried into this tree. It stays in git history only. Any later salvage (for example the map rasterizer, see `README.md`) must be recorded in the table above, with its source, in the mission that brings it in.

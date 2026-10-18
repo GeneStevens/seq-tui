@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
-│    NN.Ns an event this client does not know                                                                                              │
+│     N.Ns Isolde Fenn is out of view                                                                                                      │
+│     N.Ns Captain Rhosyn Hartley (quest_giver) is in view                                                                                 │
+│    NN.Ns Odalys Penn is out of view                                                                                                      │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 1/4 | Thornwick | road: faster, 125% | heard N.Ns ago | move ok                                         ? help  q quit

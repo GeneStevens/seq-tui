@@ -12,9 +12,9 @@
 │   G talks to the nearest person; their options open a trader, a trainer or a │
 │   board. N opens the traders in view: buy, sell, learn an ability from a     │
 │   trainer for crowns, set your bind point, bank.                             │
-│   A contract board offers hunts, gathering and scouting. K lists the contrac…│
-│   you hold. Hand a finished one in at any contract board in town, not only   │
-│   the one that posted it.                                                    │
+│   A contract board offers hunts, gathering and scouting. K lists the         │
+│   contracts you hold. Hand a finished one in at any contract board in town,  │
+│   not only the one that posted it.                                           │
 │   Nothing here is required and nothing waits for you: play in any order.     │
 │                                                                              │
 │                                                                              │

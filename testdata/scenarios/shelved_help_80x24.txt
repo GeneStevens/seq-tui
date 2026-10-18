@@ -7,8 +7,8 @@
 │ Fighting                                                                     │
 │   Tab              choose the next target                                    │
 │   Esc              clear the target                                          │
-│   F, Space         auto-attack on or off; with no target, the one attacking… │
-│   1-8              use that slot's ability on your target (none: what attac… │
+│   F, Space         auto-attack on or off (none targeted: what attacks you)   │
+│   1-8              use that slot's ability on your target                    │
 │   B                set the ability slots (out of combat)                     │
 │   R                when you are dead: give up your body and respawn          │
 │                                                                              │

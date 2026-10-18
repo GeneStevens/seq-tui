@@ -16,8 +16,8 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│   NNN.Ns an event this client does not know                                  │
-│   NNN.Ns an event this client does not know                                  │
+│    NN.Ns Town Guard is out of view                                           │
+│   NNN.Ns Town Guard (guard) is in view                                       │
 │   NNN.Ns entered Thornwick Downs                                             │
 │ + NNN.Ns owed pay arrived with the join: 60 XP and 30 crowns                 │
 └──────────────────────────────────────────────────────────────────────────────┘

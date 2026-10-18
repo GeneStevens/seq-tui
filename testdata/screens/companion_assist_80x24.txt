@@ -17,7 +17,7 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     3.6s hale began attacking Bramble Tusker                                 │
-│     3.6s Your walk stopped: you began attacking; a fight stops a walk. Move  │
+│ !   3.6s Your walk stopped: you began attacking; a fight stops a walk. Move  │
 │            again to go on.                                                   │
 │     3.6s hale hit Bramble Tusker for 5                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
