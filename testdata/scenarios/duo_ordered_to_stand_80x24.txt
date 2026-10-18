@@ -1,6 +1,6 @@
 ┌─ Thornwick Downs, at 149,95 m, north up ─────────┐┌─ You ────────────────────┐
 │              """""c"""""""""""    ≈≈≈≈≈≈≈        ││ hale  Lv 5 Warrior  | 0cr│
-│             """"""""""""""""""""   ≈≈≈≈≈≈        ││ HP 176/176 ############# │
+│             """"""""""""""""""""   ≈≈≈≈≈≈        ││ HP 198/198 ############# │
 │             """"""""""""""""""""   ≈≈≈≈≈≈≈       ││ XP ---------- 145 to Lv 6│
 │            """""""""""""""""""""   ≈≈≈≈≈≈≈       ││ Atk ON | Bramble Tusker  │
 │            """"""""""""""""""""    ≈≈≈≈≈≈≈       │└──────────────────────────┘
@@ -19,6 +19,6 @@
 │ <   N.Ns Bramble Tusker missed hale                                          │
 │     N.Ns bram cleared the target                                             │
 │     N.Ns bram stopped attacking                                              │
-│     N.Ns hale hit Bramble Tusker for 4                                       │
+│     N.Ns hale hit Bramble Tusker for 13                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | forest: slowed to 75% | second character ordered: stop  ? help  q quit

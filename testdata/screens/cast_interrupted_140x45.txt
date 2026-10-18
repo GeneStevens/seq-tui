@@ -13,16 +13,16 @@
 │                                        .                                               #       │┌─ Target ───────────────────────────────┐
 │                                        .       @  M                  c                 #       ││ M Plain Scuttler  Lv 1                 │
 │                                        .                                               #       ││ HP 339/400 #################---- 2m E  │
-│                                        .                                               #       ││ fighting you                           │
+│                                        .                                               #       ││ even, fighting you                     │
 │                                        .                                               #       │└────────────────────────────────────────┘
 │                                        .                                               #       │┌─ Nearby ───────────────────────────────┐
-│                                        .                                               #       ││ M Plain Scuttler          2m E 339/400 │
+│                                        .                                               #       ││ M Plain Scuttler     2m E 339/400 even │
 │                                        .                                               #       ││ $ Testgrounds Vendor      9m NE vendor │
 │                                        .                                               #       ││ $ Testgrounds Banker     11m NE banker │
 │                                        .                                               #       ││ $ Testgrounds Binder     12m NE binder │
 │                                        .                                               #       ││ $ Warrior Trainer       13m NE trainer │
 │                                        .                                               #       ││ & Testgrounds C… 14m NE contract_board │
-│                                        .                                               #       ││ +9 more                                │
+│                                        .                                               #       ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Flame Dart             6mp ready 2 Frost Bolt           12mp ready 3 -                         empty 4 -                         empty │

@@ -1,6 +1,6 @@
 ┌─ Hollow Warren (Warren Venture Delve), at 61,7… ─┐┌─ You ────────────────────┐
 │#.................#        #.....# #.............#││ hale  Lv 7 Warrior  | 0cr│
-│#.................#        #.....# #.............#││ HP 197/204 ############- │
+│#.................#        #.....# #.............#││ HP 231/232 ############- │
 │............################.....###.............#││ XP #--------- 178 to Lv 8│
 │............#   #...................####.....#####││ Atk off | none           │
 │............#####...................####.....#####│└──────────────────────────┘
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    77.2s encounter inst-1.enc-1 with Warren Digger closed: mob_died          │
-│ +  77.2s bram received 4 xp from Warren Digger                               │
-│ +  77.2s hale received 3 xp from Warren Digger                               │
-│    77.2s Warren Digger left view                                             │
+│    54.2s encounter inst-1.enc-1 with Warren Digger closed: mob_died          │
+│ +  54.2s bram received 4 xp from Warren Digger                               │
+│ +  54.2s hale received 3 xp from Warren Digger                               │
+│    54.2s Warren Digger left view                                             │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hollow Warren (Warren Venture Delve) | heard 0.4s ago | attack ok     

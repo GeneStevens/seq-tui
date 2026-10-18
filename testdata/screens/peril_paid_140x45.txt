@@ -17,17 +17,17 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ p c2                   0m here 100/100 │
-│                                                                                                ││ D gate-north                      1m N │
-│                                                                                                ││ D line-east                    124m SE │
-│                                                                                                ││                                        │
-│                                                                                            c   ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                                                                ││ D Gate North                      1m N │
+│                                                                                                ││ $ Eastern Binder          72m S binder │
+│                                                                                                ││ $ Druid Trainer          83m W trainer │
+│                                                                                            c   ││ $ Paladin Trainer        84m W trainer │
+│                                                                                                ││ ? Testgrounds Recr… 85m SW quest_giver │
+│                                                                                                ││ ? Testgrounds Capta… 86m W quest_giver │
+│                                                                                                ││ $ Wizard Trainer         86m W trainer │
+│                                                                                                ││ & Testgrounds Co… 88m W contract_board │
+│                                                                                                ││ $ Rogue Trainer          88m W trainer │
+│                                                                                                ││ $ Testgrounds Binder      90m W binder │
+│                                                                                                ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s c2 (c2) appeared                                                                                                                │

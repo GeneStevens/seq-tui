@@ -15,7 +15,7 @@
 │                   .                              m                          #                  ││                                        │
 │                   .                            @      c                     #                  │└────────────────────────────────────────┘
 │                   .                                                         #                  │┌─ Nearby ───────────────────────────────┐
-│                   .                                                         #                  ││ m Plain Scuttler            2m E 40/40 │
+│                   .                                                         #                  ││ m Plain Scuttler       2m E 40/40 even │
 │                   .                                                         #                  ││ ? Testgrounds Recrui… 6m N quest_giver │
 │                   .                                                         #                  ││ ? Testgrounds Captain 8m N quest_giver │
 │                   .                                                         #                  ││ & Testgrounds Con… 8m N contract_board │
@@ -27,10 +27,9 @@
 │                   .                                                         #                  ││ $ Wizard Trainer         12m N trainer │
 │                   .                                                         #                  ││ $ Rogue Trainer          13m N trainer │
 │                   .                                                         #                  ││ $ Cleric Trainer        13m NW trainer │
-│                   .                                                         #                  ││ +3 more                                │
+│                   .                                                         #                  ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s aria opened an encounter with Plain Scuttler (enc-1)                                                                            │
 │     1.1s Plain Scuttler began attacking aria                                                                                             │
 │ <   1.1s Plain Scuttler hit aria for 2                                                                                                   │
 │ <   4.1s Plain Scuttler hit aria for 1                                                                                                   │
@@ -38,6 +37,7 @@
 │ <   7.1s Plain Scuttler hit aria for 3                                                                                                   │
 │ <  10.1s Plain Scuttler hit aria for 2                                                                                                   │
 │ x  10.1s Plain Scuttler killed aria                                                                                                      │
+│    10.1s Plain Scuttler's target aria cleared: target_dead                                                                               │
 │    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead                                                                   │
 │    11.0s Plain Scuttler reset to 40 hp                                                                                                   │
 │    30.2s aria released; respawns in 5 s                                                                                                  │
