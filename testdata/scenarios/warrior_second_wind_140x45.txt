@@ -22,7 +22,7 @@
 │                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
 │                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
 │                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
-│                                    .                                               #           ││ +8 more                                │
+│                                    .                                               #           ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt                       N.Ns 2 Bash                        gcd 3 Second Wind                 90s 4 -                         empty │

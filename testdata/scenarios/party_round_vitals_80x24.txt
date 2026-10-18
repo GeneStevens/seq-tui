@@ -1,13 +1,13 @@
-┌─ Testgrounds (Duo Turns), at 100,78 m, north up ─┐┌─ You ────────────────────┐
-│                                                  ││ ann1  Lv 1  XP 0    | 0cr│
+┌─ Testgrounds (Duo Turns), at 100,82 m, north up ─┐┌─ You ────────────────────┐
+│..................................................││ ann1  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 98/100 #############- │
-│                         D                        ││ Target: Plain Scuttler   │
+│                                                  ││ Target: Plain Scuttler   │
 │                                                  ││ Auto-attack: ON          │
-│                                                  │└──────────────────────────┘
+│                         D                        │└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
-│                        M                         ││ Duo Turns                │
+│                                                  ││ Duo Turns                │
 │                         @                        ││ turn-based | inside      │
-│                                                  ││ party up to 2 | normal   │
+│                        M                         ││ party up to 2 | normal   │
 │                                                  ││ sleeps up to 7 d         │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Round 5, 6 s left ──────┐

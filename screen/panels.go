@@ -203,7 +203,11 @@ func nearbyList(m *model.Model) []nearby {
 		out = append(out, mk(npcGlyph(n), n.GetId(), n.GetName(), n.GetPos(), n.GetRole()))
 	}
 	for _, d := range m.Map.GetDoors() {
-		out = append(out, mk(glyphDoor, d.GetId(), m.MarkerName(d.GetId()), d.GetPos(), ""))
+		name := d.GetName()
+		if name == "" {
+			name = m.MarkerName(d.GetId())
+		}
+		out = append(out, mk(glyphDoor, d.GetId(), name, d.GetPos(), ""))
 	}
 	held := map[string]bool{}
 	for _, c := range m.Self.Contracts {
@@ -338,7 +342,7 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 	}
 	var all []styled
 	for _, e := range m.Log {
-		if !v.Verbose && (e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed") {
+		if !v.Verbose && (e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed" || e.Kind == "unknown") {
 			continue
 		}
 		mark, fn := " ", func(s string) string { return s }
@@ -363,6 +367,10 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 			}
 		case e.Kind == "level_up":
 			mark, fn = "+", func(s string) string { return st.Green(st.Bold(s)) }
+		case e.Kind == "quest":
+			mark, fn = "+", st.Green
+		case e.Kind == "walk_stopped":
+			mark, fn = "!", st.Yellow
 		case e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed":
 			fn = st.Dim
 		}

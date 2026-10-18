@@ -27,7 +27,7 @@
 │                                 .                                                         #    ││ $ Wizard Trainer        14m NE trainer │
 │                                 .                                                         #    ││ m Plain Scuttler           15m E 40/40 │
 │                                 .                                                         #    ││ $ Paladin Trainer       16m NE trainer │
-│                                 .                                                         #    ││ +3 more                                │
+│                                 .                                                         #    ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns owed pay waiting from the Scuttler Raid: 30 XP and 15 crowns, paid at your next join                                            │

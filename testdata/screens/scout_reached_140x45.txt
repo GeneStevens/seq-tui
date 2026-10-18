@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    21.6s an event this client does not know                                                                                              │
-│    21.7s an event this client does not know                                                                                              │
-│    21.8s an event this client does not know                                                                                              │
-│    21.9s an event this client does not know                                                                                              │
-│    22.0s an event this client does not know                                                                                              │
-│    22.1s an event this client does not know                                                                                              │
-│    22.2s an event this client does not know                                                                                              │
-│    22.3s an event this client does not know                                                                                              │
-│    22.4s an event this client does not know                                                                                              │
 │    22.6s entered Thornwick Downs                                                                                                         │
 │ +  40.3s contract Word from Wickett Mill: the marker is reached; return to the board                                                     │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | heard 0.4s ago | move ok                                                                          ? help  q quit

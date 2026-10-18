@@ -1,38 +1,38 @@
-┌─ Testgrounds, at 16,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                         .                                                         #            ││ aria  Lv 1  XP 0             | 0 crowns│
-│                         .                                                         #            ││ HP 100/100 ########################### │
-│                         .                                                         #            ││ Target: none                           │
-│                         .                                                         #            ││ Auto-attack: off                       │
-│                         .                                                         #            │└────────────────────────────────────────┘
-│                         .                $  $  $  $  $  $                         #            │┌─ Quest ────────────────────────────────┐
-│                         .                                                         #            ││ [ ] 1. Scout the Lookout               │
-│                         .                                                         #            ││ Testgrounds Recruiter has work for you:│
-│                         .                $  $  $  &  ?                            #            ││ G.                                     │
-│                         .                               ?                         #            │└────────────────────────────────────────┘
-│                         .                                                         #            │┌─ Target ───────────────────────────────┐
-│                         .                                                         #            ││ no target (Tab to choose)              │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                      @   m        c                     #            │└────────────────────────────────────────┘
-│                         .                                                         #            │┌─ Nearby ───────────────────────────────┐
-│                         .                                                         #            ││ m Plain Scuttler            2m E 40/40 │
-│                         .                                                         #            ││ $ Testgrounds Binder       8m N binder │
-│                         .                                                         #            ││ $ Testgrounds Banker       8m N banker │
-│                         .                                                         #            ││ & Testgrounds Con… 8m N contract_board │
-│                         .                                                         #            ││ ? Testgrounds Recru… 8m NE quest_giver │
-│                         .                                                         #            ││ ? Testgrounds Capta… 9m NE quest_giver │
-│                         .                                                         #            ││ $ Testgrounds Vendor      9m NW vendor │
-│                         .                                                         #            ││ $ Rogue Trainer          12m N trainer │
-│                         .                                                         #            ││ $ Cleric Trainer         12m N trainer │
-│                         .                                                         #            ││ $ Wizard Trainer         12m N trainer │
-│                         .                                                         #            ││ $ Paladin Trainer        13m N trainer │
-│                         .                                                         #            ││ $ Warrior Trainer        13m N trainer │
-│                         .                                                         #            ││ +3 more                                │
+┌─ Testgrounds, at 14,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                           .                                                         #          ││ aria  Lv 1  XP 0             | 0 crowns│
+│                           .                                                         #          ││ HP 100/100 ########################### │
+│                           .                                                         #          ││ Target: none                           │
+│                           .                                                         #          ││ Auto-attack: off                       │
+│                           .                                                         #          │└────────────────────────────────────────┘
+│                           .                $  $  $  $  $  $                         #          │┌─ Quest ────────────────────────────────┐
+│                           .                                                         #          ││ [ ] 1. Scout the Lookout               │
+│                           .                                                         #          ││ Testgrounds Recruiter has work for you:│
+│                           .                $  $  $  &  ?                            #          ││ G.                                     │
+│                           .                               ?                         #          │└────────────────────────────────────────┘
+│                           .                                                         #          │┌─ Target ───────────────────────────────┐
+│                           .                                                         #          ││ no target (Tab to choose)              │
+│                           .                                                         #          ││                                        │
+│                           .                                                         #          ││                                        │
+│                           .                    @    m         c                     #          │└────────────────────────────────────────┘
+│                           .                                                         #          │┌─ Nearby ───────────────────────────────┐
+│                           .                                                         #          ││ m Plain Scuttler            4m E 40/40 │
+│                           .                                                         #          ││ $ Testgrounds Banker       8m N banker │
+│                           .                                                         #          ││ $ Testgrounds Binder       8m N binder │
+│                           .                                                         #          ││ $ Testgrounds Vendor       8m N vendor │
+│                           .                                                         #          ││ & Testgrounds Co… 9m NE contract_board │
+│                           .                                                         #          ││ ? Testgrounds Recr… 10m NE quest_giver │
+│                           .                                                         #          ││ ? Testgrounds Capt… 10m NE quest_giver │
+│                           .                                                         #          ││ $ Cleric Trainer         12m N trainer │
+│                           .                                                         #          ││ $ Rogue Trainer          12m N trainer │
+│                           .                                                         #          ││ $ Warrior Trainer        12m N trainer │
+│                           .                                                         #          ││ $ Wizard Trainer         12m N trainer │
+│                           .                                                         #          ││ $ Paladin Trainer       13m NE trainer │
+│                           .                                                         #          ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Plain Scuttler targeted aria                                                                                                    │
 │     N.Ns aria opened an encounter with Plain Scuttler (enc-1)                                                                            │
-│                                                                                                                                          │
+│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                                  │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- REPLAY | Testgrounds | nothing heard yet | tui-ann-1: message 62 of 62  Left, Right step  Home, End  Esc back                ? help  q quit
+ REPLAY | Testgrounds | nothing heard yet | tui-ann-1: message 59 of 59  Left, Right step  Home, End  Esc back                ? help  q quit

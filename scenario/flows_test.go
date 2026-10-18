@@ -70,21 +70,27 @@ func TestLoginMoveFightLoot(t *testing.T) {
 		}
 	})
 
-	// Two steps east: 3 m a press, 4 m/s, so a second each.
+	// Two steps east, 3 m a press at 4 m/s. The scuttler at (25000, 50000) wakes
+	// at 12 m and attacks: a fight stops a walk (D66), so the second step ends
+	// short of 16000 and the log says so.
 	p.Press("right")
 	w.Advance(time.Second)
 	p.Press("right")
 	w.Advance(time.Second)
 	notice(t, p, "move ok", false)
 	p.Model(func(m *model.Model) {
-		if m.Self.Pos.GetX() != 16000 || m.Self.Pos.GetY() != 50000 {
+		if m.Self.Pos.GetX() != 14600 || m.Self.Pos.GetY() != 50000 {
 			t.Fatalf("after two steps east: at %v", m.Self.Pos)
+		}
+		if !hasLog(m, "walk_stopped", "you are fighting Plain Scuttler") {
+			t.Fatalf("the log does not say the fight stopped the first walk (D66): %v", m.Log)
 		}
 	})
 
-	// The scuttler at (25000, 50000) woke at 12 m. Tab picks it, F attacks.
+	// The scuttler is fighting the character already. Tab picks it, F attacks.
 	p.Press("tab")
 	notice(t, p, "target ok", false)
+	w.Advance(2 * time.Second) // it closes the 10 m to melee
 	p.Press("f")
 	p.Model(func(m *model.Model) {
 		if m.Self.Target == "" || !m.Self.AutoAttack {

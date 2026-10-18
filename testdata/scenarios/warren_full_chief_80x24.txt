@@ -1,10 +1,10 @@
 ┌─ Hollow Warren (Warren Venture Delve), at 334,… ─┐┌─ You ────────────────────┐
 │.......................................           ││ hale  Lv 12 Warr… | 313cr│
-│.....#######...........................           ││ HP 874/874 ############# │
-│.....#     #...........................           ││ XP ##------- 229 to Lv 13│
+│.....#######...........................           ││ HP 869/874 ############- │
+│.....#     #...........................           ││ XP ##------- 218 to Lv 13│
 │.....#     #...........................           ││ Atk off | none           │
 │.....#######...........................           │└──────────────────────────┘
-│..#...........#..........@.m...........           │┌─ Instance ───────────────┐
+│..#...........#..........@m............           │┌─ Instance ───────────────┐
 │.......................................           ││ Warren Venture Delve     │
 │.....#######...........................           ││ real-time | inside       │
 │.........# #...........................           ││ party up to 2 | normal   │
@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│   NNN.Ns Warren Chief targeted hale                                          │
-│   NNN.Ns hale opened an encounter with Warren Chief (inst-1.enc-21)          │
 │   NNN.Ns Warren Chief used chief-pack-cry                                    │
 │   NNN.Ns chief-pack-cry: buff strength on Warren Chief for 18 s              │
+│   NNN.Ns Warren Chief began attacking hale                                   │
+│ < NNN.Ns Warren Chief hit hale for 5                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

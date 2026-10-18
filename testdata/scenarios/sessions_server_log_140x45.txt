@@ -4,7 +4,7 @@
 │ 2025-01-01 00:00:00.100  intent tui-1: move {"move":{"destination":{"x":"13000","y":"50000"}}}                                           │
 │ 2025-01-01 00:00:00.200  result attend-1-ann-here: accepted                                                                              │
 │ 2025-01-01 00:00:00.200  result tui-1: accepted                                                                                          │
-│ 2025-01-01 00:00:01.200  intent tui-2: move {"move":{"destination":{"x":"16000","y":"50000"}}}                                           │
+│ 2025-01-01 00:00:01.200  intent tui-2: move {"move":{"destination":{"x":"14600","y":"50000"}}}                                           │
 │ 2025-01-01 00:00:01.300  result tui-2: accepted                                                                                          │
 │ 2025-01-01 00:00:02.300  disconnect: connection closed                                                                                   │
 │                                                                                                                                          │

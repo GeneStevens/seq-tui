@@ -16,9 +16,9 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns an event this client does not know                                  │
-│    NN.Ns an event this client does not know                                  │
-│    NN.Ns an event this client does not know                                  │
+│    NN.Ns Odalys Penn is out of view                                          │
 │    NN.Ns entered Thornwick Downs                                             │
+│                                                                              │
+│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok   

@@ -1,24 +1,24 @@
-┌─ Keys (? again: chat and parties) ───────────────────────────────────────────┐
-│ Move             arrow keys or W A S D                                       │
-│ Target, attack   Tab cycles the target (Esc clears); F or Space: auto-attack…│
-│ Loot, doors      L: the nearest drop you may take; E: the nearest door (stan…│
-│ Release          R: when you are dead, give up your body and respawn         │
-│ Abilities        1-8 use that slot on your target; B sets slots (out of comb…│
-│ Instances        I: this zone's menu (Enter opens one); then E at its door   │
-│ Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank  │
-│ Trade            T: ask a character in reach; each side offers, then confirms│
-│ People           G: talk to the nearest; options open a trader or a board    │
-│ Contracts        K: those you hold (X gives up); the board takes, hands in   │
-│ Plans            turn-based: keys build a plan, one move or door, one ability│
-│                  or attack. Enter submits, Backspace drops a step, Esc clears│
-│ Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log  │
-│ Sessions         Ctrl+L: your logs, local and the server's (replay, read, ex…│
-│ Map              north is up, you are the centre; M: the whole zone seen     │
-│   @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end       │
-│   * drop  ~ a drop you may not take  $ trader  & board  ? talker             │
-│   % your marker  ; scout marker  ! G event spawn, goal  D door  # wall       │
-│ Ground            # building  ^ rock  ≈ water  : ford  = bridge  " forest  ·…│
-│                  The status line gives the server's speed on forest, road, f…│
-│ Event log markers:  ! denied (with the reason) or a cast that did not land   │
+┌─ Help: Moving, doors, people ────────────────────────────────────────────────┐
+│ Moving and doors                                                             │
+│   Walk with the arrow keys or W A S D; each press sends you a few metres on. │
+│   The status line says how fast you go on the ground you stand on.           │
+│   M shows the whole zone you have seen. A door (D) leads to the next zone or │
+│   to an instance: stand at it and press E or Enter. A zone line (the east    │
+│   gate, say) takes you across; E at the far side brings you back.            │
+│   Nearby lists what is around you by name and distance: people, doors and    │
+│   places, and the town's fixed people even before you have seen them.        │
+│                                                                              │
+│ Talking, trainers and contracts                                              │
+│   G talks to the nearest person; their options open a trader, a trainer or a │
+│   board. N opens the traders in view: buy, sell, learn an ability from a     │
+│   trainer for crowns, set your bind point, bank.                             │
+│   A contract board offers hunts, gathering and scouting. K lists the         │
+│   contracts you hold. Hand a finished one in at any contract board in town,  │
+│   not only the one that posted it.                                           │
+│   Nothing here is required and nothing waits for you: play in any order.     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Page 1 of 5  ? next page  Left, Right turn  Esc closes                       │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | outskirts | heard 0.4s ago                              ? help  q quit

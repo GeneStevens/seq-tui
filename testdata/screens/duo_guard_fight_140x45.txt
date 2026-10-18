@@ -30,7 +30,7 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.6s hale opened an encounter with Bramble Tusker (enc-1)                                                                            │
+│ !   1.6s Your walk stopped: you are fighting Bramble Tusker; a fight stops a walk. Move again to go on.                                  │
 │     3.1s Bramble Tusker began attacking hale                                                                                             │
 │ <   3.1s Bramble Tusker hit hale for 4                                                                                                   │
 │     3.6s bram targeted Bramble Tusker                                                                                                    │

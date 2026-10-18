@@ -22,7 +22,7 @@
 │                                     .                                               #          ││ & Testgrounds C… 12m NE contract_board │
 │                                     .                                               #          ││ $ Warrior Trainer        12m N trainer │
 │                                     .                                               #          ││ $ Cleric Trainer        13m NE trainer │
-│                                     .                                               #          ││ +9 more                                │
+│                                     .                                               #          ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Flame Dart               6mp gcd 2 Frost Bolt             12mp gcd 3 -                         empty 4 -                         empty │

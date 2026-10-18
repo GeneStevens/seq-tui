@@ -11,9 +11,9 @@
 │                                                  │└──────────────────────────┘
 │                  m                               │┌─ Nearby ─────────────────┐
 │                                                  ││ m Den Brute 13m SW 40/40 │
-│                                                  ││ D gate-north       40m W │
-│                                                  ││ D line-east       96m SE │
-│                                                  ││                          │
+│                                                  ││ D Gate North       40m W │
+│                                                  ││ $ Eastern … 72m S binder │
+│                                                  ││ +13 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
 │ nothing has happened yet                    ││ [tell] bob1: psst, a word     │

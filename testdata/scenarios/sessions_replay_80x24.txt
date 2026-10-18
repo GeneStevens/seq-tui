@@ -1,24 +1,24 @@
-┌─ Testgrounds, at 16,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│             .                             #      ││ aria  Lv 1  XP 0    | 0cr│
-│             .                             #      ││ HP 100/100 ############# │
-│             .                             #      ││ Target: none             │
-│             .        $ $$ $$ $            #      ││ Auto-attack: off         │
-│             .        $ $$ &?              #      │└──────────────────────────┘
-│             .                ?            #      │┌─ Quest ──────────────────┐
-│             .                             #      ││ [ ] 1. Scout the Lookout │
-│             .           @ m    c          #      ││ Testgrounds Recruiter has│
-│             .                             #      ││ work for you: G.         │
-│             .                             #      │└──────────────────────────┘
-│             .                             #      │┌─ Target ─────────────────┐
-│             .                             #      ││ no target (Tab to choose)│
-│             .                             #      ││                          │
-│             .                             #      ││                          │
-│             .                             #      ││                          │
+┌─ Testgrounds, at 14,50 m, north up ──────────────┐┌─ You ────────────────────┐
+│              .                             #     ││ aria  Lv 1  XP 0    | 0cr│
+│              .                             #     ││ HP 100/100 ############# │
+│              .                             #     ││ Target: none             │
+│              .        $ $$ $$ $            #     ││ Auto-attack: off         │
+│              .        $ $$ &?              #     │└──────────────────────────┘
+│              .                ?            #     │┌─ Quest ──────────────────┐
+│              .                             #     ││ [ ] 1. Scout the Lookout │
+│              .          @  m    c          #     ││ Testgrounds Recruiter has│
+│              .                             #     ││ work for you: G.         │
+│              .                             #     │└──────────────────────────┘
+│              .                             #     │┌─ Target ─────────────────┐
+│              .                             #     ││ no target (Tab to choose)│
+│              .                             #     ││                          │
+│              .                             #     ││                          │
+│              .                             #     ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     N.Ns Plain Scuttler targeted aria                                        │
 │     N.Ns aria opened an encounter with Plain Scuttler (enc-1)                │
-│                                                                              │
-│                                                                              │
+│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a │
+│            walk. Move again to go on.                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
- REPLAY | tui-ann-1: message 62 of 62  Left, Right step  Home, End  Esc back    
+ REPLAY | tui-ann-1: message 59 of 59  Left, Right step  Home, End  Esc back    

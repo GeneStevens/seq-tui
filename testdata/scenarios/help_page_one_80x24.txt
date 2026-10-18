@@ -1,0 +1,24 @@
+┌─ Help: Moving, doors, people ────────────────────────────────────────────────┐
+│ Moving and doors                                                             │
+│   Walk with the arrow keys or W A S D; each press sends you a few metres on. │
+│   The status line says how fast you go on the ground you stand on.           │
+│   M shows the whole zone you have seen. A door (D) leads to the next zone or │
+│   to an instance: stand at it and press E or Enter. A zone line (the east    │
+│   gate, say) takes you across; E at the far side brings you back.            │
+│   Nearby lists what is around you by name and distance: people, doors and    │
+│   places, and the town's fixed people even before you have seen them.        │
+│                                                                              │
+│ Talking, trainers and contracts                                              │
+│   G talks to the nearest person; their options open a trader, a trainer or a │
+│   board. N opens the traders in view: buy, sell, learn an ability from a     │
+│   trainer for crowns, set your bind point, bank.                             │
+│   A contract board offers hunts, gathering and scouting. K lists the         │
+│   contracts you hold. Hand a finished one in at any contract board in town,  │
+│   not only the one that posted it.                                           │
+│   Nothing here is required and nothing waits for you: play in any order.     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Page 1 of 5  ? next page  Left, Right turn  Esc closes                       │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | First Steps 1/4 | Thornwick | road: faster, 125% | heard N.Ns ago     

@@ -84,6 +84,8 @@ const (
 	OpenSessions    // the sessions view (D64)
 	SessionsDo      // a request of the sessions view: ID is the verb, Note the session
 	SocialDo        // a request about playing together: ID is the verb, Note its argument
+	OpenQuest       // the quest chain screen (D62)
+	QuestDismiss    // give the quest chain up for good
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -164,8 +166,10 @@ func common(key string) Action {
 		return Action{Kind: Logout}
 	case "q", "ctrl+c":
 		return Action{Kind: Quit}
-	case "?":
+	case "?", "f1":
 		return Action{Kind: ToggleHelp}
+	case "ctrl+k":
+		return Action{Kind: OpenQuest}
 	case "v":
 		return Action{Kind: ToggleVerbose}
 	case "i":

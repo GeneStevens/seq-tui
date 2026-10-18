@@ -465,7 +465,7 @@ func TestDropsYouMayNotTakeAreMarked(t *testing.T) {
 	out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain())
 	for _, want := range []string{"~ Scuttler Blade", "not lootable", "* 5 crowns", "~ a drop you may not take"} {
 		if want == "~ a drop you may not take" {
-			out = screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true}, 140, 45, screen.Plain())
+			out = screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true, HelpPage: 3}, 140, 45, screen.Plain())
 		}
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q\n%s", want, out)

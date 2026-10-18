@@ -13,7 +13,7 @@
 │                                                  ││ ~ 5 … 16m S not lootable │
 │                                                  ││ ~ Sc… 16m S not lootable │
 │                        p~                        ││ ~ Wo… 16m S not lootable │
-│                                                  ││ +3 more                  │
+│                                                  ││ +16 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │    NN.Ns Trophy Scuttler dropped 5 crowns (drop-enc-1-crowns): not yours to  │

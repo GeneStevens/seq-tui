@@ -5,20 +5,20 @@
 │   Town Guard               guard                  15m S too far              │
 │   Mother Elswyth           teaches                16m S too far              │
 │   Gorran Stoutarm          teaches                19m SW too far             │
+│   Barnaby Tuck             sells and buys         24m E too far              │
+│   Pip Nettle               teaches                25m SE too far             │
 │   Hilda Brasswick          sells and buys         25m N too far              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
+│   Thornwick Contract Board posts contracts        34m NE too far             │
+│   Tamsin Hale              guard                  36m NE too far             │
+│   Isolde Fenn              sets your bind point   37m E too far              │
+│   Ormond Quill             teaches                39m SE too far             │
+│   Ser Aldric Vane          teaches                54m E too far              │
+│   Odalys Penn              keeps your bank        66m NE too far             │
+│   Wynne Greenhollow        teaches                70m E too far              │
+│   Captain Rhosyn Hartley   talks                  79m E too far              │
 │                                                                              │
 │                                                                              │
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago         ? help  q quit
+ ONLINE | First Steps 1/4 | Thornwick | road: faster, 125% | heard N.Ns ago     

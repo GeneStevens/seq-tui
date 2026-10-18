@@ -304,9 +304,9 @@ func TestWhoAndFriends(t *testing.T) {
 	ann.Press("esc")
 
 	// The help has a page on all of it.
-	ann.Press("?", "?")
+	ann.Press("?", "right", "right", "right", "right")
 	ann.Golden("help_social")
-	ann.Press("?")
+	ann.Press("esc")
 }
 
 // walkBoth walks the players leg by leg to the point, a second of game time to

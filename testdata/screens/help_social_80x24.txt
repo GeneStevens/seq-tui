@@ -1,4 +1,4 @@
-┌─ Keys: chat, parties, who and friends (? closes) ────────────────────────────┐
+┌─ Help: Chat, parties, who and friends ───────────────────────────────────────┐
 │ Command line     /  opens it (the slash is in it). Enter sends, Esc cancels  │
 │                  Plain text is said to the characters within 40 m of you     │
 │ Chat             /say TEXT   /p TEXT: the party   /tell NAME TEXT            │
@@ -19,6 +19,6 @@
 │                  D removes, I invites; the log says who logs in or out       │
 │ Anonymous        /anon on hides your zone from who and friends; /anon off    │
 │ Logs             Ctrl+L: sessions. Every session is recorded under its id in │
-│                  seq-tui/sessions in your data dir (-log-dir, -no-record)    │
+│ Page 5 of 5  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit
