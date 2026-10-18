@@ -19,6 +19,6 @@
 │   Ctrl+K           your quest chain: its step; X dismisses it for good       │
 │   N                traders: buy, sell, train, bind, bank                     │
 │   C                inventory: wear and take off gear                         │
-│ Page 4 of 5  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
+│ Page 5 of 6  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick | heard N.Ns ago                              ? help  q quit

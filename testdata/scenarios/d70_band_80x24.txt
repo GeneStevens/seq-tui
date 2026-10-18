@@ -1,0 +1,24 @@
+┌─ Thornwick Downs, at 251,105 m, north up ────────┐┌─ You ────────────────────┐
+│         ^^^^                                     ││ hale  Lv 8 Warrior  | 0cr│
+│                                                  ││ HP 218/218 ############# │
+│                                                  ││ XP ---------- 202 to Lv 9│
+│                        #####                     ││ Atk off | Goblin Scrapper│
+│                        #####                     │└──────────────────────────┘
+│                      M  @                        │┌─ Target ─────────────────┐
+│                                                  ││ M Goblin Scrapper  Lv 5  │
+│                                                  ││ HP 152/152 ####### 6m W  │
+│                                      """"       #││ easy, fighting you       │
+│                                  """""""""""""""#││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt       ready 2 Bash       range 3 -          empty 4 -          empty │
+│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ You: none   |   Goblin Scrapper: none                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns hale targeted Goblin Scrapper                                       │
+│     N.Ns Goblin Scrapper targeted hale                                       │
+│     N.Ns hale opened an encounter with Goblin Scrapper (enc-1)               │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Thornwick Downs | heard N.Ns ago | target ok            ? help  q quit

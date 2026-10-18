@@ -13,7 +13,7 @@
 │                                                                                                ││ Thin the Meadow Wolves             0/3 │
 │                                                @                                               │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ m Meadow Wolf              13m S 36/36 │
+│                                                                                                ││ m Meadow Wolf         13m S 36/36 even │
 │                                                                                                ││ ; Wickett Mill      29m N scout marker │
 │                                                                                                ││ G Barleycross        36m NE event goal │
 │                                                                                          c     ││ D Town Gate                     60m NW │

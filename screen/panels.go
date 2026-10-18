@@ -180,8 +180,11 @@ func nearbyList(m *model.Model) []nearby {
 			hp = "dead"
 		}
 		n := mk(entityGlyph(e), e.GetId(), e.GetName(), e.GetPos(), hp)
+		if band := e.GetCon(); band != "" && !e.GetDead() {
+			n.note = band // the server's difficulty band for a mob, in words (D70)
+		}
 		if model.IsRare(e) && !e.GetDead() {
-			n.note = "RARE"
+			n.note = strings.TrimSpace(n.note + " RARE")
 		}
 		out = append(out, n)
 	}
@@ -323,8 +326,17 @@ func targetLines(m *model.Model, w int, st Styler) []string {
 	return []string{
 		st.Bold(fit(fmt.Sprintf(" %c %s  Lv %d%s", g, e.GetName(), e.GetLevel(), rareTag(e)), w)),
 		fit(" "+state+bar(e.GetHp(), e.GetMaxHp(), max(w-width(state)-width(right)-4, 0))+" "+right, w),
-		fit(" "+fight, w),
+		fit(" "+bandWord(e)+fight, w),
 	}
+}
+
+// bandWord is the mob's difficulty band for the Target panel, in words so that
+// it never rests on colour alone: "hard, ".
+func bandWord(e *pb.EntityState) string {
+	if e.GetCon() == "" || e.GetDead() {
+		return ""
+	}
+	return e.GetCon() + ", "
 }
 
 // rareTag marks a roaming rare in the Target panel.

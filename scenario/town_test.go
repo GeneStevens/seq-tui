@@ -401,8 +401,9 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 	})
 }
 
-// The Harvest Raid starts: the whole zone is told, the banner is up, and a level 12
-// warrior who stands in the raiders' way fights them. When it ends the banner says
+// The Harvest Raid starts: the whole zone is told, the banner is up, and a level 8
+// warrior who stands in the raiders' way fights them (a level 12 one would find
+// the level 4 raiders trivial, and they would walk past it: D70). When it ends the banner says
 // how, and the character, whose account is attended, is paid for taking part.
 func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 	w := scenario.New(t, testserver.Options{
@@ -419,7 +420,7 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
-		cs.Stats, cs.Known, cs.Slots, cs.XP = core.ClassCharacter(cl, *z.CharacterTemplate("warrior"), 12)
+		cs.Stats, cs.Known, cs.Slots, cs.XP = core.ClassCharacter(cl, *z.CharacterTemplate("warrior"), 8)
 		cs.Known, cs.Slots = cl.KnownAt(1), core.DefaultSlots(cl.KnownAt(1))
 	})
 	w.Srv.Attend("ann")

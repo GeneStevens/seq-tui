@@ -22,11 +22,12 @@ type LogEntry struct {
 }
 
 func (m *Model) logEvent(e *pb.Event) {
-	kind, text, reason := describe(e, m.label, m.AbilityName)
+	m.mobNotes(e) // what a mob did, in words, ahead of the event's own line
+	kind, text, reason := describe(e, m.label, m.abilityOf)
 	if k, t, r, ok := m.describeInstance(e); ok {
 		kind, text, reason = k, t, r
 	}
-	if k, t, r, ok := describeCombat(e, m.label, m.AbilityName); ok {
+	if k, t, r, ok := describeCombat(e, m.label, m.abilityOf); ok {
 		kind, text, reason = k, t, r
 	}
 	if k, t, r, ok := m.describeEconomy(e); ok {
@@ -39,6 +40,9 @@ func (m *Model) logEvent(e *pb.Event) {
 		kind, text, reason = k, t, r
 	}
 	if k, t, r, ok := m.describeCompanion(e); ok {
+		kind, text, reason = k, t, r
+	}
+	if k, t, r, ok := m.describeMobs(e); ok {
 		kind, text, reason = k, t, r
 	}
 	var actor, target string
@@ -54,10 +58,7 @@ func (m *Model) logEvent(e *pb.Event) {
 	case *pb.Event_CastInterrupted:
 		actor, target = b.CastInterrupted.GetActor(), b.CastInterrupted.GetTarget()
 	}
-	m.Log = append(m.Log, LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target})
-	if over := len(m.Log) - m.logCap; over > 0 {
-		m.Log = append([]LogEntry(nil), m.Log[over:]...)
-	}
+	m.addLog(LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target})
 }
 
 // label is what an entity is called in the log: its name if the model has seen

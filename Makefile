@@ -1,10 +1,14 @@
 .PHONY: verify golden fixtures play
 
 # verify is the repo's gate (seq-design D15): gofmt check, vet, test. Under 60 s.
+# The scenarios read seq-world's packs from the module cache, which no import
+# fills (only a tool and the test server's packs path name it), so it is
+# downloaded first; it is a private module (see the README).
 verify:
 	@start=$$(date +%s); \
 	unformatted=$$(gofmt -l .); \
 	if [ -n "$$unformatted" ]; then echo "gofmt needed:"; echo "$$unformatted"; exit 1; fi; \
+	go mod download github.com/GeneStevens/seq-world || exit 1; \
 	go vet ./... || exit 1; \
 	go test ./... || exit 1; \
 	echo "make verify: OK in $$(( $$(date +%s) - start )) s"

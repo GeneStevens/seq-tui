@@ -32,7 +32,7 @@
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns your companion is ordered: attack                                                                                               │
 │     N.Ns Watch Shieldman targeted Plain Scuttler                                                                                         │
-│     N.Ns Watch Shieldman used warrior-taunt on Plain Scuttler                                                                            │
+│     N.Ns Watch Shieldman used Warrior Taunt on Plain Scuttler                                                                            │
 │     N.Ns Watch Shieldman opened an encounter with Plain Scuttler (inst-1.enc-1)                                                          │
 │     N.Ns Plain Scuttler targeted Watch Shieldman                                                                                         │
 │     N.Ns Watch Shieldman began attacking Plain Scuttler                                                                                  │

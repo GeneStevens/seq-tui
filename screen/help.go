@@ -78,6 +78,7 @@ type helpPage struct {
 var helpPages = []helpPage{
 	{"Moving, doors, people", func(_ *model.Model, _ View, w int) []string { return sections(w, guidePlaying) }},
 	{"Quest chains and fighting", func(_ *model.Model, _ View, w int) []string { return sections(w, guideChains) }},
+	{"Mobs and difficulty", func(_ *model.Model, _ View, w int) []string { return sections(w, guideMobs) }},
 	{"Logs and replay", func(_ *model.Model, _ View, w int) []string { return sections(w, guideLogs) }},
 	{"Every key", func(m *model.Model, v View, w int) []string { return KeyLines(m, v, w) }},
 	{"Chat, parties, who and friends", func(_ *model.Model, _ View, w int) []string { return socialHelp() }},
@@ -115,6 +116,16 @@ var guideChains = []section{
 		"With no target, an attack or an ability goes to whatever is attacking you, the nearest first; the status line names the one picked. If nothing is attacking you it is refused: Tab to a target first.",
 		"A fight stops your walk: attacking, using an ability on an enemy, or something attacking you. The log says \"Your walk stopped\"; press a move key to go on.",
 		"To back off: F turns auto-attack off, Esc clears the target, then walk away. If you die, R gives up your body and you wake at your bind point.",
+	}},
+}
+
+var guideMobs = []section{
+	{"What mobs do", []string{
+		"Difficulty: each mob is trivial, easy, even, hard or deadly to you, by its level against yours (Nearby and the Target panel say it in words). Trivial mobs leave you alone and drop nothing rare; deadly ones are four or more levels above you.",
+		"Casters: a mob's bolt takes a few seconds to cast. A stun or an interrupting blow (a warrior's Bash) breaks it off, and the log says \"your Bash breaks off the hexer's bolt\".",
+		"Healers: a shaman heals the mob it fights beside. The log says who heals whom; kill the healer first, or break its cast.",
+		"Fleeing: a hurt goblin runs for home once, then turns back to fight. Follow it, or let it go: it comes back by itself.",
+		"Linked camps: pulling one mob can bring its partner camp, and a chief's cry can call the guards of his wing. The log says \"joins the fight\" or \"answers\" for each.",
 	}},
 }
 

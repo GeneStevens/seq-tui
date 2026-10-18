@@ -32,8 +32,8 @@
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns bram (bram) appeared                                                                                                            │
 │     N.Ns bram targeted Bramble Tusker                                                                                                    │
-│     N.Ns bram began casting cleric-minor-heal (1.5 s)                                                                                    │
-│     N.Ns bram used cleric-minor-heal                                                                                                     │
+│     N.Ns bram began casting Minor Heal (1.5 s)                                                                                           │
+│     N.Ns bram used Minor Heal                                                                                                            │
 │     N.Ns bram cleared the target                                                                                                         │
 │    NN.Ns Bramble Tusker targeted hale                                                                                                    │
 │    NN.Ns hale opened an encounter with Bramble Tusker (enc-1)                                                                            │

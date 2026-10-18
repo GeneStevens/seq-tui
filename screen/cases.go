@@ -196,7 +196,7 @@ var Cases = []Case{
 	// SEQ-055 and WLD-004 (TUI-017): no companion panel with the default setting,
 	// owed pay listed at login, and a duo in the Hollow Warren.
 	{Name: "shelved_captain", Log: "shelved.jsonl", Mark: "shelved_captain", Notice: "talk to Captain Rhosyn Hartley ok", Talk: &Talk{NPC: "captain"}},
-	{Name: "shelved_help", Log: "shelved.jsonl", Mark: "shelved_help", Help: true, HelpPage: 3},
+	{Name: "shelved_help", Log: "shelved.jsonl", Mark: "shelved_help", Help: true, HelpPage: 4},
 	{Name: "owed_pay_login", Log: "owed_login.jsonl", Mark: "owed_pay_login"},
 	{Name: "warren_duo", Log: "duo_warren.jsonl", Mark: "warren_duo", Notice: "second character: stance assist", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "warren_entered", Log: "duo_warren.jsonl", Mark: "warren_entered", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
@@ -209,8 +209,9 @@ var Cases = []Case{
 	{Name: "first_steps_gate", Log: "first_steps.jsonl", Mark: "first_steps_gate"},
 	{Name: "first_steps_done", Log: "first_steps.jsonl", Mark: "first_steps_done"},
 	{Name: "help_chains", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 1},
-	{Name: "help_logs", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 2},
-	{Name: "help_keys", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 3},
+	{Name: "help_mobs", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 2},
+	{Name: "help_logs", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 3},
+	{Name: "help_keys", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 4},
 	// M9: chat, the party, who and friends (the logs are the first player's side
 	// of the two- and three-account scenarios).
 	{Name: "chat_refused", Log: "chat_social.jsonl", Mark: "chat_refused", Notice: "say: you are talking too fast: wait a moment (rate_limited)", NoticeBad: true},
@@ -219,7 +220,7 @@ var Cases = []Case{
 	{Name: "party_chat", Log: "party_accounts.jsonl", Mark: "party_chat"},
 	{Name: "who_list", Log: "who_friends.jsonl", Mark: "who_list", Social: &SocialUI{Tab: TabWho}, WhoKnown: true},
 	{Name: "friends_list", Log: "who_friends.jsonl", Mark: "friends_list", Social: &SocialUI{Tab: TabFriends}},
-	{Name: "help_social", Log: "chat_social.jsonl", Mark: "chat_refused", Help: true, HelpPage: 4},
+	{Name: "help_social", Log: "chat_social.jsonl", Mark: "chat_refused", Help: true, HelpPage: 5},
 	{Name: "party_warren", Log: "party_warren.jsonl", Mark: "warren_party_opened"},
 	{Name: "party_round", Log: "party_turns.jsonl", Mark: "party_round_bob_sent"},
 }
