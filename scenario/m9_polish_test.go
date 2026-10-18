@@ -200,7 +200,13 @@ func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Pla
 					key = "f"
 				}
 				if e != nil && !e.GetDead() && i > 0 { // a goblin that fled is chased home
-					closeIn = &[2]int64{e.GetPos().GetX(), e.GetPos().GetY() - 1500} // out of reach of its mob
+					// out of reach of its mob, on the side we came from: a mob that keeps its
+					// distance (a slinger) backs away from whoever is nearer than it likes
+					y := e.GetPos().GetY() - 1500
+					if m.Self.Pos.GetY() < e.GetPos().GetY() {
+						y = e.GetPos().GetY() + 1500
+					}
+					closeIn = &[2]int64{e.GetPos().GetX(), y}
 				}
 			})
 			if closeIn != nil {

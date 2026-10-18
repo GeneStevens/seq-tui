@@ -1,5 +1,5 @@
 ┌─ Talking ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Thornwick Contract Board, 4m NW of you                                                                                                   │
+│ Thornwick Contract Board, 1m SW of you                                                                                                   │
 │                                                                                                                                          │
 │ “Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof back here.”                             │
 │ “Hunts, hauls and scouting: every job is paid in crowns and experience.”                                                                 │
@@ -42,4 +42,4 @@
 │ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                                                               │
 │ The answer is on the status line; every refusal says why.                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster, 125% | heard 0.4s ago | talk to Thornwick Contract Board ok                               ? help  q quit
+ ONLINE | First Steps 2/4 | Thornwick | road: faster, 125% | heard 0.4s ago | talk to Thornwick Contract Board ok             ? help  q quit

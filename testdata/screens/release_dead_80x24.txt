@@ -16,8 +16,8 @@
 │          .                             #         ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│ <  10.1s Plain Scuttler hit aria for 2                                       │
 │ x  10.1s Plain Scuttler killed aria                                          │
+│    10.1s Plain Scuttler's target aria cleared: target_dead                   │
 │    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead       │
 │    11.0s Plain Scuttler reset to 40 hp                                       │
 └──────────────────────────────────────────────────────────────────────────────┘

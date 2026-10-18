@@ -1,7 +1,7 @@
 ┌─ Hollow Warren (Warren Venture Delve), at 334,… ─┐┌─ You ────────────────────┐
 │.......................................           ││ hale  Lv 12 Warr… | 281cr│
-│.....#######...........................           ││ HP 869/874 ############- │
-│.....#     #...........................           ││ XP ##------- 214 to Lv 13│
+│.....#######...........................           ││ HP 907/917 ############- │
+│.....#     #...........................           ││ XP ##------- 219 to Lv 13│
 │.....#     #...........................           ││ Atk off | none           │
 │.....#######...........................           │└──────────────────────────┘
 │..#...........#..........@m............           │┌─ Instance ───────────────┐
@@ -19,6 +19,6 @@
 │   NNN.Ns Warren Chief used Pack Cry                                          │
 │   NNN.Ns Pack Cry: buff strength on Warren Chief for 18 s                    │
 │   NNN.Ns Warren Chief began attacking hale                                   │
-│ < NNN.Ns Warren Chief hit hale for 5                                         │
+│ < NNN.Ns Warren Chief hit hale for 10                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

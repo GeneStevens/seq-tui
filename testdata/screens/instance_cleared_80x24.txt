@@ -19,6 +19,6 @@
 │ +  81.7s aria received Cracked Shell Fragment from                           │
 │            drop-inst-1.enc-1-shell-fragment                                  │
 │    81.7s instance ended, cleared: every mob dead and the loot taken          │
-│    82.1s entered Testgrounds                                                 │
+│    82.0s entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                  ? help  q quit

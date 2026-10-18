@@ -1,6 +1,6 @@
 ┌─ Hollow Warren (Warren Venture Delve), at 61,70 m, north up ───────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │...............................#                        #..........#       #....................││ hale  Lv 7 Warrior           | 0 crowns│
-│...............................#                        #..........#       #....................││ HP 197/204 ##########################- │
+│...............................#                        #..........#       #....................││ HP 231/232 ##########################- │
 │######...........###############                        #..........#       #....................││ XP #----------------------- 178 to Lv 8│
 │.................#                                      #..........#       #....................││ Atk off | none                         │
 │.................#           ############################..........#########....................│└────────────────────────────────────────┘
@@ -11,7 +11,7 @@
 │.................#############............................................############..........│└────────────────────────────────────────┘
 │...........#.................................................#............................#.....│┌─ Party, 2nd character ─────────────────┐
 │................................................................................................││ bram  Lv 7                             │
-│...............................................p@...............................................││ HP 160/160 ########################### │
+│..............................................p*@...............................................││ HP 160/160 ########################### │
 │................................................................................................││ stance assist                          │
 │................................................................................................││ waiting for a fight                    │
 │.................#############............................................######################││ P call or send away   H stance         │
@@ -30,16 +30,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ x  77.2s bram killed Warren Digger                                                                                                       │
-│    77.2s bram's target Warren Digger cleared: target_dead                                                                                │
-│    77.2s bram stopped attacking                                                                                                          │
-│    77.2s hale's target Warren Digger cleared: target_dead                                                                                │
-│    77.2s hale stopped attacking                                                                                                          │
-│    77.2s Warren Digger dropped Digger's Claw (drop-inst-1.enc-1-digger-claw)                                                             │
-│    77.2s Warren Digger dropped 9 crowns (drop-inst-1.enc-1-crowns)                                                                       │
-│    77.2s encounter inst-1.enc-1 with Warren Digger closed: mob_died                                                                      │
-│ +  77.2s bram received 4 xp from Warren Digger                                                                                           │
-│ +  77.2s hale received 3 xp from Warren Digger                                                                                           │
-│    77.2s Warren Digger left view                                                                                                         │
+│ x  54.2s bram killed Warren Digger                                                                                                       │
+│    54.2s bram's target Warren Digger cleared: target_dead                                                                                │
+│    54.2s bram stopped attacking                                                                                                          │
+│    54.2s hale's target Warren Digger cleared: target_dead                                                                                │
+│    54.2s hale stopped attacking                                                                                                          │
+│    54.2s Warren Digger dropped Digger's Claw (drop-inst-1.enc-1-digger-claw)                                                             │
+│    54.2s Warren Digger dropped 9 crowns (drop-inst-1.enc-1-crowns)                                                                       │
+│    54.2s encounter inst-1.enc-1 with Warren Digger closed: mob_died                                                                      │
+│ +  54.2s bram received 4 xp from Warren Digger                                                                                           │
+│ +  54.2s hale received 3 xp from Warren Digger                                                                                           │
+│    54.2s Warren Digger left view                                                                                                         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hollow Warren (Warren Venture Delve) | heard 0.4s ago | attack ok                                                   ? help  q quit

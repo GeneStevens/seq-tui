@@ -15,19 +15,19 @@
 │                                                                                                ││                                        │
 │                                                @                                               │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ D gate-north                   0m here │
-│                                                                                                ││ D line-east                    124m SE │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                            c   ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                                                                ││ D Gate North                   0m here │
+│                                                                                                ││ $ Eastern Binder          73m S binder │
+│                                                                                                ││ $ Druid Trainer          83m W trainer │
+│                                                                                                ││ $ Paladin Trainer        85m W trainer │
+│                                                                                                ││ ? Testgrounds Recr… 85m SW quest_giver │
+│                                                                                            c   ││ ? Testgrounds Capta… 86m W quest_giver │
+│                                                                                                ││ $ Wizard Trainer         87m W trainer │
+│                                                                                                ││ & Testgrounds Co… 88m W contract_board │
+│                                                                                                ││ $ Rogue Trainer          89m W trainer │
+│                                                                                                ││ $ Testgrounds Binder      90m W binder │
+│                                                                                                ││ $ Cleric Trainer         90m W trainer │
+│                                                                                                ││ $ Testgrounds Banker      92m W banker │
+│                                                                                                ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    55.6s encounter inst-1.enc-1 with Plain Scuttler closed: mob_died                                                                     │
@@ -40,6 +40,6 @@
 │    81.7s drop drop-inst-1.enc-1-shell-fragment is gone: taken                                                                            │
 │ +  81.7s aria received Cracked Shell Fragment from drop-inst-1.enc-1-shell-fragment                                                      │
 │    81.7s instance ended, cleared: every mob dead and the loot taken                                                                      │
-│    82.1s entered Testgrounds                                                                                                             │
+│    82.0s entered Testgrounds                                                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                                                                              ? help  q quit

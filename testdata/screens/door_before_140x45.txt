@@ -10,21 +10,21 @@
 │                                                        .                                       ││                                        │
 │                                                        .                                       │└────────────────────────────────────────┘
 │                                                        .                                       │┌─ Nearby ───────────────────────────────┐
-│                                                        .                                       ││ D line-east                       1m E │
-│                                                        .                                       ││ D gate-north                   123m NW │
-│                                                        .                                       ││                                        │
-│                                                @D      .                                       ││                                        │
-│                                                        .                                       ││                                        │
-│                                                        .                                       ││                                        │
-│                                                        .                                       ││                                        │
-│                                                        .                                       ││                                        │
-│                                                        .                                       ││                                        │
-│                                                        .                                       ││                                        │
-│.........................................................                                       ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                        .                                       ││ D Line East                       1m E │
+│                                                        .                                       ││ $ Eastern Binder          75m W binder │
+│                                                        .                                       ││ D Gate North                   123m NW │
+│                                                @D      .                                       ││ ? Testgrounds Recr… 178m W quest_giver │
+│                                                        .                                       ││ $ Druid Trainer         180m W trainer │
+│                                                        .                                       ││ ? Testgrounds Capt… 180m W quest_giver │
+│                                                        .                                       ││ $ Paladin Trainer       182m W trainer │
+│                                                        .                                       ││ & Testgrounds C… 182m W contract_board │
+│                                                        .                                       ││ $ Wizard Trainer        184m W trainer │
+│                                                        .                                       ││ $ Testgrounds Binder     184m W binder │
+│.........................................................                                       ││ $ Rogue Trainer         185m W trainer │
+│                                                                                                ││ $ Testgrounds Banker     186m W banker │
+│                                                                                                ││ $ Cleric Trainer        187m W trainer │
+│                                                                                                ││ $ Testgrounds Vendor     188m W vendor │
+│                                                                                                ││ $ Warrior Trainer       189m W trainer │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

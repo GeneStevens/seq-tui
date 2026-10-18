@@ -1,24 +1,24 @@
-┌─ Testgrounds, at 16,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│             .                             #      ││ aria  Lv 1  XP 0    | 0cr│
-│             .                             #      ││ HP 96/100 #############- │
-│             .                             #      ││ Target: Plain Scuttler   │
-│             .        $ $$ $$ $            #      ││ Auto-attack: ON          │
-│             .        $ $$ &?              #      │└──────────────────────────┘
-│             .                ?            #      │┌─ Quest ──────────────────┐
-│             .                             #      ││ [ ] 1. Scout the Lookout │
-│             .           @ M    c          #      ││ Testgrounds Recruiter has│
-│             .                             #      ││ work for you: G.         │
-│             .                             #      │└──────────────────────────┘
-│             .                             #      │┌─ Target ─────────────────┐
-│             .                             #      ││ M Plain Scuttler  Lv 1   │
-│             .                             #      ││ HP 22/40 ####----- 2m E  │
-│             .                             #      ││ fighting you             │
-│             .                             #      ││                          │
+┌─ Testgrounds, at 14,50 m, north up ──────────────┐┌─ You ────────────────────┐
+│              .                             #     ││ aria  Lv 1  XP 0    | 0cr│
+│              .                             #     ││ HP 96/100 #############- │
+│              .                             #     ││ Target: Plain Scuttler   │
+│              .        $ $$ $$ $            #     ││ Auto-attack: ON          │
+│              .        $ $$ &?              #     │└──────────────────────────┘
+│              .                ?            #     │┌─ Quest ──────────────────┐
+│              .                             #     ││ [ ] 1. Scout the Lookout │
+│              .          @ M     c          #     ││ Testgrounds Recruiter has│
+│              .                             #     ││ work for you: G.         │
+│              .                             #     │└──────────────────────────┘
+│              .                             #     │┌─ Target ─────────────────┐
+│              .                             #     ││ M Plain Scuttler  Lv 1   │
+│              .                             #     ││ HP 23/40 #####---- 2m E  │
+│              .                             #     ││ even, fighting you       │
+│              .                             #     ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     6.5s aria missed Plain Scuttler                                          │
-│ <   8.4s Plain Scuttler hit aria for 3                                       │
-│     8.5s aria hit Plain Scuttler for 5                                       │
-│    10.5s aria hit Plain Scuttler for 4                                       │
+│ <  11.9s Plain Scuttler hit aria for 2                                       │
+│    12.0s aria healed 2                                                       │
+│    12.0s Plain Scuttler healed 1                                             │
+│    12.5s aria hit Plain Scuttler for 4                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

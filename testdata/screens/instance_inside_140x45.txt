@@ -15,8 +15,8 @@
 │                                                                                                ││                                        │
 │                                                @                                               │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ D gate-north                   0m here │
-│                                                                                                ││ m Plain Scuttler           14m S 40/40 │
+│                                                                                                ││ D Gate North                   0m here │
+│                                                                                                ││ m Plain Scuttler      14m S 40/40 even │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

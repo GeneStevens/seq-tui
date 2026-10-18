@@ -10,8 +10,8 @@
 │                                         .                                                      ││                                        │
 │                                         .                                                      │└────────────────────────────────────────┘
 │                                         .                                                      │┌─ Nearby ───────────────────────────────┐
-│                                         .                                                      ││ D line-west                    0m here │
-│                                         .                                                      ││ m Plain Scuttler           11m E 40/40 │
+│                                         .                                                      ││ D Line West                    0m here │
+│                                         .                                                      ││ m Plain Scuttler      11m E 40/40 even │
 │                                         .                      m                               ││                                        │
 │                                         .      @              c                                ││                                        │
 │                                         .                                                      ││                                        │

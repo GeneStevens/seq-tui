@@ -1,7 +1,7 @@
  EVENT  Harvest Raid: Goblins pour out of the east to raid the harvest at Barle…
 ┌─ Thornwick Downs, at 110,131 m, north up ────────┐┌─ You ────────────────────┐
 │··················································││ hale  Lv 8 Warrior  | 0cr│
-│     ····            ···········                  ││ HP 147/218 ########----- │
+│     ····            ···········                  ││ HP 165/249 ########----- │
 │     ····""""""""""                               ││ XP ---------- 202 to Lv 9│
 │     ····#####                    "               ││ Atk off | none           │
 │≈≈≈  ··G######           @       """""""""""      │└──────────────────────────┘
@@ -16,8 +16,8 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns hale healed 9                                                       │
-│    NN.Ns hale healed 9                                                       │
+│    NN.Ns hale healed 13                                                      │
+│    NN.Ns hale healed 13                                                      │
 │ *  NN.Ns World event, Harvest Raid, has begun: Goblins pour out of the east  │
 │            to raid the harvest at Barleycross. Defend the farms!             │
 └──────────────────────────────────────────────────────────────────────────────┘
