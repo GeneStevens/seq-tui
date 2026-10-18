@@ -22,7 +22,7 @@
 │                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
 │                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
 │                                    .                                               #           ││ ? Testgrounds Capt… 13m NE quest_giver │
-│                                    .                                               #           ││ +8 more                                │
+│                                    .                                               #           ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt                       tgt? 2 Bash                       tgt? 3 Second Wind               ready 4 -                         empty │

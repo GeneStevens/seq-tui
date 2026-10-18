@@ -1,24 +1,24 @@
-┌─ Keys (? again: chat and parties) ───────────────────────────────────────────┐
-│ Move             arrow keys or W A S D                                       │
-│ Target, attack   Tab cycles the target (Esc clears); F or Space: auto-attack…│
-│ Loot, doors      L: the nearest drop you may take; E: the nearest door (stan…│
-│ Release          R: when you are dead, give up your body and respawn         │
-│ Abilities        1-8 use that slot on your target; B sets slots (out of comb…│
-│ Instances        I: this zone's menu (Enter opens one); then E at its door   │
-│ Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank  │
-│ Trade            T: ask a character in reach; each side offers, then confirms│
-│ People           G: talk to the nearest; options open a trader or a board    │
-│ Contracts        K: those you hold (X gives up); the board takes, hands in   │
-│ Plans            turn-based: keys build a plan, one move or door, one ability│
-│                  or attack. Enter submits, Backspace drops a step, Esc clears│
-│ Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log  │
-│ Sessions         Ctrl+L: your logs, local and the server's (replay, read, ex…│
-│ Map              north is up, you are the centre; M: the whole zone seen     │
-│   @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end       │
-│   * drop  ~ a drop you may not take  $ trader  & board  ? talker             │
-│   % your marker  ; scout marker  ! G event spawn, goal  D door  # wall       │
-│ Ground            # building  ^ rock  ≈ water  : ford  = bridge  " forest  ·…│
-│                  The status line gives the server's speed on forest, road, f…│
-│ Event log markers:  ! denied (with the reason) or a cast that did not land   │
+┌─ Help: Every key ────────────────────────────────────────────────────────────┐
+│ Moving                                                                       │
+│   Arrows, W A S D  walk a few metres that way                                │
+│   E, Enter         go through the nearest door (stand at it)                 │
+│   M                the whole zone you have seen                              │
+│                                                                              │
+│ Fighting                                                                     │
+│   Tab              choose the next target                                    │
+│   Esc              clear the target                                          │
+│   F, Space         auto-attack on or off; with no target, the one attacking… │
+│   1-8              use that slot's ability on your target (none: what attac… │
+│   B                set the ability slots (out of combat)                     │
+│   R                when you are dead: give up your body and respawn          │
+│                                                                              │
+│ People and things                                                            │
+│   G                talk to the nearest person                                │
+│   L                loot the nearest drop you may take                        │
+│   K                contracts you hold (X gives one up)                       │
+│   Ctrl+K           your quest chain: its step; X dismisses it for good       │
+│   N                traders: buy, sell, train, bind, bank                     │
+│   C                inventory: wear and take off gear                         │
+│ Page 4 of 5  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick | heard 0.4s ago                              ? help  q quit

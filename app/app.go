@@ -53,6 +53,7 @@ type App struct {
 	line     *screen.Line       // the command line, nil when closed
 	soc      *screen.SocialUI   // the Social screen, nil when closed
 	ses      *screen.SessionsUI // the sessions view, nil when closed
+	quest    *screen.QuestUI    // the quest chain screen, nil when closed
 	replay   *replay            // a recording drawn in place of the screen, nil when none
 	log      *sessionlog.Log    // this session's own log, nil when recording is off
 	logRoot  string             // the directory of the player's session logs
@@ -257,6 +258,10 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	a.focusSess().View(func(m *model.Model) {
 		a.sync(m)
 		switch {
+		case a.view.Help:
+			act = a.helpKey(k, m)
+		case k == "?" || k == "f1":
+			act = Action{Kind: ToggleHelp} // the help opens over every view
 		case a.replay != nil:
 			act = a.replayKey(k)
 		case a.ses != nil:
@@ -271,6 +276,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.boardKey(k, m)
 		case a.role != nil:
 			act = a.roleKey(k, m)
+		case a.quest != nil:
+			act = a.questKey(k, m)
 		case a.cons != nil:
 			act = a.contractsKey(k, m)
 		case a.overview:
@@ -307,15 +314,7 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	case Quit:
 		return a, tea.Quit
 	case ToggleHelp:
-		// ? opens the keys, again the page on playing together, again closes.
-		switch {
-		case !a.view.Help:
-			a.view.Help = true
-		case !a.view.HelpMore:
-			a.view.HelpMore = true
-		default:
-			a.view.Help, a.view.HelpMore = false, false
-		}
+		a.view.Help, a.view.HelpPage, a.view.HelpScroll = true, 0, 0
 	case ToggleVerbose:
 		a.view.Verbose = !a.view.Verbose
 	case OpenMenu:
@@ -336,6 +335,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.cons = &screen.ContractsUI{}
 	case OpenOverview:
 		a.overview = true
+	case OpenQuest:
+		a.quest = &screen.QuestUI{}
 	case OpenLine:
 		a.line = &screen.Line{Text: "/"}
 	case OpenSessions:
@@ -443,6 +444,10 @@ func (a *App) send(act Action) tea.Cmd {
 		if act.For != "" {
 			ctx = client.Directing(ctx, act.For)
 		}
+		hadTarget := true
+		if act.For == "" {
+			a.sess.View(func(m *model.Model) { hadTarget = m.Self.Target != "" })
+		}
 		var (
 			id    string
 			err   error
@@ -487,6 +492,9 @@ func (a *App) send(act Action) tea.Cmd {
 		case SetSlot:
 			what = fmt.Sprintf("slot %d", act.Slot)
 			id, err = a.sess.SetSlot(ctx, act.Slot, act.ID)
+		case QuestDismiss:
+			what = "dismiss quest"
+			id, err = a.sess.QuestDismiss(ctx, "")
 		case Stop:
 			what = "stop"
 			id, err = a.sess.Stop(ctx)
@@ -530,6 +538,13 @@ func (a *App) send(act Action) tea.Cmd {
 			return resultMsg{note: "instance requested; the log says when it is open"}
 		case act.Kind == Talk:
 			return resultMsg{note: what + " ok", talk: act.NPC}
+		case act.Kind == QuestDismiss:
+			return resultMsg{note: "quest chain dismissed for good; it will not be offered again"}
+		case !hadTarget && act.For == "" && act.ID == "" && (act.Kind == Attack && act.On || act.Kind == UseAbility):
+			// With no target the server picks what is attacking the character (D66).
+			if name := a.sess.Picked(ctx); name != "" {
+				return resultMsg{note: what + " ok: the server picked " + name + " as your target"}
+			}
 		}
 		return resultMsg{note: what + " ok" + extra}
 	}
@@ -547,7 +562,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
 	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
 	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
-	v.Line, v.Social, v.Sessions = a.line, a.soc, a.ses
+	v.Line, v.Social, v.Sessions, v.Quest = a.line, a.soc, a.ses, a.quest
 	a.checkFocus()
 	if a.focus {
 		v.Directing = a.duoName()
@@ -582,4 +597,76 @@ func (a *App) View() tea.View {
 	tv.AltScreen = true
 	tv.WindowTitle = "SEQ"
 	return tv
+}
+
+// helpKey handles a key while the help is open: ? turns the page (and closes
+// after the last), Left and Right turn it either way, Up and Down scroll.
+func (a *App) helpKey(k string, m *model.Model) Action {
+	v := &a.view
+	last := screen.HelpPages() - 1
+	maxScroll := screen.HelpMaxScroll(m, a.helpView(), a.w, a.h)
+	switch k {
+	case "?", "right", "pgdown", "n", "space", " ":
+		if v.HelpPage >= last && k == "?" {
+			v.Help = false
+			break
+		}
+		v.HelpPage, v.HelpScroll = min(v.HelpPage+1, last), 0
+	case "left", "pgup", "p", "backspace":
+		v.HelpPage, v.HelpScroll = max(v.HelpPage-1, 0), 0
+	case "up", "k":
+		v.HelpScroll = max(v.HelpScroll-1, 0)
+	case "down", "j":
+		v.HelpScroll = min(v.HelpScroll+1, maxScroll)
+	case "home":
+		v.HelpScroll = 0
+	case "end":
+		v.HelpScroll = maxScroll
+	case "esc", "q", "f1":
+		v.Help = false
+	case "ctrl+c":
+		return Action{Kind: Quit}
+	}
+	return Action{}
+}
+
+// helpView is the view the help is drawn with, for the lines it will have.
+func (a *App) helpView() screen.View {
+	v := a.view
+	if a.duo != nil {
+		v.Duo = &screen.DuoView{}
+	}
+	if a.focus {
+		v.Directing = a.duoName()
+	}
+	return v
+}
+
+// questKey handles a key on the quest chain screen. X asks the one question that
+// dismisses the chain; Y answers it, anything else withdraws it.
+func (a *App) questKey(k string, m *model.Model) Action {
+	q := a.quest
+	if q.Confirm {
+		q.Confirm = false
+		switch k {
+		case "y":
+			a.quest = nil
+			return Action{Kind: QuestDismiss}
+		case "ctrl+c":
+			return Action{Kind: Quit}
+		}
+		return Action{}
+	}
+	switch k {
+	case "esc", "q", "ctrl+k":
+		a.quest = nil
+	case "ctrl+c":
+		return Action{Kind: Quit}
+	case "x":
+		if m.Quest() == nil {
+			return Action{Note: "you are on no quest chain"}
+		}
+		q.Confirm = true
+	}
+	return Action{}
 }

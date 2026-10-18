@@ -15,19 +15,19 @@
 │                                                                                                ││                                        │
 │                                                @                                               │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ D gate-north                   0m here │
-│                                                                                                ││ D line-east                    124m SE │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                            c   ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                                                                ││ D Gate North                   0m here │
+│                                                                                                ││ $ Eastern Binder          73m S binder │
+│                                                                                                ││ $ Druid Trainer          83m W trainer │
+│                                                                                                ││ $ Paladin Trainer        85m W trainer │
+│                                                                                                ││ ? Testgrounds Recr… 85m SW quest_giver │
+│                                                                                            c   ││ ? Testgrounds Capta… 86m W quest_giver │
+│                                                                                                ││ $ Wizard Trainer         87m W trainer │
+│                                                                                                ││ & Testgrounds Co… 88m W contract_board │
+│                                                                                                ││ $ Rogue Trainer          89m W trainer │
+│                                                                                                ││ $ Testgrounds Binder      90m W binder │
+│                                                                                                ││ $ Cleric Trainer         90m W trainer │
+│                                                                                                ││ $ Testgrounds Banker      92m W banker │
+│                                                                                                ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns Plain Scuttler left view                                                                                                        │

@@ -30,7 +30,6 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s your companion is now on assist                                                                                                 │
 │     0.2s Bramble Tusker targeted Watch Shieldman                                                                                         │
 │     0.2s Watch Shieldman opened an encounter with Bramble Tusker (enc-1)                                                                 │
 │     1.3s hale targeted Bramble Tusker                                                                                                    │
@@ -40,6 +39,7 @@
 │     2.1s Bramble Tusker began attacking Watch Shieldman                                                                                  │
 │     2.1s Bramble Tusker hit Watch Shieldman for 5                                                                                        │
 │     3.6s hale began attacking Bramble Tusker                                                                                             │
+│     3.6s Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
 │     3.6s hale hit Bramble Tusker for 5                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | attack ok                                                ? help  q quit

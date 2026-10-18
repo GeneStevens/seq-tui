@@ -1,0 +1,24 @@
+┌─ Help: Every key ────────────────────────────────────────────────────────────┐
+│ Moving                                                                       │
+│   Arrows, W A S D  walk a few metres that way                                │
+│   E, Enter         go through the nearest door (stand at it)                 │
+│   M                the whole zone you have seen                              │
+│                                                                              │
+│ Fighting                                                                     │
+│   Tab              choose the next target                                    │
+│   Esc              clear the target                                          │
+│   F, Space         auto-attack on or off; with no target, the one attacking… │
+│   1-8              use that slot's ability on your target (none: what attac… │
+│   B                set the ability slots (out of combat)                     │
+│   R                when you are dead: give up your body and respawn          │
+│                                                                              │
+│ People and things                                                            │
+│   G                talk to the nearest person                                │
+│   L                loot the nearest drop you may take                        │
+│   K                contracts you hold (X gives one up)                       │
+│   Ctrl+K           your quest chain: its step; X dismisses it for good       │
+│   N                traders: buy, sell, train, bind, bank                     │
+│   C                inventory: wear and take off gear                         │
+│ Page 4 of 5  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
+└──────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | outskirts | heard 0.4s ago                              ? help  q quit

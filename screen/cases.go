@@ -64,7 +64,7 @@ type Case struct {
 	Line     *Line
 	Social   *SocialUI
 	WhoKnown bool
-	HelpMore bool
+	HelpPage int
 }
 
 // Sizes the goldens are drawn at.
@@ -196,13 +196,16 @@ var Cases = []Case{
 	// SEQ-055 and WLD-004 (TUI-017): no companion panel with the default setting,
 	// owed pay listed at login, and a duo in the Hollow Warren.
 	{Name: "shelved_captain", Log: "shelved.jsonl", Mark: "shelved_captain", Notice: "talk to Captain Rhosyn Hartley ok", Talk: &Talk{NPC: "captain"}},
-	{Name: "shelved_help", Log: "shelved.jsonl", Mark: "shelved_help", Help: true},
+	{Name: "shelved_help", Log: "shelved.jsonl", Mark: "shelved_help", Help: true, HelpPage: 3},
 	{Name: "owed_pay_login", Log: "owed_login.jsonl", Mark: "owed_pay_login"},
 	{Name: "warren_duo", Log: "duo_warren.jsonl", Mark: "warren_duo", Notice: "second character: stance assist", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "warren_entered", Log: "duo_warren.jsonl", Mark: "warren_entered", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "warren_digger", Log: "duo_warren.jsonl", Mark: "warren_digger", Notice: "target ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "warren_room_cleared", Log: "duo_warren.jsonl", Mark: "warren_room_cleared", Notice: "attack ok", Duo: &DuoView{ID: "bram", Active: true, Stance: "assist"}},
 	{Name: "help", Log: "fight_loot.jsonl", Upto: 10, Help: true},
+	{Name: "help_chains", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 1},
+	{Name: "help_logs", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 2},
+	{Name: "help_keys", Log: "fight_loot.jsonl", Upto: 10, Help: true, HelpPage: 3},
 	// M9: chat, the party, who and friends (the logs are the first player's side
 	// of the two- and three-account scenarios).
 	{Name: "chat_refused", Log: "chat_social.jsonl", Mark: "chat_refused", Notice: "say: you are talking too fast: wait a moment (rate_limited)", NoticeBad: true},
@@ -211,7 +214,7 @@ var Cases = []Case{
 	{Name: "party_chat", Log: "party_accounts.jsonl", Mark: "party_chat"},
 	{Name: "who_list", Log: "who_friends.jsonl", Mark: "who_list", Social: &SocialUI{Tab: TabWho}, WhoKnown: true},
 	{Name: "friends_list", Log: "who_friends.jsonl", Mark: "friends_list", Social: &SocialUI{Tab: TabFriends}},
-	{Name: "help_social", Log: "chat_social.jsonl", Mark: "chat_refused", Help: true, HelpMore: true},
+	{Name: "help_social", Log: "chat_social.jsonl", Mark: "chat_refused", Help: true, HelpPage: 4},
 	{Name: "party_warren", Log: "party_warren.jsonl", Mark: "warren_party_opened"},
 	{Name: "party_round", Log: "party_turns.jsonl", Mark: "party_round_bob_sent"},
 }
@@ -255,7 +258,7 @@ func (c Case) Draw(m *model.Model, w, h int) string {
 	v.Inventory, v.Traders, v.Trade = c.Inventory, c.Traders, c.Trade
 	v.Talk, v.Board, v.Contracts, v.Overview = c.Talk, c.Board, c.Contracts, c.Overview
 	v.Role, v.Duo = c.Role, c.Duo
-	v.Line, v.Social, v.HelpMore = c.Line, c.Social, c.HelpMore
+	v.Line, v.Social, v.HelpPage = c.Line, c.Social, c.HelpPage
 	if c.Social != nil && c.WhoKnown {
 		ui := *c.Social
 		for _, k := range m.KnownCharacters() {

@@ -1,0 +1,45 @@
+┌─ Help: Logs and replay ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Logs and replay                                                                                                                          │
+│   Every session is recorded by default, under its id, in seq-tui/sessions in your data dir (-log-dir moves it, -no-record turns it off).…│
+│   log never holds your credential.                                                                                                       │
+│   Ctrl+L lists your sessions, yours and the server's log of them: Enter replays one in place (Left and Right step, Home and End jump, Esc│
+│   comes back), R reads the server's log, E exports one to a file.                                                                        │
+│   seq-tui -replay FILE (or a session id) draws a recording with no server; -text prints it as plain text.                                │
+│   V shows more of the event log: routine movement and rules ticks.                                                                       │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Page 3 of 5  ? next page  Left, Right turn  Esc closes                                                                                   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | outskirts | heard 0.4s ago                                                                                          ? help  q quit

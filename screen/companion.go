@@ -6,6 +6,7 @@ import (
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq/agentkit"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
 // The Quest panel, the Companion panel, the Party panel for a second character
@@ -66,6 +67,9 @@ type panel struct {
 // in the order they claim room.
 func helperPanels(m *model.Model, v View, iw int, st Styler) []panel {
 	var out []panel
+	if q := m.Quest(); q != nil {
+		out = append(out, panel{"Quest chain (Ctrl+K)", chainLines(q, iw, st)})
+	}
 	both := companionShown(m) && v.Duo != nil
 	if companionShown(m) {
 		title := "Companion, " + m.Companion().GetRole()
@@ -290,4 +294,14 @@ func roleLines(m *model.Model, r *Role, w, h int, st Styler) []string {
 		rows = rows[:h]
 	}
 	return pad(rows, w, h)
+}
+
+// chainLines are the quest chain the character is on and its current step
+// (D62): what it is called, how far it has got and what the step says.
+func chainLines(q *pb.QuestInfo, w int, st Styler) []string {
+	rows := []string{st.Bold(fit(" "+q.GetName(), w)), fit(fmt.Sprintf(" Step %d of %d", q.GetStep(), q.GetSteps()), w)}
+	for _, l := range wrapIndent(" "+q.GetText(), w-1, " ") {
+		rows = append(rows, fit(l, w))
+	}
+	return rows
 }

@@ -1,36 +1,35 @@
-┌─ Testgrounds, at 16,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                         .                                                         #            ││ aria  Lv 1  XP 20            | 0 crowns│
-│                         .                                                         #            ││ HP 99/100 ###########################- │
-│                         .                                                         #            ││ Target: none                           │
-│                         .                                                         #            ││ Auto-attack: off                       │
-│                         .                                                         #            │└────────────────────────────────────────┘
-│                         .                $  $  $  $  $  $                         #            │┌─ Quest ────────────────────────────────┐
-│                         .                                                         #            ││ [ ] 1. Scout the Lookout               │
-│                         .                                                         #            ││ Testgrounds Recruiter has work for you:│
-│                         .                $  $  $  &  ?                            #            ││ G.                                     │
-│                         .                               ?                         #            │└────────────────────────────────────────┘
-│                         .                                                         #            │┌─ Target ───────────────────────────────┐
-│                         .                                                         #            ││ no target (Tab to choose)              │
-│                         .                                                         #            ││                                        │
-│                         .                                                         #            ││                                        │
-│                         .                      @            c                     #            │└────────────────────────────────────────┘
-│                         .                                                         #            │┌─ Nearby ───────────────────────────────┐
-│                         .                                                         #            ││ $ Testgrounds Binder       8m N binder │
-│                         .                                                         #            ││ $ Testgrounds Banker       8m N banker │
-│                         .                                                         #            ││ & Testgrounds Con… 8m N contract_board │
-│                         .                                                         #            ││ ? Testgrounds Recru… 8m NE quest_giver │
-│                         .                                                         #            ││ ? Testgrounds Capta… 9m NE quest_giver │
-│                         .                                                         #            ││ $ Testgrounds Vendor      9m NW vendor │
-│                         .                                                         #            ││ $ Rogue Trainer          12m N trainer │
-│                         .                                                         #            ││ $ Cleric Trainer         12m N trainer │
-│                         .                                                         #            ││ $ Wizard Trainer         12m N trainer │
-│                         .                                                         #            ││ $ Paladin Trainer        13m N trainer │
-│                         .                                                         #            ││ $ Warrior Trainer        13m N trainer │
-│                         .                                                         #            ││ $ Druid Trainer         13m NE trainer │
-│                         .                                                         #            ││ +2 more                                │
+┌─ Testgrounds, at 14,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                           .                                                         #          ││ aria  Lv 1  XP 20            | 0 crowns│
+│                           .                                                         #          ││ HP 100/100 ########################### │
+│                           .                                                         #          ││ Target: none                           │
+│                           .                                                         #          ││ Auto-attack: off                       │
+│                           .                                                         #          │└────────────────────────────────────────┘
+│                           .                $  $  $  $  $  $                         #          │┌─ Quest ────────────────────────────────┐
+│                           .                                                         #          ││ [ ] 1. Scout the Lookout               │
+│                           .                                                         #          ││ Testgrounds Recruiter has work for you:│
+│                           .                $  $  $  &  ?                            #          ││ G.                                     │
+│                           .                               ?                         #          │└────────────────────────────────────────┘
+│                           .                                                         #          │┌─ Target ───────────────────────────────┐
+│                           .                                                         #          ││ no target (Tab to choose)              │
+│                           .                                                         #          ││                                        │
+│                           .                                                         #          ││                                        │
+│                           .                    @              c                     #          │└────────────────────────────────────────┘
+│                           .                                                         #          │┌─ Nearby ───────────────────────────────┐
+│                           .                                                         #          ││ $ Testgrounds Banker       8m N banker │
+│                           .                                                         #          ││ $ Testgrounds Binder       8m N binder │
+│                           .                                                         #          ││ $ Testgrounds Vendor       8m N vendor │
+│                           .                                                         #          ││ & Testgrounds Co… 9m NE contract_board │
+│                           .                                                         #          ││ ? Testgrounds Recr… 10m NE quest_giver │
+│                           .                                                         #          ││ ? Testgrounds Capt… 10m NE quest_giver │
+│                           .                                                         #          ││ $ Cleric Trainer         12m N trainer │
+│                           .                                                         #          ││ $ Rogue Trainer          12m N trainer │
+│                           .                                                         #          ││ $ Warrior Trainer        12m N trainer │
+│                           .                                                         #          ││ $ Wizard Trainer         12m N trainer │
+│                           .                                                         #          ││ $ Paladin Trainer       13m NE trainer │
+│                           .                                                         #          ││ $ Druid Trainer         14m NE trainer │
+│                           .                                                         #          ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns aria's target Plain Scuttler cleared: target_dead                                                                               │
 │    NN.Ns aria stopped attacking                                                                                                          │
 │    NN.Ns Plain Scuttler dropped Cracked Shell Fragment (drop-enc-1-shell-fragment)                                                       │
 │    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
@@ -39,6 +38,7 @@
 │    NN.Ns aria healed 2                                                                                                                   │
 │    NN.Ns aria healed 2                                                                                                                   │
 │    NN.Ns aria healed 2                                                                                                                   │
+│    NN.Ns aria healed 1                                                                                                                   │
 │    NN.Ns drop drop-enc-1-shell-fragment is gone: taken                                                                                   │
 │ +  NN.Ns aria received Cracked Shell Fragment from drop-enc-1-shell-fragment                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

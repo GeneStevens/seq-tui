@@ -1,4 +1,4 @@
-┌─ Keys: chat, parties, who and friends (? closes) ────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Help: Chat, parties, who and friends ───────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ Command line     /  opens it (the slash is in it). Enter sends, Esc cancels                                                              │
 │                  Plain text is said to the characters within 40 m of you                                                                 │
 │ Chat             /say TEXT   /p TEXT: the party   /tell NAME TEXT                                                                        │
@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
+│ Page 5 of 5  ? next page  Left, Right turn  Esc closes                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

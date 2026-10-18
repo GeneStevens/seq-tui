@@ -11,22 +11,22 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ p cy1                     3m S 100/100 │
-│                                                                                                ││ D gate-north                      3m S │
+│                                                                                                ││ D Gate North                      3m S │
 │                                                                                                ││ p ann1                    4m S 100/100 │
-│                                                @                                               ││ D line-east                    126m SE │
-│                                                                                                ││                                        │
-│                                                p                                               ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                            c   ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                @                                               ││ $ Eastern Binder          75m S binder │
+│                                                                                                ││ $ Druid Trainer          84m W trainer │
+│                                                p                                               ││ $ Paladin Trainer        86m W trainer │
+│                                                                                                ││ ? Testgrounds Recr… 86m SW quest_giver │
+│                                                                                                ││ ? Testgrounds Capt… 87m SW quest_giver │
+│                                                                                                ││ $ Wizard Trainer         87m W trainer │
+│                                                                                                ││ & Testgrounds C… 89m SW contract_board │
+│                                                                                                ││ $ Rogue Trainer          89m W trainer │
+│                                                                                                ││ $ Testgrounds Binder      91m W binder │
+│                                                                                            c   ││ $ Cleric Trainer         91m W trainer │
+│                                                                                                ││ $ Testgrounds Banker      93m W banker │
+│                                                                                                ││ $ Warrior Trainer        93m W trainer │
+│                                                                                                ││ $ Testgrounds Vendor      95m W vendor │
+│                                                                                                ││ D Line East                    126m SE │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐

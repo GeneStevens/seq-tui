@@ -7,7 +7,6 @@ package screen
 
 import (
 	"fmt"
-	"slices"
 	"strings"
 	"time"
 
@@ -34,10 +33,11 @@ const (
 // View is everything the screen shows that is not in the model.
 type View struct {
 	Help bool
-	// HelpMore is the second page of the help: playing together.
-	HelpMore bool
-	Verbose  bool // log routine movement and rules ticks too
-	Conn     Conn
+	// HelpPage is the page of the help that is open, HelpScroll how far it is
+	// scrolled.
+	HelpPage, HelpScroll int
+	Verbose              bool // log routine movement and rules ticks too
+	Conn                 Conn
 	// Since is how long ago the server last said anything (an event, a result,
 	// a pong); HasTick is false before any.
 	Since   time.Duration
@@ -95,8 +95,10 @@ type View struct {
 	Line   *Line
 	Social *SocialUI
 
-	// Sessions is the sessions view (D64), nil when closed.
+	// Sessions is the sessions view (D64), nil when closed. Quest is the quest
+	// chain screen (D62), nil when closed.
 	Sessions *SessionsUI
+	Quest    *QuestUI
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
@@ -115,20 +117,18 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		rows, th = append(rows, b), th-1
 	}
 	switch {
+	case v.Help:
+		rows = append(rows, box(HelpTitle(v.HelpPage), w, th+lh, helpLines(m, v, w-2, th+lh-2, st), st)...)
 	case v.Sessions != nil:
 		title := "Sessions: your logs"
 		if v.Sessions.Log != nil {
 			title = "Sessions: the server's log"
 		}
 		rows = append(rows, box(title, w, th+lh, sessionsScreenLines(v.Sessions, w-2, th+lh-2, st), st)...)
+	case v.Quest != nil:
+		rows = append(rows, box("Quest chain", w, th+lh, questScreenLines(m, v.Quest, w-2, th+lh-2, st), st)...)
 	case v.Create != nil:
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
-	case v.Help:
-		title := "Keys (? again: chat and parties)"
-		if v.HelpMore {
-			title = "Keys: chat, parties, who and friends (? closes)"
-		}
-		rows = append(rows, box(title, w, th+lh, helpLines(m, v, w-2, th+lh-2, st), st)...)
 	case v.Social != nil:
 		rows = append(rows, box("Social: "+tabNames[v.Social.Tab], w, th+lh, socialScreenLines(m, v.Social, w-2, th+lh-2, st), st)...)
 	case v.Slots != nil:
@@ -243,68 +243,6 @@ func box(title string, w, h int, inner []string, st Styler) []string {
 	return append(rows, st.Dim("└"+strings.Repeat("─", w-2)+"┘"))
 }
 
-func helpLines(m *model.Model, v View, w, h int, st Styler) []string {
-	keys := helpKeys(m, v)
-	if v.HelpMore {
-		keys = socialHelp()
-	}
-	rows := make([]string, h)
-	for i := range rows {
-		s := ""
-		if i < len(keys) {
-			s = keys[i]
-		}
-		rows[i] = fit(" "+s, w)
-	}
-	return rows
-}
-
-// helpKeys are the lines of the key help. The companion keys are listed only
-// for a character that has a house companion (shelved by default, D56), the
-// second character's only for a client that has one.
-func helpKeys(m *model.Model, v View) []string {
-	keys := []string{
-		"Move             arrow keys or W A S D",
-		"Target, attack   Tab cycles the target (Esc clears); F or Space: auto-attack on / off",
-		"Loot, doors      L: the nearest drop you may take; E: the nearest door (stand at it)",
-		"Release          R: when you are dead, give up your body and respawn",
-		"Abilities        1-8 use that slot on your target; B sets slots (out of combat)",
-		"Instances        I: this zone's menu (Enter opens one); then E at its door",
-		"Gear, traders    C: wear and take off gear; N: buy, sell, train, bind, bank",
-		"Trade            T: ask a character in reach; each side offers, then confirms",
-		"People           G: talk to the nearest; options open a trader or a board",
-		"Contracts        K: those you hold (X gives up); the board takes, hands in",
-		"Plans            turn-based: keys build a plan, one move or door, one ability",
-		"                 or attack. Enter submits, Backspace drops a step, Esc clears",
-		"Leave, log       O logs out; Q or Ctrl+C quits the screen only; V: more log",
-		"Sessions         Ctrl+L: your logs, local and the server's (replay, read, export)",
-		"Map              north is up, you are the centre; M: the whole zone seen",
-		"  @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end",
-		"  * drop  ~ a drop you may not take  $ trader  & board  ? talker",
-		"  % your marker  ; scout marker  ! G event spawn, goal  D door  # wall",
-		"Ground            # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . dungeon floor",
-		"                 The status line gives the server's speed on forest, road, ford...",
-		"Event log markers:  ! denied (with the reason) or a cast that did not land",
-		"                    < hit on you  x kill  + reward or level  * world event",
-	}
-	var helper []string
-	if m.Companion() != nil {
-		helper = append(helper,
-			"Companion        P call/send away  H stance  Y attack my target  U come here",
-			"                 J stop  Z drop the order  . the other helper (a second one)")
-	}
-	if v.Duo != nil || v.Directing != "" {
-		helper = append(helper,
-			"Second character P brings it in or out  H its stance  Y attack my target  U come here",
-			"                 J stop  Z back to its stance  X: direct it (its screen, its keys), X again: back")
-	}
-	if len(helper) > 0 {
-		at := slices.Index(keys, "Plans            turn-based: keys build a plan, one move or door, one ability")
-		keys = slices.Insert(keys, at, helper...)
-	}
-	return keys
-}
-
 func statusLine(m *model.Model, v View, w int, st Styler) string {
 	heard := "nothing heard yet"
 	if v.HasTick {
@@ -332,7 +270,11 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	if v.Directing != "" {
 		conn += " | directing " + v.Directing
 	}
-	for _, parts := range [][]string{{conn, space, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}} {
+	quest := ""
+	if q := m.Quest(); q != nil {
+		quest = fmt.Sprintf("%s %d/%d", q.GetName(), q.GetStep(), q.GetSteps())
+	}
+	for _, parts := range [][]string{{conn, quest, space, ground, heard, note}, {conn, quest, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}} {
 		var kept []string
 		for _, p := range parts {
 			if p != "" {

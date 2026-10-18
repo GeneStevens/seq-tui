@@ -14,9 +14,9 @@
 │                                                D                                               ││                                        │
 │                                                                                                ││                                        │
 │                                                @                                               │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                m                                               ││ m Plain Scuttler            3m S 40/40 │
-│                                                                                                ││ D gate-north                      3m N │
+│                                                m                                               │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ m Plain Scuttler            2m S 40/40 │
+│                                                                                                ││ D Gate North                      3m N │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -30,7 +30,7 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns aria opened an encounter with Plain Scuttler (inst-1.enc-1)                                                                     │
+│     N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                                  │
 │     N.Ns Plain Scuttler began attacking aria                                                                                             │
 │ <   N.Ns Plain Scuttler missed aria                                                                                                      │
 │ <   N.Ns Plain Scuttler hit aria for 4                                                                                                   │

@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"errors"
+	"time"
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq/agentkit"
@@ -316,4 +317,23 @@ func (s *Session) Replica(f func(*agentkit.Replica)) {
 	if a != nil {
 		a.Client().View(f)
 	}
+}
+
+// QuestDismiss gives a quest chain up for good (D62): quest is the chain's id,
+// empty for the one the character is on.
+func (s *Session) QuestDismiss(ctx context.Context, quest string) (string, error) {
+	return s.intent(ctx, "quest_dismiss", agentkit.QuestDismiss(quest))
+}
+
+// Picked waits a moment for the target the server picked for an untargeted
+// attack or ability (D66), and returns its name: "" if none came.
+func (s *Session) Picked(ctx context.Context) string {
+	var name string
+	ctx, cancel := context.WithTimeout(ctx, 300*time.Millisecond)
+	defer cancel()
+	_ = s.wait(ctx, "a target", func() bool { return s.m.Self.Target != "" }, func() error {
+		name = s.m.Name(s.m.Self.Target)
+		return nil
+	})
+	return name
 }

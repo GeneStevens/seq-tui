@@ -47,6 +47,14 @@ func offered(t *testing.T, p *scenario.Player, board, name string) int {
 }
 
 // walk presses the arrow n times, a second of game time after each: 3 m a press.
+// toTheBoard walks from the start to the contract board, round the Watch's
+// greeter, who stands between: G there talks to the nearest person, the board.
+func toTheBoard(w *scenario.World, p *scenario.Player) {
+	p.Press("left")
+	w.Advance(2 * time.Second)
+	walk(w, p, "up", 2)
+}
+
 func walk(w *scenario.World, p *scenario.Player, key string, n int) {
 	for range n {
 		p.Press(key)
@@ -88,7 +96,13 @@ func walkVia(t *testing.T, w *scenario.World, p *scenario.Player, pts ...[2]int6
 			p.Press(key)
 			w.Advance(time.Second)
 			if nx, ny := pos(); nx == x && ny == y {
-				t.Fatalf("pressing %s at (%d, %d) on the way to (%d, %d) moves nowhere", key, x, y, pt[0], pt[1])
+				// A mob that engages the character in that second stops the walk
+				// (D66); a later press is obeyed.
+				p.Press(key)
+				w.Advance(time.Second)
+				if nx, ny := pos(); nx == x && ny == y {
+					t.Fatalf("pressing %s at (%d, %d) on the way to (%d, %d) moves nowhere", key, x, y, pt[0], pt[1])
+				}
 			}
 		}
 	}
@@ -116,11 +130,12 @@ func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
 	})
 	p.Golden("thornwick_square")
 
-	// The board is 6 m from the start point: out of the 5 m reach.
+	// The greeter, Tamsin Hale, stands 2 m from the start point (D62): G talks to
+	// the nearest person. The board is 6 m away, out of the 5 m reach.
 	p.Press("g")
-	notice(t, p, "out_of_range", true)
-	p.Press("up")
-	w.Advance(time.Second)
+	notice(t, p, "talk to Tamsin Hale ok", false)
+	p.Press("esc")
+	toTheBoard(w, p)
 	p.Press("g")
 	notice(t, p, "talk to Thornwick Contract Board ok", false)
 	p.Model(func(m *model.Model) {
@@ -200,8 +215,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	w.Fixture("thornwick_hunt.jsonl")
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
-	p.Press("up")
-	w.Advance(time.Second)
+	toTheBoard(w, p)
 	p.Press("g", "1", "enter", "esc", "esc")
 	p.Model(func(m *model.Model) {
 		if m.Contract("hunt-meadow-wolves") == nil {
@@ -239,7 +253,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	p.Press("e")
 	notice(t, p, "use door ok", false)
 	p.Eventually("Thornwick", inSpace("Thornwick"))
-	walkVia(t, w, p, [2]int64{60000, 45000}, [2]int64{60000, 48000})
+	walkVia(t, w, p, [2]int64{57000, 45000}, [2]int64{57000, 51000}) // by the board, off the greeter
 	p.Press("g")
 	p.Press("2")
 	p.Golden("board_turn_in")
@@ -330,8 +344,7 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 	w.Fixture("thornwick_scout.jsonl")
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
-	p.Press("up")
-	w.Advance(time.Second)
+	toTheBoard(w, p)
 	p.Press("g", "1")
 	for range offered(t, p, "board", "Word from Wickett Mill") {
 		p.Press("down")
@@ -340,8 +353,7 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 	notice(t, p, "take Word from Wickett Mill ok", false)
 	p.Press("esc", "esc")
 
-	walk(w, p, "right", 18)
-	walk(w, p, "down", 1)
+	walkVia(t, w, p, [2]int64{114000, 45000})
 	p.Press("e")
 	p.Eventually("the Downs", inSpace("Thornwick Downs"))
 	p.Model(func(m *model.Model) {
@@ -379,8 +391,7 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 	walk(w, p, "up", 5)
 	p.Press("e")
 	p.Eventually("Thornwick", inSpace("Thornwick"))
-	walk(w, p, "left", 18)
-	walk(w, p, "up", 1)
+	walkVia(t, w, p, [2]int64{57000, 45000}, [2]int64{57000, 51000}) // by the board, off the greeter
 	p.Press("g", "2", "enter")
 	notice(t, p, "hand in Word from Wickett Mill ok", false)
 	p.Model(func(m *model.Model) {

@@ -57,14 +57,14 @@ func TestNoCompanionUIWithTheDefaultSetting(t *testing.T) {
 		}
 	}
 	// The help lists no companion keys, and the keys say there is no helper.
-	p.Press("?")
+	p.Press("?", "right", "right", "right") // the page of every key
 	for _, sz := range scenario.Sizes {
 		if s := p.Screen(sz[0], sz[1]); strings.Contains(s, "Companion") || strings.Contains(s, "Second character") {
 			t.Fatalf("companion keys in the help at %dx%d:\n%s", sz[0], sz[1], s)
 		}
 	}
 	p.Golden("shelved_help")
-	p.Press("?", "h")
+	p.Press("esc", "h")
 	notice(t, p, "there is no helper to command", false)
 	p.Press("x")
 	notice(t, p, "there is no second character to direct", false)

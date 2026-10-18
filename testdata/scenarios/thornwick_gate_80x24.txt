@@ -4,11 +4,11 @@
 │······          #########  #.                     ││ XP ----------- 40 to Lv 2│
 │······          ####?####  #.                     ││ Atk off | none           │
 │···························#.                     │└──────────────────────────┘
-│······················$··@··.                     │┌─ Target ─────────────────┐
-│$··························#.                     ││ no target (Tab to choose)│
-│······            #######  #.                     ││                          │
-│······            #######  #.                     ││                          │
-│                  #######  #.                     ││                          │
+│······················$··@··.                     │┌─ Quest chain (Ctrl+K) ───┐
+│$··························#.                     ││ First Steps              │
+│······            #######  #.                     ││ Step 1 of 4              │
+│······            #######  #.                     ││ Speak to Tamsin Hale, the│
+│                  #######  #.                     ││ Watch's greeter, here in │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
@@ -21,4 +21,4 @@
 │    NN.Ns an event this client does not know                                  │
 │    NN.Ns an event this client does not know                                  │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago | move ok       ? help
+ ONLINE | First Steps 1/4 | road: faster, 125% | heard N.Ns ago | move ok ? help

@@ -73,7 +73,9 @@ type Self struct {
 	SpeedPct          int64
 	EffectiveSpeedMmS int64
 	// Owed is the character's unpaid owed pay (D55, D56), paid at its next join.
-	Owed          []*pb.OwedPay
+	Owed []*pb.OwedPay
+	// Quest is the quest chain the character is on (D62), nil when none.
+	Quest         *pb.QuestInfo
 	Contracts     []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
 	Companion     *pb.CompanionState // the house companion (SEQ-049); nil before the quest is begun
 	Equipped      []string
@@ -196,10 +198,11 @@ type Model struct {
 	// questGiver is the NPC whose board offered a quest step (D55), questOffered
 	// the contract ids it offers now and questSteps/questOrder every quest step
 	// seen, offered or held.
-	questGiver   string
-	questOffered map[string]bool
-	questSteps   map[string]questSeen
-	questOrder   []string
+	questGiver     string
+	lastSelfMoveMs int64 // the game time of the last move of the character told
+	questOffered   map[string]bool
+	questSteps     map[string]questSeen
+	questOrder     []string
 	// openFailed and refunds count the instance openings the server said failed
 	// and the entry fees it refunded: a refund with no failed opening to answer
 	// for was owed to a character that was away (D55).
@@ -335,7 +338,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		Ground: self.GetGround(), SpeedPct: self.GetSpeedPct(), EffectiveSpeedMmS: self.GetEffectiveSpeedMmS(),
 		Crowns: self.GetCrowns(), Equipped: slices.Clone(self.GetEquipped()), Bank: slices.Clone(self.GetBank()),
 		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(), Contracts: slices.Clone(self.GetContracts()), Companion: cloneCompanion(self.GetCompanion()),
-		Owed: slices.Clone(self.GetOwed()),
+		Owed: slices.Clone(self.GetOwed()), Quest: self.GetQuest(),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
@@ -412,6 +415,7 @@ func (m *Model) apply(e *pb.Event) {
 	if !m.repeatsRound(e) { // the server says the open round again after a snapshot: once in the log is enough
 		m.logEvent(e)
 	}
+	m.noteWalkStop(e)
 	switch b := e.GetBody().(type) {
 	case *pb.Event_SpaceChanged:
 		// The snapshot of the new space follows and replaces this view.
@@ -433,6 +437,7 @@ func (m *Model) apply(e *pb.Event) {
 			en.Pos = clonePos(mv.GetPos())
 		} else if mv.GetId() == m.Self.ID {
 			m.Self.Pos = clonePos(mv.GetPos())
+			m.lastSelfMoveMs = e.GetGameTimeMs()
 			if m.Self.HasDestination && m.Self.Destination.GetX() == mv.GetPos().GetX() && m.Self.Destination.GetY() == mv.GetPos().GetY() {
 				m.Self.HasDestination = false
 			}

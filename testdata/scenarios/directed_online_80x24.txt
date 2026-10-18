@@ -11,9 +11,9 @@
 │                         p                        │└──────────────────────────┘
 │                                                  │┌─ Nearby ─────────────────┐
 │                                                  ││ p cy1       3m S 100/100 │
-│                                                c ││ D gate-north        3m S │
+│                                                c ││ D Gate North        3m S │
 │                                                  ││ p ann1      4m S 100/100 │
-│                                                  ││ D line-east      126m SE │
+│                                                  ││ +14 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
 │ nothing has happened yet                    ││ [say] cy1: hello both         │

@@ -21,4 +21,4 @@
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
 │ The answer is on the status line; every refusal says why.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago         ? help  q quit
+ ONLINE | First Steps 1/4 | Thornwick | road: faster, 125% | heard N.Ns ago     

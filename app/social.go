@@ -315,7 +315,12 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 	case "chat":
 		return resultMsg{after: func(a *App) { a.openSocial(screen.TabChat) }}
 	case "help":
-		return resultMsg{after: func(a *App) { a.view.Help = true }}
+		return resultMsg{after: func(a *App) { a.view.Help, a.view.HelpPage, a.view.HelpScroll = true, 0, 0 }}
+	case "quest", "dismiss":
+		return resultMsg{after: func(a *App) {
+			a.quest = &screen.QuestUI{}
+			a.sess.View(func(m *model.Model) { a.quest.Confirm = verb == "dismiss" && m.Quest() != nil })
+		}}
 	}
 	return bad("not a command: " + verb)
 }
@@ -342,7 +347,7 @@ func lineVerb(cmd string) string {
 		return "unmute"
 	case "invite", "inv":
 		return "invite"
-	case "accept", "decline", "kick", "leave", "who", "friends", "friend", "anon", "chat", "help":
+	case "accept", "decline", "kick", "leave", "who", "friends", "friend", "anon", "chat", "help", "quest", "dismiss":
 		return cmd
 	}
 	return "?"

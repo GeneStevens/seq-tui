@@ -1,0 +1,45 @@
+┌─ Help: Quest chains and fighting ────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Quest chains                                                                                                                             │
+│   A new character is offered First Steps in Thornwick: talk to the Watch greeter in Hawthorn Square, talk to your class trainer, take a  │
+│   contract from the board, then go out through the east gate. It pays a small reward at the end.                                         │
+│   It is optional. Nothing walks you anywhere and nothing reminds you; the Quest chain panel shows the step you are on, and the log tells │
+│   you when one is done.                                                                                                                  │
+│   Ctrl+K (or /quest) shows the chain. X there (or /dismiss) gives it up for good, after one question: a dismissed chain is never offered │
+│   again.                                                                                                                                 │
+│                                                                                                                                          │
+│ Fighting                                                                                                                                 │
+│   Tab chooses a target (Esc clears it). F or Space turns auto-attack on or off. 1-8 use the abilities in your slots on your target.      │
+│   With no target, an attack or an ability goes to whatever is attacking you, the nearest first; the status line names the one picked. If │
+│   nothing is attacking you it is refused: Tab to a target first.                                                                         │
+│   A fight stops your walk: attacking, using an ability on an enemy, or something attacking you. The log says "Your walk stopped"; press a│
+│   move key to go on.                                                                                                                     │
+│   To back off: F turns auto-attack off, Esc clears the target, then walk away. If you die, R gives up your body and you wake at your bind│
+│   point.                                                                                                                                 │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Page 2 of 5  ? next page  Left, Right turn  Esc closes                                                                                   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | outskirts | heard 0.4s ago                                                                                          ? help  q quit

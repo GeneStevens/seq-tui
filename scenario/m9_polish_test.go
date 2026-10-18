@@ -119,12 +119,6 @@ var warrenCamps = []struct {
 // The keys walk three metres a press; the delve is 340 m long.
 func travel(t *testing.T, w *scenario.World, to [2]int64, ps ...*scenario.Player) {
 	t.Helper()
-	for i, p := range ps {
-		if _, err := p.Sess.Move(context.Background(), to[0], to[1]+int64(i)*1000); err != nil {
-			t.Fatalf("%s: move: %v", p.Character, err)
-		}
-	}
-	w.Settle() // the server has the moves before the clock moves, not by luck
 	for range 30 {
 		var far int64
 		for i, p := range ps {
@@ -136,6 +130,14 @@ func travel(t *testing.T, w *scenario.World, to [2]int64, ps ...*scenario.Player
 		if far <= 1500 {
 			return
 		}
+		// The order is sent again each time round: a mob that engages a walker
+		// stops its walk (D66), and a later order is obeyed.
+		for i, p := range ps {
+			if _, err := p.Sess.Move(context.Background(), to[0], to[1]+int64(i)*1000); err != nil {
+				t.Fatalf("%s: move: %v", p.Character, err)
+			}
+		}
+		w.Settle() // the server has the moves before the clock moves, not by luck
 		w.Srv.Advance(time.Duration(far/delverSpeed+1) * time.Second)
 		w.Settle()
 	}

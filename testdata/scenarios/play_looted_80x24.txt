@@ -1,23 +1,23 @@
-┌─ Testgrounds, at 16,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│             .                             #      ││ aria  Lv 1  XP 20   | 0cr│
-│             .                             #      ││ HP 99/100 #############- │
-│             .                             #      ││ Target: none             │
-│             .        $ $$ $$ $            #      ││ Auto-attack: off         │
-│             .        $ $$ &?              #      │└──────────────────────────┘
-│             .                ?            #      │┌─ Quest ──────────────────┐
-│             .                             #      ││ [ ] 1. Scout the Lookout │
-│             .           @      c          #      ││ Testgrounds Recruiter has│
-│             .                             #      ││ work for you: G.         │
-│             .                             #      │└──────────────────────────┘
-│             .                             #      │┌─ Target ─────────────────┐
-│             .                             #      ││ no target (Tab to choose)│
-│             .                             #      ││                          │
-│             .                             #      ││                          │
-│             .                             #      ││                          │
+┌─ Testgrounds, at 14,50 m, north up ──────────────┐┌─ You ────────────────────┐
+│              .                             #     ││ aria  Lv 1  XP 20   | 0cr│
+│              .                             #     ││ HP 100/100 ############# │
+│              .                             #     ││ Target: none             │
+│              .        $ $$ $$ $            #     ││ Auto-attack: off         │
+│              .        $ $$ &?              #     │└──────────────────────────┘
+│              .                ?            #     │┌─ Quest ──────────────────┐
+│              .                             #     ││ [ ] 1. Scout the Lookout │
+│              .          @       c          #     ││ Testgrounds Recruiter has│
+│              .                             #     ││ work for you: G.         │
+│              .                             #     │└──────────────────────────┘
+│              .                             #     │┌─ Target ─────────────────┐
+│              .                             #     ││ no target (Tab to choose)│
+│              .                             #     ││                          │
+│              .                             #     ││                          │
+│              .                             #     ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │    NN.Ns aria healed 2                                                       │
-│    NN.Ns aria healed 2                                                       │
+│    NN.Ns aria healed 1                                                       │
 │    NN.Ns drop drop-enc-1-shell-fragment is gone: taken                       │
 │ +  NN.Ns aria received Cracked Shell Fragment from drop-enc-1-shell-fragment │
 └──────────────────────────────────────────────────────────────────────────────┘

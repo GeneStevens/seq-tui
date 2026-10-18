@@ -355,8 +355,9 @@ func (m *Model) Known() *Place {
 	return &Place{}
 }
 
-// KnownNPCs lists the NPCs seen in the character's space, sorted by id: those
-// in view now are the snapshot's, the rest are remembered.
+// KnownNPCs lists the NPCs seen in the character's space and those its zone map
+// lists, sorted by id: those in view now are the snapshot's, the rest are
+// remembered or the map's.
 func (m *Model) KnownNPCs() []*pb.NpcInfo {
 	byID := map[string]*pb.NpcInfo{}
 	for id, n := range m.Known().NPCs {
@@ -364,6 +365,12 @@ func (m *Model) KnownNPCs() []*pb.NpcInfo {
 	}
 	for _, n := range m.NPCs {
 		byID[n.GetId()] = n
+	}
+	// The zone map lists the NPCs that stand where they are (D69), seen or not.
+	for _, n := range m.Map.GetNpcs() {
+		if byID[n.GetId()] == nil {
+			byID[n.GetId()] = &pb.NpcInfo{Id: n.GetId(), Name: n.GetName(), Role: n.GetRole(), Pos: n.GetPos()}
+		}
 	}
 	out := make([]*pb.NpcInfo, 0, len(byID))
 	for _, n := range byID {

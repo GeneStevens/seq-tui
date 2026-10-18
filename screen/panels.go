@@ -203,7 +203,11 @@ func nearbyList(m *model.Model) []nearby {
 		out = append(out, mk(npcGlyph(n), n.GetId(), n.GetName(), n.GetPos(), n.GetRole()))
 	}
 	for _, d := range m.Map.GetDoors() {
-		out = append(out, mk(glyphDoor, d.GetId(), m.MarkerName(d.GetId()), d.GetPos(), ""))
+		name := d.GetName()
+		if name == "" {
+			name = m.MarkerName(d.GetId())
+		}
+		out = append(out, mk(glyphDoor, d.GetId(), name, d.GetPos(), ""))
 	}
 	held := map[string]bool{}
 	for _, c := range m.Self.Contracts {

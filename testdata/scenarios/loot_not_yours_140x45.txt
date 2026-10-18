@@ -14,20 +14,20 @@
 │                                                                                                ││ ~ Scuttler Blade    16m S not lootable │
 │                                                                                                ││ ~ Worn Cap          16m S not lootable │
 │                                                @                                               ││ p c1                      16m S 94/100 │
-│                                                                                                ││ D gate-north                     24m N │
-│                                                                                                ││ D line-east                    110m SE │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                             p  ~                                               ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                                                                ││ D Gate North                     24m N │
+│                                                                                                ││ $ Eastern Binder         50m SE binder │
+│                                                                                                ││ $ Druid Trainer          78m W trainer │
+│                                                                                                ││ ? Testgrounds Recru… 79m W quest_giver │
+│                                                                                                ││ $ Paladin Trainer        80m W trainer │
+│                                                                                                ││ ? Testgrounds Capta… 80m W quest_giver │
+│                                                                                                ││ $ Wizard Trainer         82m W trainer │
+│                                                                                                ││ & Testgrounds Co… 82m W contract_board │
+│                                                                                                ││ $ Rogue Trainer          84m W trainer │
+│                                                                                                ││ $ Testgrounds Binder      84m W binder │
+│                                                                                                ││ $ Cleric Trainer         86m W trainer │
+│                                             p  ~                                               ││ $ Testgrounds Banker      86m W banker │
+│                                                                                                ││ $ Warrior Trainer        88m W trainer │
+│                                                                                                ││ +2 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns c1 hit Trophy Scuttler for 4                                                                                                    │
