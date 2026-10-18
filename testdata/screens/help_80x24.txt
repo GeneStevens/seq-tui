@@ -3,8 +3,8 @@
 │   Walk with the arrow keys or W A S D; each press sends you a few metres on. │
 │   The status line says how fast you go on the ground you stand on.           │
 │   M shows the whole zone you have seen. A door (D) leads to the next zone or │
-│   to an instance: stand at it and press E or Enter. A zone line, the east    │
-│   gate say, takes you across; E at the far side brings you back.             │
+│   to an instance: stand at it and press E or Enter. A zone line (the east    │
+│   gate, say) takes you across; E at the far side brings you back.            │
 │   Nearby lists what is around you by name and distance: people, doors and    │
 │   places, and the town's fixed people even before you have seen them.        │
 │                                                                              │
