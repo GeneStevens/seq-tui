@@ -15,7 +15,7 @@
 │                           .                                                         #          ││                                        │
 │                           .                    @    m         c                     #          │└────────────────────────────────────────┘
 │                           .                                                         #          │┌─ Nearby ───────────────────────────────┐
-│                           .                                                         #          ││ m Plain Scuttler            4m E 40/40 │
+│                           .                                                         #          ││ m Plain Scuttler       4m E 40/40 even │
 │                           .                                                         #          ││ $ Testgrounds Banker       8m N banker │
 │                           .                                                         #          ││ $ Testgrounds Binder       8m N binder │
 │                           .                                                         #          ││ $ Testgrounds Vendor       8m N vendor │

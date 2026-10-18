@@ -1,4 +1,4 @@
- EVENT  Harvest Raid: Goblins pour out of the east to raid the harvest at Barle…
+ EVENT  Harvest Raid: 2 got through.                                            
 ┌─ Thornwick Downs, at 6,150 m, north up ──────────┐┌─ You ────────────────────┐
 │                      .                           ││ hale  Lv 12 Warri… | 30cr│
 │                      .     """"""""""""""""""""""││ HP 274/274 ############# │
@@ -16,7 +16,7 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns Town Guard is out of view                                           │
+│   NNN.Ns Town Guard is out of view                                           │
 │   NNN.Ns Town Guard (guard) is in view                                       │
 │   NNN.Ns entered Thornwick Downs                                             │
 │ + NNN.Ns owed pay arrived with the join: 60 XP and 30 crowns                 │

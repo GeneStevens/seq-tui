@@ -13,10 +13,10 @@
 │                                        .                                               #       │┌─ Target ───────────────────────────────┐
 │                                        .       @  M                  c                 #       ││ M Plain Scuttler  Lv 1                 │
 │                                        .                                               #       ││ HP 339/400 #################---- 2m E  │
-│                                        .                                               #       ││ fighting you                           │
+│                                        .                                               #       ││ even, fighting you                     │
 │                                        .                                               #       │└────────────────────────────────────────┘
 │                                        .                                               #       │┌─ Nearby ───────────────────────────────┐
-│                                        .                                               #       ││ M Plain Scuttler          2m E 339/400 │
+│                                        .                                               #       ││ M Plain Scuttler     2m E 339/400 even │
 │                                        .                                               #       ││ $ Testgrounds Vendor      9m NE vendor │
 │                                        .                                               #       ││ $ Testgrounds Banker     11m NE banker │
 │                                        .                                               #       ││ $ Testgrounds Binder     12m NE binder │

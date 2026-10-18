@@ -190,6 +190,7 @@ type Model struct {
 	Duplicates int
 	Faults     []string
 
+	mobs  mobTrack          // what mobs did, for the lines about them (D70)
 	names map[string]string // id to name, for every entity ever seen, so the log can name those that left
 	// npcNames and contractNames are the names of the NPCs and contracts the
 	// snapshots told, kept after they leave view.
@@ -609,7 +610,7 @@ func clonePos(p *pb.Pos) *pb.Pos { return &pb.Pos{X: p.GetX(), Y: p.GetY(), Z: p
 
 func cloneEntity(e *pb.EntityState) *pb.EntityState {
 	return &pb.EntityState{Id: e.GetId(), Kind: e.GetKind(), Name: e.GetName(), Pos: clonePos(e.GetPos()),
-		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare(), Owner: e.GetOwner()}
+		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare(), Owner: e.GetOwner(), Target: e.GetTarget(), Con: e.GetCon()}
 }
 
 func cloneCompanion(c *pb.CompanionState) *pb.CompanionState {

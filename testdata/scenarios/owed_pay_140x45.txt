@@ -1,4 +1,4 @@
- EVENT  Harvest Raid: Goblins pour out of the east to raid the harvest at Barleycross. Defend the farms!                                    
+ EVENT  Harvest Raid: 2 got through.                                                                                                        
 ┌─ Thornwick Downs, at 6,150 m, north up ────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │                                         .                                                      ││ hale  Lv 12 Warrior         | 30 crowns│
 │                                         .                                                      ││ HP 274/274 ########################### │
@@ -30,11 +30,11 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns hale healed 12                                                                                                                  │
-│    NN.Ns Town Guard is out of view                                                                                                       │
+│   NNN.Ns Town Guard is out of view                                                                                                       │
 │   NNN.Ns Town Guard (guard) is in view                                                                                                   │
 │   NNN.Ns entered Thornwick Downs                                                                                                         │
 │ + NNN.Ns owed pay arrived with the join: 60 XP and 30 crowns                                                                             │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

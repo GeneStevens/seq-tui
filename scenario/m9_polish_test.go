@@ -177,12 +177,19 @@ func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Pla
 	t.Helper()
 	mob := "mob-" + id + "-1"
 	seen, dead := false, false
-	for i := 0; i < 30 && !dead; i++ {
+	step := 8 * time.Second
+	for i := 0; i < 60 && !dead; i++ {
 		for _, p := range []*scenario.Player{ann, bob} {
 			key := ""
 			var closeIn *[2]int64
 			p.Model(func(m *model.Model) {
 				e := m.Entities[mob]
+				step = time.Second // a mob nobody is fighting (a patrol, a goblin that fled) is chased in short steps
+				for _, enc := range m.Encounters {
+					if enc.GetMob() == mob {
+						step = 8 * time.Second
+					}
+				}
 				seen = seen || e != nil
 				dead = dead || (seen && e != nil && e.GetDead()) || killed(m, mob)
 				switch {
@@ -192,7 +199,7 @@ func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Pla
 				case !m.Self.AutoAttack:
 					key = "f"
 				}
-				if key == "f" && i > 0 {
+				if e != nil && !e.GetDead() && i > 0 { // a goblin that fled is chased home
 					closeIn = &[2]int64{e.GetPos().GetX(), e.GetPos().GetY() - 1500} // out of reach of its mob
 				}
 			})
@@ -207,11 +214,18 @@ func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Pla
 			}
 		}
 		if !dead {
-			w.Srv.Advance(8 * time.Second)
+			w.Srv.Advance(step)
 			w.Settle()
 		}
 	}
 	if !dead {
+		ann.Model(func(m *model.Model) {
+			for _, l := range m.Log {
+				if l.Kind != "entity_moved" && l.Kind != "rules_tick" {
+					t.Logf("%d %s", l.GameTimeMs, l.Text)
+				}
+			}
+		})
 		t.Fatalf("%s did not fall (seen %v)", mob, seen)
 	}
 	// What it dropped appears a tick after the kill; hale takes it all.

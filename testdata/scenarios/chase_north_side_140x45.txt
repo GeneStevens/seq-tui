@@ -10,7 +10,7 @@
 │     .                                               #############                              ││                                        │
 │     .                                                                                          │└────────────────────────────────────────┘
 │     .                                                                                          │┌─ Nearby ───────────────────────────────┐
-│     .                                                                                          ││ m Meadow Wolf               2m E 36/36 │
+│     .                                                                                          ││ m Meadow Wolf          2m E 36/36 even │
 │     .                                          @  m                                            ││ ; Wickett Mill      24m N scout marker │
 │     .                                                                                          ││ G Barleycross        39m NE event goal │
 │     .                                                                                          ││ D Town Gate                     48m NW │

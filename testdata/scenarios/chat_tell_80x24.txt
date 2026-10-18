@@ -10,7 +10,7 @@
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
 │                  m                               │┌─ Nearby ─────────────────┐
-│                                                  ││ m Den Brute 13m SW 40/40 │
+│                                                  ││ m Den… 13m SW 40/40 even │
 │                                                  ││ D Gate North       40m W │
 │                                                  ││ $ Eastern … 72m S binder │
 │                                                  ││ +13 more                 │

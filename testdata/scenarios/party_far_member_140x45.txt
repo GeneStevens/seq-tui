@@ -16,7 +16,7 @@
 │                                                @                                               ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ m Den Brute               13m SW 40/40 │
+│                                                                                                ││ m Den Brute          13m SW 40/40 even │
 │                                                                                                ││ D Gate North                     40m W │
 │                                                                                                ││ $ Eastern Binder          72m S binder │
 │                                                                                                ││ D Line East                     96m SE │

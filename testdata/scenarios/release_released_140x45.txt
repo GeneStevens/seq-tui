@@ -15,7 +15,7 @@
 │                   .                              m                          #                  ││                                        │
 │                   .                            @      c                     #                  │└────────────────────────────────────────┘
 │                   .                                                         #                  │┌─ Nearby ───────────────────────────────┐
-│                   .                                                         #                  ││ m Plain Scuttler            2m E 40/40 │
+│                   .                                                         #                  ││ m Plain Scuttler       2m E 40/40 even │
 │                   .                                                         #                  ││ ? Testgrounds Recrui… 6m N quest_giver │
 │                   .                                                         #                  ││ ? Testgrounds Captain 8m N quest_giver │
 │                   .                                                         #                  ││ & Testgrounds Con… 8m N contract_board │

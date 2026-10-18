@@ -19,6 +19,6 @@
 │                  D removes, I invites; the log says who logs in or out       │
 │ Anonymous        /anon on hides your zone from who and friends; /anon off    │
 │ Logs             Ctrl+L: sessions. Every session is recorded under its id in │
-│ Page 5 of 5  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
+│ Page 6 of 6  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

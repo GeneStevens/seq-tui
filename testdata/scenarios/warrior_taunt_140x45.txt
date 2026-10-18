@@ -12,7 +12,7 @@
 │                                    .                                               #           │┌─ Target ───────────────────────────────┐
 │                                    .                                               #           ││ M Plain Scuttler  Lv 1                 │
 │                                    .           @              M  c                 #           ││ HP 40/40 ###################### 13m E  │
-│                                    .                                               #           ││ fighting you                           │
+│                                    .                                               #           ││ even, fighting you                     │
 │                                    .                                               #           │└────────────────────────────────────────┘
 │                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
 │                                    .                                               #           ││ $ Testgrounds Vendor       8m N vendor │
@@ -20,7 +20,7 @@
 │                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
 │                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
 │                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
-│                                    .                                               #           ││ M Plain Scuttler           13m E 40/40 │
+│                                    .                                               #           ││ M Plain Scuttler      13m E 40/40 even │
 │                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
 │                                    .                                               #           ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘

@@ -191,7 +191,9 @@ Speed gates (D49), enforced in the test code: each scenario under 2 s, the whole
 make verify
 ```
 
-Runs a `gofmt` check, `go vet ./...` and `go test ./...` (which includes the scenarios), then prints the elapsed time. It must stay well under 60 seconds.
+Runs a `gofmt` check, `go mod download github.com/GeneStevens/seq-world`, `go vet ./...` and `go test ./...` (which includes the scenarios), then prints the elapsed time. It must stay well under 60 seconds.
+
+The download is a step of its own because the scenarios load seq-world's packs from the module cache (`go list -m -f '{{.Dir}}'`), and nothing in the code imports that module, so `go build` and `go vet` never fetch it. On a fresh machine, or after the pin moves, the first `make verify` needs access to the private `github.com/GeneStevens/*` modules (`GOPRIVATE` and the ssh rewrite, as above); a missing module fails the step with the module's name instead of failing every scenario with `seq-world is not in the module cache`.
 
 ## History
 
