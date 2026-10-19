@@ -39,7 +39,7 @@
 │ c camp: where mobs are found (dim)  ░ zone edge: walking ends  ◄ ► ▲ ▼ the objective, off the map                                        │
 │ % your marker  ; scout marker  v event spawn  G event goal  + plan end                                                                   │
 │ Ground  # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  . floor                                                         │
-│ North is up. Only what you have seen is marked. M or Esc closes.                                                                         │
+│ North is up. Click a spot to walk there (or arrows + Enter); the wheel or + / - zooms; Ctrl+A names everything. M or Esc closes.         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                                                  
  ONLINE | Thornwick Downs | heard N.Ns ago                                                                                    ? help  q quit

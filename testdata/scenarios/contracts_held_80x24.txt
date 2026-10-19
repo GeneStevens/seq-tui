@@ -8,7 +8,7 @@
 │   thick with them.                                                           │
 │  Pelts for the Tanners (Gather)                                              │
 │   0 of 3 carried                                                             │
-│   Pays 25 XP, 10 crowns and Cord Pendant                                     │
+│   Pays 25 XP, 10 crowns and Cord Pendant ▲                                   │
 │   Bring back 3 wolf pelts from the wolves of the Downs. Tanner's Row pays by │
 │   the pelt.                                                                  │
 │                                                                              │

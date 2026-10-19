@@ -55,6 +55,7 @@ type App struct {
 	ses      *screen.SessionsUI // the sessions view, nil when closed
 	quest    *screen.QuestUI    // the quest chain screen, nil when closed
 	replay   *replay            // a recording drawn in place of the screen, nil when none
+	mouse    mouseState         // the pointer, the zoom, the card and the sidebar (D77, D78)
 	log      *sessionlog.Log    // this session's own log, nil when recording is off
 	logRoot  string             // the directory of the player's session logs
 	inviteN  int                // the invitation the prompt is for, and when it came
@@ -223,6 +224,9 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if msg.planSent && msg.planRound == a.draft.Round && msg.planVer == a.draft.Ver {
 			a.draft.Sent = true
 		}
+	case tea.MouseMsg:
+		a.keys++
+		return a.onMouse(msg)
 	case tea.KeyPressMsg:
 		a.keys++
 		if a.line != nil && !a.view.Help {
@@ -281,6 +285,7 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.createKey(k, m)
 		case a.soc != nil:
 			act = a.socialKey(k, m)
+		case a.sideKey(k, &act):
 		case a.talk != nil:
 			act = a.talkKey(k, m)
 		case a.board != nil:
@@ -292,7 +297,7 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		case a.cons != nil:
 			act = a.contractsKey(k, m)
 		case a.overview:
-			act = a.overviewKey(k)
+			act = a.overviewKey(k, m)
 		case a.slots != nil:
 			act = a.slotKey(k, m)
 			if act.Kind == SetSlot && m.TurnBased() {
@@ -308,6 +313,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.tradeKey(k, m)
 		case a.menu != nil:
 			act = a.menuKey(k, m)
+		case k == "esc" && a.mouse.card != "":
+			act = Action{Kind: CloseCard}
 		case m.Social.Invite != nil && (k == "y" || k == "n"):
 			act = Action{Kind: SocialDo, ID: map[bool]string{true: "accept", false: "decline"}[k == "y"], Note: m.Social.Invite.From}
 		case k == "x":
@@ -320,10 +327,27 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = Plan(k, m)
 		}
 	})
+	return a.do(act)
+}
+
+// do carries out what a key or a click meant: it changes the screen's state, or
+// sends the intent, and the server decides whether it is allowed.
+func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 	a.view.Notice, a.view.NoticeBad = "", false
 	switch act.Kind {
 	case Quit:
 		return a, tea.Quit
+	case ZoomMap:
+		a.zoomMap(act.Count)
+	case ToggleLabels:
+		a.mouse.labels = !a.mouse.labels
+		a.view.Notice = map[bool]string{true: "labels on: everything on the map is named (Ctrl+A turns them off)", false: "labels off"}[a.mouse.labels]
+	case CloseCard:
+		a.mouse.card = ""
+	case SelectSide:
+		a.mouse.side.Tab = min(max(act.Count, 0), screen.Tabs-1)
+	case ScrollSide:
+		a.mouse.side.Scroll[a.mouse.side.Tab] = max(a.mouse.side.Scroll[a.mouse.side.Tab]+act.Count, 0)
 	case ToggleHelp:
 		a.view.Help, a.view.HelpPage, a.view.HelpScroll = true, 0, 0
 	case ToggleVerbose:
@@ -576,6 +600,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
 	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
 	v.Line, v.Social, v.Sessions, v.Quest = a.line, a.soc, a.ses, a.quest
+	a.mouseView(&v)
 	a.checkFocus()
 	if a.focus {
 		v.Directing = a.duoName()
@@ -608,6 +633,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 func (a *App) View() tea.View {
 	tv := tea.NewView(a.render(a.w, a.h, a.now().Sub(a.lastTick), screen.ANSI()))
 	tv.AltScreen = true
+	tv.MouseMode = tea.MouseModeAllMotion // clicks, the wheel and hovering (D77)
 	tv.WindowTitle = "SEQ"
 	return tv
 }

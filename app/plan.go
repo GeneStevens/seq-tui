@@ -86,6 +86,12 @@ const (
 	SocialDo        // a request about playing together: ID is the verb, Note its argument
 	OpenQuest       // the quest chain screen (D62)
 	QuestDismiss    // give the quest chain up for good
+	SellJunk        // sell every junk item to the trader NPC (D78)
+	ZoomMap         // zoom the map by Count steps (D77)
+	ToggleLabels    // label everything on the map, in place of holding Alt (D77)
+	CloseCard       // close the info card
+	SelectSide      // pick the sidebar tab Count (D78)
+	ScrollSide      // scroll the sidebar by Count rows
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -138,7 +144,7 @@ func Plan(key string, m *model.Model) Action {
 	case "f", "space", " ":
 		return Action{Kind: Attack, On: !m.Self.AutoAttack}
 	case "l":
-		return lootAction(m, m.Self.Pos)
+		return lootAllAction(m)
 	case "e", "enter":
 		if id := nearestDoor(m); id != "" {
 			return Action{Kind: UseDoor, ID: id}
@@ -172,6 +178,12 @@ func common(key string) Action {
 		return Action{Kind: OpenQuest}
 	case "v":
 		return Action{Kind: ToggleVerbose}
+	case "+", "=":
+		return Action{Kind: ZoomMap, Count: 1}
+	case "-", "_":
+		return Action{Kind: ZoomMap, Count: -1}
+	case "ctrl+a":
+		return Action{Kind: ToggleLabels}
 	case "i":
 		return Action{Kind: OpenMenu}
 	case "b":
@@ -235,6 +247,24 @@ func nextTargetFrom(m *model.Model, cur string) string {
 		return ids[0]
 	}
 	return ""
+}
+
+// lootAllAction is the key L (D78): it takes every drop of the character's within
+// reach with one loot intent that names none. The server decides what is within
+// reach and what fits in the bags; the key only says so when nothing in view is
+// the character's to take.
+func lootAllAction(m *model.Model) Action {
+	any, mine := false, false
+	for _, id := range m.DropIDs() {
+		any, mine = true, mine || m.Drops[id].GetCanLoot()
+	}
+	switch {
+	case !any:
+		return Action{Note: "nothing to loot in view"}
+	case !mine:
+		return Action{Note: "not lootable: the drops in view are not yours to take"}
+	}
+	return Action{Kind: Loot}
 }
 
 // lootAction loots the nearest drop this character may take from a point. A

@@ -41,5 +41,5 @@
 │   NNN.Ns 15 crowns was taken                                                                                                             │
 │ + NNN.Ns You find 15 crowns                                                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                                                                                    
+ Walk: click or arrows · M: large map · ?: help                                                                                             
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok                                                     ? help  q quit

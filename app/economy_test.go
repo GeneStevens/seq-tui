@@ -29,7 +29,7 @@ func TestInventoryScreenKeys(t *testing.T) {
 	a, _ := shopper(t)
 	press(a, "c")
 	s := screenOf(a)
-	for _, want := range []string{"Inventory and gear", "Items carried", "> Worn Cap", "Scuttler Blade Rare [bound]", "bound on pickup"} {
+	for _, want := range []string{"Inventory and gear", "Items carried", ">   Worn Cap", "Scuttler Blade Rare [bound]", "bound on pickup"} {
 		if want == "bound on pickup" {
 			press(a, "down")
 			s = screenOf(a)
@@ -147,7 +147,8 @@ func TestLootKeyDoesNotSendADropYouMayNotTake(t *testing.T) {
 		t.Errorf("%+v", a)
 	}
 	m.Drops["d2"] = &pb.LootDropState{Id: "d2", Item: "worn-cap", Pos: &pb.Pos{X: 50000}, CanLoot: true}
-	if a := app.Plan("l", m); a.Kind != app.Loot || a.ID != "d2" {
-		t.Errorf("the far drop that may be taken is preferred: %+v", a)
+	// L is loot-all (D78): it names no drop, and the server takes those within reach.
+	if a := app.Plan("l", m); a.Kind != app.Loot || a.ID != "" {
+		t.Errorf("a drop that may be taken: %+v", a)
 	}
 }

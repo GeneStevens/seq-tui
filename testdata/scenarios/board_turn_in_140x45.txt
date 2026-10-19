@@ -4,30 +4,30 @@
 │> Boars in the Barley             Hunt   L1-3  │> Thin the Meadow Wolves                 READY  ││ XP ###---------------------- 34 to Lv 2│
 │  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
 │  Word from Wickett Mill          Scout  L1-3  │                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│                                                                                                ││ First Steps                            │
-│                                                                                                ││ Step 1 of 4                            │
-│                                                                                                ││ Speak to Tamsin Hale, the Watch's      │
-│                                                                                                ││ greeter, here in Hawthorn Square.      │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Target ───────────────────────────────┐
-│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                │┌─ Your character (C: tab) ──────────────┐
+│                                                                                                ││ [Gear]  Bags   Stats                   │
+│                                                                                                ││ Head      -                            │
+│                                                                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
+│                                                                                                ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Contracts (K) ────────────────────────┐
-│                                                                                                ││ Thin the Meadow Wolves           READY │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract … 1m SW [hand in] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Tamsin Hale <Guard>   5m SE [step 1] │
-│ Thin the Meadow Wolves: Hunt, 3 of 3 killed.                                                   ││ g Town Guard                    13m SW │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ H Isolde Fenn <Binder>          13m SE │
-│ Pays 30 XP and 12 crowns.                                                                      ││ $ Barnaby Tuck <Vendor>         13m SW │
-│ Finished: hand it in at Thornwick Contract Board, 1m SW.                                       ││ g Town Guard                     24m E │
-│                                                                                                ││ $ Hilda Brasswick <Vendor>       29m W │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ B Odalys Penn <Banker>           32m E │
-│ The answer is on the status line; every refusal says why.                                      ││ +9 more                                │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
+│ Thin the Meadow Wolves: Hunt, 3 of 3 killed.                                                   ││                                        │
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││                                        │
+│ Pays 30 XP and 12 crowns.                                                                      ││                                        │
+│ Finished: hand it in at Thornwick Contract Board, 1m SW.                                       ││                                        │
+│                                                                                                ││                                        │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││                                        │
+│ The answer is on the status line; every refusal says why.                                      ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │   NNN.Ns Thornwick Contract Board <Contract Board> comes into view                                                                       │

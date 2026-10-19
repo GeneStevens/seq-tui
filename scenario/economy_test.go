@@ -95,14 +95,14 @@ func TestEquipALootedItem(t *testing.T) {
 	notice(t, b, "not lootable", false)
 	b.Golden("loot_not_yours")
 
-	// The participant takes all three, nearest first.
-	p.Press("l", "l", "l")
+	// The participant takes all three with one L (loot-all, D78), as one log line.
+	p.Press("l")
 	items, crowns := inventoryOf(p)
 	if len(items) != 2 || crowns != 5 {
 		t.Fatalf("after looting: %q, %d crowns", items, crowns)
 	}
 	p.Model(func(m *model.Model) {
-		if len(m.Drops) != 0 || !hasLog(m, "reward", "You find 5 crowns") {
+		if len(m.Drops) != 0 || !hasLog(m, "reward", "You took") {
 			t.Fatalf("drops %d; log ends %+v", len(m.Drops), m.Log[len(m.Log)-3:])
 		}
 	})

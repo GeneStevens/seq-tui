@@ -7,7 +7,7 @@
 │   Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.     │┌─ Quest chain (Ctrl+K) ─────────────────┐
 │  Pelts for the Tanners (Gather)                                                                ││ First Steps                            │
 │   0 of 3 carried                                                                               ││ Step 2 of 4                            │
-│   Pays 25 XP, 10 crowns and Cord Pendant                                                       ││ Visit your class trainer in Trainers'  │
+│   Pays 25 XP, 10 crowns and Cord Pendant ▲                                                     ││ Visit your class trainer in Trainers'  │
 │   Bring back 3 wolf pelts from the wolves of the Downs. Tanner's Row pays by the pelt.         ││ Lane. They will teach you your first   │
 │                                                                                                ││ lesson.                                │
 │                                                                                                │└────────────────────────────────────────┘

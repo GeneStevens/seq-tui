@@ -4,30 +4,30 @@
 │  (nothing for your level)                     │> Break the Raiding Party                READY  ││ XP ------------------------ 162 to Lv 7│
 │                                                                                                ││ Atk off | none                         │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Quest ────────────────────────────────┐
-│                                                                                                ││ [!] 2. Break the Raiding Party   READY │
-│                                                                                                ││ Hand it in: G at the quest giver.      │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Target ───────────────────────────────┐
-│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                │┌─ Your character (C: tab) ──────────────┐
+│                                                                                                ││ [Gear]  Bags   Stats                   │
+│                                                                                                ││ Head      -                            │
+│                                                                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
+│                                                                                                ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Contracts (K) ────────────────────────┐
-│                                                                                                ││ Break the Raiding Party          READY │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ ? Captain Rhosyn Hart… 1m NE [hand in] │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ & Thornwick Contract Board 47m W [new] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ D East Gate                     12m SE │
-│ Break the Raiding Party: Hunt, 5 of 5 killed.                                                  ││ B Odalys Penn <Banker>          17m NW │
-│                                                                                                ││ T Wynne Greenhollow              35m S │
-│ Pays nothing.                                                                                  ││     <Druid Trainer>                    │
-│ Finished: hand it in at Captain Rhosyn Hartley <Quest Giver>, 1m NE.                           ││ H Isolde Fenn <Binder>           40m W │
-│                                                                                                ││ T Ser Aldric Vane               41m SW │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││     <Paladin Trainer>                  │
-│ The answer is on the status line; every refusal says why.                                      ││ +8 more                                │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
+│ Break the Raiding Party: Hunt, 5 of 5 killed.                                                  ││                                        │
+│                                                                                                ││                                        │
+│ Pays nothing.                                                                                  ││                                        │
+│ Finished: hand it in at Captain Rhosyn Hartley <Quest Giver>, 1m NE.                           ││                                        │
+│                                                                                                ││                                        │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││                                        │
+│ The answer is on the status line; every refusal says why.                                      ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│

@@ -23,8 +23,8 @@
 │────────────────────────────────────────────────────────────────────────────────────────────────││ & Thornwick Contract Board 1m SW [new] │
 │ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ ! Gorran Stoutarm      54m SW [step 2] │
 │ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││     <Warrior Trainer>                  │
-│ Pays 30 XP, 14 crowns and Tin Ring.                                                            ││ g Tamsin Hale <Guard>            5m SE │
-│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
+│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                                          ││ g Tamsin Hale <Guard>            5m SE │
+│ Tin Ring: upgrade over an empty ring1: +10 health, +1 stamina                                  ││ H Isolde Fenn <Binder>          13m SE │
 │                                                                                                ││ $ Barnaby Tuck <Vendor>         13m SW │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ g Town Guard                     22m E │
 │ take Thin the Meadow Wolves ok                                                                 ││ +10 more                               │

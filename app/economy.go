@@ -24,7 +24,14 @@ func (a *App) economy(ctx context.Context, act Action) (what, id string, err err
 		id, err = s.Buy(ctx, act.NPC, act.ID, max(act.Count, 1))
 	case Sell:
 		what = "sell " + act.Note
-		id, err = s.Sell(ctx, act.NPC, act.ID)
+		if act.Count > 1 {
+			id, err = s.SellN(ctx, act.NPC, act.ID, act.Count)
+		} else {
+			id, err = s.Sell(ctx, act.NPC, act.ID)
+		}
+	case SellJunk:
+		what = "sell all junk"
+		id, err = s.SellJunk(ctx, act.NPC)
 	case Train:
 		what = "train " + act.Note
 		id, err = s.Train(ctx, act.NPC, act.ID)
@@ -79,7 +86,8 @@ func step(cur int, k string, n int) int {
 // invKey handles a key on the inventory and gear screen.
 func (a *App) invKey(k string, m *model.Model) Action {
 	v := a.inv
-	n := len(m.Self.Inventory)
+	stacks := m.Stacks(m.Self.Inventory)
+	n := len(stacks)
 	v.Item = max(min(v.Item, n-1), 0)
 	switch {
 	case k == "esc" || k == "c" || k == "q":
@@ -102,7 +110,7 @@ func (a *App) invKey(k string, m *model.Model) Action {
 		if n == 0 {
 			return Action{Note: "you carry nothing to wear"}
 		}
-		inst := m.Self.Inventory[v.Item]
+		inst := stacks[v.Item].Inst
 		return Action{Kind: Equip, ID: inst, Note: m.ItemName(inst)}
 	case enter(k):
 		if m.Worn(v.Worn) == "" {
@@ -151,21 +159,36 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 	}
 	switch n.GetRole() {
 	case "vendor":
-		return a.listKey(k, t, true, len(n.GetStock()), len(m.Self.Inventory), func(pane, i int) Action {
+		stacks := m.Stacks(m.Self.Inventory)
+		switch k {
+		case "J":
+			// One key sells all junk (D78): what has no gear slot and no use in a held contract.
+			return Action{Kind: SellJunk, NPC: n.GetId()}
+		case "a":
+			// A sells the whole stack under the cursor.
+			t.Cur[1] = max(min(t.Cur[1], len(stacks)-1), 0)
+			if t.Pane != 1 || len(stacks) == 0 {
+				return Action{Note: "A sells the stack under the cursor in the list you carry (Tab switches)"}
+			}
+			sk := stacks[t.Cur[1]]
+			return Action{Kind: Sell, NPC: n.GetId(), ID: sk.Inst, Count: sk.Count, Note: m.ItemName(sk.Inst)}
+		}
+		return a.listKey(k, t, true, len(n.GetStock()), len(stacks), func(pane, i int) Action {
 			if pane == 0 {
 				s := n.GetStock()[i]
 				return Action{Kind: Buy, NPC: n.GetId(), ID: s.GetItem(), Count: 1, Note: m.ItemName(s.GetItem())}
 			}
-			inst := m.Self.Inventory[i]
+			inst := stacks[i].Inst
 			return Action{Kind: Sell, NPC: n.GetId(), ID: inst, Note: m.ItemName(inst)}
 		})
 	case "banker":
-		return a.listKey(k, t, true, len(m.Self.Inventory), len(m.Self.Bank), func(pane, i int) Action {
+		held, banked := m.Stacks(m.Self.Inventory), m.Stacks(m.Self.Bank)
+		return a.listKey(k, t, true, len(held), len(banked), func(pane, i int) Action {
 			if pane == 0 {
-				inst := m.Self.Inventory[i]
+				inst := held[i].Inst
 				return Action{Kind: BankDeposit, NPC: n.GetId(), ID: inst, Note: m.ItemName(inst)}
 			}
-			inst := m.Self.Bank[i]
+			inst := banked[i].Inst
 			return Action{Kind: BankWithdraw, NPC: n.GetId(), ID: inst, Note: m.ItemName(inst)}
 		})
 	case "trainer":
@@ -239,7 +262,8 @@ func (a *App) tradeKey(k string, m *model.Model) Action {
 		}
 		return Action{}
 	}
-	n, mine := len(m.Self.Inventory), tr.GetMine().GetItems()
+	carried := m.Stacks(m.Self.Inventory)
+	n, mine := len(carried), tr.GetMine().GetItems()
 	t.Item, t.Mine = max(min(t.Item, n-1), 0), max(min(t.Mine, len(mine)-1), 0)
 	if t.Typing {
 		switch {
@@ -285,7 +309,7 @@ func (a *App) tradeKey(k string, m *model.Model) Action {
 		if n == 0 {
 			return Action{Note: "you carry nothing to offer"}
 		}
-		inst := m.Self.Inventory[t.Item]
+		inst := carried[t.Item].Inst
 		return Action{Kind: TradeAdd, ID: inst, Note: m.ItemName(inst)}
 	}
 	return Action{}

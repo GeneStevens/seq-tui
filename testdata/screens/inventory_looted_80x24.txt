@@ -1,22 +1,22 @@
 ┌─ Inventory and gear ─────────────────────────────────────────────────────────┐
-│ Crowns 5 | carrying 2 of 20 | bank 0 | bind point none yet                   │
+│ Crowns 5 | bags 2 of 20 slots | bank 0 | bind point none yet                 │
 │ Gear worn                            │ Items carried                         │
-│   head      -                        │> Scuttler Blade Rare [bound]          │
-│   chest     -                        │  Worn Cap Common                      │
-│   legs      -                        │                                       │
-│   hands     -                        │                                       │
-│   feet      -                        │                                       │
-│   ring1     -                        │                                       │
-│   ring2     -                        │                                       │
-│   neck      -                        │                                       │
-│   main_hand -                        │                                       │
-│   off_hand  -                        │                                       │
+│   Head      -                        │> ▲ Worn Cap Common                    │
+│   Chest     -                        │  ▲ Scuttler Blade Rare [bound]        │
+│   Legs      -                        │                                       │
+│   Hands     -                        │                                       │
+│   Feet      -                        │                                       │
+│   Ring 1    -                        │                                       │
+│   Ring 2    -                        │                                       │
+│   Neck      -                        │                                       │
+│   Main hand -                        │                                       │
+│   Off hand  -                        │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
-│ Scuttler Blade: Rare, main_hand; bound on pickup                             │
-│ damage 4-9 / 2.0s, str +3; a vendor pays 15                                  │
+│ ▲ Worn Cap: Common, Head; tradable once                                      │
+│ armor +2; a vendor pays 2 crowns                                             │
+│ upgrade over an empty head: +2 armour                                        │
 │ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.         │
 │ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
-│                                                                              │
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘

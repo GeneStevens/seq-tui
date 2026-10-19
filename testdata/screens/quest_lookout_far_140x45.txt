@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                                                                                    
+ Walk: click or arrows · M: large map · ?: help                                                                                             
  ONLINE | Thornwick Downs | → Eyes on the Goblins, 14m E | heard 0.4s ago                                                     ? help  q quit

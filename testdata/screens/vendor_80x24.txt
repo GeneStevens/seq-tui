@@ -2,22 +2,22 @@
 │ Testgrounds Vendor, 3m SW away. You have 120 crowns.                         │
 │                                                                              │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
-│  Cracked Shell Fragment          1   │  (nothing)                            │
-│> Worn Cap Common                 8   │                                       │
-│  Padded Vest Common             20   │                                       │
-│  Padded Leggings Common         16   │                                       │
-│  Padded Gloves Common            8   │                                       │
-│  Stout Boots Common             10   │                                       │
-│  Copper Ring Fine               40   │                                       │
-│  Bone Charm Fine                45   │                                       │
-│  Plain Club Common              15   │                                       │
-│  Buckler Common                 12   │                                       │
+│    Cracked Shell Fragment          1 │  (nothing)                            │
+│> ▲ Worn Cap Common                 8 │                                       │
+│  ▲ Padded Vest Common             20 │                                       │
+│  ▲ Padded Leggings Common         16 │                                       │
+│  ▲ Padded Gloves Common            8 │                                       │
+│  ▲ Stout Boots Common             10 │                                       │
+│  ▲ Copper Ring Fine               40 │                                       │
+│  ▲ Bone Charm Fine                45 │                                       │
+│  ▲ Plain Club Common              15 │                                       │
+│  ▲ Buckler Common                 12 │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
-│ Worn Cap: Common, head; tradable once                                        │
-│ armor +2; a vendor pays 2                                                    │
+│ ▲ Worn Cap: Common, Head; tradable once                                      │
+│ armor +2; costs 8 crowns                                                     │
+│ upgrade over an empty head: +2 armour                                        │
 │                                                                              │
-│                                                                              │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.  │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc b…│
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 80/96 | Target: none                                                        

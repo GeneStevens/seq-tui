@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                                                                                    
+ Walk: click or arrows · M: large map · ?: help                                                                                             
  ONLINE | Thornwick Downs | forest: slowed to 75% | heard N.Ns ago                                                            ? help  q quit

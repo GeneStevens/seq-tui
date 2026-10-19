@@ -214,7 +214,11 @@ func nearbyList(m *model.Model) []nearby {
 	}
 	for _, id := range m.DropIDs() {
 		d := m.Drops[id]
-		n := mk(glyphDrop, id, m.DropName(d), d.GetPos(), "")
+		name := m.DropName(d)
+		if mk := m.Mark(d.GetItem()); mk != "" {
+			name += " " + mk // against what is worn (D78)
+		}
+		n := mk(glyphDrop, id, name, d.GetPos(), "")
 		if !d.GetCanLoot() {
 			n.glyph, n.note = glyphLocked, "not lootable"
 		}

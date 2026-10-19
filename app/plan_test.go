@@ -70,9 +70,9 @@ func TestAttackToggles(t *testing.T) {
 	}
 }
 
-func TestLootNamesTheNearestDrop(t *testing.T) {
+func TestLootTakesEverythingInReach(t *testing.T) {
 	m := load(t, "fight_loot.jsonl", 14) // the drop has just appeared
-	if a := app.Plan("l", m); a.Kind != app.Loot || a.ID != "drop-enc-1-shell-fragment" {
+	if a := app.Plan("l", m); a.Kind != app.Loot || a.ID != "" { // loot-all names no drop (D78)
 		t.Errorf("%+v", a)
 	}
 	if a := app.Plan("l", load(t, "play.jsonl@play_login", 0)); a.Kind != app.None || a.Note == "" {

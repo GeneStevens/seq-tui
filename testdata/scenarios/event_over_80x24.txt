@@ -17,8 +17,8 @@
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │   NNN.Ns Raiding Goblin is out of view                                       │
 │   NNN.Ns Raiding Goblin is out of view                                       │
-│   NNN.Ns Raiding Goblin is out of view                                       │
-│   NNN.Ns Raiding Goblin is out of view                                       │
+│   NNN.Ns Tip: tradable once means one trade to another player, then it is    │
+│            bound to them.                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                      
  ONLINE | Thornwick Downs | heard N.Ns ago | attack ok            ? help  q quit

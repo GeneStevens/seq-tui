@@ -5,35 +5,35 @@
 │  Flame Dart             level 1   known                                                        ││ XP ------------------------- 90 to Lv 4│
 │  Frost Bolt             level 1   known                                                        ││ Atk off | none                         │
 │> Glyphshield            level 3   45 crowns                                                    │└────────────────────────────────────────┘
-│  Root                   level 5   75 crowns                                                    │┌─ Quest ────────────────────────────────┐
-│  Fireball               level 7   105 crowns                                                   ││ [ ] 1. Scout the Lookout               │
-│  Blink                  level 9   135 crowns                                                   ││ Testgrounds Recruiter has work for you:│
-│  Rime Burst             level 11  165 crowns                                                   ││ G.                                     │
-│  Homeward               level 12  180 crowns                                                   │└────────────────────────────────────────┘
-│────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Target ───────────────────────────────┐
-│ Glyphshield: Heals you for 30% of the damage you deal for 36 s. On yourself.                   ││ no target (Tab to choose)              │
+│  Root                   level 5   75 crowns                                                    │┌─ Your character (C: tab) ──────────────┐
+│  Fireball               level 7   105 crowns                                                   ││ [Gear]  Bags   Stats                   │
+│  Blink                  level 9   135 crowns                                                   ││ Head      -                            │
+│  Rime Burst             level 11  165 crowns                                                   ││ Chest     -                            │
+│  Homeward               level 12  180 crowns                                                   ││ Legs      -                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Hands     -                            │
+│ Glyphshield: Heals you for 30% of the damage you deal for 36 s. On yourself.                   ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Testgrounds Contract Bo… 4m SE [new] │
-│                                                                                                ││ ! Testgrounds Recruiter    9m SE [new] │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ B Testgrounds Banker              2m S │
-│                                                                                                ││ T Cleric Trainer                  2m N │
-│                                                                                                ││ H Testgrounds Binder             3m SE │
-│                                                                                                ││ T Rogue Trainer                  3m NE │
-│                                                                                                ││ T Warrior Trainer                3m NW │
-│                                                                                                ││ $ Testgrounds Vendor             3m SW │
-│                                                                                                ││ T Wizard Trainer                 4m NE │
-│ Enter acts. Esc goes back.                                                                     ││ +7 more                                │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Enter acts. Esc goes back.                                                                     ││                                        │
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │
+│     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │ +   N.Ns You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                            │
 │ +   N.Ns You buy Buckler from Testgrounds Vendor for 12 crowns                                                                           │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -31,9 +31,9 @@
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.2s You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │
+│     0.2s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │ +   0.3s You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                            │
 │ +   0.4s You buy Buckler from Testgrounds Vendor for 12 crowns                                                                           │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

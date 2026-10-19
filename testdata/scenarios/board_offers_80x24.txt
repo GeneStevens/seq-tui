@@ -1,4 +1,4 @@
-┌─ Contract board ─────────────────────────────────────────────────────────────┐
+┌─ Contract board — C: your character ─────────────────────────────────────────┐
 │ Thornwick Contract Board | you hold 0 of 3 contracts | 0 crowns              │
 │ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
 │> Thin the Meadow Wolves Hunt   L1-3  │  (none)                               │

@@ -18,7 +18,7 @@
 │ ◄ ► ▲ ▼ the objective, off the map                                           │
 │ % your marker  ; scout marker  v event spawn  G event goal  + plan end       │
 │ Ground  # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  . f…│
-│ North is up. Only what you have seen is marked. M or Esc closes.             │
+│ North is up. Click a spot to walk there (or arrows + Enter); the wheel or + …│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
  ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 42m W | heard 0.4s ago 

@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                                                                                    
+ Walk: click or arrows · M: large map · ?: help                                                                                             
  ONLINE | Thornwick Downs | → Hand in: Word from Wickett Mill (Thornwick), 42m W | heard N.Ns ago | move ok                   ? help  q quit

@@ -95,6 +95,12 @@ func (m *Model) logEvent(e *pb.Event) {
 	case *pb.Event_CastInterrupted:
 		actor, target = b.CastInterrupted.GetActor(), b.CastInterrupted.GetTarget()
 	}
+	if w := e.GetReward(); w != nil && (w.GetKind() == "loot" || w.GetKind() == "crowns") {
+		name := m.ItemName(w.GetItem())
+		if m.mergeLoot(e, name) {
+			return // one line lists everything a loot-all took (D78)
+		}
+	}
 	m.addLog(LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target, Quiet: quiet})
 }
 

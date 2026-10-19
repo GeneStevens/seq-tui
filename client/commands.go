@@ -192,9 +192,26 @@ func (s *Session) Buy(ctx context.Context, npc, item string, count int) (string,
 	return s.intent(ctx, "buy", agentkit.Buy(npc, item, count))
 }
 
-// Sell sells an item from the inventory to a vendor.
+// Sell sells one copy of an item from the inventory to a vendor.
 func (s *Session) Sell(ctx context.Context, npc, item string) (string, error) {
 	return s.intent(ctx, "sell", agentkit.Sell(npc, item))
+}
+
+// SellN sells count copies of an item (a stack, D78) to a vendor.
+func (s *Session) SellN(ctx context.Context, npc, item string, count int) (string, error) {
+	return s.intent(ctx, "sell", agentkit.SellN(npc, item, count))
+}
+
+// SellJunk sells every junk item at once to a vendor (D78): what has no gear
+// slot and no use in a held contract.
+func (s *Session) SellJunk(ctx context.Context, npc string) (string, error) {
+	return s.intent(ctx, "sell_junk", func(i *pb.Intent) { i.Body = &pb.Intent_SellJunk{SellJunk: &pb.SellJunk{Npc: npc}} })
+}
+
+// LootAll takes every drop of the character's within reach (D78): the loot
+// intent with no drop named.
+func (s *Session) LootAll(ctx context.Context) (string, error) {
+	return s.Loot(ctx, "")
 }
 
 // Train buys an ability from a trainer of the character's class.

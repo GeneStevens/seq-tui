@@ -1,4 +1,4 @@
-┌─ Traders ────────────────────────────────────────────────────────────────────┐
+┌─ Traders — C: your character ────────────────────────────────────────────────┐
 │ Wizard Trainer, 4m NE away. You have 102 crowns.                             │
 │                                                                              │
 │ You are level 3. Enter buys the ability under the cursor.                    │

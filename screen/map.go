@@ -62,6 +62,7 @@ type cellKind int
 const (
 	kEmpty cellKind = iota
 	kGround
+	kPlace // a named place's name on the large map
 	kBounds
 	kWall
 	kCamp
@@ -237,11 +238,32 @@ func npcMark(m *model.Model, n *pb.NpcInfo) (rune, cellKind) {
 // picture is centred on the character and the scale never changes, so a zone
 // larger than the panel is seen a window at a time.
 func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
-	g := newGrid(newScale(m.Map.GetViewRadiusMm(), ch), cw, ch, m.Self.Pos)
+	g := newGrid(newScale(zoomed(m.Map.GetViewRadiusMm(), v.Zoom), ch), cw, ch, m.Self.Pos)
 	paintWorld(g, m, v, false)
 	g.pointToObjective(m)
 	g.put(int64(cw/2), int64(ch/2), glyphSelf, kSelf)
+	v.Hits.setGrid(g)
+	paintOverlays(g, m, v)
 	return g.styled(st)
+}
+
+// Zoom steps: the scroll wheel (or + and -) halves or doubles what the map shows.
+const (
+	MinZoom = -2
+	MaxZoom = 3
+)
+
+// zoomed is the radius the map shows at a zoom: each step in halves it, each
+// step out doubles it.
+func zoomed(radius int64, zoom int) int64 {
+	if radius <= 0 {
+		radius = defaultViewRadiusMm
+	}
+	zoom = min(max(zoom, MinZoom), MaxZoom)
+	if zoom >= 0 {
+		return max(radius>>uint(zoom), 1000)
+	}
+	return radius << uint(-zoom)
 }
 
 // overviewRows draws the whole zone in cw x ch cells: the bounds fit the panel,
@@ -251,11 +273,28 @@ func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	w, h := b.GetMaxX()-b.GetMinX(), b.GetMaxY()-b.GetMinY()
 	col := max((w+int64(cw)-1)/int64(max(cw, 1)), (h+2*int64(ch)-1)/(2*int64(max(ch, 1))), 1)
 	centre := &pb.Pos{X: (b.GetMinX() + b.GetMaxX()) / 2, Y: (b.GetMinY() + b.GetMaxY()) / 2}
+	if z := min(max(v.BigZoom, 0), MaxZoom); z > 0 {
+		// Zoomed in, the map is centred on the character and each cell spans less.
+		col, centre = max(col>>uint(z), 1), m.Self.Pos
+	}
 	g := newGrid(scale{col: col, row: 2 * col}, cw, ch, centre)
 	paintWorld(g, m, v, true)
+	paintPlaces(g, m)
 	c, r := g.cellOf(m.Self.Pos)
 	g.put(c, r, glyphSelf, kSelf)
+	v.Hits.setGrid(g)
+	paintOverlays(g, m, v)
 	return g.styled(st)
+}
+
+// paintPlaces writes the names of the zone's named places (D76) on the large
+// map, centred on each place and under every glyph.
+func paintPlaces(g *grid, m *model.Model) {
+	for _, p := range m.PlaceLabels() {
+		c, r := g.cellOf(p.Pos)
+		name := p.Name
+		g.text(c-int64(width(name)/2), r, name, kPlace)
+	}
 }
 
 // groundGlyph is the glyph of a kind of ground; 0 for open ground.
@@ -509,6 +548,14 @@ func (g *grid) styled(st Styler) []string {
 				s = " "
 			case kGround:
 				s = groundStyle(c.a, st)(s)
+			case kPlace:
+				s = st.Bold(s)
+			case kLabel:
+				s = st.Reverse(s)
+			case kCard:
+				s = st.Bold(s)
+			case kCursor:
+				s = st.Reverse(st.Bold(s))
 			case kBounds, kCamp:
 				s = st.Dim(s)
 			case kDoor:

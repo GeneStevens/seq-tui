@@ -41,5 +41,5 @@
 │ +  54.2s You gain 11 experience                                                                                                          │
 │    54.2s Warren Digger is out of view                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- L: loot 9 crowns                                                                                                                           
+ L: loot all 2 drops                                                                                                                        
  ONLINE | Hollow Warren (Warren Venture Delve) | heard 0.4s ago | attack ok                                                   ? help  q quit

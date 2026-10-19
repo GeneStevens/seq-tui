@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/GeneStevens/seq-tui/model"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
 // panelMinWidth is the narrowest a service panel may be, beside the You,
@@ -103,12 +104,29 @@ type View struct {
 	// chain screen (D62), nil when closed.
 	Sessions *SessionsUI
 	Quest    *QuestUI
+
+	// The mouse and the sidebar (D77, D78). Hits is where the drawing notes what it
+	// drew, for a click to read; Hover the cell the pointer is over; Labels names
+	// everything on the map (Alt held, or the toggle); Zoom and BigZoom are the
+	// zoom of the map and of the large map; Card is the id whose info card is
+	// open; Cursor the keyboard cursor of the large map, a place in the world.
+	Hits    *Hits
+	Hover   *Pt
+	Labels  bool
+	Zoom    int
+	BigZoom int
+	Card    string
+	Cursor  *pb.Pos
+	Side    *Sidebar
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.
 func Render(m *model.Model, v View, w, h int, st Styler) string {
 	if w < MinWidth || h < MinHeight {
 		return tooSmall(w, h)
+	}
+	if v.Hits != nil {
+		v.Hits.begin()
 	}
 	rw := min(max(w*3/10, 28), 44)
 	lh := min(6+(h-MinHeight)/3, 14)
@@ -130,6 +148,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		if strip {
 			bh--
 		}
+		v.Hits.at(1, len(rows)+1)
 		body := lines(w-2, bh-2)
 		if !v.Help {
 			body = withNotice(body, v, w-2, st)
@@ -159,7 +178,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	case v.Role != nil:
 		takeover("Recruit's role", func(w, h int) []string { return roleLines(m, v.Role, w, h, st) })
 	case v.Overview && m.Map != nil && m.Self.Pos != nil:
-		takeover("Zone overview", func(w, h int) []string { return overviewLines(m, w, h, st) })
+		takeover("Zone overview", func(w, h int) []string { return overviewLines(m, v, w, h, st) })
 	case v.Menu != nil:
 		takeover("Instances", func(w, h int) []string { return menuLines(m, v, w, h, st) })
 	case serviceOpen(v) && w-rw-2 < panelMinWidth:
@@ -167,6 +186,13 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		// width, and keeps the vitals strip and the alarm (D75).
 		bh := th + lh - 1
 		title, lines, _ := servicePanel(m, v, w-2, bh-2, st)
+		switch {
+		case sidebarOpen(v) && v.Side.Drawer:
+			// The drawer (D78): the character sidebar takes the panel's place until C.
+			title, lines = "Your character — C: back to "+strings.ToLower(title), sidebarLines(m, v, w-2, bh-2, 1, len(rows)+1, st)
+		case sidebarOpen(v):
+			title += " — C: your character"
+		}
 		rows = append(rows, boxA(title, w, bh, lines, st, alarmed(m))...)
 		rows = append(rows, vitalsStrip(m, w, st))
 	default:
@@ -176,6 +202,9 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 			// Nearby panels stay beside them, and the log below.
 			mp := boxA(title, mapW, th, lines, st, alarmed(m))
 			right := rightColumn(m, v, rw, th, st)
+			if sidebarOpen(v) {
+				right = sidebarColumn(m, v, rw, th, mapW, len(rows), st)
+			}
 			for i := range mp {
 				rows = append(rows, mp[i]+right[i])
 			}
@@ -184,6 +213,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 			if m.HasKit() {
 				th -= abilityRows
 			}
+			v.Hits.at(1, len(rows)+1)
 			mp := box(mapTitle(m), mapW, th, mapPanel(m, v, mapW-2, th-2, st), st)
 			right := rightColumn(m, v, rw, th, st)
 			for i := range mp {

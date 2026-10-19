@@ -200,11 +200,17 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 		add(fmt.Sprintf(" %s: %s, %s, for %s.", o.GetName(), kindWord(o.GetKind()), levels(o.GetMinLevel(), o.GetMaxLevel()), needWords(o.GetKind(), o.GetNeed())))
 		rows = append(rows, wrapped(o.GetDescription(), w, " ")...)
 		add(" Pays " + m.RewardWords(o.GetReward()) + ".")
+		if l := rewardFact(m, o.GetReward()); l != "" {
+			add(l)
+		}
 	case b.Pane == 1 && b.Cur[1] < len(held):
 		c := held[b.Cur[1]]
 		add(fmt.Sprintf(" %s: %s, %s.", c.GetName(), kindWord(c.GetKind()), model.Progress(c)))
 		rows = append(rows, wrapped(c.GetDescription(), w, " ")...)
 		add(" Pays " + m.RewardWords(c.GetReward()) + ".")
+		if l := rewardFact(m, c.GetReward()); l != "" {
+			add(l)
+		}
 		add(" " + readyWords(m, c))
 	}
 	if len(rows) > h-2 {
@@ -228,6 +234,15 @@ func needWords(kind string, need int64) string {
 		return "a visit to a marker"
 	}
 	return fmt.Sprintf("%d", need)
+}
+
+// rewardFact is the line that compares a contract's reward item with what is
+// worn (D78), blank when the reward is not gear.
+func rewardFact(m *model.Model, r *pb.RewardInfo) string {
+	if r.GetItem() == "" || m.FactWords(r.GetItem()) == "" {
+		return ""
+	}
+	return " " + m.ItemName(r.GetItem()) + ": " + m.FactWords(r.GetItem())
 }
 
 // readyWords says whether a held contract is finished, and where to hand it in
@@ -333,10 +348,10 @@ func contractsBox(m *model.Model, w int, st Styler) (h int, lines []string) {
 	return len(lines) + 2, lines
 }
 
-func overviewLines(m *model.Model, w, h int, st Styler) []string {
+func overviewLines(m *model.Model, v View, w, h int, st Styler) []string {
 	legend := legendLines(m, w-2)
 	foot := 2 + len(legend)
-	rows := overviewRows(m, View{}, w, h-foot, st)
+	rows := overviewRows(m, v, w, h-foot, st)
 	add := func(l string) { rows = append(rows, fit(l, w)) }
 	b := m.Map.GetBounds()
 	sp := m.Self.Pos
@@ -345,7 +360,7 @@ func overviewLines(m *model.Model, w, h int, st Styler) []string {
 	for _, l := range legend {
 		add(" " + l)
 	}
-	add(" North is up. Only what you have seen is marked. M or Esc closes.")
+	add(" North is up. Click a spot to walk there (or arrows + Enter); the wheel or + / - zooms; Ctrl+A names everything. M or Esc closes.")
 	return pad(rows, w, h)
 }
 

@@ -20,5 +20,5 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                        
+ Walk: click or arrows · M: large map · ?: help                                 
  ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 42m W | move ok  ? help

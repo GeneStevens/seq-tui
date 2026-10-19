@@ -4,29 +4,29 @@
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”     ││ XP ------------------------ 162 to Lv 7│
 │ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are         ││ Atk off | none                         │
 │ seasoned.”                                                                                     │└────────────────────────────────────────┘
-│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │┌─ Target ───────────────────────────────┐
-│ me.”                                                                                           ││ no target (Tab to choose)              │
+│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │┌─ Your character (C: tab) ──────────────┐
+│ me.”                                                                                           ││ [Gear]  Bags   Stats                   │
+│                                                                                                ││ Head      -                            │
+│ What they can do for you:                                                                      ││ Chest     -                            │
+│ > 1  Take a contract                                                                           ││ Legs      -                            │
+│   2  Turn in a contract                                                                        ││ Hands     -                            │
+│                                                                                                ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
 │                                                                                                ││                                        │
-│ What they can do for you:                                                                      ││                                        │
-│ > 1  Take a contract                                                                           │└────────────────────────────────────────┘
-│   2  Turn in a contract                                                                        │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board 47m W [new] │
-│                                                                                                ││ Q Captain Rhosyn Hartley         1m NE │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ D East Gate                     12m SE │
-│                                                                                                ││ B Odalys Penn <Banker>          17m NW │
-│                                                                                                ││ T Wynne Greenhollow              35m S │
-│                                                                                                ││     <Druid Trainer>                    │
-│                                                                                                ││ H Isolde Fenn <Binder>           40m W │
-│                                                                                                ││ T Ser Aldric Vane               41m SW │
-│                                                                                                ││     <Paladin Trainer>                  │
-│                                                                                                ││ g Tamsin Hale <Guard>            43m W │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer> 52m SW │
-│                                                                                                ││ $ Barnaby Tuck <Vendor>          54m W │
-│                                                                                                ││ T Pip Nettle <Rogue Trainer>    65m SW │
-│                                                                                                ││ $ Hilda Brasswick <Vendor>       75m W │
-│                                                                                                ││ $ Dunstan Reeve <Vendor>         76m W │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ +2 more                                │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││                                        │
 │ talk to Captain Rhosyn Hartley ok                                                              ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

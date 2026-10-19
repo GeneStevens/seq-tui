@@ -166,12 +166,28 @@ func (a *App) contractsKey(k string, m *model.Model) Action {
 }
 
 // overviewKey handles a key on the zone overview.
-func (a *App) overviewKey(k string) Action {
+func (a *App) overviewKey(k string, m *model.Model) Action {
 	switch k {
 	case "ctrl+c":
 		return Action{Kind: Quit}
 	case "esc", "m", "q":
 		a.overview = false
+		a.mouse.cursor = nil
+	case "+", "=":
+		return Action{Kind: ZoomMap, Count: 1}
+	case "-", "_":
+		return Action{Kind: ZoomMap, Count: -1}
+	case "ctrl+a":
+		return Action{Kind: ToggleLabels}
+	case "up", "w", "k", "down", "s", "j", "left", "a", "h", "right", "d", "l":
+		// The keyboard's way to click a spot: a cursor moves a cell at a time...
+		a.moveCursor(k, m)
+	case "enter", "space", " ":
+		// ...and Enter walks to it.
+		if a.mouse.cursor == nil {
+			return Action{Note: "move the cursor with the arrow keys first, then Enter walks there"}
+		}
+		return Action{Kind: Move, X: a.mouse.cursor.GetX(), Y: a.mouse.cursor.GetY()}
 	}
 	return Action{}
 }

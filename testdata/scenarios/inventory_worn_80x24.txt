@@ -1,22 +1,22 @@
 ┌─ Inventory and gear ─────────────────────────────────────────────────────────┐
-│ Crowns 5 | carrying 0 of 20 | bank 0 | bind point none yet                   │
+│ Crowns 5 | bags 0 of 20 slots | bank 0 | bind point none yet                 │
 │ Gear worn                            │ Items carried                         │
-│ > head      Worn Cap Common          │  (nothing)                            │
-│   chest     -                        │                                       │
-│   legs      -                        │                                       │
-│   hands     -                        │                                       │
-│   feet      -                        │                                       │
-│   ring1     -                        │                                       │
-│   ring2     -                        │                                       │
-│   neck      -                        │                                       │
-│   main_hand Scuttler Blade           │                                       │
-│   off_hand  -                        │                                       │
+│ > Head      Worn Cap Common          │  (nothing)                            │
+│   Chest     -                        │                                       │
+│   Legs      -                        │                                       │
+│   Hands     -                        │                                       │
+│   Feet      -                        │                                       │
+│   Ring 1    -                        │                                       │
+│   Ring 2    -                        │                                       │
+│   Neck      -                        │                                       │
+│   Main hand Scuttler Blade           │                                       │
+│   Off hand  -                        │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
-│ Worn Cap: Common, head; tradable once                                        │
-│ armor +2; a vendor pays 2                                                    │
+│ Worn Cap: Common, Head; tradable once                                        │
+│ armor +2                                                                     │
+│                                                                              │
 │ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.         │
 │ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
-│                                                                              │
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘

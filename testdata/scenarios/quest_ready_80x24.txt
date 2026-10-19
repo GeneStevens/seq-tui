@@ -1,4 +1,4 @@
-┌─ Contract board ─────────────────────────────────────────────────────────────┐
+┌─ Contract board — C: your character ─────────────────────────────────────────┐
 │ Captain Rhosyn Hartley <Quest Giver> | you hold 1 of 3 contracts | 0 crowns  │
 │ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
 │  (nothing for your level)            │> Break the Raiding Party       READY  │

@@ -15,7 +15,7 @@
 │                                                                                        c       │┌─ Nearby ───────────────────────────────┐
 │                                                c                                               ││ D Town Gate         64m NW [next door] │
 │                                                                                                ││ * 3 crowns                        2m S │
-│                                                                                                ││ * Linen Hood                      2m S │
+│                                                                                                ││ * Linen Hood ▲                    2m S │
 │                                                                                                ││ * Wolf Pelt                       2m S │
 │                                                                                                ││ * 2 crowns                        2m S │
 │                                                                                                ││ * Wolf Pelt                       2m S │
@@ -41,5 +41,5 @@
 │ + 199.5s Thin the Meadow Wolves: 3 of 3                                                                                                  │
 │   199.5s Meadow Wolf is out of view                                                                                                      │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- L: loot 3 crowns                                                                                                                           
+ L: loot all 5 drops                                                                                                                        
  ONLINE | Thornwick Downs | → Hand in: Thin the Meadow Wolves (Thornwick), 64m NW | heard 0.4s ago | attack ok                ? help  q quit

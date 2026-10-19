@@ -20,5 +20,5 @@
 │ + 199.5s Thin the Meadow Wolves: 3 of 3                                      │
 │   199.5s Meadow Wolf is out of view                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
- L: loot 3 crowns                                                               
+ L: loot all 5 drops                                                            
  ONLINE | → Hand in: Thin the Meadow Wolves (Thornwick), 64m NW | attack ok     

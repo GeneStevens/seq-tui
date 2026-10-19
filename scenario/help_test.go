@@ -83,18 +83,18 @@ func TestTheHelpOpensAndClosesFromEveryView(t *testing.T) {
 	// Down scrolls the page of keys.
 	p.Press("?")
 	for page := 1; page <= scenarioHelpPages; page++ {
-		view("Page " + string(rune('0'+page)) + " of 7")
+		view("Page " + string(rune('0'+page)) + " of 8")
 		p.Press("?")
 	}
 	helpOpen(false)
-	p.Press("?", "right", "right", "right", "right", "right")
+	p.Press("?", "right", "right", "right", "right", "right", "right")
 	view("Help: Every key")
 	p.Press("left")
 	view("Help: Logs and replay")
 	p.Press("esc")
 }
 
-const scenarioHelpPages = 7
+const scenarioHelpPages = 8
 
 // The help covers D62, D66, D68 and D69 in words a player can use, and the
 // page of keys is the table's.

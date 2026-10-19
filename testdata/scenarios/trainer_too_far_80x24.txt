@@ -1,4 +1,4 @@
-┌─ Traders ────────────────────────────────────────────────────────────────────┐
+┌─ Traders — C: your character ────────────────────────────────────────────────┐
 │ Traders in view. Up / Down choose, Enter opens, Esc closes. Walk up to one f…│
 │                                                                              │
 │ > $ Dunstan Reeve <Vendor>: sells and buys                               5m N│

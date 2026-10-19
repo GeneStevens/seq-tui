@@ -202,7 +202,12 @@ func hintLine(m *model.Model, v View, w int, st Styler) string {
 			parts = append(parts, "G: talk to "+model.NPCLabel(n))
 		}
 		if d := nearestDropHint(m); d != nil {
-			parts = append(parts, "L: loot "+m.DropName(d))
+			switch n := dropsInReach(m); {
+			case n > 1:
+				parts = append(parts, fmt.Sprintf("L: loot all %d drops", n))
+			default:
+				parts = append(parts, "L: loot "+m.DropName(d))
+			}
 		}
 		if mobsInView(m) > 0 {
 			switch {
@@ -216,7 +221,7 @@ func hintLine(m *model.Model, v View, w int, st Styler) string {
 		}
 	}
 	if len(parts) == 0 {
-		parts = []string{"Walk: arrows or WASD · M: map · ?: help"}
+		parts = []string{"Walk: click or arrows · M: large map · ?: help"}
 	}
 	return st.Dim(fit(" "+strings.Join(parts, "  ·  "), w))
 }
@@ -272,6 +277,19 @@ func nearestDropHint(m *model.Model) *pb.LootDropState {
 		}
 	}
 	return best
+}
+
+// dropsInReach counts the drops this character may take within reach: what L
+// (loot all) takes.
+func dropsInReach(m *model.Model) int {
+	n := 0
+	for _, id := range m.DropIDs() {
+		d := m.Drops[id]
+		if d.GetCanLoot() && dist(d.GetPos().GetX(), d.GetPos().GetY(), m.Self.Pos.GetX(), m.Self.Pos.GetY()) <= reachHintMm {
+			n++
+		}
+	}
+	return n
 }
 
 func mobsInView(m *model.Model) int {

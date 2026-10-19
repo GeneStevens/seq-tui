@@ -407,7 +407,11 @@ func (m *Model) RewardWords(r *pb.RewardInfo) string {
 		parts = append(parts, crowns(r.GetCrowns()))
 	}
 	if r.GetItem() != "" {
-		parts = append(parts, m.ItemName(r.GetItem()))
+		item := m.ItemName(r.GetItem())
+		if mk := m.Mark(r.GetItem()); mk != "" {
+			item += " " + mk // how it compares with what is worn (D78)
+		}
+		parts = append(parts, item)
 	}
 	switch len(parts) {
 	case 0:

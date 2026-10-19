@@ -23,8 +23,8 @@
 │────────────────────────────────────────────────────────────────────────────────────────────────││ $ Barnaby Tuck <Vendor>         13m SW │
 │ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ g Town Guard                     24m E │
 │ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ $ Hilda Brasswick <Vendor>       29m W │
-│ Pays 30 XP, 14 crowns and Tin Ring.                                                            ││ B Odalys Penn <Banker>           32m E │
-│                                                                                                ││ $ Dunstan Reeve <Vendor>        33m SW │
+│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                                          ││ B Odalys Penn <Banker>           32m E │
+│ Tin Ring: upgrade over an empty ring1: +10 health, +1 stamina                                  ││ $ Dunstan Reeve <Vendor>        33m SW │
 │                                                                                                ││ T Ormond Quill <Wizard Trainer>  36m S │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ T Pip Nettle <Rogue Trainer>     36m S │
 │ hand in Thin the Meadow Wolves ok                                                              ││ +6 more                                │

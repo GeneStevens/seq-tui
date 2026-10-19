@@ -4,29 +4,29 @@
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row.”             ││ XP ------------------------- 90 to Lv 4│
 │ “Armour is cheaper than a healer's patience.”                                                  ││ Atk off | none                         │
 │                                                                                                │└────────────────────────────────────────┘
-│ What they can do for you:                                                                      │┌─ Target ───────────────────────────────┐
-│ > 1  Buy                                                                                       ││ no target (Tab to choose)              │
-│   2  Sell                                                                                      ││                                        │
+│ What they can do for you:                                                                      │┌─ Your character (C: tab) ──────────────┐
+│ > 1  Buy                                                                                       ││ [Gear]  Bags   Stats                   │
+│   2  Sell                                                                                      ││ Head      -                            │
+│                                                                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
+│                                                                                                ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
 │                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board 29m E [new] │
-│                                                                                                ││ $ Hilda Brasswick <Vendor>        2m S │
-│                                                                                                ││ g Town Guard                     15m N │
-│                                                                                                ││ $ Dunstan Reeve <Vendor>         22m S │
-│                                                                                                ││ $ Barnaby Tuck <Vendor>         28m SE │
-│                                                                                                ││ g Tamsin Hale <Guard>            34m E │
-│                                                                                                ││ H Isolde Fenn <Binder>          40m SE │
-│                                                                                                ││ T Mother Elswyth                 42m S │
-│                                                                                                ││     <Cleric Trainer>                   │
-│                                                                                                ││ T Gorran Stoutarm                44m S │
-│                                                                                                ││     <Warrior Trainer>                  │
-│                                                                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
-│                                                                                                ││ B Odalys Penn <Banker>           60m E │
-│                                                                                                ││ T Ser Aldric Vane               67m SE │
-│                                                                                                ││     <Paladin Trainer>                  │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ +3 more                                │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││                                        │
 │ talk to Hilda Brasswick ok                                                                     ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

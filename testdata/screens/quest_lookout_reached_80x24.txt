@@ -20,5 +20,5 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                        
+ Walk: click or arrows · M: large map · ?: help                                 
  ONLINE | → Hand in: Eyes on the Goblins (Thornwick), 222m W | move ok    ? help
