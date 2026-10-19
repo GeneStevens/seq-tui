@@ -130,7 +130,11 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		if strip {
 			bh--
 		}
-		rows = append(rows, boxA(title, w, bh, lines(w-2, bh-2), st, alarmed(m))...)
+		body := lines(w-2, bh-2)
+		if !v.Help {
+			body = withNotice(body, v, w-2, st)
+		}
+		rows = append(rows, boxA(title, w, bh, body, st, alarmed(m))...)
 		if strip {
 			rows = append(rows, vitalsStrip(m, w, st))
 		}

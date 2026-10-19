@@ -53,20 +53,24 @@ func servicePanel(m *model.Model, v View, w, h int, st Styler) (title string, li
 	default:
 		return "", nil, false
 	}
-	// A refusal is shown in the panel being looked at as well as on the status
-	// line, in place of the panel's last line (its key help).
-	if v.Notice != "" && len(lines) > 0 {
-		n := " " + v.Notice
-		if v.NoticeBad {
-			n = " ! " + v.Notice
-		}
-		if v.NoticeBad {
-			lines[len(lines)-1] = st.Red(st.Bold(fit(n, w)))
-		} else {
-			lines[len(lines)-1] = fit(n, w)
-		}
+	return title, withNotice(lines, v, w, st), true
+}
+
+// withNotice shows the answer to the last command, a refusal above all, in the
+// panel being looked at as well as on the status line, in place of the panel's
+// last line (its key help).
+func withNotice(lines []string, v View, w int, st Styler) []string {
+	if v.Notice == "" || len(lines) == 0 {
+		return lines
 	}
-	return title, lines, true
+	n := " " + v.Notice
+	if v.NoticeBad {
+		n = " ! " + v.Notice
+		lines[len(lines)-1] = st.Red(st.Bold(fit(n, w)))
+	} else {
+		lines[len(lines)-1] = fit(n, w)
+	}
+	return lines
 }
 
 // joinNames says a few names in a sentence: "A", "A and B", "A and 2 more".

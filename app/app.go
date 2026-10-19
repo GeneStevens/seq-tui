@@ -169,11 +169,8 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		a.sess.View(a.watchInvite)
 		a.sess.View(func(m *model.Model) {
 			a.walkedAway(m)
-			if m.Alerts != a.alerts {
-				a.alerts = m.Alerts
-				if a.Bell {
-					cmds = append(cmds, tea.Raw("\a"))
-				}
+			if a.ring(m) {
+				cmds = append(cmds, tea.Raw("\a"))
 			}
 		})
 		if closed, _ := a.sess.Closed(); closed {
@@ -685,6 +682,16 @@ func (a *App) questKey(k string, m *model.Model) Action {
 		q.Confirm = true
 	}
 	return Action{}
+}
+
+// ring says the terminal's bell is to ring (D75): the bell is on, and a mob has
+// begun attacking the character since the last time it was asked.
+func (a *App) ring(m *model.Model) bool {
+	if m.Alerts == a.alerts {
+		return false
+	}
+	a.alerts = m.Alerts
+	return a.Bell
 }
 
 // deniedWords is why an intent was refused, in the server's own words (D76), else

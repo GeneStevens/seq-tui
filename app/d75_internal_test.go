@@ -90,3 +90,30 @@ func TestAWindowClosesWhenTheCharacterIsOutOfReach(t *testing.T) {
 		}
 	}
 }
+
+// The bell is off unless asked for, and rings once for each mob that begins an
+// attack (D75).
+func TestTheBellRingsOnceForEachAttack(t *testing.T) {
+	attack := func(m *model.Model, seq uint64, mob string) {
+		m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: &pb.Event{Seq: seq, GameTimeMs: 2000,
+			Body: &pb.Event_AttackBegan{AttackBegan: &pb.AttackBegan{Actor: "me", Mob: mob, Name: "Hedge Brigand", Level: 4, Con: "hard", Danger: true}}}}})
+	}
+	for _, on := range []bool{false, true} {
+		a, m := vendorWorld()
+		a.Bell = on
+		if a.ring(m) {
+			t.Fatalf("bell %v: rang with no attack", on)
+		}
+		attack(m, 2, "mob-1")
+		if got := a.ring(m); got != on {
+			t.Fatalf("bell %v: rang %v at the first attack", on, got)
+		}
+		if a.ring(m) {
+			t.Fatalf("bell %v: rang twice for one attack", on)
+		}
+		attack(m, 3, "mob-2")
+		if got := a.ring(m); got != on {
+			t.Fatalf("bell %v: rang %v at the second attack", on, got)
+		}
+	}
+}

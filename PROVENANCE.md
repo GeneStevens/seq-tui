@@ -39,6 +39,9 @@ This file lists each content item in `seq-tui` and its source (for example "inve
 
 | `testdata/logs/*.jsonl`, `testdata/screens/*.txt`, `testdata/scenarios/*.txt` (regenerated) | Re-recorded by the scenarios (`make fixtures golden`, 2026-10-18, TUI-026) on seq at eb73bfc (SEQ-078) and seq-world at d6666a5 (WLD-011); every name, id and line in them is the server's own. |
 
+| `model/legible.go`, `screen/legible.go`, `scenario/d75_test.go`, `scenario/d76_test.go`, `app/d75_internal_test.go`, the role glyphs (`T B H g Q`), the zone edge `░`, the pointer arrows, the legend and the help page on marks, the alarm and level-up wording | Written for SEQ, 2026-10-19 (TUI-027, D75 and D76). The glyphs, the wording and the layout are invented for SEQ; the titles, places, hints, texts and level-up and hand-in summaries on the screens are the server's own. |
+| `testdata/logs/*.jsonl`, `testdata/screens/*.txt`, `testdata/scenarios/*.txt` (regenerated) | Re-recorded by the scenarios (`make fixtures golden`, 2026-10-19, TUI-027) on seq at 035f218 (SEQ-083) and seq-world at 5f18c38 (WLD-017); every name, id and line in them is the server's own. |
+
 ## Exclusions
 
 All content that existed before the reset is excluded: nothing from the tree at tag `pre-reset` (commit `9d04d89`) is carried into this tree. It stays in git history only. Any later salvage (for example the map rasterizer, see `README.md`) must be recorded in the table above, with its source, in the mission that brings it in.
