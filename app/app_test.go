@@ -51,7 +51,7 @@ func screenOf(a *app.App) string { return sgr.ReplaceAllString(a.View().Content,
 func TestInstanceMenuOpensChoosesAndCloses(t *testing.T) {
 	a, _ := program(t, "solo_trial.jsonl@instance_menu", 0)
 	press(a, "i")
-	if s := screenOf(a); !strings.Contains(s, "Instances") || !strings.Contains(s, "Solo Trial") || !strings.Contains(s, "Showing 1 to 5 of 7") {
+	if s := screenOf(a); !strings.Contains(s, "Instances") || !strings.Contains(s, "Solo Trial") || !strings.Contains(s, "Showing 1 to 4 of 7") {
 		t.Fatalf("no menu:\n%s", s)
 	}
 	press(a, "4")
@@ -60,7 +60,7 @@ func TestInstanceMenuOpensChoosesAndCloses(t *testing.T) {
 	}
 	// The list scrolls to keep the cursor in view.
 	press(a, "7")
-	if s := screenOf(a); !strings.Contains(s, "> 7  Duo Turns") || !strings.Contains(s, "Showing 3 to 7 of 7") {
+	if s := screenOf(a); !strings.Contains(s, "> 7  Duo Turns") || !strings.Contains(s, "Showing 4 to 7 of 7") {
 		t.Errorf("the menu did not scroll:\n%s", s)
 	}
 	press(a, "1")

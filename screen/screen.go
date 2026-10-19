@@ -13,6 +13,10 @@ import (
 	"github.com/GeneStevens/seq-tui/model"
 )
 
+// panelMinWidth is the narrowest a service panel may be, beside the You,
+// Target and Nearby panels; below it the service takes the whole width.
+const panelMinWidth = 60
+
 // Smallest screen the layout is designed for.
 const (
 	MinWidth  = 80
@@ -116,9 +120,24 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	if b := inviteBanner(m, w, st); b != "" {
 		rows, th = append(rows, b), th-1
 	}
+	if b := momentBanner(m, v, w, st); len(b) > 0 {
+		rows, th = append(rows, b...), th-len(b)
+	}
+	// A screen that takes the whole window keeps one line of vitals (D75).
+	strip := m.Self.ID != ""
+	takeover := func(title string, lines func(w, h int) []string) {
+		bh := th + lh
+		if strip {
+			bh--
+		}
+		rows = append(rows, boxA(title, w, bh, lines(w-2, bh-2), st, alarmed(m))...)
+		if strip {
+			rows = append(rows, vitalsStrip(m, w, st))
+		}
+	}
 	switch {
 	case v.Help:
-		rows = append(rows, box(HelpTitle(v.HelpPage), w, th+lh, helpLines(m, v, w-2, th+lh-2, st), st)...)
+		takeover(HelpTitle(v.HelpPage), func(w, h int) []string { return helpLines(m, v, w, h, st) })
 	case v.Sessions != nil:
 		title := "Sessions: your logs"
 		if v.Sessions.Log != nil {
@@ -126,54 +145,64 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		}
 		rows = append(rows, box(title, w, th+lh, sessionsScreenLines(v.Sessions, w-2, th+lh-2, st), st)...)
 	case v.Quest != nil:
-		rows = append(rows, box("Quest chain", w, th+lh, questScreenLines(m, v.Quest, w-2, th+lh-2, st), st)...)
+		takeover("Quest chain", func(w, h int) []string { return questScreenLines(m, v.Quest, w, h, st) })
 	case v.Create != nil:
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Social != nil:
-		rows = append(rows, box("Social: "+tabNames[v.Social.Tab], w, th+lh, socialScreenLines(m, v.Social, w-2, th+lh-2, st), st)...)
+		takeover("Social: "+tabNames[v.Social.Tab], func(w, h int) []string { return socialScreenLines(m, v.Social, w, h, st) })
 	case v.Slots != nil:
-		rows = append(rows, box("Ability slots", w, th+lh, slotScreenLines(m, v, w-2, th+lh-2, st), st)...)
-	case v.Inventory != nil:
-		rows = append(rows, box("Inventory and gear", w, th+lh, inventoryScreenLines(m, v.Inventory, w-2, th+lh-2, st), st)...)
-	case v.Traders != nil:
-		rows = append(rows, box("Traders", w, th+lh, tradersScreenLines(m, v.Traders, w-2, th+lh-2, st), st)...)
-	case v.Trade != nil:
-		rows = append(rows, box("Trade", w, th+lh, tradeScreenLines(m, v.Trade, w-2, th+lh-2, st), st)...)
-	case v.Talk != nil:
-		rows = append(rows, box("Talking", w, th+lh, talkLines(m, v.Talk, w-2, th+lh-2, st), st)...)
-	case v.Board != nil:
-		rows = append(rows, box("Contract board", w, th+lh, boardLines(m, v.Board, w-2, th+lh-2, st), st)...)
+		takeover("Ability slots", func(w, h int) []string { return slotScreenLines(m, v, w, h, st) })
 	case v.Role != nil:
-		rows = append(rows, box("Recruit's role", w, th+lh, roleLines(m, v.Role, w-2, th+lh-2, st), st)...)
-	case v.Contracts != nil:
-		rows = append(rows, box("Contracts", w, th+lh, contractsScreenLines(m, v.Contracts, w-2, th+lh-2, st), st)...)
+		takeover("Recruit's role", func(w, h int) []string { return roleLines(m, v.Role, w, h, st) })
 	case v.Overview && m.Map != nil && m.Self.Pos != nil:
-		rows = append(rows, box("Zone overview", w, th+lh, overviewLines(m, w-2, th+lh-2, st), st)...)
+		takeover("Zone overview", func(w, h int) []string { return overviewLines(m, w, h, st) })
 	case v.Menu != nil:
-		rows = append(rows, box("Instances", w, th+lh, menuLines(m, v, w-2, th+lh-2, st), st)...)
+		takeover("Instances", func(w, h int) []string { return menuLines(m, v, w, h, st) })
+	case serviceOpen(v) && w-rw-2 < panelMinWidth:
+		// Too narrow for a panel beside the other panels: the service takes the
+		// width, and keeps the vitals strip and the alarm (D75).
+		bh := th + lh - 1
+		title, lines, _ := servicePanel(m, v, w-2, bh-2, st)
+		rows = append(rows, boxA(title, w, bh, lines, st, alarmed(m))...)
+		rows = append(rows, vitalsStrip(m, w, st))
 	default:
 		mapW := w - rw
-		if m.HasKit() {
-			th -= abilityRows
+		if title, lines, ok := servicePanel(m, v, mapW-2, th-2, st); ok {
+			// Services are panels in the map's area (D75): the You, Target and
+			// Nearby panels stay beside them, and the log below.
+			mp := boxA(title, mapW, th, lines, st, alarmed(m))
+			right := rightColumn(m, v, rw, th, st)
+			for i := range mp {
+				rows = append(rows, mp[i]+right[i])
+			}
+		} else {
+			th-- // the line of key hints
+			if m.HasKit() {
+				th -= abilityRows
+			}
+			mp := box(mapTitle(m), mapW, th, mapPanel(m, v, mapW-2, th-2, st), st)
+			right := rightColumn(m, v, rw, th, st)
+			for i := range mp {
+				rows = append(rows, mp[i]+right[i])
+			}
+			if m.HasKit() {
+				rows = append(rows, box("Abilities (keys 1-8, B sets the slots)", w, abilityRows, abilityLines(m, v, w-2, st), st)...)
+			}
 		}
-		mp := box(mapTitle(m), mapW, th, mapPanel(m, v, mapW-2, th-2, st), st)
-		right := rightColumn(m, v, rw, th, st)
-		for i := range mp {
-			rows = append(rows, mp[i]+right[i])
-		}
-		if m.HasKit() {
-			rows = append(rows, box("Abilities (keys 1-8, B sets the slots)", w, abilityRows, abilityLines(m, v, w-2, st), st)...)
-		}
+		evh := lh
 		if chatShown(m, v) {
 			// Chat takes the right part of the log's row once anything has been said.
 			cw := min(max(w*5/12, 30), 60)
-			ev := box(fmt.Sprintf("Events (%s)", logMode(v)), w-cw, lh, logLines(m, v, w-cw-2, lh-2, st), st)
-			ch := box("Chat (/ types)", cw, lh, chatLines(m, cw-2, lh-2, st), st)
+			ev := box(fmt.Sprintf("Events (%s)", logMode(v)), w-cw, evh, logLines(m, v, w-cw-2, evh-2, st), st)
+			ch := box("Chat (/ types)", cw, evh, chatLines(m, cw-2, evh-2, st), st)
 			for i := range ev {
 				rows = append(rows, ev[i]+ch[i])
 			}
 		} else {
-			rows = append(rows, box(fmt.Sprintf("Events (%s)", logMode(v)), w, lh, logLines(m, v, w-2, lh-2, st), st)...)
+			rows = append(rows, box(fmt.Sprintf("Events (%s)", logMode(v)), w, evh, logLines(m, v, w-2, evh-2, st), st)...)
+		}
+		if !v.anyScreen() {
+			rows = append(rows, hintLine(m, v, w, st))
 		}
 	}
 	if v.Line != nil {
@@ -206,7 +235,11 @@ func logMode(v View) string {
 func mapTitle(m *model.Model) string {
 	switch {
 	case m.Map != nil && m.Map.GetName() != "" && m.Self.Pos != nil:
-		return fmt.Sprintf("%s, at %d,%d m, north up", m.Map.GetName(), m.Self.Pos.GetX()/1000, m.Self.Pos.GetY()/1000)
+		name := m.Map.GetName()
+		if p := m.Self.Place; p != "" {
+			name += " — " + p
+		}
+		return fmt.Sprintf("%s, at %d,%d m, north up", name, m.Self.Pos.GetX()/1000, m.Self.Pos.GetY()/1000)
 	case m.Map != nil && m.Map.GetName() != "":
 		return m.Map.GetName() + ", north up"
 	case m.Space != "":
@@ -230,9 +263,22 @@ func mapPanel(m *model.Model, v View, cw, ch int, st Styler) []string {
 // box draws a titled frame of w x h cells around inner, whose lines are each
 // exactly w-2 cells wide once styling is ignored.
 func box(title string, w, h int, inner []string, st Styler) []string {
+	return boxWith(title, w, h, inner, st.Dim)
+}
+
+// boxA is box with a red border when alarm is set (D75): a screen over the map
+// while something attacks. The title says so too, so colour is not all there is.
+func boxA(title string, w, h int, inner []string, st Styler, alarm bool) []string {
+	if !alarm {
+		return box(title, w, h, inner, st)
+	}
+	return boxWith(title+"  ⚠ UNDER ATTACK", w, h, inner, func(s string) string { return st.Red(st.Bold(s)) })
+}
+
+func boxWith(title string, w, h int, inner []string, border func(string) string) []string {
 	top := []rune("┌─ " + strings.TrimSpace(fit(title, w-6)) + " " + strings.Repeat("─", w))
-	rows := []string{st.Dim(string(top[:w-1]) + "┐")}
-	side := st.Dim("│")
+	rows := []string{border(string(top[:w-1]) + "┐")}
+	side := border("│")
 	for i := 0; i < h-2; i++ {
 		line := strings.Repeat(" ", w-2)
 		if i < len(inner) {
@@ -240,7 +286,7 @@ func box(title string, w, h int, inner []string, st Styler) []string {
 		}
 		rows = append(rows, side+line+side)
 	}
-	return append(rows, st.Dim("└"+strings.Repeat("─", w-2)+"┘"))
+	return append(rows, border("└"+strings.Repeat("─", w-2)+"┘"))
 }
 
 func statusLine(m *model.Model, v View, w int, st Styler) string {
@@ -259,6 +305,18 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	if note != "" && v.NoticeBad {
 		note = "! " + note
 	}
+	if a := alarmText(m, v); a != "" {
+		// The alarm takes the line (D75); the answer to the last command follows it.
+		line := " " + a
+		if note != "" {
+			line += " | " + note
+		}
+		return st.Reverse(st.Red(st.Bold(fit(line, w))))
+	}
+	if p := m.Self.Place; p != "" {
+		space = p + ", " + space
+	}
+	objective := objectiveWords(m)
 	// The line is the connection, the space, the clock and the last command's
 	// answer. When it is short, the key hint goes first, then the space and the
 	// clock: a denial's reason is never cut for them.
@@ -274,7 +332,7 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	if q := m.Quest(); q != nil {
 		quest = fmt.Sprintf("%s %d/%d", q.GetName(), q.GetStep(), q.GetSteps())
 	}
-	for _, parts := range [][]string{{conn, quest, space, ground, heard, note}, {conn, quest, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}} {
+	for _, parts := range [][]string{{conn, space, objective, quest, ground, heard, note}, {conn, space, objective, ground, heard, note}, {conn, objective, quest, ground, heard, note}, {conn, objective, ground, note}, {conn, quest, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}} {
 		var kept []string
 		for _, p := range parts {
 			if p != "" {

@@ -207,6 +207,9 @@ func (m *Model) levelUp(old Self) {
 	if len(learned) > 0 {
 		text += ": new ability " + joinAnd(learned)
 	}
+	if m.levelTold {
+		return // the server's level_up event already said so, with more
+	}
 	m.Log = append(m.Log, LogEntry{Seq: m.last, GameTimeMs: m.GameTimeMs, Kind: "level_up", Text: text, Actor: m.Self.ID})
 	if over := len(m.Log) - m.logCap; over > 0 {
 		m.Log = append([]LogEntry(nil), m.Log[over:]...)

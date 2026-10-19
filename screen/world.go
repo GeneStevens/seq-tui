@@ -154,7 +154,7 @@ func heldRow(c *pb.ContractInfo, w int) string {
 	return fit(fit(c.GetName(), max(w-width(state)-1, 4))+" "+state, w)
 }
 
-func boardLines(m *model.Model, b *Board, w, h int, st Styler) []string {
+func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string {
 	n := m.NPC(b.NPC)
 	var rows []string
 	add := func(l string) { rows = append(rows, fit(l, w)) }
@@ -163,7 +163,9 @@ func boardLines(m *model.Model, b *Board, w, h int, st Styler) []string {
 		return pad(rows, w, h)
 	}
 	held := m.Self.Contracts
-	add(fmt.Sprintf(" %s | you hold %d of 3 contracts | %s", n.GetName(), len(held), inCrowns(m)))
+	add(fmt.Sprintf(" %s | you hold %d of 3 contracts | %s", model.NPCLabel(n), len(held), inCrowns(m)))
+	moment := handInLines(m, v, w, st)
+	rows = append(rows, moment...)
 	lw := (w - 1) / 2
 	rw := w - 1 - lw
 	left := []string{fit(" On offer now (Enter takes it)", lw)}
@@ -174,7 +176,7 @@ func boardLines(m *model.Model, b *Board, w, h int, st Styler) []string {
 	if len(texts) == 0 {
 		left = append(left, fit("  (nothing for your level)", lw))
 	}
-	room := max(h-9, 1)
+	room := max(h-9-len(moment), 1)
 	left = append(left, listRows(texts, b.Cur[0], room, lw, b.Pane == 0, st)...)
 	right := []string{fit(" You hold (Enter hands in, X gives up)", rw)}
 	texts = nil
@@ -202,7 +204,7 @@ func boardLines(m *model.Model, b *Board, w, h int, st Styler) []string {
 		c := held[b.Cur[1]]
 		add(fmt.Sprintf(" %s: %s, %s.", c.GetName(), kindWord(c.GetKind()), model.Progress(c)))
 		rows = append(rows, wrapped(c.GetDescription(), w, " ")...)
-		add(" Pays " + m.RewardWords(c.GetReward()) + ". " + readyWords(c))
+		add(" Pays " + m.RewardWords(c.GetReward()) + ". " + readyWords(m, c))
 	}
 	if len(rows) > h-2 {
 		rows = rows[:h-2]
@@ -227,11 +229,28 @@ func needWords(kind string, need int64) string {
 	return fmt.Sprintf("%d", need)
 }
 
-func readyWords(c *pb.ContractInfo) string {
+// readyWords says whether a held contract is finished, and where to hand it in
+// (D76: the server's hint names the board).
+func readyWords(m *model.Model, c *pb.ContractInfo) string {
 	if c.GetReady() {
-		return "Finished: hand it in at the board."
+		return "Finished: " + handInWhere(m, c) + "."
 	}
 	return "Not finished yet."
+}
+
+// handInWhere is where a finished contract is handed in, "hand it in at Notice Board, 23m NE".
+func handInWhere(m *model.Model, c *pb.ContractInfo) string {
+	for _, h := range m.Self.Hints {
+		if h.GetKind() == "ready" && strings.HasSuffix(h.GetLabel(), c.GetName()) {
+			name := m.NPCTitled(h.GetId())
+			if h.GetPos() != nil && m.Self.Pos != nil {
+				sp := m.Self.Pos
+				return fmt.Sprintf("hand it in at %s, %s %s", name, metres(dist(h.GetPos().GetX(), h.GetPos().GetY(), sp.GetX(), sp.GetY())), bearing(h.GetPos().GetX()-sp.GetX(), h.GetPos().GetY()-sp.GetY()))
+			}
+			return "hand it in at " + name
+		}
+	}
+	return "hand it in at a contract board"
 }
 
 // contractRows are the held contracts as a list: one line each when compact,
@@ -251,7 +270,7 @@ func contractRows(m *model.Model, w int, full bool, sel int, st Styler) []string
 		}
 		state := model.Progress(c)
 		if c.GetReady() {
-			state = "READY: hand it in at the board"
+			state = "READY: " + handInWhere(m, c)
 		}
 		head := st.Bold(fit(fmt.Sprintf("%s %s (%s)", mark, c.GetName(), kindWord(c.GetKind())), w))
 		if i == sel {
@@ -314,21 +333,16 @@ func contractsBox(m *model.Model, w int, st Styler) (h int, lines []string) {
 }
 
 func overviewLines(m *model.Model, w, h int, st Styler) []string {
-	ground := m.Ground() != nil
-	foot := 4
-	if ground {
-		foot = 5
-	}
+	legend := legendLines(m, w-2)
+	foot := 2 + len(legend)
 	rows := overviewRows(m, View{}, w, h-foot, st)
 	add := func(l string) { rows = append(rows, fit(l, w)) }
 	b := m.Map.GetBounds()
 	sp := m.Self.Pos
 	add(fmt.Sprintf(" %s, %dm by %dm. You: %dm E, %dm N of the south-west corner.", m.Map.GetName(),
 		(b.GetMaxX()-b.GetMinX())/1000, (b.GetMaxY()-b.GetMinY())/1000, (sp.GetX()-b.GetMinX())/1000, (sp.GetY()-b.GetMinY())/1000))
-	add(" @ you  D door  $ trader  & board  ? talker  % your marker  c camp  r rare  # wall")
-	add(" ; scout marker  ! event spawn  G event goal")
-	if ground {
-		add(" # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor")
+	for _, l := range legend {
+		add(" " + l)
 	}
 	add(" North is up. Only what you have seen is marked. M or Esc closes.")
 	return pad(rows, w, h)

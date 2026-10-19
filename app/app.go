@@ -68,6 +68,11 @@ type App struct {
 	// the wall clock. A scenario sets it to its server's clock.
 	Clock func() time.Time
 
+	// Bell rings the terminal's bell when a mob begins attacking the character
+	// (D75). It is off by default.
+	Bell   bool
+	alerts int // the alerts the bell has rung for
+
 	// LogLabel, if set, is what the sessions view says of where the logs live,
 	// in place of the directory (a scenario's is a temporary one).
 	LogLabel string
@@ -162,6 +167,15 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		a.observe()
 		cmds := []tea.Cmd{a.waitChange()}
 		a.sess.View(a.watchInvite)
+		a.sess.View(func(m *model.Model) {
+			a.walkedAway(m)
+			if m.Alerts != a.alerts {
+				a.alerts = m.Alerts
+				if a.Bell {
+					cmds = append(cmds, tea.Raw("\a"))
+				}
+			}
+		})
 		if closed, _ := a.sess.Closed(); closed {
 			if a.sess.LoggedOut() {
 				a.view.Conn = screen.ConnLoggedOut
@@ -328,7 +342,9 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		a.inv, a.traders = nil, &screen.Traders{}
 	case OpenTradersAt:
 		a.talk = nil
-		a.sess.View(func(m *model.Model) { a.traders = &screen.Traders{Sel: max(tradersAt(m, act.NPC), 0), Open: true} })
+		a.sess.View(func(m *model.Model) {
+			a.traders = &screen.Traders{Sel: max(tradersAt(m, act.NPC), 0), Open: true, NPC: act.NPC}
+		})
 	case OpenBoard:
 		a.talk, a.board = nil, &screen.Board{NPC: act.NPC, Pane: act.Count}
 	case OpenContracts:
@@ -527,7 +543,7 @@ func (a *App) send(act Action) tea.Cmd {
 		case err != nil:
 			return resultMsg{note: what + ": " + err.Error(), bad: true}
 		case st.State == model.IntentDenied:
-			return resultMsg{note: fmt.Sprintf("%s denied: %s", what, model.Words(st.Reason)), bad: true}
+			return resultMsg{note: fmt.Sprintf("%s denied: %s", what, deniedWords(st)), bad: true}
 		case st.Unknown && act.Kind == PlanSubmit:
 			return resultMsg{note: "plan: already applied (result unknown)", planSent: true, planRound: act.Round, planVer: act.Ver}
 		case st.Unknown:
@@ -669,4 +685,35 @@ func (a *App) questKey(k string, m *model.Model) Action {
 		q.Confirm = true
 	}
 	return Action{}
+}
+
+// deniedWords is why an intent was refused, in the server's own words (D76), else
+// from the reason code.
+func deniedWords(st model.IntentStatus) string {
+	if st.Text != "" {
+		return st.Text
+	}
+	return model.Words(st.Reason)
+}
+
+// walkedAway closes the screen of a person the character has walked away from,
+// and says so (D78): a trade, talk or board screen stays with the NPC it was
+// opened on, and closes only when the character leaves its reach.
+func (a *App) walkedAway(m *model.Model) {
+	far := func(id string) bool {
+		n := m.NPC(id)
+		return n == nil || (n.GetReachMm() > 0 && n.GetPos() != nil && !m.InReach(n))
+	}
+	what, npc := "", ""
+	switch {
+	case a.traders != nil && a.traders.Open && far(a.traders.NPC):
+		what, npc, a.traders = "trade", a.traders.NPC, nil
+	case a.talk != nil && far(a.talk.NPC):
+		what, npc, a.talk = "conversation", a.talk.NPC, nil
+	case a.board != nil && far(a.board.NPC):
+		what, npc, a.board = "board", a.board.NPC, nil
+	default:
+		return
+	}
+	a.view.Notice, a.view.NoticeBad = fmt.Sprintf("You walked away from %s, so the %s closed", m.NPCName(npc), what), false
 }

@@ -77,6 +77,7 @@ type helpPage struct {
 
 var helpPages = []helpPage{
 	{"Moving, doors, people", func(_ *model.Model, _ View, w int) []string { return sections(w, guidePlaying) }},
+	{"The map and its legend", func(m *model.Model, _ View, w int) []string { return mapPage(m, w) }},
 	{"Quest chains and fighting", func(_ *model.Model, _ View, w int) []string { return sections(w, guideChains) }},
 	{"Mobs and difficulty", func(_ *model.Model, _ View, w int) []string { return sections(w, guideMobs) }},
 	{"Logs and replay", func(_ *model.Model, _ View, w int) []string { return sections(w, guideLogs) }},
@@ -103,6 +104,36 @@ var guidePlaying = []section{
 		"A contract board offers hunts, gathering and scouting. K lists the contracts you hold. Hand a finished one in at any contract board in town, not only the one that posted it.",
 		"Nothing here is required and nothing waits for you: play in any order.",
 	}},
+}
+
+// mapPage is the page on reading the map: the legend, then the marks and the alarm.
+func mapPage(m *model.Model, w int) []string {
+	out := append([]string{"Legend"}, indentAll(legendLines(m, w-2), "  ")...)
+	out = append(out, "", "Marks and pointers")
+	for _, p := range []string{
+		"A gold ! is somebody with something new for you; a gold ? is a hand-in that is ready, a grey ? a quest in progress. A board that has something to take or hand in is gold. Mobs that count for a contract you hold are gold, and the next door on your way is a gold D. Shape says it as well as colour.",
+		"When your objective is off the map an arrow at the edge points to it, with its name and distance (◄ Gorran 23m); the status line names it too. Nearby lists what matters to your quest first, tagged [step 2] or [2/3].",
+		"The zone edge is the ▒ line: walking ends there. Beside it, a zone line is a door (D).",
+		"The line under the log changes with what you stand next to: the door, the person, the drop, the mobs in view.",
+	} {
+		out = append(out, wrapIndent("  "+p, w, "  ")...)
+	}
+	out = append(out, "", "Danger")
+	for _, p := range []string{
+		"Services (traders, talk, the board, the inventory, contracts) are panels in the map's area: the You, Target and Nearby panels stay beside them. A screen never hides a fight. When something attacks you its border turns red, the status line names it and your health, and nothing closes by itself. Esc leaves the screen; the attacker is already your target, so F fights it. -bell rings the terminal's bell too.",
+		"The You panel says \"in combat\" and who is attacking. A hard or deadly mob is called out as DANGER.",
+	} {
+		out = append(out, wrapIndent("  "+p, w, "  ")...)
+	}
+	return out
+}
+
+func indentAll(lines []string, indent string) []string {
+	out := make([]string, len(lines))
+	for i, l := range lines {
+		out[i] = indent + l
+	}
+	return out
 }
 
 var guideChains = []section{
@@ -198,10 +229,7 @@ func KeyLines(m *model.Model, v View, w int) []string {
 			out = append(out, fit(r, w))
 		}
 	}
-	out = append(out, "", "Map glyphs  @ you  m mob  M target  r rare  c camp  x dead  p player  + plan end",
-		"  * drop  ~ a drop you may not take  $ trader  & board  ? talker  D door  # wall",
-		"  % your marker  ; scout marker  ! event spawn, goal",
-		"Ground  # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor",
+	out = append(out, "", "Map: the legend is on its own page (? turns the page).",
 		"Log markers  ! denied, a cast that did not land, a walk a fight stopped  < hit on you",
 		"  x kill  + reward, level or quest step  * world event")
 	return out

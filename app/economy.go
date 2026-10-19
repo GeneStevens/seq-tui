@@ -140,15 +140,15 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 				a.traders = nil
 				return Action{Kind: OpenBoard, NPC: list[t.Sel].GetId()}
 			}
-			*t = screen.Traders{Sel: t.Sel, Open: true}
+			*t = screen.Traders{Sel: t.Sel, Open: true, NPC: list[t.Sel].GetId()}
 		}
 		return Action{}
 	}
-	if t.Sel >= len(list) {
+	n := m.NPC(t.NPC)
+	if n == nil {
 		t.Open = false
 		return Action{}
 	}
-	n := list[t.Sel]
 	switch n.GetRole() {
 	case "vendor":
 		return a.listKey(k, t, true, len(n.GetStock()), len(m.Self.Inventory), func(pane, i int) Action {
