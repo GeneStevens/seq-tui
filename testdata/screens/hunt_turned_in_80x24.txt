@@ -1,21 +1,21 @@
 ┌─ Contract board ─────────────────────────────────────────────────────────────┐
-│ Thornwick Contract Board | you hold 0 of 3 contracts | 12 crowns             │
-│ Handed in the contract Thin the Meadow Wolves: 30 XP, 12 crowns              │
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 0 of 3 contracts | …│
+│ Handed in the contract Wolves at Wickett Mill: 22 XP, 10 crowns              │
 │ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
-│> Boars in the Barley    Hunt   L1-3  │  (none)                               │
+│> Thin the Meadow Wolves Hunt   L1-3  │  (none)                               │
 │  Pelts for the Tanners  Gather L1-3  │                                       │
-│  Word from Wickett Mill Scout  L1-3  │                                       │
-│                                                                              │
+│  Tusks for the Miller   Gather L1-3  │                                       │
+│  Word from Barleycross  Scout  L1-3  │                                       │
 │                                                                              │
 │                                                                              │
 │                                                                              │
 │                                                                              │
 │                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.            │
-│ Pays 30 XP, 14 crowns and Tin Ring.                                          │
-│                                                                              │
+│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                             │
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick│
+│ with them.                                                                   │
+│ Pays 21 XP and 8 crowns.                                                     │
 │                                                                              │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
 │ hand in Thin the Meadow Wolves ok                                            │

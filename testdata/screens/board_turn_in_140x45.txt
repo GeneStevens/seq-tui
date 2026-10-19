@@ -1,14 +1,14 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board | you hold 1 of 3 contracts | 0 crowns                                ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | 0 crowns           ││ Hale  Lv 1 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
-│> Boars in the Barley             Hunt   L1-3  │> Thin the Meadow Wolves                 READY  ││ XP ###---------------------- 34 to Lv 2│
+│> Thin the Meadow Wolves          Hunt   L1-3  │> Wolves at Wickett Mill                 READY  ││ XP #####-------------------- 32 to Lv 2│
 │  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
-│  Word from Wickett Mill          Scout  L1-3  │                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
+│  Word from Barleycross           Scout  L1-3  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
 │                                                                                                ││ First Steps                            │
 │                                                                                                ││ Step 1 of 4                            │
-│                                                                                                ││ Speak to Tamsin Hale, the Watch's      │
-│                                                                                                ││ greeter, here in Hawthorn Square.      │
+│                                                                                                ││ Speak to Tamsin Hale, the Watch        │
+│                                                                                                ││ Greeter, here in Hawthorn Square.      │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -16,30 +16,30 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
-│                                                                                                ││ Thin the Meadow Wolves           READY │
+│                                                                                                ││ Wolves at Wickett Mill           READY │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract … 1m SW [hand in] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Tamsin Hale <Guard>   5m SE [step 1] │
-│ Thin the Meadow Wolves: Hunt, 3 of 3 killed.                                                   ││ g Town Guard                    13m SW │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ H Isolde Fenn <Binder>          13m SE │
-│ Pays 30 XP and 12 crowns.                                                                      ││ $ Barnaby Tuck <Vendor>         13m SW │
-│ Finished: hand it in at Thornwick Contract Board, 1m SW.                                       ││ g Town Guard                     24m E │
-│                                                                                                ││ $ Hilda Brasswick <Vendor>       29m W │
+│────────────────────────────────────────────────────────────────────────────────────────────────││     <Jobs for the Downs>               │
+│ Wolves at Wickett Mill: Hunt, 4 of 4 killed.                                                   ││ ! Tamsin Hale           5m SE [step 1] │
+│ Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,    ││     <Watch Greeter>                    │
+│ west of the river.                                                                             ││ H Isolde Fenn <Binder>          13m SE │
+│ Pays 22 XP and 10 crowns.                                                                      ││ $ Barnaby Tuck <General Goods>  13m SW │
+│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 1m SW.                  ││ $ Hilda Brasswick <Armourer>     29m W │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ B Odalys Penn <Banker>           32m E │
-│ The answer is on the status line; every refusal says why.                                      ││ +9 more                                │
+│ The answer is on the status line; every refusal says why.                                      ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   246.4s Thornwick Contract Board <Contract Board> comes into view                                                                       │
-│   247.2s Odalys Penn is out of view                                                                                                      │
-│   248.6s Barnaby Tuck <Vendor> comes into view                                                                                           │
-│   251.8s Town Guard is out of view                                                                                                       │
-│   252.4s Town Guard <Guard> comes into view                                                                                              │
-│   252.5s Town Guard is out of view                                                                                                       │
-│   255.8s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│   313.2s Captain Rhosyn Hartley is out of view                                                                                           │
+│   314.0s Isolde Fenn <Binder> comes into view                                                                                            │
+│   315.2s Tamsin Hale <Watch Greeter> comes into view                                                                                     │
+│   316.6s Thornwick Contract Board <Jobs for the Downs> comes into view                                                                   │
+│   317.4s Odalys Penn is out of view                                                                                                      │
+│   317.7s Town Guard is out of view                                                                                                       │
+│   318.8s Barnaby Tuck <General Goods> comes into view                                                                                    │
+│   326.0s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125% | heard 0.4s ago                    ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125% | heard 0.4s ago   ? help  q quit

@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 6,150 m, north up ──────────┐┌─ You ────────────────────┐
+┌─ Thornwick Downs — Thornwick Gate, at 6,150 m,… ─┐┌─ You ────────────────────┐
 │                      ░                           ││ Hale  Lv 1 Warrior  | 0cr│
 │                      ░     """"""""""""""""""""""││ HP 130/130 ############# │
 │                      ░     """"""""""""""""""""""││ XP ----------- 40 to Lv 2│

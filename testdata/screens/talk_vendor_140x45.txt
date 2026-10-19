@@ -1,5 +1,5 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick <Vendor>, 2m S of you                                                          ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Armourer>, 2m S of you                                                        ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row.”             ││ XP ------------------------- 90 to Lv 4│
 │ “Armour is cheaper than a healer's patience.”                                                  ││ Atk off | none                         │
@@ -11,11 +11,12 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 29m E [new] │
-│                                                                                                ││ $ Hilda Brasswick <Vendor>        2m S │
-│                                                                                                ││ g Town Guard                     15m N │
-│                                                                                                ││ $ Dunstan Reeve <Vendor>         22m S │
-│                                                                                                ││ $ Barnaby Tuck <Vendor>         28m SE │
-│                                                                                                ││ g Tamsin Hale <Guard>            34m E │
+│                                                                                                ││     <Jobs for the Downs>               │
+│                                                                                                ││ $ Hilda Brasswick <Armourer>      2m S │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   15m N │
+│                                                                                                ││ $ Dunstan Reeve <Weaponsmith>    22m S │
+│                                                                                                ││ $ Barnaby Tuck <General Goods>  28m SE │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    34m E │
 │                                                                                                ││ H Isolde Fenn <Binder>          40m SE │
 │                                                                                                ││ T Mother Elswyth                 42m S │
 │                                                                                                ││     <Cleric Trainer>                   │
@@ -25,9 +26,8 @@
 │                                                                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
 │                                                                                                ││ B Odalys Penn <Banker>           60m E │
 │                                                                                                ││ T Ser Aldric Vane               67m SE │
-│                                                                                                ││     <Paladin Trainer>                  │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ +3 more                                │
-│ talk to Hilda Brasswick ok                                                                     ││                                        │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││     <Paladin Trainer>                  │
+│ talk to Hilda Brasswick ok                                                                     ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     2.4s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster, 125% | heard 0.4s ago | talk to Hilda Brasswick ok                                        ? help  q quit
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard 0.4s ago | talk to Hilda Brasswick ok                          ? help  q quit

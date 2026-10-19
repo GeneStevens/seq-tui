@@ -84,6 +84,11 @@ type Self struct {
 	Attackers []string
 	Place     string
 	Hints     []*pb.Hint
+	// Sheet and Facts are the character sheet and the comparison of every item in
+	// view with what is worn (D78), by item id; BagSlots the bag slots used.
+	Sheet    *pb.CharacterSheet
+	Facts    map[string]*pb.ItemFact
+	BagSlots int64
 	// Quest is the quest chain the character is on (D62), nil when none.
 	Quest         *pb.QuestInfo
 	Contracts     []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
@@ -208,6 +213,9 @@ type Model struct {
 	HandIn  *Moment
 	// levelTold: a level_up event came and the snapshot after it need not say so again.
 	levelTold bool
+	// tipped: the tip on "tradable once" was logged. run is the loot-all in progress.
+	tipped bool
+	run    *lootRun
 
 	mobs  mobTrack          // what mobs did, for the lines about them (D70)
 	names map[string]string // id to name, for every entity ever seen, so the log can name those that left
@@ -360,6 +368,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(), Contracts: slices.Clone(self.GetContracts()), Companion: cloneCompanion(self.GetCompanion()),
 		Owed: slices.Clone(self.GetOwed()), Quest: self.GetQuest(),
 		InCombat: self.GetInCombat(), Attackers: slices.Clone(self.GetAttackers()), Place: self.GetPlace(), Hints: slices.Clone(self.GetHints()),
+		Sheet: self.GetSheet(), Facts: factsByItem(self.GetFacts()), BagSlots: self.GetBagSlots(),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
@@ -409,6 +418,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	if joining && old.ID == m.Self.ID {
 		m.joinPay(old)
 	}
+	m.noteTradeTip(s.GetGameTimeMs())
 	m.levelPending, m.levelTold = false, false
 }
 
@@ -498,6 +508,7 @@ func (m *Model) apply(e *pb.Event) {
 				}
 			case "loot":
 				m.Self.Inventory = append(m.Self.Inventory, w.GetItem())
+				m.noteTradeTip(e.GetGameTimeMs())
 			case "crowns":
 				m.Self.Crowns += w.GetAmount()
 			}
@@ -557,6 +568,8 @@ func (m *Model) apply(e *pb.Event) {
 		m.applyWorldEvent(b.WorldEvent, e.GetGameTimeMs())
 	case *pb.Event_InstanceOpened, *pb.Event_InstanceEnded, *pb.Event_RoundStarted, *pb.Event_RoundResolved:
 		m.applyInstanceEvent(e)
+	case *pb.Event_CharacterSheet, *pb.Event_ItemFacts:
+		m.applySheetEvent(e)
 	case *pb.Event_CombatState, *pb.Event_AttackBegan, *pb.Event_PlaceChanged, *pb.Event_ObjectiveHints, *pb.Event_LevelUp, *pb.Event_HandIn:
 		m.applyLegibleEvent(e)
 	default:

@@ -1,5 +1,5 @@
  EVENT  Harvest Raid: 2 got through.                                            
-┌─ Thornwick Downs, at 6,150 m, north up ──────────┐┌─ You ────────────────────┐
+┌─ Thornwick Downs — Thornwick Gate, at 6,150 m,… ─┐┌─ You ────────────────────┐
 │                       ░                          ││ hale  Lv 12 Warri… | 30cr│
 │                       ░                          ││ HP 317/317 ############# │
 │                       ░     """""""""""""""""""  ││ XP #-------- 255 to Lv 13│
@@ -16,9 +16,9 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │    NN.Ns Town Guard is out of view                                           │
-│   NNN.Ns Town Guard <Guard> comes into view                                  │
+│   NNN.Ns Town Guard <Thornwick Watch> comes into view                        │
 │   NNN.Ns entered Thornwick Downs                                             │
 │ + NNN.Ns owed pay arrived with the join: 60 XP and 30 crowns                 │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
- ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok   
+ ONLINE | road: faster, 125% | heard N.Ns ago | use door ok       ? help  q quit

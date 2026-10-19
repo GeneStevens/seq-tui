@@ -29,7 +29,6 @@
 │                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    55.6s Your target Plain Scuttler is gone                                                                                              │
 │    55.6s You stop attacking                                                                                                              │
 │    55.6s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
 │    55.6s Plain Scuttler is dead: the fight is over                                                                                       │
@@ -38,6 +37,7 @@
 │    55.6s Plain Scuttler is out of view                                                                                                   │
 │    81.7s Cracked Shell Fragment was taken                                                                                                │
 │ +  81.7s You pick up Cracked Shell Fragment                                                                                              │
+│    81.7s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │    81.7s instance ended, cleared: every mob dead and the loot taken                                                                      │
 │    82.0s entered Testgrounds                                                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

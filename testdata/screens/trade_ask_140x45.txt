@@ -30,8 +30,8 @@
 │ The answer is on the status line; every denial says why.                                       ││ D Line East                    183m SE │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     0.1s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │     0.2s c2 comes into view                                                                                                              │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

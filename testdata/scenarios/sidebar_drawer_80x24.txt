@@ -1,0 +1,24 @@
+┌─ Your character — C: back to traders ────────────────────────────────────────┐
+│ [Gear]  Bags   Stats                                                         │
+│ Head      -                                                                  │
+│ Chest     -                                                                  │
+│ Legs      -                                                                  │
+│ Hands     -                                                                  │
+│ Feet      -                                                                  │
+│ Ring 1    -                                                                  │
+│ Ring 2    -                                                                  │
+│ Neck      -                                                                  │
+│ Main hand -                                                                  │
+│ Off hand  -                                                                  │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/164 | Target: none                                                      
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard N.Ns ago   ? help

@@ -15,10 +15,10 @@
 │               ░                           #      ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│ +  NN.Ns You gain 20 experience                                              │
-│    NN.Ns Plain Scuttler is out of view                                       │
 │    NN.Ns Cracked Shell Fragment was taken                                    │
 │ +  NN.Ns You pick up Cracked Shell Fragment                                  │
+│    NN.Ns Tip: tradable once means one trade to another player, then it is    │
+│            bound to them.                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                        
+ Walk: click or arrows · M: large map · ?: help                                 
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                  ? help  q quit

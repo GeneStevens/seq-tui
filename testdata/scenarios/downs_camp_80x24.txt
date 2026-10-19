@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                        
- ONLINE | → Thin the Meadow Wolves, 11m S | heard N.Ns ago | move ok      ? help
+ ONLINE | → Wolves at Wickett Mill, 11m S | heard N.Ns ago | move ok      ? help

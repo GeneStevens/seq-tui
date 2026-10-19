@@ -63,6 +63,29 @@ A line of chat is colour-coded and tagged by channel in the **Chat** panel (say 
 
 **A readable log.** The log shows the server's own words for every event (`Event.text`, `Denied.text`), never an id or a coordinate, and hides regeneration ticks and movement (V shows them). A level gained is a banner across the top for a short while (the new level, health and mana gained, what can be trained and where); a contract handed in shows what it paid in the board panel; a finished contract says where to hand it in.
 
+## The mouse and the character sidebar (D77, D78)
+
+**The mouse is a convenience; every action has a key** and the game is fully playable without it (`-no-mouse` leaves the terminal's own mouse alone). The program asks the terminal for clicks, the wheel and motion (xterm modes 1003 and 1006, SGR reports; Bubble Tea's `MouseModeAllMotion`). Shift+click is never used: terminals keep it for selecting text.
+
+| Mouse | Key |
+| --- | --- |
+| Click the ground (on the map or the large map): the server plans the route and you walk there; routes stay inside the zone | arrows or WASD; on the large map the arrows move a cursor and Enter walks there |
+| First click on a mob or a person: selects it (a mob becomes your target) and opens a small card: name, title, level and difficulty, what they offer. A first click never attacks | Tab (target); the Target panel and Nearby say the same |
+| Second click on the selected mob attacks; on a person it talks (a person out of reach: it walks you up to them) | F attacks, G talks |
+| Click loot: loot-all (loot out of reach: it walks you there, and a second click takes it) | L |
+| Hover: a name-and-title label by the pointer (a drop also says how it compares with what you wear) | Nearby lists the same |
+| Hold Alt over the map: everything on it is labelled | Ctrl+A turns the labels on and off, for a terminal that sends no Alt with the mouse |
+| Scroll wheel: zoom the map (and the large map) | + and - |
+| Right-click, or Esc: let go of the selection | Esc |
+
+**M opens the large map**: the whole zone you have seen at full size, the places' names (streets, squares, buildings, gates, fields), the quest marks, the legend, and the vitals strip under it. Click a spot to walk there. The wheel (or + and -) zooms in on your character.
+
+**The character sidebar (D78).** Beside a vendor, trainer, bank, contract board or conversation, a sidebar keeps your character in view under the You panel: **Gear** (what you wear, with the slots in words: "Main hand", "Ring 1"), **Bags** (what you carry, identical things stacked: "Wolf Pelt ×2", with the slots used) and **Stats** (the server's character sheet: health, mana, armour and what it cuts, accuracy and the chance to hit, what your swing does now, bare hands too — "Fists: 7–13 / 2.0s" — and each attribute with what gear adds). **C** turns to the next tab, a click on a tab picks it, PgUp / PgDn or the wheel scroll. In a window too narrow for it (80 columns), the sidebar is a drawer: **C** swaps it in for the screen, **C** or Esc swaps it back, and the vendor's window is still there.
+
+**Every item says how it compares with what you wear in its slot** (the server works it out, D78): `▲` upgrade, `▼` downgrade, `=` about the same, `x` your class or level cannot use it (the line says why, and it is greyed out). The mark is on vendor lists, bags, the bank, loot (Nearby, hover), and contract rewards ("Pays 21 XP and Tin Ring ▲"). The highlighted item's card says what it is, what it adds, what it costs or what a vendor pays, and how it compares ("upgrade over an empty main hand: +1.5 damage/s"). What you cannot afford is greyed out with how far short you are ("120, short 90"). At a vendor **J** sells all junk in one go (things with no gear slot that no contract of yours wants), **A** sells the whole stack under the cursor, Enter one. **L** loots everything within reach and the log shows one line: "You took Worn Cap, Scuttler Blade, 5 crowns". The first time you hold an item that is "tradable once", the log explains it.
+
+**Terminals.** Reports are the standard xterm ones, so a terminal with SGR mouse reporting (mode 1006) works. Holding Alt only labels everything when the terminal sends the modifier with the mouse report (and, for hover, with motion); where it does not, or the window system keeps Option or Alt for itself, **Ctrl+A** is the toggle. None of iTerm2, Terminal.app or Ghostty was tried by hand in the mission that built this: no GUI application may be launched there. What the scenarios prove is the program's side: they send the same SGR bytes (press, release, motion, wheel, Alt) to the real running program. If a terminal ignores the mouse, or reports it badly, `-no-mouse` turns it off and the keys do everything.
+
 ## Instances and rounds
 
 **I** opens the zone's instance menu, read from the zone map's presets: each shows its name, its time mode (real-time, or turn-based with the round length in ticks and the time the players have to plan) and its party cap. Up and Down or the number choose, Enter sends `instance_open`, Esc closes. The answer is in the event log in words (`instance_opened`, or `instance_open_failed` with why), and every denial reason is given as words with its code in brackets. Walk to the preset's door (`gate-north` in the test zone) and press **E**, as at any door; **E** at the door again leaves. The map and panels follow the handoff. An **Instance** panel shows what the server says the instance is (D49: the snapshot's `instance`, never the space's name): the preset, its time mode, party cap, difficulty and, for a turn-based one, its sleep limit; or its state when it is open, or ended with why (cleared, abandoned or expired, followed by the hand-back to the zone). The menu shows each preset's sleep limit as well.

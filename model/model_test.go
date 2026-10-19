@@ -63,7 +63,7 @@ func TestFightWithLoot(t *testing.T) {
 	if closed == nil || closed.Reason != "mob_died" || closed.Seq != 18 {
 		t.Errorf("encounter_closed entry %+v", closed)
 	}
-	if len(m.Log) != 13 {
+	if len(m.Log) != 14 { // the 13 events and the one-time tip on "tradable once" (D78)
 		t.Errorf("log has %d entries", len(m.Log))
 	}
 }
@@ -143,7 +143,7 @@ func TestLogIsBounded(t *testing.T) {
 	for _, msg := range msgs {
 		m.Apply(msg)
 	}
-	if len(m.Log) != 3 || m.Log[0].Seq != 21 || m.Log[2].Seq != 23 {
+	if len(m.Log) != 3 || m.Log[0].Seq != 22 || m.Log[1].Seq != 23 || m.Log[2].Kind != "tip" {
 		t.Errorf("log %+v", m.Log)
 	}
 	if len(m.Intents) != 2 {

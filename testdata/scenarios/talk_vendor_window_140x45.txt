@@ -1,32 +1,32 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick <Vendor>, 2m S away. You have 200 crowns.                                      ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Armourer>, 2m S away. You have 200 crowns.                                    ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
-│> Tanned Cap Common                        8   │  (nothing)                                     ││ Atk off | none                         │
-│  Ringed Cap Common                       24   │                                                │└────────────────────────────────────────┘
-│  Studded Cap Common                      48   │                                                │┌─ Target ───────────────────────────────┐
-│  Tanned Jerkin Common                    20   │                                                ││ no target (Tab to choose)              │
-│  Ringed Jerkin Common                    60   │                                                ││                                        │
-│  Studded Jerkin Common                  120   │                                                ││                                        │
-│  Tanned Leggings Common                  16   │                                                │└────────────────────────────────────────┘
-│  Ringed Leggings Common                  48   │                                                │┌─ Nearby ───────────────────────────────┐
-│  Studded Leggings Common                 96   │                                                ││ & Thornwick Contract Board 29m E [new] │
-│  Tanned Gloves Common                     8   │                                                ││ $ Hilda Brasswick <Vendor>        2m S │
-│  Ringed Gloves Common                    24   │                                                ││ g Town Guard                     15m N │
-│  Studded Gloves Common                   48   │                                                ││ $ Dunstan Reeve <Vendor>         22m S │
-│  Tanned Boots Common                     10   │                                                ││ $ Barnaby Tuck <Vendor>         28m SE │
-│  Ringed Boots Common                     30   │                                                ││ g Tamsin Hale <Guard>            34m E │
-│  Studded Boots Common                    60   │                                                ││ H Isolde Fenn <Binder>          40m SE │
-│  Oak Buckler Common                      14   │                                                ││ T Mother Elswyth                 42m S │
-│  Iron-Rimmed Shield Common               42   │                                                ││     <Cleric Trainer>                   │
-│  Bossed Shield Common                    84   │                                                ││ T Gorran Stoutarm                44m S │
-│  Linen Hood Common                        8   │                                                ││     <Warrior Trainer>                  │
-│  Wool Hood Common                        24   │                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
-│  Brocade Hood Common                     48   │                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ B Odalys Penn <Banker>           60m E │
-│ Tanned Cap: Common, head; tradable once                                                        ││ T Ser Aldric Vane               67m SE │
-│ armor +2; a vendor pays 2                                                                      ││     <Paladin Trainer>                  │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ +3 more                                │
+│> ▲ Tanned Cap Common                        8 │  (nothing)                                     ││ Atk off | none                         │
+│  ▲ Ringed Cap Common                       24 │                                                │└────────────────────────────────────────┘
+│  ▲ Studded Cap Common                      48 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Tanned Jerkin Common                    20 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Ringed Jerkin Common                    60 │                                                ││ Head      -                            │
+│  ▲ Studded Jerkin Common                  120 │                                                ││ Chest     -                            │
+│  ▲ Tanned Leggings Common                  16 │                                                ││ Legs      -                            │
+│  ▲ Ringed Leggings Common                  48 │                                                ││ Hands     -                            │
+│  ▲ Studded Leggings Common                 96 │                                                ││ Feet      -                            │
+│  ▲ Tanned Gloves Common                     8 │                                                ││ Ring 1    -                            │
+│  ▲ Ringed Gloves Common                    24 │                                                ││ Ring 2    -                            │
+│  ▲ Studded Gloves Common                   48 │                                                ││ Neck      -                            │
+│  ▲ Tanned Boots Common                     10 │                                                ││ Main hand -                            │
+│  ▲ Ringed Boots Common                     30 │                                                ││ Off hand  -                            │
+│  ▲ Studded Boots Common                    60 │                                                ││                                        │
+│  ▲ Oak Buckler Common                      14 │                                                ││                                        │
+│  ▲ Iron-Rimmed Shield Common               42 │                                                ││                                        │
+│  ▲ Bossed Shield Common                    84 │                                                ││                                        │
+│  ▲ Linen Hood Common                        8 │                                                ││                                        │
+│  ▲ Wool Hood Common                        24 │                                                ││                                        │
+│────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
+│ ▲ Tanned Cap: Common, Head; tradable once                                                      ││                                        │
+│ armor +2; costs 8 crowns                                                                       ││                                        │
+│ upgrade over an empty head: +2 armour                                                          ││                                        │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago                                                                     ? help  q quit
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard N.Ns ago                                                       ? help  q quit

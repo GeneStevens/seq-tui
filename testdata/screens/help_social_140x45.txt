@@ -1,45 +1,45 @@
-┌─ Help: Every key ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Moving                                                                                                                                   │
-│   Arrows, W A S D  walk a few metres that way                                                                                            │
-│   E, Enter         go through the nearest door (stand at it)                                                                             │
-│   M                the whole zone you have seen                                                                                          │
+┌─ Help: Logs and replay ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Logs and replay                                                                                                                          │
+│   Every session is recorded by default, under its id, in seq-tui/sessions in your data dir (-log-dir moves it, -no-record turns it off). │
+│   A log never holds your credential.                                                                                                     │
+│   Ctrl+L lists your sessions, yours and the server's log of them: Enter replays one in place (Left and Right step, Home and End jump,    │
+│   Esc comes back), R reads the server's log, E exports one to a file.                                                                    │
+│   seq-tui -replay FILE (or a session id) draws a recording with no server; -text prints it as plain text.                                │
+│   V shows more of the event log: routine movement and rules ticks.                                                                       │
 │                                                                                                                                          │
-│ Fighting                                                                                                                                 │
-│   Tab              choose the next target                                                                                                │
-│   Esc              clear the target                                                                                                      │
-│   F, Space         auto-attack on or off (none targeted: what attacks you)                                                               │
-│   1-8              use that slot's ability on your target                                                                                │
-│   B                set the ability slots (out of combat)                                                                                 │
-│   R                when you are dead: give up your body and respawn                                                                      │
 │                                                                                                                                          │
-│ People and things                                                                                                                        │
-│   G                talk to the nearest person                                                                                            │
-│   L                loot the nearest drop you may take                                                                                    │
-│   K                contracts you hold (X gives one up)                                                                                   │
-│   Ctrl+K           your quest chain: its step; X dismisses it for good                                                                   │
-│   N                traders: buy, sell, train, bind, bank                                                                                 │
-│   C                inventory: wear and take off gear                                                                                     │
-│   T                trade with a character in reach                                                                                       │
-│   I                this zone's instance menu (Enter opens one)                                                                           │
 │                                                                                                                                          │
-│ Screens                                                                                                                                  │
-│   /                the command line: chat, parties, /quest, /dismiss                                                                     │
-│   Ctrl+L           your session logs: replay, read, export                                                                               │
-│   V                more log: routine movement and rules ticks                                                                            │
 │                                                                                                                                          │
-│ Leaving and help                                                                                                                         │
-│   ? or F1          this help (from any screen); ? turns the page, Esc closes                                                             │
-│   O                log out                                                                                                               │
-│   Q, Ctrl+C        quit the screen only (your character stays in the world)                                                              │
 │                                                                                                                                          │
-│ Plans (turn-based rounds)                                                                                                                │
-│   X                in a round: stop where you are                                                                                        │
-│   Enter            submit the plan                                                                                                       │
-│   Backspace        drop the last step                                                                                                    │
-│   Esc              clear the plan                                                                                                        │
 │                                                                                                                                          │
-│ Map: the legend is on its own page (? turns the page).                                                                                   │
-│ Page 6 of 7  Up, Down scroll  ? next page  Left, Right turn  Esc closes                                                                  │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Page 6 of 8  ? next page  Left, Right turn  Esc closes                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 100/100 | Target: none                                                                                                                  
  ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit

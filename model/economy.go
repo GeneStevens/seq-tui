@@ -174,6 +174,8 @@ func (m *Model) describeEconomy(e *pb.Event) (kind, text, reason string, ok bool
 			return "reward", fmt.Sprintf("%s bought %s for %s from %s", who, item, crowns(w.GetAmount()), npc), "", true
 		case "sell":
 			return "reward", fmt.Sprintf("%s sold %s for %s to %s", who, item, crowns(w.GetAmount()), npc), "", true
+		case "sell_junk":
+			return "reward", fmt.Sprintf("%s sold %s junk item(s) for %s to %s", who, w.GetDetail(), crowns(w.GetAmount()), npc), "", true
 		case "train":
 			return "reward", fmt.Sprintf("%s learned %s for %s from %s", who, m.AbilityName(w.GetDetail()), crowns(w.GetAmount()), npc), "", true
 		case "bind":

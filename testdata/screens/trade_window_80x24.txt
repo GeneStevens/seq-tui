@@ -6,8 +6,8 @@
 │> Worn Cap Common                     │  (no items)                           │
 │──────────────────────────────────────────────────────────────────────────────│
 │ You carry, 0 crowns (Enter puts the item in the offer)                       │
-│  Worn Cap Common  armor +2                                                   │
-│> Scuttler Blade Rare [bound]  damage 4-9 / 2.0s, str +3                      │
+│  ▲ Worn Cap Common  armor +2                                                 │
+│> ▲ Scuttler Blade Rare [bound]  damage 4-9 / 2.0s, str +3                    │
 │                                                                              │
 │                                                                              │
 │                                                                              │

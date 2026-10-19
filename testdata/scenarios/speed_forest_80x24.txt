@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 140,70 m, north up ─────────┐┌─ You ────────────────────┐
+┌─ Thornwick Downs — North Greywood, at 140,70 m… ─┐┌─ You ────────────────────┐
 │                 """""""""""""""""""   ≈≈≈≈≈≈     ││ hale  Lv 1 Warrior  | 0cr│
 │                 """""""""""""""""""   ≈≈≈≈≈≈     ││ HP 130/130 ############# │
 │                 """"""""""""""""""   ≈≈≈≈≈≈≈     ││ XP ----------- 40 to Lv 2│
@@ -20,5 +20,5 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                        
- ONLINE | Thornwick Downs | forest: slowed to 75% | heard N.Ns ago        ? help
+ Walk: click or arrows · M: large map · ?: help                                 
+ ONLINE | forest: slowed to 75% | heard N.Ns ago                  ? help  q quit

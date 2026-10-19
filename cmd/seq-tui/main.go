@@ -55,6 +55,7 @@ func run() error {
 	replay := flag.String("replay", "", "draw this recorded log (a file, a session directory, or a session id) instead of connecting")
 	text := flag.Bool("text", false, "with -replay: print the model as plain text instead of the screen")
 	size := flag.String("size", "80x24", "with -replay: the screen size, WxH")
+	noMouse := flag.Bool("no-mouse", false, "do not ask the terminal for mouse reports (clicks, hover, the wheel); the keys do everything, and the terminal's own text selection works")
 	bell := flag.Bool("bell", false, "ring the terminal's bell when a mob begins attacking you (off by default)")
 	flag.Parse()
 
@@ -127,6 +128,7 @@ func run() error {
 	a := prog(sess)
 	a.SetLogs(root, slog)
 	a.Bell = *bell
+	a.NoMouse = *noMouse
 	if *duo != "" && !*create {
 		dc := cfg
 		dc.Character, dc.Record, dc.Log = *duo, nil, nil

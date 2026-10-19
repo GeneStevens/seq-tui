@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 152,95 m, north up ─────────┐┌─ You: in combat ─────────┐
+┌─ Thornwick Downs — North Greywood, at 152,95 m… ─┐┌─ You: in combat ─────────┐
 │              """"""""""""""""""  ≈≈≈≈≈≈          ││ hale  Lv 5 Warrior  | 0cr│
 │             """""""""""""""""""  ≈≈≈≈≈≈          ││ HP 198/198 ############# │
 │             """"""""""""""""""   ≈≈≈≈≈≈≈         ││ XP ---------- 145 to Lv 6│
@@ -21,4 +21,4 @@
 │     3.6s You hit Bramble Tusker for 10                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                      
- ONLINE | Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | attack ok  
+ ONLINE | forest: slowed to 75% | heard 0.4s ago | attack ok      ? help  q quit

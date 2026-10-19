@@ -34,12 +34,12 @@
 │ +  NN.Ns bram received 11 xp from Warren Digger                                ││                                                        │
 │ +  NN.Ns You gain 11 experience                                                ││                                                        │
 │    NN.Ns Warren Digger is out of view                                          ││                                                        │
-│    NN.Ns 9 crowns was taken                                                    ││                                                        │
-│ +  NN.Ns You find 9 crowns                                                     ││                                                        │
-│    NN.Ns Digger's Cap was taken                                                ││                                                        │
-│ +  NN.Ns You pick up Digger's Cap                                              ││                                                        │
 │    NN.Ns Digger's Claw was taken                                               ││                                                        │
-│ +  NN.Ns You pick up Digger's Claw                                             ││                                                        │
+│    NN.Ns Digger's Cap was taken                                                ││                                                        │
+│    NN.Ns 9 crowns was taken                                                    ││                                                        │
+│ +  NN.Ns You took Digger's Claw, Digger's Cap, 9 crowns                        ││                                                        │
+│    NN.Ns Tip: tradable once means one trade to another player, then it is bound││                                                        │
+│            to them.                                                            ││                                                        │
 └────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                                                                                    
+ Walk: click or arrows · M: large map · ?: help                                                                                             
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok                                                     ? help  q quit

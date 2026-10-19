@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 6,150 m, north up ──────────┐┌─ You ────────────────────┐
+┌─ Thornwick Downs — Thornwick Gate, at 6,150 m,… ─┐┌─ You ────────────────────┐
 │                      ░                           ││ Hale  Lv 1 Warrior | 15cr│
 │                      ░     """"""""""""""""""""""││ HP 130/130 ############# │
 │                      ░     """"""""""""""""""""""││ XP #####------ 20 to Lv 2│
@@ -7,7 +7,7 @@
 │                      ░···························│┌─ Target ─────────────────┐
 │                      ░                           ││ no target (Tab to choose)│
 │                      ░     """""""""             ││                          │
-│                      ░     ▼ Thin the Meadow… 68m││                          │
+│                      ░     Boars in the Ba… 91m ◢││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
- ONLINE | → Thin the Meadow Wolves, 68m SE | road: faster, 125% | use door ok   
+ ONLINE | → Boars in the Barley, 92m SE | road: faster, 125% | use door ok      

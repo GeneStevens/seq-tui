@@ -1,10 +1,11 @@
 package app
 
 import (
-	"github.com/GeneStevens/seq-tui/model"
 	"time"
 
+	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/screen"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
 // Probe is a message that runs Fn inside the program's own loop, between two
@@ -47,3 +48,22 @@ func (a *App) PlanLines() []string {
 	a.focusSess().View(func(m *model.Model) { lines = a.draft.Lines(m) })
 	return lines
 }
+
+// CellOf says where the screen draws the world place p (millimetres), after
+// drawing it now: a scenario clicks there.
+func (a *App) CellOf(p *pb.Pos) (x, y int, ok bool) {
+	a.refresh()
+	pt, ok := a.mouse.hits.CellOf(p)
+	return pt.X, pt.Y, ok
+}
+
+// MouseState is what the mouse has set: the zoom of the map and of the large map,
+// the id whose card is open, whether everything is labelled, the sidebar's tab and
+// whether its drawer is open.
+func (a *App) MouseState() (zoom, bigZoom int, card string, labels bool, tab int, drawer bool) {
+	ms := &a.mouse
+	return ms.zoom, ms.bigZoom, ms.card, ms.alt || ms.labels, ms.side.Tab, ms.side.Drawer
+}
+
+// Resize tells the program the window is w x h, as the terminal does.
+func (a *App) Resize(w, h int) { a.w, a.h = w, h }

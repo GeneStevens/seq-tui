@@ -15,8 +15,8 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    81.7s Cracked Shell Fragment was taken                                    │
-│ +  81.7s You pick up Cracked Shell Fragment                                  │
+│    81.7s Tip: tradable once means one trade to another player, then it is    │
+│            bound to them.                                                    │
 │    81.7s instance ended, cleared: every mob dead and the loot taken          │
 │    82.0s entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘

@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 20,150 m, north up ─────────┐┌─ You ────────────────────┐
+┌─ Thornwick Downs — Thornwick Road, at 20,150 m… ─┐┌─ You ────────────────────┐
 │                ░                                 ││ hale  Lv 1 Warrior  | 0cr│
 │                ░     """"""""""""""""""""""      ││ DEAD  HP 0/130           │
 │                ░     """"""""""""""""""""""      ││ XP ----------- 40 to Lv 2│
@@ -6,7 +6,7 @@
 │                ░··D·····@························│└──────────────────────────┘
 │                ░·································│┌─ Target ─────────────────┐
 │                ░                             ····││ no target (Tab to choose)│
-│                ░     """""""""               ····││                          │
+│                ░     """""""""               ··;·││                          │
 │                ░                   ;         ····││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  R: release your body and wake at your bind point                               
- ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago   ? help  q quit
+ ONLINE | Thornwick Road, Thornwick Downs | road: faster, 125% | heard N.Ns ago 

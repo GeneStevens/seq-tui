@@ -1,8 +1,8 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
 │ Testgrounds Banker, 2m S away. You have 37 crowns.                           │
 │                                                                              │
-│ You carry (Enter banks it)           │ In the bank, 1 (Enter takes it)       │
-│  (nothing)                           │> Buckler Common                       │
+│ You carry (Enter banks one)          │ In the bank, 1 (Enter takes one)      │
+│  (nothing)                           │> ▲ Buckler Common                     │
 │                                                                              │
 │                                                                              │
 │                                                                              │

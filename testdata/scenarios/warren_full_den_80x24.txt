@@ -1,7 +1,7 @@
 ┌─ Hollow Warren (Warren Venture Delve), at 214,… ─┐┌─ You ────────────────────┐
 │..#...............................#     #.........││ hale  Lv 12 Warr… | 238cr│
 │..#...............................#     #.........││ HP 917/917 ############# │
-│..#...............................#     #.........││ XP ##------- 230 to Lv 13│
+│..#...............................#     #.........││ XP ##------- 233 to Lv 13│
 │..#...............................#     #.........││ Atk off | none           │
 │..#......................@........#     #.........│└──────────────────────────┘
 │..#...............................#     #.........│┌─ Instance ───────────────┐
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│   NNN.Ns 12 crowns was taken                                                 │
-│ + NNN.Ns You find 12 crowns                                                  │
+│   NNN.Ns Den Brute is out of view                                            │
 │   NNN.Ns Den Fang was taken                                                  │
-│ + NNN.Ns You pick up Den Fang                                                │
+│   NNN.Ns 12 crowns was taken                                                 │
+│ + NNN.Ns You took Den Fang, 12 crowns                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                        
+ Walk: click or arrows · M: large map · ?: help                                 
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

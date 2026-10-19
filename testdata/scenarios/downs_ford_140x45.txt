@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 167,176 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Thornwick Downs — Millrace Ford, at 167,176 m, north up ──────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │""""""""""""""""""""""""""""""""""""""""""   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                    ││ hale  Lv 1 Warrior           | 0 crowns│
 │""""""""""""""""""""""""""""""""""""""""""   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                    ││ HP 130/130 ########################### │
 │""""""""""""""""""""""""""""""""""""""""""   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                    ││ XP ------------------------- 40 to Lv 2│
@@ -13,12 +13,12 @@
 │                                           :::::@:::::;:::::::::::                              ││ ; Millrace Ford      5m E scout marker │
 │                                           :::::::::::::::::::::::                              ││ ; Goblin Lookout   73m SE scout marker │
 │                                           :::::::::::::::::::::::                              ││ v Raid Edge          73m E event spawn │
-│                                           :::::::::::::::::::::::                              ││ G Barleycross       107m SW event goal │
+│                                           :::::::::::::::::::::::                              ││ ; Barleycross      105m W scout marker │
+│                                                ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                  ││ G Barleycross       107m SW event goal │
 │                                                ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                  ││ ; Wickett Mill     130m W scout marker │
 │                                                ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                  ││ D Town Gate                     163m W │
-│                                                ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                  ││ ; Hollow Warren    222m E scout marker │
-│                 c                              ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                 ││ D Hollow Warren                 234m E │
-│                                                ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                 ││                                        │
+│                 c                              ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                 ││ ; Hollow Warren    222m E scout marker │
+│                                                ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                 ││ D Hollow Warren                 234m E │
 │                                                ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                 ││                                        │
 │                                                 ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                 ││                                        │
 │                                                 ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                 ││                                        │
@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: arrows or WASD · M: map · ?: help                                                                                                    
- ONLINE | Thornwick Downs | ford | heard N.Ns ago | move ok                                                                   ? help  q quit
+ Walk: click or arrows · M: large map · ?: help                                                                                             
+ ONLINE | Millrace Ford, Thornwick Downs | ford | heard N.Ns ago | move ok                                                    ? help  q quit

@@ -2,31 +2,31 @@
 │ Testgrounds Vendor, 1m NE away. You have 0 crowns.                                             ││ aria  Lv 1  XP 0             | 0 crowns│
 │                                                                                                ││ HP 100/100 ########################### │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ Target: Plain Scuttler                 │
-│> Cracked Shell Fragment Common            1   │  (nothing)                                     ││ Auto-attack: off                       │
-│  Worn Cap Common                          8   │                                                ││ Attacked by Plain Scuttler             │
-│  Padded Vest Common                      20   │                                                │└────────────────────────────────────────┘
-│  Padded Leggings Common                  16   │                                                │┌─ Quest ────────────────────────────────┐
-│  Padded Gloves Common                     8   │                                                ││ [ ] 1. Scout the Lookout               │
-│  Stout Boots Common                      10   │                                                ││ Testgrounds Recruiter has work for you:│
-│  Copper Ring Fine                        40   │                                                ││ G.                                     │
-│  Bone Charm Fine                         45   │                                                │└────────────────────────────────────────┘
-│  Plain Club Common                       15   │                                                │┌─ Target ───────────────────────────────┐
-│  Buckler Common                          12   │                                                ││ M Plain Scuttler  Lv 1                 │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ HP 40/40 ###################### 11m E  │
-│ Cracked Shell Fragment: Common, no gear slot; tradable once                                    ││ even, fighting you                     │
-│ a vendor pays 1                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Testgrounds Contract Boa… 7m E [new] │
-│                                                                                                ││ ! Testgrounds Recruiter    11m E [new] │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ $ Testgrounds Vendor             1m NE │
-│                                                                                                ││ B Testgrounds Banker              3m E │
-│                                                                                                ││ H Testgrounds Binder              5m E │
-│                                                                                                ││ T Warrior Trainer                 5m N │
-│                                                                                                ││ T Cleric Trainer                 5m NE │
-│                                                                                                ││ T Rogue Trainer                  6m NE │
-│                                                                                                ││ T Wizard Trainer                 8m NE │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ +7 more                                │
+│>   Cracked Shell Fragment Common   1, short 1 │  (nothing)                                     ││ Auto-attack: off                       │
+│  ▲ Worn Cap Common                 8, short 8 │                                                ││ Attacked by Plain Scuttler             │
+│  ▲ Padded Vest Common            20, short 20 │                                                │└────────────────────────────────────────┘
+│  ▲ Padded Leggings Common        16, short 16 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Padded Gloves Common            8, short 8 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Stout Boots Common            10, short 10 │                                                ││ Head      -                            │
+│  ▲ Copper Ring Fine              40, short 40 │                                                ││ Chest     -                            │
+│  ▲ Bone Charm Fine               45, short 45 │                                                ││ Legs      -                            │
+│  ▲ Plain Club Common             15, short 15 │                                                ││ Hands     -                            │
+│  ▲ Buckler Common                12, short 12 │                                                ││ Feet      -                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Ring 1    -                            │
+│ Cracked Shell Fragment: Common, no gear slot; tradable once                                    ││ Ring 2    -                            │
+│ costs 1 crown, short 1 crown                                                                   ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

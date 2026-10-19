@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 149,95 m, north up ───────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+┌─ Thornwick Downs — North Greywood, at 149,95 m, north up ──────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
 │                      """"""""""""""""""""""""""""""""""""""""           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈         ││ hale  Lv 5 Warrior           | 0 crowns│
 │                      """""""""""""""""""""""""""""""""""""""""          ≈≈≈≈≈≈≈≈≈≈≈≈≈≈         ││ HP 198/198 ########################### │
 │                     """"""""""""""""""""""""""""""""""""""""""""        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈        ││ XP ------------------------ 145 to Lv 6│
@@ -42,4 +42,4 @@
 │     6.1s Bram hits Bramble Tusker for 4                                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
- ONLINE | Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | attack ok                                                ? help  q quit
+ ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | attack ok                                ? help  q quit

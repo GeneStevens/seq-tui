@@ -1,4 +1,4 @@
-┌─ Traders ────────────────────────────────────────────────────────────────────┐
+┌─ Traders — C: your character ────────────────────────────────────────────────┐
 │ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 192 crowns.        │
 │                                                                              │
 │ You are level 3. Enter buys the ability under the cursor.                    │
@@ -21,4 +21,4 @@
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 142/164 | Target: none                                                      
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago         ? help  q quit
+ ONLINE | Trainers' Lane, Thornwick | road: faster, 125% | heard N.Ns ago ? help

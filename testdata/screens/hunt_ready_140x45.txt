@@ -1,7 +1,7 @@
 ┌─ Thornwick Downs, at 45,99 m, north up ────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │▲ Town Gate 63m                           ############                                          ││ Hale  Lv 1 Warrior           | 0 crowns│
-│                                                                                                ││ HP 127/130 ##########################- │
-│                                                                                                ││ XP ###---------------------- 34 to Lv 2│
+│                                                                                                ││ HP 124/130 #########################-- │
+│                                                                                                ││ XP #####-------------------- 32 to Lv 2│
 │                                                                                                ││ Atk off | none                         │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
@@ -10,17 +10,17 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
-│                                                @                                               ││ Thin the Meadow Wolves           READY │
+│                                                @                                               ││ Wolves at Wickett Mill           READY │
 │                                                *                                               │└────────────────────────────────────────┘
 │                                                                                        c       │┌─ Nearby ───────────────────────────────┐
 │                                                c                                               ││ D Town Gate         64m NW [next door] │
-│                                                                                                ││ * 3 crowns                        2m S │
-│                                                                                                ││ * Linen Hood                      2m S │
-│                                                                                                ││ * Wolf Pelt                       2m S │
 │                                                                                                ││ * 2 crowns                        2m S │
+│                                                                                                ││ * Wolf Pelt                       2m S │
+│                                                                                                ││ * 1 crowns                        2m S │
 │                                                                                                ││ * Wolf Pelt                       2m S │
 │                                                                                                ││ ; Wickett Mill      34m N scout marker │
 │                                                                                                ││ G Barleycross        40m NE event goal │
+│                                                                                                ││ ; Barleycross      46m NE scout marker │
 │                                                                                                ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   199.5s You hit Meadow Wolf for 9                                                                                                       │
-│ x 199.5s You killed Meadow Wolf                                                                                                          │
-│   199.5s Your target Meadow Wolf is gone                                                                                                 │
-│   199.5s You stop attacking                                                                                                              │
-│   199.5s Meadow Wolf dropped Wolf Pelt                                                                                                   │
-│   199.5s Meadow Wolf dropped 2 crowns                                                                                                    │
-│   199.5s Meadow Wolf is dead: the fight is over                                                                                          │
-│   199.5s You are out of combat                                                                                                           │
-│ + 199.5s You gain 2 experience                                                                                                           │
-│ + 199.5s Thin the Meadow Wolves: 3 of 3                                                                                                  │
-│   199.5s Meadow Wolf is out of view                                                                                                      │
+│   267.7s You hit Meadow Wolf for 7                                                                                                       │
+│ x 267.7s You killed Meadow Wolf                                                                                                          │
+│   267.7s Your target Meadow Wolf is gone                                                                                                 │
+│   267.7s You stop attacking                                                                                                              │
+│   267.7s Meadow Wolf dropped Wolf Pelt                                                                                                   │
+│   267.7s Meadow Wolf dropped 1 crown                                                                                                     │
+│   267.7s Meadow Wolf is dead: the fight is over                                                                                          │
+│   267.7s You are out of combat                                                                                                           │
+│ + 267.7s You gain 2 experience                                                                                                           │
+│ + 267.7s Wolves at Wickett Mill: 4 of 4                                                                                                  │
+│   267.7s Meadow Wolf is out of view                                                                                                      │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- L: loot 3 crowns                                                                                                                           
- ONLINE | Thornwick Downs | → Hand in: Thin the Meadow Wolves (Thornwick), 64m NW | heard 0.4s ago | attack ok                ? help  q quit
+ L: loot all 4 drops                                                                                                                        
+ ONLINE | Thornwick Downs | → Hand in: Wolves at Wickett Mill (Thornwick), 64m NW | heard 0.4s ago | attack ok                ? help  q quit

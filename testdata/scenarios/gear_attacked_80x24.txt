@@ -1,22 +1,22 @@
 ┌─ Inventory and gear  ⚠ UNDER ATTACK ─────────────────────────────────────────┐
-│ Crowns 0 | carrying 0 of 20 | bank 0 | bind point none yet                   │
+│ Crowns 0 | bags 0 of 20 slots | bank 0 | bind point none yet                 │
 │ Gear worn                            │ Items carried                         │
-│ > head      -                        │  (nothing)                            │
-│   chest     -                        │                                       │
-│   legs      -                        │                                       │
-│   hands     -                        │                                       │
-│   feet      -                        │                                       │
-│   ring1     -                        │                                       │
-│   ring2     -                        │                                       │
-│   neck      -                        │                                       │
-│   main_hand -                        │                                       │
-│   off_hand  -                        │                                       │
+│ > Head      -                        │  (nothing)                            │
+│   Chest     -                        │                                       │
+│   Legs      -                        │                                       │
+│   Hands     -                        │                                       │
+│   Feet      -                        │                                       │
+│   Ring 1    -                        │                                       │
+│   Ring 2    -                        │                                       │
+│   Neck      -                        │                                       │
+│   Main hand -                        │                                       │
+│   Off hand  -                        │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
+│                                                                              │
 │                                                                              │
 │                                                                              │
 │ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.         │
 │ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
-│                                                                              │
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘

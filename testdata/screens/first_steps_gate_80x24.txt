@@ -1,4 +1,4 @@
-┌─ Thornwick, at 57,51 m, north up ────────────────┐┌─ You ────────────────────┐
+┌─ Thornwick — Hawthorn Square, at 57,51 m, nort… ─┐┌─ You ────────────────────┐
 │#  #######····######  ###### #####  ##############││ Hale  Lv 1 Warrior | 15cr│
 │#  #######····######  g             ##############││ HP 130/130 ############# │
 │#  #######··$·######·············      B  ########││ XP ----------- 40 to Lv 2│
@@ -7,7 +7,7 @@
 │#  #######·········g···············East Gate 57m ►│┌─ Quest chain (Ctrl+K) ───┐
 │#  #######····      ··$·····H·····················││ First Steps              │
 │#  #######··$·      ·············           ######││ Step 4 of 4              │
-│#  #######····      ·············           ######││ Go out through the east  │
+│#  #######····      ·············           ######││ Walk east along          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│            and experience.                                                   │
-│ +  56.4s First Steps: step 3 done. Next: Go out through the east gate to the │
-│            Thornwick Downs.                                                  │
-│ +  56.4s You take the contract Thin the Meadow Wolves                        │
+│ +  56.4s First Steps: step 3 done. Next: Walk east along Gatehouse Way to the│
+│            East Gate and press E at the gate to go out to the Thornwick      │
+│            Downs.                                                            │
+│ +  56.4s You take the contract Boars in the Barley                           │
 └──────────────────────────────────────────────────────────────────────────────┘
- G: talk to Thornwick Contract Board                                            
+ G: talk to Thornwick Contract Board <Jobs for the Downs>                       
  ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 57m E   ? help

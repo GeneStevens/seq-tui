@@ -1,24 +1,24 @@
-┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Hilda Brasswick <Vendor>, 2m S away. You have 200 crowns.                    │
+┌─ Traders — C: your character ────────────────────────────────────────────────┐
+│ Hilda Brasswick <Armourer>, 2m S away. You have 200 crowns.                  │
 │                                                                              │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
-│> Tanned Cap Common               8   │  (nothing)                            │
-│  Ringed Cap Common              24   │                                       │
-│  Studded Cap Common             48   │                                       │
-│  Tanned Jerkin Common           20   │                                       │
-│  Ringed Jerkin Common           60   │                                       │
-│  Studded Jerkin Common         120   │                                       │
-│  Tanned Leggings Common         16   │                                       │
-│  Ringed Leggings Common         48   │                                       │
-│  Studded Leggings Common        96   │                                       │
-│  Tanned Gloves Common            8   │                                       │
-│  Ringed Gloves Common           24   │                                       │
-│  Studded Gloves Common          48   │                                       │
+│> ▲ Tanned Cap Common               8 │  (nothing)                            │
+│  ▲ Ringed Cap Common              24 │                                       │
+│  ▲ Studded Cap Common             48 │                                       │
+│  ▲ Tanned Jerkin Common           20 │                                       │
+│  ▲ Ringed Jerkin Common           60 │                                       │
+│  ▲ Studded Jerkin Common         120 │                                       │
+│  ▲ Tanned Leggings Common         16 │                                       │
+│  ▲ Ringed Leggings Common         48 │                                       │
+│  ▲ Studded Leggings Common        96 │                                       │
+│  ▲ Tanned Gloves Common            8 │                                       │
+│  ▲ Ringed Gloves Common           24 │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
-│ Tanned Cap: Common, head; tradable once                                      │
-│ armor +2; a vendor pays 2                                                    │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.  │
+│ ▲ Tanned Cap: Common, Head; tradable once                                    │
+│ armor +2; costs 8 crowns                                                     │
+│ upgrade over an empty head: +2 armour                                        │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc b…│
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/164 | Target: none                                                      
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago         ? help  q quit
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard N.Ns ago   ? help

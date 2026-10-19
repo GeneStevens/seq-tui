@@ -1,24 +1,24 @@
-┌─ Help: Quest chains and fighting ────────────────────────────────────────────┐
-│ Quest chains                                                                 │
-│   A new character is offered First Steps in Thornwick: talk to the Watch     │
-│   greeter in Hawthorn Square, talk to your class trainer, take a contract    │
-│   from the board, then go out through the east gate. It pays a small reward  │
-│   at the end.                                                                │
-│   It is optional. Nothing walks you anywhere and nothing reminds you; the    │
-│   Quest chain panel shows the step you are on, and the log tells you when    │
-│   one is done.                                                               │
-│   Ctrl+K (or /quest) shows the chain. X there (or /dismiss) gives it up for  │
-│   good, after one question: a dismissed chain is never offered again.        │
+┌─ Help: The mouse and the sidebar ────────────────────────────────────────────┐
+│ The mouse                                                                    │
+│   Click the ground to walk there; the server plans the route, inside this    │
+│   zone. The first click on a mob or a person selects it and opens a small    │
+│   card (name, title, level, difficulty, what they offer); a second click, or │
+│   F (attack) or G (talk), acts. A first click never attacks. Click loot to   │
+│   pick up everything within reach.                                           │
+│   Hover for a name and title beside the pointer. Hold Alt over the map to    │
+│   name everything on it; if your terminal does not send Alt with the mouse,  │
+│   Ctrl+A turns the names on and off. The wheel zooms (+ and - do too). M     │
+│   opens the large map: click a spot to walk there, or move the cursor with   │
+│   the arrows and press Enter.                                                │
+│   Right-click lets go of the selection, as Esc does. Shift+click is never    │
+│   used: terminals keep it for selecting text.                                │
+│   Every mouse action has a key: arrows or WASD walk, Tab selects, F and G    │
+│   act, L loots, + and - zoom, Ctrl+A names. The game is fully playable       │
+│   without a mouse.                                                           │
 │                                                                              │
-│ Fighting                                                                     │
-│   Tab chooses a target (Esc clears it). F or Space turns auto-attack on or   │
-│   off. 1-8 use the abilities in your slots on your target.                   │
-│   With no target, an attack or an ability goes to whatever is attacking you, │
-│   the nearest first; the status line names the one picked. If nothing is     │
-│   attacking you it is refused: Tab to a target first.                        │
-│   A fight stops your walk: attacking, using an ability on an enemy, or       │
-│   something attacking you. The log says "Your walk stopped"; press a move    │
-│ Page 3 of 7  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
+│ The character sidebar                                                        │
+│   Beside a trader, a trainer, the bank, a contract board or a conversation   │
+│ Page 3 of 8  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           
  ONLINE | outskirts | heard 0.4s ago                              ? help  q quit

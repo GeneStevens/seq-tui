@@ -102,11 +102,42 @@ func bindingWords(m *model.Model, inst string) string {
 
 // itemRow is one item in a list: its name, tier and binding marks, then what it
 // adds, cut to w cells.
-func itemRow(m *model.Model, inst string, w int) string {
+func itemRow(m *model.Model, inst string, w int) string { return itemRowN(m, inst, 1, w) }
+
+// markCol is the item's mark as the first cell of a row: ▲ upgrade, ▼ downgrade,
+// = sidegrade, x not usable by this character, a blank for what is not gear (D78).
+func markCol(m *model.Model, inst string) string {
+	if mk := m.Mark(inst); mk != "" {
+		return mk
+	}
+	return " "
+}
+
+// itemRowM is itemRow with the item's mark in front, for every list of items to
+// be compared: bags, vendor lists, loot (D78). A stack shows its count.
+func itemRowM(m *model.Model, inst string, count, w int) string {
+	return markCol(m, inst) + " " + itemRowN(m, inst, count, max(w-2, 1))
+}
+
+// greyed marks a row to be drawn dim: what cannot be used or afforded (D78).
+const greyed = "\x01"
+
+// greyIf marks the row greyed out when cond holds.
+func greyIf(cond bool, row string) string {
+	if cond {
+		return greyed + row
+	}
+	return row
+}
+
+func itemRowN(m *model.Model, inst string, count, w int) string {
 	it := m.Item(inst)
 	name := m.ItemName(inst)
 	if model.Traded(inst) {
 		name += model.BoundMark
+	}
+	if count > 1 {
+		name += fmt.Sprintf(" ×%d", count)
 	}
 	if it == nil {
 		return fit(name, w)
@@ -119,7 +150,11 @@ func itemRow(m *model.Model, inst string, w int) string {
 	if width(left) > w { // no room for the tier: the name matters most
 		return fit(name, w)
 	}
-	if w >= 60 {
+	if m.NotUsable(inst) {
+		if why := m.FactWords(inst); why != "" && width(left)+2+width(why) <= w {
+			left += "  " + why // the reason it is greyed out
+		}
+	} else if w >= 60 {
 		if s := statsWords(it.GetStats()); s != "" {
 			left += "  " + s
 		}
@@ -127,26 +162,51 @@ func itemRow(m *model.Model, inst string, w int) string {
 	return fit(left, w)
 }
 
-// itemDetail are the lines that explain one item: what it is, what it adds and
-// what a vendor pays.
-func itemDetail(m *model.Model, inst string, w int) []string {
+// detailRows is how many lines itemDetail gives.
+const detailRows = 3
+
+// itemDetail is the card of one item, in three lines (D78): what it is, what it
+// adds and what a vendor says of it, and how it compares with what is worn in
+// its slot. price, if set, goes after what it adds.
+func itemDetail(m *model.Model, inst string, w int, price string) []string {
 	it := m.Item(inst)
 	if inst == "" || it == nil {
-		return []string{fit("", w), fit("", w)}
+		return []string{fit("", w), fit("", w), fit("", w)}
 	}
-	slot := it.GetSlot()
-	if slot == "" || slot == "none" {
-		slot = "no gear slot"
+	slot := model.SlotWord(it.GetSlot())
+	mark := ""
+	if mk := m.Mark(inst); mk != "" {
+		mark = mk + " "
 	}
-	l1 := fmt.Sprintf(" %s: %s, %s; %s", m.ItemName(inst), tierWord(it.GetTier()), slot, bindingWords(m, inst))
+	l1 := fmt.Sprintf(" %s%s: %s, %s; %s", mark, m.ItemName(inst), tierWord(it.GetTier()), slot, bindingWords(m, inst))
 	l2 := " " + statsWords(it.GetStats())
-	if s := it.GetSellPrice(); s > 0 {
+	if price != "" {
 		if l2 != " " {
 			l2 += "; "
 		}
-		l2 += fmt.Sprintf("a vendor pays %d", s)
+		l2 += price
 	}
-	return []string{fit(l1, w), fit(l2, w)}
+	l3 := " " + m.FactWords(inst)
+	if f := m.Fact(inst); f == nil || m.FactWords(inst) == "" {
+		l3 = ""
+	}
+	return []string{fit(l1, w), fit(l2, w), fit(l3, w)}
+}
+
+// sellWords is what a vendor pays for an item, for its card.
+func sellWords(m *model.Model, inst string) string {
+	if it := m.Item(inst); it != nil && it.GetSellPrice() > 0 {
+		return fmt.Sprintf("a vendor pays %s", crownsWord(it.GetSellPrice()))
+	}
+	return ""
+}
+
+// priceWords is what a vendor asks for an item and whether the character can pay.
+func priceWords(m *model.Model, price int64) string {
+	if short := price - m.Self.Crowns; short > 0 {
+		return fmt.Sprintf("costs %s, short %s", crownsWord(price), crownsWord(short))
+	}
+	return "costs " + crownsWord(price)
 }
 
 // cols puts two lists of rows side by side, each w1 and w2 cells wide, with a
@@ -201,9 +261,13 @@ func listRows(rows []string, cur, n, w int, focus bool, st Styler) []string {
 		if i == cur {
 			mark = "> "
 		}
-		line := fit(mark+rows[i], w)
-		if i == cur && focus {
+		grey := strings.HasPrefix(rows[i], greyed)
+		line := fit(mark+strings.TrimPrefix(rows[i], greyed), w)
+		switch {
+		case i == cur && focus:
 			line = st.Reverse(line)
+		case grey:
+			line = st.Dim(line)
 		}
 		out = append(out, line)
 	}
@@ -214,7 +278,7 @@ func inventoryScreenLines(m *model.Model, inv *Inventory, w, h int, st Styler) [
 	s := m.Self
 	var rows []string
 	add := func(l string) { rows = append(rows, fit(l, w)) }
-	add(fmt.Sprintf(" Crowns %d | carrying %d of %d | bank %d | bind point %s", s.Crowns, len(s.Inventory), s.InventorySize, len(s.Bank), bindWords(m)))
+	add(fmt.Sprintf(" Crowns %d | bags %d of %d slots | bank %d | bind point %s", s.Crowns, m.BagSlotsUsed(), s.InventorySize, len(s.Bank), bindWords(m)))
 	lw := (w - 1) / 2
 	rw := w - 1 - lw
 	// The gear worn, ten slots, and the items carried.
@@ -230,7 +294,7 @@ func inventoryScreenLines(m *model.Model, inv *Inventory, w, h int, st Styler) [
 		if !inv.Carried && i == inv.Worn {
 			mark = "> "
 		}
-		line := fit(fmt.Sprintf(" %s%-9s %s", mark, slot, strings.TrimRight(text, " ")), lw)
+		line := fit(fmt.Sprintf(" %s%-9s %s", mark, model.SlotWord(slot), strings.TrimRight(text, " ")), lw)
 		if !inv.Carried && i == inv.Worn {
 			line = st.Reverse(line)
 		}
@@ -242,22 +306,21 @@ func inventoryScreenLines(m *model.Model, inv *Inventory, w, h int, st Styler) [
 		carried = append(carried, fit("  (nothing)", rw))
 	} else {
 		var texts []string
-		for _, inst := range s.Inventory {
-			texts = append(texts, itemRow(m, inst, max(rw-4, 1)))
+		for _, sk := range m.Stacks(s.Inventory) {
+			texts = append(texts, greyIf(m.NotUsable(sk.Inst), itemRowM(m, sk.Inst, sk.Count, max(rw-4, 1))))
 		}
 		carried = append(carried, listRows(texts, inv.Item, room, rw, inv.Carried, st)...)
 	}
 	rows = append(rows, cols(worn, carried, lw, rw)...)
-	sel := ""
-	if inv.Carried && inv.Item < len(s.Inventory) {
-		sel = s.Inventory[inv.Item]
+	sel, price := "", ""
+	if stacks := m.Stacks(s.Inventory); inv.Carried && inv.Item < len(stacks) {
+		sel = stacks[inv.Item].Inst
+		price = sellWords(m, sel)
 	} else if !inv.Carried {
 		sel = m.Worn(inv.Worn)
 	}
 	rows = append(rows, strings.Repeat("─", w))
-	for _, l := range itemDetail(m, sel, w) {
-		rows = append(rows, l)
-	}
+	rows = append(rows, itemDetail(m, sel, w, price)...)
 	add(" Tab: gear / items. Up / Down choose. Enter wears it or takes it off.")
 	add(" Out of combat only. Esc or C closes. N: traders. T: trade.")
 	return pad(rows[:min(len(rows), h)], w, h)
@@ -285,6 +348,8 @@ func roleWord(role string) string {
 		return "posts contracts"
 	case "quest_giver":
 		return "talks"
+	case "guard":
+		return "keeps watch over the town"
 	}
 	return role
 }
@@ -375,7 +440,9 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 	}
 	rows = rows[:h-2]
 	switch n.GetRole() {
-	case "vendor", "banker":
+	case "vendor":
+		add(" Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back")
+	case "banker":
 		add(" Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.")
 	default:
 		add(" Enter acts. Esc goes back.")
@@ -387,38 +454,49 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 func vendorLines(m *model.Model, n *pb.NpcInfo, t *Traders, w, h int, st Styler) []string {
 	lw := (w - 1) / 2
 	rw := w - 1 - lw
+	listN := max(h-4, 1)
 	sale := []string{fit(" For sale (Enter buys one)", lw)}
 	var texts []string
 	for _, s := range n.GetStock() {
-		texts = append(texts, fmt.Sprintf("%-*s %4d", max(lw-10, 8), strings.TrimRight(itemRow(m, s.GetItem(), max(lw-10, 8)), " "), s.GetPrice()))
+		price := fmt.Sprintf("%4d", s.GetPrice())
+		poor := s.GetPrice() > m.Self.Crowns
+		if poor {
+			price = fmt.Sprintf("%d, short %d", s.GetPrice(), s.GetPrice()-m.Self.Crowns)
+		}
+		room := max(lw-4-width(price), 8)
+		texts = append(texts, greyIf(poor || m.NotUsable(s.GetItem()), fmt.Sprintf("%-*s %s", room, strings.TrimRight(itemRowM(m, s.GetItem(), 1, room), " "), price)))
 	}
 	if len(texts) == 0 {
 		sale = append(sale, fit("  (nothing)", lw))
 	}
-	sale = append(sale, listRows(texts, t.Cur[0], max(h-3, 1), lw, t.Pane == 0, st)...)
+	sale = append(sale, listRows(texts, t.Cur[0], listN, lw, t.Pane == 0, st)...)
 	yours := []string{fit(" You carry (Enter sells one)", rw)}
 	texts = nil
-	for _, inst := range m.Self.Inventory {
+	stacks := m.Stacks(m.Self.Inventory)
+	for _, sk := range stacks {
 		price := ""
-		if it := m.Item(inst); it != nil {
-			price = fmt.Sprintf("%4d", it.GetSellPrice())
+		if it := m.Item(sk.Inst); it != nil {
+			price = fmt.Sprintf("pays %d", it.GetSellPrice())
 		}
-		texts = append(texts, fmt.Sprintf("%-*s %s", max(rw-10, 8), strings.TrimRight(itemRow(m, inst, max(rw-10, 8)), " "), price))
+		room := max(rw-4-width(price), 8)
+		texts = append(texts, fmt.Sprintf("%-*s %s", room, strings.TrimRight(itemRowM(m, sk.Inst, sk.Count, room), " "), price))
 	}
 	if len(texts) == 0 {
 		yours = append(yours, fit("  (nothing)", rw))
 	}
-	yours = append(yours, listRows(texts, t.Cur[1], max(h-3, 1), rw, t.Pane == 1, st)...)
+	yours = append(yours, listRows(texts, t.Cur[1], listN, rw, t.Pane == 1, st)...)
 	rows := cols(sale, yours, lw, rw)
-	sel := ""
+	sel, price := "", ""
 	switch {
 	case t.Pane == 0 && t.Cur[0] < len(n.GetStock()):
-		sel = n.GetStock()[t.Cur[0]].GetItem()
-	case t.Pane == 1 && t.Cur[1] < len(m.Self.Inventory):
-		sel = m.Self.Inventory[t.Cur[1]]
+		s := n.GetStock()[t.Cur[0]]
+		sel, price = s.GetItem(), priceWords(m, s.GetPrice())
+	case t.Pane == 1 && t.Cur[1] < len(stacks):
+		sel = stacks[t.Cur[1]].Inst
+		price = sellWords(m, sel)
 	}
 	rows = append(rows, strings.Repeat("─", w))
-	return append(rows, itemDetail(m, sel, w)...)
+	return append(rows, itemDetail(m, sel, w, price)...)
 }
 
 func trainerLines(m *model.Model, n *pb.NpcInfo, t *Traders, w, h int, st Styler) []string {
@@ -446,19 +524,19 @@ func trainerLines(m *model.Model, n *pb.NpcInfo, t *Traders, w, h int, st Styler
 func bankLines(m *model.Model, t *Traders, w, h int, st Styler) []string {
 	lw := (w - 1) / 2
 	rw := w - 1 - lw
-	left := []string{fit(" You carry (Enter banks it)", lw)}
+	left := []string{fit(" You carry (Enter banks one)", lw)}
 	var texts []string
-	for _, inst := range m.Self.Inventory {
-		texts = append(texts, itemRow(m, inst, max(lw-4, 1)))
+	for _, sk := range m.Stacks(m.Self.Inventory) {
+		texts = append(texts, itemRowM(m, sk.Inst, sk.Count, max(lw-4, 1)))
 	}
 	if len(texts) == 0 {
 		left = append(left, fit("  (nothing)", lw))
 	}
 	left = append(left, listRows(texts, t.Cur[0], max(h-3, 1), lw, t.Pane == 0, st)...)
-	right := []string{fit(fmt.Sprintf(" In the bank, %d (Enter takes it)", len(m.Self.Bank)), rw)}
+	right := []string{fit(fmt.Sprintf(" In the bank, %d (Enter takes one)", len(m.Self.Bank)), rw)}
 	texts = nil
-	for _, inst := range m.Self.Bank {
-		texts = append(texts, itemRow(m, inst, max(rw-4, 1)))
+	for _, sk := range m.Stacks(m.Self.Bank) {
+		texts = append(texts, itemRowM(m, sk.Inst, sk.Count, max(rw-4, 1)))
 	}
 	if len(texts) == 0 {
 		right = append(right, fit("  (empty)", rw))
@@ -569,8 +647,8 @@ func tradeScreenLines(m *model.Model, tu *TradeUI, w, h int, st Styler) []string
 	rows = append(rows, strings.Repeat("─", w))
 	add(fmt.Sprintf(" You carry, %s (Enter puts the item in the offer)", inCrowns(m)))
 	var texts []string
-	for _, inst := range m.Self.Inventory {
-		texts = append(texts, itemRow(m, inst, max(w-4, 1)))
+	for _, sk := range m.Stacks(m.Self.Inventory) {
+		texts = append(texts, itemRowM(m, sk.Inst, sk.Count, max(w-4, 1)))
 	}
 	if len(texts) == 0 {
 		add("  (nothing)")

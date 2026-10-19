@@ -1,15 +1,16 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board | you hold 0 of 3 contracts | 0 crowns                                ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 0 of 3 contracts | 0 crowns           ││ Hale  Lv 1 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
-│> Thin the Meadow Wolves          Hunt   L1-3  │  (none)                                        ││ XP ------------------------- 40 to Lv 2│
-│  Boars in the Barley             Hunt   L1-3  │                                                ││ Atk off | none                         │
-│  Pelts for the Tanners           Gather L1-3  │                                                │└────────────────────────────────────────┘
-│  Word from Wickett Mill          Scout  L1-3  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│> Boars in the Barley             Hunt   L1-3  │  (none)                                        ││ XP ------------------------- 40 to Lv 2│
+│  Word from Wickett Mill          Scout  L1-3  │                                                ││ Atk off | none                         │
+│  Wolves at Wickett Mill          Hunt   L1-3  │                                                │└────────────────────────────────────────┘
+│  Tusks for the Miller            Gather L1-3  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
 │                                                                                                ││ First Steps                            │
 │                                                                                                ││ Step 2 of 4                            │
-│                                                                                                ││ Visit your class trainer in Trainers'  │
-│                                                                                                ││ Lane. They will teach you your first   │
-│                                                                                                ││ lesson.                                │
+│                                                                                                ││ Speak to your class trainer on         │
+│                                                                                                ││ Trainers' Lane, by the north wall      │
+│                                                                                                ││ (warriors at the west end, druids at   │
+│                                                                                                ││ the east), for your first lesson.      │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -18,28 +19,27 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
-│                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││     <Warrior Trainer>                  │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ g Tamsin Hale <Guard>            5m SE │
-│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ H Isolde Fenn <Binder>          13m SE │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ $ Barnaby Tuck <Vendor>         13m SW │
-│ Pays 30 XP and 12 crowns.                                                                      ││ g Town Guard                     22m E │
-│                                                                                                ││ $ Hilda Brasswick <Vendor>       29m W │
-│                                                                                                ││ B Odalys Penn <Banker>           32m E │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ $ Dunstan Reeve <Vendor>        33m SW │
-│ The answer is on the status line; every refusal says why.                                      ││ +7 more                                │
+│                                                                                                ││     <Jobs for the Downs>               │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Gorran Stoutarm      54m SW [step 2] │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││     <Warrior Trainer>                  │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ g Tamsin Hale <Watch Greeter>    5m SE │
+│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││ H Isolde Fenn <Binder>          13m SE │
+│ Tin Ring: upgrade over an empty ring1: +10 health, +1 stamina                                  ││ $ Barnaby Tuck <General Goods>  13m SW │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   22m E │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ $ Hilda Brasswick <Armourer>     29m W │
+│ The answer is on the status line; every refusal says why.                                      ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square. It is optional;    │
+│ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
 │     0.2s Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │
 │            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
-│ +   0.2s First Steps: step 1 done. Next: Visit your class trainer in Trainers' Lane. They will teach you your first lesson.              │
+│ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
+│            druids at the east), for your first lesson.                                                                                   │
 │     0.5s Town Guard is out of view                                                                                                       │
 │     4.6s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard 0.4s ago               ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard 0.4s ago      ? help

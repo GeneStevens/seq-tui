@@ -1,22 +1,22 @@
 ┌─ Inventory and gear ───────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Crowns 5 | carrying 2 of 20 | bank 0 | bind point none yet                                     ││ c1  Lv 1  XP 20              | 5 crowns│
+│ Crowns 5 | bags 2 of 20 slots | bank 0 | bind point none yet                                   ││ c1  Lv 1  XP 20              | 5 crowns│
 │ Gear worn                                     │ Items carried                                  ││ HP 94/100 ##########################-- │
-│   head      -                                 │> Scuttler Blade Rare [bound]                   ││ Target: none                           │
-│   chest     -                                 │  Worn Cap Common                               ││ Auto-attack: off                       │
-│   legs      -                                 │                                                │└────────────────────────────────────────┘
-│   hands     -                                 │                                                │┌─ Target ───────────────────────────────┐
-│   feet      -                                 │                                                ││ no target (Tab to choose)              │
-│   ring1     -                                 │                                                ││                                        │
-│   ring2     -                                 │                                                ││                                        │
-│   neck      -                                 │                                                │└────────────────────────────────────────┘
-│   main_hand -                                 │                                                │┌─ Nearby ───────────────────────────────┐
-│   off_hand  -                                 │                                                ││ ! Testgrounds Recruiter    76m W [new] │
+│   Head      -                                 │> ▲ Worn Cap Common                             ││ Target: none                           │
+│   Chest     -                                 │  ▲ Scuttler Blade Rare [bound]                 ││ Auto-attack: off                       │
+│   Legs      -                                 │                                                │└────────────────────────────────────────┘
+│   Hands     -                                 │                                                │┌─ Target ───────────────────────────────┐
+│   Feet      -                                 │                                                ││ no target (Tab to choose)              │
+│   Ring 1    -                                 │                                                ││                                        │
+│   Ring 2    -                                 │                                                ││                                        │
+│   Neck      -                                 │                                                │└────────────────────────────────────────┘
+│   Main hand -                                 │                                                │┌─ Nearby ───────────────────────────────┐
+│   Off hand  -                                 │                                                ││ ! Testgrounds Recruiter    76m W [new] │
 │────────────────────────────────────────────────────────────────────────────────────────────────││     <Quest Giver>                      │
-│ Scuttler Blade: Rare, main_hand; bound on pickup                                               ││ & Testgrounds Contract Bo… 80m W [new] │
-│ damage 4-9 / N.Ns, str +3; a vendor pays 15                                                    ││ p c2                     16m N 100/100 │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ H Eastern Binder                37m SE │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ D Gate North                     40m N │
-│                                                                                                ││ T Druid Trainer                  77m W │
+│ ▲ Worn Cap: Common, Head; tradable once                                                        ││ & Testgrounds Contract Bo… 80m W [new] │
+│ armor +2; a vendor pays 2 crowns                                                               ││ p c2                     16m N 100/100 │
+│ upgrade over an empty head: +2 armour                                                          ││ H Eastern Binder                37m SE │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ D Gate North                     40m N │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ T Druid Trainer                  77m W │
 │                                                                                                ││ Q Testgrounds Captain            78m W │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ T Paladin Trainer                79m W │
@@ -30,16 +30,16 @@
 │                                                                                                ││ D Line East                     105m E │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    NN.Ns Trophy Scuttler dropped Scuttler Blade [Rare, bound on pickup]                                                                  │
 │    NN.Ns Trophy Scuttler dropped 5 crowns                                                                                                │
 │    NN.Ns Trophy Scuttler is dead: the fight is over                                                                                      │
 │    NN.Ns You are out of combat                                                                                                           │
 │ +  NN.Ns You gain 20 experience                                                                                                          │
 │    NN.Ns Trophy Scuttler is out of view                                                                                                  │
-│    NN.Ns 5 crowns was taken                                                                                                              │
-│ +  NN.Ns You find 5 crowns                                                                                                               │
-│    NN.Ns Scuttler Blade was taken                                                                                                        │
-│ +  NN.Ns You pick up Scuttler Blade                                                                                                      │
 │    NN.Ns Worn Cap was taken                                                                                                              │
-│ +  NN.Ns You pick up Worn Cap                                                                                                            │
+│    NN.Ns Scuttler Blade was taken                                                                                                        │
+│    NN.Ns 5 crowns was taken                                                                                                              │
+│ +  NN.Ns You took Worn Cap, Scuttler Blade, 5 crowns                                                                                     │
+│    NN.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

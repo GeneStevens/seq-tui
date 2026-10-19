@@ -1,45 +1,45 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board | you hold 1 of 3 contracts | 0 crowns                                ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | 0 crowns           ││ Hale  Lv 1 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
-│> Boars in the Barley             Hunt   L1-3  │> Thin the Meadow Wolves                   0/3  ││ XP ------------------------- 40 to Lv 2│
+│  Thin the Meadow Wolves          Hunt   L1-3  │> Wolves at Wickett Mill                   0/4  ││ XP ------------------------- 40 to Lv 2│
 │  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
-│  Word from Wickett Mill          Scout  L1-3  │                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│                                                                                                ││ First Steps                            │
-│                                                                                                ││ Step 2 of 4                            │
-│                                                                                                ││ Visit your class trainer in Trainers'  │
-│                                                                                                ││ Lane. They will teach you your first   │
-│                                                                                                ││ lesson.                                │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Target ───────────────────────────────┐
-│                                                                                                ││ no target (Tab to choose)              │
+│> Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
+│  Word from Barleycross           Scout  L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
+│                                                                                                ││ [Gear]  Bags   Stats                   │
+│                                                                                                ││ Head      -                            │
+│                                                                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
+│                                                                                                ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Contracts (K) ────────────────────────┐
-│                                                                                                ││ Thin the Meadow Wolves             0/3 │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│────────────────────────────────────────────────────────────────────────────────────────────────││ & Thornwick Contract Board 1m SW [new] │
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ ! Gorran Stoutarm      54m SW [step 2] │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││     <Warrior Trainer>                  │
-│ Pays 30 XP, 14 crowns and Tin Ring.                                                            ││ g Tamsin Hale <Guard>            5m SE │
-│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
-│                                                                                                ││ $ Barnaby Tuck <Vendor>         13m SW │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ g Town Guard                     22m E │
-│ take Thin the Meadow Wolves ok                                                                 ││ +10 more                               │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
+│ Tusks for the Miller: Gather, L1-3, for 3 items.                                               ││                                        │
+│ Bring back 3 boar tusks from the boars in the barley fields. The miller at Wickett Mill trades ││                                        │
+│ in them.                                                                                       ││                                        │
+│ Pays 18 XP, 8 crowns and Tin Ring ▲.                                                           ││                                        │
+│ Tin Ring: upgrade over an empty ring1: +10 health, +1 stamina                                  ││                                        │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││                                        │
+│ take Wolves at Wickett Mill ok                                                                 ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square. It is optional;    │
+│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
 │     N.Ns Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │
 │            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
-│ +   N.Ns First Steps: step 1 done. Next: Visit your class trainer in Trainers' Lane. They will teach you your first lesson.              │
+│ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
+│            druids at the east), for your first lesson.                                                                                   │
 │     N.Ns Town Guard is out of view                                                                                                       │
 │     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   N.Ns You take the contract Thin the Meadow Wolves                                                                                    │
-│                                                                                                                                          │
+│ +   N.Ns You take the contract Wolves at Wickett Mill                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard N.Ns ago | take Thin the Meadow Wolves ok  ? help
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard N.Ns ago | take Wolves at Wickett Mill ok  ? help

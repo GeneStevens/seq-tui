@@ -437,7 +437,7 @@ func TestEconomyScreens(t *testing.T) {
 	}{
 		{"class_menu", []string{"Class (the server's menu)", "> 6  Druid", "healer + spell", "Starts with, free:", "Thorn Bolt"}},
 		{"inventory_looted", []string{"Inventory and gear", "Gear worn", "Items carried", "Scuttler Blade", "Worn Cap", "Crowns 5"}},
-		{"inventory_worn", []string{"Worn Cap Common", "main_hand", "Scuttler Blade", "tradable once"}},
+		{"inventory_worn", []string{"Worn Cap Common", "Main hand", "Scuttler Blade", "tradable once"}},
 		{"vendor", []string{"Testgrounds Vendor", "For sale (Enter buys one)", "Worn Cap", "Padded Vest", "You carry (Enter sells one)"}},
 		{"trainer", []string{"Wizard Trainer", "Glyphshield", "45 crowns", "known"}},
 		{"bank", []string{"In the bank, 1", "Buckler"}},
@@ -696,7 +696,7 @@ func TestKeyHintsFollowWhatIsNear(t *testing.T) {
 		{"dead", base(func(s *pb.Snapshot) { s.Self.Entity.Dead = true }), "R: release"},
 		{"nothing", base(func(s *pb.Snapshot) {
 			s.Self.Entity.Pos = &pb.Pos{X: 10000, Y: 40000}
-		}), "Walk: arrows or WASD"},
+		}), "Walk: click or arrows"},
 	} {
 		if got := hint(tc.m); !strings.Contains(got, tc.want) {
 			t.Errorf("%s: the hint line says %q, want %q", tc.name, got, tc.want)

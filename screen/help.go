@@ -32,7 +32,9 @@ var Groups = []string{"Moving", "Fighting", "People and things", "Screens", "Lea
 var Bindings = []Binding{
 	{Keys: []string{"up", "down", "left", "right", "w", "a", "s", "d"}, Show: "Arrows, W A S D", What: "walk a few metres that way", Group: "Moving"},
 	{Keys: []string{"e", "enter"}, Show: "E, Enter", What: "go through the nearest door (stand at it)", Group: "Moving"},
-	{Keys: []string{"m"}, Show: "M", What: "the whole zone you have seen", Group: "Moving"},
+	{Keys: []string{"m"}, Show: "M", What: "the large map: click a spot to walk there (arrows and Enter do too)", Group: "Moving"},
+	{Keys: []string{"+", "=", "-", "_"}, Show: "+ / -", What: "zoom the map in and out (the scroll wheel does too)", Group: "Moving"},
+	{Keys: []string{"ctrl+a"}, Show: "Ctrl+A", What: "name everything on the map, on or off (holding Alt over the map does too)", Group: "Moving"},
 	{Keys: []string{"tab"}, Show: "Tab", What: "choose the next target", Group: "Fighting"},
 	{Keys: []string{"esc"}, Show: "Esc", What: "clear the target", Group: "Fighting"},
 	{Keys: []string{"f", "space"}, Show: "F, Space", What: "auto-attack on or off (none targeted: what attacks you)", Group: "Fighting"},
@@ -40,11 +42,11 @@ var Bindings = []Binding{
 	{Keys: []string{"b"}, Show: "B", What: "set the ability slots (out of combat)", Group: "Fighting"},
 	{Keys: []string{"r"}, Show: "R", What: "when you are dead: give up your body and respawn", Group: "Fighting"},
 	{Keys: []string{"g"}, Show: "G", What: "talk to the nearest person", Group: "People and things"},
-	{Keys: []string{"l"}, Show: "L", What: "loot the nearest drop you may take", Group: "People and things"},
+	{Keys: []string{"l"}, Show: "L", What: "loot everything within reach that you may take", Group: "People and things"},
 	{Keys: []string{"k"}, Show: "K", What: "contracts you hold (X gives one up)", Group: "People and things"},
 	{Keys: []string{"ctrl+k"}, Show: "Ctrl+K", What: "your quest chain: its step; X dismisses it for good", Group: "People and things"},
 	{Keys: []string{"n"}, Show: "N", What: "traders: buy, sell, train, bind, bank", Group: "People and things"},
-	{Keys: []string{"c"}, Show: "C", What: "inventory: wear and take off gear", Group: "People and things"},
+	{Keys: []string{"c"}, Show: "C", What: "inventory: wear and take off gear (beside a trader, C turns the sidebar tab)", Group: "People and things"},
 	{Keys: []string{"t"}, Show: "T", What: "trade with a character in reach", Group: "People and things"},
 	{Keys: []string{"i"}, Show: "I", What: "this zone's instance menu (Enter opens one)", Group: "People and things"},
 	{Keys: []string{"/"}, Show: "/", What: "the command line: chat, parties, /quest, /dismiss", Group: "Screens"},
@@ -78,6 +80,7 @@ type helpPage struct {
 var helpPages = []helpPage{
 	{"Moving, doors, people", func(_ *model.Model, _ View, w int) []string { return sections(w, guidePlaying) }},
 	{"The map and its legend", func(m *model.Model, _ View, w int) []string { return mapPage(m, w) }},
+	{"The mouse and the sidebar", func(_ *model.Model, _ View, w int) []string { return sections(w, guideMouse) }},
 	{"Quest chains and fighting", func(_ *model.Model, _ View, w int) []string { return sections(w, guideChains) }},
 	{"Mobs and difficulty", func(_ *model.Model, _ View, w int) []string { return sections(w, guideMobs) }},
 	{"Logs and replay", func(_ *model.Model, _ View, w int) []string { return sections(w, guideLogs) }},
@@ -134,6 +137,19 @@ func indentAll(lines []string, indent string) []string {
 		out[i] = indent + l
 	}
 	return out
+}
+
+var guideMouse = []section{
+	{"The mouse", []string{
+		"Click the ground to walk there; the server plans the route, inside this zone. The first click on a mob or a person selects it and opens a small card (name, title, level, difficulty, what they offer); a second click, or F (attack) or G (talk), acts. A first click never attacks. Click loot to pick up everything within reach.",
+		"Hover for a name and title beside the pointer. Hold Alt over the map to name everything on it; if your terminal does not send Alt with the mouse, Ctrl+A turns the names on and off. The wheel zooms (+ and - do too). M opens the large map: click a spot to walk there, or move the cursor with the arrows and press Enter.",
+		"Right-click lets go of the selection, as Esc does. Shift+click is never used: terminals keep it for selecting text.",
+		"Every mouse action has a key: arrows or WASD walk, Tab selects, F and G act, L loots, + and - zoom, Ctrl+A names. The game is fully playable without a mouse.",
+	}},
+	{"The character sidebar", []string{
+		"Beside a trader, a trainer, the bank, a contract board or a conversation sits your character: Gear (what you wear), Bags (what you carry, stacked, \"Wolf Pelt ×2\") and Stats (health, armour, accuracy, what your swing does now, bare hands too, and what gear adds to each attribute). C turns to the next tab; click a tab to pick it; PgUp and PgDn or the wheel scroll. In a narrow window C holds the sidebar open as a drawer and C or Esc puts it away.",
+		"Every item says how it compares with what you wear in its slot: ▲ better, ▼ worse, = about the same, x you cannot use it (the card says why). What you cannot afford is greyed out with how many crowns you are short. At a vendor, J sells all your junk (things with no gear slot that no contract of yours wants), A sells the whole stack under the cursor.",
+	}},
 }
 
 var guideChains = []section{

@@ -1,0 +1,24 @@
+┌─ Zone overview ──────────────────────────────────────────────────────────────┐
+│                ░#                South Wall                #░                │
+│                ░# ######····  The Cottages###       #####  #░                │
+│                ░# ######····      ##The Cottages### #####  #░                │
+│                ░The Armoury·####  #####The Counting House  #░                │
+│                ░# ######·The Smithy           ############ #░                │
+│                ░# ######··$·#### ···········    B  ####### #░                │
+│                ░# ##Tanner's Row ·Thornwick·       ###Q### #░                │
+│                ░# ######Cross Street&·gCounting House Yard·#░                │
+│                ░The Tannery·······$···@H·····g············D#░                │
+│                ░# ######··$·   Hawthorn SquareGatehouse Way#░                │
+│                ░# ######····     ···········         ##### #░                │
+│                ░# ######····    Hawthorn Walk        ##### #░                │
+│                ░# ######····   Trainers' Lane              #░                │
+│                ░#  ··!·····T·····T·····T·····T·····T······ #░                │
+│                ░#  ##### ##Rogues' Hall### ##Druids' Hall  #░                │
+│                ░#  ##Clerics' Hall## #Paladins' Hall##     #░                │
+│                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                │
+│ Thornwick, 120m by 90m, north up. You: 60m E, 45m N of the SW corner.        │
+│ The legend is on page 2 of the help (?).                                     │
+│ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m SW     ? help  q quit

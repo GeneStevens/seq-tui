@@ -1,5 +1,5 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Captain Rhosyn Hartley <Quest Giver> | you hold 1 of 3 contracts | 0 crowns                    ││ hale  Lv 6 Warrior           | 0 crowns│
+│ Captain Rhosyn Hartley <Watch Captain> | you hold 1 of 3 contracts | 0 crowns                  ││ hale  Lv 6 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 215/215 ########################### │
 │  (nothing for your level)                     │> Break the Raiding Party                READY  ││ XP ------------------------ 162 to Lv 7│
 │                                                                                                ││ Atk off | none                         │
@@ -18,16 +18,16 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ? Captain Rhosyn Hart… 1m NE [hand in] │
-│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││     <Watch Captain>                    │
 │                                                                                                ││ & Thornwick Contract Board 47m W [new] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ D East Gate                     12m SE │
-│ Break the Raiding Party: Hunt, 5 of 5 killed.                                                  ││ B Odalys Penn <Banker>          17m NW │
-│                                                                                                ││ T Wynne Greenhollow              35m S │
-│ Pays nothing.                                                                                  ││     <Druid Trainer>                    │
-│ Finished: hand it in at Captain Rhosyn Hartley <Quest Giver>, 1m NE.                           ││ H Isolde Fenn <Binder>           40m W │
-│                                                                                                ││ T Ser Aldric Vane               41m SW │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││     <Paladin Trainer>                  │
-│ The answer is on the status line; every refusal says why.                                      ││ +8 more                                │
+│────────────────────────────────────────────────────────────────────────────────────────────────││     <Jobs for the Downs>               │
+│ Break the Raiding Party: Hunt, 5 of 5 killed.                                                  ││ D East Gate                     12m SE │
+│                                                                                                ││ B Odalys Penn <Banker>          17m NW │
+│ Pays nothing.                                                                                  ││ T Wynne Greenhollow              35m S │
+│ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m NE.                         ││     <Druid Trainer>                    │
+│                                                                                                ││ H Isolde Fenn <Binder>           40m W │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ +9 more                                │
+│ The answer is on the status line; every refusal says why.                                      ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | → Hand in: Break the Raiding Party, 1m NE | heard 0.4s ago                                              ? help  q quit
+ ONLINE | Watch House Yard, Thornwick | → Hand in: Break the Raiding Party, 1m NE | heard 0.4s ago                            ? help  q quit

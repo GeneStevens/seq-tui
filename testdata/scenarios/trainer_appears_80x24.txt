@@ -1,4 +1,4 @@
-┌─ Thornwick, at 28,31 m, north up ────────────────┐┌─ You ────────────────────┐
+┌─ Thornwick — Tanner's Row, at 28,31 m, north up ─┐┌─ You ────────────────────┐
 │            ░#  #######··············&·!··········││ hale  Lv 1 Warrior  | 0cr│
 │            ░#  #######···························││ HP 130/130 ############# │
 │            ░#  #######····      ··$·····H········││ XP ----------- 40 to Lv 2│
@@ -17,8 +17,8 @@
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     N.Ns Mother Elswyth <Cleric Trainer> comes into view                     │
 │     N.Ns Hilda Brasswick is out of view                                      │
-│     N.Ns Town Guard <Guard> comes into view                                  │
+│     N.Ns Town Guard <Thornwick Watch> comes into view                        │
 │     N.Ns Gorran Stoutarm <Warrior Trainer> comes into view                   │
 └──────────────────────────────────────────────────────────────────────────────┘
- G: talk to Dunstan Reeve <Vendor>                                              
+ G: talk to Dunstan Reeve <Weaponsmith>                                         
  ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 36m NE | move ok       ? help
