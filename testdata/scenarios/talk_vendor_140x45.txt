@@ -1,5 +1,5 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick, 2m S of you                                                                   ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Vendor>, 2m S of you                                                          ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row.”             ││ XP ------------------------- 90 to Lv 4│
 │ “Armour is cheaper than a healer's patience.”                                                  ││ Atk off | none                         │

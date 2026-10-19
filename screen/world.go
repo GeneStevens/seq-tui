@@ -52,17 +52,17 @@ func optionLabel(o *pb.DialogueOption) string {
 	return o.GetLabel()
 }
 
-func talkLines(m *model.Model, t *Talk, w, h int, st Styler) []string {
+func talkLines(m *model.Model, v View, t *Talk, w, h int, st Styler) []string {
 	var rows []string
 	add := func(l string) { rows = append(rows, fit(l, w)) }
-	name := m.NPCName(t.NPC)
 	n := m.NPC(t.NPC)
-	head := " " + name
+	head := " " + m.NPCTitled(t.NPC)
 	if n != nil {
 		sp := m.Self.Pos
 		head += fmt.Sprintf(", %s %s of you", metres(dist(n.GetPos().GetX(), n.GetPos().GetY(), sp.GetX(), sp.GetY())), bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY()))
 	}
 	rows = append(rows, st.Bold(fit(head, w)))
+	rows = append(rows, handInLines(m, v, w, st)...) // a quest step handed in here (D76)
 	add("")
 	d := m.Said(t.NPC)
 	if d == nil {

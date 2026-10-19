@@ -45,7 +45,7 @@ func servicePanel(m *model.Model, v View, w, h int, st Styler) (title string, li
 	case v.Trade != nil:
 		title, lines = "Trade", tradeScreenLines(m, v.Trade, w, h, st)
 	case v.Talk != nil:
-		title, lines = "Talking", talkLines(m, v.Talk, w, h, st)
+		title, lines = "Talking", talkLines(m, v, v.Talk, w, h, st)
 	case v.Board != nil:
 		title, lines = "Contract board", boardLines(m, v, v.Board, w, h, st)
 	case v.Contracts != nil:

@@ -711,3 +711,38 @@ func TestKeyHintsFollowWhatIsNear(t *testing.T) {
 		t.Errorf("door and person: %q", got)
 	}
 }
+
+// The level-up banner names what can be trained and where (D76), and the
+// hand-in summary says what a contract or a quest step paid.
+func TestLevelUpBannerAndHandInSummary(t *testing.T) {
+	c := caseNamed(t, "vendor")
+	m := replay(t, c)
+	m.GameTimeMs = 50_000
+	m.LevelUp = &model.Moment{AtMs: 49_000, Level: &pb.LevelUp{Level: 3, FromLevel: 2, HpBefore: 120, HpAfter: 148, ManaBefore: 0, ManaAfter: 0,
+		Gains:     []*pb.AttributeGain{{Name: "Strength", Amount: 4}},
+		Trainable: []*pb.Trainable{{Ability: "warrior-second-wind", Name: "Second Wind", Level: 3, Cost: 45, Trainer: "trainer-warrior", TrainerName: "Gorran Stoutarm", TrainerAt: "Trainers' Lane"}}}}
+	for _, sz := range [][2]int{{80, 24}, {140, 45}} {
+		out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, sz[0], sz[1], screen.Plain())
+		rows := strings.Split(out, "\n")
+		if !strings.Contains(rows[0], "LEVEL UP! You reached level 3. Health 120 → 148") || !strings.Contains(rows[1], "You can now train: Second Wind from Gorran Stoutarm") {
+			t.Errorf("%v: the banner:\n%s", sz, strings.Join(rows[:3], "\n"))
+		}
+		if sz[0] == 140 && !strings.Contains(rows[1], "in Trainers' Lane (45 crowns)") {
+			t.Errorf("%v: the banner does not say where: %q", sz, rows[1])
+		}
+		if len(rows) != sz[1] {
+			t.Errorf("%v: %d rows", sz, len(rows))
+		}
+	}
+	m.GameTimeMs = 100_000
+	if out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()); strings.Contains(out, "LEVEL UP!") {
+		t.Errorf("the banner stays up:\n%s", out)
+	}
+	// The hand-in summary in the board panel.
+	m.GameTimeMs = 50_000
+	m.HandIn = &model.Moment{AtMs: 49_500, Hand: &pb.HandIn{Kind: "quest_step", Name: "First Steps", Xp: 20, Crowns: 15, Item: "worn-cap", LevelUp: &pb.LevelUp{Level: 2}}}
+	out := screen.Render(m, screen.View{Conn: screen.ConnOnline, Board: &screen.Board{NPC: m.NPCs[0].GetId()}}, 140, 45, screen.Plain())
+	if !strings.Contains(out, "Handed in the quest step First Steps: 20 XP, 15 crowns, Worn Cap. You reached level 2!") {
+		t.Errorf("no hand-in summary:\n%s", out)
+	}
+}

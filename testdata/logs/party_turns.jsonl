@@ -46,8 +46,8 @@
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
 {"pong":{"nonce":"129"}}
-{"event":{"seq":"3","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689609200","submitted":["bob1"],"participants":"2"}}}
 {"pong":{"nonce":"130"}}
+{"event":{"seq":"3","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689609200","submitted":["bob1"],"participants":"2"}}}
 {"pong":{"nonce":"131"}}
 {"pong":{"nonce":"132"}}
 {"pong":{"nonce":"133"}}

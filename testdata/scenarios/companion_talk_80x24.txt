@@ -1,5 +1,5 @@
 ┌─ Talking ────────────────────────────────────────────────────────────────────┐
-│ Captain Rhosyn Hartley, 1m NE of you                                         │
+│ Captain Rhosyn Hartley <Quest Giver>, 1m NE of you                           │
 │                                                                              │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are    │
 │ another matter.”                                                             │
