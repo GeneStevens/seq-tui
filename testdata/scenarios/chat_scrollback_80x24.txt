@@ -1,7 +1,6 @@
 ┌─ Social: Chat ───────────────────────────────────────────────────────────────┐
 │ [Chat]  Who   Friends    Tab switches, Esc closes, / types                   │
 │                                                                              │
-│ [say] ann1: spam a                                                           │
 │ [say] ann1: spam b                                                           │
 │ [say] ann1: spam c                                                           │
 │ [say] ann1: spam d                                                           │
@@ -21,4 +20,5 @@
 │ [say] ann1: line number l                                                    │
 │ scrolled back 2 lines: End goes to the newest                                │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: none                                                      
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

@@ -3,43 +3,43 @@
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
-│                                                                                            c   │└────────────────────────────────────────┘
+│                                                                                          c     │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ ! Testgrounds Recruiter    79m W [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ & Testgrounds Contract Bo… 82m W [new] │
+│                                                @                                               ││     <Contract Board>                   │
 │                                                                                                ││ ~ 5 crowns          16m S not lootable │
 │                                                                                                ││ ~ Scuttler Blade    16m S not lootable │
 │                                                                                                ││ ~ Worn Cap          16m S not lootable │
-│                                                @                                               ││ p c1                      16m S 94/100 │
+│                                                                                                ││ p c1                      16m S 94/100 │
 │                                                                                                ││ D Gate North                     24m N │
-│                                                                                                ││ $ Eastern Binder         50m SE binder │
-│                                                                                                ││ $ Druid Trainer          78m W trainer │
-│                                                                                                ││ ? Testgrounds Recru… 79m W quest_giver │
-│                                                                                                ││ $ Paladin Trainer        80m W trainer │
-│                                                                                                ││ ? Testgrounds Capta… 80m W quest_giver │
-│                                                                                                ││ $ Wizard Trainer         82m W trainer │
-│                                                                                                ││ & Testgrounds Co… 82m W contract_board │
-│                                                                                                ││ $ Rogue Trainer          84m W trainer │
-│                                                                                                ││ $ Testgrounds Binder      84m W binder │
-│                                                                                                ││ $ Cleric Trainer         86m W trainer │
-│                                             p  ~                                               ││ $ Testgrounds Banker      86m W banker │
-│                                                                                                ││ $ Warrior Trainer        88m W trainer │
-│                                                                                                ││ +2 more                                │
+│                                                                                                ││ H Eastern Binder <Binder>       50m SE │
+│                                                                                                ││ T Druid Trainer <Druid Trainer>  78m W │
+│                                                                                                ││ T Paladin Trainer                80m W │
+│                                                                                                ││     <Paladin Trainer>                  │
+│                                                                                                ││ Q Testgrounds Captain            80m W │
+│                                             p  ~                                               ││     <Quest Giver>                      │
+│                                                                                                ││ +8 more                                │
+│                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns c1 hit Trophy Scuttler for 4                                                                                                    │
-│    NN.Ns Trophy Scuttler hit c1 for 1                                                                                                    │
-│    NN.Ns c1 hit Trophy Scuttler for 4                                                                                                    │
-│ x  NN.Ns c1 killed Trophy Scuttler                                                                                                       │
-│    NN.Ns c1's target Trophy Scuttler cleared: target_dead                                                                                │
-│    NN.Ns c1 stopped attacking                                                                                                            │
-│    NN.Ns Trophy Scuttler dropped Worn Cap (drop-enc-1-worn-cap): not yours to take                                                       │
-│    NN.Ns Trophy Scuttler dropped Scuttler Blade [Rare, bound on pickup] (drop-enc-1-scuttler-blade): not yours to take                   │
-│    NN.Ns Trophy Scuttler dropped 5 crowns (drop-enc-1-crowns): not yours to take                                                         │
-│    NN.Ns encounter enc-1 with Trophy Scuttler closed: mob_died                                                                           │
-│    NN.Ns Trophy Scuttler left view                                                                                                       │
+│    NN.Ns C1 hits Trophy Scuttler for 4                                                                                                   │
+│    NN.Ns Trophy Scuttler hits c1 for 1                                                                                                   │
+│    NN.Ns C1 hits Trophy Scuttler for 4                                                                                                   │
+│ x  NN.Ns C1 killed Trophy Scuttler                                                                                                       │
+│    NN.Ns Your target Trophy Scuttler is gone                                                                                             │
+│    NN.Ns You stop attacking                                                                                                              │
+│    NN.Ns Trophy Scuttler dropped Worn Cap: not yours to take                                                                             │
+│    NN.Ns Trophy Scuttler dropped Scuttler Blade [Rare, bound on pickup]: not yours to take                                               │
+│    NN.Ns Trophy Scuttler dropped 5 crowns                                                                                                │
+│    NN.Ns Trophy Scuttler is dead: the fight is over                                                                                      │
+│    NN.Ns Trophy Scuttler is out of view                                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ Walk: arrows or WASD · M: map · ?: help                                                                                                    
  ONLINE | Testgrounds | heard N.Ns ago | not lootable: the drops in view are not yours to take                                ? help  q quit

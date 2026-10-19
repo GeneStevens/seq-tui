@@ -1,15 +1,14 @@
-┌─ Testgrounds (Duo Turns), at 100,88 m, north up ─┐┌─ You ────────────────────┐
+┌─ Testgrounds (Duo Turns), at 100,88 m, north up ─┐┌─ You: in combat ─────────┐
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
-│..................................................││ Target: Plain Scuttler   │
-│                                                  ││ Auto-attack: off         │
+│                                                  ││ Target: Plain Scuttler   │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Auto-attack: ON          │
+│                                                  ││ Attacked by Plain Scuttl…│
 │                                                  │└──────────────────────────┘
-│                                                  │┌─ Instance ───────────────┐
-│                         D                        ││ Duo Turns                │
-│                         @                        ││ turn-based | inside      │
-│                                                  ││ party up to 2 | normal   │
-│                         M                        ││ sleeps up to 7 d         │
-│                                                  │└──────────────────────────┘
+│                         D                        │┌─ Instance ───────────────┐
+│                         @                        ││ Duo Turns                │
+│                                                  ││ turn-based | inside      │
+│                         M                        │└──────────────────────────┘
 │                                                  │┌─ Round 2, 6 s left ──────┐
 │                                                  ││ 0 of 2 submitted         │
 │                                                  ││ [ ] you  [ ] bram        │
@@ -21,4 +20,5 @@
 │     N.Ns round 2 is open: game time waits for plans (0 of 2 submitted: none  │
 │            yet)                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North  ·  F: stop attacking · Esc: clear the target              
  ONLINE | heard N.Ns ago | plan accepted, counts even if you disconnect   ? help

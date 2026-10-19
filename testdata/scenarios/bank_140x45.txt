@@ -1,45 +1,45 @@
-┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Testgrounds Banker, banker, 2m S away. You have 37 crowns.                                                                               │
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Testgrounds Banker <Banker>, 2m S away. You have 37 crowns.                                    ││ zedd  Lv 3 Wizard           | 37 crowns│
+│                                                                                                ││ HP 80/96 ########################----- │
+│ You carry (Enter banks it)                    │ In the bank, 1 (Enter takes it)                ││ MP 150/196 ####################------- │
+│  (nothing)                                    │> Buckler Common                                ││ XP ------------------------- 90 to Lv 4│
+│                                                                                                ││ Atk off | none                         │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Quest ────────────────────────────────┐
+│                                                                                                ││ [ ] 1. Scout the Lookout               │
+│                                                                                                ││ Testgrounds Recruiter has work for you:│
+│                                                                                                ││ G.                                     │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Testgrounds Contract Bo… 4m SE [new] │
+│                                                                                                ││     <Contract Board>                   │
+│                                                                                                ││ ! Testgrounds Recruiter    9m SE [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ B Testgrounds Banker <Banker>     2m S │
+│                                                                                                ││ T Cleric Trainer <Cleric Trainer> 2m N │
+│                                                                                                ││ H Testgrounds Binder <Binder>    3m SE │
+│                                                                                                ││ T Rogue Trainer <Rogue Trainer>  3m NE │
+│                                                                                                ││ T Warrior Trainer                3m NW │
+│                                                                                                ││     <Warrior Trainer>                  │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ $ Testgrounds Vendor <Vendor>    3m SW │
+│ bank Buckler ok                                                                                ││ +8 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ +   N.Ns You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │
+│ +   N.Ns You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                            │
+│ +   N.Ns You buy Buckler from Testgrounds Vendor for 12 crowns                                                                           │
+│ +   N.Ns You learn Glyphshield from Wizard Trainer for 45 crowns                                                                         │
+│ !   N.Ns You already know that                                                                                                           │
+│ +   N.Ns You bind yourself with Testgrounds Binder in Testgrounds for 20 crowns                                                          │
+│ +   N.Ns You put Buckler in the bank                                                                                                     │
 │                                                                                                                                          │
-│ You carry (Enter banks it)                                         │ In the bank, 1 (Enter takes it)                                     │
-│  (nothing)                                                         │> Buckler Common  armor +3                                           │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                                                              │
-│ The answer is on the status line; every denial says why.                                                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago | bank Buckler ok                                                                      ? help  q quit

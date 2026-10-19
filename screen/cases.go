@@ -277,7 +277,7 @@ func (c Case) Draw(m *model.Model, w, h int) string {
 		t := *c.Traders
 		for i, n := range TradersInView(m) {
 			if n.GetName() == c.TraderName {
-				t.Sel = i
+				t.Sel, t.NPC = i, n.GetId()
 			}
 		}
 		v.Traders = &t

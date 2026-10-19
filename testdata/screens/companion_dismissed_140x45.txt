@@ -1,45 +1,45 @@
 ┌─ Thornwick Downs, at 100,100 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│########         ##########                                                      """""""""""""""││ hale  Lv 5 Warrior           | 0 crowns│
-│                                                                                 """""""""""""""││ HP 198/198 ########################### │
-│                                                                                 """""""""""""c"││ XP ------------------------ 145 to Lv 6│
-│                                                                                """"""""""""""""││ Atk off | none                         │
-│                                                                                """"""""""""""""│└────────────────────────────────────────┘
-│                                                                                """"""""""""""""│┌─ Companion, caster ────────────────────┐
-│                                                                               """""""""""""""""││ your recruit  Lv 5                     │
-│                                                                               """""""""""""""""││ not with you: P calls it               │
-│                                                                              """"""""""""""""""││ stance guard                           │
-│                                                                              """"""""""""""""""││ away                                   │
-│                                                                              """"""""""""""""""││ P call or send away   H stance         │
-│                                                                             """""""""""""""""""││ Y attack my target    U come here      │
-│                                                @                            """""""""""""""""""││ J stop    Z drop the order             │
-│                                                                             """""""""""""""""""│└────────────────────────────────────────┘
-│                        cm                                                   """""""""""""""""""│┌─ Target ───────────────────────────────┐
-│                                                                            """"""""""""""""""""││ no target (Tab to choose)              │
-│                                                                            """"""""""""""""""""││                                        │
-│                                                                            """"""""""""""""""""││                                        │
-│                                                                            """"""""""""""""""""│└────────────────────────────────────────┘
-│                                                                            """"""""""""""""""""│┌─ Nearby ───────────────────────────────┐
-│                                                                           """""""""""""""""""""││ m Field Boar          19m W 98/98 easy │
-│                                                                           """""""""""""""""""""││ G Barleycross        43m NW event goal │
-│                                                                           """""""""""""""""""""││ ; Wickett Mill     65m NW scout marker │
-│                                                                           """""""""""""""""""""││ +6 more                                │
+│≈≈########        ##########                                                    """"""""""""""""││ hale  Lv 5 Warrior           | 0 crowns│
+│                                                                                """"""""""""""""││ HP 198/198 ########################### │
+│                                                                               """""""""""""c"""││ XP ------------------------ 145 to Lv 6│
+│                                                                               """""""""""""""""││ Atk off | none                         │
+│                                                                               """""""""""""""""│└────────────────────────────────────────┘
+│                                                                              """"""""""""""""""│┌─ Companion, caster ────────────────────┐
+│                                                                              """"""""""""""""""││ your recruit  Lv 5                     │
+│                                                                             """""""""""""""""""││ not with you: P calls it               │
+│                                                                             """""""""""""""""""││ stance guard                           │
+│                                                                             """""""""""""""""""││ away                                   │
+│                                                                            """"""""""""""""""""││ P call or send away   H stance         │
+│                                                @                           """"""""""""""""""""││ Y attack my target    U come here      │
+│                                                                            """"""""""""""""""""││ J stop    Z drop the order             │
+│                          m                                                """""""""""""""""""""│└────────────────────────────────────────┘
+│                         c                                                 """""""""""""""""""""│┌─ Target ───────────────────────────────┐
+│                                                                           """""""""""""""""""""││ no target (Tab to choose)              │
+│                                                                           """""""""""""""""""""││                                        │
+│                                                                           """""""""""""""""""""││                                        │
+│                                                                          """"""""""""""""""""""│└────────────────────────────────────────┘
+│                                                                          """"""""""""""""""""""│┌─ Nearby ───────────────────────────────┐
+│                                                                          """"""""""""""""""""""││ m Field Boar          19m W 98/98 easy │
+│                                                                          """"""""""""""""""""""││ G Barleycross        43m NW event goal │
+│                                                                          """"""""""""""""""""""││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Taunt                       tgt? 2 Bash                       tgt? 3 -                         empty 4 -                         empty │
-│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │
+│ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s Field Boar (mob-field-boars-a-1) appeared                                                                                       │
-│     0.2s your companion Watch Spellcaster went with its owner's connection                                                               │
-│     0.2s Watch Spellcaster left view                                                                                                     │
-│     0.2s your companion Watch Spellcaster is back                                                                                        │
-│     0.2s Watch Spellcaster (comp-hale) appeared                                                                                          │
-│     2.2s your companion Watch Spellcaster went with its owner's connection                                                               │
-│     2.2s Watch Spellcaster left view                                                                                                     │
-│     2.2s your companion Watch Spellcaster is back                                                                                        │
-│     2.2s Watch Spellcaster (comp-hale) appeared                                                                                          │
-│     4.2s your companion was sent away                                                                                                    │
-│     4.2s Watch Spellcaster left view                                                                                                     │
+│     0.2s Field Boar comes into view                                                                                                      │
+│     0.2s Your companion goes off with nobody to follow                                                                                   │
+│     0.2s Watch Spellcaster is out of view                                                                                                │
+│     0.2s Your companion is back                                                                                                          │
+│     0.2s Watch Spellcaster comes into view                                                                                               │
+│     2.2s Your companion goes off with nobody to follow                                                                                   │
+│     2.2s Watch Spellcaster is out of view                                                                                                │
+│     2.2s Your companion is back                                                                                                          │
+│     2.2s Watch Spellcaster comes into view                                                                                               │
+│     4.2s You send your companion away                                                                                                    │
+│     4.2s Watch Spellcaster is out of view                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ Tab: target · F: attack                                                                                                                    
  ONLINE | Thornwick Downs | heard 0.4s ago                                                                                    ? help  q quit

@@ -5,33 +5,32 @@
 │                                                                                                ││ Auto-attack: off                       │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
-│................................................................................................││ Peril Den                              │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Peril Den                              │
 │                                                                                                ││ real-time | open                       │
 │                                                                                                ││ party up to 2 | heroic                 │
 │                                                                                                ││ enter at gate-north (E)                │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
-│                                                                                                ││                                        │
+│                                                D                                               ││                                        │
 │                                                @                                               ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
+│                                                                                          c     ││     <Contract Board>                   │
 │                                                                                                ││ p c2                   0m here 100/100 │
 │                                                                                                ││ D Gate North                      1m N │
-│                                                                                                ││ $ Eastern Binder          72m S binder │
-│                                                                                                ││ $ Druid Trainer          83m W trainer │
-│                                                                                            c   ││ $ Paladin Trainer        84m W trainer │
-│                                                                                                ││ ? Testgrounds Recr… 85m SW quest_giver │
-│                                                                                                ││ ? Testgrounds Capta… 86m W quest_giver │
-│                                                                                                ││ $ Wizard Trainer         86m W trainer │
-│                                                                                                ││ & Testgrounds Co… 88m W contract_board │
-│                                                                                                ││ $ Rogue Trainer          88m W trainer │
-│                                                                                                ││ $ Testgrounds Binder      90m W binder │
-│                                                                                                ││ +5 more                                │
+│                                                                                                ││ H Eastern Binder <Binder>        72m S │
+│                                                                                                ││ T Druid Trainer <Druid Trainer>  83m W │
+│                                                                                                ││ T Paladin Trainer                84m W │
+│                                                                                                ││     <Paladin Trainer>                  │
+│                                                                                                ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns c2 (c2) appeared                                                                                                                │
-│ +   N.Ns you paid an entry fee of 50 crowns                                                                                              │
+│     N.Ns c2 comes into view                                                                                                              │
+│ +   N.Ns You pay 50 crowns to enter                                                                                                      │
 │     N.Ns instance opened: Peril Den (up to 2 in it); enter at gate-north with E                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North                                                                                                                        
  ONLINE | Testgrounds | heard N.Ns ago | instance requested; the log says when it is open                                     ? help  q quit

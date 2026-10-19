@@ -1,0 +1,24 @@
+┌─ Traders  ⚠ UNDER ATTACK ────────────────────────────────────────────────────┐
+│ Testgrounds Vendor <Vendor>, 1m NE away. You have 0 crowns.                  │
+│                                                                              │
+│ For sale (Enter buys one)            │ You carry (Enter sells one)           │
+│> Cracked Shell Fragment          1   │  (nothing)                            │
+│  Worn Cap Common                 8   │                                       │
+│  Padded Vest Common             20   │                                       │
+│  Padded Leggings Common         16   │                                       │
+│  Padded Gloves Common            8   │                                       │
+│  Stout Boots Common             10   │                                       │
+│  Copper Ring Fine               40   │                                       │
+│  Bone Charm Fine                45   │                                       │
+│  Plain Club Common              15   │                                       │
+│  Buckler Common                 12   │                                       │
+│──────────────────────────────────────────────────────────────────────────────│
+│ Cracked Shell Fragment: Common, no gear slot; tradable once                  │
+│ a vendor pays 1                                                              │
+│                                                                              │
+│                                                                              │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.  │
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: Plain Scuttler 40/40 | Attacked by Plain Scuttler | In co…
+ ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                  

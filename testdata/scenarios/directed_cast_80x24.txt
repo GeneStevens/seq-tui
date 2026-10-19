@@ -1,24 +1,24 @@
 ┌─ Thornwick Downs, at 144,101 m, north up ────────┐┌─ You ────────────────────┐
-│                 """""""""""""""      ≈≈≈≈≈≈≈     ││ bram  Lv 5 Cleric   | 0cr│
-│                 """""c"""""""""""    ≈≈≈≈≈≈≈     ││ HP 140/140 ############# │
-│                """""m""""""""""""""   ≈≈≈≈≈≈     ││ MP 93/122 ##########---- │
-│                """"""""""""""""""""   ≈≈≈≈≈≈≈    ││ XP ---------- 145 to Lv 6│
-│               """""""""""""""""""""   ≈≈≈≈≈≈≈    ││ Atk off | Bramble Tusker │
-│               """"""""""@"""""""""    ≈≈≈≈≈≈≈    │└──────────────────────────┘
-│               """""""""""p""""c"""    ≈≈≈≈≈≈≈    │┌─ Target ─────────────────┐
-│               """"""""""""""""M"""    ≈≈≈≈≈≈     ││ M Bramble Tusker  Lv 5   │
-│               """"""""""""""""""""   ≈≈≈≈≈≈≈     ││ HP 191/191 ##### 14m SE  │
-│              """""""""""""""""""""   ≈≈≈≈≈≈≈     ││ even, not in a fight     │
+│         c        """"""""""""""     ≈≈≈≈≈≈       ││ bram  Lv 5 Cleric   | 0cr│
+│                 """"mc""""""""""    ≈≈≈≈≈≈       ││ HP 140/140 ############# │
+│                 """"""""""""""""""  ≈≈≈≈≈≈       ││ MP 93/122 ##########---- │
+│                """""""""""""""""""  ≈≈≈≈≈≈       ││ XP ---------- 145 to Lv 6│
+│                """""""""@""""""""   ≈≈≈≈≈≈≈      ││ Atk off | Bramble Tusker │
+│                """"""""""""""""""   ≈≈≈≈≈≈≈      │└──────────────────────────┘
+│                """"""""""p"""M"""   ≈≈≈≈≈≈       │┌─ Target ─────────────────┐
+│               """""""""""""""""""   ≈≈≈≈≈≈       ││ M Bramble Tusker  Lv 5   │
+│               """""""""""""""""""   ≈≈≈≈≈≈       ││ HP 191/191 ##### 14m SE  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Minor Heal  ready 2 Smite      ready 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Minor Heal ready  2 Smite ready      3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns Greywood Wolf (mob-greywood-wolves-c-1) appeared                    │
-│     N.Ns bram targeted Bramble Tusker                                        │
-│     N.Ns bram began casting Minor Heal (1.5 s)                               │
-│     N.Ns bram used Minor Heal                                                │
+│     N.Ns Greywood Wolf comes into view                                       │
+│     N.Ns You target Bramble Tusker                                           │
+│     N.Ns You begin casting Minor Heal                                        │
+│     N.Ns You use Minor Heal                                                  │
 └──────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                   
  ONLINE | directing bram | forest: slowed to 75% | key 1 Minor Heal ok    ? help

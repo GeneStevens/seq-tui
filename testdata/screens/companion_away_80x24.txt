@@ -1,24 +1,24 @@
 ┌─ Thornwick, at 103,50 m, north up ───────────────┐┌─ You ────────────────────┐
-│##### ######  ####### #######   #.                ││ hale  Lv 6 Warrior | 40cr│
-│##### ######  ################  #.                ││ HP 215/215 ############# │
-│              ################  #.                ││ XP ######----- 62 to Lv 7│
-│···········      $   #########  #.                ││ Atk off | none           │
-│···········          #########  #.                │└──────────────────────────┘
-│·&·········          ####@####  #.                │┌─ Companion, melee ───────┐
-│···$····························#.                ││ your recruit  Lv 6       │
-│······························D··.                ││ not with you: P calls it │
-│·····$··························#.                ││ stance follow            │
-│···········            #######  #.                ││ away                     │
+│  ###### #####  ##############  #░                ││ hale  Lv 6 Warrior | 40cr│
+│                ##############  #░                ││ HP 215/215 ############# │
+│·············      B  ########  #░                ││ XP ######----- 62 to Lv 7│
+│·············         ########  #░                ││ Atk off | none           │
+│····&·g··················@Q·····#░                │└──────────────────────────┘
+│······························D··░                │┌─ Companion, melee ───────┐
+│··$·····H·······················#░                ││ your recruit  Lv 6       │
+│·············           ######  #░                ││ not with you: P calls it │
+│·············           ######  #░                ││ stance follow            │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │            bandits on the near roads, goblins farther out. Go carefully until│
 │            you are seasoned. There is a larger task for those the Watch can  │
 │            trust. Prove yourself first, and come and see me.                 │
-│     1.5s your recruit is now a melee                                         │
+│     1.5s Your companion takes the role of melee                              │
 └──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Captain Rhosyn Hartley <Quest Giver>                                
  ONLINE | Thornwick | heard 0.4s ago                              ? help  q quit

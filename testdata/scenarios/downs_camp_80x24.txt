@@ -1,24 +1,24 @@
 ┌─ Thornwick Downs, at 45,105 m, north up ─────────┐┌─ You ────────────────────┐
-│  .                   ######≈≈≈≈####   #####      ││ Hale  Lv 1 Warrior  | 0cr│
-│  .                   ######≈≈≈≈####   #####      ││ HP 130/130 ############# │
-│  .                                               ││ XP ----------- 40 to Lv 2│
-│  .                                               ││ Atk off | none           │
-│  .                                               │└──────────────────────────┘
-│  .                      @                        │┌─ Target ─────────────────┐
-│  .                                               ││ no target (Tab to choose)│
-│  .                      c                c       ││                          │
-│  .                      m                        ││                          │
-│  .                                               ││                          │
+│     ░                 ##### ≈≈≈####  #####       ││ Hale  Lv 1 Warrior  | 0cr│
+│     ░                 ##### ≈≈≈####  #####       ││ HP 130/130 ############# │
+│     ░                                            ││ XP ----------- 40 to Lv 2│
+│     ░                                            ││ Atk off | none           │
+│     ░                   @                        │└──────────────────────────┘
+│     ░                                            │┌─ Target ─────────────────┐
+│     ░                                   c        ││ no target (Tab to choose)│
+│     ░                   cm                       ││                          │
+│     ░                                            ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns Meadow Wolf (mob-meadow-wolves-a-1) appeared                        │
+│    NN.Ns Meadow Wolf comes into view                                         │
 │                                                                              │
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | heard N.Ns ago | move ok              ? help  q quit
+ Tab: target · F: attack                                                        
+ ONLINE | → Thin the Meadow Wolves, 11m S | heard N.Ns ago | move ok      ? help

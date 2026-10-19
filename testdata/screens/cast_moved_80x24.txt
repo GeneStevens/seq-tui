@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 8,50 m, north up ───────────────┐┌─ You ────────────────────┐
-│                     .                   #        ││ zedd  Lv 1 Wizard   | 0cr│
-│                     .                   #        ││ HP 80/80 ############### │
-│                     .     $$$$$$        #        ││ MP 150/150 ############# │
-│                     .     $$$&?         #        ││ XP ----------- 40 to Lv 2│
-│                     .          ?        #        ││ ! Cancelled: you moved   │
-│                     .   @      M c      #       c│└──────────────────────────┘
-│                     .                   #        │┌─ Quest ──────────────────┐
-│                     .                   #        ││ [ ] 1. Scout the Lookout │
-│                     .                   #        ││ Testgrounds Recruiter has│
-│                     .                   #        ││ work for you: G.         │
+│                     ░                 #          ││ zedd  Lv 1 Wizard   | 0cr│
+│                     ░    TTTTTT       #          ││ HP 80/80 ############### │
+│                     ░    $BH&Q!       #          ││ MP 150/150 ############# │
+│                     ░                 #          ││ XP ----------- 40 to Lv 2│
+│                     ░   @     Mc      #      c   ││ ! Cancelled: you moved   │
+│                     ░                 #          │└──────────────────────────┘
+│                     ░                 #          │┌─ Quest ──────────────────┐
+│                     ░                 #          ││ [ ] 1. Scout the Lookout │
+│                     ░                 #          ││ Testgrounds Recruiter has│
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Flame Dart    gcd 2 Frost Bolt   gcd 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Flame Dart gcd    2 Frost Bolt gcd   3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Plain Scuttler: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     0.2s zedd targeted Plain Scuttler                                        │
-│     0.3s zedd began casting Frost Bolt (2.0 s)                               │
-│ !   0.9s zedd's Frost Bolt was cancelled: you moved                          │
+│     0.2s You target Plain Scuttler                                           │
+│     0.3s You begin casting Frost Bolt on Plain Scuttler                      │
+│ !   0.9s Your Frost Bolt is cancelled: you moved, so the cast stopped        │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard 0.4s ago | move ok                  ? help  q quit

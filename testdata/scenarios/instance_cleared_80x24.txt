@@ -2,23 +2,23 @@
 │                                                  ││ aria  Lv 1  XP 20   | 0cr│
 │                                                  ││ HP 93/100 #############- │
 │                                                  ││ Target: none             │
-│..................................................││ Auto-attack: off         │
-│                                                  │└──────────────────────────┘
+│                                                  ││ Auto-attack: off         │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Solo Trial ended         │
 │                         @                        ││ cleared                  │
 │                                                  ││ you were handed back     │
-│                                                  ││                          │
 │                                                  │└──────────────────────────┘
-│                                                c │┌─ Target ─────────────────┐
-│                                                  ││ no target (Tab to choose)│
+│                                                  │┌─ Target ─────────────────┐
+│                                              c   ││ no target (Tab to choose)│
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│ +  NN.Ns aria received Cracked Shell Fragment from                           │
-│            drop-inst-1.enc-1-shell-fragment                                  │
+│    NN.Ns Cracked Shell Fragment was taken                                    │
+│ +  NN.Ns You pick up Cracked Shell Fragment                                  │
 │    NN.Ns instance ended, cleared: every mob dead and the loot taken          │
 │    NN.Ns entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North                                                            
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                  ? help  q quit

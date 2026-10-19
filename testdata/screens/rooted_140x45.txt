@@ -1,45 +1,45 @@
-┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                    .                                               #           ││ Zedd  Lv 1 Wizard            | 0 crowns│
-│                                    .                                               #           ││ HP 80/80 ############################# │
-│                                    .                                               #           ││ MP 140/150 #########################-- │
-│                                    .                                               #           ││ XP ------------------------- 40 to Lv 2│
-│                                    .                                               #           ││ Atk off | Plain Scuttler               │
-│                                    .             $  $ $  $ $ $                     #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Quest ────────────────────────────────┐
-│                                    .             $  $ $  & ?                       #           ││ [ ] 1. Scout the Lookout               │
-│                                    .                         ?                     #           ││ Testgrounds Recruiter has work for you:│
-│                                    .                                               #           ││ G.                                     │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Target ───────────────────────────────┐
-│                                    .           @              M  c                 #           ││ M Plain Scuttler  Lv 1                 │
-│                                    .                                               #           ││ HP 40/40 ###################### 13m E  │
-│                                    .                                               #           ││ even, fighting you                     │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
-│                                    .                                               #           ││ $ Testgrounds Vendor       8m N vendor │
-│                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
-│                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
-│                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
-│                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
-│                                    .                                               #           ││ M Plain Scuttler      13m E 40/40 even │
-│                                    .                                               #           ││ +10 more                               │
+┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│                                    ░                                             #             ││ Zedd  Lv 1 Wizard            | 0 crowns│
+│                                    ░                                             #             ││ HP 80/80 ############################# │
+│                                    ░                                             #             ││ MP 140/150 #########################-- │
+│                                    ░                                             #             ││ XP ------------------------- 40 to Lv 2│
+│                                    ░             T T T  T T T                    #             ││ Atk off | Plain Scuttler               │
+│                                    ░                                             #             ││ Attacked by Plain Scuttler             │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░             $ B H  & Q                      #             │┌─ Quest ────────────────────────────────┐
+│                                    ░                        !                    #             ││ [ ] 1. Scout the Lookout               │
+│                                    ░                                             #             ││ Testgrounds Recruiter has work for you:│
+│                                    ░                                             #             ││ G.                                     │
+│                                    ░           @             M  c                #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Target ───────────────────────────────┐
+│                                    ░                                             #             ││ M Plain Scuttler  Lv 1                 │
+│                                    ░                                             #             ││ HP 40/40 ###################### 13m E  │
+│                                    ░                                             #             ││ even, fighting you                     │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Nearby ───────────────────────────────┐
+│                                    ░                                             #             ││ & Testgrounds Contract B… 11m NE [new] │
+│                                    ░                                             #             ││     <Contract Board>                   │
+│                                    ░                                             #             ││ ! Testgrounds Recruiter   13m NE [new] │
+│                                    ░                                             #             ││     <Quest Giver>                      │
+│                                    ░                                             #             ││ +14 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Root                  10mp ready 2 Frost Bolt           12mp ready 3 Flame Dart            6mp ready 4 -                         empty │
-│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ 1 Root 10mp ready                  2 Frost Bolt 12mp ready           3 Flame Dart 6mp ready            4 -                               │
+│ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none   |   Plain Scuttler: Rooted 18s                                                                                               │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s slot 1 holds Root                                                                                                               │
-│     0.3s slot 3 holds Flame Dart                                                                                                         │
-│     0.6s Zedd targeted Plain Scuttler                                                                                                    │
-│     0.7s Zedd began casting Root (1.5 s)                                                                                                 │
-│     2.2s Zedd used Root on Plain Scuttler                                                                                                │
-│     2.2s Zedd opened an encounter with Plain Scuttler (enc-1)                                                                            │
-│     2.2s Root: root on Plain Scuttler for 18 s                                                                                           │
+│     0.2s Slot 1: Root                                                                                                                    │
+│     0.3s Slot 3: Flame Dart                                                                                                              │
+│     0.6s You target Plain Scuttler                                                                                                       │
+│     0.7s You begin casting Root on Plain Scuttler                                                                                        │
+│     2.2s You use Root on Plain Scuttler                                                                                                  │
+│     2.2s You begin fighting Plain Scuttler                                                                                               │
+│     2.2s Plain Scuttler is affected by Root                                                                                              │
+│     2.2s You are in combat with Plain Scuttler                                                                                           │
 │     2.3s Plain Scuttler targeted Zedd                                                                                                    │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                                                                               
  ONLINE | Testgrounds | heard 0.4s ago | key 1 Root ok                                                                        ? help  q quit

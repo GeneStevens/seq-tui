@@ -457,7 +457,7 @@ func TestTwoAccountsClearAWarrenRoomTogether(t *testing.T) {
 		})
 	}
 	bob.Model(func(m *model.Model) {
-		if !hasLog(m, "combat_hit", "bram") && !hasLog(m, "ability_used", "bram") && !hasLog(m, "combat_heal", "bram") {
+		if !hasLog(m, "combat_hit", "You hit") && !hasLog(m, "ability_used", "You use") && !hasLog(m, "combat_heal", "You heal") {
 			t.Fatalf("bram took no part: %v", m.Log)
 		}
 	})

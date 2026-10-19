@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 14,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│              .                             #     ││ aria  Lv 1  XP 20   | 0cr│
-│              .                             #     ││ HP 100/100 ############# │
-│              .                             #     ││ Target: none             │
-│              .        $ $$ $$ $            #     ││ Auto-attack: off         │
-│              .        $ $$ &?              #     │└──────────────────────────┘
-│              .                ?            #     │┌─ Quest ──────────────────┐
-│              .                             #     ││ [ ] 1. Scout the Lookout │
-│              .          @       c          #     ││ Testgrounds Recruiter has│
-│              .                             #     ││ work for you: G.         │
-│              .                             #     │└──────────────────────────┘
-│              .                             #     │┌─ Target ─────────────────┐
-│              .                             #     ││ no target (Tab to choose)│
-│              .                             #     ││                          │
-│              .                             #     ││                          │
-│              .                             #     ││                          │
+│               ░                           #      ││ aria  Lv 1  XP 20   | 0cr│
+│               ░                           #      ││ HP 100/100 ############# │
+│               ░                           #      ││ Target: none             │
+│               ░       T TT TTT            #      ││ Auto-attack: off         │
+│               ░                           #      │└──────────────────────────┘
+│               ░       $ BH &Q!            #      │┌─ Quest ──────────────────┐
+│               ░                           #      ││ [ ] 1. Scout the Lookout │
+│               ░         @       c         #      ││ Testgrounds Recruiter has│
+│               ░                           #      ││ work for you: G.         │
+│               ░                           #      │└──────────────────────────┘
+│               ░                           #      │┌─ Target ─────────────────┐
+│               ░                           #      ││ no target (Tab to choose)│
+│               ░                           #      ││                          │
+│               ░                           #      ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns aria healed 2                                                       │
-│    NN.Ns aria healed 1                                                       │
-│    NN.Ns drop drop-enc-1-shell-fragment is gone: taken                       │
-│ +  NN.Ns aria received Cracked Shell Fragment from drop-enc-1-shell-fragment │
+│ +  NN.Ns You gain 20 experience                                              │
+│    NN.Ns Plain Scuttler is out of view                                       │
+│    NN.Ns Cracked Shell Fragment was taken                                    │
+│ +  NN.Ns You pick up Cracked Shell Fragment                                  │
 └──────────────────────────────────────────────────────────────────────────────┘
+ Walk: arrows or WASD · M: map · ?: help                                        
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                  ? help  q quit

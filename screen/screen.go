@@ -306,10 +306,19 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 		note = "! " + note
 	}
 	if a := alarmText(m, v); a != "" {
-		// The alarm takes the line (D75); the answer to the last command follows it.
+		// The alarm takes the line (D75). The answer to the last command goes with
+		// it, whole: the alarm gives up its last words before the answer is cut.
 		line := " " + a
 		if note != "" {
-			line += " | " + note
+			short := strings.TrimSuffix(strings.TrimSuffix(a, " — Esc to fight"), " — F to fight")
+			switch {
+			case width(line+" | "+note) <= w:
+				line += " | " + note
+			case width(" "+short+" | "+note) <= w:
+				line = " " + short + " | " + note
+			default:
+				line = " ⚠ " + note
+			}
 		}
 		return st.Reverse(st.Red(st.Bold(fit(line, w))))
 	}
@@ -332,7 +341,7 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	if q := m.Quest(); q != nil {
 		quest = fmt.Sprintf("%s %d/%d", q.GetName(), q.GetStep(), q.GetSteps())
 	}
-	for _, parts := range [][]string{{conn, space, objective, quest, ground, heard, note}, {conn, space, objective, ground, heard, note}, {conn, objective, quest, ground, heard, note}, {conn, objective, ground, note}, {conn, quest, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}} {
+	for _, parts := range [][]string{{conn, space, quest, objective, ground, heard, note}, {conn, quest, objective, ground, heard, note}, {conn, quest, objective, ground, note}, {conn, quest, objective, note}, {conn, objective, ground, note}, {conn, quest, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}} {
 		var kept []string
 		for _, p := range parts {
 			if p != "" {

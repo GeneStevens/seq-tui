@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 100,90 m, north up ─────────────┐┌─ You ────────────────────┐
 │                                                  ││ aria  Lv 1  XP 20   | 0cr│
-│                                                  ││ HP 90/100 ############-- │
+│                                                  ││ HP 92/100 ############-- │
 │                                                  ││ Target: none             │
-│..................................................││ Auto-attack: off         │
-│                                                  │└──────────────────────────┘
+│                                                  ││ Auto-attack: off         │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Instance ended           │
 │                         @                        ││ cleared                  │
 │                                                  ││ you were handed back     │
-│                                                  ││                          │
 │                                                  │└──────────────────────────┘
-│                                                c │┌─ Target ─────────────────┐
-│                                                  ││ no target (Tab to choose)│
+│                                                  │┌─ Target ─────────────────┐
+│                                              c   ││ no target (Tab to choose)│
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns round 43 is open: game time waits for plans (0 of 1 submitted: none │
+│    NN.Ns round 41 is open: game time waits for plans (0 of 1 submitted: none │
 │            yet)                                                              │
 │    NN.Ns instance ended, cleared: every mob dead and the loot taken          │
 │    NN.Ns entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North                                                            
  ONLINE | heard N.Ns ago | plan accepted, counts even if you disconnect   ? help

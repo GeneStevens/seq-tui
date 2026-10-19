@@ -1,38 +1,37 @@
 ┌─ Testgrounds, at 8,50 m, north up ─────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                     .                                               #          ││ zedd  Lv 1 Wizard            | 0 crowns│
-│                                     .                                               #          ││ HP 80/80 ############################# │
-│                                     .                                               #          ││ MP 150/150 ########################### │
-│                                     .                                               #          ││ XP ------------------------- 40 to Lv 2│
-│                                     .                                               #          ││ ! Frost Bolt cancelled: you moved      │
-│                                     .             $  $ $  $ $ $                     #          │└────────────────────────────────────────┘
-│                                     .                                               #          │┌─ Quest ────────────────────────────────┐
-│                                     .             $  $ $  & ?                       #          ││ [ ] 1. Scout the Lookout               │
-│                                     .                         ?                     #          ││ Testgrounds Recruiter has work for you:│
-│                                     .                                               #          ││ G.                                     │
-│                                     .                                               #          │└────────────────────────────────────────┘
-│                                     .                                               #          │┌─ Target ───────────────────────────────┐
-│                                     .          @               M  c                 #          ││ M Plain Scuttler  Lv 1                 │
-│                                     .                                               #          ││ HP 400/400 #################### 14m E  │
-│                                     .                                               #          ││ even, not in a fight                   │
-│                                     .                                               #          │└────────────────────────────────────────┘
-│                                     .                                               #          │┌─ Nearby ───────────────────────────────┐
-│                                     .                                               #          ││ $ Testgrounds Vendor       9m N vendor │
-│                                     .                                               #          ││ $ Testgrounds Banker     10m NE banker │
-│                                     .                                               #          ││ $ Testgrounds Binder     11m NE binder │
-│                                     .                                               #          ││ & Testgrounds C… 12m NE contract_board │
-│                                     .                                               #          ││ $ Warrior Trainer        12m N trainer │
-│                                     .                                               #          ││ $ Cleric Trainer        13m NE trainer │
-│                                     .                                               #          ││ +10 more                               │
+│                                      ░                                             #           ││ zedd  Lv 1 Wizard            | 0 crowns│
+│                                      ░                                             #           ││ HP 80/80 ############################# │
+│                                      ░                                             #           ││ MP 150/150 ########################### │
+│                                      ░                                             #           ││ XP ------------------------- 40 to Lv 2│
+│                                      ░             T T T  T T T                    #           ││ ! Frost Bolt cancelled: you moved      │
+│                                      ░                                             #           │└────────────────────────────────────────┘
+│                                      ░                                             #           │┌─ Quest ────────────────────────────────┐
+│                                      ░             $ B H  & Q                      #           ││ [ ] 1. Scout the Lookout               │
+│                                      ░                        !                    #           ││ Testgrounds Recruiter has work for you:│
+│                                      ░                                             #           ││ G.                                     │
+│                                      ░                                             #           │└────────────────────────────────────────┘
+│                                      ░         @               M  c                #           │┌─ Target ───────────────────────────────┐
+│                                      ░                                             #           ││ M Plain Scuttler  Lv 1                 │
+│                                      ░                                             #           ││ HP 400/400 #################### 14m E  │
+│                                      ░                                             #           ││ even, not in a fight                   │
+│                                      ░                                             #           │└────────────────────────────────────────┘
+│                                      ░                                             #           │┌─ Nearby ───────────────────────────────┐
+│                                      ░                                             #           ││ & Testgrounds Contract B… 12m NE [new] │
+│                                      ░                                             #           ││     <Contract Board>                   │
+│                                      ░                                             #           ││ ! Testgrounds Recruiter   14m NE [new] │
+│                                      ░                                             #           ││     <Quest Giver>                      │
+│                                      ░                                             #           ││ $ Testgrounds Vendor <Vendor>     9m N │
+│                                      ░                                             #           ││ +13 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Flame Dart               6mp gcd 2 Frost Bolt             12mp gcd 3 -                         empty 4 -                         empty │
-│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ 1 Flame Dart 6mp gcd               2 Frost Bolt 12mp gcd             3 -                               4 -                               │
+│ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none   |   Plain Scuttler: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns zedd targeted Plain Scuttler                                                                                                    │
-│     N.Ns zedd began casting Frost Bolt (2.0 s)                                                                                           │
-│ !   N.Ns zedd's Frost Bolt was cancelled: you moved                                                                                      │
+│     N.Ns You target Plain Scuttler                                                                                                       │
+│     N.Ns You begin casting Frost Bolt on Plain Scuttler                                                                                  │
+│ !   N.Ns Your Frost Bolt is cancelled: you moved, so the cast stopped                                                                    │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                                                                               
  ONLINE | Testgrounds | heard N.Ns ago | move ok                                                                              ? help  q quit

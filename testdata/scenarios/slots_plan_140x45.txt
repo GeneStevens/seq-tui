@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 80/80 | Target: none                                                                                                                    
  ONLINE | Testgrounds (Quick Turns) | heard N.Ns ago | slot change added to the plan: Esc closes this, Enter submits the plan ? help  q quit

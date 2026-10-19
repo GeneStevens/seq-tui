@@ -1,7 +1,7 @@
 ┌─ Testgrounds, at 100,66 m, north up ─────────────┐┌─ You ────────────────────┐
 │                                                  ││ c2  Lv 1  XP 0 | 0 crowns│
 │                                                  ││ HP 100/100 ############# │
-│                                                c ││ Target: none             │
+│                                              c   ││ Target: none             │
 │                                                  ││ Auto-attack: off         │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
@@ -10,15 +10,15 @@
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Nearby ─────────────────┐
-│                                                  ││ ~ 5 … 16m S not lootable │
-│                                                  ││ ~ Sc… 16m S not lootable │
-│                        p~                        ││ ~ Wo… 16m S not lootable │
-│                                                  ││ +16 more                 │
+│                                                  ││ ! Testgroun… 79m W [new] │
+│                        p~                        ││     <Quest Giver>        │
+│                                                  ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns Trophy Scuttler dropped 5 crowns (drop-enc-1-crowns): not yours to  │
-│            take                                                              │
-│    NN.Ns encounter enc-1 with Trophy Scuttler closed: mob_died               │
-│    NN.Ns Trophy Scuttler left view                                           │
+│            yours to take                                                     │
+│    NN.Ns Trophy Scuttler dropped 5 crowns                                    │
+│    NN.Ns Trophy Scuttler is dead: the fight is over                          │
+│    NN.Ns Trophy Scuttler is out of view                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
+ Walk: arrows or WASD · M: map · ?: help                                        
  ONLINE | not lootable: the drops in view are not yours to take   ? help  q quit

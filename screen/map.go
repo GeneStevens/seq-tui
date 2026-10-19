@@ -37,7 +37,7 @@ const (
 	glyphRare      = 'r' // a roaming rare in view
 	glyphDoor      = 'D'
 	glyphWall      = '#'
-	glyphBounds    = '▒' // the edge of the zone: where walking ends
+	glyphBounds    = '░' // the edge of the zone: where walking ends
 	glyphPlan      = '+' // where the plan being built ends
 	// The ground (D53). Each says what it is without colour, and none is a
 	// glyph above; a building is a solid block like a wall, a road a dotted
@@ -619,14 +619,17 @@ func pointerGlyph(west, east, north, south bool) rune {
 // pointerLabel is the objective's name in a few cells: "Gorran" for "Talk to Gorran Stoutarm".
 func pointerLabel(m *model.Model, h *pb.Hint) string {
 	l := h.GetLabel()
+	person := false
 	for _, p := range []string{"Talk to ", "Hand in: ", "Take: ", "Report back: "} {
-		l = strings.TrimPrefix(l, p)
+		if strings.HasPrefix(l, p) {
+			l, person = strings.TrimPrefix(l, p), p == "Talk to "
+		}
 	}
 	if i := strings.Index(l, " — "); i > 0 {
 		l = l[:i]
 	}
-	if n := m.NPC(h.GetId()); n != nil && n.GetName() != "" && strings.HasPrefix(l, n.GetName()) {
-		l = strings.Fields(n.GetName())[0]
+	if f := strings.Fields(l); person && len(f) > 1 {
+		l = f[0] // the first name is enough to know who
 	}
 	return strings.TrimSpace(fit(l, 16))
 }

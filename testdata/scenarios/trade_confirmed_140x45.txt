@@ -1,45 +1,45 @@
-┌─ Trade ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Trade with c1. Changing an offer clears the confirmations.                                                                               │
-│ Your offer                                                         │ c1's offer                                                          │
-│ not confirmed                                                      │ CONFIRMED                                                           │
-│ crowns 7                                                           │ crowns 0                                                            │
-│  (no items)                                                        │  Worn Cap Common  armor +2                                          │
-│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
-│ You carry, 20 crowns (Enter puts the item in the offer)                                                                                  │
-│  (nothing)                                                                                                                               │
+┌─ Trade ────────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Trade with c1. Changing an offer clears the confirmations.                                     ││ c2  Lv 1  XP 0              | 20 crowns│
+│ Your offer                                    │ c1's offer                                     ││ HP 100/100 ########################### │
+│ not confirmed                                 │ CONFIRMED                                      ││ Target: none                           │
+│ crowns 7                                      │ crowns 0                                       ││ Auto-attack: off                       │
+│  (no items)                                   │  Worn Cap Common                               │└────────────────────────────────────────┘
+│────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Target ───────────────────────────────┐
+│ You carry, 20 crowns (Enter puts the item in the offer)                                        ││ no target (Tab to choose)              │
+│  (nothing)                                                                                     ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Testgrounds Contract Bo… 35m S [new] │
+│                                                                                                ││     <Contract Board>                   │
+│                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ p c1                      1m W 100/100 │
+│                                                                                                ││ T Druid Trainer <Druid Trainer>  29m S │
+│                                                                                                ││ T Paladin Trainer                30m S │
+│                                                                                                ││     <Paladin Trainer>                  │
+│                                                                                                ││ T Wizard Trainer                31m SW │
+│                                                                                                ││     <Wizard Trainer>                   │
+│                                                                                                ││ T Rogue Trainer <Rogue Trainer> 32m SW │
+│                                                                                                ││ T Cleric Trainer                33m SW │
+│                                                                                                ││     <Cleric Trainer>                   │
+│                                                                                                ││ Q Testgrounds Captain            34m S │
+│                                                                                                ││     <Quest Giver>                      │
+│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                      ││ T Warrior Trainer               34m SW │
+│ Esc closes the screen and leaves the trade open.                                               ││     <Warrior Trainer>                  │
+│ offer 7 crowns ok                                                                              ││ +6 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns c1 asks to trade                                                                                                                │
+│     N.Ns The trade with c1 is open                                                                                                       │
+│     N.Ns C1 offers Worn Cap                                                                                                              │
+│     N.Ns You offer 7 crowns                                                                                                              │
+│     N.Ns C1 confirms the trade                                                                                                           │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                                                                │
-│ Esc closes the screen and leaves the trade open.                                                                                         │
-│ The server refuses Rare and Named items, and ones already traded.                                                                        │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago | offer 7 crowns ok                                                                    ? help  q quit

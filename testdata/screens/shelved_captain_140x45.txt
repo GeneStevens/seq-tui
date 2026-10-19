@@ -1,45 +1,45 @@
-┌─ Talking ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Captain Rhosyn Hartley, 1m NE of you                                                                                                     │
-│                                                                                                                                          │
-│ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”                                               │
-│ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are seasoned.”                                        │
-│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see me.”                                       │
-│                                                                                                                                          │
-│ What they can do for you:                                                                                                                │
-│ > 1  Take a contract                                                                                                                     │
-│   2  Turn in a contract                                                                                                                  │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
+┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Captain Rhosyn Hartley, 1m NE of you                                                           ││ hale  Lv 6 Warrior           | 0 crowns│
+│                                                                                                ││ HP 215/215 ########################### │
+│ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”     ││ XP ------------------------ 162 to Lv 7│
+│ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are         ││ Atk off | none                         │
+│ seasoned.”                                                                                     │└────────────────────────────────────────┘
+│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │┌─ Target ───────────────────────────────┐
+│ me.”                                                                                           ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│ What they can do for you:                                                                      ││                                        │
+│ > 1  Take a contract                                                                           │└────────────────────────────────────────┘
+│   2  Turn in a contract                                                                        │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Thornwick Contract Board 47m W [new] │
+│                                                                                                ││     <Contract Board>                   │
+│                                                                                                ││ Q Captain Rhosyn Hartley         1m NE │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ D East Gate                     12m SE │
+│                                                                                                ││ B Odalys Penn <Banker>          17m NW │
+│                                                                                                ││ T Wynne Greenhollow              35m S │
+│                                                                                                ││     <Druid Trainer>                    │
+│                                                                                                ││ H Isolde Fenn <Binder>           40m W │
+│                                                                                                ││ T Ser Aldric Vane               41m SW │
+│                                                                                                ││     <Paladin Trainer>                  │
+│                                                                                                ││ g Tamsin Hale <Guard>            43m W │
+│                                                                                                ││ T Ormond Quill <Wizard Trainer> 52m SW │
+│                                                                                                ││ $ Barnaby Tuck <Vendor>          54m W │
+│                                                                                                ││ T Pip Nettle <Rogue Trainer>    65m SW │
+│                                                                                                ││ $ Hilda Brasswick <Vendor>       75m W │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ $ Dunstan Reeve <Vendor>         76m W │
+│ talk to Captain Rhosyn Hartley ok                                                              ││ +2 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
+│            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
+│            Watch can trust. Prove yourself first, and come and see me.                                                                   │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                                                               │
-│ The answer is on the status line; every refusal says why.                                                                                │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick | heard 0.4s ago | talk to Captain Rhosyn Hartley ok                                                      ? help  q quit

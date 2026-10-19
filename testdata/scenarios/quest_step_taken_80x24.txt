@@ -1,24 +1,24 @@
 ┌─ Thornwick, at 103,50 m, north up ───────────────┐┌─ You ────────────────────┐
-│##### ######  ####### #######   #.                ││ hale  Lv 6 Warrior  | 0cr│
-│##### ######  ################  #.                ││ HP 215/215 ############# │
-│              ################  #.                ││ XP ---------- 162 to Lv 7│
-│···········      $   #########  #.                ││ Atk off | none           │
-│···········          #########  #.                │└──────────────────────────┘
-│·&·········          ####@####  #.                │┌─ Quest ──────────────────┐
-│···$····························#.                ││ [>] 1. Eyes on the…scout │
-│······························D··.                ││ Scout the goblin lookout │
-│·····$··························#.                ││ beyond the ford and      │
-│···········            #######  #.                ││ report to Captain        │
+│  ###### #####  ##############  #░                ││ hale  Lv 6 Warrior  | 0cr│
+│                ##############  #░                ││ HP 215/215 ############# │
+│·············      B  ########  #░                ││ XP ---------- 162 to Lv 7│
+│·············         ########  #░                ││ Atk off | none           │
+│····&·g··················@?·····#░                │└──────────────────────────┘
+│······························D··░                │┌─ Quest ──────────────────┐
+│··$·····H·······················#░                ││ [>] 1. Eyes on the…scout │
+│·············           ######  #░                ││ Scout the goblin lookout │
+│·············           ######  #░                ││ beyond the ford and      │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │            you are seasoned. There is a larger task for those the Watch can  │
 │            trust. Prove yourself first, and come and see me.                 │
-│ !   N.Ns hale denied companion_role on captain: no_companion                 │
-│ +   N.Ns you took the contract Eyes on the Goblins                           │
+│ !   N.Ns You haven't earned a companion yet                                  │
+│ +   N.Ns You take the contract Eyes on the Goblins                           │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | heard N.Ns ago                              ? help  q quit
+ G: talk to Captain Rhosyn Hartley <Quest Giver>                                
+ ONLINE | → Eyes on the Goblins (Thornwick Downs), 12m SE | heard N.Ns ago      

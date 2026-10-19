@@ -126,7 +126,7 @@ func TestABashBreaksOffAHexersBoltInTheLog(t *testing.T) {
 		p.Model(func(m *model.Model) {
 			broke = hasLog(m, "cast_cancelled", "your Bash breaks off Goblin Hexer's Cinder Bolt")
 			for _, l := range m.Log {
-				if l.Kind == "cast_started" && strings.Contains(l.Text, "Goblin Hexer began casting Cinder Bolt") {
+				if l.Kind == "cast_started" && strings.Contains(l.Text, "Goblin Hexer begins casting Cinder Bolt") {
 					casts++
 				}
 			}

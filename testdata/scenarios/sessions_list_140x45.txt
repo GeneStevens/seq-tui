@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │ Up, Down choose   Enter: replay a recording, read a server log   E export   R refresh   Esc back                                         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit
+ ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                                                                              

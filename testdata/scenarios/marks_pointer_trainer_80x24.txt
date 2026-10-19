@@ -1,0 +1,24 @@
+┌─ Thornwick, at 60,45 m, north up ────────────────┐┌─ You ────────────────────┐
+│  #######····######                ############## ││ Hale  Lv 1 Warrior  | 0cr│
+│  #######··$·######·············      B  ######## ││ HP 130/130 ############# │
+│  #######····      ·············         ######## ││ XP ----------- 40 to Lv 2│
+│  #######··············&·g···················Q····││ Atk off | none           │
+│  #######················@········g··············D│└──────────────────────────┘
+│  #######····      ··$·····H······················│┌─ Quest chain (Ctrl+K) ───┐
+│  #######··$·      ·············           ###### ││ First Steps              │
+│  #######····      ·············           ###### ││ Step 2 of 4              │
+│▼ Gorran 52m·           ···                ###### ││ Visit your class trainer │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
+│ You: none                                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│            out to the Downs. Captain Hartley is in the watch-house, if you   │
+│            want the Watch's work.                                            │
+│ +   N.Ns First Steps: step 1 done. Next: Visit your class trainer in         │
+│            Trainers' Lane. They will teach you your first lesson.            │
+└──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Tamsin Hale <Guard>                                                 
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m SW     ? help  q quit

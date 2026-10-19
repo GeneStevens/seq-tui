@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 195,10 m, north up ─────────────┐┌─ You ────────────────────┐
-│                             .                    ││ aria  Lv 1  XP 0    | 0cr│
-│                             .                    ││ HP 100/100 ############# │
-│                             .                    ││ Target: none             │
-│                             .                    ││ Auto-attack: off         │
-│                             .                    │└──────────────────────────┘
-│                             .                    │┌─ Target ─────────────────┐
-│                             .                    ││ no target (Tab to choose)│
-│                         @   .                    ││                          │
-│                             .                    ││                          │
-│                             .                    │└──────────────────────────┘
-│                             .                    │┌─ Nearby ─────────────────┐
-│..............................                    ││ D Line East      0m here │
-│                                                  ││ $ Eastern … 76m W binder │
-│                                                  ││ D Gate North     124m NW │
-│                                                  ││ +12 more                 │
+│                            ░                     ││ aria  Lv 1  XP 0    | 0cr│
+│                            ░                     ││ HP 100/100 ############# │
+│                            ░                     ││ Target: none             │
+│                            ░                     ││ Auto-attack: off         │
+│                            ░                     │└──────────────────────────┘
+│                            ░                     │┌─ Target ─────────────────┐
+│                            ░                     ││ no target (Tab to choose)│
+│                         @  ░                     ││                          │
+│                            ░                     ││                          │
+│                            ░                     │└──────────────────────────┘
+│                            ░                     │┌─ Nearby ─────────────────┐
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                     ││ ! Testgrou… 179m W [new] │
+│                                                  ││     <Quest Giver>        │
+│                                                  ││ +14 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns entered Outskirts                                                   │
-│     N.Ns Plain Scuttler targeted aria                                        │
-│     N.Ns aria opened an encounter with Plain Scuttler (enc-1)                │
+│     N.Ns You target Plain Scuttler                                           │
+│     N.Ns Plain Scuttler (level 1, even) is attacking you                     │
+│     N.Ns You are in combat with Plain Scuttler                               │
 │     N.Ns entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
+ E: go through the Line East to the Outskirts                                   
  ONLINE | Testgrounds | heard N.Ns ago | use door ok              ? help  q quit

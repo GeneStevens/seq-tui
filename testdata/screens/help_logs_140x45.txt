@@ -1,11 +1,13 @@
-┌─ Help: Logs and replay ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Logs and replay                                                                                                                          │
-│   Every session is recorded by default, under its id, in seq-tui/sessions in your data dir (-log-dir moves it, -no-record turns it off). │
-│   A log never holds your credential.                                                                                                     │
-│   Ctrl+L lists your sessions, yours and the server's log of them: Enter replays one in place (Left and Right step, Home and End jump,    │
-│   Esc comes back), R reads the server's log, E exports one to a file.                                                                    │
-│   seq-tui -replay FILE (or a session id) draws a recording with no server; -text prints it as plain text.                                │
-│   V shows more of the event log: routine movement and rules ticks.                                                                       │
+┌─ Help: Mobs and difficulty ──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ What mobs do                                                                                                                             │
+│   Difficulty: each mob is trivial, easy, even, hard or deadly to you, by its level against yours (Nearby and the Target panel say it in  │
+│   words). Trivial mobs leave you alone and drop nothing rare; deadly ones are four or more levels above you.                             │
+│   Casters: a mob's bolt takes a few seconds to cast. A stun or an interrupting blow (a warrior's Bash) breaks it off, and the log says   │
+│   "your Bash breaks off the hexer's bolt".                                                                                               │
+│   Healers: a shaman heals the mob it fights beside. The log says who heals whom; kill the healer first, or break its cast.               │
+│   Fleeing: a hurt goblin runs for home once, then turns back to fight. Follow it, or let it go: it comes back by itself.                 │
+│   Linked camps: pulling one mob can bring its partner camp, and a chief's cry can call the guards of his wing. The log says "joins the   │
+│   fight" or "answers" for each.                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -37,9 +39,7 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│ Page 4 of 6  ? next page  Left, Right turn  Esc closes                                                                                   │
+│ Page 4 of 7  ? next page  Left, Right turn  Esc closes                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 115/120 | Target: Shell Rat 12/20                                                                                                       
  ONLINE | outskirts | heard 0.4s ago                                                                                          ? help  q quit

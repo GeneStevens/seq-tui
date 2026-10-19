@@ -1,5 +1,6 @@
 ┌─ Contract board ─────────────────────────────────────────────────────────────┐
-│ Thornwick Contract Board | you hold 0 of 3 contracts | 12 crowns             │
+│ Thornwick Contract Board <Contract Board> | you hold 0 of 3 contracts | 12 c…│
+│ Handed in the contract Thin the Meadow Wolves: 30 XP, 12 crowns              │
 │ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
 │> Boars in the Barley    Hunt   L1-3  │  (none)                               │
 │  Pelts for the Tanners  Gather L1-3  │                                       │
@@ -10,15 +11,14 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
 │                                                                              │
 │                                                                              │
 │                                                                              │
+│                                                                              │
+│                                                                              │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
-│ The answer is on the status line; every refusal says why.                    │
+│ hand in Thin the Meadow Wolves ok                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
  ONLINE | road: faster, 125% | hand in Thin the Meadow Wolves ok  ? help  q quit

@@ -2,23 +2,23 @@
 │                                                  ││ aria  Lv 1  XP 20   | 0cr│
 │                                                  ││ HP 93/100 #############- │
 │                                                  ││ Target: none             │
-│..................................................││ Auto-attack: off         │
-│                                                  │└──────────────────────────┘
+│                                                  ││ Auto-attack: off         │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Solo Trial ended         │
 │                         @                        ││ cleared                  │
 │                                                  ││ you were handed back     │
-│                                                  ││                          │
 │                                                  │└──────────────────────────┘
-│                                                c │┌─ Target ─────────────────┐
-│                                                  ││ no target (Tab to choose)│
+│                                                  │┌─ Target ─────────────────┐
+│                                              c   ││ no target (Tab to choose)│
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│ +  81.7s aria received Cracked Shell Fragment from                           │
-│            drop-inst-1.enc-1-shell-fragment                                  │
+│    81.7s Cracked Shell Fragment was taken                                    │
+│ +  81.7s You pick up Cracked Shell Fragment                                  │
 │    81.7s instance ended, cleared: every mob dead and the loot taken          │
 │    82.0s entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North                                                            
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                  ? help  q quit

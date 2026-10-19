@@ -1,45 +1,45 @@
-┌─ Trade ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Trade with c2. Changing an offer clears the confirmations.                                                                               │
-│ Your offer                                                         │ c2's offer                                                          │
-│ not confirmed                                                      │ not confirmed                                                       │
-│ crowns 0                                                           │ crowns 7                                                            │
-│> Worn Cap Common  armor +2                                         │  (no items)                                                         │
-│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
-│ You carry, 0 crowns (Enter puts the item in the offer)                                                                                   │
-│  Worn Cap Common  armor +2                                                                                                               │
-│> Scuttler Blade Rare [bound]  damage 4-9 / N.Ns, str +3                                                                                  │
+┌─ Trade ────────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Trade with c2. Changing an offer clears the confirmations.                                     ││ c1  Lv 1  XP 0               | 0 crowns│
+│ Your offer                                    │ c2's offer                                     ││ HP 100/100 ########################### │
+│ not confirmed                                 │ not confirmed                                  ││ Target: none                           │
+│ crowns 0                                      │ crowns 7                                       ││ Auto-attack: off                       │
+│> Worn Cap Common                              │  (no items)                                    │└────────────────────────────────────────┘
+│────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Target ───────────────────────────────┐
+│ You carry, 0 crowns (Enter puts the item in the offer)                                         ││ no target (Tab to choose)              │
+│  Worn Cap Common  armor +2                                                                     ││                                        │
+│> Scuttler Blade Rare [bound]  damage 4-9 / N.Ns, str +3                                        ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Testgrounds Contract Bo… 34m S [new] │
+│                                                                                                ││     <Contract Board>                   │
+│                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ p c2                      1m E 100/100 │
+│                                                                                                ││ T Druid Trainer <Druid Trainer>  29m S │
+│                                                                                                ││ T Paladin Trainer                30m S │
+│                                                                                                ││     <Paladin Trainer>                  │
+│                                                                                                ││ T Wizard Trainer                30m SW │
+│                                                                                                ││     <Wizard Trainer>                   │
+│                                                                                                ││ T Rogue Trainer <Rogue Trainer> 31m SW │
+│                                                                                                ││ T Cleric Trainer                32m SW │
+│                                                                                                ││     <Cleric Trainer>                   │
+│                                                                                                ││ T Warrior Trainer               33m SW │
+│                                                                                                ││     <Warrior Trainer>                  │
+│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                      ││ Q Testgrounds Captain            34m S │
+│ Esc closes the screen and leaves the trade open.                                               ││     <Quest Giver>                      │
+│ ! offer Scuttler Blade denied: That item is bound to you and can't be traded                   ││ +6 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns c2 comes into view                                                                                                              │
+│     N.Ns You ask c2 to trade                                                                                                             │
+│     N.Ns The trade with c2 is open                                                                                                       │
+│     N.Ns You offer Worn Cap                                                                                                              │
+│ !   N.Ns That item is bound to you and can't be traded                                                                                   │
+│     N.Ns C2 offers 7 crowns                                                                                                              │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                                                                │
-│ Esc closes the screen and leaves the trade open.                                                                                         │
-│ The server refuses Rare and Named items, and ones already traded.                                                                        │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds | heard N.Ns ago | ! offer Scuttler Blade denied: that item is bound and cannot be traded (bound)       ? help  q quit
+ ONLINE | Testgrounds | heard N.Ns ago | ! offer Scuttler Blade denied: That item is bound to you and can't be traded         ? help  q quit

@@ -1,24 +1,24 @@
 ┌─ Thornwick, at 103,50 m, north up ───────────────┐┌─ You ────────────────────┐
-│##### ######  ####### #######   #.                ││ hale  Lv 6 Warrior | 40cr│
-│##### ######  ################  #.                ││ HP 215/215 ############# │
-│              ################  #.                ││ XP ######----- 62 to Lv 7│
-│···········      $   #########  #.                ││ Atk off | none           │
-│···········          #########  #.                │└──────────────────────────┘
-│·&·········          ####@####  #.                │┌─ Companion, melee ───────┐
-│···$····························#.                ││ Watch Skirmisher  Lv 6   │
-│······························D··.                ││ HP 128/128 ############# │
-│·····$··························#.                ││ stance follow            │
-│···········            #######  #.                ││ following you            │
+│  ###### #####  ##############  #░                ││ hale  Lv 6 Warrior | 40cr│
+│                ##############  #░                ││ HP 215/215 ############# │
+│·············      B  ########  #░                ││ XP ######----- 62 to Lv 7│
+│·············         ########  #░                ││ Atk off | none           │
+│····&·g··················@p·····#░                │└──────────────────────────┘
+│······························D··░                │┌─ Companion, melee ───────┐
+│··$·····H·······················#░                ││ Watch Skirmisher  Lv 6   │
+│·············           ######  #░                ││ HP 128/128 ############# │
+│·············           ######  #░                ││ stance follow            │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │            trust. Prove yourself first, and come and see me.                 │
-│     N.Ns your recruit is now a melee                                         │
-│     N.Ns your companion melee came to its side                               │
-│     N.Ns Watch Skirmisher (comp-hale) appeared                               │
+│     N.Ns Your companion takes the role of melee                              │
+│     N.Ns Your companion arrives at your side                                 │
+│     N.Ns Watch Skirmisher comes into view                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Captain Rhosyn Hartley <Quest Giver>                                
  ONLINE | Thornwick | heard N.Ns ago | call the companion ok      ? help  q quit

@@ -1,0 +1,45 @@
+┌─ Inventory and gear  ⚠ UNDER ATTACK ───────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│ Crowns 0 | carrying 0 of 20 | bank 0 | bind point none yet                                     ││ aria  Lv 1  XP 0             | 0 crowns│
+│ Gear worn                                     │ Items carried                                  ││ HP 100/100 ########################### │
+│ > head      -                                 │  (nothing)                                     ││ Target: Plain Scuttler                 │
+│   chest     -                                 │                                                ││ Auto-attack: off                       │
+│   legs      -                                 │                                                ││ Attacked by Plain Scuttler             │
+│   hands     -                                 │                                                │└────────────────────────────────────────┘
+│   feet      -                                 │                                                │┌─ Quest ────────────────────────────────┐
+│   ring1     -                                 │                                                ││ [ ] 1. Scout the Lookout               │
+│   ring2     -                                 │                                                ││ Testgrounds Recruiter has work for you:│
+│   neck      -                                 │                                                ││ G.                                     │
+│   main_hand -                                 │                                                │└────────────────────────────────────────┘
+│   off_hand  -                                 │                                                │┌─ Target ───────────────────────────────┐
+│────────────────────────────────────────────────────────────────────────────────────────────────││ M Plain Scuttler  Lv 1                 │
+│                                                                                                ││ HP 40/40 ###################### 11m E  │
+│                                                                                                ││ even, fighting you                     │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           │└────────────────────────────────────────┘
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Testgrounds Contract Boa… 7m E [new] │
+│                                                                                                ││     <Contract Board>                   │
+│                                                                                                ││ ! Testgrounds Recruiter    11m E [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ $ Testgrounds Vendor <Vendor>    1m NE │
+│                                                                                                ││ B Testgrounds Banker <Banker>     3m E │
+│                                                                                                ││ H Testgrounds Binder <Binder>     5m E │
+│                                                                                                ││ T Warrior Trainer                 5m N │
+│                                                                                                ││     <Warrior Trainer>                  │
+│                                                                                                ││ T Cleric Trainer                 5m NE │
+│                                                                                                ││     <Cleric Trainer>                   │
+│                                                                                                ││ +9 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns Plain Scuttler targeted aria                                                                                                    │
+│     N.Ns You begin fighting Plain Scuttler                                                                                               │
+│     N.Ns You target Plain Scuttler                                                                                                       │
+│     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
+│     N.Ns You are in combat with Plain Scuttler                                                                                           │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                                                                              

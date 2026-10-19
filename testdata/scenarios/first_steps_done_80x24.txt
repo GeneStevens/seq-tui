@@ -1,24 +1,24 @@
 ┌─ Thornwick Downs, at 6,150 m, north up ──────────┐┌─ You ────────────────────┐
-│                      .                           ││ Hale  Lv 1 Warrior | 15cr│
-│                      .                           ││ HP 130/130 ############# │
-│                      .      """""""""""""""""""""││ XP #####------ 20 to Lv 2│
-│                      .      """""""""""""""""""""││ Atk off | none           │
-│                      .···························│└──────────────────────────┘
-│                      .··@························│┌─ Target ─────────────────┐
-│                      .···························││ no target (Tab to choose)│
-│                      .·····                      ││                          │
-│                      .      """"""""""           ││                          │
-│                      .      """"""""""      ;    ││                          │
+│                      ░                           ││ Hale  Lv 1 Warrior | 15cr│
+│                      ░     """"""""""""""""""""""││ HP 130/130 ############# │
+│                      ░     """"""""""""""""""""""││ XP #####------ 20 to Lv 2│
+│                      ░···························││ Atk off | none           │
+│                      ░··@························│└──────────────────────────┘
+│                      ░···························│┌─ Target ─────────────────┐
+│                      ░                           ││ no target (Tab to choose)│
+│                      ░     """""""""             ││                          │
+│                      ░     ▼ Thin the Meadow… 68m││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │    NN.Ns Odalys Penn is out of view                                          │
-│ +  NN.Ns First Steps: finished (paid 20 XP).                                 │
+│ +  NN.Ns Quest complete: First Steps: 20 experience                          │
 │    NN.Ns entered Thornwick Downs                                             │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok   
+ E: go through the Town Gate to the Thornwick                                   
+ ONLINE | → Thin the Meadow Wolves, 68m SE | road: faster, 125% | use door ok   

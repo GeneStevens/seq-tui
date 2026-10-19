@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │ Up, Down, PgUp, PgDn scroll   E exports this log to a file   Esc back                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit
+ ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                                                                              

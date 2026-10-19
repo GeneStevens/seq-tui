@@ -289,7 +289,7 @@ func TestAllTheZonesMarkersAreOnTheMap(t *testing.T) {
 	}
 	p.Press("m")
 	s := p.Screen(140, 45)
-	for _, glyph := range []string{";", "!", "G"} {
+	for _, glyph := range []string{";", "v", "G"} {
 		// The overview draws the markers; the legend names them (it has the glyph
 		// too, so the picture must hold at least one more).
 		if strings.Count(s, glyph) < 2 {

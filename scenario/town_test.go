@@ -155,7 +155,7 @@ func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
 	notice(t, p, "take Thin the Meadow Wolves ok", false)
 	p.Model(func(m *model.Model) {
 		c := m.Contract("hunt-meadow-wolves")
-		if c == nil || c.GetKind() != "hunt" || c.GetHave() != 0 || c.GetNeed() != 3 || !hasLog(m, "reward", "you took the contract Thin the Meadow Wolves") {
+		if c == nil || c.GetKind() != "hunt" || c.GetHave() != 0 || c.GetNeed() != 3 || !hasLog(m, "reward", "You take the contract Thin the Meadow Wolves") {
 			t.Fatalf("after taking it: %+v", m.Self.Contracts)
 		}
 	})
@@ -169,12 +169,12 @@ func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
 		}
 	})
 	p.Press("down", "enter")
-	notice(t, p, "contract_limit", true)
+	notice(t, p, "as many contracts as you can", true)
 	// Tab to the contracts held; X gives the third up.
 	p.Press("tab", "down", "down", "x")
 	notice(t, p, "give up", false)
 	p.Model(func(m *model.Model) {
-		if len(m.Self.Contracts) != 2 || !hasLog(m, "reward", "gave up the contract") {
+		if len(m.Self.Contracts) != 2 || !hasLog(m, "reward", "You give up the contract") {
 			t.Fatalf("after giving one up: %+v", m.Self.Contracts)
 		}
 	})
@@ -242,7 +242,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	walkVia(t, w, p, [2]int64{45000, 98000})
 	fightUntil(t, w, p, func(m *model.Model) bool { c := m.Contract("hunt-meadow-wolves"); return c != nil && c.GetReady() }, 25)
 	p.Model(func(m *model.Model) {
-		if c := m.Contract("hunt-meadow-wolves"); c == nil || c.GetHave() != 3 || !hasLog(m, "reward", "contract Thin the Meadow Wolves: 3 of 3") {
+		if c := m.Contract("hunt-meadow-wolves"); c == nil || c.GetHave() != 3 || !hasLog(m, "reward", "Thin the Meadow Wolves: 3 of 3") {
 			t.Fatalf("after the hunt: %v", m.Self.Contracts)
 		}
 	})
@@ -256,11 +256,24 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	walkVia(t, w, p, [2]int64{57000, 45000}, [2]int64{57000, 51000}) // by the board, off the greeter
 	p.Press("g")
 	p.Press("2")
+	for _, sz := range [][2]int{{140, 45}, {80, 24}} {
+		// A finished contract says where it is handed in (D76).
+		if s := p.Screen(sz[0], sz[1]); !strings.Contains(s, "hand it in at Thornwick Contract Board") {
+			t.Errorf("%v: the READY contract does not say where to hand it in:\n%s", sz, s)
+		}
+	}
 	p.Golden("board_turn_in")
 	p.Press("enter")
 	notice(t, p, "hand in Thin the Meadow Wolves ok", false)
+	for _, sz := range [][2]int{{140, 45}, {80, 24}} {
+		// The board panel shows what the hand-in paid (D76).
+		if s := p.Screen(sz[0], sz[1]); !strings.Contains(s, "Handed in the contract Thin the Meadow Wolves: 30 XP, 12 crowns") {
+			t.Errorf("%v: no hand-in summary in the board panel:\n%s", sz, s)
+		}
+	}
+	p.Model(func(m *model.Model) { noIDs(t, m) })
 	p.Model(func(m *model.Model) {
-		if len(m.Self.Contracts) != 0 || m.Self.Crowns < 12 || !hasLog(m, "reward", "handed in Thin the Meadow Wolves") {
+		if len(m.Self.Contracts) != 0 || m.Self.Crowns < 12 || !hasLog(m, "reward", "You hand in Thin the Meadow Wolves") {
 			t.Fatalf("after the turn-in: contracts %v, %d crowns", m.Self.Contracts, m.Self.Crowns)
 		}
 	})
@@ -377,7 +390,7 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 	walk(w, p, "down", 5)
 	walk(w, p, "right", 13)
 	p.Model(func(m *model.Model) {
-		if c := m.Contract("scout-wickett-mill"); c == nil || !c.GetReady() || !hasLog(m, "reward", "the marker is reached") {
+		if c := m.Contract("scout-wickett-mill"); c == nil || !c.GetReady() || !hasLog(m, "reward", "Word from Wickett Mill: 1 of 1") {
 			t.Fatalf("at the marker: %v", c)
 		}
 	})
@@ -433,7 +446,7 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 	w.Advance(21 * time.Second)
 	p.Model(func(m *model.Model) {
 		e := m.WorldEvents["harvest-raid"]
-		if e == nil || !e.Active || e.Kind != "started" || e.Name != "Harvest Raid" || !strings.Contains(e.Text, "Defend the farms") || !hasLog(m, "world_event", "Harvest Raid") {
+		if e == nil || !e.Active || e.Kind != "started" || e.Name != "Harvest Raid" || !strings.Contains(e.Text, "Defend the farms") || !hasLog(m, "world_event", "Goblins pour out of the east") {
 			t.Fatalf("the announcement: %+v", e)
 		}
 	})
@@ -446,7 +459,7 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 		if e.Kind != "won" && e.Kind != "lost" {
 			t.Fatalf("it ended as %q", e.Kind)
 		}
-		if !hasLog(m, "reward", "was paid for the Harvest Raid") {
+		if !hasLog(m, "reward", "You are paid for Harvest Raid") {
 			t.Fatalf("the character was not paid for taking part: %v", m.Log)
 		}
 	})
@@ -483,7 +496,7 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 	w.Advance(11 * time.Second)
 	p.Model(func(m *model.Model) {
 		r := m.RaresInView()
-		if len(r) != 1 || r[0].GetName() != "Old Grimtusk" || !r[0].GetRare() || !hasLog(m, "rare_appeared", "a rare, Old Grimtusk") {
+		if len(r) != 1 || r[0].GetName() != "Old Grimtusk" || !r[0].GetRare() || !hasLog(m, "rare_appeared", "Old Grimtusk comes into view") {
 			t.Fatalf("rares in view: %v", r)
 		}
 	})
@@ -512,7 +525,7 @@ func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 	walk(w, p, "down", 3)
 	p.Model(func(m *model.Model) {
 		n := m.NPC("trainer-warrior")
-		if n == nil || n.GetReachMm() <= 0 || m.InReach(n) || !hasLog(m, "npc_appeared", "Gorran Stoutarm (trainer) is in view") {
+		if n == nil || n.GetReachMm() <= 0 || m.InReach(n) || !hasLog(m, "npc_appeared", "Gorran Stoutarm <Warrior Trainer> comes into view") {
 			t.Fatalf("after three steps: %v; log ends %+v", n, m.Log[len(m.Log)-2:])
 		}
 	})
@@ -568,7 +581,7 @@ func TestThornwickDieInTheDownsAndWakeInThornwick(t *testing.T) {
 			t.Fatalf("after waking: dead %v, hp %d/%d at %v, binder %v", m.Self.Dead, m.Self.HP, m.Self.MaxHP, m.Self.Pos, m.NPC("binder"))
 		}
 	})
-	if s := p.Screen(140, 45); !strings.Contains(s, "Thornwick") || !strings.Contains(s, "binder") {
+	if s := p.Screen(140, 45); !strings.Contains(s, "Thornwick") || !strings.Contains(s, "Binder") {
 		t.Fatalf("the screen does not follow:\n%s", s)
 	}
 	p.Golden("woke_in_thornwick")

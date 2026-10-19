@@ -1,33 +1,32 @@
 ┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                 .                                                         #    ││ aria  Lv 1  XP 0             | 0 crowns│
-│                                 .                                                         #    ││ HP 100/100 ########################### │
-│                                 .                                                         #    ││ Target: none                           │
-│                                 .                                                         #    ││ Auto-attack: off                       │
-│                                 .                                                         #    │└────────────────────────────────────────┘
-│                                 .                $  $  $  $  $  $                         #    │┌─ Quest ────────────────────────────────┐
-│                                 .                                                         #    ││ [ ] 1. Scout the Lookout               │
-│                                 .                                                         #    ││ Testgrounds Recruiter has work for you:│
-│                                 .                $  $  $  &  ?                            #    ││ G.                                     │
-│                                 .                               ?                         #    │└────────────────────────────────────────┘
-│                                 .                                                         #    │┌─ Target ───────────────────────────────┐
-│                                 .                                                         #    ││ no target (Tab to choose)              │
-│                                 .                                                         #    ││                                        │
-│                                 .                                                         #    ││                                        │
-│                                 .              @                    m                     #    │└────────────────────────────────────────┘
-│                                 .                                                         #    │┌─ Nearby ───────────────────────────────┐
-│                                 .                                                         #    ││ $ Testgrounds Vendor       8m N vendor │
-│                                 .                                                         #    ││ $ Testgrounds Banker      9m NE banker │
-│                                 .                                                         #    ││ $ Testgrounds Binder     10m NE binder │
-│                                 .                                                         #    ││ & Testgrounds C… 11m NE contract_board │
-│                                 .                                                         #    ││ $ Warrior Trainer        12m N trainer │
-│                                 .                                                         #    ││ $ Cleric Trainer         13m N trainer │
-│                                 .                                                         #    ││ ? Testgrounds Capt… 13m NE quest_giver │
-│                                 .                                                         #    ││ ? Testgrounds Recr… 13m NE quest_giver │
-│                                 .                                                         #    ││ $ Rogue Trainer         13m NE trainer │
-│                                 .                                                         #    ││ $ Wizard Trainer        14m NE trainer │
-│                                 .                                                         #    ││ m Plain Scuttler      15m E 40/40 even │
-│                                 .                                                         #    ││ $ Paladin Trainer       16m NE trainer │
-│                                 .                                                         #    ││ +4 more                                │
+│                                  ░                                                       #     ││ aria  Lv 1  XP 0             | 0 crowns│
+│                                  ░                                                       #     ││ HP 100/100 ########################### │
+│                                  ░                                                       #     ││ Target: none                           │
+│                                  ░                                                       #     ││ Auto-attack: off                       │
+│                                  ░                                                       #     │└────────────────────────────────────────┘
+│                                  ░                                                       #     │┌─ Quest ────────────────────────────────┐
+│                                  ░                T  T T  T  T  T                        #     ││ [ ] 1. Scout the Lookout               │
+│                                  ░                                                       #     ││ Testgrounds Recruiter has work for you:│
+│                                  ░                $  B H  &  Q                           #     ││ G.                                     │
+│                                  ░                                                       #     │└────────────────────────────────────────┘
+│                                  ░                              !                        #     │┌─ Target ───────────────────────────────┐
+│                                  ░                                                       #     ││ no target (Tab to choose)              │
+│                                  ░                                                       #     ││                                        │
+│                                  ░                                                       #     ││                                        │
+│                                  ░             @                    m                    #     │└────────────────────────────────────────┘
+│                                  ░                                                       #     │┌─ Nearby ───────────────────────────────┐
+│                                  ░                                                       #     ││ & Testgrounds Contract B… 11m NE [new] │
+│                                  ░                                                       #     ││     <Contract Board>                   │
+│                                  ░                                                       #     ││ ! Testgrounds Recruiter   13m NE [new] │
+│                                  ░                                                       #     ││     <Quest Giver>                      │
+│                                  ░                                                       #     ││ $ Testgrounds Vendor <Vendor>     8m N │
+│                                  ░                                                       #     ││ B Testgrounds Banker <Banker>    9m NE │
+│                                  ░                                                       #     ││ H Testgrounds Binder <Binder>   10m NE │
+│                                  ░                                                       #     ││ T Warrior Trainer                12m N │
+│                                  ░                                                       #     ││     <Warrior Trainer>                  │
+│                                  ░                                                       #     ││ T Cleric Trainer                 13m N │
+│                                  ░                                                       #     ││     <Cleric Trainer>                   │
+│                                  ░                                                       #     ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ nothing has happened yet                                                                                                                 │
@@ -42,4 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ Tab: target · F: attack                                                                                                                    
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

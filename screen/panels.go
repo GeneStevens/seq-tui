@@ -305,14 +305,22 @@ func nearbyLines(m *model.Model, w, h int, st Styler) []string {
 		if n.target {
 			g = upper(g)
 		}
-		if len(rows) == h-1 && i < len(list)-1 {
+		room := w - width(right) - 4
+		name, title := n.name, ""
+		if n.title != "" {
+			if full := name + " <" + n.title + ">"; width(full) <= room {
+				name = full
+			} else {
+				title = "<" + n.title + ">" // the title goes on a line of its own
+			}
+		}
+		need := 1
+		if title != "" {
+			need = 2
+		}
+		if i < len(list)-1 && len(rows)+need >= h {
 			rows = append(rows, fit(fmt.Sprintf(" +%d more", len(list)-i), w))
 			break
-		}
-		room := w - width(right) - 4
-		name := n.name
-		if n.title != "" {
-			name += " <" + n.title + ">"
 		}
 		line := fit(" "+string(g)+" "+fit(name, max(room, 1)), w-width(right)-1) + " " + right
 		line = fit(line, w)
@@ -320,6 +328,9 @@ func nearbyLines(m *model.Model, w, h int, st Styler) []string {
 			line = st.Reverse(line)
 		}
 		rows = append(rows, line)
+		if title != "" {
+			rows = append(rows, st.Dim(fit("     "+title, w)))
+		}
 	}
 	if len(list) == 0 {
 		rows = append(rows, fit(" nothing in view", w))
@@ -399,7 +410,7 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 	}
 	var all []styled
 	for _, e := range m.Log {
-		if !v.Verbose && (e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed" || e.Kind == "unknown") {
+		if !v.Verbose && (e.Quiet || e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed" || e.Kind == "unknown") {
 			continue
 		}
 		mark, fn := " ", func(s string) string { return s }

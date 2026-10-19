@@ -1,45 +1,45 @@
 ┌─ Testgrounds, at 20,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                   .                                                         #                  ││ aria  Lv 1  XP 0             | 0 crowns│
-│                   .                                                         #                  ││ DEAD  HP 0/6                           │
-│                   .                                                         #                  ││ Target: none                           │
-│                   .                                                         #                  ││ Released: back in 5 s                  │
-│                   .                                                         #                  │└────────────────────────────────────────┘
-│                   .                $  $  $  $  $  $                         #                  │┌─ Quest ────────────────────────────────┐
-│                   .                                                         #                  ││ [ ] 1. Scout the Lookout               │
-│                   .                                                         #                  ││ Testgrounds Recruiter has work for you:│
-│                   .                $  $  $  &  ?                            #                  ││ G.                                     │
-│                   .                               ?                         #                  │└────────────────────────────────────────┘
-│                   .                                                         #                  │┌─ Target ───────────────────────────────┐
-│                   .                                                         #                  ││ no target (Tab to choose)              │
-│                   .                                                         #                  ││                                        │
-│                   .                              m                          #                  ││                                        │
-│                   .                            @      c                     #                  │└────────────────────────────────────────┘
-│                   .                                                         #                  │┌─ Nearby ───────────────────────────────┐
-│                   .                                                         #                  ││ m Plain Scuttler       2m E 40/40 even │
-│                   .                                                         #                  ││ ? Testgrounds Recrui… 6m N quest_giver │
-│                   .                                                         #                  ││ ? Testgrounds Captain 8m N quest_giver │
-│                   .                                                         #                  ││ & Testgrounds Con… 8m N contract_board │
-│                   .                                                         #                  ││ $ Testgrounds Binder      9m NW binder │
-│                   .                                                         #                  ││ $ Testgrounds Banker     10m NW banker │
-│                   .                                                         #                  ││ $ Testgrounds Vendor     11m NW vendor │
-│                   .                                                         #                  ││ $ Paladin Trainer        12m N trainer │
-│                   .                                                         #                  ││ $ Druid Trainer          12m N trainer │
-│                   .                                                         #                  ││ $ Wizard Trainer         12m N trainer │
-│                   .                                                         #                  ││ $ Rogue Trainer          13m N trainer │
-│                   .                                                         #                  ││ $ Cleric Trainer        13m NW trainer │
-│                   .                                                         #                  ││ +4 more                                │
+│                    ░                                                       #                   ││ aria  Lv 1  XP 0             | 0 crowns│
+│                    ░                                                       #                   ││ DEAD  HP 0/6                           │
+│                    ░                                                       #                   ││ Target: none                           │
+│                    ░                                                       #                   ││ Released: back in 5 s                  │
+│                    ░                                                       #                   │└────────────────────────────────────────┘
+│                    ░                                                       #                   │┌─ Quest ────────────────────────────────┐
+│                    ░                T  T T  T  T  T                        #                   ││ [ ] 1. Scout the Lookout               │
+│                    ░                                                       #                   ││ Testgrounds Recruiter has work for you:│
+│                    ░                $  B H  &  Q                           #                   ││ G.                                     │
+│                    ░                                                       #                   │└────────────────────────────────────────┘
+│                    ░                              !                        #                   │┌─ Target ───────────────────────────────┐
+│                    ░                                                       #                   ││ no target (Tab to choose)              │
+│                    ░                                                       #                   ││                                        │
+│                    ░                                                       #                   ││                                        │
+│                    ░                           @ m    c                    #                   │└────────────────────────────────────────┘
+│                    ░                                                       #                   │┌─ Nearby ───────────────────────────────┐
+│                    ░                                                       #                   ││ ! Testgrounds Recruiter     6m N [new] │
+│                    ░                                                       #                   ││     <Quest Giver>                      │
+│                    ░                                                       #                   ││ & Testgrounds Contract Boa… 8m N [new] │
+│                    ░                                                       #                   ││     <Contract Board>                   │
+│                    ░                                                       #                   ││ m Plain Scuttler       2m E 40/40 even │
+│                    ░                                                       #                   ││ Q Testgrounds Captain             8m N │
+│                    ░                                                       #                   ││     <Quest Giver>                      │
+│                    ░                                                       #                   ││ H Testgrounds Binder <Binder>    9m NW │
+│                    ░                                                       #                   ││ B Testgrounds Banker <Banker>   10m NW │
+│                    ░                                                       #                   ││ $ Testgrounds Vendor <Vendor>   11m NW │
+│                    ░                                                       #                   ││ +9 more                                │
+│                    ░                                                       #                   ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.1s Plain Scuttler began attacking aria                                                                                             │
-│ <   1.1s Plain Scuttler hit aria for 2                                                                                                   │
-│ <   4.1s Plain Scuttler hit aria for 1                                                                                                   │
-│     6.0s aria healed 2                                                                                                                   │
-│ <   7.1s Plain Scuttler hit aria for 3                                                                                                   │
-│ <  10.1s Plain Scuttler hit aria for 2                                                                                                   │
-│ x  10.1s Plain Scuttler killed aria                                                                                                      │
-│    10.1s Plain Scuttler's target aria cleared: target_dead                                                                               │
-│    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead                                                                   │
+│ <   1.1s Plain Scuttler hits you for 2                                                                                                   │
+│ <   4.1s Plain Scuttler hits you for 1                                                                                                   │
+│ <   7.1s Plain Scuttler hits you for 3                                                                                                   │
+│ <  10.1s Plain Scuttler hits you for 2                                                                                                   │
+│ x  10.1s Plain Scuttler killed you                                                                                                       │
+│    10.1s Your target is gone                                                                                                             │
+│    10.1s Your target Plain Scuttler is gone                                                                                              │
+│    10.1s Everyone in the fight with Plain Scuttler has fallen                                                                            │
+│    10.1s You are out of combat                                                                                                           │
 │    11.0s Plain Scuttler reset to 40 hp                                                                                                   │
-│    30.2s aria released; respawns in 5 s                                                                                                  │
+│    30.2s You release your body and will return in 5 seconds                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ R: release your body and wake at your bind point                                                                                           
  ONLINE | Testgrounds | heard 0.4s ago | release ok                                                                           ? help  q quit

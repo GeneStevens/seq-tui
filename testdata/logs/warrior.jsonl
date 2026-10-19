@@ -1,12 +1,12 @@
 {"welcome":{"protocol_version":1,"min_protocol_version":1,"tick_ms":100,"limits":{"max_message_bytes":4096,"max_intents_per_second":20},"classes":[{"id":"warrior","name":"Warrior","roles":["tank"],"description":"Armored front-liner who holds enemies' attention and soaks up their blows.","kit":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"Stuns for 1.5 s, interrupts a cast. On an enemy within 2.5 m."}]},{"id":"cleric","name":"Cleric","roles":["healer"],"description":"Healer who mends wounds and wards allies, with a hallowed blow of their own.","kit":[{"id":"cleric-minor-heal","name":"Minor Heal","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"ally","description":"Heals 15-20. On an ally within 25 m."},{"id":"cleric-smite","name":"Smite","cast_ms":"1500","cooldown_ms":"6000","mana_cost":"8","range_mm":"25000","target":"enemy","description":"Deals 10-14 holy damage. On an enemy within 25 m."}]},{"id":"rogue","name":"Rogue","roles":["melee"],"description":"Quick melee striker: sneaks, backstabs, bleeds enemies and slips out of fights.","kit":[{"id":"rogue-backstab","name":"Backstab","cooldown_ms":"9000","range_mm":"2500","target":"enemy","description":"Deals 12-18 physical damage. On an enemy within 2.5 m."},{"id":"rogue-sneak","name":"Sneak","cooldown_ms":"6000","target":"self","description":"Hides you until you act. On yourself."}]},{"id":"wizard","name":"Wizard","roles":["spell"],"description":"Fragile caster with the strongest spells, from bolts of fire and frost to roots.","kit":[{"id":"wizard-flame-dart","name":"Flame Dart","cast_ms":"1000","mana_cost":"6","range_mm":"25000","target":"enemy","description":"Deals 8-12 fire damage. On an enemy within 25 m."},{"id":"wizard-frost-bolt","name":"Frost Bolt","cast_ms":"2000","mana_cost":"12","range_mm":"25000","target":"enemy","description":"Deals 10-14 cold damage, slows by 40% for 12 s. On an enemy within 25 m."}]},{"id":"paladin","name":"Paladin","roles":["tank","healer"],"description":"Armored hybrid who fights at the front and can heal, cleanse and judge.","kit":[{"id":"paladin-hallowed-blow","name":"Hallowed Blow","cooldown_ms":"12000","range_mm":"2500","target":"enemy","description":"Deals 8-12 holy damage, heals you for 50% of the damage you deal. On an enemy within 2.5 m."},{"id":"paladin-challenge","name":"Challenge","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."}]},{"id":"druid","name":"Druid","roles":["healer","spell"],"description":"Nature caster who heals over time, entangles and slows enemies, and poisons them.","kit":[{"id":"druid-thorn-bolt","name":"Thorn Bolt","cast_ms":"1500","mana_cost":"7","range_mm":"25000","target":"enemy","description":"Deals 8-12 nature damage. On an enemy within 25 m."},{"id":"druid-mend","name":"Mend","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"ally","description":"Heals 14-18. On an ally within 25 m."}]}]}}
-{"snapshot":{"game_time_ms":"100","tick":"1","space":"Testgrounds","self":{"entity":{"id":"gorm","kind":"ENTITY_KIND_CHARACTER","name":"gorm","pos":{"x":"10000","y":"50000"},"hp":"120","max_hp":"120","level":"1"},"stats":{"level":"1","max_hp":"120","regen":"2","armor":"14","strength":"22","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"Stuns for 1.5 s, interrupts a cast. On an enemy within 2.5 m."},{"id":"warrior-second-wind","name":"Second Wind","cooldown_ms":"90000","target":"self","description":"Heals you for 35% of the damage you deal for 12 s. On yourself."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"},{"slot":3,"ability":"warrior-second-wind"}],"gcd_ms":"1500","class":"warrior","xp_next_level":"40","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000"},"entities":[{"id":"mob-near-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"24701","y":"50023"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"npcs":[{"id":"vendor","name":"Testgrounds Vendor","role":"vendor","pos":{"x":"12000","y":"58000"},"stock":[{"item":"shell-fragment","price":"1"},{"item":"worn-cap","price":"8"},{"item":"padded-vest","price":"20"},{"item":"padded-leggings","price":"16"},{"item":"padded-gloves","price":"8"},{"item":"stout-boots","price":"10"},{"item":"copper-ring","price":"40"},{"item":"bone-charm","price":"45"},{"item":"plain-club","price":"15"},{"item":"buckler","price":"12"}],"reach_mm":"5000"},{"id":"banker","name":"Testgrounds Banker","role":"banker","pos":{"x":"14000","y":"58000"},"reach_mm":"5000"},{"id":"binder","name":"Testgrounds Binder","role":"binder","pos":{"x":"16000","y":"58000"},"reach_mm":"5000","bind_fee":"20"},{"id":"trainer-warrior","name":"Warrior Trainer","role":"trainer","pos":{"x":"12000","y":"62000"},"trains":[{"ability":"warrior-taunt","level":"1","known":true,"info":{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."}},{"ability":"warrior-bash","level":"1","known":true,"info":{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"Stuns for 1.5 s, interrupts a cast. On an enemy within 2.5 m."}},{"ability":"warrior-second-wind","level":"1","known":true,"info":{"id":"warrior-second-wind","name":"Second Wind","cooldown_ms":"90000","target":"self","description":"Heals you for 35% of the damage you deal for 12 s. On yourself."}},{"ability":"warrior-bulwark-stance","level":"5","cost":"75","info":{"id":"warrior-bulwark-stance","name":"Bulwark Stance","cooldown_ms":"120000","target":"self","description":"Changes damage taken pct by -40% for 12 s. On yourself."}},{"ability":"warrior-cleave","level":"7","cost":"105","info":{"id":"warrior-cleave","name":"Cleave","cooldown_ms":"12000","range_mm":"2500","target":"enemy","description":"Deals 6-10 physical damage. On an enemy within 2.5 m, and 1 more near it."}},{"ability":"warrior-rallying-shout","level":"9","cost":"135","info":{"id":"warrior-rallying-shout","name":"Rallying Shout","cooldown_ms":"60000","target":"encounter","description":"Adds 200 threat. On every enemy you are fighting."}},{"ability":"warrior-sunder","level":"11","cost":"165","info":{"id":"warrior-sunder","name":"Sunder","cooldown_ms":"30000","range_mm":"2500","target":"enemy","description":"Changes armor by -10 for 30 s, adds 150 threat. On an enemy within 2.5 m."}}],"reach_mm":"5000"},{"id":"trainer-cleric","name":"Cleric Trainer","role":"trainer","pos":{"x":"14000","y":"62000"},"reach_mm":"5000"},{"id":"trainer-rogue","name":"Rogue Trainer","role":"trainer","pos":{"x":"16000","y":"62000"},"reach_mm":"5000"},{"id":"trainer-wizard","name":"Wizard Trainer","role":"trainer","pos":{"x":"18000","y":"62000"},"reach_mm":"5000"},{"id":"trainer-paladin","name":"Paladin Trainer","role":"trainer","pos":{"x":"20000","y":"62000"},"reach_mm":"5000"},{"id":"trainer-druid","name":"Druid Trainer","role":"trainer","pos":{"x":"22000","y":"62000"},"reach_mm":"5000"},{"id":"board","name":"Testgrounds Contract Board","role":"contract_board","pos":{"x":"18000","y":"58000"},"offers":[{"id":"hunt-scuttlers","name":"Thin the Scuttlers","description":"Kill 2 scuttlers on the Testgrounds.","kind":"hunt","need":"2","min_level":"1","reward":{"xp":"25","crowns":"10"}},{"id":"gather-shells","name":"Bring Back Shell Fragments","description":"Bring back 2 shell fragments that scuttlers drop.","kind":"gather","need":"2","min_level":"1","reward":{"xp":"15","crowns":"6","item":"worn-cap"}},{"id":"scout-overlook","name":"Report from the Overlook","description":"Reach the overlook and report back to the board.","kind":"scout","need":"1","min_level":"1","reward":{"xp":"20","crowns":"8"}},{"id":"bounty-brute","name":"Bounty on a Den Brute","description":"Defeat a Den Brute in a Peril instance.","kind":"bounty","need":"1","min_level":"1","reward":{"xp":"60","crowns":"40"}}],"reach_mm":"5000"},{"id":"captain","name":"Testgrounds Captain","role":"quest_giver","pos":{"x":"20000","y":"58000"},"reach_mm":"5000"},{"id":"recruiter","name":"Testgrounds Recruiter","role":"quest_giver","pos":{"x":"22000","y":"56000"},"roles":["contract_board"],"offers":[{"id":"companion-scout-lookout","name":"Scout the Lookout","description":"Walk out to the lookout, see what is there, and report back to the recruiter.","kind":"scout","need":"1","min_level":"1","reward":{"xp":"20","crowns":"8"},"quest":"companion","step":"1"}],"reach_mm":"5000"}],"items":[{"id":"bone-charm","name":"Bone Charm","slot":"neck","tier":"fine","price":"45","sell_price":"11","stats":{"stamina":"3"}},{"id":"buckler","name":"Buckler","slot":"off_hand","tier":"common","price":"12","sell_price":"3","stats":{"armor":"3"}},{"id":"copper-ring","name":"Copper Ring","slot":"ring","tier":"fine","price":"40","sell_price":"10","stats":{"strength":"2"}},{"id":"padded-gloves","name":"Padded Gloves","slot":"hands","tier":"common","price":"8","sell_price":"2","stats":{"accuracy":"2","armor":"1"}},{"id":"padded-leggings","name":"Padded Leggings","slot":"legs","tier":"common","price":"16","sell_price":"4","stats":{"armor":"3"}},{"id":"padded-vest","name":"Padded Vest","slot":"chest","tier":"common","price":"20","sell_price":"5","stats":{"max_hp":"10","armor":"4"}},{"id":"plain-club","name":"Plain Club","slot":"main_hand","tier":"common","price":"15","sell_price":"3","stats":{"weapon_min":"2","weapon_max":"5","weapon_delay_ms":"2500"}},{"id":"shell-fragment","name":"Cracked Shell Fragment","tier":"common","price":"1","sell_price":"1","stats":{}},{"id":"stout-boots","name":"Stout Boots","slot":"feet","tier":"common","price":"10","sell_price":"2","stats":{"armor":"2"}},{"id":"worn-cap","name":"Worn Cap","slot":"head","tier":"common","price":"8","sell_price":"2","stats":{"armor":"2"}}]}}
-{"zone_map":{"space":"Testgrounds","name":"Testgrounds","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"line-east","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"195000","y":"10000"},"name":"Line East","leads_to":"outskirts"},{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North"}],"view_radius_mm":"20000","instance_presets":[{"id":"skirmish","name":"Scuttler Skirmish","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"solo-trial","name":"Solo Trial","time_mode":"realtime","party_cap":"1","difficulty":"normal","presence":"directed","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"venture-den","name":"Venture Den","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"peril-den","name":"Peril Den","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"peril","entry_fee":"50"},{"id":"long-game","name":"Long Game","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"gate-north","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"100","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"quick-turns","name":"Quick Turns","time_mode":"turn_based","party_cap":"1","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"20000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"duo-turns","name":"Duo Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"6000","sleep_limit_ms":"604800000","tier":"venture"}],"markers":[{"id":"line-east","kind":"zone_line","pos":{"x":"195000","y":"10000"}},{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}},{"id":"overlook","kind":"scout","pos":{"x":"30000","y":"20000"}},{"id":"lookout","kind":"scout","pos":{"x":"35000","y":"8000"}},{"id":"raid-edge","kind":"event_spawn","pos":{"x":"150000","y":"20000"}},{"id":"raid-farms","kind":"event_goal","pos":{"x":"100000","y":"20000"}}],"camps":[{"id":"near","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"25000","y":"50000"}},{"id":"behind-wall","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"55000","y":"50000"}},{"id":"far","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"180000","y":"80000"}},{"id":"post","mob":"Placeholder Warden","level":"1","count":"1","pos":{"x":"10000","y":"20000"}},{"id":"trophy","mob":"Trophy Scuttler","level":"1","count":"1","pos":{"x":"100000","y":"50000"}},{"id":"lair","mob":"Den Brute","level":"1","count":"1","pos":{"x":"130000","y":"80000"}}],"npcs":[{"id":"vendor","name":"Testgrounds Vendor","role":"vendor","pos":{"x":"12000","y":"58000"}},{"id":"banker","name":"Testgrounds Banker","role":"banker","pos":{"x":"14000","y":"58000"}},{"id":"binder","name":"Testgrounds Binder","role":"binder","pos":{"x":"16000","y":"58000"}},{"id":"binder-east","name":"Eastern Binder","role":"binder","pos":{"x":"120000","y":"20000"}},{"id":"trainer-warrior","name":"Warrior Trainer","role":"trainer","pos":{"x":"12000","y":"62000"}},{"id":"trainer-cleric","name":"Cleric Trainer","role":"trainer","pos":{"x":"14000","y":"62000"}},{"id":"trainer-rogue","name":"Rogue Trainer","role":"trainer","pos":{"x":"16000","y":"62000"}},{"id":"trainer-wizard","name":"Wizard Trainer","role":"trainer","pos":{"x":"18000","y":"62000"}},{"id":"trainer-paladin","name":"Paladin Trainer","role":"trainer","pos":{"x":"20000","y":"62000"}},{"id":"trainer-druid","name":"Druid Trainer","role":"trainer","pos":{"x":"22000","y":"62000"}},{"id":"board","name":"Testgrounds Contract Board","role":"contract_board","pos":{"x":"18000","y":"58000"}},{"id":"captain","name":"Testgrounds Captain","role":"quest_giver","pos":{"x":"20000","y":"58000"}},{"id":"recruiter","name":"Testgrounds Recruiter","role":"quest_giver","pos":{"x":"22000","y":"56000"}}]}}
+{"snapshot":{"game_time_ms":"100","tick":"1","space":"Testgrounds","self":{"entity":{"id":"gorm","kind":"ENTITY_KIND_CHARACTER","name":"gorm","pos":{"x":"10000","y":"50000"},"hp":"120","max_hp":"120","level":"1"},"stats":{"level":"1","max_hp":"120","regen":"2","armor":"14","strength":"22","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"Stuns for 1.5 s, interrupts a cast. On an enemy within 2.5 m."},{"id":"warrior-second-wind","name":"Second Wind","cooldown_ms":"90000","target":"self","description":"Heals you for 35% of the damage you deal for 12 s. On yourself."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"},{"slot":3,"ability":"warrior-second-wind"}],"gcd_ms":"1500","class":"warrior","xp_next_level":"40","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","hints":[{"kind":"offer","id":"board","pos":{"x":"18000","y":"58000"},"label":"New contracts","note":"4 to take"},{"kind":"offer","id":"recruiter","pos":{"x":"22000","y":"56000"},"label":"New contracts","note":"1 to take"}]},"entities":[{"id":"mob-near-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"24701","y":"50023"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"npcs":[{"id":"vendor","name":"Testgrounds Vendor","role":"vendor","pos":{"x":"12000","y":"58000"},"stock":[{"item":"shell-fragment","price":"1"},{"item":"worn-cap","price":"8"},{"item":"padded-vest","price":"20"},{"item":"padded-leggings","price":"16"},{"item":"padded-gloves","price":"8"},{"item":"stout-boots","price":"10"},{"item":"copper-ring","price":"40"},{"item":"bone-charm","price":"45"},{"item":"plain-club","price":"15"},{"item":"buckler","price":"12"}],"reach_mm":"5000","title":"Vendor"},{"id":"banker","name":"Testgrounds Banker","role":"banker","pos":{"x":"14000","y":"58000"},"reach_mm":"5000","title":"Banker"},{"id":"binder","name":"Testgrounds Binder","role":"binder","pos":{"x":"16000","y":"58000"},"reach_mm":"5000","bind_fee":"20","title":"Binder"},{"id":"trainer-warrior","name":"Warrior Trainer","role":"trainer","pos":{"x":"12000","y":"62000"},"trains":[{"ability":"warrior-taunt","level":"1","known":true,"info":{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."}},{"ability":"warrior-bash","level":"1","known":true,"info":{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"Stuns for 1.5 s, interrupts a cast. On an enemy within 2.5 m."}},{"ability":"warrior-second-wind","level":"1","known":true,"info":{"id":"warrior-second-wind","name":"Second Wind","cooldown_ms":"90000","target":"self","description":"Heals you for 35% of the damage you deal for 12 s. On yourself."}},{"ability":"warrior-bulwark-stance","level":"5","cost":"75","info":{"id":"warrior-bulwark-stance","name":"Bulwark Stance","cooldown_ms":"120000","target":"self","description":"Changes damage taken pct by -40% for 12 s. On yourself."}},{"ability":"warrior-cleave","level":"7","cost":"105","info":{"id":"warrior-cleave","name":"Cleave","cooldown_ms":"12000","range_mm":"2500","target":"enemy","description":"Deals 6-10 physical damage. On an enemy within 2.5 m, and 1 more near it."}},{"ability":"warrior-rallying-shout","level":"9","cost":"135","info":{"id":"warrior-rallying-shout","name":"Rallying Shout","cooldown_ms":"60000","target":"encounter","description":"Adds 200 threat. On every enemy you are fighting."}},{"ability":"warrior-sunder","level":"11","cost":"165","info":{"id":"warrior-sunder","name":"Sunder","cooldown_ms":"30000","range_mm":"2500","target":"enemy","description":"Changes armor by -10 for 30 s, adds 150 threat. On an enemy within 2.5 m."}}],"reach_mm":"5000","title":"Warrior Trainer"},{"id":"trainer-cleric","name":"Cleric Trainer","role":"trainer","pos":{"x":"14000","y":"62000"},"reach_mm":"5000","title":"Cleric Trainer"},{"id":"trainer-rogue","name":"Rogue Trainer","role":"trainer","pos":{"x":"16000","y":"62000"},"reach_mm":"5000","title":"Rogue Trainer"},{"id":"trainer-wizard","name":"Wizard Trainer","role":"trainer","pos":{"x":"18000","y":"62000"},"reach_mm":"5000","title":"Wizard Trainer"},{"id":"trainer-paladin","name":"Paladin Trainer","role":"trainer","pos":{"x":"20000","y":"62000"},"reach_mm":"5000","title":"Paladin Trainer"},{"id":"trainer-druid","name":"Druid Trainer","role":"trainer","pos":{"x":"22000","y":"62000"},"reach_mm":"5000","title":"Druid Trainer"},{"id":"board","name":"Testgrounds Contract Board","role":"contract_board","pos":{"x":"18000","y":"58000"},"offers":[{"id":"hunt-scuttlers","name":"Thin the Scuttlers","description":"Kill 2 scuttlers on the Testgrounds.","kind":"hunt","need":"2","min_level":"1","reward":{"xp":"25","crowns":"10"}},{"id":"gather-shells","name":"Bring Back Shell Fragments","description":"Bring back 2 shell fragments that scuttlers drop.","kind":"gather","need":"2","min_level":"1","reward":{"xp":"15","crowns":"6","item":"worn-cap"}},{"id":"scout-overlook","name":"Report from the Overlook","description":"Reach the overlook and report back to the board.","kind":"scout","need":"1","min_level":"1","reward":{"xp":"20","crowns":"8"}},{"id":"bounty-brute","name":"Bounty on a Den Brute","description":"Defeat a Den Brute in a Peril instance.","kind":"bounty","need":"1","min_level":"1","reward":{"xp":"60","crowns":"40"}}],"reach_mm":"5000","title":"Contract Board"},{"id":"captain","name":"Testgrounds Captain","role":"quest_giver","pos":{"x":"20000","y":"58000"},"reach_mm":"5000","title":"Quest Giver"},{"id":"recruiter","name":"Testgrounds Recruiter","role":"quest_giver","pos":{"x":"22000","y":"56000"},"roles":["contract_board"],"offers":[{"id":"companion-scout-lookout","name":"Scout the Lookout","description":"Walk out to the lookout, see what is there, and report back to the recruiter.","kind":"scout","need":"1","min_level":"1","reward":{"xp":"20","crowns":"8"},"quest":"companion","step":"1"}],"reach_mm":"5000","title":"Quest Giver"}],"items":[{"id":"bone-charm","name":"Bone Charm","slot":"neck","tier":"fine","price":"45","sell_price":"11","stats":{"stamina":"3"}},{"id":"buckler","name":"Buckler","slot":"off_hand","tier":"common","price":"12","sell_price":"3","stats":{"armor":"3"}},{"id":"copper-ring","name":"Copper Ring","slot":"ring","tier":"fine","price":"40","sell_price":"10","stats":{"strength":"2"}},{"id":"padded-gloves","name":"Padded Gloves","slot":"hands","tier":"common","price":"8","sell_price":"2","stats":{"accuracy":"2","armor":"1"}},{"id":"padded-leggings","name":"Padded Leggings","slot":"legs","tier":"common","price":"16","sell_price":"4","stats":{"armor":"3"}},{"id":"padded-vest","name":"Padded Vest","slot":"chest","tier":"common","price":"20","sell_price":"5","stats":{"max_hp":"10","armor":"4"}},{"id":"plain-club","name":"Plain Club","slot":"main_hand","tier":"common","price":"15","sell_price":"3","stats":{"weapon_min":"2","weapon_max":"5","weapon_delay_ms":"2500"}},{"id":"shell-fragment","name":"Cracked Shell Fragment","tier":"common","price":"1","sell_price":"1","stats":{}},{"id":"stout-boots","name":"Stout Boots","slot":"feet","tier":"common","price":"10","sell_price":"2","stats":{"armor":"2"}},{"id":"worn-cap","name":"Worn Cap","slot":"head","tier":"common","price":"8","sell_price":"2","stats":{"armor":"2"}}]}}
+{"zone_map":{"space":"Testgrounds","name":"Testgrounds","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"line-east","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"195000","y":"10000"},"name":"Line East","leads_to":"outskirts","label":"Line East — to the Outskirts"},{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North","label":"Gate North"}],"view_radius_mm":"20000","instance_presets":[{"id":"skirmish","name":"Scuttler Skirmish","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"solo-trial","name":"Solo Trial","time_mode":"realtime","party_cap":"1","difficulty":"normal","presence":"directed","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"venture-den","name":"Venture Den","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"peril-den","name":"Peril Den","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"peril","entry_fee":"50"},{"id":"long-game","name":"Long Game","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"gate-north","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"100","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"quick-turns","name":"Quick Turns","time_mode":"turn_based","party_cap":"1","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"20000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"duo-turns","name":"Duo Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"6000","sleep_limit_ms":"604800000","tier":"venture"}],"markers":[{"id":"line-east","kind":"zone_line","pos":{"x":"195000","y":"10000"}},{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}},{"id":"overlook","kind":"scout","pos":{"x":"30000","y":"20000"}},{"id":"lookout","kind":"scout","pos":{"x":"35000","y":"8000"}},{"id":"raid-edge","kind":"event_spawn","pos":{"x":"150000","y":"20000"}},{"id":"raid-farms","kind":"event_goal","pos":{"x":"100000","y":"20000"}}],"camps":[{"id":"near","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"25000","y":"50000"}},{"id":"behind-wall","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"55000","y":"50000"}},{"id":"far","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"180000","y":"80000"}},{"id":"post","mob":"Placeholder Warden","level":"1","count":"1","pos":{"x":"10000","y":"20000"}},{"id":"trophy","mob":"Trophy Scuttler","level":"1","count":"1","pos":{"x":"100000","y":"50000"}},{"id":"lair","mob":"Den Brute","level":"1","count":"1","pos":{"x":"130000","y":"80000"}}],"npcs":[{"id":"vendor","name":"Testgrounds Vendor","role":"vendor","pos":{"x":"12000","y":"58000"},"title":"Vendor"},{"id":"banker","name":"Testgrounds Banker","role":"banker","pos":{"x":"14000","y":"58000"},"title":"Banker"},{"id":"binder","name":"Testgrounds Binder","role":"binder","pos":{"x":"16000","y":"58000"},"title":"Binder"},{"id":"binder-east","name":"Eastern Binder","role":"binder","pos":{"x":"120000","y":"20000"},"title":"Binder"},{"id":"trainer-warrior","name":"Warrior Trainer","role":"trainer","pos":{"x":"12000","y":"62000"},"title":"Warrior Trainer"},{"id":"trainer-cleric","name":"Cleric Trainer","role":"trainer","pos":{"x":"14000","y":"62000"},"title":"Cleric Trainer"},{"id":"trainer-rogue","name":"Rogue Trainer","role":"trainer","pos":{"x":"16000","y":"62000"},"title":"Rogue Trainer"},{"id":"trainer-wizard","name":"Wizard Trainer","role":"trainer","pos":{"x":"18000","y":"62000"},"title":"Wizard Trainer"},{"id":"trainer-paladin","name":"Paladin Trainer","role":"trainer","pos":{"x":"20000","y":"62000"},"title":"Paladin Trainer"},{"id":"trainer-druid","name":"Druid Trainer","role":"trainer","pos":{"x":"22000","y":"62000"},"title":"Druid Trainer"},{"id":"board","name":"Testgrounds Contract Board","role":"contract_board","pos":{"x":"18000","y":"58000"},"title":"Contract Board"},{"id":"captain","name":"Testgrounds Captain","role":"quest_giver","pos":{"x":"20000","y":"58000"},"title":"Quest Giver"},{"id":"recruiter","name":"Testgrounds Recruiter","role":"quest_giver","pos":{"x":"22000","y":"56000"},"title":"Quest Giver"}]}}
 {"pong":{"nonce":"101"}}
 {"pong":{"nonce":"102"}}
 # mark warrior_new
 {"pong":{"nonce":"103"}}
 {"pong":{"nonce":"104"}}
-{"event":{"seq":"1","game_time_ms":"200","target_changed":{"actor":"gorm","target":"mob-near-1"}}}
+{"event":{"seq":"1","game_time_ms":"200","text":"You target Plain Scuttler","target_changed":{"actor":"gorm","target":"mob-near-1"}}}
 {"event":{"seq":"2","game_time_ms":"200","entity_moved":{"id":"mob-near-1","pos":{"x":"24402","y":"50046"}}}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
@@ -15,172 +15,176 @@
 {"pong":{"nonce":"107"}}
 {"pong":{"nonce":"108"}}
 {"pong":{"nonce":"109"}}
-{"event":{"seq":"3","game_time_ms":"300","ability_used":{"actor":"gorm","target":"mob-near-1","ability":"warrior-taunt","slot":1}}}
-{"event":{"seq":"4","game_time_ms":"300","encounter_opened":{"id":"enc-1","owner":"gorm","mob":"mob-near-1"}}}
+{"event":{"seq":"3","game_time_ms":"300","text":"You use Taunt on Plain Scuttler","ability_used":{"actor":"gorm","target":"mob-near-1","ability":"warrior-taunt","slot":1}}}
+{"event":{"seq":"4","game_time_ms":"300","text":"You begin fighting Plain Scuttler","encounter_opened":{"id":"enc-1","owner":"gorm","mob":"mob-near-1"}}}
 {"event":{"seq":"5","game_time_ms":"300","entity_moved":{"id":"mob-near-1","pos":{"x":"24103","y":"50069"}}}}
+{"event":{"seq":"6","game_time_ms":"300","text":"You are in combat with Plain Scuttler","combat_state":{"actor":"gorm","in_combat":true,"attackers":["mob-near-1"]}}}
 {"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"pong":{"nonce":"110"}}
 {"pong":{"nonce":"111"}}
 {"pong":{"nonce":"112"}}
 {"pong":{"nonce":"113"}}
 {"pong":{"nonce":"114"}}
-{"event":{"seq":"6","game_time_ms":"400","target_changed":{"actor":"mob-near-1","target":"gorm"}}}
-{"event":{"seq":"7","game_time_ms":"400","entity_moved":{"id":"mob-near-1","pos":{"x":"23804","y":"50092"}}}}
-{"event":{"seq":"8","game_time_ms":"500","entity_moved":{"id":"mob-near-1","pos":{"x":"23504","y":"50091"}}}}
-{"event":{"seq":"9","game_time_ms":"600","entity_moved":{"id":"mob-near-1","pos":{"x":"23204","y":"50089"}}}}
-{"event":{"seq":"10","game_time_ms":"700","entity_moved":{"id":"mob-near-1","pos":{"x":"22904","y":"50087"}}}}
-{"event":{"seq":"11","game_time_ms":"800","entity_moved":{"id":"mob-near-1","pos":{"x":"22604","y":"50085"}}}}
+{"event":{"seq":"7","game_time_ms":"400","target_changed":{"actor":"mob-near-1","target":"gorm"}}}
+{"event":{"seq":"8","game_time_ms":"400","entity_moved":{"id":"mob-near-1","pos":{"x":"23804","y":"50092"}}}}
+{"event":{"seq":"9","game_time_ms":"500","entity_moved":{"id":"mob-near-1","pos":{"x":"23504","y":"50091"}}}}
+{"event":{"seq":"10","game_time_ms":"600","entity_moved":{"id":"mob-near-1","pos":{"x":"23204","y":"50089"}}}}
+{"event":{"seq":"11","game_time_ms":"700","entity_moved":{"id":"mob-near-1","pos":{"x":"22904","y":"50087"}}}}
+{"event":{"seq":"12","game_time_ms":"800","entity_moved":{"id":"mob-near-1","pos":{"x":"22604","y":"50085"}}}}
 {"pong":{"nonce":"115"}}
 {"pong":{"nonce":"116"}}
 # mark warrior_taunt
 {"pong":{"nonce":"117"}}
 {"pong":{"nonce":"118"}}
-{"event":{"seq":"12","game_time_ms":"900","entity_moved":{"id":"mob-near-1","pos":{"x":"22304","y":"50083"}}}}
-{"event":{"seq":"13","game_time_ms":"1000","entity_moved":{"id":"mob-near-1","pos":{"x":"22004","y":"50081"}}}}
-{"event":{"seq":"14","game_time_ms":"1100","entity_moved":{"id":"mob-near-1","pos":{"x":"21704","y":"50079"}}}}
-{"event":{"seq":"15","game_time_ms":"1200","entity_moved":{"id":"mob-near-1","pos":{"x":"21404","y":"50077"}}}}
-{"event":{"seq":"16","game_time_ms":"1300","entity_moved":{"id":"mob-near-1","pos":{"x":"21104","y":"50075"}}}}
-{"event":{"seq":"17","game_time_ms":"1400","entity_moved":{"id":"mob-near-1","pos":{"x":"20804","y":"50073"}}}}
-{"event":{"seq":"18","game_time_ms":"1500","entity_moved":{"id":"mob-near-1","pos":{"x":"20504","y":"50071"}}}}
-{"event":{"seq":"19","game_time_ms":"1600","entity_moved":{"id":"mob-near-1","pos":{"x":"20204","y":"50069"}}}}
-{"event":{"seq":"20","game_time_ms":"1700","entity_moved":{"id":"mob-near-1","pos":{"x":"19904","y":"50067"}}}}
-{"event":{"seq":"21","game_time_ms":"1800","entity_moved":{"id":"mob-near-1","pos":{"x":"19604","y":"50065"}}}}
-{"event":{"seq":"22","game_time_ms":"1900","entity_moved":{"id":"mob-near-1","pos":{"x":"19304","y":"50063"}}}}
-{"event":{"seq":"23","game_time_ms":"2000","entity_moved":{"id":"mob-near-1","pos":{"x":"19004","y":"50061"}}}}
-{"event":{"seq":"24","game_time_ms":"2100","entity_moved":{"id":"mob-near-1","pos":{"x":"18704","y":"50059"}}}}
-{"event":{"seq":"25","game_time_ms":"2200","entity_moved":{"id":"mob-near-1","pos":{"x":"18404","y":"50057"}}}}
-{"event":{"seq":"26","game_time_ms":"2300","entity_moved":{"id":"mob-near-1","pos":{"x":"18104","y":"50055"}}}}
-{"event":{"seq":"27","game_time_ms":"2400","entity_moved":{"id":"mob-near-1","pos":{"x":"17804","y":"50053"}}}}
-{"event":{"seq":"28","game_time_ms":"2500","entity_moved":{"id":"mob-near-1","pos":{"x":"17504","y":"50051"}}}}
-{"event":{"seq":"29","game_time_ms":"2600","entity_moved":{"id":"mob-near-1","pos":{"x":"17204","y":"50049"}}}}
-{"event":{"seq":"30","game_time_ms":"2700","entity_moved":{"id":"mob-near-1","pos":{"x":"16904","y":"50047"}}}}
-{"event":{"seq":"31","game_time_ms":"2800","entity_moved":{"id":"mob-near-1","pos":{"x":"16604","y":"50045"}}}}
-{"event":{"seq":"32","game_time_ms":"2900","entity_moved":{"id":"mob-near-1","pos":{"x":"16304","y":"50043"}}}}
-{"event":{"seq":"33","game_time_ms":"3000","entity_moved":{"id":"mob-near-1","pos":{"x":"16004","y":"50041"}}}}
-{"event":{"seq":"34","game_time_ms":"3100","entity_moved":{"id":"mob-near-1","pos":{"x":"15704","y":"50039"}}}}
-{"event":{"seq":"35","game_time_ms":"3200","entity_moved":{"id":"mob-near-1","pos":{"x":"15404","y":"50037"}}}}
-{"event":{"seq":"36","game_time_ms":"3300","entity_moved":{"id":"mob-near-1","pos":{"x":"15104","y":"50035"}}}}
-{"event":{"seq":"37","game_time_ms":"3400","entity_moved":{"id":"mob-near-1","pos":{"x":"14804","y":"50033"}}}}
-{"event":{"seq":"38","game_time_ms":"3500","entity_moved":{"id":"mob-near-1","pos":{"x":"14504","y":"50031"}}}}
-{"event":{"seq":"39","game_time_ms":"3600","entity_moved":{"id":"mob-near-1","pos":{"x":"14204","y":"50029"}}}}
-{"event":{"seq":"40","game_time_ms":"3700","entity_moved":{"id":"mob-near-1","pos":{"x":"13904","y":"50027"}}}}
-{"event":{"seq":"41","game_time_ms":"3800","entity_moved":{"id":"mob-near-1","pos":{"x":"13604","y":"50025"}}}}
-{"event":{"seq":"42","game_time_ms":"3900","entity_moved":{"id":"mob-near-1","pos":{"x":"13304","y":"50023"}}}}
-{"event":{"seq":"43","game_time_ms":"4000","entity_moved":{"id":"mob-near-1","pos":{"x":"13004","y":"50021"}}}}
-{"event":{"seq":"44","game_time_ms":"4100","entity_moved":{"id":"mob-near-1","pos":{"x":"12704","y":"50019"}}}}
-{"event":{"seq":"45","game_time_ms":"4200","entity_moved":{"id":"mob-near-1","pos":{"x":"12404","y":"50017"}}}}
-{"event":{"seq":"46","game_time_ms":"4400","auto_attack_changed":{"actor":"mob-near-1","target":"gorm","on":true}}}
-{"event":{"seq":"47","game_time_ms":"4400","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"4"}}}
-{"event":{"seq":"48","game_time_ms":"6000","rules_tick":{}}}
-{"event":{"seq":"49","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"2"}}}
+{"event":{"seq":"13","game_time_ms":"900","entity_moved":{"id":"mob-near-1","pos":{"x":"22304","y":"50083"}}}}
+{"event":{"seq":"14","game_time_ms":"1000","entity_moved":{"id":"mob-near-1","pos":{"x":"22004","y":"50081"}}}}
+{"event":{"seq":"15","game_time_ms":"1100","entity_moved":{"id":"mob-near-1","pos":{"x":"21704","y":"50079"}}}}
+{"event":{"seq":"16","game_time_ms":"1200","entity_moved":{"id":"mob-near-1","pos":{"x":"21404","y":"50077"}}}}
+{"event":{"seq":"17","game_time_ms":"1300","entity_moved":{"id":"mob-near-1","pos":{"x":"21104","y":"50075"}}}}
+{"event":{"seq":"18","game_time_ms":"1400","entity_moved":{"id":"mob-near-1","pos":{"x":"20804","y":"50073"}}}}
+{"event":{"seq":"19","game_time_ms":"1500","entity_moved":{"id":"mob-near-1","pos":{"x":"20504","y":"50071"}}}}
+{"event":{"seq":"20","game_time_ms":"1600","entity_moved":{"id":"mob-near-1","pos":{"x":"20204","y":"50069"}}}}
+{"event":{"seq":"21","game_time_ms":"1700","entity_moved":{"id":"mob-near-1","pos":{"x":"19904","y":"50067"}}}}
+{"event":{"seq":"22","game_time_ms":"1800","entity_moved":{"id":"mob-near-1","pos":{"x":"19604","y":"50065"}}}}
+{"event":{"seq":"23","game_time_ms":"1900","entity_moved":{"id":"mob-near-1","pos":{"x":"19304","y":"50063"}}}}
+{"event":{"seq":"24","game_time_ms":"2000","entity_moved":{"id":"mob-near-1","pos":{"x":"19004","y":"50061"}}}}
+{"event":{"seq":"25","game_time_ms":"2100","entity_moved":{"id":"mob-near-1","pos":{"x":"18704","y":"50059"}}}}
+{"event":{"seq":"26","game_time_ms":"2200","entity_moved":{"id":"mob-near-1","pos":{"x":"18404","y":"50057"}}}}
+{"event":{"seq":"27","game_time_ms":"2300","entity_moved":{"id":"mob-near-1","pos":{"x":"18104","y":"50055"}}}}
+{"event":{"seq":"28","game_time_ms":"2400","entity_moved":{"id":"mob-near-1","pos":{"x":"17804","y":"50053"}}}}
+{"event":{"seq":"29","game_time_ms":"2500","entity_moved":{"id":"mob-near-1","pos":{"x":"17504","y":"50051"}}}}
+{"event":{"seq":"30","game_time_ms":"2600","entity_moved":{"id":"mob-near-1","pos":{"x":"17204","y":"50049"}}}}
+{"event":{"seq":"31","game_time_ms":"2700","entity_moved":{"id":"mob-near-1","pos":{"x":"16904","y":"50047"}}}}
+{"event":{"seq":"32","game_time_ms":"2800","entity_moved":{"id":"mob-near-1","pos":{"x":"16604","y":"50045"}}}}
+{"event":{"seq":"33","game_time_ms":"2900","entity_moved":{"id":"mob-near-1","pos":{"x":"16304","y":"50043"}}}}
+{"event":{"seq":"34","game_time_ms":"3000","entity_moved":{"id":"mob-near-1","pos":{"x":"16004","y":"50041"}}}}
+{"event":{"seq":"35","game_time_ms":"3100","entity_moved":{"id":"mob-near-1","pos":{"x":"15704","y":"50039"}}}}
+{"event":{"seq":"36","game_time_ms":"3200","entity_moved":{"id":"mob-near-1","pos":{"x":"15404","y":"50037"}}}}
+{"event":{"seq":"37","game_time_ms":"3300","entity_moved":{"id":"mob-near-1","pos":{"x":"15104","y":"50035"}}}}
+{"event":{"seq":"38","game_time_ms":"3400","entity_moved":{"id":"mob-near-1","pos":{"x":"14804","y":"50033"}}}}
+{"event":{"seq":"39","game_time_ms":"3500","entity_moved":{"id":"mob-near-1","pos":{"x":"14504","y":"50031"}}}}
+{"event":{"seq":"40","game_time_ms":"3600","entity_moved":{"id":"mob-near-1","pos":{"x":"14204","y":"50029"}}}}
+{"event":{"seq":"41","game_time_ms":"3700","entity_moved":{"id":"mob-near-1","pos":{"x":"13904","y":"50027"}}}}
+{"event":{"seq":"42","game_time_ms":"3800","entity_moved":{"id":"mob-near-1","pos":{"x":"13604","y":"50025"}}}}
+{"event":{"seq":"43","game_time_ms":"3900","entity_moved":{"id":"mob-near-1","pos":{"x":"13304","y":"50023"}}}}
+{"event":{"seq":"44","game_time_ms":"4000","entity_moved":{"id":"mob-near-1","pos":{"x":"13004","y":"50021"}}}}
+{"event":{"seq":"45","game_time_ms":"4100","entity_moved":{"id":"mob-near-1","pos":{"x":"12704","y":"50019"}}}}
+{"event":{"seq":"46","game_time_ms":"4200","entity_moved":{"id":"mob-near-1","pos":{"x":"12404","y":"50017"}}}}
+{"event":{"seq":"47","game_time_ms":"4400","text":"You start attacking something","auto_attack_changed":{"actor":"mob-near-1","target":"gorm","on":true}}}
+{"event":{"seq":"48","game_time_ms":"4400","text":"Plain Scuttler hits you for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"4"}}}
+{"event":{"seq":"49","game_time_ms":"6000","rules_tick":{}}}
+{"event":{"seq":"50","game_time_ms":"6000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"2"}}}
 {"pong":{"nonce":"119"}}
 {"pong":{"nonce":"120"}}
 {"pong":{"nonce":"121"}}
-{"event":{"seq":"50","game_time_ms":"6900","auto_attack_changed":{"actor":"gorm","target":"mob-near-1","on":true}}}
-{"event":{"seq":"51","game_time_ms":"6900","combat":{"kind":"COMBAT_KIND_MISS","attacker":"gorm","target":"mob-near-1"}}}
+{"event":{"seq":"51","game_time_ms":"6900","text":"You start attacking Plain Scuttler","auto_attack_changed":{"actor":"gorm","target":"mob-near-1","on":true}}}
+{"event":{"seq":"52","game_time_ms":"6900","text":"You miss Plain Scuttler","combat":{"kind":"COMBAT_KIND_MISS","attacker":"gorm","target":"mob-near-1"}}}
 {"intent_result":{"intent_id":"tui-3","accepted":true}}
 {"pong":{"nonce":"122"}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
 {"pong":{"nonce":"125"}}
 {"pong":{"nonce":"126"}}
-{"event":{"seq":"52","game_time_ms":"7000","ability_used":{"actor":"gorm","target":"gorm","ability":"warrior-second-wind","slot":3}}}
-{"event":{"seq":"53","game_time_ms":"7000","effect_applied":{"source":"gorm","target":"gorm","ability":"warrior-second-wind","kind":"lifesteal","duration_ms":"12000"}}}
+{"event":{"seq":"53","game_time_ms":"7000","text":"You use Second Wind","ability_used":{"actor":"gorm","target":"gorm","ability":"warrior-second-wind","slot":3}}}
+{"event":{"seq":"54","game_time_ms":"7000","text":"You are affected by Second Wind","effect_applied":{"source":"gorm","target":"gorm","ability":"warrior-second-wind","kind":"lifesteal","duration_ms":"12000"}}}
 {"intent_result":{"intent_id":"tui-4","accepted":true}}
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
 {"pong":{"nonce":"129"}}
 {"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
-{"event":{"seq":"54","game_time_ms":"7400","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"4"}}}
+{"event":{"seq":"55","game_time_ms":"7400","text":"Plain Scuttler hits you for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"4"}}}
 {"pong":{"nonce":"132"}}
 {"pong":{"nonce":"133"}}
 # mark warrior_second_wind
 {"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
-{"event":{"seq":"55","game_time_ms":"8900","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"7"}}}
-{"event":{"seq":"56","game_time_ms":"8900","combat":{"kind":"COMBAT_KIND_HEAL","attacker":"gorm","target":"gorm","amount":"2","ability":"warrior-second-wind"}}}
+{"event":{"seq":"56","game_time_ms":"8900","text":"You hit Plain Scuttler for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"7"}}}
+{"event":{"seq":"57","game_time_ms":"8900","text":"You heal yourself for 2 with Second Wind","combat":{"kind":"COMBAT_KIND_HEAL","attacker":"gorm","target":"gorm","amount":"2","ability":"warrior-second-wind"}}}
 {"pong":{"nonce":"136"}}
 {"pong":{"nonce":"137"}}
 {"pong":{"nonce":"138"}}
-{"event":{"seq":"57","game_time_ms":"9300","ability_used":{"actor":"gorm","target":"mob-near-1","ability":"warrior-bash","slot":2}}}
-{"event":{"seq":"58","game_time_ms":"9300","effect_applied":{"source":"gorm","target":"mob-near-1","ability":"warrior-bash","kind":"stun","duration_ms":"1500"}}}
+{"event":{"seq":"58","game_time_ms":"9300","text":"You use Bash on Plain Scuttler","ability_used":{"actor":"gorm","target":"mob-near-1","ability":"warrior-bash","slot":2}}}
+{"event":{"seq":"59","game_time_ms":"9300","text":"Plain Scuttler is affected by Bash","effect_applied":{"source":"gorm","target":"mob-near-1","ability":"warrior-bash","kind":"stun","duration_ms":"1500"}}}
 {"intent_result":{"intent_id":"tui-5","accepted":true}}
 {"pong":{"nonce":"139"}}
 {"pong":{"nonce":"140"}}
 {"pong":{"nonce":"141"}}
 {"pong":{"nonce":"142"}}
 {"pong":{"nonce":"143"}}
-{"event":{"seq":"59","game_time_ms":"10800","effect_expired":{"source":"gorm","target":"mob-near-1","ability":"warrior-bash","kind":"stun"}}}
-{"event":{"seq":"60","game_time_ms":"10800","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"3"}}}
-{"event":{"seq":"61","game_time_ms":"10900","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"8"}}}
-{"event":{"seq":"62","game_time_ms":"10900","combat":{"kind":"COMBAT_KIND_HEAL","attacker":"gorm","target":"gorm","amount":"2","ability":"warrior-second-wind"}}}
-{"event":{"seq":"63","game_time_ms":"12000","rules_tick":{}}}
-{"event":{"seq":"64","game_time_ms":"12000","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"2"}}}
-{"event":{"seq":"65","game_time_ms":"12000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
-{"event":{"seq":"66","game_time_ms":"12900","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"8"}}}
-{"event":{"seq":"67","game_time_ms":"12900","combat":{"kind":"COMBAT_KIND_HEAL","attacker":"gorm","target":"gorm","amount":"2","ability":"warrior-second-wind"}}}
-{"event":{"seq":"68","game_time_ms":"13800","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"1"}}}
-{"event":{"seq":"69","game_time_ms":"14900","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"8"}}}
-{"event":{"seq":"70","game_time_ms":"14900","combat":{"kind":"COMBAT_KIND_HEAL","attacker":"gorm","target":"gorm","amount":"2","ability":"warrior-second-wind"}}}
-{"event":{"seq":"71","game_time_ms":"16800","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-near-1","target":"gorm"}}}
-{"event":{"seq":"72","game_time_ms":"16900","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"8"}}}
-{"event":{"seq":"73","game_time_ms":"18000","rules_tick":{}}}
-{"event":{"seq":"74","game_time_ms":"18000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
-{"event":{"seq":"75","game_time_ms":"18000","effect_expired":{"source":"gorm","target":"gorm","ability":"warrior-second-wind","kind":"lifesteal"}}}
-{"event":{"seq":"76","game_time_ms":"18900","combat":{"kind":"COMBAT_KIND_MISS","attacker":"gorm","target":"mob-near-1"}}}
-{"event":{"seq":"77","game_time_ms":"19800","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"1"}}}
-{"event":{"seq":"78","game_time_ms":"20900","combat":{"kind":"COMBAT_KIND_MISS","attacker":"gorm","target":"mob-near-1"}}}
-{"event":{"seq":"79","game_time_ms":"22800","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"4"}}}
-{"event":{"seq":"80","game_time_ms":"22900","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"6"}}}
-{"event":{"seq":"81","game_time_ms":"22900","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"gorm","target":"mob-near-1"}}}
-{"event":{"seq":"82","game_time_ms":"22900","target_cleared":{"actor":"gorm","target":"mob-near-1","reason":"target_dead"}}}
-{"event":{"seq":"83","game_time_ms":"22900","auto_attack_changed":{"actor":"gorm","target":"mob-near-1"}}}
-{"event":{"seq":"84","game_time_ms":"22900","loot_dropped":{"drop":"drop-enc-1-shell-fragment","mob":"mob-near-1","item":"shell-fragment","pos":{"x":"12404","y":"50017"},"encounter":"enc-1","can_loot":true,"item_info":{"id":"shell-fragment","name":"Cracked Shell Fragment","tier":"common","price":"1","sell_price":"1","stats":{}}}}}
-{"event":{"seq":"85","game_time_ms":"22900","encounter_closed":{"id":"enc-1","owner":"gorm","mob":"mob-near-1","reason":"mob_died"}}}
-{"event":{"seq":"86","game_time_ms":"22900","reward":{"recipient":"gorm","source":"mob-near-1","kind":"xp","amount":"20"}}}
-{"event":{"seq":"87","game_time_ms":"22900","entity_left":{"id":"mob-near-1"}}}
-{"event":{"seq":"88","game_time_ms":"24000","rules_tick":{}}}
-{"event":{"seq":"89","game_time_ms":"24000","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"2"}}}
-{"event":{"seq":"90","game_time_ms":"30000","rules_tick":{}}}
-{"event":{"seq":"91","game_time_ms":"30000","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"2"}}}
-{"event":{"seq":"92","game_time_ms":"36000","rules_tick":{}}}
-{"event":{"seq":"93","game_time_ms":"36000","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"1"}}}
-{"event":{"seq":"94","game_time_ms":"42000","rules_tick":{}}}
-{"event":{"seq":"95","game_time_ms":"48000","rules_tick":{}}}
-{"event":{"seq":"96","game_time_ms":"52900","entity_appeared":{"entity":{"id":"mob-near-2","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"24718","y":"49900"},"hp":"40","max_hp":"40","level":"1","con":"even"}}}}
-{"event":{"seq":"97","game_time_ms":"53000","entity_moved":{"id":"mob-near-2","pos":{"x":"24436","y":"49800"}}}}
-{"event":{"seq":"98","game_time_ms":"53100","entity_moved":{"id":"mob-near-2","pos":{"x":"24154","y":"49700"}}}}
-{"event":{"seq":"99","game_time_ms":"53200","entity_moved":{"id":"mob-near-2","pos":{"x":"23872","y":"49600"}}}}
-{"event":{"seq":"100","game_time_ms":"53300","entity_moved":{"id":"mob-near-2","pos":{"x":"23590","y":"49500"}}}}
-{"event":{"seq":"101","game_time_ms":"53400","entity_moved":{"id":"mob-near-2","pos":{"x":"23308","y":"49399"}}}}
-{"event":{"seq":"102","game_time_ms":"53500","entity_moved":{"id":"mob-near-2","pos":{"x":"23026","y":"49298"}}}}
-{"event":{"seq":"103","game_time_ms":"53600","entity_moved":{"id":"mob-near-2","pos":{"x":"22744","y":"49197"}}}}
-{"event":{"seq":"104","game_time_ms":"53700","entity_moved":{"id":"mob-near-2","pos":{"x":"22540","y":"49124"}}}}
-{"event":{"seq":"105","game_time_ms":"54000","rules_tick":{}}}
-{"event":{"seq":"106","game_time_ms":"60000","rules_tick":{}}}
-{"event":{"seq":"107","game_time_ms":"62900","entity_moved":{"id":"mob-near-2","pos":{"x":"22839","y":"49104"}}}}
-{"event":{"seq":"108","game_time_ms":"63000","entity_moved":{"id":"mob-near-2","pos":{"x":"23138","y":"49084"}}}}
-{"event":{"seq":"109","game_time_ms":"63100","entity_moved":{"id":"mob-near-2","pos":{"x":"23437","y":"49064"}}}}
-{"event":{"seq":"110","game_time_ms":"63200","entity_moved":{"id":"mob-near-2","pos":{"x":"23736","y":"49044"}}}}
-{"event":{"seq":"111","game_time_ms":"63300","entity_moved":{"id":"mob-near-2","pos":{"x":"24035","y":"49024"}}}}
-{"event":{"seq":"112","game_time_ms":"63400","entity_moved":{"id":"mob-near-2","pos":{"x":"24334","y":"49004"}}}}
-{"event":{"seq":"113","game_time_ms":"63500","entity_moved":{"id":"mob-near-2","pos":{"x":"24633","y":"48984"}}}}
-{"event":{"seq":"114","game_time_ms":"63600","entity_moved":{"id":"mob-near-2","pos":{"x":"24932","y":"48964"}}}}
-{"event":{"seq":"115","game_time_ms":"63700","entity_moved":{"id":"mob-near-2","pos":{"x":"25231","y":"48944"}}}}
-{"event":{"seq":"116","game_time_ms":"63800","entity_moved":{"id":"mob-near-2","pos":{"x":"25530","y":"48924"}}}}
-{"event":{"seq":"117","game_time_ms":"63900","entity_moved":{"id":"mob-near-2","pos":{"x":"25829","y":"48904"}}}}
-{"event":{"seq":"118","game_time_ms":"64000","entity_moved":{"id":"mob-near-2","pos":{"x":"26128","y":"48883"}}}}
-{"event":{"seq":"119","game_time_ms":"64100","entity_moved":{"id":"mob-near-2","pos":{"x":"26427","y":"48862"}}}}
-{"event":{"seq":"120","game_time_ms":"64200","entity_moved":{"id":"mob-near-2","pos":{"x":"26726","y":"48841"}}}}
-{"event":{"seq":"121","game_time_ms":"64300","entity_moved":{"id":"mob-near-2","pos":{"x":"27025","y":"48820"}}}}
-{"event":{"seq":"122","game_time_ms":"64400","entity_moved":{"id":"mob-near-2","pos":{"x":"27324","y":"48799"}}}}
-{"event":{"seq":"123","game_time_ms":"64500","entity_moved":{"id":"mob-near-2","pos":{"x":"27623","y":"48778"}}}}
-{"event":{"seq":"124","game_time_ms":"64600","entity_moved":{"id":"mob-near-2","pos":{"x":"27922","y":"48757"}}}}
-{"event":{"seq":"125","game_time_ms":"64700","entity_moved":{"id":"mob-near-2","pos":{"x":"28221","y":"48736"}}}}
-{"event":{"seq":"126","game_time_ms":"64800","entity_moved":{"id":"mob-near-2","pos":{"x":"28521","y":"48715"}}}}
-{"event":{"seq":"127","game_time_ms":"64900","entity_moved":{"id":"mob-near-2","pos":{"x":"28543","y":"48713"}}}}
-{"event":{"seq":"128","game_time_ms":"66000","rules_tick":{}}}
+{"event":{"seq":"60","game_time_ms":"10800","text":"Bash fades from Plain Scuttler","effect_expired":{"source":"gorm","target":"mob-near-1","ability":"warrior-bash","kind":"stun"}}}
+{"event":{"seq":"61","game_time_ms":"10800","text":"Plain Scuttler hits you for 3","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"3"}}}
+{"event":{"seq":"62","game_time_ms":"10900","text":"You hit Plain Scuttler for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"8"}}}
+{"event":{"seq":"63","game_time_ms":"10900","text":"You heal yourself for 2 with Second Wind","combat":{"kind":"COMBAT_KIND_HEAL","attacker":"gorm","target":"gorm","amount":"2","ability":"warrior-second-wind"}}}
+{"event":{"seq":"64","game_time_ms":"12000","rules_tick":{}}}
+{"event":{"seq":"65","game_time_ms":"12000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"2"}}}
+{"event":{"seq":"66","game_time_ms":"12000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
+{"event":{"seq":"67","game_time_ms":"12900","text":"You hit Plain Scuttler for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"8"}}}
+{"event":{"seq":"68","game_time_ms":"12900","text":"You heal yourself for 2 with Second Wind","combat":{"kind":"COMBAT_KIND_HEAL","attacker":"gorm","target":"gorm","amount":"2","ability":"warrior-second-wind"}}}
+{"event":{"seq":"69","game_time_ms":"13800","text":"Plain Scuttler hits you for 1","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"1"}}}
+{"event":{"seq":"70","game_time_ms":"14900","text":"You hit Plain Scuttler for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"8"}}}
+{"event":{"seq":"71","game_time_ms":"14900","text":"You heal yourself for 2 with Second Wind","combat":{"kind":"COMBAT_KIND_HEAL","attacker":"gorm","target":"gorm","amount":"2","ability":"warrior-second-wind"}}}
+{"event":{"seq":"72","game_time_ms":"16800","text":"Plain Scuttler misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-near-1","target":"gorm"}}}
+{"event":{"seq":"73","game_time_ms":"16900","text":"You hit Plain Scuttler for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"8"}}}
+{"event":{"seq":"74","game_time_ms":"18000","rules_tick":{}}}
+{"event":{"seq":"75","game_time_ms":"18000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
+{"event":{"seq":"76","game_time_ms":"18000","text":"Second Wind fades from you","effect_expired":{"source":"gorm","target":"gorm","ability":"warrior-second-wind","kind":"lifesteal"}}}
+{"event":{"seq":"77","game_time_ms":"18900","text":"You miss Plain Scuttler","combat":{"kind":"COMBAT_KIND_MISS","attacker":"gorm","target":"mob-near-1"}}}
+{"event":{"seq":"78","game_time_ms":"19800","text":"Plain Scuttler hits you for 1","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"1"}}}
+{"event":{"seq":"79","game_time_ms":"20900","text":"You miss Plain Scuttler","combat":{"kind":"COMBAT_KIND_MISS","attacker":"gorm","target":"mob-near-1"}}}
+{"event":{"seq":"80","game_time_ms":"22800","text":"Plain Scuttler hits you for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"gorm","amount":"4"}}}
+{"event":{"seq":"81","game_time_ms":"22900","text":"You hit Plain Scuttler for 6","combat":{"kind":"COMBAT_KIND_HIT","attacker":"gorm","target":"mob-near-1","amount":"6"}}}
+{"event":{"seq":"82","game_time_ms":"22900","text":"You killed Plain Scuttler","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"gorm","target":"mob-near-1"}}}
+{"event":{"seq":"83","game_time_ms":"22900","text":"Your target Plain Scuttler is gone","target_cleared":{"actor":"gorm","target":"mob-near-1","reason":"target_dead"}}}
+{"event":{"seq":"84","game_time_ms":"22900","text":"You stop attacking","auto_attack_changed":{"actor":"gorm","target":"mob-near-1"}}}
+{"event":{"seq":"85","game_time_ms":"22900","text":"Plain Scuttler dropped Cracked Shell Fragment","loot_dropped":{"drop":"drop-enc-1-shell-fragment","mob":"mob-near-1","item":"shell-fragment","pos":{"x":"12404","y":"50017"},"encounter":"enc-1","can_loot":true,"item_info":{"id":"shell-fragment","name":"Cracked Shell Fragment","tier":"common","price":"1","sell_price":"1","stats":{}}}}}
+{"event":{"seq":"86","game_time_ms":"22900","text":"Plain Scuttler is dead: the fight is over","encounter_closed":{"id":"enc-1","owner":"gorm","mob":"mob-near-1","reason":"mob_died"}}}
+{"event":{"seq":"87","game_time_ms":"22900","text":"You are out of combat","combat_state":{"actor":"gorm"}}}
+{"event":{"seq":"88","game_time_ms":"22900","text":"You gain 20 experience","reward":{"recipient":"gorm","source":"mob-near-1","kind":"xp","amount":"20"}}}
+{"event":{"seq":"89","game_time_ms":"22900","text":"Plain Scuttler is out of view","entity_left":{"id":"mob-near-1"}}}
+{"event":{"seq":"90","game_time_ms":"24000","rules_tick":{}}}
+{"event":{"seq":"91","game_time_ms":"24000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"2"}}}
+{"event":{"seq":"92","game_time_ms":"30000","rules_tick":{}}}
+{"event":{"seq":"93","game_time_ms":"30000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"2"}}}
+{"event":{"seq":"94","game_time_ms":"36000","rules_tick":{}}}
+{"event":{"seq":"95","game_time_ms":"36000","text":"You regenerate 1 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"gorm","amount":"1"}}}
+{"event":{"seq":"96","game_time_ms":"42000","rules_tick":{}}}
+{"event":{"seq":"97","game_time_ms":"48000","rules_tick":{}}}
+{"event":{"seq":"98","game_time_ms":"52900","text":"Plain Scuttler comes into view","entity_appeared":{"entity":{"id":"mob-near-2","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"24718","y":"49900"},"hp":"40","max_hp":"40","level":"1","con":"even"}}}}
+{"event":{"seq":"99","game_time_ms":"53000","entity_moved":{"id":"mob-near-2","pos":{"x":"24436","y":"49800"}}}}
+{"event":{"seq":"100","game_time_ms":"53100","entity_moved":{"id":"mob-near-2","pos":{"x":"24154","y":"49700"}}}}
+{"event":{"seq":"101","game_time_ms":"53200","entity_moved":{"id":"mob-near-2","pos":{"x":"23872","y":"49600"}}}}
+{"event":{"seq":"102","game_time_ms":"53300","entity_moved":{"id":"mob-near-2","pos":{"x":"23590","y":"49500"}}}}
+{"event":{"seq":"103","game_time_ms":"53400","entity_moved":{"id":"mob-near-2","pos":{"x":"23308","y":"49399"}}}}
+{"event":{"seq":"104","game_time_ms":"53500","entity_moved":{"id":"mob-near-2","pos":{"x":"23026","y":"49298"}}}}
+{"event":{"seq":"105","game_time_ms":"53600","entity_moved":{"id":"mob-near-2","pos":{"x":"22744","y":"49197"}}}}
+{"event":{"seq":"106","game_time_ms":"53700","entity_moved":{"id":"mob-near-2","pos":{"x":"22540","y":"49124"}}}}
+{"event":{"seq":"107","game_time_ms":"54000","rules_tick":{}}}
+{"event":{"seq":"108","game_time_ms":"60000","rules_tick":{}}}
+{"event":{"seq":"109","game_time_ms":"62900","entity_moved":{"id":"mob-near-2","pos":{"x":"22839","y":"49104"}}}}
+{"event":{"seq":"110","game_time_ms":"63000","entity_moved":{"id":"mob-near-2","pos":{"x":"23138","y":"49084"}}}}
+{"event":{"seq":"111","game_time_ms":"63100","entity_moved":{"id":"mob-near-2","pos":{"x":"23437","y":"49064"}}}}
+{"event":{"seq":"112","game_time_ms":"63200","entity_moved":{"id":"mob-near-2","pos":{"x":"23736","y":"49044"}}}}
+{"event":{"seq":"113","game_time_ms":"63300","entity_moved":{"id":"mob-near-2","pos":{"x":"24035","y":"49024"}}}}
+{"event":{"seq":"114","game_time_ms":"63400","entity_moved":{"id":"mob-near-2","pos":{"x":"24334","y":"49004"}}}}
+{"event":{"seq":"115","game_time_ms":"63500","entity_moved":{"id":"mob-near-2","pos":{"x":"24633","y":"48984"}}}}
+{"event":{"seq":"116","game_time_ms":"63600","entity_moved":{"id":"mob-near-2","pos":{"x":"24932","y":"48964"}}}}
+{"event":{"seq":"117","game_time_ms":"63700","entity_moved":{"id":"mob-near-2","pos":{"x":"25231","y":"48944"}}}}
+{"event":{"seq":"118","game_time_ms":"63800","entity_moved":{"id":"mob-near-2","pos":{"x":"25530","y":"48924"}}}}
+{"event":{"seq":"119","game_time_ms":"63900","entity_moved":{"id":"mob-near-2","pos":{"x":"25829","y":"48904"}}}}
+{"event":{"seq":"120","game_time_ms":"64000","entity_moved":{"id":"mob-near-2","pos":{"x":"26128","y":"48883"}}}}
+{"event":{"seq":"121","game_time_ms":"64100","entity_moved":{"id":"mob-near-2","pos":{"x":"26427","y":"48862"}}}}
+{"event":{"seq":"122","game_time_ms":"64200","entity_moved":{"id":"mob-near-2","pos":{"x":"26726","y":"48841"}}}}
+{"event":{"seq":"123","game_time_ms":"64300","entity_moved":{"id":"mob-near-2","pos":{"x":"27025","y":"48820"}}}}
+{"event":{"seq":"124","game_time_ms":"64400","entity_moved":{"id":"mob-near-2","pos":{"x":"27324","y":"48799"}}}}
+{"event":{"seq":"125","game_time_ms":"64500","entity_moved":{"id":"mob-near-2","pos":{"x":"27623","y":"48778"}}}}
+{"event":{"seq":"126","game_time_ms":"64600","entity_moved":{"id":"mob-near-2","pos":{"x":"27922","y":"48757"}}}}
+{"event":{"seq":"127","game_time_ms":"64700","entity_moved":{"id":"mob-near-2","pos":{"x":"28221","y":"48736"}}}}
+{"event":{"seq":"128","game_time_ms":"64800","entity_moved":{"id":"mob-near-2","pos":{"x":"28521","y":"48715"}}}}
+{"event":{"seq":"129","game_time_ms":"64900","entity_moved":{"id":"mob-near-2","pos":{"x":"28543","y":"48713"}}}}
+{"event":{"seq":"130","game_time_ms":"66000","rules_tick":{}}}
 {"pong":{"nonce":"144"}}
 {"pong":{"nonce":"145"}}
+{"pong":{"nonce":"146"}}
+{"pong":{"nonce":"147"}}
 # mark warrior_killed

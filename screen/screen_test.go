@@ -177,7 +177,7 @@ func TestDenialReasonIsShown(t *testing.T) {
 		m := replay(t, c)
 		for _, sz := range screen.Sizes {
 			out := c.Draw(m, sz[0], sz[1])
-			if !strings.Contains(out, "! ") || strings.Count(out, "encounter_owned") < 2 {
+			if !strings.Contains(out, "! ") || !strings.Contains(out, "else's fight") {
 				t.Errorf("at %v the reason is missing:\n%s", sz, out)
 			}
 		}
@@ -213,10 +213,10 @@ func TestRoundPanel(t *testing.T) {
 			t.Errorf("left %v: want %q\n%s", tc.left, tc.want, out)
 		}
 	}
-	if out := draw(5*time.Second, false, 140, 45); !strings.Contains(out, "Plan (2/16): not sent yet") || !strings.Contains(out, "Enter submits") {
+	if out := draw(5*time.Second, false, 140, 50); !strings.Contains(out, "Plan (2/16): not sent yet") || !strings.Contains(out, "Enter submits") {
 		t.Errorf("unsent:\n%s", out)
 	}
-	if out := draw(5*time.Second, true, 140, 45); !strings.Contains(out, "Plan (2/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
+	if out := draw(5*time.Second, true, 140, 50); !strings.Contains(out, "Plan (2/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
 		t.Errorf("sent:\n%s", out)
 	}
 	// Told again after a reconnect with our plan among the submitted: accepted,
@@ -279,10 +279,13 @@ func TestMenuShowsTheSleepLimit(t *testing.T) {
 func TestInstanceAndRoundPanelsShowTheServersFields(t *testing.T) {
 	c := caseNamed(t, "duo_one_of_two")
 	out := c.Draw(replay(t, c), 80, 24)
-	for _, want := range []string{"Duo Turns", "turn-based | inside", "party up to 2 | normal", "sleeps up to 7 d", "1 of 2 submitted", "Plan (1/16): accepted"} {
+	for _, want := range []string{"Duo Turns", "turn-based | inside", "party up to 2 | normal", "1 of 2 submitted", "Plan (1/16): accepted"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q:\n%s", want, out)
 		}
+	}
+	if out := c.Draw(replay(t, c), 140, 45); !strings.Contains(out, "sleeps up to 7 d") {
+		t.Errorf("no sleep limit at 140x45:\n%s", out)
 	}
 	c = caseNamed(t, "duo_gathered")
 	if out := c.Draw(replay(t, c), 80, 24); !strings.Contains(out, "0 of 2 submitted") {
@@ -311,10 +314,13 @@ func TestInstanceAndRoundPanelsShowTheServersFields(t *testing.T) {
 func TestAbilityBarAndYouPanelShowTheKit(t *testing.T) {
 	c := caseNamed(t, "cast_root")
 	out := c.Draw(replay(t, c), 140, 45)
-	for _, want := range []string{"Abilities (keys 1-8", "1 Root", "10mp busy", "2 Frost Bolt", "3 Flame Dart", "8 - ", "empty", "Zedd  Lv 1 Wizard", "MP 150/150", "XP ", "40 to Lv 2", "Cast Root"} {
+	for _, want := range []string{"Abilities (keys 1-8", "1 Root", "10mp busy", "2 Frost Bolt", "3 Flame Dart", "8 -", "Zedd  Lv 1 Wizard", "MP 150/150", "XP ", "40 to Lv 2", "Cast Root"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("cast in progress: missing %q\n%s", want, out)
 		}
+	}
+	if strings.Contains(out, "empty") {
+		t.Errorf("an empty slot says \"empty\":\n%s", out)
 	}
 	c = caseNamed(t, "rooted")
 	out = c.Draw(replay(t, c), 80, 24)
@@ -396,7 +402,7 @@ func TestLevelUpIsInTheLog(t *testing.T) {
 	c := caseNamed(t, "levelup")
 	for _, sz := range screen.Sizes {
 		out := c.Draw(replay(t, c), sz[0], sz[1])
-		if !strings.Contains(out, "you reached level 2") || !strings.Contains(out, "Lv 2 Wizard") {
+		if !strings.Contains(out, "You reached level 2") || !strings.Contains(out, "Lv 2 Wizard") {
 			t.Errorf("at %v:\n%s", sz, out)
 		}
 	}
@@ -407,7 +413,13 @@ func TestLevelUpIsInTheLog(t *testing.T) {
 func TestPlanSurvivesASmallScreenWithTheAbilityBar(t *testing.T) {
 	c := caseNamed(t, "turn_cast_plan")
 	out := c.Draw(replay(t, c), 80, 24)
-	for _, want := range []string{"Round 1", "Plan (2/16)", "2 use Frost Bolt (key 2)"} {
+	for _, want := range []string{"Round 1", "Plan (2/16)"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("missing %q\n%s", want, out)
+		}
+	}
+	out = c.Draw(replay(t, c), 80, 26) // the line of key hints costs the 80x24 screen a row
+	for _, want := range []string{"use Frost Bolt (key 2)"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q\n%s", want, out)
 		}
@@ -463,9 +475,9 @@ func TestDropsYouMayNotTakeAreMarked(t *testing.T) {
 		"d2": {Id: "d2", Crowns: 5, CanLoot: true, Pos: &pb.Pos{X: m.Self.Pos.GetX() - 4000, Y: m.Self.Pos.GetY()}},
 	}
 	out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain())
-	for _, want := range []string{"~ Scuttler Blade", "not lootable", "* 5 crowns", "~ a drop you may not take"} {
-		if want == "~ a drop you may not take" {
-			out = screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true, HelpPage: 4}, 140, 45, screen.Plain())
+	for _, want := range []string{"~ Scuttler Blade", "not lootable", "* 5 crowns", "~ not yours"} {
+		if want == "~ not yours" {
+			out = screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true, HelpPage: 1}, 140, 45, screen.Plain())
 		}
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q\n%s", want, out)

@@ -2,18 +2,17 @@
 │                                                  ││ bob1  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
 │                                                  ││ Target: none             │
-│..................................................││ Auto-attack: off         │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Auto-attack: off         │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
-│                                                  ││ no target (Tab to choose)│
+│                         D                        ││ no target (Tab to choose)│
 │                         @                        ││                          │
-│                         p                        ││                          │
+│                                                  ││                          │
 │                                                  │└──────────────────────────┘
-│                                                  │┌─ Nearby ─────────────────┐
-│                                                c ││ p ann1      1m S 100/100 │
-│                                                  ││ D Gate North        1m N │
-│                                                  ││ $ Eastern … 72m S binder │
-│                                                  ││ +13 more                 │
+│                                              c   │┌─ Nearby ─────────────────┐
+│                                                  ││ ! Testgrou… 85m SW [new] │
+│                                                  ││     <Quest Giver>        │
+│                                                  ││ +15 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
 │ nothing has happened yet                    ││ [say] ann1: hello there       │
@@ -21,4 +20,5 @@
 │                                             ││                               │
 │                                             ││                               │
 └─────────────────────────────────────────────┘└───────────────────────────────┘
+ E: enter Gate North                                                            
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

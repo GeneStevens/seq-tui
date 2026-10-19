@@ -1,45 +1,45 @@
-┌─ Contract board ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Thornwick Contract Board | you hold 0 of 3 contracts | 0 crowns                                                                          │
-│ On offer now (Enter takes it)                                      │ You hold (Enter hands in, X gives up)                               │
-│> Thin the Meadow Wolves                               Hunt   L1-3  │  (none)                                                             │
-│  Boars in the Barley                                  Hunt   L1-3  │                                                                     │
-│  Pelts for the Tanners                                Gather L1-3  │                                                                     │
-│  Word from Wickett Mill                               Scout  L1-3  │                                                                     │
+┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Thornwick Contract Board <Contract Board> | you hold 0 of 3 contracts | 0 crowns               ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
+│> Thin the Meadow Wolves          Hunt   L1-3  │  (none)                                        ││ XP ------------------------- 40 to Lv 2│
+│  Boars in the Barley             Hunt   L1-3  │                                                ││ Atk off | none                         │
+│  Pelts for the Tanners           Gather L1-3  │                                                │└────────────────────────────────────────┘
+│  Word from Wickett Mill          Scout  L1-3  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│                                                                                                ││ First Steps                            │
+│                                                                                                ││ Step 2 of 4                            │
+│                                                                                                ││ Visit your class trainer in Trainers'  │
+│                                                                                                ││ Lane. They will teach you your first   │
+│                                                                                                ││ lesson.                                │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
+│                                                                                                ││     <Contract Board>                   │
+│                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
+│────────────────────────────────────────────────────────────────────────────────────────────────││     <Warrior Trainer>                  │
+│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ g Tamsin Hale <Guard>            5m SE │
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ H Isolde Fenn <Binder>          13m SE │
+│ Pays 30 XP and 12 crowns.                                                                      ││ $ Barnaby Tuck <Vendor>         13m SW │
+│                                                                                                ││ g Town Guard <Guard>             22m E │
+│                                                                                                ││ $ Hilda Brasswick <Vendor>       29m W │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ B Odalys Penn <Banker>           32m E │
+│ The answer is on the status line; every refusal says why.                                      ││ +8 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square. It is optional;    │
+│            /dismiss gives it up for good.                                                                                                │
+│     N.Ns Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │
+│            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
+│            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
+│ +   N.Ns First Steps: step 1 done. Next: Visit your class trainer in Trainers' Lane. They will teach you your first lesson.              │
+│     N.Ns Town Guard is out of view                                                                                                       │
+│     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
-│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                                                                         │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.                                                 │
-│ Pays 30 XP and 12 crowns.                                                                                                                │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                                                                        │
-│ The answer is on the status line; every refusal says why.                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 2/4 | Thornwick | road: faster, 125% | heard N.Ns ago                                                   ? help  q quit
+ ONLINE | Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard N.Ns ago               ? help  q quit

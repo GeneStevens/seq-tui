@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│                    .                   #         ││ gorm  Lv 1 Warrior  | 0cr│
-│                    .                   #         ││ HP 120/120 ############# │
-│                    .     $$$$$$        #         ││ XP #####------ 20 to Lv 2│
-│                    .     $$$&?         #         ││ Atk off | none           │
-│                    .          ?        #         │└──────────────────────────┘
-│                    .    @*      c      #       c │┌─ Quest ──────────────────┐
-│                    .             m     #         ││ [ ] 1. Scout the Lookout │
-│                    .                   #         ││ Testgrounds Recruiter has│
-│                    .                   #         ││ work for you: G.         │
-│                    .                   #         │└──────────────────────────┘
-└──────────────────────────────────────────────────┘                            
+│                    ░                 #           ││ gorm  Lv 1 Warrior  | 0cr│
+│                    ░    TTTTTT       #           ││ HP 120/120 ############# │
+│                    ░    $BH&Q!       #           ││ XP #####------ 20 to Lv 2│
+│                    ░                 #           ││ Atk off | none           │
+│                    ░    @*    c m    #      c    │└──────────────────────────┘
+│                    ░                 #           │┌─ Quest ──────────────────┐
+│                    ░                 #           ││ [ ] 1. Scout the Lookout │
+│                    ░                 #           ││ Testgrounds Recruiter has│
+│                    ░                 #           ││ work for you: G.         │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        tgt? 2 Bash        tgt? 3 Second Wind  31s 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt tgt?        2 Bash tgt?        3 Second Wind 31s  4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    24.0s gorm healed 2                                                       │
-│    30.0s gorm healed 2                                                       │
-│    36.0s gorm healed 1                                                       │
-│    52.9s Plain Scuttler (mob-near-2) appeared                                │
+│    22.9s You are out of combat                                               │
+│ +  22.9s You gain 20 experience                                              │
+│    22.9s Plain Scuttler is out of view                                       │
+│    52.9s Plain Scuttler comes into view                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
+ L: loot Cracked Shell Fragment  ·  Tab: target · F: attack                     
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Bash ok            ? help  q quit

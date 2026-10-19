@@ -1,8 +1,8 @@
 ┌─ Testgrounds, at 140,89 m, north up ─────────────┐┌─ You ────────────────────┐
 │                                                  ││ cy1  Lv 1  XP 0     | 0cr│
 │                                                  ││ HP 100/100 ############# │
-│..................................................││ Target: none             │
-│                                                  ││ Auto-attack: off         │
+│                                                  ││ Target: none             │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Auto-attack: off         │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
@@ -10,10 +10,9 @@
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
 │                  m                               │┌─ Nearby ─────────────────┐
-│                                                  ││ m Den… 13m SW 40/40 even │
-│                                                  ││ D Gate North       40m W │
-│                                                  ││ $ Eastern … 72m S binder │
-│                                                  ││ +13 more                 │
+│                                                  ││ ! Testgrou… 123m W [new] │
+│                                                  ││     <Quest Giver>        │
+│                                                  ││ +15 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
 │ nothing has happened yet                    ││ [tell] bob1: psst, a word     │
@@ -21,4 +20,5 @@
 │                                             ││                               │
 │                                             ││                               │
 └─────────────────────────────────────────────┘└───────────────────────────────┘
+ Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

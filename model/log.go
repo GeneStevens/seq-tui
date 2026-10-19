@@ -27,8 +27,9 @@ type LogEntry struct {
 func (m *Model) logEvent(e *pb.Event) {
 	m.mobNotes(e) // what a mob did, in words, ahead of the event's own line
 	kind, text, reason := describe(e, m.label, m.abilityOf)
+	mob := false // the line is the client's own: it says more than the server's words
 	if k, t, r, ok := m.describeInstance(e); ok {
-		kind, text, reason = k, t, r
+		kind, text, reason, mob = k, t, r, true // who played what in a round, who is in the party
 	}
 	if k, t, r, ok := describeCombat(e, m.label, m.abilityOf); ok {
 		kind, text, reason = k, t, r
@@ -45,7 +46,6 @@ func (m *Model) logEvent(e *pb.Event) {
 	if k, t, r, ok := m.describeCompanion(e); ok {
 		kind, text, reason = k, t, r
 	}
-	mob := false
 	if k, t, r, ok := m.describeMobs(e); ok {
 		kind, text, reason, mob = k, t, r, true
 	}
@@ -57,6 +57,13 @@ func (m *Model) logEvent(e *pb.Event) {
 	}
 	quiet := false
 	switch b := e.GetBody().(type) {
+	case *pb.Event_LootDropped:
+		if d := b.LootDropped; e.GetText() != "" && d.GetItem() != "" {
+			text += m.itemTag(d.GetItem()) // the tier and binding, which the server's words leave out
+			if !d.GetCanLoot() {
+				text += ": not yours to take"
+			}
+		}
 	case *pb.Event_Combat:
 		quiet = b.Combat.GetKind() == pb.CombatKind_COMBAT_KIND_HEAL && b.Combat.GetAttacker() == "" // regeneration
 	case *pb.Event_CombatState:
@@ -72,7 +79,7 @@ func (m *Model) logEvent(e *pb.Event) {
 	case *pb.Event_HandIn:
 		kind, quiet = "hand_in", true // the board panel shows it, and the hand-in's reward line is in the log
 	}
-	if kind == "unknown" && e.GetText() == "" {
+	if (kind == "unknown" && e.GetText() == "") || kind == "entity_moved" || kind == "rules_tick" || kind == "resource_changed" {
 		quiet = true
 	}
 	var actor, target string

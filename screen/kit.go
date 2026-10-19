@@ -174,10 +174,10 @@ func slotCell(m *model.Model, v View, n, cw int, st Styler) string {
 	if g == model.SlotEmpty {
 		return st.Dim(fit(fmt.Sprintf("%d -", n), cw)) // an empty slot says nothing more
 	}
-	// The status follows its own slot's name in brackets, and a space of its own
-	// separates the cells, so it never reads as the next slot's.
-	right := "[" + cost + slotStatus(g, left) + "]"
-	cell := fit(fmt.Sprintf("%d %s %s", n, fit(name, max(cw-3-width(right)-2, 1)), right), cw-1) + " "
+	// The status follows its own slot's name, closer to it than to the next
+	// slot, and the cells are told apart by the blank that ends each.
+	right := cost + slotStatus(g, left)
+	cell := fit(fmt.Sprintf("%d %s %s", n, fit(strings.TrimRight(name, " "), max(min(width(name), cw-3-width(right)-2), 1)), right), cw-1) + " "
 	if g != model.SlotReady {
 		return st.Dim(cell)
 	}

@@ -360,7 +360,7 @@ func TestADuoByHandClearsAWarrenRoom(t *testing.T) {
 	p.Golden("warren_digger")
 	closeInAndFight(t, w, p, "mob-diggers-c-1", func(m *model.Model) bool { return hasLog(m, "combat_death", "Warren Digger") })
 	p.Model(func(m *model.Model) {
-		if !hasLog(m, "combat_hit", "bram") && !hasLog(m, "ability_used", "bram") {
+		if !hasLog(m, "combat_hit", "Bram") && !hasLog(m, "ability_used", "Bram") {
 			t.Fatalf("bram took no part in the fight: %v", m.Log)
 		}
 		if e := m.Entities["mob-diggers-c-1"]; e != nil && !e.GetDead() {

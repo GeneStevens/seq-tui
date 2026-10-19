@@ -18,7 +18,7 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
 │ I invite  F add friend  R ask again | /who zone=NAME class=ID 3-7            │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: none                                                      
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

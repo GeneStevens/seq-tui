@@ -2,23 +2,23 @@
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 6/6 ################# │
 │                                                  ││ Target: none             │
-│..................................................││ Auto-attack: off         │
-│                                                  │└──────────────────────────┘
+│                                                  ││ Auto-attack: off         │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Solo Trial               │
 │                         @                        ││ real-time | inside       │
 │                                                  ││ party up to 1 | normal   │
-│                                                  ││                          │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │
-│                           m                      ││                          │
+│                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: participants_dead│
-│    NN.Ns aria released; respawns in 5 s                                      │
+│    NN.Ns You are out of combat                                               │
+│    NN.Ns You release your body and will return in 5 seconds                  │
 │    NN.Ns Plain Scuttler reset to 40 hp                                       │
-│    NN.Ns aria respawned at (100000, 90000) with 6 hp                         │
+│    NN.Ns You return to life in Testgrounds (Solo Trial)                      │
 └──────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North  ·  Tab: target · F: attack                                
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | release ok  ? help  q quit

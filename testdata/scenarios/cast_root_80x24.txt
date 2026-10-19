@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│                    .                   #         ││ Zedd  Lv 1 Wizard   | 0cr│
-│                    .                   #         ││ HP 80/80 ############### │
-│                    .     $$$$$$        #         ││ MP 150/150 ############# │
-│                    .     $$$&?         #         ││ XP ----------- 40 to Lv 2│
-│                    .          ?        #         ││ Cast Root #--------- N.Ns│
-│                    .    @     M c      #       c │└──────────────────────────┘
-│                    .                   #         │┌─ Quest ──────────────────┐
-│                    .                   #         ││ [ ] 1. Scout the Lookout │
-│                    .                   #         ││ Testgrounds Recruiter has│
-│                    .                   #         ││ work for you: G.         │
+│                    ░                 #           ││ Zedd  Lv 1 Wizard   | 0cr│
+│                    ░    TTTTTT       #           ││ HP 80/80 ############### │
+│                    ░    $BH&Q!       #           ││ MP 150/150 ############# │
+│                    ░                 #           ││ XP ----------- 40 to Lv 2│
+│                    ░    @    Mc      #      c    ││ Cast Root #--------- N.Ns│
+│                    ░                 #           │└──────────────────────────┘
+│                    ░                 #           │┌─ Quest ──────────────────┐
+│                    ░                 #           ││ [ ] 1. Scout the Lookout │
+│                    ░                 #           ││ Testgrounds Recruiter has│
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Root         busy 2 Frost Bolt  busy 3 Flame Dart  busy 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Root busy         2 Frost Bolt busy  3 Flame Dart busy  4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Plain Scuttler: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns slot 1 holds Root                                                   │
-│     N.Ns slot 3 holds Flame Dart                                             │
-│     N.Ns Zedd targeted Plain Scuttler                                        │
-│     N.Ns Zedd began casting Root (1.5 s)                                     │
+│     N.Ns Slot 1: Root                                                        │
+│     N.Ns Slot 3: Flame Dart                                                  │
+│     N.Ns You target Plain Scuttler                                           │
+│     N.Ns You begin casting Root on Plain Scuttler                            │
 └──────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard N.Ns ago | key 1 Root ok            ? help  q quit

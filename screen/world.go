@@ -176,7 +176,7 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 	if len(texts) == 0 {
 		left = append(left, fit("  (nothing for your level)", lw))
 	}
-	room := max(h-9-len(moment), 1)
+	room := max(h-11-len(moment), 1)
 	left = append(left, listRows(texts, b.Cur[0], room, lw, b.Pane == 0, st)...)
 	right := []string{fit(" You hold (Enter hands in, X gives up)", rw)}
 	texts = nil
@@ -188,10 +188,10 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 	}
 	right = append(right, listRows(texts, b.Cur[1], room, rw, b.Pane == 1, st)...)
 	rows = append(rows, cols(left, right, lw, rw)...)
-	for len(rows) < h-6 {
+	for len(rows) < h-8 {
 		rows = append(rows, strings.Repeat(" ", w))
 	}
-	rows = rows[:min(len(rows), h-6)]
+	rows = rows[:min(len(rows), h-8)]
 	rows = append(rows, strings.Repeat("─", w))
 	// The detail of the one under the cursor.
 	switch {
@@ -204,7 +204,8 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 		c := held[b.Cur[1]]
 		add(fmt.Sprintf(" %s: %s, %s.", c.GetName(), kindWord(c.GetKind()), model.Progress(c)))
 		rows = append(rows, wrapped(c.GetDescription(), w, " ")...)
-		add(" Pays " + m.RewardWords(c.GetReward()) + ". " + readyWords(m, c))
+		add(" Pays " + m.RewardWords(c.GetReward()) + ".")
+		add(" " + readyWords(m, c))
 	}
 	if len(rows) > h-2 {
 		rows = rows[:h-2]

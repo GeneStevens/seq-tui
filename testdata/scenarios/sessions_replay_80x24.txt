@@ -1,24 +1,24 @@
-┌─ Testgrounds, at 14,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│              .                             #     ││ aria  Lv 1  XP 0    | 0cr│
-│              .                             #     ││ HP 100/100 ############# │
-│              .                             #     ││ Target: none             │
-│              .        $ $$ $$ $            #     ││ Auto-attack: off         │
-│              .        $ $$ &?              #     │└──────────────────────────┘
-│              .                ?            #     │┌─ Quest ──────────────────┐
-│              .                             #     ││ [ ] 1. Scout the Lookout │
-│              .          @  m    c          #     ││ Testgrounds Recruiter has│
-│              .                             #     ││ work for you: G.         │
-│              .                             #     │└──────────────────────────┘
-│              .                             #     │┌─ Target ─────────────────┐
-│              .                             #     ││ no target (Tab to choose)│
-│              .                             #     ││                          │
-│              .                             #     ││                          │
-│              .                             #     ││                          │
+┌─ Testgrounds, at 14,50 m, north up ──────────────┐┌─ You: in combat ─────────┐
+│               ░                           #      ││ aria  Lv 1  XP 0    | 0cr│
+│               ░                           #      ││ HP 100/100 ############# │
+│               ░                           #      ││ Target: Plain Scuttler   │
+│               ░       T TT TTT            #      ││ Auto-attack: off         │
+│               ░                           #      ││ Attacked by Plain Scuttl…│
+│               ░       $ BH &Q!            #      │└──────────────────────────┘
+│               ░                           #      │┌─ Quest ──────────────────┐
+│               ░         @  M    c         #      ││ [ ] 1. Scout the Lookout │
+│               ░                           #      ││ Testgrounds Recruiter has│
+│               ░                           #      ││ work for you: G.         │
+│               ░                           #      │└──────────────────────────┘
+│               ░                           #      │┌─ Target ─────────────────┐
+│               ░                           #      ││ M Plain Scuttler  Lv 1   │
+│               ░                           #      ││ HP 40/40 ######### 4m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns Plain Scuttler targeted aria                                        │
-│     N.Ns aria opened an encounter with Plain Scuttler (enc-1)                │
-│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a │
 │            walk. Move again to go on.                                        │
+│     N.Ns You target Plain Scuttler                                           │
+│     N.Ns Plain Scuttler (level 1, even) is attacking you                     │
+│     N.Ns You are in combat with Plain Scuttler                               │
 └──────────────────────────────────────────────────────────────────────────────┘
- REPLAY | tui-ann-1: message 59 of 59  Left, Right step  Home, End  Esc back    
+ F: attack · Tab: next target                                                   
+ REPLAY | tui-ann-1: message 62 of 62  Left, Right step  Home, End  Esc back    

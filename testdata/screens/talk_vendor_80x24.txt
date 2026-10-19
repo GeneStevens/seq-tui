@@ -17,8 +17,8 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
 │ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.   │
-│ The answer is on the status line; every refusal says why.                    │
+│ talk to Hilda Brasswick ok                                                   │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/164 | Target: none                                                      
  ONLINE | road: faster, 125% | heard 0.4s ago | talk to Hilda Brasswick ok      

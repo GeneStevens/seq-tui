@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│                    .                   #         ││ Zedd  Lv 1 Wizard   | 0cr│
-│                    .                   #         ││ HP 80/80 ############### │
-│                    .     $$$$$$        #         ││ MP 108/150 #########---- │
-│                    .     $$$&?         #         ││ XP #####------ 20 to Lv 2│
-│                    .          ?        #         ││ Atk off | none           │
-│                    .    @     * c      #       c │└──────────────────────────┘
-│                    .                   #         │┌─ Quest ──────────────────┐
-│                    .                   #         ││ [ ] 1. Scout the Lookout │
-│                    .                   #         ││ Testgrounds Recruiter has│
-│                    .                   #         ││ work for you: G.         │
+│                    ░                 #           ││ Zedd  Lv 1 Wizard   | 0cr│
+│                    ░    TTTTTT       #           ││ HP 80/80 ############### │
+│                    ░    $BH&Q!       #           ││ MP 108/150 #########---- │
+│                    ░                 #           ││ XP #####------ 20 to Lv 2│
+│                    ░    @    *c      #      c    ││ Atk off | none           │
+│                    ░                 #           │└──────────────────────────┘
+│                    ░                 #           │┌─ Quest ──────────────────┐
+│                    ░                 #           ││ [ ] 1. Scout the Lookout │
+│                    ░                 #           ││ Testgrounds Recruiter has│
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Root         tgt? 2 Frost Bolt  tgt? 3 Flame Dart  tgt? 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Root tgt?         2 Frost Bolt tgt?  3 Flame Dart tgt?  4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│            (drop-enc-1-shell-fragment)                                       │
-│    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                │
-│ +  NN.Ns Zedd received 20 xp from Plain Scuttler                             │
-│    NN.Ns Plain Scuttler left view                                            │
+│    NN.Ns Plain Scuttler is dead: the fight is over                           │
+│    NN.Ns You are out of combat                                               │
+│ +  NN.Ns You gain 20 experience                                              │
+│    NN.Ns Plain Scuttler is out of view                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
+ Walk: arrows or WASD · M: map · ?: help                                        
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok      ? help  q quit

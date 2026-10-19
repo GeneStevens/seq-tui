@@ -1,40 +1,39 @@
-┌─ Thornwick Downs, at 251,105 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│         ^^^^^^^^^^^                                                                            ││ hale  Lv 8 Warrior           | 0 crowns│
+┌─ Thornwick Downs, at 251,105 m, north up ──────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│                   ^                                                                            ││ hale  Lv 8 Warrior           | 0 crowns│
 │                                                                                                ││ HP 249/249 ########################### │
 │                                                                                                ││ XP ------------------------ 202 to Lv 9│
 │                                                                                                ││ Atk off | Goblin Scrapper              │
+│                                                                                                ││ Attacked by Goblin Scrapper            │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Target ───────────────────────────────┐
-│                                                                                                ││ M Goblin Scrapper  Lv 5                │
-│                                               ###########                                      ││ HP 160/160 ##################### 6m W  │
-│                                               ###########                                      ││ easy, fighting you                     │
-│                                               ###########                                      │└────────────────────────────────────────┘
-│                                               ###########                                      │┌─ Nearby ───────────────────────────────┐
+│                                               ##########                                       │┌─ Target ───────────────────────────────┐
+│                                               ##########                                       ││ M Goblin Scrapper  Lv 5                │
+│                                               ##########                                       ││ HP 160/160 ##################### 6m W  │
+│                                               ##########                                       ││ easy, fighting you                     │
+│                                                                                                │└────────────────────────────────────────┘
+│                                         M      @                                               │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ M Goblin Scrapper    6m W 160/160 easy │
-│                                         M      @                                               ││ ; Goblin Lookout   41m NW scout marker │
-│                                                                                                ││ ! Raid Edge          48m N event spawn │
+│                                                                                                ││ ; Goblin Lookout   41m NW scout marker │
+│                                                                                                ││ v Raid Edge          48m N event spawn │
 │                                                                                                ││ ; Millrace Ford   107m NW scout marker │
 │                                                                                                ││ ; Hollow Warren    144m E scout marker │
 │                                                                                                ││ D Hollow Warren                 156m E │
-│                                                                                                ││ G Barleycross        183m W event goal │
-│                                                                                                ││ ; Wickett Mill     208m W scout marker │
-│                                                                                                ││ D Town Gate                     249m W │
-│                                                                                 """""""        ││                                        │
-│                                                                              """"""""""""""""""││                                        │
-│                                                                          """"""""""""""""""""""││                                        │
+│                                                                                 """            ││ G Barleycross        183m W event goal │
+│                                                                             """"""""""""""     ││ ; Wickett Mill     208m W scout marker │
+│                                                                         """""""""""""""""""""""││ D Town Gate                     249m W │
 │                                                                      """"""""""""""""""""""""""││                                        │
+│                                                                  """"""""""""""""""""""""""""""││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Taunt                      ready 2 Bash                      range 3 -                         empty 4 -                         empty │
-│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ 1 Taunt ready                      2 Bash range                      3 -                               4 -                               │
+│ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none   |   Goblin Scrapper: none                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns hale targeted Goblin Scrapper                                                                                                   │
+│     N.Ns You target Goblin Scrapper                                                                                                      │
 │     N.Ns Goblin Scrapper targeted hale                                                                                                   │
-│     N.Ns hale opened an encounter with Goblin Scrapper (enc-1)                                                                           │
-│                                                                                                                                          │
-│                                                                                                                                          │
+│     N.Ns You begin fighting Goblin Scrapper                                                                                              │
+│     N.Ns Goblin Scrapper (level 5, easy) is attacking you                                                                                │
+│     N.Ns You are in combat with Goblin Scrapper                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                                                                               
  ONLINE | Thornwick Downs | heard N.Ns ago | target ok                                                                        ? help  q quit

@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 100,89 m, north up ─────────────┐┌─ You ────────────────────┐
 │                                                  ││ ann1  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
-│..................................................││ Target: none             │
-│                                                  ││ Auto-attack: off         │
+│                                                  ││ Target: none             │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Auto-attack: off         │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
-│                         p                        ││ no target (Tab to choose)│
+│                         D                        ││ no target (Tab to choose)│
 │                         @                        ││                          │
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
-│                                                c │┌─ Nearby ─────────────────┐
-│                                                  ││ p bob1      1m N 100/100 │
-│                                                  ││ D Gate North        1m N │
-│                                                  ││ $ Eastern … 72m S binder │
-│                                                  ││ +13 more                 │
+│                                              c   │┌─ Nearby ─────────────────┐
+│                                                  ││ ! Testgrou… 85m SW [new] │
+│                                                  ││     <Quest Giver>        │
+│                                                  ││ +15 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
-│     0.2s bob1 (bob1) appeared               ││ [say] ann1: spam a            │
+│     0.2s bob1 comes into view               ││ [say] ann1: spam a            │
 │                                             ││ [say] ann1: spam b            │
 │                                             ││ [say] ann1: spam c            │
 │                                             ││ [say] ann1: spam d            │
 └─────────────────────────────────────────────┘└───────────────────────────────┘
+ E: enter Gate North                                                            
  > /tell cy1 are you the_                                 Enter send  Esc cancel
