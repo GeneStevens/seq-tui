@@ -1,5 +1,5 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Contract Board> | you hold 1 of 3 contracts | 0 crowns               ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board | you hold 1 of 3 contracts | 0 crowns                                ││ Hale  Lv 1 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
 │> Boars in the Barley             Hunt   L1-3  │> Thin the Meadow Wolves                   0/3  ││ XP ------------------------- 40 to Lv 2│
 │  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
@@ -21,13 +21,13 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │────────────────────────────────────────────────────────────────────────────────────────────────││ & Thornwick Contract Board 1m SW [new] │
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││     <Contract Board>                   │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ ! Gorran Stoutarm      54m SW [step 2] │
-│ Pays 30 XP, 14 crowns and Tin Ring.                                                            ││     <Warrior Trainer>                  │
-│                                                                                                ││ g Tamsin Hale <Guard>            5m SE │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ ! Gorran Stoutarm      54m SW [step 2] │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││     <Warrior Trainer>                  │
+│ Pays 30 XP, 14 crowns and Tin Ring.                                                            ││ g Tamsin Hale <Guard>            5m SE │
 │                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ $ Barnaby Tuck <Vendor>         13m SW │
-│ take Thin the Meadow Wolves ok                                                                 ││ +11 more                               │
+│                                                                                                ││ $ Barnaby Tuck <Vendor>         13m SW │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ g Town Guard                     22m E │
+│ take Thin the Meadow Wolves ok                                                                 ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square. It is optional;    │

@@ -1,5 +1,5 @@
 ┌─ Traders  ⚠ UNDER ATTACK ────────────────────────────────────────────────────┐
-│ Testgrounds Vendor <Vendor>, 1m NE away. You have 0 crowns.                  │
+│ Testgrounds Vendor, 1m NE away. You have 0 crowns.                           │
 │                                                                              │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
 │> Cracked Shell Fragment          1   │  (nothing)                            │
@@ -20,5 +20,5 @@
 │ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.  │
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
- HP 100/100 | Target: Plain Scuttler 40/40 | Attacked by Plain Scuttler | In co…
+ HP 100/100 | Target: Plain Scuttler 40/40, attacking you | In combat           
  ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                  

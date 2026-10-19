@@ -11,23 +11,23 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 35m S [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ p c1                      1m W 100/100 │
-│                                                                                                ││ T Druid Trainer <Druid Trainer>  29m S │
+│                                                                                                ││ T Druid Trainer                  29m S │
 │                                                                                                ││ T Paladin Trainer                30m S │
-│                                                                                                ││     <Paladin Trainer>                  │
 │                                                                                                ││ T Wizard Trainer                31m SW │
-│                                                                                                ││     <Wizard Trainer>                   │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer> 32m SW │
+│                                                                                                ││ T Rogue Trainer                 32m SW │
 │                                                                                                ││ T Cleric Trainer                33m SW │
-│                                                                                                ││     <Cleric Trainer>                   │
 │                                                                                                ││ Q Testgrounds Captain            34m S │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ T Warrior Trainer               34m SW │
-│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││     <Warrior Trainer>                  │
-│ The answer is on the status line; every denial says why.                                       ││ +6 more                                │
+│                                                                                                ││ H Testgrounds Binder            35m SW │
+│                                                                                                ││ B Testgrounds Banker            36m SW │
+│                                                                                                ││ $ Testgrounds Vendor            37m SW │
+│                                                                                                ││ D Gate North                     69m E │
+│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││ H Eastern Binder               113m SE │
+│ The answer is on the status line; every denial says why.                                       ││ D Line East                    182m SE │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns c1 asks to trade                                                                                                                │

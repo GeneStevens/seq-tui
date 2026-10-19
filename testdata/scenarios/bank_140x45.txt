@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Testgrounds Banker <Banker>, 2m S away. You have 37 crowns.                                    ││ zedd  Lv 3 Wizard           | 37 crowns│
+│ Testgrounds Banker, 2m S away. You have 37 crowns.                                             ││ zedd  Lv 3 Wizard           | 37 crowns│
 │                                                                                                ││ HP 80/96 ########################----- │
 │ You carry (Enter banks it)                    │ In the bank, 1 (Enter takes it)                ││ MP 150/196 ####################------- │
 │  (nothing)                                    │> Buckler Common                                ││ XP ------------------------- 90 to Lv 4│
@@ -17,17 +17,17 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 4m SE [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Testgrounds Recruiter    9m SE [new] │
 │                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ B Testgrounds Banker <Banker>     2m S │
-│                                                                                                ││ T Cleric Trainer <Cleric Trainer> 2m N │
-│                                                                                                ││ H Testgrounds Binder <Binder>    3m SE │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer>  3m NE │
+│                                                                                                ││ B Testgrounds Banker              2m S │
+│                                                                                                ││ T Cleric Trainer                  2m N │
+│                                                                                                ││ H Testgrounds Binder             3m SE │
+│                                                                                                ││ T Rogue Trainer                  3m NE │
 │                                                                                                ││ T Warrior Trainer                3m NW │
-│                                                                                                ││     <Warrior Trainer>                  │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ $ Testgrounds Vendor <Vendor>    3m SW │
-│ bank Buckler ok                                                                                ││ +8 more                                │
+│                                                                                                ││ $ Testgrounds Vendor             3m SW │
+│                                                                                                ││ T Wizard Trainer                 4m NE │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ +7 more                                │
+│ bank Buckler ok                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │

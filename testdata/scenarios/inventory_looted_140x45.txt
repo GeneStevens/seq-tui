@@ -13,21 +13,21 @@
 │   off_hand  -                                 │                                                ││ ! Testgrounds Recruiter    76m W [new] │
 │────────────────────────────────────────────────────────────────────────────────────────────────││     <Quest Giver>                      │
 │ Scuttler Blade: Rare, main_hand; bound on pickup                                               ││ & Testgrounds Contract Bo… 80m W [new] │
-│ damage 4-9 / N.Ns, str +3; a vendor pays 15                                                    ││     <Contract Board>                   │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ p c2                     16m N 100/100 │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ H Eastern Binder <Binder>       37m SE │
-│                                                                                                ││ D Gate North                     40m N │
-│                                                                                                ││ T Druid Trainer <Druid Trainer>  77m W │
+│ damage 4-9 / N.Ns, str +3; a vendor pays 15                                                    ││ p c2                     16m N 100/100 │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ H Eastern Binder                37m SE │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ D Gate North                     40m N │
+│                                                                                                ││ T Druid Trainer                  77m W │
 │                                                                                                ││ Q Testgrounds Captain            78m W │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ T Paladin Trainer                79m W │
-│                                                                                                ││     <Paladin Trainer>                  │
 │                                                                                                ││ T Wizard Trainer                 81m W │
-│                                                                                                ││     <Wizard Trainer>                   │
-│                                                                                                ││ H Testgrounds Binder <Binder>    82m W │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer>  83m W │
-│                                                                                                ││ B Testgrounds Banker <Banker>    84m W │
-│                                                                                                ││ +4 more                                │
+│                                                                                                ││ H Testgrounds Binder             82m W │
+│                                                                                                ││ T Rogue Trainer                  83m W │
+│                                                                                                ││ B Testgrounds Banker             84m W │
+│                                                                                                ││ T Cleric Trainer                 85m W │
+│                                                                                                ││ $ Testgrounds Vendor             86m W │
+│                                                                                                ││ T Warrior Trainer                87m W │
+│                                                                                                ││ D Line East                     105m E │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns Trophy Scuttler dropped 5 crowns                                                                                                │

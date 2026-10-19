@@ -16,17 +16,17 @@
 │                                  ░             @                    c                    #     │└────────────────────────────────────────┘
 │                                  ░                                      m                #     │┌─ Nearby ───────────────────────────────┐
 │                                  ░                                                       #     ││ & Testgrounds Contract B… 11m NE [new] │
-│                                  ░                                                       #     ││     <Contract Board>                   │
 │                                  ░                                                       #     ││ ! Testgrounds Recruiter   13m NE [new] │
 │                                  ░                                                       #     ││     <Quest Giver>                      │
-│                                  ░                                                       #     ││ $ Testgrounds Vendor <Vendor>     8m N │
-│                                  ░                                                       #     ││ B Testgrounds Banker <Banker>    9m NE │
-│                                  ░                                                       #     ││ H Testgrounds Binder <Binder>   10m NE │
+│                                  ░                                                       #     ││ $ Testgrounds Vendor              8m N │
+│                                  ░                                                       #     ││ B Testgrounds Banker             9m NE │
+│                                  ░                                                       #     ││ H Testgrounds Binder            10m NE │
 │                                  ░                                                       #     ││ T Warrior Trainer                12m N │
-│                                  ░                                                       #     ││     <Warrior Trainer>                  │
 │                                  ░                                                       #     ││ T Cleric Trainer                 13m N │
-│                                  ░                                                       #     ││     <Cleric Trainer>                   │
-│                                  ░                                                       #     ││ +9 more                                │
+│                                  ░                                                       #     ││ Q Testgrounds Captain           13m NE │
+│                                  ░                                                       #     ││     <Quest Giver>                      │
+│                                  ░                                                       #     ││ T Rogue Trainer                 13m NE │
+│                                  ░                                                       #     ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ <   4.1s Plain Scuttler hits you for 1                                                                                                   │

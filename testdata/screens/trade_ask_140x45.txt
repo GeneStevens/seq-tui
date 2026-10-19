@@ -11,23 +11,23 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 34m S [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ p c2                      1m E 100/100 │
-│                                                                                                ││ T Druid Trainer <Druid Trainer>  29m S │
+│                                                                                                ││ T Druid Trainer                  29m S │
 │                                                                                                ││ T Paladin Trainer                30m S │
-│                                                                                                ││     <Paladin Trainer>                  │
 │                                                                                                ││ T Wizard Trainer                30m SW │
-│                                                                                                ││     <Wizard Trainer>                   │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer> 31m SW │
+│                                                                                                ││ T Rogue Trainer                 31m SW │
 │                                                                                                ││ T Cleric Trainer                32m SW │
-│                                                                                                ││     <Cleric Trainer>                   │
 │                                                                                                ││ T Warrior Trainer               33m SW │
-│                                                                                                ││     <Warrior Trainer>                  │
 │                                                                                                ││ Q Testgrounds Captain            34m S │
-│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││     <Quest Giver>                      │
-│ The answer is on the status line; every denial says why.                                       ││ +6 more                                │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ H Testgrounds Binder            35m SW │
+│                                                                                                ││ B Testgrounds Banker            36m SW │
+│                                                                                                ││ $ Testgrounds Vendor            37m SW │
+│                                                                                                ││ D Gate North                     70m E │
+│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││ H Eastern Binder               114m SE │
+│ The answer is on the status line; every denial says why.                                       ││ D Line East                    183m SE │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s c2 comes into view                                                                                                              │

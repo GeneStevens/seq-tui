@@ -83,7 +83,7 @@ func attackedIn(t *testing.T, name string, keys []string, shows string, leave in
 		if !strings.Contains(rows[0]+s, "UNDER ATTACK") {
 			t.Errorf("%s at %v: the border does not say it is under attack:\n%s", name, sz, s)
 		}
-		if !strings.Contains(s, "Attacked by Plain Scuttler") {
+		if lower := strings.ToLower(s); !strings.Contains(lower, "attacked by plain scuttler") && !strings.Contains(lower, "plain scuttler 40/40, attacking you") {
 			t.Errorf("%s at %v: the vitals do not name the attacker:\n%s", name, sz, s)
 		}
 	}
@@ -126,8 +126,13 @@ func TestARefusalIsShownInThePanel(t *testing.T) {
 	notice(t, p, "can't do that while you're fighting", true)
 	for _, sz := range [][2]int{{140, 45}, {80, 24}} {
 		s := p.Screen(sz[0], sz[1])
-		if strings.Count(s, "can't do that while you're fighting") < 2 {
-			t.Errorf("at %v the refusal is not in the panel and on the status line:\n%s", sz, s)
+		rows := strings.Split(s, "\n")
+		if !strings.Contains(strings.Join(rows[:len(rows)-1], "\n"), "denied: You can't do that while you're fighting") {
+			t.Errorf("at %v the refusal is not in the panel:\n%s", sz, s)
+		}
+		// On the status line the alarm stays and the answer follows it, cut if it must be.
+		if st := rows[len(rows)-1]; !strings.Contains(st, "⚠ Plain Scuttler") || !strings.Contains(st, "! buy") {
+			t.Errorf("at %v the status line: %q", sz, st)
 		}
 	}
 }

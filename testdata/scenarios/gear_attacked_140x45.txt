@@ -17,17 +17,17 @@
 │ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           │└────────────────────────────────────────┘
 │ Out of combat only. Esc or C closes. N: traders. T: trade.                                     │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Boa… 7m E [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Testgrounds Recruiter    11m E [new] │
 │                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ $ Testgrounds Vendor <Vendor>    1m NE │
-│                                                                                                ││ B Testgrounds Banker <Banker>     3m E │
-│                                                                                                ││ H Testgrounds Binder <Binder>     5m E │
+│                                                                                                ││ $ Testgrounds Vendor             1m NE │
+│                                                                                                ││ B Testgrounds Banker              3m E │
+│                                                                                                ││ H Testgrounds Binder              5m E │
 │                                                                                                ││ T Warrior Trainer                 5m N │
-│                                                                                                ││     <Warrior Trainer>                  │
 │                                                                                                ││ T Cleric Trainer                 5m NE │
-│                                                                                                ││     <Cleric Trainer>                   │
-│                                                                                                ││ +9 more                                │
+│                                                                                                ││ T Rogue Trainer                  6m NE │
+│                                                                                                ││ T Wizard Trainer                 8m NE │
+│                                                                                                ││ +7 more                                │
+│                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Plain Scuttler targeted aria                                                                                                    │

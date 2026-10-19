@@ -37,12 +37,10 @@
 {"pong":{"nonce":"125"}}
 # mark slots_plan_round
 {"intent_result":{"intent_id":"tui-3","accepted":true}}
-{"pong":{"nonce":"126"}}
 {"event":{"seq":"3","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689621400","submitted":["zedd"],"participants":"1"}}}
+{"pong":{"nonce":"126"}}
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
-{"pong":{"nonce":"129"}}
-{"pong":{"nonce":"130"}}
 {"event":{"seq":"4","game_time_ms":"100","text":"Slot 1: Root","slot_set":{"actor":"zedd","slot":1,"ability":"wizard-root"}}}
 {"event":{"seq":"5","game_time_ms":"100","entity_moved":{"id":"mob-lone-1","pos":{"x":"99844","y":"75745"}}}}
 {"event":{"seq":"6","game_time_ms":"200","entity_moved":{"id":"mob-lone-1","pos":{"x":"99688","y":"75490"}}}}
@@ -56,6 +54,6 @@
 {"event":{"seq":"14","game_time_ms":"1000","entity_moved":{"id":"mob-lone-1","pos":{"x":"98563","y":"73656"}}}}
 {"event":{"seq":"15","game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"all_submitted","submitted":["zedd"],"deadline_ms":"1735689621400","plays":[{"character":"zedd","source":"own_plan"}],"participants":"1"}}}
 {"event":{"seq":"16","game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689621500","participants":"1"}}}
-{"pong":{"nonce":"131"}}
-{"pong":{"nonce":"132"}}
+{"pong":{"nonce":"129"}}
+{"pong":{"nonce":"130"}}
 # mark slots_changed

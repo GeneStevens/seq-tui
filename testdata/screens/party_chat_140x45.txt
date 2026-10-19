@@ -17,16 +17,16 @@
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ p bob1                    1m N 100/100 │
-│                                                                                          c     ││ D Gate North                      1m N │
-│                                                                                                ││ H Eastern Binder <Binder>        72m S │
-│                                                                                                ││ T Druid Trainer <Druid Trainer>  83m W │
+│                                                                                                ││ D Gate North                      1m N │
+│                                                                                          c     ││ H Eastern Binder                 72m S │
+│                                                                                                ││ T Druid Trainer                  83m W │
 │                                                                                                ││ T Paladin Trainer                84m W │
-│                                                                                                ││     <Paladin Trainer>                  │
 │                                                                                                ││ Q Testgrounds Captain            86m W │
 │                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ +8 more                                │
+│                                                                                                ││ T Wizard Trainer                 86m W │
+│                                                                                                ││ T Rogue Trainer                  88m W │
+│                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │     0.2s bob1 comes into view                                                  ││ [party] bob1: ready when you are                       │

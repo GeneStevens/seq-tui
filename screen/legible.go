@@ -147,18 +147,24 @@ func vitalsStrip(m *model.Model, w int, st Styler) string {
 	if s.Dead {
 		parts[0] = "DEAD"
 	}
+	names := m.AttackerNames()
+	other := true // what attacks is not (only) the target
 	if t := targetName(m); t != "none" {
 		if e := m.Entities[s.Target]; e != nil {
 			t = fmt.Sprintf("%s %d/%d", t, e.GetHp(), e.GetMaxHp())
+		}
+		if len(names) == 1 && containsID(s.Attackers, s.Target) {
+			t += ", attacking you"
+			other = false
 		}
 		parts = append(parts, "Target: "+t)
 	} else {
 		parts = append(parts, "Target: none")
 	}
-	if names := m.AttackerNames(); len(names) > 0 {
-		parts = append(parts, "Attacked by "+joinNames(names))
-	}
-	if s.InCombat {
+	switch {
+	case len(names) > 0 && other:
+		parts = append(parts, "In combat: attacked by "+joinNames(names))
+	case s.InCombat:
 		parts = append(parts, "In combat")
 	}
 	line := fit(" "+strings.Join(parts, " | "), w)
@@ -385,7 +391,7 @@ func legendLines(m *model.Model, w int) []string {
 		{"@ you", "m mob", "M target", "x dead", "p player", "r rare", "* loot", "~ not yours"},
 		{"T trainer", "$ vendor", "B banker", "H binder", "g guard", "Q quest person", "& board", "D door"},
 		{"! new for you (gold)", "? hand in ready (gold)", "? in progress (grey)", "gold m quest mob", "gold D next door"},
-		{"c camp: where mobs are found (dim)", "▒ zone edge: walking ends", "◄ ► ▲ ▼ the objective, off the map"},
+		{"c camp: where mobs are found (dim)", "░ zone edge: walking ends", "◄ ► ▲ ▼ the objective, off the map"},
 		{"% your marker", "; scout marker", "v event spawn", "G event goal", "+ plan end"},
 		{"Ground  # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor"},
 	}

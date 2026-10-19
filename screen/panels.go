@@ -223,8 +223,10 @@ func nearbyList(m *model.Model) []nearby {
 	for _, n := range m.KnownNPCs() {
 		gl, _ := npcMark(m, n)
 		x := mk(gl, n.GetId(), n.GetName(), n.GetPos(), "")
-		x.title = n.GetTitle()
-		if x.title == "" {
+		if !strings.Contains(n.GetName(), n.GetTitle()) {
+			x.title = n.GetTitle()
+		}
+		if n.GetTitle() == "" {
 			x.hp = n.GetRole() // an NPC from an older server has a role and no title
 		}
 		if mark := m.MarkOf(n.GetId()); mark != "" {

@@ -16,12 +16,12 @@
 │                                    ░                                             #             │└────────────────────────────────────────┘
 │                                    ░                                             #             │┌─ Nearby ───────────────────────────────┐
 │                                    ░                                             #             ││ & Testgrounds Contract B… 11m NE [new] │
-│                                    ░                                             #             ││     <Contract Board>                   │
 │                                    ░                                             #             ││ ! Testgrounds Recruiter   13m NE [new] │
 │                                    ░                                             #             ││     <Quest Giver>                      │
-│                                    ░                                             #             ││ $ Testgrounds Vendor <Vendor>     8m N │
-│                                    ░                                             #             ││ B Testgrounds Banker <Banker>    9m NE │
-│                                    ░                                             #             ││ +12 more                               │
+│                                    ░                                             #             ││ $ Testgrounds Vendor              8m N │
+│                                    ░                                             #             ││ B Testgrounds Banker             9m NE │
+│                                    ░                                             #             ││ H Testgrounds Binder            10m NE │
+│                                    ░                                             #             ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 Second Wind ready               4 -                               │

@@ -18,15 +18,15 @@
 │                    ░                                                       #                   ││ ! Testgrounds Recruiter     6m N [new] │
 │                    ░                                                       #                   ││     <Quest Giver>                      │
 │                    ░                                                       #                   ││ & Testgrounds Contract Boa… 8m N [new] │
-│                    ░                                                       #                   ││     <Contract Board>                   │
 │                    ░                                                       #                   ││ m Plain Scuttler       2m E 40/40 even │
 │                    ░                                                       #                   ││ Q Testgrounds Captain             8m N │
 │                    ░                                                       #                   ││     <Quest Giver>                      │
-│                    ░                                                       #                   ││ H Testgrounds Binder <Binder>    9m NW │
-│                    ░                                                       #                   ││ B Testgrounds Banker <Banker>   10m NW │
-│                    ░                                                       #                   ││ $ Testgrounds Vendor <Vendor>   11m NW │
-│                    ░                                                       #                   ││ +9 more                                │
-│                    ░                                                       #                   ││                                        │
+│                    ░                                                       #                   ││ H Testgrounds Binder             9m NW │
+│                    ░                                                       #                   ││ B Testgrounds Banker            10m NW │
+│                    ░                                                       #                   ││ $ Testgrounds Vendor            11m NW │
+│                    ░                                                       #                   ││ T Paladin Trainer                12m N │
+│                    ░                                                       #                   ││ T Druid Trainer                  12m N │
+│                    ░                                                       #                   ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ <   N.Ns Plain Scuttler hits you for 2                                                                                                   │

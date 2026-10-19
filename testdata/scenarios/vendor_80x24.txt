@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Testgrounds Vendor <Vendor>, 3m SW away. You have 120 crowns.                │
+│ Testgrounds Vendor, 3m SW away. You have 120 crowns.                         │
 │                                                                              │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
 │  Cracked Shell Fragment          1   │  (nothing)                            │

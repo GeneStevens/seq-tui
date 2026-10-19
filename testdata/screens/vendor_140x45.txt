@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Testgrounds Vendor <Vendor>, 3m SW away. You have 120 crowns.                                  ││ zedd  Lv 3 Wizard          | 120 crowns│
+│ Testgrounds Vendor, 3m SW away. You have 120 crowns.                                           ││ zedd  Lv 3 Wizard          | 120 crowns│
 │                                                                                                ││ HP 80/96 ########################----- │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ MP 150/196 ####################------- │
 │  Cracked Shell Fragment Common            1   │  (nothing)                                     ││ XP ------------------------- 90 to Lv 4│
@@ -17,17 +17,17 @@
 │ armor +2; a vendor pays 2                                                                      │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 4m SE [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Testgrounds Recruiter    9m SE [new] │
 │                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ B Testgrounds Banker <Banker>     2m S │
-│                                                                                                ││ T Cleric Trainer <Cleric Trainer> 2m N │
-│                                                                                                ││ H Testgrounds Binder <Binder>    3m SE │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer>  3m NE │
+│                                                                                                ││ B Testgrounds Banker              2m S │
+│                                                                                                ││ T Cleric Trainer                  2m N │
+│                                                                                                ││ H Testgrounds Binder             3m SE │
+│                                                                                                ││ T Rogue Trainer                  3m NE │
 │                                                                                                ││ T Warrior Trainer                3m NW │
-│                                                                                                ││     <Warrior Trainer>                  │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ $ Testgrounds Vendor <Vendor>    3m SW │
-│ The answer is on the status line; every denial says why.                                       ││ +8 more                                │
+│                                                                                                ││ $ Testgrounds Vendor             3m SW │
+│                                                                                                ││ T Wizard Trainer                 4m NE │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ +7 more                                │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ nothing has happened yet                                                                                                                 │

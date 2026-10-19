@@ -22,12 +22,12 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
 │                                                                                                ││     <Warrior Trainer>                  │
 │                                                                                                ││ g Tamsin Hale <Guard>            5m SE │
-│ Up / Down choose. X gives the contract up (anywhere). Hand a finished one in at its board.     ││ H Isolde Fenn <Binder>          13m SE │
-│ Esc closes.                                                                                    ││ +12 more                               │
+│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
+│ Up / Down choose. X gives the contract up (anywhere). Hand a finished one in at its board.     ││ $ Barnaby Tuck <Vendor>         13m SW │
+│ Esc closes.                                                                                    ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │

@@ -17,17 +17,17 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Boa… 7m E [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Testgrounds Recruiter    11m E [new] │
 │                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ $ Testgrounds Vendor <Vendor>    1m NE │
-│                                                                                                ││ B Testgrounds Banker <Banker>     3m E │
-│                                                                                                ││ H Testgrounds Binder <Binder>     5m E │
+│                                                                                                ││ $ Testgrounds Vendor             1m NE │
+│                                                                                                ││ B Testgrounds Banker              3m E │
+│                                                                                                ││ H Testgrounds Binder              5m E │
 │                                                                                                ││ T Warrior Trainer                 5m N │
-│                                                                                                ││     <Warrior Trainer>                  │
 │                                                                                                ││ T Cleric Trainer                 5m NE │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││     <Cleric Trainer>                   │
-│ talk to Testgrounds Vendor ok                                                                  ││ +9 more                                │
+│                                                                                                ││ T Rogue Trainer                  6m NE │
+│                                                                                                ││ T Wizard Trainer                 8m NE │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ +7 more                                │
+│ talk to Testgrounds Vendor ok                                                                  ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Testgrounds Vendor says: Fresh stock, fair prices. I buy what you carry, for a quarter of what I sell it at.                    │

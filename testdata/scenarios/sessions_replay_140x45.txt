@@ -17,16 +17,16 @@
 │                            ░                                                       #           │└────────────────────────────────────────┘
 │                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
 │                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
-│                            ░                                                       #           ││     <Contract Board>                   │
 │                            ░                                                       #           ││ ! Testgrounds Recruiter   10m NE [new] │
 │                            ░                                                       #           ││     <Quest Giver>                      │
 │                            ░                                                       #           ││ M Plain Scuttler       4m E 40/40 even │
-│                            ░                                                       #           ││ B Testgrounds Banker <Banker>     8m N │
-│                            ░                                                       #           ││ H Testgrounds Binder <Binder>     8m N │
-│                            ░                                                       #           ││ $ Testgrounds Vendor <Vendor>     8m N │
+│                            ░                                                       #           ││ B Testgrounds Banker              8m N │
+│                            ░                                                       #           ││ H Testgrounds Binder              8m N │
+│                            ░                                                       #           ││ $ Testgrounds Vendor              8m N │
 │                            ░                                                       #           ││ Q Testgrounds Captain           10m NE │
 │                            ░                                                       #           ││     <Quest Giver>                      │
-│                            ░                                                       #           ││ +9 more                                │
+│                            ░                                                       #           ││ T Cleric Trainer                 12m N │
+│                            ░                                                       #           ││ +8 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Plain Scuttler targeted aria                                                                                                    │

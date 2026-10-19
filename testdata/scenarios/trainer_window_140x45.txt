@@ -11,23 +11,23 @@
 │  Sunder                 level 11  165 crowns                                                   │└────────────────────────────────────────┘
 │────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Nearby ───────────────────────────────┐
 │ Second Wind: For a short while, a share of the damage you deal comes back to you as health. Use││ & Thornwick Contract Boa… 52m NE [new] │
-│ it in the thick of a long fight.                                                               ││     <Contract Board>                   │
-│                                                                                                ││ T Gorran Stoutarm              0m here │
+│ it in the thick of a long fight.                                                               ││ T Gorran Stoutarm              0m here │
 │                                                                                                ││     <Warrior Trainer>                  │
 │                                                                                                ││ T Mother Elswyth                 16m E │
 │                                                                                                ││     <Cleric Trainer>                   │
 │                                                                                                ││ $ Dunstan Reeve <Vendor>        23m NE │
-│                                                                                                ││ g Town Guard <Guard>             31m E │
+│                                                                                                ││ g Town Guard                     31m E │
 │                                                                                                ││ T Pip Nettle <Rogue Trainer>     32m E │
 │                                                                                                ││ $ Barnaby Tuck <Vendor>         42m NE │
 │                                                                                                ││ $ Hilda Brasswick <Vendor>       42m N │
 │                                                                                                ││ T Ormond Quill <Wizard Trainer>  48m E │
-│                                                                                                ││ g Town Guard <Guard>             52m N │
+│                                                                                                ││ g Town Guard                     52m N │
 │                                                                                                ││ H Isolde Fenn <Binder>          54m NE │
 │                                                                                                ││ g Tamsin Hale <Guard>           54m NE │
 │                                                                                                ││ T Ser Aldric Vane                64m E │
-│ Enter acts. Esc goes back.                                                                     ││     <Paladin Trainer>                  │
-│ The answer is on the status line; every denial says why.                                       ││ +4 more                                │
+│                                                                                                ││     <Paladin Trainer>                  │
+│ Enter acts. Esc goes back.                                                                     ││ +4 more                                │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns Hilda Brasswick is out of view                                                                                                  │

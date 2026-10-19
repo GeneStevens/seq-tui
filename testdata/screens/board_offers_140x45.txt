@@ -1,5 +1,5 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Contract Board> | you hold 0 of 3 contracts | 0 crowns               ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board | you hold 0 of 3 contracts | 0 crowns                                ││ Hale  Lv 1 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
 │> Thin the Meadow Wolves          Hunt   L1-3  │  (none)                                        ││ XP ------------------------- 40 to Lv 2│
 │  Boars in the Barley             Hunt   L1-3  │                                                ││ Atk off | none                         │
@@ -18,16 +18,16 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││     <Warrior Trainer>                  │
-│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ g Tamsin Hale <Guard>            5m SE │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ H Isolde Fenn <Binder>          13m SE │
-│ Pays 30 XP and 12 crowns.                                                                      ││ $ Barnaby Tuck <Vendor>         13m SW │
-│                                                                                                ││ g Town Guard <Guard>             22m E │
+│                                                                                                ││     <Warrior Trainer>                  │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ g Tamsin Hale <Guard>            5m SE │
+│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ H Isolde Fenn <Binder>          13m SE │
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ $ Barnaby Tuck <Vendor>         13m SW │
+│ Pays 30 XP and 12 crowns.                                                                      ││ g Town Guard                     22m E │
 │                                                                                                ││ $ Hilda Brasswick <Vendor>       29m W │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ B Odalys Penn <Banker>           32m E │
-│ The answer is on the status line; every refusal says why.                                      ││ +8 more                                │
+│                                                                                                ││ B Odalys Penn <Banker>           32m E │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ $ Dunstan Reeve <Vendor>        33m SW │
+│ The answer is on the status line; every refusal says why.                                      ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square. It is optional;    │

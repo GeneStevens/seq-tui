@@ -1,5 +1,5 @@
 ┌─ Contract board ─────────────────────────────────────────────────────────────┐
-│ Thornwick Contract Board <Contract Board> | you hold 0 of 3 contracts | 12 c…│
+│ Thornwick Contract Board | you hold 0 of 3 contracts | 12 crowns             │
 │ Handed in the contract Thin the Meadow Wolves: 30 XP, 12 crowns              │
 │ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
 │> Boars in the Barley    Hunt   L1-3  │  (none)                               │

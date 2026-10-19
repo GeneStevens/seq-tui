@@ -18,15 +18,15 @@
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ D Gate North                   0m here │
-│                                                                                          c     ││ H Eastern Binder <Binder>        73m S │
-│                                                                                                ││ T Druid Trainer <Druid Trainer>  83m W │
+│                                                                                                ││ H Eastern Binder                 73m S │
+│                                                                                          c     ││ T Druid Trainer                  83m W │
 │                                                                                                ││ T Paladin Trainer                85m W │
-│                                                                                                ││     <Paladin Trainer>                  │
 │                                                                                                ││ Q Testgrounds Captain            86m W │
 │                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ +8 more                                │
+│                                                                                                ││ T Wizard Trainer                 87m W │
+│                                                                                                ││ T Rogue Trainer                  89m W │
+│                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns Your target Plain Scuttler is gone                                                                                              │

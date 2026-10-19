@@ -13,20 +13,20 @@
 │                                                        ░                                       ││ ! Testgrounds Recruiter   178m W [new] │
 │                                                        ░                                       ││     <Quest Giver>                      │
 │                                                        ░                                       ││ & Testgrounds Contract B… 182m W [new] │
-│                                                @D      ░                                       ││     <Contract Board>                   │
-│                                                        ░                                       ││ D Line East                       1m E │
-│                                                        ░                                       ││ H Eastern Binder <Binder>        75m W │
+│                                                @D      ░                                       ││ D Line East                       1m E │
+│                                                        ░                                       ││ H Eastern Binder                 75m W │
 │                                                        ░                                       ││ D Gate North                   123m NW │
-│                                                        ░                                       ││ T Druid Trainer <Druid Trainer> 180m W │
+│                                                        ░                                       ││ T Druid Trainer                 180m W │
 │                                                        ░                                       ││ Q Testgrounds Captain           180m W │
 │                                                        ░                                       ││     <Quest Giver>                      │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                       ││ T Paladin Trainer               182m W │
-│                                                                                                ││     <Paladin Trainer>                  │
-│                                                                                                ││ T Wizard Trainer                184m W │
-│                                                                                                ││     <Wizard Trainer>                   │
-│                                                                                                ││ H Testgrounds Binder <Binder>   184m W │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer> 185m W │
-│                                                                                                ││ +4 more                                │
+│                                                        ░                                       ││ T Paladin Trainer               182m W │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                       ││ T Wizard Trainer                184m W │
+│                                                                                                ││ H Testgrounds Binder            184m W │
+│                                                                                                ││ T Rogue Trainer                 185m W │
+│                                                                                                ││ B Testgrounds Banker            186m W │
+│                                                                                                ││ T Cleric Trainer                187m W │
+│                                                                                                ││ $ Testgrounds Vendor            188m W │
+│                                                                                                ││ T Warrior Trainer               189m W │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ nothing has happened yet                                                                                                                 │

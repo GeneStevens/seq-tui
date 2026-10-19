@@ -11,7 +11,6 @@
 │ > 1  Take a contract                                                                           │└────────────────────────────────────────┘
 │   2  Turn in a contract                                                                        │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 47m W [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ Q Captain Rhosyn Hartley         1m NE │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ D East Gate                     12m SE │
@@ -26,8 +25,9 @@
 │                                                                                                ││ $ Barnaby Tuck <Vendor>          54m W │
 │                                                                                                ││ T Pip Nettle <Rogue Trainer>    65m SW │
 │                                                                                                ││ $ Hilda Brasswick <Vendor>       75m W │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ $ Dunstan Reeve <Vendor>         76m W │
-│ talk to Captain Rhosyn Hartley ok                                                              ││ +2 more                                │
+│                                                                                                ││ $ Dunstan Reeve <Vendor>         76m W │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ +2 more                                │
+│ talk to Captain Rhosyn Hartley ok                                                              ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│

@@ -281,7 +281,7 @@ func boxWith(title string, w, h int, inner []string, border func(string) string)
 	side := border("│")
 	for i := 0; i < h-2; i++ {
 		line := strings.Repeat(" ", w-2)
-		if i < len(inner) {
+		if i < len(inner) && inner[i] != "" {
 			line = inner[i]
 		}
 		rows = append(rows, side+line+side)
@@ -314,10 +314,8 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 			switch {
 			case width(line+" | "+note) <= w:
 				line += " | " + note
-			case width(" "+short+" | "+note) <= w:
+			default: // the alarm is never the part that is cut
 				line = " " + short + " | " + note
-			default:
-				line = " ⚠ " + note
 			}
 		}
 		return st.Reverse(st.Red(st.Bold(fit(line, w))))

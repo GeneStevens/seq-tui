@@ -1,5 +1,5 @@
 ┌─ Traders  ⚠ UNDER ATTACK ──────────────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
-│ Testgrounds Vendor <Vendor>, 1m NE away. You have 0 crowns.                                    ││ aria  Lv 1  XP 0             | 0 crowns│
+│ Testgrounds Vendor, 1m NE away. You have 0 crowns.                                             ││ aria  Lv 1  XP 0             | 0 crowns│
 │                                                                                                ││ HP 100/100 ########################### │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ Target: Plain Scuttler                 │
 │> Cracked Shell Fragment Common            1   │  (nothing)                                     ││ Auto-attack: off                       │
@@ -17,17 +17,17 @@
 │ a vendor pays 1                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Boa… 7m E [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Testgrounds Recruiter    11m E [new] │
 │                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ $ Testgrounds Vendor <Vendor>    1m NE │
-│                                                                                                ││ B Testgrounds Banker <Banker>     3m E │
-│                                                                                                ││ H Testgrounds Binder <Binder>     5m E │
+│                                                                                                ││ $ Testgrounds Vendor             1m NE │
+│                                                                                                ││ B Testgrounds Banker              3m E │
+│                                                                                                ││ H Testgrounds Binder              5m E │
 │                                                                                                ││ T Warrior Trainer                 5m N │
-│                                                                                                ││     <Warrior Trainer>                  │
 │                                                                                                ││ T Cleric Trainer                 5m NE │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││     <Cleric Trainer>                   │
-│ The answer is on the status line; every denial says why.                                       ││ +9 more                                │
+│                                                                                                ││ T Rogue Trainer                  6m NE │
+│                                                                                                ││ T Wizard Trainer                 8m NE │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ +7 more                                │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Plain Scuttler targeted aria                                                                                                    │

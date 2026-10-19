@@ -13,21 +13,21 @@
 │   off_hand  -                                 │                                                ││ ! Testgrounds Recruiter    76m W [new] │
 │────────────────────────────────────────────────────────────────────────────────────────────────││     <Quest Giver>                      │
 │ Worn Cap: Common, head; tradable once                                                          ││ & Testgrounds Contract Bo… 80m W [new] │
-│ armor +2; a vendor pays 2                                                                      ││     <Contract Board>                   │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ p c2                     16m N 100/100 │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ H Eastern Binder <Binder>       37m SE │
-│                                                                                                ││ D Gate North                     40m N │
-│                                                                                                ││ T Druid Trainer <Druid Trainer>  77m W │
+│ armor +2; a vendor pays 2                                                                      ││ p c2                     16m N 100/100 │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ H Eastern Binder                37m SE │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ D Gate North                     40m N │
+│                                                                                                ││ T Druid Trainer                  77m W │
 │                                                                                                ││ Q Testgrounds Captain            78m W │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ T Paladin Trainer                79m W │
-│                                                                                                ││     <Paladin Trainer>                  │
 │                                                                                                ││ T Wizard Trainer                 81m W │
-│                                                                                                ││     <Wizard Trainer>                   │
-│                                                                                                ││ H Testgrounds Binder <Binder>    82m W │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer>  83m W │
-│                                                                                                ││ B Testgrounds Banker <Banker>    84m W │
-│ wear Worn Cap ok                                                                               ││ +4 more                                │
+│                                                                                                ││ H Testgrounds Binder             82m W │
+│                                                                                                ││ T Rogue Trainer                  83m W │
+│                                                                                                ││ B Testgrounds Banker             84m W │
+│                                                                                                ││ T Cleric Trainer                 85m W │
+│                                                                                                ││ $ Testgrounds Vendor             86m W │
+│                                                                                                ││ T Warrior Trainer                87m W │
+│ wear Worn Cap ok                                                                               ││ D Line East                     105m E │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    16.4s You are out of combat                                                                                                           │

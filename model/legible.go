@@ -3,6 +3,7 @@ package model
 import (
 	"fmt"
 	"regexp"
+	"strings"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
@@ -66,14 +67,18 @@ func (m *Model) UnderAttack() bool { return m.Self.InCombat || len(m.Self.Attack
 func (m *Model) AttackerNames() []string {
 	var out []string
 	for _, id := range m.Self.Attackers {
-		out = append(out, m.label(id))
+		name := m.label(id)
+		if name == id && m.Alert != nil && m.Alert.Mob == id {
+			name = m.Alert.Name // the alert named it before the model had seen it
+		}
+		out = append(out, name)
 	}
 	return out
 }
 
 // NPCLabel is an NPC as a player reads it, with its title: "Gorran Stoutarm <Warrior Trainer>".
 func NPCLabel(n *pb.NpcInfo) string {
-	if n.GetTitle() == "" {
+	if n.GetTitle() == "" || strings.Contains(n.GetName(), n.GetTitle()) { // a name that already says it ("Warrior Trainer")
 		return n.GetName()
 	}
 	return n.GetName() + " <" + n.GetTitle() + ">"

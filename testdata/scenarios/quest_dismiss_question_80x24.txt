@@ -8,16 +8,16 @@
 │ The whole chain pays 20 XP at its end.                                       │
 │                                                                              │
 │ It is optional: nothing waits for it and nothing reminds you.                │
-││
-││
-││
-││
-││
-││
-││
-││
-││
-││
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
 │ Dismiss First Steps for good? It is never offered again.  Y: yes   any other…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      

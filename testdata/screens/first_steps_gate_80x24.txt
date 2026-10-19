@@ -20,5 +20,5 @@
 │            Thornwick Downs.                                                  │
 │ +  56.4s You take the contract Thin the Meadow Wolves                        │
 └──────────────────────────────────────────────────────────────────────────────┘
- G: talk to Thornwick Contract Board <Contract Board>                           
+ G: talk to Thornwick Contract Board                                            
  ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 57m E   ? help

@@ -11,9 +11,8 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 29m E [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ $ Hilda Brasswick <Vendor>        2m S │
-│                                                                                                ││ g Town Guard <Guard>             15m N │
+│                                                                                                ││ g Town Guard                     15m N │
 │                                                                                                ││ $ Dunstan Reeve <Vendor>         22m S │
 │                                                                                                ││ $ Barnaby Tuck <Vendor>         28m SE │
 │                                                                                                ││ g Tamsin Hale <Guard>            34m E │
@@ -26,8 +25,9 @@
 │                                                                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
 │                                                                                                ││ B Odalys Penn <Banker>           60m E │
 │                                                                                                ││ T Ser Aldric Vane               67m SE │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││     <Paladin Trainer>                  │
-│ talk to Hilda Brasswick ok                                                                     ││ +3 more                                │
+│                                                                                                ││     <Paladin Trainer>                  │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ +3 more                                │
+│ talk to Hilda Brasswick ok                                                                     ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │

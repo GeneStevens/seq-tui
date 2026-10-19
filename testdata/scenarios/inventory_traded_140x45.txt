@@ -11,23 +11,23 @@
 │   neck      -                                 │                                                │└────────────────────────────────────────┘
 │   main_hand -                                 │                                                │┌─ Nearby ───────────────────────────────┐
 │   off_hand  -                                 │                                                ││ & Testgrounds Contract Bo… 35m S [new] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││     <Contract Board>                   │
-│                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Testgrounds Recruiter    35m S [new] │
 │                                                                                                ││     <Quest Giver>                      │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ p c1                      1m W 100/100 │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ T Druid Trainer <Druid Trainer>  29m S │
-│                                                                                                ││ T Paladin Trainer                30m S │
-│                                                                                                ││     <Paladin Trainer>                  │
+│                                                                                                ││ p c1                      1m W 100/100 │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ T Druid Trainer                  29m S │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ T Paladin Trainer                30m S │
 │                                                                                                ││ T Wizard Trainer                31m SW │
-│                                                                                                ││     <Wizard Trainer>                   │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer> 32m SW │
+│                                                                                                ││ T Rogue Trainer                 32m SW │
 │                                                                                                ││ T Cleric Trainer                33m SW │
-│                                                                                                ││     <Cleric Trainer>                   │
 │                                                                                                ││ Q Testgrounds Captain            34m S │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ T Warrior Trainer               34m SW │
-│                                                                                                ││     <Warrior Trainer>                  │
-│                                                                                                ││ +6 more                                │
+│                                                                                                ││ H Testgrounds Binder            35m SW │
+│                                                                                                ││ B Testgrounds Banker            36m SW │
+│                                                                                                ││ $ Testgrounds Vendor            37m SW │
+│                                                                                                ││ D Gate North                     69m E │
+│                                                                                                ││ H Eastern Binder               113m SE │
+│                                                                                                ││ D Line East                    182m SE │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns c1 asks to trade                                                                                                                │

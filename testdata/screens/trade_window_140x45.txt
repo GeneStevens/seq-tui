@@ -11,23 +11,23 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 34m S [new] │
-│                                                                                                ││     <Contract Board>                   │
 │                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ p c2                      1m E 100/100 │
-│                                                                                                ││ T Druid Trainer <Druid Trainer>  29m S │
+│                                                                                                ││ T Druid Trainer                  29m S │
 │                                                                                                ││ T Paladin Trainer                30m S │
-│                                                                                                ││     <Paladin Trainer>                  │
 │                                                                                                ││ T Wizard Trainer                30m SW │
-│                                                                                                ││     <Wizard Trainer>                   │
-│                                                                                                ││ T Rogue Trainer <Rogue Trainer> 31m SW │
+│                                                                                                ││ T Rogue Trainer                 31m SW │
 │                                                                                                ││ T Cleric Trainer                32m SW │
-│                                                                                                ││     <Cleric Trainer>                   │
 │                                                                                                ││ T Warrior Trainer               33m SW │
-│                                                                                                ││     <Warrior Trainer>                  │
-│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                      ││ Q Testgrounds Captain            34m S │
-│ Esc closes the screen and leaves the trade open.                                               ││     <Quest Giver>                      │
-│ ! offer Scuttler Blade denied: that item is bound and cannot be traded (bound)                 ││ +6 more                                │
+│                                                                                                ││ Q Testgrounds Captain            34m S │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ H Testgrounds Binder            35m SW │
+│                                                                                                ││ B Testgrounds Banker            36m SW │
+│                                                                                                ││ $ Testgrounds Vendor            37m SW │
+│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                      ││ D Gate North                     70m E │
+│ Esc closes the screen and leaves the trade open.                                               ││ H Eastern Binder               114m SE │
+│ ! offer Scuttler Blade denied: that item is bound and cannot be traded (bound)                 ││ D Line East                    183m SE │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s c2 comes into view                                                                                                              │

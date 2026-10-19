@@ -3,7 +3,7 @@
 │                                                                              │
 │ A new character in Thornwick is offered First Steps. It is optional, and a c…│
 │ you dismiss is never offered again.                                          │
-││
+│                                                                              │
 │ Esc closes                                                                   │
 │                                                                              │
 │                                                                              │

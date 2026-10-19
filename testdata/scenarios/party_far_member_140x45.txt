@@ -19,13 +19,13 @@
 │                                                                                                ││ ! Testgrounds Recruiter   123m W [new] │
 │                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract B… 126m W [new] │
-│                                  m                                                             ││     <Contract Board>                   │
-│                                                                                                ││ m Den Brute          13m SW 40/40 even │
+│                                  m                                                             ││ m Den Brute          13m SW 40/40 even │
 │                                                                                                ││ D Gate North                     40m W │
-│                                                                                                ││ H Eastern Binder <Binder>        72m S │
+│                                                                                                ││ H Eastern Binder                 72m S │
 │                                                                                                ││ D Line East                     96m SE │
-│                                                                                                ││ T Druid Trainer <Druid Trainer> 121m W │
-│                                                                                                ││ +9 more                                │
+│                                                                                                ││ T Druid Trainer                 121m W │
+│                                                                                                ││ T Paladin Trainer               123m W │
+│                                                                                                ││ +8 more                                │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

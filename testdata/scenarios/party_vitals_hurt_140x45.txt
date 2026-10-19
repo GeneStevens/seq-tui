@@ -22,11 +22,11 @@
 │                    ░                                                       #                   ││ ! Testgrounds Recruiter     6m N [new] │
 │                    ░                                                       #                   ││     <Quest Giver>                      │
 │                    ░                                                       #                   ││ & Testgrounds Contract Boa… 8m N [new] │
-│                    ░                                                       #                   ││     <Contract Board>                   │
 │                    ░                                                       #                   ││ p ann1                     1m S 98/100 │
 │                    ░                                                       #                   ││ m Plain Scuttler       2m E 40/40 even │
-│                    ░                                                       #                   ││ +13 more                               │
-│                    ░                                                       #                   ││                                        │
+│                    ░                                                       #                   ││ Q Testgrounds Captain             8m N │
+│                    ░                                                       #                   ││     <Quest Giver>                      │
+│                    ░                                                       #                   ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns ann1 invites you to a party                                                                                                     │
