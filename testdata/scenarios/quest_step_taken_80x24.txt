@@ -1,4 +1,4 @@
-┌─ Thornwick, at 103,50 m, north up ───────────────┐┌─ You ────────────────────┐
+┌─ Thornwick — Watch House Yard, at 103,50 m, no… ─┐┌─ You ────────────────────┐
 │  ###### #####  ##############  #░                ││ hale  Lv 6 Warrior  | 0cr│
 │                ##############  #░                ││ HP 215/215 ############# │
 │·············      B  ########  #░                ││ XP ---------- 162 to Lv 7│
@@ -20,5 +20,5 @@
 │ !   N.Ns You haven't earned a companion yet                                  │
 │ +   N.Ns You take the contract Eyes on the Goblins                           │
 └──────────────────────────────────────────────────────────────────────────────┘
- G: talk to Captain Rhosyn Hartley <Quest Giver>                                
+ G: talk to Captain Rhosyn Hartley <Watch Captain>                              
  ONLINE | → Eyes on the Goblins (Thornwick Downs), 12m SE | heard N.Ns ago      

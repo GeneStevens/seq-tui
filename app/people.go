@@ -181,7 +181,7 @@ func (a *App) overviewKey(k string, m *model.Model) Action {
 		return Action{Kind: ToggleLabels}
 	case "up", "w", "k", "down", "s", "j", "left", "a", "h", "right", "d", "l":
 		// The keyboard's way to click a spot: a cursor moves a cell at a time...
-		a.moveCursor(k, m)
+		return Action{Kind: MoveCursor, Note: k}
 	case "enter", "space", " ":
 		// ...and Enter walks to it.
 		if a.mouse.cursor == nil {

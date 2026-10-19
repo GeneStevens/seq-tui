@@ -10,18 +10,18 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
-│                                                @                                               ││ Thin the Meadow Wolves             0/3 │
+│                                                @                                               ││ Wolves at Wickett Mill             0/4 │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ m Meadow Wolf              13m S [0/3] │
+│                                                                                                ││ m Meadow Wolf              13m S [0/4] │
 │                                                                                                ││ ; Wickett Mill      29m N scout marker │
 │                                                                                        c       ││ G Barleycross        36m NE event goal │
-│                                                c                                               ││ D Town Gate                     60m NW │
-│                                                 m                                              ││ ; Millrace Ford   146m NE scout marker │
+│                                                c                                               ││ ; Barleycross      41m NE scout marker │
+│                                                 m                                              ││ D Town Gate                     60m NW │
+│                                                                                                ││ ; Millrace Ford   146m NE scout marker │
 │                                                                                                ││ ; Goblin Lookout   188m E scout marker │
 │                                                                                                ││ v Raid Edge         195m E event spawn │
-│                                                                                                ││ ; Hollow Warren    346m E scout marker │
-│                                                                                                ││ D Hollow Warren                 358m E │
+│                                                                                                ││ +2 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                                    
- ONLINE | Thornwick Downs | → Thin the Meadow Wolves, 11m S | heard N.Ns ago | move ok                                        ? help  q quit
+ ONLINE | Thornwick Downs | → Wolves at Wickett Mill, 11m S | heard N.Ns ago | move ok                                        ? help  q quit

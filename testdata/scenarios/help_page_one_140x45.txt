@@ -42,4 +42,4 @@
 │ Page 1 of 8  ? next page  Left, Right turn  Esc closes                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                                                  
- ONLINE | Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125% | heard N.Ns ago                     ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125% | heard N.Ns ago    ? help  q quit

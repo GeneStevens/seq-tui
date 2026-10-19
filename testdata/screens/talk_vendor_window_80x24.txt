@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Hilda Brasswick <Vendor>, 2m S away. You have 200 crowns.                    │
+│ Hilda Brasswick <Armourer>, 2m S away. You have 200 crowns.                  │
 │                                                                              │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
 │> ▲ Tanned Cap Common               8 │  (nothing)                            │
@@ -21,4 +21,4 @@
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/164 | Target: none                                                      
- ONLINE | Thornwick | road: faster, 125% | heard 0.4s ago         ? help  q quit
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard 0.4s ago   ? help

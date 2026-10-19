@@ -1,11 +1,11 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board | you hold 0 of 3 contracts | 12 crowns                               ││ Hale  Lv 1 Warrior          | 12 crowns│
-│ Handed in the contract Thin the Meadow Wolves: 30 XP, 12 crowns                                ││ HP 130/130 ########################### │
-│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ XP #######################--- 4 to Lv 2│
-│> Boars in the Barley             Hunt   L1-3  │  (none)                                        ││ Atk off | none                         │
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 0 of 3 contracts | 10 crowns          ││ Hale  Lv 1 Warrior          | 10 crowns│
+│ Handed in the contract Wolves at Wickett Mill: 22 XP, 10 crowns                                ││ HP 130/130 ########################### │
+│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ XP ##################------- 10 to Lv 2│
+│> Thin the Meadow Wolves          Hunt   L1-3  │  (none)                                        ││ Atk off | none                         │
 │  Pelts for the Tanners           Gather L1-3  │                                                │└────────────────────────────────────────┘
-│  Word from Wickett Mill          Scout  L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
-│                                                                                                ││ [Gear]  Bags   Stats                   │
+│  Tusks for the Miller            Gather L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
+│  Word from Barleycross           Scout  L1-3  │                                                ││ [Gear]  Bags   Stats                   │
 │                                                                                                ││ Head      -                            │
 │                                                                                                ││ Chest     -                            │
 │                                                                                                ││ Legs      -                            │
@@ -27,19 +27,19 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││                                        │
-│ hand in Thin the Meadow Wolves ok                                                              ││                                        │
+│ hand in Wolves at Wickett Mill ok                                                              ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   NNN.Ns Thornwick Contract Board <Contract Board> comes into view                                                                       │
+│   NNN.Ns Captain Rhosyn Hartley is out of view                                                                                           │
+│   NNN.Ns Isolde Fenn <Binder> comes into view                                                                                            │
+│   NNN.Ns Tamsin Hale <Watch Greeter> comes into view                                                                                     │
+│   NNN.Ns Thornwick Contract Board <Jobs for the Downs> comes into view                                                                   │
 │   NNN.Ns Odalys Penn is out of view                                                                                                      │
-│   NNN.Ns Barnaby Tuck <Vendor> comes into view                                                                                           │
 │   NNN.Ns Town Guard is out of view                                                                                                       │
-│   NNN.Ns Town Guard <Guard> comes into view                                                                                              │
-│   NNN.Ns Town Guard is out of view                                                                                                       │
+│   NNN.Ns Barnaby Tuck <General Goods> comes into view                                                                                    │
 │   NNN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ + NNN.Ns You hand in Thin the Meadow Wolves: 30 experience, 12 crowns                                                                    │
-│                                                                                                                                          │
+│ + NNN.Ns You hand in Wolves at Wickett Mill: 22 experience, 10 crowns                                                                    │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125% | heard N.Ns ago | hand in Thin the Meadow Wolves ok    ? help
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125% | heard N.Ns ago | hand in Wolves at Wickett Mill ok    ? help

@@ -1,0 +1,24 @@
+┌─ Testgrounds, at 74,49 m, north up ──────────────┐┌─ You ────────────────────┐
+│┌──────────────────────────┐                      ││ aria  Lv 1  XP 0    | 0cr│
+││ Plain Scuttler           │                      ││ HP 100/100 ############# │
+││ Level 1, even            │                      ││ Target: Plain Scuttler   │
+││ HP 40/40, 17m W          │                      ││ Auto-attack: off         │
+││ Click again or F: attack │                      │└──────────────────────────┘
+│└──────────────────────────┘                      │┌─ Target ─────────────────┐
+│ #          c                              c      ││ M Plain Scuttler  Lv 1   │
+│ #           M           @                        ││ HP 40/40 ######## 17m W  │
+│ #                                                ││ even, not in a fight     │
+│ #                                                │└──────────────────────────┘
+│ #                                                │┌─ Nearby ─────────────────┐
+│ #                                                ││ ! Testgroun… 53m W [new] │
+│ #                                                ││     <Quest Giver>        │
+│ #                                                ││ +15 more                 │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│     N.Ns Trophy Scuttler is out of view                                      │
+│     N.Ns Plain Scuttler comes into view                                      │
+│    NN.Ns You target Plain Scuttler                                           │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                   
+ ONLINE | Testgrounds | heard N.Ns ago | target ok                ? help  q quit

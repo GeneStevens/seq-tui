@@ -1,5 +1,5 @@
 ┌─ Contract board — C: your character ─────────────────────────────────────────┐
-│ Captain Rhosyn Hartley <Quest Giver> | you hold 1 of 3 contracts | 0 crowns  │
+│ Captain Rhosyn Hartley <Watch Captain> | you hold 1 of 3 contracts | 0 crowns│
 │ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
 │  (nothing for your level)            │> Break the Raiding Party       READY  │
 │                                                                              │
@@ -15,7 +15,7 @@
 │ Break the Raiding Party: Hunt, 5 of 5 killed.                                │
 │                                                                              │
 │ Pays nothing.                                                                │
-│ Finished: hand it in at Captain Rhosyn Hartley <Quest Giver>, 1m NE.         │
+│ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m NE.       │
 │                                                                              │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
 │ The answer is on the status line; every refusal says why.                    │

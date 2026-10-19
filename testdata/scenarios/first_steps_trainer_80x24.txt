@@ -1,4 +1,4 @@
-┌─ Thornwick, at 60,45 m, north up ────────────────┐┌─ You ────────────────────┐
+┌─ Thornwick — Hawthorn Square, at 60,45 m, nort… ─┐┌─ You ────────────────────┐
 │  #######····######                ############## ││ Hale  Lv 1 Warrior  | 0cr│
 │  #######··$·######·············      B  ######## ││ HP 130/130 ############# │
 │  #######····      ·············         ######## ││ XP ----------- 40 to Lv 2│
@@ -7,7 +7,7 @@
 │  #######····      ··$·····H······················│┌─ Quest chain (Ctrl+K) ───┐
 │  #######··$·      ·············           ###### ││ First Steps              │
 │  #######····      ·············           ###### ││ Step 2 of 4              │
-│▼ Gorran 52m·           ···                ###### ││ Visit your class trainer │
+│▼ Gorran 52m·           ···                ###### ││ Speak to your class      │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│            out to the Downs. Captain Hartley is in the watch-house, if you   │
 │            want the Watch's work.                                            │
-│ +   N.Ns First Steps: step 1 done. Next: Visit your class trainer in         │
-│            Trainers' Lane. They will teach you your first lesson.            │
+│ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on      │
+│            Trainers' Lane, by the north wall (warriors at the west end,      │
+│            druids at the east), for your first lesson.                       │
 └──────────────────────────────────────────────────────────────────────────────┘
- G: talk to Tamsin Hale <Guard>                                                 
+ G: talk to Tamsin Hale <Watch Greeter>                                         
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m SW     ? help  q quit

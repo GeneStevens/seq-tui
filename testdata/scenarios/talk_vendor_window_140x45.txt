@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick <Vendor>, 2m S away. You have 200 crowns.                                      ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Armourer>, 2m S away. You have 200 crowns.                                    ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
 │> ▲ Tanned Cap Common                        8 │  (nothing)                                     ││ Atk off | none                         │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago                                                                     ? help  q quit
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard N.Ns ago                                                       ? help  q quit

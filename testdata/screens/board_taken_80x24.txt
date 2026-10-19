@@ -1,10 +1,10 @@
 ┌─ Contract board ─────────────────────────────────────────────────────────────┐
-│ Thornwick Contract Board | you hold 1 of 3 contracts | 0 crowns              │
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | …│
 │ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
-│> Boars in the Barley    Hunt   L1-3  │> Thin the Meadow Wolves          0/3  │
+│> Thin the Meadow Wolves Hunt   L1-3  │> Wolves at Wickett Mill          0/4  │
 │  Pelts for the Tanners  Gather L1-3  │                                       │
-│  Word from Wickett Mill Scout  L1-3  │                                       │
-│                                                                              │
+│  Tusks for the Miller   Gather L1-3  │                                       │
+│  Word from Barleycross  Scout  L1-3  │                                       │
 │                                                                              │
 │                                                                              │
 │                                                                              │
@@ -12,10 +12,10 @@
 │                                                                              │
 │                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.            │
-│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                        │
-│ Tin Ring: upgrade over an empty ring1: +10 health, +1 stamina                │
+│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                             │
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick│
+│ with them.                                                                   │
+│ Pays 21 XP and 8 crowns.                                                     │
 │                                                                              │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
 │ take Thin the Meadow Wolves ok                                               │

@@ -1,5 +1,5 @@
 ┌─ Talking — C: your character ────────────────────────────────────────────────┐
-│ Captain Rhosyn Hartley <Quest Giver>, 1m NE of you                           │
+│ Captain Rhosyn Hartley <Watch Captain>, 1m NE of you                         │
 │                                                                              │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are    │
 │ another matter.”                                                             │
@@ -21,4 +21,4 @@
 │ talk to Captain Rhosyn Hartley ok                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 215/215 | Target: none                                                      
- ONLINE | Thornwick | heard N.Ns ago | talk to Captain Rhosyn Hartley ok  ? help
+ ONLINE | heard N.Ns ago | talk to Captain Rhosyn Hartley ok      ? help  q quit

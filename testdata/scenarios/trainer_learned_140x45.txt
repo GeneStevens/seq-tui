@@ -30,16 +30,16 @@
 │ train Second Wind ok                                                                           ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns Town Guard <Guard> comes into view                                                                                              │
+│    NN.Ns Town Guard <Thornwick Watch> comes into view                                                                                    │
 │    NN.Ns Town Guard is out of view                                                                                                       │
-│    NN.Ns Town Guard <Guard> comes into view                                                                                              │
+│    NN.Ns Town Guard <Thornwick Watch> comes into view                                                                                    │
 │    NN.Ns Gorran Stoutarm <Warrior Trainer> comes into view                                                                               │
 │    NN.Ns Pip Nettle <Rogue Trainer> comes into view                                                                                      │
 │    NN.Ns Dunstan Reeve is out of view                                                                                                    │
 │    NN.Ns Pip Nettle is out of view                                                                                                       │
 │    NN.Ns Town Guard is out of view                                                                                                       │
 │    NN.Ns Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
-│            else is patience.                                                                                                             │
+│            else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.                       │
 │ +  NN.Ns You learn Second Wind from Gorran Stoutarm for 45 crowns                                                                        │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago | train Second Wind ok                                              ? help  q quit
+ ONLINE | Trainers' Lane, Thornwick | road: faster, 125% | heard N.Ns ago | train Second Wind ok                              ? help  q quit

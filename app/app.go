@@ -344,6 +344,8 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 		a.view.Notice = map[bool]string{true: "labels on: everything on the map is named (Ctrl+A turns them off)", false: "labels off"}[a.mouse.labels]
 	case CloseCard:
 		a.mouse.card = ""
+	case MoveCursor:
+		a.moveCursor(act.Note)
 	case SelectSide:
 		a.mouse.side.Tab = min(max(act.Count, 0), screen.Tabs-1)
 	case ScrollSide:
@@ -371,7 +373,7 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 	case OpenContracts:
 		a.cons = &screen.ContractsUI{}
 	case OpenOverview:
-		a.overview = true
+		a.overview, a.mouse.card = true, ""
 	case OpenQuest:
 		a.quest = &screen.QuestUI{}
 	case OpenLine:
@@ -545,7 +547,7 @@ func (a *App) send(act Action) tea.Cmd {
 			what, id, err = a.people(ctx, act)
 		case CompanionSummon, CompanionDismiss, CompanionStance, CompanionRole, CompanionOrder:
 			what, id, err = a.companion(ctx, act)
-		case Equip, Unequip, Buy, Sell, Train, Bind, BankDeposit, BankWithdraw, TradeOpen, TradeAdd, TradeCrowns, TradeRemove, TradeConfirm, TradeCancel:
+		case Equip, Unequip, Buy, Sell, SellJunk, Train, Bind, BankDeposit, BankWithdraw, TradeOpen, TradeAdd, TradeCrowns, TradeRemove, TradeConfirm, TradeCancel:
 			what, id, err = a.economy(ctx, act)
 		case Logout:
 			if a.duo != nil && a.duo.Active() {

@@ -52,12 +52,12 @@ func (a *App) zoomMap(by int) {
 }
 
 // moveCursor moves the large map's cursor a cell with a key.
-func (a *App) moveCursor(k string, m *model.Model) {
+func (a *App) moveCursor(k string) {
 	a.refresh()
 	h := &a.mouse.hits
 	at := a.mouse.cursor
 	if at == nil {
-		at = m.Self.Pos
+		a.focusSess().View(func(m *model.Model) { at = m.Self.Pos })
 	}
 	pt, ok := h.CellOf(at)
 	if !ok {
@@ -215,6 +215,7 @@ func (a *App) clickAction(m *model.Model, p screen.Pick) Action {
 		if n := m.NPC(p.ID); n != nil && !m.InReach(n) {
 			return Action{Kind: Move, X: p.Pos.GetX(), Y: p.Pos.GetY(), Note: "walk up to " + p.Name}
 		}
+		ms.card = "" // the conversation takes the card's place
 		return Action{Kind: Talk, NPC: p.ID, Note: p.Name}
 	case screen.PickDrop:
 		ms.card = ""

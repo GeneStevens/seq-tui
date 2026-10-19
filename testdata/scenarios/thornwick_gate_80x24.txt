@@ -1,4 +1,4 @@
-┌─ Thornwick, at 114,45 m, north up ───────────────┐┌─ You ────────────────────┐
+┌─ Thornwick — East Gate, at 114,45 m, north up ───┐┌─ You ────────────────────┐
 │           ##############  #░                     ││ Hale  Lv 1 Warrior  | 0cr│
 │········      B  ########  #░                     ││ HP 130/130 ############# │
 │········         ########  #░                     ││ XP ----------- 40 to Lv 2│
@@ -16,7 +16,7 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     N.Ns Isolde Fenn is out of view                                          │
-│     N.Ns Captain Rhosyn Hartley <Quest Giver> comes into view                │
+│     N.Ns Captain Rhosyn Hartley <Watch Captain> comes into view              │
 │    NN.Ns Odalys Penn is out of view                                          │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘

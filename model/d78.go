@@ -210,6 +210,7 @@ func (r *lootRun) text() string {
 type PlaceLabel struct {
 	Name string
 	Pos  *pb.Pos
+	Size int64 // the area of its bounding box, square millimetres
 }
 
 // PlaceLabels are the named places of the zone map (D76): streets, squares,
@@ -225,7 +226,7 @@ func (m *Model) PlaceLabels() []PlaceLabel {
 		for _, p := range a.GetPoly() {
 			x0, x1, y0, y1 = min(x0, p.GetX()), max(x1, p.GetX()), min(y0, p.GetY()), max(y1, p.GetY())
 		}
-		out = append(out, PlaceLabel{Name: a.GetName(), Pos: &pb.Pos{X: (x0 + x1) / 2, Y: (y0 + y1) / 2}})
+		out = append(out, PlaceLabel{Name: a.GetName(), Pos: &pb.Pos{X: (x0 + x1) / 2, Y: (y0 + y1) / 2}, Size: (x1 - x0) * (y1 - y0)})
 	}
 	return out
 }

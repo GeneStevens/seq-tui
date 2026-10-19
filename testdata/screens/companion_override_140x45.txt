@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 152,95 m, north up ───────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+┌─ Thornwick Downs — North Greywood, at 152,95 m, north up ──────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
 │                   """"""""""""""""""""""""""""""""""""""""           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈            ││ hale  Lv 5 Warrior           | 0 crowns│
 │                   """""""""""""""""""""""""""""""""""""""""          ≈≈≈≈≈≈≈≈≈≈≈≈≈≈            ││ HP 198/198 ########################### │
 │                  """"""""""""""""""""""""""""""""""""""""""""        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ XP ------------------------ 145 to Lv 6│
@@ -42,4 +42,4 @@
 │     3.8s You start attacking something                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
- ONLINE | Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | companion order: stop ok                                 ? help  q quit
+ ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | companion order: stop ok                 ? help  q quit

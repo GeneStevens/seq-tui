@@ -1,21 +1,21 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │ Traders in view. Up / Down choose, Enter opens, Esc closes. Walk up to one first.              ││ hale  Lv 1 Warrior           | 0 crowns│
 │                                                                                                ││ HP 130/130 ########################### │
-│ > $ Dunstan Reeve <Vendor>: sells and buys                                                 5m N││ XP ------------------------- 40 to Lv 2│
-│   g Town Guard: guard                                                             15m S too far││ Atk off | none                         │
+│ > $ Dunstan Reeve <Weaponsmith>: sells and buys                                            5m N││ XP ------------------------- 40 to Lv 2│
+│   g Town Guard <Thornwick Watch>: keeps watch over the town                       15m S too far││ Atk off | none                         │
 │   T Mother Elswyth <Cleric Trainer>: teaches                                      16m S too far│└────────────────────────────────────────┘
 │   T Gorran Stoutarm <Warrior Trainer>: teaches                                   19m SW too far│┌─ Your character (C: tab) ──────────────┐
-│   $ Barnaby Tuck <Vendor>: sells and buys                                         24m E too far││ [Gear]  Bags   Stats                   │
+│   $ Barnaby Tuck <General Goods>: sells and buys                                  24m E too far││ [Gear]  Bags   Stats                   │
 │   T Pip Nettle <Rogue Trainer>: teaches                                          25m SE too far││ Head      -                            │
-│   $ Hilda Brasswick <Vendor>: sells and buys                                      25m N too far││ Chest     -                            │
-│   & Thornwick Contract Board: posts contracts                                    34m NE too far││ Legs      -                            │
-│   g Tamsin Hale <Guard>: guard                                                   36m NE too far││ Hands     -                            │
+│   $ Hilda Brasswick <Armourer>: sells and buys                                    25m N too far││ Chest     -                            │
+│   & Thornwick Contract Board <Jobs for the Downs>: posts contracts               34m NE too far││ Legs      -                            │
+│   g Tamsin Hale <Watch Greeter>: keeps watch over the town                       36m NE too far││ Hands     -                            │
 │   H Isolde Fenn <Binder>: sets your bind point                                    37m E too far││ Feet      -                            │
 │   T Ormond Quill <Wizard Trainer>: teaches                                       39m SE too far││ Ring 1    -                            │
 │   T Ser Aldric Vane <Paladin Trainer>: teaches                                    54m E too far││ Ring 2    -                            │
 │   B Odalys Penn <Banker>: keeps your bank                                        66m NE too far││ Neck      -                            │
 │   T Wynne Greenhollow <Druid Trainer>: teaches                                    70m E too far││ Main hand -                            │
-│   Q Captain Rhosyn Hartley <Quest Giver>: talks                                   79m E too far││ Off hand  -                            │
+│   Q Captain Rhosyn Hartley <Watch Captain>: talks                                 79m E too far││ Off hand  -                            │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -30,11 +30,11 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square. It is optional;    │
+│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
 │     N.Ns Mother Elswyth <Cleric Trainer> comes into view                                                                                 │
 │     N.Ns Hilda Brasswick is out of view                                                                                                  │
-│     N.Ns Town Guard <Guard> comes into view                                                                                              │
+│     N.Ns Town Guard <Thornwick Watch> comes into view                                                                                    │
 │     N.Ns Gorran Stoutarm <Warrior Trainer> comes into view                                                                               │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 36m NE | road: faster, 125% | heard N.Ns ago                   ? help  q quit
+ ONLINE | Tanner's Row, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 36m NE | road: faster, 125% | heard N.Ns ago     ? help  q quit

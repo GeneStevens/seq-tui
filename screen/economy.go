@@ -348,6 +348,8 @@ func roleWord(role string) string {
 		return "posts contracts"
 	case "quest_giver":
 		return "talks"
+	case "guard":
+		return "keeps watch over the town"
 	}
 	return role
 }

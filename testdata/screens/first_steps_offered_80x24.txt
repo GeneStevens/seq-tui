@@ -1,4 +1,4 @@
-┌─ Thornwick, at 60,45 m, north up ────────────────┐┌─ You ────────────────────┐
+┌─ Thornwick — Hawthorn Square, at 60,45 m, nort… ─┐┌─ You ────────────────────┐
 │  #######····######                ############## ││ Hale  Lv 1 Warrior  | 0cr│
 │  #######··$·######·············      B  ######## ││ HP 130/130 ############# │
 │  #######····      ·············         ######## ││ XP ----------- 40 to Lv 2│
@@ -16,9 +16,9 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the  │
-│            Watch's greeter, here in Hawthorn Square. It is optional; /dismiss│
+│            Watch Greeter, here in Hawthorn Square. It is optional; /dismiss  │
 │            gives it up for good.                                             │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- G: talk to Tamsin Hale <Guard>                                                 
+ G: talk to Tamsin Hale <Watch Greeter>                                         
  ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125%    

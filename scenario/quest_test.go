@@ -109,7 +109,7 @@ func TestFirstStepsFromTheGreeterToTheEastGate(t *testing.T) {
 		notice(t, p, "ok", false)
 		p.Press("esc", "esc")
 		w.Advance(time.Second)
-		wantStep(t, p, 4, "east gate")
+		wantStep(t, p, 4, "East Gate")
 		p.Golden("first_steps_gate")
 	})
 

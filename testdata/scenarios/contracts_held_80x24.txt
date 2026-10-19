@@ -1,17 +1,17 @@
 ┌─ Contracts ──────────────────────────────────────────────────────────────────┐
 │ You hold 2 of 3 contracts. Take them at a contract board (G beside it); only…│
 │                                                                              │
-│> Thin the Meadow Wolves (Hunt)                                               │
-│   0 of 3 killed                                                              │
-│   Pays 30 XP and 12 crowns                                                   │
-│   Kill 3 wolves in the Thornwick Downs. The meadows west of the river are    │
-│   thick with them.                                                           │
-│  Pelts for the Tanners (Gather)                                              │
-│   0 of 3 carried                                                             │
-│   Pays 25 XP, 10 crowns and Cord Pendant ▲                                   │
-│   Bring back 3 wolf pelts from the wolves of the Downs. Tanner's Row pays by │
-│   the pelt.                                                                  │
-│                                                                              │
+│> Wolves at Wickett Mill (Hunt)                                               │
+│   0 of 4 killed                                                              │
+│   Pays 22 XP and 10 crowns                                                   │
+│   Kill 4 wolves in the Thornwick Downs. They have been circling the millpond │
+│   at Wickett Mill, west of the river.                                        │
+│  Word from Barleycross (Scout)                                               │
+│   go to the marker                                                           │
+│   the marker is in another place                                             │
+│   Pays 12 XP and 5 crowns                                                    │
+│   Walk out to Barleycross, along the road west of the river, and return to   │
+│   the board with news of the village.                                        │
 │                                                                              │
 │                                                                              │
 │                                                                              │

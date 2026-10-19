@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago         ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | road: faster, 125% | heard N.Ns ago      

@@ -1,7 +1,7 @@
 ┌─ Thornwick Downs, at 45,99 m, north up ──────────┐┌─ You ────────────────────┐
 │ ▲ Town Gate 63m                                  ││ Hale  Lv 1 Warrior  | 0cr│
-│     ░                                            ││ HP 127/130 ############- │
-│     ░                                            ││ XP #---------- 34 to Lv 2│
+│     ░                                            ││ HP 124/130 ############- │
+│     ░                                            ││ XP ##--------- 32 to Lv 2│
 │     ░                                            ││ Atk off | none           │
 │     ░                   @               c        │└──────────────────────────┘
 │     ░                   c                        │┌─ Target ─────────────────┐
@@ -17,8 +17,8 @@
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │   NNN.Ns You are out of combat                                               │
 │ + NNN.Ns You gain 2 experience                                               │
-│ + NNN.Ns Thin the Meadow Wolves: 3 of 3                                      │
+│ + NNN.Ns Wolves at Wickett Mill: 4 of 4                                      │
 │   NNN.Ns Meadow Wolf is out of view                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
- L: loot all 5 drops                                                            
- ONLINE | → Hand in: Thin the Meadow Wolves (Thornwick), 64m NW | attack ok     
+ L: loot all 4 drops                                                            
+ ONLINE | → Hand in: Wolves at Wickett Mill (Thornwick), 64m NW | attack ok     

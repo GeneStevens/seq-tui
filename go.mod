@@ -11,7 +11,7 @@ require (
 
 require (
 	ergo.services/ergo v1.999.330 // indirect
-	github.com/GeneStevens/seq-world v0.0.0-20261019183047-5f18c38b8911 // indirect
+	github.com/GeneStevens/seq-world v0.0.0-20261019194855-dc739651c36d // indirect
 	github.com/charmbracelet/colorprofile v0.4.3 // indirect
 	github.com/charmbracelet/ultraviolet v0.0.0-20261008173134-6b8d4baf91b4 // indirect
 	github.com/charmbracelet/x/ansi v0.11.9 // indirect

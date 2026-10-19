@@ -1,0 +1,24 @@
+┌─ Zone overview ──────────────────────────────────────────────────────────────┐
+│                           ░░░░░░░░░░░░░░░░░░░░░░░░░                          │
+│                           ░ #The Smithy###    ### ░                          │
+│                           ░ Cross Street## ###### ░                          │
+│                           ░ ###·$#Thornwick#B#### ░                          │
+│                           ░ ###······&@···g··##Q#D░                          │
+│                           ░ ###·$···$··H··········░                          │
+│                           ░ ###·Hawthorn Walk ### ░                          │
+│                           ░ #!#·T···T··T··T··T··· ░                          │
+│                           ░ ##Rogues' Hall#####·· ░                          │
+│ Thornwick, 120m by 90m. You: 60m E, 45m N of the south-west corner.          │
+│ @ you  m mob  M target  x dead  p player  r rare  * loot  ~ not yours        │
+│ T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board    │
+│ D door                                                                       │
+│ ! new for you (gold)  ? hand in ready (gold)  ? in progress (grey)           │
+│ gold m quest mob  gold D next door                                           │
+│ c camp: where mobs are found (dim)  ░ zone edge: walking ends                │
+│ ◄ ► ▲ ▼ the objective, off the map                                           │
+│ % your marker  ; scout marker  v event spawn  G event goal  + plan end       │
+│ Ground  # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  . f…│
+│ North is up. Click a spot to walk there (or arrows + Enter); the wheel or + …│
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m SW     ? help  q quit

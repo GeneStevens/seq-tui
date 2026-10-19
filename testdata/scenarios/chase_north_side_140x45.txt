@@ -14,13 +14,13 @@
 │       ░                                                                                        ││ M Meadow Wolf          2m E 45/45 even │
 │       ░                                                                                        ││ ; Wickett Mill      24m N scout marker │
 │       ░                                                                                        ││ G Barleycross        39m NE event goal │
+│       ░                                                                                        ││ ; Barleycross      43m NE scout marker │
 │       ░                                                                                        ││ D Town Gate                     48m NW │
 │       ░                                                                                        ││ ; Millrace Ford   151m NE scout marker │
 │       ░                                                                                        ││ ; Goblin Lookout   196m E scout marker │
 │       ░                                                                                        ││ v Raid Edge         203m E event spawn │
 │       ░                                                                                        ││ ; Hollow Warren    354m E scout marker │
-│       ░                                                                                        ││ D Hollow Warren                 366m E │
-│       ░                                                   c                                    ││                                        │
+│       ░                                                   c                                    ││ D Hollow Warren                 366m E │
 │       ░                                                                                        ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐

@@ -1,0 +1,24 @@
+┌─ Traders — C: your character ────────────────────────────────────────────────┐
+│ Dunstan Reeve <Weaponsmith>, 3m S away. You have 30 crowns.                  │
+│                                                                              │
+│ For sale (Enter buys one)            │ You carry (Enter sells one)           │
+│  ▲ Cudgel Common                  15 │  (nothing)                            │
+│  ▲ Short Sword Common             24 │                                       │
+│  ▲ Dirk Common                    22 │                                       │
+│  = Ashwood Staff Common           22 │                                       │
+│  ▲ Flanged Mace Common  48, short 18 │                                       │
+│  ▲ Long Sword Common    56, short 26 │                                       │
+│  ▲ Stiletto Common      52, short 22 │                                       │
+│  ▲ Yew Staff Common     52, short 22 │                                       │
+│  ▲ Spiked Mace Common  110, short 80 │                                       │
+│> ▲ Broad Sword Common  120, short 90 │                                       │
+│  ▲ Poniard Common      110, short 80 │                                       │
+│──────────────────────────────────────────────────────────────────────────────│
+│ ▲ Broad Sword: Common, Main hand; tradable once                              │
+│ damage 7-11 / N.Ns; costs 120 crowns, short 90 crowns                        │
+│ upgrade over an empty main hand: +3.6 damage/s                               │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc b…│
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/164 | Target: none                                                      
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard N.Ns ago   ? help

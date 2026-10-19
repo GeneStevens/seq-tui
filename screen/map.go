@@ -3,6 +3,7 @@ package screen
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strings"
 	"sync"
 
@@ -279,22 +280,45 @@ func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	}
 	g := newGrid(scale{col: col, row: 2 * col}, cw, ch, centre)
 	paintWorld(g, m, v, true)
-	paintPlaces(g, m)
 	c, r := g.cellOf(m.Self.Pos)
 	g.put(c, r, glyphSelf, kSelf)
+	paintPlaces(g, m)
 	v.Hits.setGrid(g)
 	paintOverlays(g, m, v)
 	return g.styled(st)
 }
 
 // paintPlaces writes the names of the zone's named places (D76) on the large
-// map, centred on each place and under every glyph.
+// map, centred on each place and under every glyph: a name is written only where
+// it covers open ground or building, never over another name or a glyph, and is
+// moved a row up or down to find room. The smaller places are written first.
 func paintPlaces(g *grid, m *model.Model) {
-	for _, p := range m.PlaceLabels() {
+	places := m.PlaceLabels()
+	sort.SliceStable(places, func(i, j int) bool { return places[i].Size < places[j].Size })
+	for _, p := range places {
 		c, r := g.cellOf(p.Pos)
-		name := p.Name
-		g.text(c-int64(width(name)/2), r, name, kPlace)
+		c0 := c - int64(width(p.Name)/2)
+		for _, dr := range []int64{0, -1, 1, -2, 2} {
+			if g.roomFor(c0, r+dr, width(p.Name)) {
+				g.text(c0, r+dr, p.Name, kPlace)
+				break
+			}
+		}
 	}
+}
+
+// roomFor says w cells from (c, r) are inside the grid and show no more than
+// ground: nothing is drawn over them.
+func (g *grid) roomFor(c, r int64, w int) bool {
+	if r < 0 || r >= int64(g.ch) || c < 0 || c+int64(w) > int64(g.cw) {
+		return false
+	}
+	for i := 0; i < w; i++ {
+		if g.cells[r][c+int64(i)].k > kGround {
+			return false
+		}
+	}
+	return true
 }
 
 // groundGlyph is the glyph of a kind of ground; 0 for open ground.

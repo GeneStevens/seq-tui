@@ -3,7 +3,7 @@
 │ A short walk through Thornwick for a new arrival.                                                                                        │
 │                                                                                                                                          │
 │ Now:                                                                                                                                     │
-│   Speak to Tamsin Hale, the Watch's greeter, here in Hawthorn Square.                                                                    │
+│   Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square.                                                                      │
 │   (npc: Tamsin Hale)                                                                                                                     │
 │ The whole chain pays 20 XP at its end.                                                                                                   │
 │                                                                                                                                          │
@@ -42,4 +42,4 @@
 │ X dismisses it for good (after a question)   Esc closes                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                                                  
- ONLINE | Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125% | heard N.Ns ago                     ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125% | heard N.Ns ago    ? help  q quit

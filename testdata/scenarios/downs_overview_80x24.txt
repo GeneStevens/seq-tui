@@ -1,11 +1,11 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
-│                          ░""" c""""≈≈         """ ░                          │
+│                          ░""" c""""Goblin Hut """ ░                          │
 │                          ░ "   ##c"≈≈    ""c" ""  ░                          │
 │                          ░  c c"""c≈ c c# ""c  c  ░                          │
-│                          ░·····  c ;@     ^     ^^░                          │
+│                          ░·····  c ;@  Goblin Hut^░                          │
 │                          D  ;G#c·c"≈≈c^v···     ;D░                          │
 │                          ░  c c  cc≈≈   c "#c c   ░                          │
-│                          ░   c  "c"≈≈    """ ^^   ░                          │
+│                          ░   c  "c"Goblin Hut^^   ░                          │
 │                          ░"""c  """≈≈   c         ░                          │
 │                          ░░░░░░░░░░░░░░░░░░░░░░░░░░                          │
 │ Thornwick Downs, 420m by 300m. You: 183m E, 176m N of the south-west corner. │

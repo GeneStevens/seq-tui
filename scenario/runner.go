@@ -36,6 +36,7 @@ import (
 	"github.com/GeneStevens/seq-tui/sessionlog"
 	"github.com/GeneStevens/seq/agentkit"
 	"github.com/GeneStevens/seq/core"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 	"github.com/GeneStevens/seq/server"
 	"github.com/GeneStevens/seq/testserver"
 )
@@ -400,7 +401,7 @@ func (p *Player) Fresh() {
 
 var keyBytes = map[string]string{
 	"enter": "\r", "backspace": "\x7f", "esc": "\x1b", "tab": "\t", "space": " ",
-	"ctrl+l": "\x0c", "ctrl+k": "\x0b", "f1": "\x1bOP", "home": "\x1b[H", "end": "\x1b[F", "up": "\x1b[A", "down": "\x1b[B", "right": "\x1b[C", "left": "\x1b[D",
+	"ctrl+l": "\x0c", "ctrl+k": "\x0b", "ctrl+a": "\x01", "f1": "\x1bOP", "home": "\x1b[H", "end": "\x1b[F", "up": "\x1b[A", "down": "\x1b[B", "right": "\x1b[C", "left": "\x1b[D",
 }
 
 // Press presses the keys, one after another, waiting after each until the
@@ -842,3 +843,78 @@ func (p *Player) Plan() []string {
 
 // DuoReplica runs f on the toolkit's replica of the second character.
 func (p *Player) DuoReplica(f func(*agentkit.Replica)) { p.duo.Session().Replica(f) }
+
+// Resize makes the window w x h cells, as the terminal tells the program.
+func (p *Player) Resize(w, h int) {
+	p.w.T.Helper()
+	p.probe(func(a *app.App) { a.Resize(w, h) })
+}
+
+// mouseEvent writes one SGR mouse report, the bytes a terminal sends for the
+// pointer at the screen cell (x, y), counted from 0: code is the button and
+// modifier bits, press says M (press, motion) rather than m (release).
+func (p *Player) mouseEvent(code, x, y int, press bool) {
+	p.w.T.Helper()
+	end := "m"
+	if press {
+		end = "M"
+	}
+	if _, err := io.WriteString(p.in, fmt.Sprintf("\x1b[<%d;%d;%d%s", code, x+1, y+1, end)); err != nil {
+		p.w.T.Fatalf("%s: the mouse at %d,%d: %v", p.Character, x, y, err)
+	}
+	p.keys++
+	p.Sync()
+}
+
+const (
+	mouseMotion = 32
+	mouseAlt    = 8
+	mouseUp     = 64
+	mouseDown   = 65
+)
+
+// Click is a left click at the screen cell (x, y): the press and the release.
+func (p *Player) Click(x, y int) {
+	p.w.T.Helper()
+	p.mouseEvent(0, x, y, true)
+	p.mouseEvent(0, x, y, false)
+}
+
+// RightClick is a click of the right button.
+func (p *Player) RightClick(x, y int) {
+	p.w.T.Helper()
+	p.mouseEvent(2, x, y, true)
+	p.mouseEvent(2, x, y, false)
+}
+
+// Hover moves the pointer to the cell with no button held; alt says Alt is held.
+func (p *Player) Hover(x, y int, alt bool) {
+	p.w.T.Helper()
+	code := 3 + mouseMotion // no button
+	if alt {
+		code += mouseAlt
+	}
+	p.mouseEvent(code, x, y, true)
+}
+
+// Wheel turns the scroll wheel over the cell: up zooms in.
+func (p *Player) Wheel(x, y int, up bool) {
+	p.w.T.Helper()
+	code := mouseDown
+	if up {
+		code = mouseUp
+	}
+	p.mouseEvent(code, x, y, true)
+}
+
+// Where is the screen cell at which the program draws the world place (millimetres).
+func (p *Player) Where(pos *pb.Pos) (x, y int, ok bool) {
+	p.probe(func(a *app.App) { x, y, ok = a.CellOf(pos) })
+	return
+}
+
+// Mouse is what the mouse state holds: see app.App.MouseState.
+func (p *Player) Mouse() (zoom, bigZoom int, card string, labels bool, tab int, drawer bool) {
+	p.probe(func(a *app.App) { zoom, bigZoom, card, labels, tab, drawer = a.MouseState() })
+	return
+}

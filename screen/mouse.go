@@ -284,8 +284,9 @@ func paintCard(g *grid, m *model.Model, id string) {
 		return
 	}
 	w := 0
-	for _, l := range lines {
-		w = max(w, width(l))
+	for i, l := range lines {
+		lines[i] = " " + l + " "
+		w = max(w, width(lines[i]))
 	}
 	w = min(w+2, g.cw)
 	if w < 6 || len(lines)+2 > g.ch {

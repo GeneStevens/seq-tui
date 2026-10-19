@@ -1,5 +1,5 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Captain Rhosyn Hartley <Quest Giver>, 1m NE of you                                             ││ hale  Lv 6 Warrior           | 0 crowns│
+│ Captain Rhosyn Hartley <Watch Captain>, 1m NE of you                                           ││ hale  Lv 6 Warrior           | 0 crowns│
 │                                                                                                ││ HP 215/215 ########################### │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”     ││ XP ------------------------ 162 to Lv 7│
 │ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are         ││ Atk off | none                         │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Thornwick | heard N.Ns ago | talk to Captain Rhosyn Hartley ok                                                      ? help  q quit
+ ONLINE | Watch House Yard, Thornwick | heard N.Ns ago | talk to Captain Rhosyn Hartley ok                                    ? help  q quit

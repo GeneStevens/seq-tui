@@ -1,0 +1,45 @@
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Dunstan Reeve <Weaponsmith>, 3m S away. You have 2 crowns.                                     ││ hale  Lv 3 Warrior           | 2 crowns│
+│                                                                                                ││ HP 130/164 #####################------ │
+│ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
+│> ▲ Cudgel Common                 15, short 13 │> ▲ Short Sword Common                   pays 6 ││ Atk off | none                         │
+│  ▲ Short Sword Common            24, short 22 │                                                │└────────────────────────────────────────┘
+│  ▲ Dirk Common                   22, short 20 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  = Ashwood Staff Common          22, short 20 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Flanged Mace Common           48, short 46 │                                                ││ Head      -                            │
+│  ▲ Long Sword Common             56, short 54 │                                                ││ Chest     -                            │
+│  ▲ Stiletto Common               52, short 50 │                                                ││ Legs      -                            │
+│  ▲ Yew Staff Common              52, short 50 │                                                ││ Hands     -                            │
+│  ▲ Spiked Mace Common          110, short 108 │                                                ││ Feet      -                            │
+│  ▲ Broad Sword Common          120, short 118 │                                                ││ Ring 1    -                            │
+│  ▲ Poniard Common              110, short 108 │                                                ││ Ring 2    -                            │
+│  ▲ Elder Staff Common          110, short 108 │                                                ││ Neck      -                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Main hand -                            │
+│ ▲ Cudgel: Common, Main hand; tradable once                                                     ││ Off hand  -                            │
+│ damage 2-5 / N.Ns; costs 15 crowns, short 13 crowns                                            ││                                        │
+│ upgrade over an empty main hand: +0.4 damage/s                                                 ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
+│ sell all junk ok                                                                               ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│     N.Ns Dunstan Reeve says: Blades, maces and staves. A good edge earns its keep. Come back at level five and I will have something     │
+│            heavier for you.                                                                                                              │
+│ +   N.Ns You sell your junk (2 items) to Dunstan Reeve for 2 crowns                                                                      │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard N.Ns ago | sell all junk ok                                    ? help  q quit

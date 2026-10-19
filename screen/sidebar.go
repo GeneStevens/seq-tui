@@ -149,12 +149,12 @@ func statLines(m *model.Model, w int, st Styler) []string {
 		rows = append(rows, fit(fmt.Sprintf(" Mana     %d  (regen %d, resting %d)", s.GetMaxMana(), s.GetManaRegen(), s.GetManaRegenResting()), w))
 	}
 	rows = append(rows,
-		fit(fmt.Sprintf(" Armour   %d  (cuts %d%% of a same-level hit)", s.GetArmor(), s.GetArmorCutPct()), w),
-		fit(fmt.Sprintf(" Accuracy %d  (%d%% to hit at your level)", s.GetAccuracy(), s.GetHitPct()), w),
+		fit(fmt.Sprintf(" Armour   %d  (cuts %d%% of a hit)", s.GetArmor(), s.GetArmorCutPct()), w),
+		fit(fmt.Sprintf(" Accuracy %d  (%d%% to hit)", s.GetAccuracy(), s.GetHitPct()), w),
 		fit(fmt.Sprintf(" %s: %d–%d / %.1fs  (%.1f damage/s)", swingName(m), s.GetSwingMin(), s.GetSwingMax(), float64(s.GetDelayMs())/1000, float64(s.GetDpsTenths())/10), w),
 	)
 	for _, a := range s.GetAttributes() {
-		line := fmt.Sprintf(" %-9s %d", a.GetName(), a.GetBase()+a.GetGear())
+		line := fmt.Sprintf(" %-9s %d", tierWord(a.GetName()), a.GetBase()+a.GetGear())
 		if a.GetGear() != 0 {
 			line += fmt.Sprintf("  (%d base %+d gear)", a.GetBase(), a.GetGear())
 		}

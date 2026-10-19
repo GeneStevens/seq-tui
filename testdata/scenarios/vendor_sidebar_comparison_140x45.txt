@@ -1,0 +1,45 @@
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Dunstan Reeve <Weaponsmith>, 3m S away. You have 30 crowns.                                    ││ hale  Lv 3 Warrior          | 30 crowns│
+│                                                                                                ││ HP 130/164 #####################------ │
+│ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
+│  ▲ Cudgel Common                           15 │  (nothing)                                     ││ Atk off | none                         │
+│> ▲ Short Sword Common                      24 │                                                │└────────────────────────────────────────┘
+│  ▲ Dirk Common                             22 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  = Ashwood Staff Common                    22 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Flanged Mace Common           48, short 18 │                                                ││ Head      -                            │
+│  ▲ Long Sword Common             56, short 26 │                                                ││ Chest     -                            │
+│  ▲ Stiletto Common               52, short 22 │                                                ││ Legs      -                            │
+│  ▲ Yew Staff Common              52, short 22 │                                                ││ Hands     -                            │
+│  ▲ Spiked Mace Common           110, short 80 │                                                ││ Feet      -                            │
+│  ▲ Broad Sword Common           120, short 90 │                                                ││ Ring 1    -                            │
+│  ▲ Poniard Common               110, short 80 │                                                ││ Ring 2    -                            │
+│  ▲ Elder Staff Common           110, short 80 │                                                ││ Neck      -                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Main hand -                            │
+│ ▲ Short Sword: Common, Main hand; tradable once                                                ││ Off hand  -                            │
+│ damage 3-6 / N.Ns; costs 24 crowns                                                             ││                                        │
+│ upgrade over an empty main hand: +1.5 damage/s                                                 ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns Dunstan Reeve says: Blades, maces and staves. A good edge earns its keep. Come back at level five and I will have something     │
+│            heavier for you.                                                                                                              │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Tanner's Row, Thornwick | road: faster, 125% | heard N.Ns ago                                                       ? help  q quit

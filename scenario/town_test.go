@@ -147,15 +147,15 @@ func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
 	p.Golden("talk_board")
 	p.Press("1")
 	p.Golden("board_offers")
-	hunt := offered(t, p, "board", "Thin the Meadow Wolves")
+	hunt := offered(t, p, "board", "Wolves at Wickett Mill")
 	for range hunt {
 		p.Press("down")
 	}
 	p.Press("enter")
-	notice(t, p, "take Thin the Meadow Wolves ok", false)
+	notice(t, p, "take Wolves at Wickett Mill ok", false)
 	p.Model(func(m *model.Model) {
-		c := m.Contract("hunt-meadow-wolves")
-		if c == nil || c.GetKind() != "hunt" || c.GetHave() != 0 || c.GetNeed() != 3 || !hasLog(m, "reward", "You take the contract Thin the Meadow Wolves") {
+		c := m.Contract("hunt-mill-wolves")
+		if c == nil || c.GetKind() != "hunt" || c.GetHave() != 0 || c.GetNeed() != 4 || !hasLog(m, "reward", "You take the contract Wolves at Wickett Mill") {
 			t.Fatalf("after taking it: %+v", m.Self.Contracts)
 		}
 	})
@@ -216,9 +216,13 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	p := w.NewCharacter("ann")
 	makeWarrior(p, "Hale")
 	toTheBoard(w, p)
-	p.Press("g", "1", "enter", "esc", "esc")
+	p.Press("g", "1")
+	for range offered(t, p, "board", "Wolves at Wickett Mill") {
+		p.Press("down")
+	}
+	p.Press("enter", "esc", "esc")
 	p.Model(func(m *model.Model) {
-		if m.Contract("hunt-meadow-wolves") == nil {
+		if m.Contract("hunt-mill-wolves") == nil {
 			t.Fatalf("the hunt was not taken: %v", m.Self.Contracts)
 		}
 	})
@@ -240,9 +244,9 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	walkVia(t, w, p, [2]int64{30000, 150000}, [2]int64{30000, 104000}, [2]int64{45000, 104000})
 	p.Golden("downs_camp")
 	walkVia(t, w, p, [2]int64{45000, 98000})
-	fightUntil(t, w, p, func(m *model.Model) bool { c := m.Contract("hunt-meadow-wolves"); return c != nil && c.GetReady() }, 25)
+	fightUntil(t, w, p, func(m *model.Model) bool { c := m.Contract("hunt-mill-wolves"); return c != nil && c.GetReady() }, 25)
 	p.Model(func(m *model.Model) {
-		if c := m.Contract("hunt-meadow-wolves"); c == nil || c.GetHave() != 3 || !hasLog(m, "reward", "Thin the Meadow Wolves: 3 of 3") {
+		if c := m.Contract("hunt-mill-wolves"); c == nil || c.GetHave() != 4 || !hasLog(m, "reward", "Wolves at Wickett Mill: 4 of 4") {
 			t.Fatalf("after the hunt: %v", m.Self.Contracts)
 		}
 	})
@@ -264,16 +268,16 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	}
 	p.Golden("board_turn_in")
 	p.Press("enter")
-	notice(t, p, "hand in Thin the Meadow Wolves ok", false)
+	notice(t, p, "hand in Wolves at Wickett Mill ok", false)
 	for _, sz := range [][2]int{{140, 45}, {80, 24}} {
 		// The board panel shows what the hand-in paid (D76).
-		if s := p.Screen(sz[0], sz[1]); !strings.Contains(s, "Handed in the contract Thin the Meadow Wolves: 30 XP, 12 crowns") {
+		if s := p.Screen(sz[0], sz[1]); !strings.Contains(s, "Handed in the contract Wolves at Wickett Mill: 22 XP, 10 crowns") {
 			t.Errorf("%v: no hand-in summary in the board panel:\n%s", sz, s)
 		}
 	}
 	p.Model(func(m *model.Model) { noIDs(t, m) })
 	p.Model(func(m *model.Model) {
-		if len(m.Self.Contracts) != 0 || m.Self.Crowns < 12 || !hasLog(m, "reward", "You hand in Thin the Meadow Wolves") {
+		if len(m.Self.Contracts) != 0 || m.Self.Crowns < 10 || !hasLog(m, "reward", "You hand in Wolves at Wickett Mill") {
 			t.Fatalf("after the turn-in: contracts %v, %d crowns", m.Self.Contracts, m.Self.Crowns)
 		}
 	})

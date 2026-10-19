@@ -92,6 +92,7 @@ const (
 	CloseCard       // close the info card
 	SelectSide      // pick the sidebar tab Count (D78)
 	ScrollSide      // scroll the sidebar by Count rows
+	MoveCursor      // move the large map's cursor a cell: Note is the key
 )
 
 // Action is a key's meaning, with the choice it needs already made.

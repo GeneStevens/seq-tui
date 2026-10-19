@@ -1,13 +1,13 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                           ░░░░░░░░░░░░░░░░░░░░░░░░░                          │
-│                           ░ ###··   ######    ### ░                          │
-│                           ░ ###··######### ###### ░                          │
-│                           ░ ###·$###······ #B#### ░                          │
+│                           ░ #The Smithy###    ### ░                          │
+│                           ░ Cross Street## ###### ░                          │
+│                           ░ ###·$#Thornwick#B#### ░                          │
 │                           ░ ###······@g···g··##Q#D░                          │
 │                           ░ ###·$···$··H··········░                          │
-│                           ░ ###··  ·······    ### ░                          │
+│                           ░ ###·Hawthorn Walk ### ░                          │
 │                           ░ #!#·T···T··T··T··T··· ░                          │
-│                           ░ ######·############·· ░                          │
+│                           ░ ##Rogues' Hall#####·· ░                          │
 │ Thornwick, 120m by 90m. You: 57m E, 51m N of the south-west corner.          │
 │ @ you  m mob  M target  x dead  p player  r rare  * loot  ~ not yours        │
 │ T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board    │
