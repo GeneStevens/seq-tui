@@ -1,5 +1,5 @@
 ┌─ Hollow Warren (Warren Venture Delve), at 334,… ─┐┌─ You: in combat ─────────┐
-│.....................................░            ││ hale  Lv 12 Warr… | 421cr│
+│.....................................░            ││ hale  Lv 12 Warr… | 435cr│
 │###....#######.......................░            ││ HP 908/917 ############- │
 │  #....#     #.......................░            ││ XP #####---- 126 to Lv 13│
 │###....#######.......................░            ││ Atk off | Warren Chief   │
@@ -21,4 +21,4 @@
 │ < NNN.Ns Warren Chief hits you for 9                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                   
- ONLINE | heard N.Ns ago | ! loot denied: Your bags are full      ? help  q quit
+ ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help
