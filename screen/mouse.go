@@ -84,18 +84,20 @@ type thing struct {
 	c, r  int64
 	pick  Pick
 	label string // by the pointer: name and title
+	dead  bool   // a corpse: it is not selected, a click walks over it
 }
 
 // things lists what the map shows that can be pointed at, in the order of
 // priority a click takes them: mobs, people, then NPCs, drops and doors.
 func things(g *grid, m *model.Model) []thing {
 	var out []thing
+	dead := false
 	add := func(p Pick, label string) {
 		c, r := g.cellOf(p.Pos)
 		if c < 0 || r < 0 || c >= int64(g.cw) || r >= int64(g.ch) {
 			return
 		}
-		out = append(out, thing{c: c, r: r, pick: p, label: label})
+		out = append(out, thing{c: c, r: r, pick: p, label: label, dead: dead})
 	}
 	ent := func(e *pb.EntityState) {
 		kind, label := PickPlayer, e.GetName()
@@ -112,7 +114,9 @@ func things(g *grid, m *model.Model) []thing {
 				label += " RARE"
 			}
 		}
+		dead = e.GetDead()
 		add(Pick{Kind: kind, ID: e.GetId(), Pos: e.GetPos(), Name: e.GetName()}, label)
+		dead = false
 	}
 	for _, id := range m.GroupIDs() {
 		ent(m.Group[id].Entity)
@@ -155,7 +159,7 @@ func (g *grid) worldOf(c, r int64) *pb.Pos {
 // thingAt is what sits in the cell, the highest priority first.
 func thingAt(ts []thing, c, r int64) (thing, bool) {
 	for _, t := range ts {
-		if t.c == c && t.r == r && !(t.pick.Kind == PickMob && strings.HasSuffix(t.label, "(dead)")) {
+		if t.c == c && t.r == r && !t.dead {
 			return t, true
 		}
 	}

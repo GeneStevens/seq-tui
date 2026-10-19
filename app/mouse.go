@@ -141,6 +141,9 @@ func (a *App) narrow() bool {
 func (a *App) onMouse(msg tea.MouseMsg) (tea.Model, tea.Cmd) {
 	mo := msg.Mouse()
 	ms := &a.mouse
+	if a.replay != nil {
+		return a, nil // a recording is drawn: nothing on it is the game
+	}
 	ms.alt = mo.Mod.Contains(tea.ModAlt)
 	switch msg.(type) {
 	case tea.MouseMotionMsg:
@@ -196,6 +199,24 @@ func (a *App) click(x, y int) (tea.Model, tea.Cmd) {
 // second click on it acts (a first click never attacks); a click on loot takes
 // everything within reach.
 func (a *App) clickAction(m *model.Model, p screen.Pick) Action {
+	act := a.pickAction(m, p)
+	if !m.TurnBased() {
+		return act
+	}
+	// In a turn-based instance a bare intent is refused (D30): the click adds a step
+	// to the plan, as the key would.
+	switch act.Kind {
+	case Loot:
+		act.ID = p.ID // a plan's loot step names its drop
+		fallthrough
+	case Move, Target, Attack:
+		step := act
+		return Action{Kind: PlanAdd, Step: &step}
+	}
+	return act
+}
+
+func (a *App) pickAction(m *model.Model, p screen.Pick) Action {
 	ms := &a.mouse
 	switch p.Kind {
 	case screen.PickMob:

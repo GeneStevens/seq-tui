@@ -1,24 +1,24 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
-│                           ░░░░░░░░░░░░░░░░░░░░░░░░░                          │
-│                           ░ #The Smithy###    ### ░                          │
-│                           ░ Cross Street## ###### ░                          │
-│                           ░ ###·$#Thornwick#B#### ░                          │
-│                           ░ ###······&@···g··##Q#D░                          │
-│                           ░ ###·$···$··H··········░                          │
-│                           ░ ###·Hawthorn Walk ### ░                          │
-│                           ░ #!#·T···T··T··T··T··· ░                          │
-│                           ░ ##Rogues' Hall#####·· ░                          │
-│ Thornwick, 120m by 90m. You: 60m E, 45m N of the south-west corner.          │
-│ @ you  m mob  M target  x dead  p player  r rare  * loot  ~ not yours        │
-│ T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board    │
-│ D door                                                                       │
-│ ! new for you (gold)  ? hand in ready (gold)  ? in progress (grey)           │
-│ gold m quest mob  gold D next door                                           │
-│ c camp: where mobs are found (dim)  ░ zone edge: walking ends                │
-│ ◄ ► ▲ ▼ the objective, off the map                                           │
-│ % your marker  ; scout marker  v event spawn  G event goal  + plan end       │
-│ Ground  # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  . f…│
-│ North is up. Click a spot to walk there (or arrows + Enter); the wheel or + …│
+│                ░#                South Wall                #░                │
+│                ░# ######····  The Cottages###       #####  #░                │
+│                ░# ######····      ##The Cottages### #####  #░                │
+│                ░The Armoury·####  #####The Counting House  #░                │
+│                ░# ######·The Smithy           ############ #░                │
+│                ░# ######··$·#### ···········    B  ####### #░                │
+│                ░# ##Tanner's Row ·Thornwick·       ###Q### #░                │
+│                ░# ######Cross Street&·gCounting House Yard·#░                │
+│                ░The Tannery·······$···@H·····g············D#░                │
+│                ░# ######··$·   Hawthorn SquareGatehouse Way#░                │
+│                ░# ######····     ···········         ##### #░                │
+│                ░# ######····    Hawthorn Walk        ##### #░                │
+│                ░# ######····   Trainers' Lane              #░                │
+│                ░#  ··!·····T·····T·····T·····T·····T······ #░                │
+│                ░#  ##### ##Rogues' Hall### ##Druids' Hall  #░                │
+│                ░#  ##Clerics' Hall## #Paladins' Hall##     #░                │
+│                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                │
+│ Thornwick, 120m by 90m, north up. You: 60m E, 45m N of the SW corner.        │
+│ The legend is on page 2 of the help (?).                                     │
+│ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m SW     ? help  q quit

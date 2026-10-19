@@ -348,19 +348,26 @@ func contractsBox(m *model.Model, w int, st Styler) (h int, lines []string) {
 	return len(lines) + 2, lines
 }
 
+// minOverviewRows is the least the large map is given before its legend gives
+// way to a line.
+const minOverviewRows = 14
+
 func overviewLines(m *model.Model, v View, w, h int, st Styler) []string {
 	legend := legendLines(m, w-2)
+	if room := h - 2 - minOverviewRows; len(legend) > room {
+		legend = []string{"The legend is on page 2 of the help (?)."} // a short window keeps its map
+	}
 	foot := 2 + len(legend)
 	rows := overviewRows(m, v, w, h-foot, st)
 	add := func(l string) { rows = append(rows, fit(l, w)) }
 	b := m.Map.GetBounds()
 	sp := m.Self.Pos
-	add(fmt.Sprintf(" %s, %dm by %dm. You: %dm E, %dm N of the south-west corner.", m.Map.GetName(),
+	add(fmt.Sprintf(" %s, %dm by %dm, north up. You: %dm E, %dm N of the SW corner.", m.Map.GetName(),
 		(b.GetMaxX()-b.GetMinX())/1000, (b.GetMaxY()-b.GetMinY())/1000, (sp.GetX()-b.GetMinX())/1000, (sp.GetY()-b.GetMinY())/1000))
 	for _, l := range legend {
 		add(" " + l)
 	}
-	add(" North is up. Click a spot to walk there (or arrows + Enter); the wheel or + / - zooms; Ctrl+A names everything. M or Esc closes.")
+	add(" Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes")
 	return pad(rows, w, h)
 }
 
