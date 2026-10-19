@@ -232,6 +232,7 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return a.onMouse(msg)
 	case tea.KeyPressMsg:
 		a.keys++
+		a.mouse.alt = false // a key press: Alt held for the mouse is not known any more
 		if a.line != nil && !a.view.Help {
 			return a.lineKey(msg)
 		}
