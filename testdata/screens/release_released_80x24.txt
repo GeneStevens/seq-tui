@@ -1,24 +1,24 @@
 ┌─ Testgrounds, at 20,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│          .                             #         ││ aria  Lv 1  XP 0    | 0cr│
-│          .                             #         ││ DEAD  HP 0/6             │
-│          .                             #         ││ Target: none             │
-│          .        $ $$ $$ $            #         ││ Released: back in 5 s    │
-│          .        $ $$ &?              #         │└──────────────────────────┘
-│          .                ?            #         │┌─ Quest ──────────────────┐
-│          .                             #         ││ [ ] 1. Scout the Lookout │
-│          .              @m  c          #         ││ Testgrounds Recruiter has│
-│          .                             #         ││ work for you: G.         │
-│          .                             #         │└──────────────────────────┘
-│          .                             #         │┌─ Target ─────────────────┐
-│          .                             #         ││ no target (Tab to choose)│
-│          .                             #         ││                          │
-│          .                             #         ││                          │
-│          .                             #         ││                          │
+│           ░                           #          ││ aria  Lv 1  XP 0    | 0cr│
+│           ░                           #          ││ DEAD  HP 0/6             │
+│           ░                           #          ││ Target: none             │
+│           ░       T TT TTT            #          ││ Released: back in 5 s    │
+│           ░                           #          │└──────────────────────────┘
+│           ░       $ BH &Q!            #          │┌─ Quest ──────────────────┐
+│           ░                           #          ││ [ ] 1. Scout the Lookout │
+│           ░             @m  c         #          ││ Testgrounds Recruiter has│
+│           ░                           #          ││ work for you: G.         │
+│           ░                           #          │└──────────────────────────┘
+│           ░                           #          │┌─ Target ─────────────────┐
+│           ░                           #          ││ no target (Tab to choose)│
+│           ░                           #          ││                          │
+│           ░                           #          ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│    10.1s Plain Scuttler's target aria cleared: target_dead                   │
-│    10.1s encounter enc-1 with Plain Scuttler closed: participants_dead       │
+│    10.1s Everyone in the fight with Plain Scuttler has fallen                │
+│    10.1s You are out of combat                                               │
 │    11.0s Plain Scuttler reset to 40 hp                                       │
-│    30.2s aria released; respawns in 5 s                                      │
+│    30.2s You release your body and will return in 5 seconds                  │
 └──────────────────────────────────────────────────────────────────────────────┘
+ R: release your body and wake at your bind point                               
  ONLINE | Testgrounds | heard 0.4s ago | release ok               ? help  q quit

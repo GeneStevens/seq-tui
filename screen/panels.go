@@ -20,7 +20,7 @@ const (
 func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	iw := rw - 2
 	you := youLines(m, v, iw, st)
-	rows := box("You", rw, len(you)+2, you, st)
+	rows := box(youTitle(m), rw, len(you)+2, you, st)
 	left := th - len(rows)
 	inst, round := 0, 0
 	if instanceShown(m) {
@@ -148,12 +148,21 @@ func youLines(m *model.Model, v View, w int, st Styler) []string {
 			last = st.Bold(fit(fmt.Sprintf(" Released: back in %d s", (s.RespawnInMs+999)/1000), w))
 		}
 	}
-	return []string{
+	rows := []string{
 		st.Bold(withCrowns(head, s.Crowns, w)),
 		hpLine,
 		fit(" Target: "+targetName(m), w),
 		last,
 	}
+	return withAttackers(m, rows, w, st)
+}
+
+// withAttackers adds the line that names what is attacking the character (D75).
+func withAttackers(m *model.Model, rows []string, w int, st Styler) []string {
+	if names := m.AttackerNames(); len(names) > 0 {
+		return append(rows, st.Red(fit(" Attacked by "+joinNames(names), w)))
+	}
+	return rows
 }
 
 type nearby struct {
@@ -165,6 +174,9 @@ type nearby struct {
 	target bool
 	id     string
 	note   string // after the distance: "not lootable"
+	tag    string // what the objective hints say of it: "[step 2]", "[2/3]", "[new]"
+	quest  bool   // it matters to the quest or a held contract: Nearby lists it first
+	title  string // an NPC's title, shown beside the name
 }
 
 func nearbyList(m *model.Model) []nearby {
@@ -180,6 +192,12 @@ func nearbyList(m *model.Model) []nearby {
 			hp = "dead"
 		}
 		n := mk(entityGlyph(e), e.GetId(), e.GetName(), e.GetPos(), hp)
+		if h := m.QuestMob(e.GetName()); h != nil && e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB && !e.GetDead() {
+			n.quest, n.tag = true, m.HintTag(h)
+			if n.tag == "" {
+				n.tag = "[quest]"
+			}
+		}
 		if band := e.GetCon(); band != "" && !e.GetDead() {
 			n.note = band // the server's difficulty band for a mob, in words (D70)
 		}
@@ -203,14 +221,30 @@ func nearbyList(m *model.Model) []nearby {
 		out = append(out, n)
 	}
 	for _, n := range m.KnownNPCs() {
-		out = append(out, mk(npcGlyph(n), n.GetId(), n.GetName(), n.GetPos(), n.GetRole()))
+		gl, _ := npcMark(m, n)
+		x := mk(gl, n.GetId(), n.GetName(), n.GetPos(), "")
+		if !strings.Contains(n.GetName(), n.GetTitle()) {
+			x.title = n.GetTitle()
+		}
+		if n.GetTitle() == "" {
+			x.hp = n.GetRole() // an NPC from an older server has a role and no title
+		}
+		if mark := m.MarkOf(n.GetId()); mark != "" {
+			x.quest = true
+			x.tag = m.HintTag(m.HintFor(mark, n.GetId()))
+		}
+		out = append(out, x)
 	}
 	for _, d := range m.Map.GetDoors() {
 		name := d.GetName()
 		if name == "" {
 			name = m.MarkerName(d.GetId())
 		}
-		out = append(out, mk(glyphDoor, d.GetId(), name, d.GetPos(), ""))
+		x := mk(glyphDoor, d.GetId(), name, d.GetPos(), "")
+		if m.IsNextDoor(d.GetId()) {
+			x.quest, x.tag = true, "[next door]"
+		}
+		out = append(out, x)
 	}
 	held := map[string]bool{}
 	for _, c := range m.Self.Contracts {
@@ -233,7 +267,11 @@ func nearbyList(m *model.Model) []nearby {
 			out = append(out, mk(glyphGoal, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "event goal"))
 		}
 	}
+	// What matters to the quest and the held contracts comes first (D76).
 	sort.SliceStable(out, func(i, j int) bool {
+		if out[i].quest != out[j].quest {
+			return out[i].quest
+		}
 		if out[i].d != out[j].d {
 			return out[i].d < out[j].d
 		}
@@ -253,28 +291,48 @@ func nearbyLines(m *model.Model, w, h int, st Styler) []string {
 			break
 		}
 		right := metres(n.d) + " " + bearing(n.dx, n.dy)
-		if n.hp != "" {
-			right += " " + n.hp
-		}
-		if n.note != "" {
-			right += " " + n.note
+		switch {
+		case n.tag != "":
+			right += " " + n.tag
+		default:
+			if n.hp != "" {
+				right += " " + n.hp
+			}
+			if n.note != "" {
+				right += " " + n.note
+			}
 		}
 		right += " "
 		g := n.glyph
 		if n.target {
 			g = upper(g)
 		}
-		if len(rows) == h-1 && i < len(list)-1 {
+		room := w - width(right) - 4
+		name, title := n.name, ""
+		if n.title != "" {
+			if full := name + " <" + n.title + ">"; width(full) <= room {
+				name = full
+			} else {
+				title = "<" + n.title + ">" // the title goes on a line of its own
+			}
+		}
+		need := 1
+		if title != "" {
+			need = 2
+		}
+		if i < len(list)-1 && len(rows)+need >= h {
 			rows = append(rows, fit(fmt.Sprintf(" +%d more", len(list)-i), w))
 			break
 		}
-		room := w - width(right) - 4
-		line := fit(" "+string(g)+" "+fit(n.name, max(room, 1)), w-width(right)-1) + " " + right
+		line := fit(" "+string(g)+" "+fit(name, max(room, 1)), w-width(right)-1) + " " + right
 		line = fit(line, w)
 		if n.target {
 			line = st.Reverse(line)
 		}
 		rows = append(rows, line)
+		if title != "" {
+			rows = append(rows, st.Dim(fit("     "+title, w)))
+		}
 	}
 	if len(list) == 0 {
 		rows = append(rows, fit(" nothing in view", w))
@@ -354,7 +412,7 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 	}
 	var all []styled
 	for _, e := range m.Log {
-		if !v.Verbose && (e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed" || e.Kind == "unknown") {
+		if !v.Verbose && (e.Quiet || e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed" || e.Kind == "unknown") {
 			continue
 		}
 		mark, fn := " ", func(s string) string { return s }

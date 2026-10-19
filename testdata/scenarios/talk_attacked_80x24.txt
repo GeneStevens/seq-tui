@@ -1,0 +1,24 @@
+┌─ Talking  ⚠ UNDER ATTACK ────────────────────────────────────────────────────┐
+│ Testgrounds Vendor, 1m NE of you                                             │
+│                                                                              │
+│ “Fresh stock, fair prices.”                                                  │
+│ “I buy what you carry, for a quarter of what I sell it at.”                  │
+│                                                                              │
+│ What they can do for you:                                                    │
+│ > 1  Buy                                                                     │
+│   2  Sell                                                                    │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.   │
+│ talk to Testgrounds Vendor ok                                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: Plain Scuttler 40/40, attacking you | In combat           
+ ⚠ Plain Scuttler is attacking you — HP 100/100 | talk to Testgrounds Vendor ok 

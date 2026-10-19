@@ -1,24 +1,24 @@
 ┌─ Thornwick Downs, at 205,70 m, north up ─────────┐┌─ You ────────────────────┐
-│""""    ≈≈≈≈≈≈                                    ││ hale  Lv 12 Warrior | 0cr│
-│""""   ≈≈≈≈≈≈≈                                    ││ HP 143/317 #####-------- │
-│""""   ≈≈≈≈≈≈≈                                    ││ XP --------- 316 to Lv 13│
-│"""    ≈≈≈≈≈≈≈                                    ││ Atk off | Old Grimtusk   │
-│"""    ≈≈≈≈≈≈                                     │└──────────────────────────┘
-│"""   ≈≈≈≈≈≈≈            @ R                      │┌─ Target ─────────────────┐
-│"""   ≈≈≈≈≈≈≈                                     ││ R Old Grimtusk  Lv 6 RARE│
-│"""   ≈≈≈≈≈≈≈                                     ││ HP 300/300 ####### 5m E  │
-│"""   ≈≈≈≈≈≈≈                                     ││ trivial, not in a fight  │
-│"""" ≈≈≈≈≈≈≈                                      ││                          │
+│"""""""   ≈≈≈≈≈≈                                  ││ hale  Lv 12 Warrior | 0cr│
+│"""""""   ≈≈≈≈≈≈                                  ││ HP 143/317 #####-------- │
+│""""""   ≈≈≈≈≈≈≈                                 "││ XP --------- 316 to Lv 13│
+│""""""   ≈≈≈≈≈≈                                   ││ Atk off | Old Grimtusk   │
+│""""""   ≈≈≈≈≈≈          @  R                     │└──────────────────────────┘
+│""""""   ≈≈≈≈≈≈                                   │┌─ Target ─────────────────┐
+│""""""  ≈≈≈≈≈≈≈                                   ││ R Old Grimtusk  Lv 6 RARE│
+│""""""  ≈≈≈≈≈≈                                    ││ HP 300/300 ####### 5m E  │
+│""""""" ≈≈≈≈≈≈                                    ││ trivial, not in a fight  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt       ready 2 Bash       range 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt ready       2 Bash range       3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Old Grimtusk: none                                           │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns hale healed 13                                                      │
-│ *  NN.Ns a rare, Old Grimtusk (Lv 6), is in view (mob-grimtusk-1)            │
-│    NN.Ns hale targeted Old Grimtusk                                          │
+│ *  NN.Ns Old Grimtusk comes into view                                        │
+│    NN.Ns You target Old Grimtusk                                             │
+│                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                   
  ONLINE | Thornwick Downs | heard N.Ns ago | target ok            ? help  q quit

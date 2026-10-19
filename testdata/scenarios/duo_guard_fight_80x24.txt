@@ -1,24 +1,24 @@
-┌─ Thornwick Downs, at 149,95 m, north up ─────────┐┌─ You ────────────────────┐
-│              """""c"""""""""""    ≈≈≈≈≈≈≈        ││ hale  Lv 5 Warrior  | 0cr│
-│             """"""""""""""""""""   ≈≈≈≈≈≈        ││ HP 198/198 ############# │
-│             """"""""""""""""""""   ≈≈≈≈≈≈≈       ││ XP ---------- 145 to Lv 6│
-│            """""""""""""""""""""   ≈≈≈≈≈≈≈       ││ Atk ON | Bramble Tusker  │
-│            """"""""""""""""""""    ≈≈≈≈≈≈≈       │└──────────────────────────┘
-│            """""""""""""@M"c"""    ≈≈≈≈≈≈≈       │┌─ Party, 2nd character ───┐
-│            """"""""""""""""""""    ≈≈≈≈≈≈        ││ bram  Lv 5               │
-│            """"""""""""""""""""   ≈≈≈≈≈≈≈        ││ HP 140/140 ############# │
-│           """""""""""""""""""""   ≈≈≈≈≈≈≈        ││ MP 81/122 #########----- │
-│           """"""""""""""""""""    ≈≈≈≈≈≈≈        ││ stance guard             │
+┌─ Thornwick Downs, at 149,95 m, north up ─────────┐┌─ You: in combat ─────────┐
+│               """"""""""""""""""  ≈≈≈≈≈≈         ││ hale  Lv 5 Warrior  | 0cr│
+│              """""""""""""""""""  ≈≈≈≈≈≈         ││ HP 198/198 ############# │
+│              """"""""""""""""""   ≈≈≈≈≈≈≈        ││ XP ---------- 145 to Lv 6│
+│              """"""""""""""""""   ≈≈≈≈≈≈≈        ││ Atk ON | Bramble Tusker  │
+│              """""""""""@M"c"""   ≈≈≈≈≈≈         ││ Attacked by Bramble Tusk…│
+│             """""""""""""""""""   ≈≈≈≈≈≈         │└──────────────────────────┘
+│             """""""""""""""""""   ≈≈≈≈≈≈         │┌─ Party, 2nd character ───┐
+│             """"""""""""""""""   ≈≈≈≈≈≈≈         ││ bram  Lv 5               │
+│             """"""""""""""""""   ≈≈≈≈≈≈          ││ HP 140/140 ############# │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt       ready 2 Bash       ready 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt ready       2 Bash ready       3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns hale healed 4                                                       │
-│     N.Ns Bramble Tusker healed 1                                             │
-│     N.Ns bram began attacking Bramble Tusker                                 │
-│     N.Ns bram hit Bramble Tusker for 4                                       │
+│     N.Ns You hit Bramble Tusker for 10                                       │
+│     N.Ns You hit Bramble Tusker for 11                                       │
+│     N.Ns You start attacking Bramble Tusker                                  │
+│     N.Ns Bram hits Bramble Tusker for 4                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
+ F: stop attacking · Esc: clear the target                                      
  ONLINE | Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | attack ok  

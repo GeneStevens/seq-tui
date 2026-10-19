@@ -1,24 +1,24 @@
-┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│                    .                   #         ││ gorm  Lv 1 Warrior  | 0cr│
-│                    .                   #         ││ HP 114/120 ############- │
-│                    .     $$$$$$        #         ││ XP ----------- 40 to Lv 2│
-│                    .     $$$&?         #         ││ Atk ON | Plain Scuttler  │
-│                    .          ?        #         │└──────────────────────────┘
-│                    .    @M      c      #       c │┌─ Quest ──────────────────┐
-│                    .                   #         ││ [ ] 1. Scout the Lookout │
-│                    .                   #         ││ Testgrounds Recruiter has│
-│                    .                   #         ││ work for you: G.         │
-│                    .                   #         │└──────────────────────────┘
-└──────────────────────────────────────────────────┘                            
+┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You: in combat ─────────┐
+│                    ░                 #           ││ gorm  Lv 1 Warrior  | 0cr│
+│                    ░    TTTTTT       #           ││ HP 114/120 ############- │
+│                    ░    $BH&Q!       #           ││ XP ----------- 40 to Lv 2│
+│                    ░                 #           ││ Atk ON | Plain Scuttler  │
+│                    ░    @M    c      #      c    ││ Attacked by Plain Scuttl…│
+│                    ░                 #           │└──────────────────────────┘
+│                    ░                 #           │┌─ Quest ──────────────────┐
+│                    ░                 #           ││ [ ] 1. Scout the Lookout │
+│                    ░                 #           ││ Testgrounds Recruiter has│
+└──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        N.Ns 2 Bash         gcd 3 Second Wind  90s 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt N.Ns        2 Bash gcd         3 Second Wind 90s  4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: Second Wind 12s   |   Plain Scuttler: none                              │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns gorm missed Plain Scuttler                                          │
-│     N.Ns gorm used Second Wind                                               │
-│     N.Ns Second Wind: lifesteal on gorm for 12 s                             │
-│ <   N.Ns Plain Scuttler hit gorm for 4                                       │
+│     N.Ns You miss Plain Scuttler                                             │
+│     N.Ns You use Second Wind                                                 │
+│     N.Ns You are affected by Second Wind                                     │
+│ <   N.Ns Plain Scuttler hits you for 4                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
+ F: stop attacking · Esc: clear the target                                      
  ONLINE | Testgrounds | heard N.Ns ago | key 3 Second Wind ok     ? help  q quit

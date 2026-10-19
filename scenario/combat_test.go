@@ -142,7 +142,7 @@ func TestWizardRootsAndNukes(t *testing.T) {
 		}
 	}
 	p.Model(func(m *model.Model) {
-		if low >= start || m.Self.XP != 20 || !hasLog(m, "combat_death", "Zedd killed Plain Scuttler") || m.Self.Target != "" {
+		if low >= start || m.Self.XP != 20 || !hasLog(m, "combat_death", "You killed Plain Scuttler") || m.Self.Target != "" {
 			t.Fatalf("after the kill: mana %d (was %d), xp %d, target %q", low, start, m.Self.XP, m.Self.Target)
 		}
 	})
@@ -172,7 +172,7 @@ func TestCastCancelledByMovingAndInterruptedByDamage(t *testing.T) {
 		if m.Self.Cast != nil || e == nil || e.Broken != "cancelled" || e.Reason != "moved" || m.Self.Mana != 150 {
 			t.Fatalf("after moving: cast %+v, ended %+v, mana %d", m.Self.Cast, e, m.Self.Mana)
 		}
-		if !hasLog(m, "cast_cancelled", "Frost Bolt was cancelled: you moved") {
+		if !hasLog(m, "cast_cancelled", "Your Frost Bolt is cancelled: you moved") {
 			t.Fatalf("the log ends %+v", m.Log[len(m.Log)-4:])
 		}
 	})
@@ -195,7 +195,7 @@ func TestCastCancelledByMovingAndInterruptedByDamage(t *testing.T) {
 		if !broken || e.Reason != "damage" || m.Self.Cast != nil {
 			t.Fatalf("no cast was interrupted by damage: ended %+v", e)
 		}
-		if !hasLog(m, "cast_interrupted", "Frost Bolt was interrupted: damage broke it") {
+		if !hasLog(m, "cast_interrupted", "Your Frost Bolt is interrupted") {
 			t.Fatalf("the log ends %+v", m.Log[len(m.Log)-4:])
 		}
 	})
@@ -223,7 +223,7 @@ func TestWarriorTauntsHealsAndKills(t *testing.T) {
 	p.Golden("warrior_taunt")
 	w.Advance(6 * time.Second)
 	p.Model(func(m *model.Model) {
-		if m.Self.HP >= m.Self.MaxHP || !hasLog(m, "ability_used", "gorm used Taunt on Plain Scuttler") {
+		if m.Self.HP >= m.Self.MaxHP || !hasLog(m, "ability_used", "You use Taunt on Plain Scuttler") {
 			t.Fatalf("hp %d; log ends %+v", m.Self.HP, m.Log[len(m.Log)-4:])
 		}
 	})
@@ -248,10 +248,26 @@ func TestWarriorTauntsHealsAndKills(t *testing.T) {
 	notice(t, p, "key 2 Bash ok", false)
 	w.Advance(60 * time.Second)
 	p.Model(func(m *model.Model) {
-		if m.Self.XP != 20 || m.Self.Target != "" || !hasLog(m, "combat_death", "gorm killed Plain Scuttler") || !hasLog(m, "ability_used", "gorm used Bash") {
+		if m.Self.XP != 20 || m.Self.Target != "" || !hasLog(m, "combat_death", "You killed Plain Scuttler") || !hasLog(m, "ability_used", "You use Bash") {
 			t.Fatalf("after the fight: xp %d target %q", m.Self.XP, m.Self.Target)
 		}
 	})
+	// The log is readable (D76): regeneration ticks are for the long view, and
+	// nothing in it is an id.
+	p.Model(func(m *model.Model) {
+		if !hasLog(m, "combat_heal", "You regenerate") {
+			t.Fatalf("the model never saw a regeneration tick: %+v", m.Log)
+		}
+		noIDs(t, m)
+	})
+	if s := p.Screen(140, 45); strings.Contains(s, "regenerate") {
+		t.Errorf("a regeneration tick is in the short log:\n%s", s)
+	}
+	p.Press("v")
+	if s := p.Screen(140, 45); !strings.Contains(s, "Events (all)") {
+		t.Errorf("V does not show the long view:\n%s", s)
+	}
+	p.Press("v")
 	p.Golden("warrior_killed")
 }
 
@@ -293,11 +309,27 @@ func TestLevelUpIsInTheLog(t *testing.T) {
 		if m.Self.Level != 2 || m.Self.XP != 60 || len(m.Self.Abilities) != 2 {
 			t.Fatalf("after the kill: level %d, xp %d, slots %s", m.Self.Level, m.Self.XP, slotsOf(m))
 		}
-		if !hasLog(m, "level_up", "you reached level 2") || hasLog(m, "level_up", "new ability") {
+		if !hasLog(m, "level_up", "You reached level 2") || hasLog(m, "level_up", "new ability") {
 			t.Fatalf("the level-up line: %+v", m.Log[len(m.Log)-4:])
 		}
 	})
+	// The level-up is a banner too (D76): the new level, what the health and mana
+	// gained, and the server's own words, at both sizes.
+	for _, sz := range [][2]int{{140, 45}, {80, 24}} {
+		s := p.Screen(sz[0], sz[1])
+		for _, want := range []string{"LEVEL UP! You reached level 2", "Health 80 → 88", "mana 150 → 173"} {
+			if !strings.Contains(s, want) {
+				t.Errorf("%v: the level-up banner lacks %q:\n%s", sz, want, s)
+			}
+		}
+	}
+	p.Model(func(m *model.Model) { noIDs(t, m) })
 	p.Golden("levelup")
+	// And it goes: the banner is for a short while.
+	w.Advance(30 * time.Second)
+	if s := p.Screen(140, 45); strings.Contains(s, "LEVEL UP!") {
+		t.Errorf("the banner stays:\n%s", s)
+	}
 }
 
 // atGate starts new characters at the gate of Testgrounds, where its instances
@@ -343,7 +375,7 @@ func TestTurnBasedRoundWithACastInThePlan(t *testing.T) {
 		if r.Number != 2 || r.Resolved != 1 || r.PlayedBy("zedd") != "own_plan" {
 			t.Fatalf("round %+v", r)
 		}
-		if !hasLog(m, "cast_started", "zedd began casting Frost Bolt") {
+		if !hasLog(m, "cast_started", "You begin casting Frost Bolt") {
 			t.Fatalf("log ends %+v", m.Log[len(m.Log)-5:])
 		}
 	})

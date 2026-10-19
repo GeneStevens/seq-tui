@@ -177,7 +177,7 @@ func TestDenialReasonIsShown(t *testing.T) {
 		m := replay(t, c)
 		for _, sz := range screen.Sizes {
 			out := c.Draw(m, sz[0], sz[1])
-			if !strings.Contains(out, "! ") || strings.Count(out, "encounter_owned") < 2 {
+			if !strings.Contains(out, "! ") || !strings.Contains(out, "else's fight") {
 				t.Errorf("at %v the reason is missing:\n%s", sz, out)
 			}
 		}
@@ -213,10 +213,10 @@ func TestRoundPanel(t *testing.T) {
 			t.Errorf("left %v: want %q\n%s", tc.left, tc.want, out)
 		}
 	}
-	if out := draw(5*time.Second, false, 140, 45); !strings.Contains(out, "Plan (2/16): not sent yet") || !strings.Contains(out, "Enter submits") {
+	if out := draw(5*time.Second, false, 140, 50); !strings.Contains(out, "Plan (2/16): not sent yet") || !strings.Contains(out, "Enter submits") {
 		t.Errorf("unsent:\n%s", out)
 	}
-	if out := draw(5*time.Second, true, 140, 45); !strings.Contains(out, "Plan (2/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
+	if out := draw(5*time.Second, true, 140, 50); !strings.Contains(out, "Plan (2/16): accepted") || !strings.Contains(out, "counts even if you disconnect") {
 		t.Errorf("sent:\n%s", out)
 	}
 	// Told again after a reconnect with our plan among the submitted: accepted,
@@ -279,10 +279,13 @@ func TestMenuShowsTheSleepLimit(t *testing.T) {
 func TestInstanceAndRoundPanelsShowTheServersFields(t *testing.T) {
 	c := caseNamed(t, "duo_one_of_two")
 	out := c.Draw(replay(t, c), 80, 24)
-	for _, want := range []string{"Duo Turns", "turn-based | inside", "party up to 2 | normal", "sleeps up to 7 d", "1 of 2 submitted", "Plan (1/16): accepted"} {
+	for _, want := range []string{"Duo Turns", "turn-based | inside", "party up to 2 | normal", "1 of 2 submitted", "Plan (1/16): accepted"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q:\n%s", want, out)
 		}
+	}
+	if out := c.Draw(replay(t, c), 140, 45); !strings.Contains(out, "sleeps up to 7 d") {
+		t.Errorf("no sleep limit at 140x45:\n%s", out)
 	}
 	c = caseNamed(t, "duo_gathered")
 	if out := c.Draw(replay(t, c), 80, 24); !strings.Contains(out, "0 of 2 submitted") {
@@ -311,10 +314,13 @@ func TestInstanceAndRoundPanelsShowTheServersFields(t *testing.T) {
 func TestAbilityBarAndYouPanelShowTheKit(t *testing.T) {
 	c := caseNamed(t, "cast_root")
 	out := c.Draw(replay(t, c), 140, 45)
-	for _, want := range []string{"Abilities (keys 1-8", "1 Root", "10mp busy", "2 Frost Bolt", "3 Flame Dart", "8 - ", "empty", "Zedd  Lv 1 Wizard", "MP 150/150", "XP ", "40 to Lv 2", "Cast Root"} {
+	for _, want := range []string{"Abilities (keys 1-8", "1 Root", "10mp busy", "2 Frost Bolt", "3 Flame Dart", "8 -", "Zedd  Lv 1 Wizard", "MP 150/150", "XP ", "40 to Lv 2", "Cast Root"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("cast in progress: missing %q\n%s", want, out)
 		}
+	}
+	if strings.Contains(out, "empty") {
+		t.Errorf("an empty slot says \"empty\":\n%s", out)
 	}
 	c = caseNamed(t, "rooted")
 	out = c.Draw(replay(t, c), 80, 24)
@@ -396,7 +402,7 @@ func TestLevelUpIsInTheLog(t *testing.T) {
 	c := caseNamed(t, "levelup")
 	for _, sz := range screen.Sizes {
 		out := c.Draw(replay(t, c), sz[0], sz[1])
-		if !strings.Contains(out, "you reached level 2") || !strings.Contains(out, "Lv 2 Wizard") {
+		if !strings.Contains(out, "You reached level 2") || !strings.Contains(out, "Lv 2 Wizard") {
 			t.Errorf("at %v:\n%s", sz, out)
 		}
 	}
@@ -407,7 +413,13 @@ func TestLevelUpIsInTheLog(t *testing.T) {
 func TestPlanSurvivesASmallScreenWithTheAbilityBar(t *testing.T) {
 	c := caseNamed(t, "turn_cast_plan")
 	out := c.Draw(replay(t, c), 80, 24)
-	for _, want := range []string{"Round 1", "Plan (2/16)", "2 use Frost Bolt (key 2)"} {
+	for _, want := range []string{"Round 1", "Plan (2/16)"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("missing %q\n%s", want, out)
+		}
+	}
+	out = c.Draw(replay(t, c), 80, 26) // the line of key hints costs the 80x24 screen a row
+	for _, want := range []string{"use Frost Bolt (key 2)"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q\n%s", want, out)
 		}
@@ -463,9 +475,9 @@ func TestDropsYouMayNotTakeAreMarked(t *testing.T) {
 		"d2": {Id: "d2", Crowns: 5, CanLoot: true, Pos: &pb.Pos{X: m.Self.Pos.GetX() - 4000, Y: m.Self.Pos.GetY()}},
 	}
 	out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain())
-	for _, want := range []string{"~ Scuttler Blade", "not lootable", "* 5 crowns", "~ a drop you may not take"} {
-		if want == "~ a drop you may not take" {
-			out = screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true, HelpPage: 4}, 140, 45, screen.Plain())
+	for _, want := range []string{"~ Scuttler Blade", "not lootable", "* 5 crowns", "~ not yours"} {
+		if want == "~ not yours" {
+			out = screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true, HelpPage: 1}, 140, 45, screen.Plain())
 		}
 		if !strings.Contains(out, want) {
 			t.Errorf("missing %q\n%s", want, out)
@@ -489,5 +501,248 @@ func TestRoundTitleFitsAt80Columns(t *testing.T) {
 	}
 	if seen == 0 {
 		t.Fatal("no case shows a Round panel")
+	}
+}
+
+// Under attack, every screen keeps its size: the red border, the vitals strip
+// and the status line's alarm change no row or column count (D75).
+func TestScreensUnderAttackFitTheirSize(t *testing.T) {
+	c := caseNamed(t, "vendor")
+	m := replay(t, c)
+	m.Self.HP, m.Self.MaxHP = 90, 100
+	m.Self.InCombat, m.Self.Attackers = true, []string{"mob-1"}
+	m.Entities["mob-1"] = &pb.EntityState{Id: "mob-1", Name: "Hedge Brigand", Kind: pb.EntityKind_ENTITY_KIND_MOB, Level: 4, Hp: 30, MaxHp: 40, Con: "hard", Pos: &pb.Pos{X: m.Self.Pos.GetX() + 4000, Y: m.Self.Pos.GetY()}}
+	m.Self.Target = "mob-1"
+	m.Alert = &model.Alert{Mob: "mob-1", Name: "Hedge Brigand", Con: "hard", Level: 4, Danger: true}
+	views := map[string]screen.View{
+		"map":       {},
+		"inventory": {Inventory: &screen.Inventory{}},
+		"traders":   {Traders: &screen.Traders{}},
+		"trade":     {Trade: &screen.TradeUI{}},
+		"talk":      {Talk: &screen.Talk{NPC: m.NPCs[0].GetId()}},
+		"board":     {Board: &screen.Board{NPC: m.NPCs[0].GetId()}},
+		"contracts": {Contracts: &screen.ContractsUI{}},
+		"slots":     {Slots: &screen.Slots{}},
+		"menu":      {Menu: &screen.Menu{}},
+		"help":      {Help: true},
+		"overview":  {Overview: true},
+		"quest":     {Quest: &screen.QuestUI{}},
+		"notice":    {Inventory: &screen.Inventory{}, Notice: "wear Worn Cap denied: You can't do that while you're fighting", NoticeBad: true},
+	}
+	for name, v := range views {
+		v.Conn = screen.ConnOnline
+		for _, sz := range [][2]int{{80, 24}, {81, 25}, {100, 30}, {120, 40}, {140, 45}, {200, 60}, {80, 60}, {250, 24}} {
+			out := screen.Render(m, v, sz[0], sz[1], screen.Plain())
+			lines := strings.Split(out, "\n")
+			if len(lines) != sz[1] {
+				t.Errorf("%s at %v: %d lines", name, sz, len(lines))
+			}
+			for i, l := range lines {
+				if n := utf8.RuneCountInString(l); n != sz[0] {
+					t.Errorf("%s at %v: line %d is %d cells: %q", name, sz, i, n, l)
+				}
+			}
+			last := lines[len(lines)-1]
+			if !strings.Contains(last, "⚠ DANGER: Hedge Brigand (level 4, hard)") {
+				t.Errorf("%s at %v: no danger alarm on the status line: %q", name, sz, last)
+			}
+			if name != "map" && name != "overview" && name != "help" && sz[0] >= 80 && !strings.Contains(out, "UNDER ATTACK") && name != "slots" && name != "menu" && name != "quest" {
+				t.Errorf("%s at %v: the border does not say it is under attack:\n%s", name, sz, out)
+			}
+		}
+	}
+}
+
+// A hard or deadly mob that begins an attack is a danger on the map screen too;
+// an ordinary one is not an alarm there, though it is on any menu.
+func TestTheAlarmOnTheMapIsForDanger(t *testing.T) {
+	c := caseNamed(t, "vendor")
+	m := replay(t, c)
+	m.Self.InCombat, m.Self.Attackers = true, []string{"mob-1"}
+	m.Alert = &model.Alert{Mob: "mob-1", Name: "Plain Scuttler", Con: "even", Level: 1}
+	m.Entities["mob-1"] = &pb.EntityState{Id: "mob-1", Name: "Plain Scuttler", Kind: pb.EntityKind_ENTITY_KIND_MOB, Pos: m.Self.Pos}
+	status := func(v screen.View) string {
+		rows := strings.Split(screen.Render(m, v, 140, 45, screen.Plain()), "\n")
+		return rows[len(rows)-1]
+	}
+	if s := status(screen.View{Conn: screen.ConnOnline}); strings.Contains(s, "⚠") {
+		t.Errorf("an even mob raises the alarm on the map: %q", s)
+	}
+	if s := status(screen.View{Conn: screen.ConnOnline, Inventory: &screen.Inventory{}}); !strings.Contains(s, "⚠ Plain Scuttler is attacking you") || !strings.Contains(s, "Esc to fight") {
+		t.Errorf("a menu under attack: %q", s)
+	}
+	m.Alert.Danger, m.Alert.Con = true, "deadly"
+	if s := status(screen.View{Conn: screen.ConnOnline}); !strings.Contains(s, "⚠ DANGER: Plain Scuttler (level 1, deadly) is attacking you") || !strings.Contains(s, "F to fight") {
+		t.Errorf("a deadly mob on the map: %q", s)
+	}
+}
+
+// The place is in the map's title and on the status line; the objective names
+// itself, its direction and its distance.
+func TestPlaceAndObjectiveAreNamed(t *testing.T) {
+	c := caseNamed(t, "vendor")
+	m := replay(t, c)
+	m.Self.Place = "Trainers' Lane"
+	sp := m.Self.Pos
+	m.Self.Hints = []*pb.Hint{
+		{Kind: "objective", Id: "x", Label: "Talk to Gorran Stoutarm", Pos: &pb.Pos{X: sp.GetX() - 60000, Y: sp.GetY()}},
+		{Kind: "waypoint", Id: "x", Label: "Talk to Gorran Stoutarm", Pos: &pb.Pos{X: sp.GetX() - 60000, Y: sp.GetY()}},
+	}
+	out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain())
+	rows := strings.Split(out, "\n")
+	if !strings.Contains(rows[0], "— Trainers' Lane") {
+		t.Errorf("the place is not in the map's title: %q", rows[0])
+	}
+	if last := rows[len(rows)-1]; !strings.Contains(last, "Trainers' Lane") || !strings.Contains(last, "→ Talk to Gorran Stoutarm, 60m W") {
+		t.Errorf("status line: %q", last)
+	}
+	if !regexp.MustCompile(`◄ Gorran 60m`).MatchString(out) {
+		t.Errorf("no pointer to the objective at the map's edge:\n%s", out)
+	}
+}
+
+// Every role has a glyph of its own, the marks come from the hints, and the
+// legend names them all.
+func TestRoleGlyphsMarksAndLegend(t *testing.T) {
+	m := model.New()
+	pos := func(x int64) *pb.Pos { return &pb.Pos{X: 10000 + x, Y: 10000} }
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "Z", Seq: 1, GameTimeMs: 1000,
+		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me", Name: "Me", Pos: pos(0), Hp: 10, MaxHp: 10},
+			Hints: []*pb.Hint{
+				{Kind: "offer", Id: "trainer", Label: "Talk to Gorran", Pos: pos(2000)},
+				{Kind: "ready", Id: "vendor", Label: "Hand in: X", Pos: pos(4000)},
+				{Kind: "in_progress", Id: "banker", Label: "In progress: Y", Note: "2 of 3", Pos: pos(6000)},
+				{Kind: "offer", Id: "board", Label: "New contracts", Note: "2 to take", Pos: pos(8000)},
+			}},
+		Npcs: []*pb.NpcInfo{
+			{Id: "trainer", Name: "Gorran Stoutarm", Title: "Warrior Trainer", Role: "trainer", ReachMm: 5000, Pos: pos(2000)},
+			{Id: "vendor", Name: "Hilda", Title: "Vendor", Role: "vendor", ReachMm: 5000, Pos: pos(4000)},
+			{Id: "banker", Name: "Bertram", Title: "Banker", Role: "banker", ReachMm: 5000, Pos: pos(6000)},
+			{Id: "board", Name: "Notice Board", Title: "Contract Board", Role: "contract_board", ReachMm: 5000, Pos: pos(8000)},
+			{Id: "binder", Name: "Isolde", Title: "Binder", Role: "binder", ReachMm: 5000, Pos: pos(-2000)},
+			{Id: "guard", Name: "Watchman", Title: "Guard", Role: "guard", ReachMm: 5000, Pos: pos(-4000)},
+			{Id: "quester", Name: "Captain", Title: "Quest Giver", Role: "quest_giver", ReachMm: 5000, Pos: pos(-6000)},
+		}}}})
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ZoneMap{ZoneMap: &pb.ZoneMap{Space: "Z", Name: "Z", ViewRadiusMm: 20000,
+		Bounds: &pb.Rect{MinX: -20000, MinY: -20000, MaxX: 40000, MaxY: 40000}}}})
+	out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain())
+	mapRows := strings.Join(strings.Split(out, "\n")[1:20], "\n")
+	var row string
+	for _, l := range strings.Split(mapRows, "\n") {
+		if strings.Contains(l, "@") {
+			row = l
+		}
+	}
+	// From the west: quest person, guard, binder, you, then the marked trainer (!), vendor (?), banker (?), board (&).
+	order := regexp.MustCompile(`Q\s+g\s+H\s+@\s+!\s+\?\s+\?\s+&`)
+	if !order.MatchString(row) {
+		t.Errorf("the people are not drawn by role and mark on the map row %q", row)
+	}
+	nearby := out[strings.Index(out, "Nearby"):]
+	for _, want := range []string{"[hand in]", "[2/3]", "[new]"} {
+		if !strings.Contains(nearby, want) {
+			t.Errorf("Nearby lacks the tag %q:\n%s", want, nearby)
+		}
+	}
+	// Quest-relevant entries come first, then the rest by distance.
+	i1, i2 := strings.Index(nearby, "Gorran Stoutarm"), strings.Index(nearby, "Isolde")
+	if i1 < 0 || i2 < 0 || i1 > i2 {
+		t.Errorf("Nearby does not list the marked trainer before the nearer binder:\n%s", nearby)
+	}
+	help := screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true, HelpPage: 1}, 140, 45, screen.Plain())
+	for _, want := range []string{"T trainer", "$ vendor", "B banker", "H binder", "g guard", "Q quest person", "& board", "! new for you (gold)", "? hand in ready (gold)", "? in progress (grey)", "c camp", "░ zone edge"} {
+		if !strings.Contains(help, want) {
+			t.Errorf("the legend lacks %q:\n%s", want, help)
+		}
+	}
+	over := screen.Render(m, screen.View{Conn: screen.ConnOnline, Overview: true}, 140, 45, screen.Plain())
+	for _, want := range []string{"T trainer", "░ zone edge", "gold D next door"} {
+		if !strings.Contains(over, want) {
+			t.Errorf("the zone map's legend lacks %q:\n%s", want, over)
+		}
+	}
+}
+
+// The line of key hints changes with what the character stands next to (D76).
+func TestKeyHintsFollowWhatIsNear(t *testing.T) {
+	hint := func(m *model.Model) string {
+		rows := strings.Split(screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()), "\n")
+		return strings.TrimSpace(rows[len(rows)-2])
+	}
+	base := func(mut func(s *pb.Snapshot)) *model.Model {
+		m := model.New()
+		s := &pb.Snapshot{Space: "Z", Seq: 1, GameTimeMs: 1000, Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me", Name: "Me", Pos: &pb.Pos{X: 10000, Y: 10000}, Hp: 10, MaxHp: 10}}}
+		mut(s)
+		m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: s}})
+		m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ZoneMap{ZoneMap: &pb.ZoneMap{Space: "Z", Name: "Z", ViewRadiusMm: 20000,
+			Doors: []*pb.Door{{Id: "east-gate", Kind: pb.DoorKind_DOOR_KIND_ZONE_LINE, Pos: &pb.Pos{X: 12000, Y: 10000}, Name: "East Gate", Label: "East Gate — to the Thornwick Downs"}}}}})
+		return m
+	}
+	mob := &pb.EntityState{Id: "mob-1", Name: "Meadow Wolf", Kind: pb.EntityKind_ENTITY_KIND_MOB, Hp: 20, MaxHp: 20, Pos: &pb.Pos{X: 18000, Y: 10000}}
+	for _, tc := range []struct {
+		name string
+		m    *model.Model
+		want string
+	}{
+		{"door", base(func(*pb.Snapshot) {}), "E: go through the East Gate to the Thornwick Downs"},
+		{"person", base(func(s *pb.Snapshot) {
+			s.Npcs = []*pb.NpcInfo{{Id: "t", Name: "Gorran Stoutarm", Title: "Warrior Trainer", Role: "trainer", ReachMm: 5000, Pos: &pb.Pos{X: 9000, Y: 10000}}}
+		}), "G: talk to Gorran Stoutarm <Warrior Trainer>"},
+		{"drop", base(func(s *pb.Snapshot) {
+			s.Drops = []*pb.LootDropState{{Id: "d", Item: "worn-cap", CanLoot: true, Pos: &pb.Pos{X: 11000, Y: 10000}}}
+			s.Items = []*pb.ItemInfo{{Id: "worn-cap", Name: "Worn Cap"}}
+		}), "L: loot Worn Cap"},
+		{"a mob in view", base(func(s *pb.Snapshot) { s.Entities = []*pb.EntityState{mob} }), "Tab: target · F: attack"},
+		{"dead", base(func(s *pb.Snapshot) { s.Self.Entity.Dead = true }), "R: release"},
+		{"nothing", base(func(s *pb.Snapshot) {
+			s.Self.Entity.Pos = &pb.Pos{X: 10000, Y: 40000}
+		}), "Walk: arrows or WASD"},
+	} {
+		if got := hint(tc.m); !strings.Contains(got, tc.want) {
+			t.Errorf("%s: the hint line says %q, want %q", tc.name, got, tc.want)
+		}
+	}
+	// The hint for a door and a person together, and nothing for a drop the character may not take.
+	both := base(func(s *pb.Snapshot) {
+		s.Npcs = []*pb.NpcInfo{{Id: "t", Name: "Gorran Stoutarm", Title: "Warrior Trainer", Role: "trainer", ReachMm: 5000, Pos: &pb.Pos{X: 9000, Y: 10000}}}
+		s.Drops = []*pb.LootDropState{{Id: "d", Item: "worn-cap", CanLoot: false, Pos: &pb.Pos{X: 11000, Y: 10000}}}
+	})
+	if got := hint(both); !strings.Contains(got, "E: go through") || !strings.Contains(got, "G: talk to") || strings.Contains(got, "L: loot") {
+		t.Errorf("door and person: %q", got)
+	}
+}
+
+// The level-up banner names what can be trained and where (D76), and the
+// hand-in summary says what a contract or a quest step paid.
+func TestLevelUpBannerAndHandInSummary(t *testing.T) {
+	c := caseNamed(t, "vendor")
+	m := replay(t, c)
+	m.GameTimeMs = 50_000
+	m.LevelUp = &model.Moment{AtMs: 49_000, Level: &pb.LevelUp{Level: 3, FromLevel: 2, HpBefore: 120, HpAfter: 148, ManaBefore: 0, ManaAfter: 0,
+		Gains:     []*pb.AttributeGain{{Name: "Strength", Amount: 4}},
+		Trainable: []*pb.Trainable{{Ability: "warrior-second-wind", Name: "Second Wind", Level: 3, Cost: 45, Trainer: "trainer-warrior", TrainerName: "Gorran Stoutarm", TrainerAt: "Trainers' Lane"}}}}
+	for _, sz := range [][2]int{{80, 24}, {140, 45}} {
+		out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, sz[0], sz[1], screen.Plain())
+		rows := strings.Split(out, "\n")
+		if !strings.Contains(rows[0], "LEVEL UP! You reached level 3. Health 120 → 148") || !strings.Contains(rows[1], "You can now train: Second Wind from Gorran Stoutarm") {
+			t.Errorf("%v: the banner:\n%s", sz, strings.Join(rows[:3], "\n"))
+		}
+		if sz[0] == 140 && !strings.Contains(rows[1], "in Trainers' Lane (45 crowns)") {
+			t.Errorf("%v: the banner does not say where: %q", sz, rows[1])
+		}
+		if len(rows) != sz[1] {
+			t.Errorf("%v: %d rows", sz, len(rows))
+		}
+	}
+	m.GameTimeMs = 100_000
+	if out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()); strings.Contains(out, "LEVEL UP!") {
+		t.Errorf("the banner stays up:\n%s", out)
+	}
+	// The hand-in summary in the board panel.
+	m.GameTimeMs = 50_000
+	m.HandIn = &model.Moment{AtMs: 49_500, Hand: &pb.HandIn{Kind: "quest_step", Name: "First Steps", Xp: 20, Crowns: 15, Item: "worn-cap", LevelUp: &pb.LevelUp{Level: 2}}}
+	out := screen.Render(m, screen.View{Conn: screen.ConnOnline, Board: &screen.Board{NPC: m.NPCs[0].GetId()}}, 140, 45, screen.Plain())
+	if !strings.Contains(out, "Handed in the quest step First Steps: 20 XP, 15 crowns, Worn Cap. You reached level 2!") {
+		t.Errorf("no hand-in summary:\n%s", out)
 	}
 }

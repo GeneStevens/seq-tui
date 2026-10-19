@@ -3,8 +3,8 @@
 │                                                                                                ││ DEAD  HP 0/6                           │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ You are dead. R: release               │
-│................................................................................................│└────────────────────────────────────────┘
-│                                                                                                │┌─ Instance ─────────────────────────────┐
+│                                                                                                │└────────────────────────────────────────┘
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│┌─ Instance ─────────────────────────────┐
 │                                                                                                ││ Solo Trial                             │
 │                                                                                                ││ real-time | inside                     │
 │                                                                                                ││ party up to 1 | normal                 │
@@ -14,10 +14,9 @@
 │                                                D                                               ││                                        │
 │                                                                                                ││                                        │
 │                                                @                                               │└────────────────────────────────────────┘
-│                                                m                                               │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ m Plain Scuttler       2m S 40/40 even │
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                m                                               ││ m Plain Scuttler       2m S 40/40 even │
 │                                                                                                ││ D Gate North                      3m N │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -30,16 +29,17 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                                  │
-│     N.Ns Plain Scuttler began attacking aria                                                                                             │
-│ <   N.Ns Plain Scuttler missed aria                                                                                                      │
-│ <   N.Ns Plain Scuttler hit aria for 4                                                                                                   │
-│ <  NN.Ns Plain Scuttler hit aria for 1                                                                                                   │
-│    NN.Ns aria healed 2                                                                                                                   │
-│ <  NN.Ns Plain Scuttler hit aria for 1                                                                                                   │
-│ <  NN.Ns Plain Scuttler hit aria for 3                                                                                                   │
-│ x  NN.Ns Plain Scuttler killed aria                                                                                                      │
-│    NN.Ns Plain Scuttler's target aria cleared: target_dead                                                                               │
-│    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: participants_dead                                                            │
+│     N.Ns You start attacking something                                                                                                   │
+│ <   N.Ns Plain Scuttler misses you                                                                                                       │
+│ <   N.Ns Plain Scuttler hits you for 4                                                                                                   │
+│ <  NN.Ns Plain Scuttler hits you for 1                                                                                                   │
+│ <  NN.Ns Plain Scuttler hits you for 1                                                                                                   │
+│ <  NN.Ns Plain Scuttler hits you for 3                                                                                                   │
+│ x  NN.Ns Plain Scuttler killed you                                                                                                       │
+│    NN.Ns Your target is gone                                                                                                             │
+│    NN.Ns Your target Plain Scuttler is gone                                                                                              │
+│    NN.Ns Everyone in the fight with Plain Scuttler has fallen                                                                            │
+│    NN.Ns You are out of combat                                                                                                           │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ R: release your body and wake at your bind point                                                                                           
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | move ok                                                                 ? help  q quit

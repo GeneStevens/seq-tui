@@ -5,8 +5,8 @@
 │                                                                                                ││ Auto-attack: off                       │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Party, led by ann1 ───────────────────┐
-│................................................................................................││ *ann1  Lv 1  Testgrounds               │
-│                                                                                                ││   HP 100/100 ########                  │
+│                                                                                                ││ *ann1  Lv 1  Testgrounds               │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││   HP 100/100 ########                  │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -14,20 +14,19 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                @                                               │┌─ Nearby ───────────────────────────────┐
+│                                                p                                               ││ ! Testgrounds Recruiter   85m SW [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
 │                                                                                                ││ p ann1                    1m S 100/100 │
 │                                                                                                ││ D Gate North                      1m N │
-│                                                                                                ││ $ Eastern Binder          72m S binder │
-│                                                                                                ││ $ Druid Trainer          83m W trainer │
-│                                                                                                ││ $ Paladin Trainer        85m W trainer │
-│                                                                                                ││ ? Testgrounds Recr… 85m SW quest_giver │
-│                                                                                            c   ││ ? Testgrounds Capta… 86m W quest_giver │
-│                                                                                                ││ $ Wizard Trainer         86m W trainer │
-│                                                                                                ││ & Testgrounds Co… 88m W contract_board │
-│                                                                                                ││ $ Rogue Trainer          88m W trainer │
-│                                                                                                ││ $ Testgrounds Binder      90m W binder │
-│                                                                                                ││ $ Cleric Trainer         90m W trainer │
-│                                                                                                ││ $ Testgrounds Banker      92m W banker │
-│                                                                                                ││ +3 more                                │
+│                                                                                                ││ H Eastern Binder                 72m S │
+│                                                                                          c     ││ T Druid Trainer                  83m W │
+│                                                                                                ││ T Paladin Trainer                85m W │
+│                                                                                                ││ Q Testgrounds Captain            86m W │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ T Wizard Trainer                 86m W │
+│                                                                                                ││ T Rogue Trainer                  88m W │
+│                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns ann1 invites you to a party                                                                                                     │
@@ -42,4 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North                                                                                                                        
  ONLINE | Testgrounds | heard N.Ns ago | accepted the invitation                                                              ? help  q quit

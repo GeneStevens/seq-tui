@@ -1,6 +1,8 @@
 package screen
 
 import (
+	"fmt"
+	"math"
 	"strings"
 	"sync"
 
@@ -18,18 +20,24 @@ const (
 	glyphCharacter = 'p' // another character
 	glyphDrop      = '*'
 	glyphLocked    = '~' // a drop this character may not take (a Rare one)
-	glyphTrader    = '$' // a vendor, trainer, binder or banker
+	glyphTrader    = '$' // a vendor
+	glyphTrainer   = 'T' // a trainer (D76: each role has a glyph of its own)
+	glyphBanker    = 'B'
+	glyphBinder    = 'H' // where you set your bind point (a hearth)
+	glyphGuard     = 'g'
+	glyphTalker    = 'Q' // someone who only talks (a quest giver)
 	glyphBoard     = '&' // a contract board
-	glyphTalker    = '?' // someone who only talks (a quest giver)
+	glyphOffer     = '!' // something new for you (gold)
+	glyphAsk       = '?' // a hand-in that is ready (gold), or a quest in progress (grey)
 	glyphMarker    = '%' // where a held scout contract sends you
 	glyphScout     = ';' // any other scout marker of the zone map
-	glyphSpawn     = '!' // where a world event's raiders appear
+	glyphSpawn     = 'v' // where a world event's raiders appear
 	glyphGoal      = 'G' // where a world event's raiders are heading
 	glyphCamp      = 'c' // a camp: where the zone's mobs are found (the zone map's)
 	glyphRare      = 'r' // a roaming rare in view
 	glyphDoor      = 'D'
 	glyphWall      = '#'
-	glyphBounds    = '.'
+	glyphBounds    = '░' // the edge of the zone: where walking ends
 	glyphPlan      = '+' // where the plan being built ends
 	// The ground (D53). Each says what it is without colour, and none is a
 	// glyph above; a building is a solid block like a wall, a road a dotted
@@ -60,10 +68,15 @@ const (
 	kDoor
 	kDrop
 	kPlan
+	kMarkGrey // a quest in progress (D76)
+	kMarkGold // something new, or ready to hand in; the board that has it
+	kNextDoor // the next door on the way to the objective
 	kCharacter
 	kMob
+	kQuestMob // a mob that counts for a held contract
 	kRare
 	kTarget
+	kPointer // the arrow to an objective that is off the map
 	kSelf
 )
 
@@ -181,15 +194,43 @@ func entityGlyph(e *pb.EntityState) rune {
 
 func upper(r rune) rune { return []rune(strings.ToUpper(string(r)))[0] }
 
-// npcGlyph is the glyph of an NPC by what it does.
+// npcGlyph is the glyph of an NPC by what it does (D76).
 func npcGlyph(n *pb.NpcInfo) rune {
 	switch n.GetRole() {
 	case "contract_board":
 		return glyphBoard
 	case "quest_giver":
 		return glyphTalker
+	case "trainer":
+		return glyphTrainer
+	case "banker":
+		return glyphBanker
+	case "binder":
+		return glyphBinder
+	case "guard":
+		return glyphGuard
 	}
 	return glyphTrader
+}
+
+// npcMark is the glyph and kind an NPC is drawn with: its role's glyph, or the
+// mark the server's hints put on it (D76): a gold ! for something new, a gold ?
+// for a hand-in that is ready, a grey ? for a quest in progress; a board keeps
+// its glyph and is gold when something can be taken or handed in.
+func npcMark(m *model.Model, n *pb.NpcInfo) (rune, cellKind) {
+	gl, mark := npcGlyph(n), m.MarkOf(n.GetId())
+	board := n.GetRole() == "contract_board"
+	switch {
+	case mark == model.MarkReady && board, mark == model.MarkOffer && board:
+		return gl, kMarkGold
+	case mark == model.MarkOffer:
+		return glyphOffer, kMarkGold
+	case mark == model.MarkReady:
+		return glyphAsk, kMarkGold
+	case mark == model.MarkInProgress && !board:
+		return glyphAsk, kMarkGrey
+	}
+	return gl, kDoor
 }
 
 // mapRows draws the map panel's interior: cw x ch cells, styled. It scrolls: the
@@ -198,6 +239,7 @@ func npcGlyph(n *pb.NpcInfo) rune {
 func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	g := newGrid(newScale(m.Map.GetViewRadiusMm(), ch), cw, ch, m.Self.Pos)
 	paintWorld(g, m, v, false)
+	g.pointToObjective(m)
 	g.put(int64(cw/2), int64(ch/2), glyphSelf, kSelf)
 	return g.styled(st)
 }
@@ -381,7 +423,11 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 	}
 	for _, d := range m.Map.GetDoors() {
 		c, r := g.cellOf(d.GetPos())
-		g.put(c, r, glyphDoor, kDoor)
+		k := kDoor
+		if m.IsNextDoor(d.GetId()) {
+			k = kNextDoor
+		}
+		g.put(c, r, glyphDoor, k)
 	}
 	// Every marker the zone map lists (D55): zone lines and instance entrances
 	// are doors, a scout marker is yours when a held contract names it, and a
@@ -390,7 +436,11 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 		c, r := g.cellOf(k.GetPos())
 		switch k.GetKind() {
 		case "zone_line", "instance_entrance":
-			g.put(c, r, glyphDoor, kDoor)
+			if m.IsNextDoor(k.GetId()) {
+				g.put(c, r, glyphDoor, kNextDoor)
+			} else {
+				g.put(c, r, glyphDoor, kDoor)
+			}
 		case "scout":
 			g.put(c, r, glyphScout, kPlan)
 		case "event_spawn":
@@ -401,7 +451,8 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 	}
 	for _, n := range m.KnownNPCs() {
 		c, r := g.cellOf(n.GetPos())
-		g.put(c, r, npcGlyph(n), kDoor)
+		gl, k := npcMark(m, n)
+		g.put(c, r, gl, k)
 	}
 	for _, k := range m.Self.Contracts {
 		if p := m.Marker(k); p != nil {
@@ -426,8 +477,11 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 		gl, k := entityGlyph(e), kCharacter
 		if e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB {
 			k = kMob
-			if model.IsRare(e) && !e.GetDead() {
+			switch {
+			case model.IsRare(e) && !e.GetDead():
 				k = kRare
+			case !e.GetDead() && m.QuestMob(e.GetName()) != nil:
+				k = kQuestMob
 			}
 		}
 		if e.GetId() == m.Self.Target {
@@ -459,6 +513,12 @@ func (g *grid) styled(st Styler) []string {
 				s = st.Dim(s)
 			case kDoor:
 				s = st.Cyan(s)
+			case kMarkGold, kNextDoor, kPointer:
+				s = st.Yellow(st.Bold(s))
+			case kMarkGrey:
+				s = st.Dim(s)
+			case kQuestMob:
+				s = st.Yellow(s)
 			case kDrop:
 				s = st.Green(s)
 			case kPlan:
@@ -492,4 +552,84 @@ func groundStyle(k model.AreaKind, st Styler) func(string) string {
 		return st.Dim
 	}
 	return func(s string) string { return s }
+}
+
+// pointToObjective draws the arrow to the objective's next waypoint at the edge
+// of the map when it lies off it (D76): "◄ Gorran 23m". The label is the
+// objective's name, short, and the distance in metres.
+func (g *grid) pointToObjective(m *model.Model) {
+	h := m.Waypoint()
+	if h == nil {
+		h = m.Objective()
+	}
+	if h == nil || h.GetPos() == nil {
+		return
+	}
+	c, r := g.cellOf(h.GetPos())
+	west, east := c < 0, c >= int64(g.cw)
+	north, south := r < 0, r >= int64(g.ch)
+	if !west && !east && !north && !south {
+		return // on the map: its own mark shows where it is
+	}
+	arrow := pointerGlyph(west, east, north, south)
+	ec, er := min(max(c, 0), int64(g.cw-1)), min(max(r, 0), int64(g.ch-1))
+	label := fmt.Sprintf("%s %dm", pointerLabel(m, h), dist64(h.GetPos(), m.Self.Pos)/1000)
+	s := string(arrow) + " " + label
+	start := int64(0)
+	switch {
+	case east && !west:
+		s = label + " " + string(arrow)
+		start = int64(g.cw) - int64(width(s))
+	case west:
+	default: // above or below: centred on the column the objective lies in
+		start = ec - int64(width(s))/2
+	}
+	start = min(max(start, 0), max(int64(g.cw)-int64(width(s)), 0))
+	for i, rn := range []rune(s) {
+		g.put(start+int64(i), er, rn, kPointer)
+	}
+}
+
+func dist64(a, b *pb.Pos) int64 {
+	dx, dy := float64(a.GetX()-b.GetX()), float64(a.GetY()-b.GetY())
+	return int64(math.Round(math.Hypot(dx, dy)))
+}
+
+// pointerGlyph is the arrow for the side or corner the objective lies beyond.
+func pointerGlyph(west, east, north, south bool) rune {
+	switch {
+	case west && north:
+		return '◤'
+	case east && north:
+		return '◥'
+	case west && south:
+		return '◣'
+	case east && south:
+		return '◢'
+	case west:
+		return '◄'
+	case east:
+		return '►'
+	case north:
+		return '▲'
+	}
+	return '▼'
+}
+
+// pointerLabel is the objective's name in a few cells: "Gorran" for "Talk to Gorran Stoutarm".
+func pointerLabel(m *model.Model, h *pb.Hint) string {
+	l := h.GetLabel()
+	person := false
+	for _, p := range []string{"Talk to ", "Hand in: ", "Take: ", "Report back: "} {
+		if strings.HasPrefix(l, p) {
+			l, person = strings.TrimPrefix(l, p), p == "Talk to "
+		}
+	}
+	if i := strings.Index(l, " — "); i > 0 {
+		l = l[:i]
+	}
+	if f := strings.Fields(l); person && len(f) > 1 {
+		l = f[0] // the first name is enough to know who
+	}
+	return strings.TrimSpace(fit(l, 16))
 }

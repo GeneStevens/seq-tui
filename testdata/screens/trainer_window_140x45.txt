@@ -1,45 +1,45 @@
-┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Gorran Stoutarm, trainer, 0m here away. You have 192 crowns.                                                                             │
-│                                                                                                                                          │
-│ You are level 3. Enter buys the ability under the cursor.                                                                                │
-│  Taunt                  level 1   known                                                                                                  │
-│  Bash                   level 1   known                                                                                                  │
-│> Second Wind            level 3   45 crowns                                                                                              │
-│  Bulwark Stance         level 5   75 crowns                                                                                              │
-│  Cleave                 level 7   105 crowns                                                                                             │
-│  Rallying Shout         level 9   135 crowns                                                                                             │
-│  Sunder                 level 11  165 crowns                                                                                             │
-│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
-│ Second Wind: For a short while, a share of the damage you deal comes back to you as health. Use it in the thick of a long fight.         │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│ Enter acts. Esc goes back.                                                                                                               │
-│ The answer is on the status line; every denial says why.                                                                                 │
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 192 crowns.                          ││ hale  Lv 3 Warrior         | 192 crowns│
+│                                                                                                ││ HP 142/164 #######################---- │
+│ You are level 3. Enter buys the ability under the cursor.                                      ││ XP ------------------------- 90 to Lv 4│
+│  Taunt                  level 1   known                                                        ││ Atk off | none                         │
+│  Bash                   level 1   known                                                        │└────────────────────────────────────────┘
+│> Second Wind            level 3   45 crowns                                                    │┌─ Target ───────────────────────────────┐
+│  Bulwark Stance         level 5   75 crowns                                                    ││ no target (Tab to choose)              │
+│  Cleave                 level 7   105 crowns                                                   ││                                        │
+│  Rallying Shout         level 9   135 crowns                                                   ││                                        │
+│  Sunder                 level 11  165 crowns                                                   │└────────────────────────────────────────┘
+│────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Nearby ───────────────────────────────┐
+│ Second Wind: For a short while, a share of the damage you deal comes back to you as health. Use││ & Thornwick Contract Boa… 52m NE [new] │
+│ it in the thick of a long fight.                                                               ││ T Gorran Stoutarm              0m here │
+│                                                                                                ││     <Warrior Trainer>                  │
+│                                                                                                ││ T Mother Elswyth                 16m E │
+│                                                                                                ││     <Cleric Trainer>                   │
+│                                                                                                ││ $ Dunstan Reeve <Vendor>        23m NE │
+│                                                                                                ││ g Town Guard                     31m E │
+│                                                                                                ││ T Pip Nettle <Rogue Trainer>     32m E │
+│                                                                                                ││ $ Barnaby Tuck <Vendor>         42m NE │
+│                                                                                                ││ $ Hilda Brasswick <Vendor>       42m N │
+│                                                                                                ││ T Ormond Quill <Wizard Trainer>  48m E │
+│                                                                                                ││ g Town Guard                     52m N │
+│                                                                                                ││ H Isolde Fenn <Binder>          54m NE │
+│                                                                                                ││ g Tamsin Hale <Guard>           54m NE │
+│                                                                                                ││ T Ser Aldric Vane                64m E │
+│                                                                                                ││     <Paladin Trainer>                  │
+│ Enter acts. Esc goes back.                                                                     ││ +4 more                                │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    10.5s Hilda Brasswick is out of view                                                                                                  │
+│    10.8s Town Guard <Guard> comes into view                                                                                              │
+│    11.2s Town Guard is out of view                                                                                                       │
+│    11.4s Town Guard <Guard> comes into view                                                                                              │
+│    11.7s Gorran Stoutarm <Warrior Trainer> comes into view                                                                               │
+│    17.4s Pip Nettle <Rogue Trainer> comes into view                                                                                      │
+│    18.0s Dunstan Reeve is out of view                                                                                                    │
+│    18.0s Pip Nettle is out of view                                                                                                       │
+│    18.1s Town Guard is out of view                                                                                                       │
+│    22.4s Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
+│            else is patience.                                                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Thornwick | road: faster, 125% | heard 0.4s ago                                                                     ? help  q quit

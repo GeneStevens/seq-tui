@@ -21,8 +21,12 @@ type Inventory struct {
 // Traders is the screen for the traders in view: the list of them, and the
 // window of one when it is open (Open). Pane and Cur are the lists inside a
 // window: the first and the second, and the cursor in each.
+//
+// A window stays with the NPC it was opened on (D78): NPC is its id, not a place
+// in the list, which is sorted by distance and changes as people walk by.
 type Traders struct {
 	Sel  int
+	NPC  string
 	Open bool
 	Pane int
 	Cur  [2]int
@@ -300,6 +304,9 @@ func tradersInView(m *model.Model) []*pb.NpcInfo {
 	return list
 }
 
+// titled is an NPC's name and title.
+func titled(n *pb.NpcInfo) string { return model.NPCLabel(n) }
+
 // TradersInView is the traders the screen lists, in its order, for the keys.
 func TradersInView(m *model.Model) []*pb.NpcInfo { return tradersInView(m) }
 
@@ -308,7 +315,11 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 	var rows []string
 	add := func(l string) { rows = append(rows, fit(l, w)) }
 	sp := m.Self.Pos
-	if !t.Open || t.Sel >= len(list) {
+	var n *pb.NpcInfo
+	if t.Open {
+		n = m.NPC(t.NPC)
+	}
+	if n == nil {
 		add(" Traders in view. Up / Down choose, Enter opens, Esc closes. Walk up to one first.")
 		add("")
 		if len(list) == 0 {
@@ -324,7 +335,8 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 			if !m.InReach(n) {
 				far = " too far"
 			}
-			line := fit(fmt.Sprintf(" %s%-24s %-22s %s %s%s", mark, n.GetName(), roleWord(n.GetRole()), metres(d), bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY()), far), w)
+			right := metres(d) + " " + bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY()) + far
+			line := fit(fit(fmt.Sprintf(" %s%c %s: %s", mark, npcGlyph(n), titled(n), roleWord(n.GetRole())), w-width(right)-1)+" "+right, w)
 			switch {
 			case i == t.Sel:
 				line = st.Reverse(line)
@@ -335,9 +347,8 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 		}
 		return pad(rows[:min(len(rows), h)], w, h)
 	}
-	n := list[t.Sel]
 	d := dist(n.GetPos().GetX(), n.GetPos().GetY(), sp.GetX(), sp.GetY())
-	add(fmt.Sprintf(" %s, %s, %s %s away. You have %s.", n.GetName(), n.GetRole(), metres(d), bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY()), inCrowns(m)))
+	add(fmt.Sprintf(" %s, %s %s away. You have %s.", model.NPCLabel(n), metres(d), bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY()), inCrowns(m)))
 	if !m.InReach(n) {
 		add(fmt.Sprintf(" Too far: stand within %s of %s to deal with them.", metres(n.GetReachMm()), n.GetName()))
 	} else {

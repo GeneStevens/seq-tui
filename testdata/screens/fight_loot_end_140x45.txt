@@ -9,7 +9,7 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
-│                                 ###############################                                │┌─ Nearby ───────────────────────────────┐
+│                                  #############################                                 │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ x Shell Rat                  2m E dead │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -27,19 +27,19 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.3s Aria opened an encounter with Shell Rat (enc-1)                                                                                 │
+│     1.3s Aria began fighting Shell Rat                                                                                                   │
 │     1.4s Aria hit Shell Rat for 8                                                                                                        │
 │ <   1.5s Shell Rat hit Aria for 5                                                                                                        │
 │     1.6s Aria hit Shell Rat for 12                                                                                                       │
 │ x   1.7s Aria killed Shell Rat                                                                                                           │
-│     1.8s encounter enc-1 with Shell Rat closed: mob_died                                                                                 │
-│     1.9s Shell Rat dropped Shell Fragment (drop-enc-1-shell-fragment)                                                                    │
+│     1.8s the fight with Shell Rat is over: mob_died                                                                                      │
+│     1.9s Shell Rat dropped Shell Fragment                                                                                                │
 │ +   2.0s Aria received 25 xp from Shell Rat                                                                                              │
 │     2.1s Aria's target Shell Rat cleared: target_dead                                                                                    │
 │     2.2s Aria stopped attacking                                                                                                          │
-│ +   2.3s Aria received Shell Fragment from drop-enc-1-shell-fragment                                                                     │
+│ +   2.3s Aria received Shell Fragment                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ Walk: arrows or WASD · M: map · ?: help                                                                                                    
  ONLINE | outskirts | heard 0.4s ago | loot accepted                                                                          ? help  q quit

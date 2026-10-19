@@ -17,8 +17,8 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
 │ Esc closes. Traded items are bound afterwards; Rare and Named never trade.   │
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: none                                                      
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

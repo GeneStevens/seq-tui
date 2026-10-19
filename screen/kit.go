@@ -138,7 +138,7 @@ func kitLines(m *model.Model, v View, w int, st Styler) []string {
 	default:
 		rows = append(rows, fit(" Atk "+onOff(s.AutoAttack)+" | "+targetName(m), w))
 	}
-	return rows
+	return withAttackers(m, rows, w, st)
 }
 
 // slotStatus says in a word whether the slot can be used now.
@@ -171,8 +171,13 @@ func slotCell(m *model.Model, v View, n, cw int, st Styler) string {
 			cost = fmt.Sprintf("%dmp ", a.GetManaCost())
 		}
 	}
+	if g == model.SlotEmpty {
+		return st.Dim(fit(fmt.Sprintf("%d -", n), cw)) // an empty slot says nothing more
+	}
+	// The status follows its own slot's name, closer to it than to the next
+	// slot, and the cells are told apart by the blank that ends each.
 	right := cost + slotStatus(g, left)
-	cell := fit(fmt.Sprintf("%d %s %s", n, fit(name, max(cw-3-width(right)-1, 1)), right), cw)
+	cell := fit(fmt.Sprintf("%d %s %s", n, fit(strings.TrimRight(name, " "), max(min(width(name), cw-3-width(right)-2), 1)), right), cw-1) + " "
 	if g != model.SlotReady {
 		return st.Dim(cell)
 	}

@@ -2,18 +2,17 @@
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
 │                                                  ││ Target: none             │
-│..................................................││ Auto-attack: off         │
-│                                                  │└──────────────────────────┘
+│                                                  ││ Auto-attack: off         │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Solo Trial               │
 │                         @                        ││ real-time | inside       │
 │                                                  ││ party up to 1 | normal   │
-│                                                  ││                          │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
-│                         m                        ││                          │
 │                                                  ││                          │
+│                         m                        ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │     N.Ns instance opened: Solo Trial (up to 1 in it); enter at gate-north    │
@@ -21,4 +20,5 @@
 │     N.Ns entered Testgrounds (Solo Trial)                                    │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North  ·  Tab: target · F: attack                                
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | use door ok ? help  q quit

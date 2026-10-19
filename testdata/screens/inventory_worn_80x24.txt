@@ -18,7 +18,7 @@
 │ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
 │                                                                              │
 │                                                                              │
-│                                                                              │
-│                                                                              │
+│ wear Worn Cap ok                                                             │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 94/100 | Target: none                                                       
  ONLINE | Testgrounds | heard 0.4s ago | wear Worn Cap ok         ? help  q quit

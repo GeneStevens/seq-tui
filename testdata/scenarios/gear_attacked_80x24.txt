@@ -1,0 +1,24 @@
+┌─ Inventory and gear  ⚠ UNDER ATTACK ─────────────────────────────────────────┐
+│ Crowns 0 | carrying 0 of 20 | bank 0 | bind point none yet                   │
+│ Gear worn                            │ Items carried                         │
+│ > head      -                        │  (nothing)                            │
+│   chest     -                        │                                       │
+│   legs      -                        │                                       │
+│   hands     -                        │                                       │
+│   feet      -                        │                                       │
+│   ring1     -                        │                                       │
+│   ring2     -                        │                                       │
+│   neck      -                        │                                       │
+│   main_hand -                        │                                       │
+│   off_hand  -                        │                                       │
+│──────────────────────────────────────────────────────────────────────────────│
+│                                                                              │
+│                                                                              │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.         │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: Plain Scuttler 40/40, attacking you | In combat           
+ ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                  

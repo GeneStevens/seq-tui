@@ -71,7 +71,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 	p.Golden("companion_talk")
 	// The role cannot be chosen yet: the server says why.
 	p.Press("1", "1", "enter")
-	notice(t, p, "no_companion", true)
+	notice(t, p, "You haven't earned a companion yet", true)
 	p.Press("2", "enter")
 	notice(t, p, "take Eyes on the Goblins ok", false)
 	p.Press("esc", "esc")
@@ -103,7 +103,7 @@ func TestCompanionQuestScoutTheLookout(t *testing.T) {
 	p.Golden("quest_lookout_far")
 	walk(w, p, "right", 4)
 	p.Model(func(m *model.Model) {
-		if c := m.Contract("companion-goblin-lookout"); c == nil || !c.GetReady() || !hasLog(m, "reward", "the marker is reached") {
+		if c := m.Contract("companion-goblin-lookout"); c == nil || !c.GetReady() || !hasLog(m, "reward", "Eyes on the Goblins: 1 of 1") {
 			t.Fatalf("at the lookout: %v", c)
 		}
 	})
@@ -129,7 +129,7 @@ func TestCompanionQuestEndsWithTheChoiceOfARole(t *testing.T) {
 	w.Advance(time.Second)
 	p.Model(func(m *model.Model) {
 		c := m.Companion()
-		if !c.GetUnlocked() || c.GetRole() != "" || len(m.Self.Contracts) != 0 || !hasLog(m, "companion", "quest is done") {
+		if !c.GetUnlocked() || c.GetRole() != "" || len(m.Self.Contracts) != 0 || !hasLog(m, "companion", "You have earned a house companion") {
 			t.Fatalf("after the last step: %v, %v", c, m.Self.Contracts)
 		}
 	})
@@ -142,7 +142,7 @@ func TestCompanionQuestEndsWithTheChoiceOfARole(t *testing.T) {
 	notice(t, p, "recruit a melee ok", false)
 	w.Advance(time.Second)
 	p.Model(func(m *model.Model) {
-		if c := m.Companion(); c.GetRole() != "melee" || c.GetPresent() || !hasLog(m, "companion", "recruit is now a melee") {
+		if c := m.Companion(); c.GetRole() != "melee" || c.GetPresent() || !hasLog(m, "companion", "takes the role of melee") {
 			t.Fatalf("after choosing: %v", c)
 		}
 	})
@@ -159,7 +159,7 @@ func TestCompanionQuestEndsWithTheChoiceOfARole(t *testing.T) {
 		}
 	})
 	p.Golden("companion_called")
-	if s := p.Screen(80, 24); strings.Contains(s, "Quest") {
+	if s := p.Screen(80, 24); strings.Contains(s, "┌─ Quest") {
 		t.Fatalf("the Quest panel stays after the quest is done:\n%s", s)
 	}
 }
@@ -221,7 +221,7 @@ func TestCompanionAssistsThenIsOverridden(t *testing.T) {
 	notice(t, p, "companion stance assist ok", false)
 	w.Advance(time.Second)
 	p.Model(func(m *model.Model) {
-		if m.Companion().GetStance() != "assist" || !hasLog(m, "companion", "now on assist") {
+		if m.Companion().GetStance() != "assist" || !hasLog(m, "companion", "takes the assist stance") {
 			t.Fatalf("after H: %v", m.Companion())
 		}
 	})
@@ -277,7 +277,7 @@ func TestCompanionStancesCycle(t *testing.T) {
 		notice(t, p, "companion stance "+want+" ok", false)
 		w.Advance(time.Second)
 		p.Model(func(m *model.Model) {
-			if m.Companion().GetStance() != want || !hasLog(m, "companion", "now on "+want) {
+			if m.Companion().GetStance() != want || !hasLog(m, "companion", "takes the "+want+" stance") {
 				t.Fatalf("after H: %v", m.Companion())
 			}
 		})

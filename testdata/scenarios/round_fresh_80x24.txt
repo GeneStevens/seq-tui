@@ -1,14 +1,13 @@
 ┌─ Testgrounds (Quick Turns), at 100,87 m, north… ─┐┌─ You ────────────────────┐
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
-│..................................................││ Target: Plain Scuttler   │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Target: Plain Scuttler   │
 │                                                  ││ Auto-attack: off         │
 │                                                  │└──────────────────────────┘
-│                                                  │┌─ Instance ───────────────┐
-│                         D                        ││ quick-turns              │
+│                         D                        │┌─ Instance ───────────────┐
+│                                                  ││ quick-turns              │
 │                         @                        ││ turn-based | inside      │
 │                                                  ││ party up to 1 | normal   │
-│                                                  ││ sleeps up to 7 d         │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Round 3, 19 s left ─────┐
 │                         M                        ││ 0 of 1 submitted         │
@@ -21,4 +20,5 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North  ·  F: attack · Tab: next target                           
  ONLINE | Testgrounds (Quick Turns) | heard N.Ns ago              ? help  q quit

@@ -1,45 +1,45 @@
 ┌─ Testgrounds, at 14,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                           .                                                         #          ││ aria  Lv 1  XP 20            | 0 crowns│
-│                           .                                                         #          ││ HP 100/100 ########################### │
-│                           .                                                         #          ││ Target: none                           │
-│                           .                                                         #          ││ Auto-attack: off                       │
-│                           .                                                         #          │└────────────────────────────────────────┘
-│                           .                $  $  $  $  $  $                         #          │┌─ Quest ────────────────────────────────┐
-│                           .                                                         #          ││ [ ] 1. Scout the Lookout               │
-│                           .                                                         #          ││ Testgrounds Recruiter has work for you:│
-│                           .                $  $  $  &  ?                            #          ││ G.                                     │
-│                           .                               ?                         #          │└────────────────────────────────────────┘
-│                           .                                                         #          │┌─ Target ───────────────────────────────┐
-│                           .                                                         #          ││ no target (Tab to choose)              │
-│                           .                                                         #          ││                                        │
-│                           .                                                         #          ││                                        │
-│                           .                    @              c                     #          │└────────────────────────────────────────┘
-│                           .                                                         #          │┌─ Nearby ───────────────────────────────┐
-│                           .                                                         #          ││ $ Testgrounds Banker       8m N banker │
-│                           .                                                         #          ││ $ Testgrounds Binder       8m N binder │
-│                           .                                                         #          ││ $ Testgrounds Vendor       8m N vendor │
-│                           .                                                         #          ││ & Testgrounds Co… 9m NE contract_board │
-│                           .                                                         #          ││ ? Testgrounds Recr… 10m NE quest_giver │
-│                           .                                                         #          ││ ? Testgrounds Capt… 10m NE quest_giver │
-│                           .                                                         #          ││ $ Cleric Trainer         12m N trainer │
-│                           .                                                         #          ││ $ Rogue Trainer          12m N trainer │
-│                           .                                                         #          ││ $ Warrior Trainer        12m N trainer │
-│                           .                                                         #          ││ $ Wizard Trainer         12m N trainer │
-│                           .                                                         #          ││ $ Paladin Trainer       13m NE trainer │
-│                           .                                                         #          ││ $ Druid Trainer         14m NE trainer │
-│                           .                                                         #          ││ +3 more                                │
+│                            ░                                                       #           ││ aria  Lv 1  XP 20            | 0 crowns│
+│                            ░                                                       #           ││ HP 100/100 ########################### │
+│                            ░                                                       #           ││ Target: none                           │
+│                            ░                                                       #           ││ Auto-attack: off                       │
+│                            ░                                                       #           │└────────────────────────────────────────┘
+│                            ░                                                       #           │┌─ Quest ────────────────────────────────┐
+│                            ░                T  T T  T  T  T                        #           ││ [ ] 1. Scout the Lookout               │
+│                            ░                                                       #           ││ Testgrounds Recruiter has work for you:│
+│                            ░                $  B H  &  Q                           #           ││ G.                                     │
+│                            ░                                                       #           │└────────────────────────────────────────┘
+│                            ░                              !                        #           │┌─ Target ───────────────────────────────┐
+│                            ░                                                       #           ││ no target (Tab to choose)              │
+│                            ░                                                       #           ││                                        │
+│                            ░                                                       #           ││                                        │
+│                            ░                   @              c                    #           │└────────────────────────────────────────┘
+│                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
+│                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
+│                            ░                                                       #           ││ ! Testgrounds Recruiter   10m NE [new] │
+│                            ░                                                       #           ││     <Quest Giver>                      │
+│                            ░                                                       #           ││ B Testgrounds Banker              8m N │
+│                            ░                                                       #           ││ H Testgrounds Binder              8m N │
+│                            ░                                                       #           ││ $ Testgrounds Vendor              8m N │
+│                            ░                                                       #           ││ Q Testgrounds Captain           10m NE │
+│                            ░                                                       #           ││     <Quest Giver>                      │
+│                            ░                                                       #           ││ T Cleric Trainer                 12m N │
+│                            ░                                                       #           ││ T Rogue Trainer                  12m N │
+│                            ░                                                       #           ││ T Warrior Trainer                12m N │
+│                            ░                                                       #           ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns aria stopped attacking                                                                                                          │
-│    NN.Ns Plain Scuttler dropped Cracked Shell Fragment (drop-enc-1-shell-fragment)                                                       │
-│    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
-│ +  NN.Ns aria received 20 xp from Plain Scuttler                                                                                         │
-│    NN.Ns Plain Scuttler left view                                                                                                        │
-│    NN.Ns aria healed 2                                                                                                                   │
-│    NN.Ns aria healed 2                                                                                                                   │
-│    NN.Ns aria healed 2                                                                                                                   │
-│    NN.Ns aria healed 1                                                                                                                   │
-│    NN.Ns drop drop-enc-1-shell-fragment is gone: taken                                                                                   │
-│ +  NN.Ns aria received Cracked Shell Fragment from drop-enc-1-shell-fragment                                                             │
+│    NN.Ns You hit Plain Scuttler for 8                                                                                                    │
+│ x  NN.Ns You killed Plain Scuttler                                                                                                       │
+│    NN.Ns Your target Plain Scuttler is gone                                                                                              │
+│    NN.Ns You stop attacking                                                                                                              │
+│    NN.Ns Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
+│    NN.Ns Plain Scuttler is dead: the fight is over                                                                                       │
+│    NN.Ns You are out of combat                                                                                                           │
+│ +  NN.Ns You gain 20 experience                                                                                                          │
+│    NN.Ns Plain Scuttler is out of view                                                                                                   │
+│    NN.Ns Cracked Shell Fragment was taken                                                                                                │
+│ +  NN.Ns You pick up Cracked Shell Fragment                                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ Walk: arrows or WASD · M: map · ?: help                                                                                                    
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                                                                              ? help  q quit

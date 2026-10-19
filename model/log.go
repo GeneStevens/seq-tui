@@ -19,13 +19,17 @@ type LogEntry struct {
 	Reason     string // the server's reason, if the event carries one
 	Actor      string // the entity id that acted (combat attacker, denied actor), if any
 	Target     string // the entity id acted on, if any
+	// Quiet marks routine lines (regeneration, movement, ticks, and the moments
+	// the screen shows in their own place): the short view of the log hides them.
+	Quiet bool
 }
 
 func (m *Model) logEvent(e *pb.Event) {
 	m.mobNotes(e) // what a mob did, in words, ahead of the event's own line
 	kind, text, reason := describe(e, m.label, m.abilityOf)
+	mob := false // the line is the client's own: it says more than the server's words
 	if k, t, r, ok := m.describeInstance(e); ok {
-		kind, text, reason = k, t, r
+		kind, text, reason, mob = k, t, r, true // who played what in a round, who is in the party
 	}
 	if k, t, r, ok := describeCombat(e, m.label, m.abilityOf); ok {
 		kind, text, reason = k, t, r
@@ -43,7 +47,40 @@ func (m *Model) logEvent(e *pb.Event) {
 		kind, text, reason = k, t, r
 	}
 	if k, t, r, ok := m.describeMobs(e); ok {
-		kind, text, reason = k, t, r
+		kind, text, reason, mob = k, t, r, true
+	}
+	// The server's own words (D76) say what happened to this character with names
+	// only; the lines above are the fallback for an event it left without, and
+	// for what a mob did, which only the client works out (D70).
+	if t := e.GetText(); t != "" && !mob {
+		text = t
+	}
+	quiet := false
+	switch b := e.GetBody().(type) {
+	case *pb.Event_LootDropped:
+		if d := b.LootDropped; e.GetText() != "" && d.GetItem() != "" {
+			text += m.itemTag(d.GetItem()) // the tier and binding, which the server's words leave out
+			if !d.GetCanLoot() {
+				text += ": not yours to take"
+			}
+		}
+	case *pb.Event_Combat:
+		quiet = b.Combat.GetKind() == pb.CombatKind_COMBAT_KIND_HEAL && b.Combat.GetAttacker() == "" // regeneration
+	case *pb.Event_CombatState:
+		kind = "combat_state"
+	case *pb.Event_AttackBegan:
+		kind = "attack_began"
+	case *pb.Event_PlaceChanged:
+		kind, quiet = "place_changed", true
+	case *pb.Event_ObjectiveHints:
+		kind, quiet = "objective_hints", true
+	case *pb.Event_LevelUp:
+		kind = "level_up"
+	case *pb.Event_HandIn:
+		kind, quiet = "hand_in", true // the board panel shows it, and the hand-in's reward line is in the log
+	}
+	if (kind == "unknown" && e.GetText() == "") || kind == "entity_moved" || kind == "rules_tick" || kind == "resource_changed" {
+		quiet = true
 	}
 	var actor, target string
 	switch b := e.GetBody().(type) {
@@ -58,7 +95,7 @@ func (m *Model) logEvent(e *pb.Event) {
 	case *pb.Event_CastInterrupted:
 		actor, target = b.CastInterrupted.GetActor(), b.CastInterrupted.GetTarget()
 	}
-	m.addLog(LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target})
+	m.addLog(LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target, Quiet: quiet})
 }
 
 // label is what an entity is called in the log: its name if the model has seen
@@ -74,7 +111,7 @@ func describe(e *pb.Event, label, ability func(string) string) (kind, text, reas
 	switch b := e.GetBody().(type) {
 	case *pb.Event_EntityAppeared:
 		en := b.EntityAppeared.GetEntity()
-		return "entity_appeared", fmt.Sprintf("%s (%s) appeared", en.GetName(), en.GetId()), ""
+		return "entity_appeared", fmt.Sprintf("%s appeared", en.GetName()), ""
 	case *pb.Event_EntityMoved:
 		return "entity_moved", fmt.Sprintf("%s moved to (%d, %d)", label(b.EntityMoved.GetId()), b.EntityMoved.GetPos().GetX(), b.EntityMoved.GetPos().GetY()), ""
 	case *pb.Event_EntityLeft:
@@ -102,17 +139,17 @@ func describe(e *pb.Event, label, ability func(string) string) (kind, text, reas
 		return "combat", "combat", ""
 	case *pb.Event_EncounterOpened:
 		o := b.EncounterOpened
-		return "encounter_opened", fmt.Sprintf("%s opened an encounter with %s (%s)", label(o.GetOwner()), label(o.GetMob()), o.GetId()), ""
+		return "encounter_opened", fmt.Sprintf("%s began fighting %s", label(o.GetOwner()), label(o.GetMob())), ""
 	case *pb.Event_EncounterClosed:
 		o := b.EncounterClosed
-		return "encounter_closed", fmt.Sprintf("encounter %s with %s closed: %s", o.GetId(), label(o.GetMob()), o.GetReason()), o.GetReason()
+		return "encounter_closed", fmt.Sprintf("the fight with %s is over: %s", label(o.GetMob()), reasonWords(o.GetReason())), o.GetReason()
 	case *pb.Event_Denied:
 		d := b.Denied
-		return "denied", fmt.Sprintf("%s denied %s on %s: %s", label(d.GetActor()), d.GetIntent(), label(d.GetTarget()), d.GetReason()), d.GetReason()
+		return "denied", fmt.Sprintf("%s was refused %s on %s: %s", label(d.GetActor()), d.GetIntent(), label(d.GetTarget()), reasonWords(d.GetReason())), d.GetReason()
 	case *pb.Event_Reward:
 		w := b.Reward
 		if w.GetKind() == "loot" {
-			return "reward", fmt.Sprintf("%s received %s from %s", label(w.GetRecipient()), w.GetItem(), w.GetSource()), ""
+			return "reward", fmt.Sprintf("%s received %s", label(w.GetRecipient()), w.GetItem()), ""
 		}
 		text = fmt.Sprintf("%s received %d %s from %s", label(w.GetRecipient()), w.GetAmount(), w.GetKind(), label(w.GetSource()))
 		if w.GetLevel() > 0 {
@@ -140,10 +177,10 @@ func describe(e *pb.Event, label, ability func(string) string) (kind, text, reas
 		return "auto_attack_changed", label(a.GetActor()) + " stopped attacking", ""
 	case *pb.Event_LootDropped:
 		d := b.LootDropped
-		return "loot_dropped", fmt.Sprintf("%s dropped %s (%s)", label(d.GetMob()), d.GetItem(), d.GetDrop()), ""
+		return "loot_dropped", fmt.Sprintf("%s dropped %s", label(d.GetMob()), d.GetItem()), ""
 	case *pb.Event_LootGone:
 		g := b.LootGone
-		return "loot_gone", fmt.Sprintf("drop %s is gone: %s", g.GetDrop(), g.GetReason()), g.GetReason()
+		return "loot_gone", fmt.Sprintf("a drop is gone: %s", reasonWords(g.GetReason())), g.GetReason()
 	case *pb.Event_Released:
 		r := b.Released
 		return "released", fmt.Sprintf("%s released; respawns in %d s", label(r.GetActor()), (r.GetRespawnInMs()+999)/1000), ""
@@ -154,4 +191,12 @@ func describe(e *pb.Event, label, ability func(string) string) (kind, text, reas
 		return "mob_reset", fmt.Sprintf("%s reset to %d hp", label(b.MobReset.GetId()), b.MobReset.GetHp()), ""
 	}
 	return "unknown", "an event this client does not know", "" // additive protocol: ignore what we do not know
+}
+
+// reasonWords is a reason code in plain words, else the code.
+func reasonWords(code string) string {
+	if w, ok := reasons[code]; ok {
+		return w
+	}
+	return code
 }

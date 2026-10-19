@@ -1,24 +1,24 @@
-┌─ Help: Quest chains and fighting ────────────────────────────────────────────┐
-│ Quest chains                                                                 │
-│   A new character is offered First Steps in Thornwick: talk to the Watch     │
-│   greeter in Hawthorn Square, talk to your class trainer, take a contract    │
-│   from the board, then go out through the east gate. It pays a small reward  │
-│   at the end.                                                                │
-│   It is optional. Nothing walks you anywhere and nothing reminds you; the    │
-│   Quest chain panel shows the step you are on, and the log tells you when    │
-│   one is done.                                                               │
-│   Ctrl+K (or /quest) shows the chain. X there (or /dismiss) gives it up for  │
-│   good, after one question: a dismissed chain is never offered again.        │
+┌─ Help: The map and its legend ───────────────────────────────────────────────┐
+│ Legend                                                                       │
+│   @ you  m mob  M target  x dead  p player  r rare  * loot  ~ not yours      │
+│   T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  │
+│   D door                                                                     │
+│   ! new for you (gold)  ? hand in ready (gold)  ? in progress (grey)         │
+│   gold m quest mob  gold D next door                                         │
+│   c camp: where mobs are found (dim)  ░ zone edge: walking ends              │
+│   ◄ ► ▲ ▼ the objective, off the map                                         │
+│   % your marker  ; scout marker  v event spawn  G event goal  + plan end     │
+│   Ground  # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  .…│
 │                                                                              │
-│ Fighting                                                                     │
-│   Tab chooses a target (Esc clears it). F or Space turns auto-attack on or   │
-│   off. 1-8 use the abilities in your slots on your target.                   │
-│   With no target, an attack or an ability goes to whatever is attacking you, │
-│   the nearest first; the status line names the one picked. If nothing is     │
-│   attacking you it is refused: Tab to a target first.                        │
-│   A fight stops your walk: attacking, using an ability on an enemy, or       │
-│   something attacking you. The log says "Your walk stopped"; press a move    │
-│   key to go on.                                                              │
-│ Page 2 of 6  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
+│ Marks and pointers                                                           │
+│   A gold ! is somebody with something new for you; a gold ? is a hand-in     │
+│   that is ready, a grey ? a quest in progress. A board that has something to │
+│   take or hand in is gold. Mobs that count for a contract you hold are gold, │
+│   and the next door on your way is a gold D. Shape says it as well as        │
+│   colour.                                                                    │
+│   When your objective is off the map an arrow at the edge points to it, with │
+│   its name and distance (◄ Gorran 23m); the status line names it too. Nearby │
+│ Page 2 of 7  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 115/120 | Target: Shell Rat 12/20                                           
  ONLINE | outskirts | heard 0.4s ago                              ? help  q quit

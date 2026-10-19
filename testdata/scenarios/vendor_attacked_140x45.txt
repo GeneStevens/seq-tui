@@ -1,0 +1,45 @@
+┌─ Traders  ⚠ UNDER ATTACK ──────────────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│ Testgrounds Vendor, 1m NE away. You have 0 crowns.                                             ││ aria  Lv 1  XP 0             | 0 crowns│
+│                                                                                                ││ HP 100/100 ########################### │
+│ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ Target: Plain Scuttler                 │
+│> Cracked Shell Fragment Common            1   │  (nothing)                                     ││ Auto-attack: off                       │
+│  Worn Cap Common                          8   │                                                ││ Attacked by Plain Scuttler             │
+│  Padded Vest Common                      20   │                                                │└────────────────────────────────────────┘
+│  Padded Leggings Common                  16   │                                                │┌─ Quest ────────────────────────────────┐
+│  Padded Gloves Common                     8   │                                                ││ [ ] 1. Scout the Lookout               │
+│  Stout Boots Common                      10   │                                                ││ Testgrounds Recruiter has work for you:│
+│  Copper Ring Fine                        40   │                                                ││ G.                                     │
+│  Bone Charm Fine                         45   │                                                │└────────────────────────────────────────┘
+│  Plain Club Common                       15   │                                                │┌─ Target ───────────────────────────────┐
+│  Buckler Common                          12   │                                                ││ M Plain Scuttler  Lv 1                 │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ HP 40/40 ###################### 11m E  │
+│ Cracked Shell Fragment: Common, no gear slot; tradable once                                    ││ even, fighting you                     │
+│ a vendor pays 1                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Testgrounds Contract Boa… 7m E [new] │
+│                                                                                                ││ ! Testgrounds Recruiter    11m E [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ $ Testgrounds Vendor             1m NE │
+│                                                                                                ││ B Testgrounds Banker              3m E │
+│                                                                                                ││ H Testgrounds Binder              5m E │
+│                                                                                                ││ T Warrior Trainer                 5m N │
+│                                                                                                ││ T Cleric Trainer                 5m NE │
+│                                                                                                ││ T Rogue Trainer                  6m NE │
+│                                                                                                ││ T Wizard Trainer                 8m NE │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ +7 more                                │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns Plain Scuttler targeted aria                                                                                                    │
+│     N.Ns You begin fighting Plain Scuttler                                                                                               │
+│     N.Ns You target Plain Scuttler                                                                                                       │
+│     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
+│     N.Ns You are in combat with Plain Scuttler                                                                                           │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                                                                              

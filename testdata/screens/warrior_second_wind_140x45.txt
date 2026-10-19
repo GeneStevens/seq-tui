@@ -1,45 +1,45 @@
-┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                    .                                               #           ││ gorm  Lv 1 Warrior           | 0 crowns│
-│                                    .                                               #           ││ HP 114/120 #########################-- │
-│                                    .                                               #           ││ XP ------------------------- 40 to Lv 2│
-│                                    .                                               #           ││ Atk ON | Plain Scuttler                │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .             $  $ $  $ $ $                     #           │┌─ Quest ────────────────────────────────┐
-│                                    .                                               #           ││ [ ] 1. Scout the Lookout               │
-│                                    .             $  $ $  & ?                       #           ││ Testgrounds Recruiter has work for you:│
-│                                    .                         ?                     #           ││ G.                                     │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Target ───────────────────────────────┐
-│                                    .                                               #           ││ M Plain Scuttler  Lv 1                 │
-│                                    .           @  M              c                 #           ││ HP 40/40 ####################### 2m E  │
-│                                    .                                               #           ││ even, fighting you                     │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
-│                                    .                                               #           ││ M Plain Scuttler       2m E 40/40 even │
-│                                    .                                               #           ││ $ Testgrounds Vendor       8m N vendor │
-│                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
-│                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
-│                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
-│                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
-│                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
-│                                    .                                               #           ││ +9 more                                │
+┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│                                    ░                                             #             ││ gorm  Lv 1 Warrior           | 0 crowns│
+│                                    ░                                             #             ││ HP 114/120 #########################-- │
+│                                    ░                                             #             ││ XP ------------------------- 40 to Lv 2│
+│                                    ░                                             #             ││ Atk ON | Plain Scuttler                │
+│                                    ░             T T T  T T T                    #             ││ Attacked by Plain Scuttler             │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Quest ────────────────────────────────┐
+│                                    ░             $ B H  & Q                      #             ││ [ ] 1. Scout the Lookout               │
+│                                    ░                        !                    #             ││ Testgrounds Recruiter has work for you:│
+│                                    ░                                             #             ││ G.                                     │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░           @ M              c                #             │┌─ Target ───────────────────────────────┐
+│                                    ░                                             #             ││ M Plain Scuttler  Lv 1                 │
+│                                    ░                                             #             ││ HP 40/40 ####################### 2m E  │
+│                                    ░                                             #             ││ even, fighting you                     │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Nearby ───────────────────────────────┐
+│                                    ░                                             #             ││ & Testgrounds Contract B… 11m NE [new] │
+│                                    ░                                             #             ││ ! Testgrounds Recruiter   13m NE [new] │
+│                                    ░                                             #             ││     <Quest Giver>                      │
+│                                    ░                                             #             ││ M Plain Scuttler       2m E 40/40 even │
+│                                    ░                                             #             ││ $ Testgrounds Vendor              8m N │
+│                                    ░                                             #             ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Taunt                       5.0s 2 Bash                        gcd 3 Second Wind                 90s 4 -                         empty │
-│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ 1 Taunt 5.0s                       2 Bash gcd                        3 Second Wind 90s                 4 -                               │
+│ 5 -                                6 -                               7 -                               8 -                               │
 │ You: Second Wind 12s   |   Plain Scuttler: none                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.3s gorm used Taunt on Plain Scuttler                                                                                               │
-│     0.3s gorm opened an encounter with Plain Scuttler (enc-1)                                                                            │
+│     0.3s You use Taunt on Plain Scuttler                                                                                                 │
+│     0.3s You begin fighting Plain Scuttler                                                                                               │
+│     0.3s You are in combat with Plain Scuttler                                                                                           │
 │     0.4s Plain Scuttler targeted gorm                                                                                                    │
-│     4.4s Plain Scuttler began attacking gorm                                                                                             │
-│ <   4.4s Plain Scuttler hit gorm for 4                                                                                                   │
-│     6.0s gorm healed 2                                                                                                                   │
-│     6.9s gorm began attacking Plain Scuttler                                                                                             │
-│     6.9s gorm missed Plain Scuttler                                                                                                      │
-│     7.0s gorm used Second Wind                                                                                                           │
-│     7.0s Second Wind: lifesteal on gorm for 12 s                                                                                         │
-│ <   7.4s Plain Scuttler hit gorm for 4                                                                                                   │
+│     4.4s You start attacking something                                                                                                   │
+│ <   4.4s Plain Scuttler hits you for 4                                                                                                   │
+│     6.9s You start attacking Plain Scuttler                                                                                              │
+│     6.9s You miss Plain Scuttler                                                                                                         │
+│     7.0s You use Second Wind                                                                                                             │
+│     7.0s You are affected by Second Wind                                                                                                 │
+│ <   7.4s Plain Scuttler hits you for 4                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | Testgrounds | heard 0.4s ago | key 3 Second Wind ok                                                                 ? help  q quit

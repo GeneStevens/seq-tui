@@ -5,32 +5,31 @@
 │                                                                                                ││ Auto-attack: off                       │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
-│................................................................................................││ no target (Tab to choose)              │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ p bob1                    1m N 100/100 │
+│                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                p                                               ││ & Testgrounds Contract Bo… 88m W [new] │
+│                                                @                                               ││ p bob1                    1m N 100/100 │
 │                                                                                                ││ D Gate North                      1m N │
-│                                                                                                ││ $ Eastern Binder          72m S binder │
-│                                                @                                               ││ $ Druid Trainer          83m W trainer │
-│                                                                                                ││ $ Paladin Trainer        84m W trainer │
-│                                                                                                ││ ? Testgrounds Recr… 85m SW quest_giver │
-│                                                                                                ││ ? Testgrounds Capta… 86m W quest_giver │
-│                                                                                                ││ $ Wizard Trainer         86m W trainer │
-│                                                                                                ││ & Testgrounds Co… 88m W contract_board │
-│                                                                                                ││ $ Rogue Trainer          88m W trainer │
-│                                                                                            c   ││ $ Testgrounds Binder      90m W binder │
-│                                                                                                ││ $ Cleric Trainer         90m W trainer │
-│                                                                                                ││ $ Testgrounds Banker      91m W banker │
-│                                                                                                ││ $ Warrior Trainer        92m W trainer │
-│                                                                                                ││ $ Testgrounds Vendor      93m W vendor │
-│                                                                                                ││ D Line East                    124m SE │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                                                                ││ H Eastern Binder                 72m S │
+│                                                                                                ││ T Druid Trainer                  83m W │
+│                                                                                                ││ T Paladin Trainer                84m W │
+│                                                                                                ││ Q Testgrounds Captain            86m W │
+│                                                                                          c     ││     <Quest Giver>                      │
+│                                                                                                ││ T Wizard Trainer                 86m W │
+│                                                                                                ││ T Rogue Trainer                  88m W │
+│                                                                                                ││ H Testgrounds Binder             90m W │
+│                                                                                                ││ T Cleric Trainer                 90m W │
+│                                                                                                ││ B Testgrounds Banker             91m W │
+│                                                                                                ││ T Warrior Trainer                92m W │
+│                                                                                                ││ +2 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
-│     0.2s bob1 (bob1) appeared                                                  ││ [say] ann1: hello there                                │
+│     0.2s bob1 comes into view                                                  ││ [say] ann1: hello there                                │
 │                                                                                ││ [say] ann1: spam a                                     │
 │                                                                                ││ [say] ann1: spam b                                     │
 │                                                                                ││ [say] ann1: spam c                                     │
@@ -42,4 +41,5 @@
 │                                                                                ││                                                        │
 │                                                                                ││                                                        │
 └────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
+ E: enter Gate North                                                                                                                        
  ONLINE | Testgrounds | heard 0.4s ago | ! say: you are talking too fast: wait a moment (rate_limited)                        ? help  q quit

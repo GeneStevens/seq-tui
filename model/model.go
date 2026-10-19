@@ -38,6 +38,8 @@ type IntentStatus struct {
 	Kind   string // "move", "target", ...; "?" for a result to an intent not recorded as sent
 	State  IntentState
 	Reason string // set exactly when denied
+	// Text is the server's plain words for the refusal (D76).
+	Text string
 	// Unknown: the server answered from its high-water mark (D41): the
 	// intent was applied, but the original result was forgotten, so it may
 	// have been denied when it was judged.
@@ -74,6 +76,14 @@ type Self struct {
 	EffectiveSpeedMmS int64
 	// Owed is the character's unpaid owed pay (D55, D56), paid at its next join.
 	Owed []*pb.OwedPay
+	// InCombat and Attackers are the combat state (D75): the character is a party
+	// to an open encounter, and the ids of the mobs in encounters with it. Place
+	// is the named place it stands in and Hints its objective hints (D76), kept
+	// current by their events.
+	InCombat  bool
+	Attackers []string
+	Place     string
+	Hints     []*pb.Hint
 	// Quest is the quest chain the character is on (D62), nil when none.
 	Quest         *pb.QuestInfo
 	Contracts     []*pb.ContractInfo // the contracts held, with their progress (SEQ-044)
@@ -189,6 +199,15 @@ type Model struct {
 	// the stream numbers. A healthy session has neither (D39).
 	Duplicates int
 	Faults     []string
+
+	// Alert is the last mob that began attacking the character (D75), Alerts how
+	// many have; LevelUp and HandIn are the last of each moment (D76).
+	Alert   *Alert
+	Alerts  int
+	LevelUp *Moment
+	HandIn  *Moment
+	// levelTold: a level_up event came and the snapshot after it need not say so again.
+	levelTold bool
 
 	mobs  mobTrack          // what mobs did, for the lines about them (D70)
 	names map[string]string // id to name, for every entity ever seen, so the log can name those that left
@@ -306,14 +325,14 @@ func (m *Model) applyResult(r *pb.IntentResult) {
 		if m.Intents[i].ID == r.GetIntentId() {
 			m.Intents[i].State, m.Intents[i].Reason, m.Intents[i].Unknown = IntentAccepted, "", r.GetResultUnknown()
 			if !r.GetAccepted() {
-				m.Intents[i].State, m.Intents[i].Reason = IntentDenied, r.GetReason()
+				m.Intents[i].State, m.Intents[i].Reason, m.Intents[i].Text = IntentDenied, r.GetReason(), r.GetText()
 			}
 			return
 		}
 	}
 	s := IntentStatus{ID: r.GetIntentId(), Kind: "?", State: IntentAccepted, Unknown: r.GetResultUnknown()}
 	if !r.GetAccepted() {
-		s.State, s.Reason = IntentDenied, r.GetReason()
+		s.State, s.Reason, s.Text = IntentDenied, r.GetReason(), r.GetText()
 	}
 	m.addIntent(s)
 }
@@ -340,6 +359,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		Crowns: self.GetCrowns(), Equipped: slices.Clone(self.GetEquipped()), Bank: slices.Clone(self.GetBank()),
 		BindZone: self.GetBindZone(), InventorySize: self.GetInventorySize(), Contracts: slices.Clone(self.GetContracts()), Companion: cloneCompanion(self.GetCompanion()),
 		Owed: slices.Clone(self.GetOwed()), Quest: self.GetQuest(),
+		InCombat: self.GetInCombat(), Attackers: slices.Clone(self.GetAttackers()), Place: self.GetPlace(), Hints: slices.Clone(self.GetHints()),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
@@ -389,7 +409,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	if joining && old.ID == m.Self.ID {
 		m.joinPay(old)
 	}
-	m.levelPending = false
+	m.levelPending, m.levelTold = false, false
 }
 
 func (m *Model) applyEvent(e *pb.Event) {
@@ -537,6 +557,8 @@ func (m *Model) apply(e *pb.Event) {
 		m.applyWorldEvent(b.WorldEvent, e.GetGameTimeMs())
 	case *pb.Event_InstanceOpened, *pb.Event_InstanceEnded, *pb.Event_RoundStarted, *pb.Event_RoundResolved:
 		m.applyInstanceEvent(e)
+	case *pb.Event_CombatState, *pb.Event_AttackBegan, *pb.Event_PlaceChanged, *pb.Event_ObjectiveHints, *pb.Event_LevelUp, *pb.Event_HandIn:
+		m.applyLegibleEvent(e)
 	default:
 		m.applyCombatEvent(e)
 	}

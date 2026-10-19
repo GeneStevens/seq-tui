@@ -5,8 +5,8 @@
 │                                                                                                ││ Auto-attack: off                       │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
-│................................................................................................││ Duo Turns                              │
-│                                                                                                ││ turn-based | inside                    │
+│                                                                                                ││ Duo Turns                              │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ turn-based | inside                    │
 │                                                                                                ││ party up to 2 | normal                 │
 │                                                                                                ││ sleeps up to 7 d                       │
 │                                                                                                │└────────────────────────────────────────┘
@@ -15,22 +15,21 @@
 │                                                                                                ││ [x] you  [ ] bram                      │
 │                                                @                                               ││ bram plans: wait                       │
 │                                                                                                ││ Plan (3/16): accepted                  │
-│                                                +                                               ││  counts even if you disconnect         │
-│                                                                                                ││  …2 earlier                            │
+│                                                +                                               ││  …2 earlier                            │
 │                                                                                                ││  3 attack on                           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Party, 2nd character ─────────────────┐
 │                                                                                                ││ bram  Lv 1                             │
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ stance assist                          │
-│                                                m                                               ││ waiting for a fight                    │
-│                                                                                                ││ P call or send away   H stance         │
+│                                                                                                ││ waiting for a fight                    │
+│                                                m                                               ││ P call or send away   H stance         │
 │                                                                                                ││ Y attack my target    U come here      │
 │                                                                                                ││ J stop    Z drop the order             │
 │                                                                                                ││ X direct it: its screen, your keys     │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns bram (bram) appeared                                                                                                            │
+│     N.Ns bram comes into view                                                                                                            │
 │     N.Ns instance opened: Duo Turns (up to 2 in it); enter at gate-north with E                                                          │
 │     N.Ns entered Testgrounds (Duo Turns)                                                                                                 │
 │     N.Ns round 1 is open: game time waits for plans (0 of 2 submitted: none yet)                                                         │
@@ -42,4 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North  ·  Tab: target · F: attack                                                                                            
  ONLINE | Testgrounds (Duo Turns) | heard N.Ns ago | plan accepted, counts even if you disconnect                             ? help  q quit

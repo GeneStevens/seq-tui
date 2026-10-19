@@ -1,24 +1,24 @@
-┌─ Thornwick Downs, at 152,95 m, north up ─────────┐┌─ You ────────────────────┐
-│             """""c"""""""""""    ≈≈≈≈≈≈≈         ││ hale  Lv 5 Warrior  | 0cr│
-│            """"""""""""""""""""   ≈≈≈≈≈≈         ││ HP 198/198 ############# │
-│            """"""""""""""""""""   ≈≈≈≈≈≈≈        ││ XP ---------- 145 to Lv 6│
-│           """""""""""""""""""""   ≈≈≈≈≈≈≈        ││ Atk ON | Bramble Tusker  │
-│           """"""""""""""""""""    ≈≈≈≈≈≈≈        │└──────────────────────────┘
-│           """""""""""""p@"c"""    ≈≈≈≈≈≈≈        │┌─ Companion, tank ────────┐
-│           """"""""""""""""""""    ≈≈≈≈≈≈         ││ Watch Shieldman  Lv 5    │
-│           """"""""""""""""""""   ≈≈≈≈≈≈≈         ││ HP 153/158 ############- │
-│          """""""""""""""""""""   ≈≈≈≈≈≈≈         ││ stance assist            │
-│          """"""""""""""""""""    ≈≈≈≈≈≈≈         ││ ordered to stand         │
+┌─ Thornwick Downs, at 152,95 m, north up ─────────┐┌─ You: in combat ─────────┐
+│              """"""""""""""""""  ≈≈≈≈≈≈          ││ hale  Lv 5 Warrior  | 0cr│
+│             """""""""""""""""""  ≈≈≈≈≈≈          ││ HP 198/198 ############# │
+│             """"""""""""""""""   ≈≈≈≈≈≈≈         ││ XP ---------- 145 to Lv 6│
+│             """"""""""""""""""   ≈≈≈≈≈≈≈         ││ Atk ON | Bramble Tusker  │
+│             """"""""""""@Mc"""   ≈≈≈≈≈≈          ││ Attacked by Bramble Tusk…│
+│            """""""""""""""""""   ≈≈≈≈≈≈          │└──────────────────────────┘
+│            """""""""""""""""""   ≈≈≈≈≈≈          │┌─ Companion, tank ────────┐
+│            """"""""""""""""""   ≈≈≈≈≈≈≈          ││ Watch Shieldman  Lv 5    │
+│            """"""""""""""""""   ≈≈≈≈≈≈           ││ HP 153/158 ############- │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt       ready 2 Bash       ready 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt ready       2 Bash ready       3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     3.7s Watch Shieldman's target Bramble Tusker cleared: ordered            │
-│     3.7s Watch Shieldman stopped attacking                                   │
+│     3.7s Your target Bramble Tusker is gone                                  │
+│     3.7s You stop attacking                                                  │
 │     3.7s Bramble Tusker targeted hale                                        │
-│     3.8s Bramble Tusker began attacking hale                                 │
+│     3.8s You start attacking something                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
+ F: stop attacking · Esc: clear the target                                      
  ONLINE | forest: slowed to 75% | heard 0.4s ago | companion order: stop ok     

@@ -3,7 +3,7 @@
 │                                                                                                                                          │
 │ A new character in Thornwick is offered First Steps. It is optional, and a chain                                                         │
 │ you dismiss is never offered again.                                                                                                      │
-││
+│                                                                                                                                          │
 │ Esc closes                                                                                                                               │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                                                                                  
  ONLINE | Thornwick | road: faster, 125% | heard N.Ns ago                                                                     ? help  q quit

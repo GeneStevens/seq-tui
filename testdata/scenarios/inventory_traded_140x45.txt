@@ -1,43 +1,43 @@
-┌─ Inventory and gear ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Crowns 13 | carrying 1 of 20 | bank 0 | bind point none yet                                                                              │
-│ Gear worn                                                          │ Items carried                                                       │
-│ > head      -                                                      │> Worn Cap! Common [bound]  armor +2                                 │
-│   chest     -                                                      │                                                                     │
-│   legs      -                                                      │                                                                     │
-│   hands     -                                                      │                                                                     │
-│   feet      -                                                      │                                                                     │
-│   ring1     -                                                      │                                                                     │
-│   ring2     -                                                      │                                                                     │
-│   neck      -                                                      │                                                                     │
-│   main_hand -                                                      │                                                                     │
-│   off_hand  -                                                      │                                                                     │
-│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
-│                                                                                                                                          │
-│                                                                                                                                          │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                                                                     │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                                                                               │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
+┌─ Inventory and gear ───────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Crowns 13 | carrying 1 of 20 | bank 0 | bind point none yet                                    ││ c2  Lv 1  XP 0              | 13 crowns│
+│ Gear worn                                     │ Items carried                                  ││ HP 100/100 ########################### │
+│ > head      -                                 │> Worn Cap! Common [bound]                      ││ Target: none                           │
+│   chest     -                                 │                                                ││ Auto-attack: off                       │
+│   legs      -                                 │                                                │└────────────────────────────────────────┘
+│   hands     -                                 │                                                │┌─ Target ───────────────────────────────┐
+│   feet      -                                 │                                                ││ no target (Tab to choose)              │
+│   ring1     -                                 │                                                ││                                        │
+│   ring2     -                                 │                                                ││                                        │
+│   neck      -                                 │                                                │└────────────────────────────────────────┘
+│   main_hand -                                 │                                                │┌─ Nearby ───────────────────────────────┐
+│   off_hand  -                                 │                                                ││ & Testgrounds Contract Bo… 35m S [new] │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Testgrounds Recruiter    35m S [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ p c1                      1m W 100/100 │
+│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ T Druid Trainer                  29m S │
+│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ T Paladin Trainer                30m S │
+│                                                                                                ││ T Wizard Trainer                31m SW │
+│                                                                                                ││ T Rogue Trainer                 32m SW │
+│                                                                                                ││ T Cleric Trainer                33m SW │
+│                                                                                                ││ Q Testgrounds Captain            34m S │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ T Warrior Trainer               34m SW │
+│                                                                                                ││ H Testgrounds Binder            35m SW │
+│                                                                                                ││ B Testgrounds Banker            36m SW │
+│                                                                                                ││ $ Testgrounds Vendor            37m SW │
+│                                                                                                ││ D Gate North                     69m E │
+│                                                                                                ││ H Eastern Binder               113m SE │
+│                                                                                                ││ D Line East                    182m SE │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns c1 asks to trade                                                                                                                │
+│     N.Ns The trade with c1 is open                                                                                                       │
+│     N.Ns C1 offers Worn Cap                                                                                                              │
+│     N.Ns You offer 7 crowns                                                                                                              │
+│     N.Ns C1 confirms the trade                                                                                                           │
+│     N.Ns You confirm the trade                                                                                                           │
+│     N.Ns The trade with c1 is complete                                                                                                   │
+│ +   N.Ns the trade between c1 and c2 is saved                                                                                            │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

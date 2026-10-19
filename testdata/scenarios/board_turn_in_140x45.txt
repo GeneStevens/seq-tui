@@ -1,45 +1,45 @@
-┌─ Contract board ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Thornwick Contract Board | you hold 1 of 3 contracts | 0 crowns                                                                          │
-│ On offer now (Enter takes it)                                      │ You hold (Enter hands in, X gives up)                               │
-│> Boars in the Barley                                  Hunt   L1-3  │> Thin the Meadow Wolves                                      READY  │
-│  Pelts for the Tanners                                Gather L1-3  │                                                                     │
-│  Word from Wickett Mill                               Scout  L1-3  │                                                                     │
+┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Thornwick Contract Board | you hold 1 of 3 contracts | 0 crowns                                ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
+│> Boars in the Barley             Hunt   L1-3  │> Thin the Meadow Wolves                 READY  ││ XP ###---------------------- 34 to Lv 2│
+│  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
+│  Word from Wickett Mill          Scout  L1-3  │                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│                                                                                                ││ First Steps                            │
+│                                                                                                ││ Step 1 of 4                            │
+│                                                                                                ││ Speak to Tamsin Hale, the Watch's      │
+│                                                                                                ││ greeter, here in Hawthorn Square.      │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Contracts (K) ────────────────────────┐
+│                                                                                                ││ Thin the Meadow Wolves           READY │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Thornwick Contract … 1m SW [hand in] │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Tamsin Hale <Guard>   5m SE [step 1] │
+│ Thin the Meadow Wolves: Hunt, 3 of 3 killed.                                                   ││ g Town Guard                    13m SW │
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ H Isolde Fenn <Binder>          13m SE │
+│ Pays 30 XP and 12 crowns.                                                                      ││ $ Barnaby Tuck <Vendor>         13m SW │
+│ Finished: hand it in at Thornwick Contract Board, 1m SW.                                       ││ g Town Guard                     24m E │
+│                                                                                                ││ $ Hilda Brasswick <Vendor>       29m W │
+│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ B Odalys Penn <Banker>           32m E │
+│ The answer is on the status line; every refusal says why.                                      ││ +9 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│   NNN.Ns Thornwick Contract Board <Contract Board> comes into view                                                                       │
+│   NNN.Ns Odalys Penn is out of view                                                                                                      │
+│   NNN.Ns Barnaby Tuck <Vendor> comes into view                                                                                           │
+│   NNN.Ns Town Guard is out of view                                                                                                       │
+│   NNN.Ns Town Guard <Guard> comes into view                                                                                              │
+│   NNN.Ns Town Guard is out of view                                                                                                       │
+│   NNN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
-│ Thin the Meadow Wolves: Hunt, 3 of 3 killed.                                                                                             │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.                                                 │
-│ Pays 30 XP and 12 crowns. Finished: hand it in at the board.                                                                             │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                                                                        │
-│ The answer is on the status line; every refusal says why.                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 1/4 | Thornwick | road: faster, 125% | heard N.Ns ago                                                   ? help  q quit
+ ONLINE | Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125% | heard N.Ns ago                    ? help  q quit

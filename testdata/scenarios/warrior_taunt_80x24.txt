@@ -1,24 +1,24 @@
-┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│                    .                   #         ││ gorm  Lv 1 Warrior  | 0cr│
-│                    .                   #         ││ HP 120/120 ############# │
-│                    .     $$$$$$        #         ││ XP ----------- 40 to Lv 2│
-│                    .     $$$&?         #         ││ Atk off | Plain Scuttler │
-│                    .          ?        #         │└──────────────────────────┘
-│                    .    @     M c      #       c │┌─ Quest ──────────────────┐
-│                    .                   #         ││ [ ] 1. Scout the Lookout │
-│                    .                   #         ││ Testgrounds Recruiter has│
-│                    .                   #         ││ work for you: G.         │
-│                    .                   #         │└──────────────────────────┘
-└──────────────────────────────────────────────────┘                            
+┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You: in combat ─────────┐
+│                    ░                 #           ││ gorm  Lv 1 Warrior  | 0cr│
+│                    ░    TTTTTT       #           ││ HP 120/120 ############# │
+│                    ░    $BH&Q!       #           ││ XP ----------- 40 to Lv 2│
+│                    ░                 #           ││ Atk off | Plain Scuttler │
+│                    ░    @    Mc      #      c    ││ Attacked by Plain Scuttl…│
+│                    ░                 #           │└──────────────────────────┘
+│                    ░                 #           │┌─ Quest ──────────────────┐
+│                    ░                 #           ││ [ ] 1. Scout the Lookout │
+│                    ░                 #           ││ Testgrounds Recruiter has│
+└──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt         12s 2 Bash         gcd 3 Second Wind  gcd 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt 12s         2 Bash gcd         3 Second Wind gcd  4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Plain Scuttler: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns gorm targeted Plain Scuttler                                        │
-│     N.Ns gorm used Taunt on Plain Scuttler                                   │
-│     N.Ns gorm opened an encounter with Plain Scuttler (enc-1)                │
+│     N.Ns You use Taunt on Plain Scuttler                                     │
+│     N.Ns You begin fighting Plain Scuttler                                   │
+│     N.Ns You are in combat with Plain Scuttler                               │
 │     N.Ns Plain Scuttler targeted gorm                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
+ F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard N.Ns ago | key 1 Taunt ok           ? help  q quit

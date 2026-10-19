@@ -1,19 +1,18 @@
 ┌─ Testgrounds, at 10,50 m, north up ──────────────┐┌─ You ────────────────────┐
-│                 .                             #  ││ aria  Lv 1  XP 0    | 0cr│
-│                 .                             #  ││ HP 100/100 ############# │
-│                 .                             #  ││ Target: none             │
-│                 .        $ $$ $$ $            #  ││ Auto-attack: off         │
-│                 .        $ $$ &?              #  │└──────────────────────────┘
-│                 .                ?            #  │┌─ Quest ──────────────────┐
-│                 .                             #  ││ [ ] 1. Scout the Lookout │
-│                 .       @          m          #  ││ Testgrounds Recruiter has│
-│                 .                             #  ││ work for you: G.         │
-│                 .                             #  │└──────────────────────────┘
-│                 .                             #  │┌─ Target ─────────────────┐
-│                 .                             #  ││ no target (Tab to choose)│
-│                 .                             #  ││                          │
-│                 .                             #  ││                          │
-│                 .                             #  ││                          │
+│                  ░                           #   ││ aria  Lv 1  XP 0    | 0cr│
+│                  ░                           #   ││ HP 100/100 ############# │
+│                  ░                           #   ││ Target: none             │
+│                  ░       T TT TTT            #   ││ Auto-attack: off         │
+│                  ░                           #   │└──────────────────────────┘
+│                  ░       $ BH &Q!            #   │┌─ Quest ──────────────────┐
+│                  ░                           #   ││ [ ] 1. Scout the Lookout │
+│                  ░      @         mc         #   ││ Testgrounds Recruiter has│
+│                  ░                           #   ││ work for you: G.         │
+│                  ░                           #   │└──────────────────────────┘
+│                  ░                           #   │┌─ Target ─────────────────┐
+│                  ░                           #   ││ no target (Tab to choose)│
+│                  ░                           #   ││                          │
+│                  ░                           #   ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
 │ nothing has happened yet                                                     │
@@ -21,4 +20,5 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
+ Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

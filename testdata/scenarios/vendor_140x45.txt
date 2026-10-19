@@ -1,45 +1,45 @@
-┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Testgrounds Vendor, vendor, 3m SW away. You have 120 crowns.                                                                             │
-│                                                                                                                                          │
-│ For sale (Enter buys one)                                          │ You carry (Enter sells one)                                         │
-│  Cracked Shell Fragment Common                                 1   │  (nothing)                                                          │
-│> Worn Cap Common                                               8   │                                                                     │
-│  Padded Vest Common                                           20   │                                                                     │
-│  Padded Leggings Common                                       16   │                                                                     │
-│  Padded Gloves Common                                          8   │                                                                     │
-│  Stout Boots Common                                           10   │                                                                     │
-│  Copper Ring Fine                                             40   │                                                                     │
-│  Bone Charm Fine                                              45   │                                                                     │
-│  Plain Club Common                                            15   │                                                                     │
-│  Buckler Common                                               12   │                                                                     │
-│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
-│ Worn Cap: Common, head; tradable once                                                                                                    │
-│ armor +2; a vendor pays 2                                                                                                                │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Testgrounds Vendor, 3m SW away. You have 120 crowns.                                           ││ zedd  Lv 3 Wizard          | 120 crowns│
+│                                                                                                ││ HP 80/96 ########################----- │
+│ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ MP 150/196 ####################------- │
+│  Cracked Shell Fragment Common            1   │  (nothing)                                     ││ XP ------------------------- 90 to Lv 4│
+│> Worn Cap Common                          8   │                                                ││ Atk off | none                         │
+│  Padded Vest Common                      20   │                                                │└────────────────────────────────────────┘
+│  Padded Leggings Common                  16   │                                                │┌─ Quest ────────────────────────────────┐
+│  Padded Gloves Common                     8   │                                                ││ [ ] 1. Scout the Lookout               │
+│  Stout Boots Common                      10   │                                                ││ Testgrounds Recruiter has work for you:│
+│  Copper Ring Fine                        40   │                                                ││ G.                                     │
+│  Bone Charm Fine                         45   │                                                │└────────────────────────────────────────┘
+│  Plain Club Common                       15   │                                                │┌─ Target ───────────────────────────────┐
+│  Buckler Common                          12   │                                                ││ no target (Tab to choose)              │
+│────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
+│ Worn Cap: Common, head; tradable once                                                          ││                                        │
+│ armor +2; a vendor pays 2                                                                      │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Testgrounds Contract Bo… 4m SE [new] │
+│                                                                                                ││ ! Testgrounds Recruiter    9m SE [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ B Testgrounds Banker              2m S │
+│                                                                                                ││ T Cleric Trainer                  2m N │
+│                                                                                                ││ H Testgrounds Binder             3m SE │
+│                                                                                                ││ T Rogue Trainer                  3m NE │
+│                                                                                                ││ T Warrior Trainer                3m NW │
+│                                                                                                ││ $ Testgrounds Vendor             3m SW │
+│                                                                                                ││ T Wizard Trainer                 4m NE │
+│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││ +7 more                                │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ nothing has happened yet                                                                                                                 │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                                                              │
-│ The answer is on the status line; every denial says why.                                                                                 │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

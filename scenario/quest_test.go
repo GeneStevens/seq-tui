@@ -97,7 +97,7 @@ func TestFirstStepsFromTheGreeterToTheEastGate(t *testing.T) {
 		w.Advance(time.Second)
 		wantStep(t, p, 3, "contract")
 		p.Model(func(m *model.Model) {
-			if m.Self.Crowns != 15 || !hasLog(m, "quest", "step 2 done (paid 15 crowns)") {
+			if m.Self.Crowns != 15 || !hasLog(m, "quest", "step 2 done: 15 crowns") {
 				t.Fatalf("at the trainer: %d crowns; log %v", m.Self.Crowns, m.Log)
 			}
 		})
@@ -124,7 +124,7 @@ func TestFirstStepsFromTheGreeterToTheEastGate(t *testing.T) {
 		p.Eventually("the Downs", inSpace("Thornwick Downs"))
 		p.Eventually("the chain done", func(m *model.Model) bool { return m.Quest() == nil && m.Self.XP == 20 })
 		p.Model(func(m *model.Model) {
-			if !hasLog(m, "quest", "First Steps: finished (paid 20 XP)") {
+			if !hasLog(m, "quest", "Quest complete: First Steps: 20 experience") {
 				t.Fatalf("the log does not say the chain is finished: %v", m.Log)
 			}
 		})
@@ -154,7 +154,7 @@ func TestDismissingFirstStepsIsForGood(t *testing.T) {
 	notice(t, p, "dismissed for good", false)
 	p.Eventually("no chain", func(m *model.Model) bool { return m.Quest() == nil })
 	p.Model(func(m *model.Model) {
-		if !hasLog(m, "quest", "First Steps dismissed; it will not be offered again") {
+		if !hasLog(m, "quest", "You gave up the quest First Steps") {
 			t.Fatalf("the log does not say it: %v", m.Log)
 		}
 	})

@@ -146,7 +146,7 @@ func (m *Model) describeEconomy(e *pb.Event) (kind, text, reason string, ok bool
 		if d.GetItem() == "" {
 			what = crowns(d.GetCrowns())
 		}
-		text = fmt.Sprintf("%s dropped %s%s (%s)", m.label(d.GetMob()), what, m.itemTag(d.GetItem()), d.GetDrop())
+		text = fmt.Sprintf("%s dropped %s%s", m.label(d.GetMob()), what, m.itemTag(d.GetItem()))
 		if !d.GetCanLoot() {
 			text += ": not yours to take"
 		}
@@ -167,7 +167,7 @@ func (m *Model) describeEconomy(e *pb.Event) (kind, text, reason string, ok bool
 		item := m.ItemName(w.GetItem())
 		switch w.GetKind() {
 		case "loot":
-			return "reward", fmt.Sprintf("%s received %s%s from %s", m.label(w.GetRecipient()), item, m.itemTag(w.GetItem()), w.GetSource()), "", true
+			return "reward", fmt.Sprintf("%s received %s%s", m.label(w.GetRecipient()), item, m.itemTag(w.GetItem())), "", true
 		case "crowns":
 			return "reward", fmt.Sprintf("%s took %s", who, crowns(w.GetAmount())), "", true
 		case "buy":

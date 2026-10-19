@@ -18,7 +18,7 @@
 │   Nothing here is required and nothing waits for you: play in any order.     │
 │                                                                              │
 │                                                                              │
-│                                                                              │
-│ Page 1 of 6  ? next page  Left, Right turn  Esc closes                       │
+│ Page 1 of 7  ? next page  Left, Right turn  Esc closes                       │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 1/4 | Thornwick | road: faster, 125% | heard N.Ns ago     
+ HP 130/130 | Target: none                                                      
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125%    

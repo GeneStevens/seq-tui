@@ -1,45 +1,45 @@
-┌─ Traders ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Wizard Trainer, trainer, 4m NE away. You have 102 crowns.                                                                                │
-│                                                                                                                                          │
-│ You are level 3. Enter buys the ability under the cursor.                                                                                │
-│  Flame Dart             level 1   known                                                                                                  │
-│  Frost Bolt             level 1   known                                                                                                  │
-│> Glyphshield            level 3   45 crowns                                                                                              │
-│  Root                   level 5   75 crowns                                                                                              │
-│  Fireball               level 7   105 crowns                                                                                             │
-│  Blink                  level 9   135 crowns                                                                                             │
-│  Rime Burst             level 11  165 crowns                                                                                             │
-│  Homeward               level 12  180 crowns                                                                                             │
-│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
-│ Glyphshield: Heals you for 30% of the damage you deal for 36 s. On yourself.                                                             │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Wizard Trainer, 4m NE away. You have 102 crowns.                                               ││ zedd  Lv 3 Wizard          | 102 crowns│
+│                                                                                                ││ HP 80/96 ########################----- │
+│ You are level 3. Enter buys the ability under the cursor.                                      ││ MP 150/196 ####################------- │
+│  Flame Dart             level 1   known                                                        ││ XP ------------------------- 90 to Lv 4│
+│  Frost Bolt             level 1   known                                                        ││ Atk off | none                         │
+│> Glyphshield            level 3   45 crowns                                                    │└────────────────────────────────────────┘
+│  Root                   level 5   75 crowns                                                    │┌─ Quest ────────────────────────────────┐
+│  Fireball               level 7   105 crowns                                                   ││ [ ] 1. Scout the Lookout               │
+│  Blink                  level 9   135 crowns                                                   ││ Testgrounds Recruiter has work for you:│
+│  Rime Burst             level 11  165 crowns                                                   ││ G.                                     │
+│  Homeward               level 12  180 crowns                                                   │└────────────────────────────────────────┘
+│────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Target ───────────────────────────────┐
+│ Glyphshield: Heals you for 30% of the damage you deal for 36 s. On yourself.                   ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Testgrounds Contract Bo… 4m SE [new] │
+│                                                                                                ││ ! Testgrounds Recruiter    9m SE [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ B Testgrounds Banker              2m S │
+│                                                                                                ││ T Cleric Trainer                  2m N │
+│                                                                                                ││ H Testgrounds Binder             3m SE │
+│                                                                                                ││ T Rogue Trainer                  3m NE │
+│                                                                                                ││ T Warrior Trainer                3m NW │
+│                                                                                                ││ $ Testgrounds Vendor             3m SW │
+│                                                                                                ││ T Wizard Trainer                 4m NE │
+│ Enter acts. Esc goes back.                                                                     ││ +7 more                                │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ +   N.Ns You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │
+│ +   N.Ns You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                            │
+│ +   N.Ns You buy Buckler from Testgrounds Vendor for 12 crowns                                                                           │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│ Enter acts. Esc goes back.                                                                                                               │
-│ The answer is on the status line; every denial says why.                                                                                 │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

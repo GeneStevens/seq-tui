@@ -4,6 +4,7 @@ import (
 	"context"
 	"math"
 	"slices"
+	"sort"
 	"strings"
 	"testing"
 	"time"
@@ -11,6 +12,7 @@ import (
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/scenario"
 	"github.com/GeneStevens/seq/core"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 	"github.com/GeneStevens/seq/testserver"
 )
 
@@ -171,35 +173,69 @@ func killed(m *model.Model, mob string) bool {
 	return slices.ContainsFunc(m.Log, func(l model.LogEntry) bool { return l.Kind == "combat_death" && l.Target == mob })
 }
 
-// killCamp fights the camp's mob with both until it is down, a few seconds of
-// game time at a time, and takes what it dropped.
+// campMobs are the living mobs of a camp in view, the nearest first. A camp of
+// one is "mob-ID-1"; a camp of two (D73) is "mob-ID-1-1" and "mob-ID-2-1".
+func campMobs(m *model.Model, id string) []string {
+	var out []string
+	for mid, e := range m.Entities {
+		if strings.HasPrefix(mid, "mob-"+id+"-") && !e.GetDead() {
+			out = append(out, mid)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool {
+		a, b := m.Entities[out[i]].GetPos(), m.Entities[out[j]].GetPos()
+		da := math.Hypot(float64(a.GetX()-m.Self.Pos.GetX()), float64(a.GetY()-m.Self.Pos.GetY()))
+		db := math.Hypot(float64(b.GetX()-m.Self.Pos.GetX()), float64(b.GetY()-m.Self.Pos.GetY()))
+		if da != db {
+			return da < db
+		}
+		return out[i] < out[j]
+	})
+	return out
+}
+
+// killCamp fights the camp's mobs with both until they are down, a few seconds of
+// game time at a time, and takes what they dropped.
 func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Player) {
 	t.Helper()
-	mob := "mob-" + id + "-1"
-	seen, dead := false, false
+	seen, dead, seenN := false, false, 0
 	step := 8 * time.Second
-	for i := 0; i < 60 && !dead; i++ {
+	for i := 0; i < 80 && !dead; i++ {
 		for _, p := range []*scenario.Player{ann, bob} {
 			key := ""
 			var closeIn *[2]int64
 			p.Model(func(m *model.Model) {
-				e := m.Entities[mob]
+				live := campMobs(m, id)
 				step = time.Second // a mob nobody is fighting (a patrol, a goblin that fled) is chased in short steps
-				for _, enc := range m.Encounters {
-					if enc.GetMob() == mob {
-						step = 8 * time.Second
+				if len(m.Encounters) > 0 {
+					step = 8 * time.Second
+				}
+				inView, felled := map[string]bool{}, map[string]bool{}
+				for mid := range m.Entities {
+					if strings.HasPrefix(mid, "mob-"+id+"-") {
+						inView[mid] = true
 					}
 				}
-				seen = seen || e != nil
-				dead = dead || (seen && e != nil && e.GetDead()) || killed(m, mob)
+				for _, l := range m.Log {
+					if l.Kind == "combat_death" && strings.HasPrefix(l.Target, "mob-"+id+"-") {
+						felled[l.Target] = true
+					}
+				}
+				seen = seen || len(inView) > 0 || len(felled) > 0
+				seenN = max(seenN, len(inView), len(felled))
+				dead = dead || (seen && len(live) == 0 && len(felled) >= seenN)
+				if len(live) == 0 {
+					return
+				}
+				mob := live[0]
+				e := m.Entities[mob]
 				switch {
-				case e == nil || e.GetDead():
-				case m.Self.Target != mob:
+				case m.Self.Target != mob && !(m.Self.Target != "" && m.Entities[m.Self.Target] != nil && !m.Entities[m.Self.Target].GetDead() && strings.HasPrefix(m.Self.Target, "mob-"+id+"-")):
 					key = "tab"
 				case !m.Self.AutoAttack:
 					key = "f"
 				}
-				if e != nil && !e.GetDead() && i > 0 { // a goblin that fled is chased home
+				if i > 0 { // a goblin that fled is chased home
 					// out of reach of its mob, on the side we came from: a mob that keeps its
 					// distance (a slinger) backs away from whoever is nearer than it likes
 					y := e.GetPos().GetY() - 1500
@@ -227,31 +263,53 @@ func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Pla
 	if !dead {
 		ann.Model(func(m *model.Model) {
 			for _, l := range m.Log {
-				if l.Kind != "entity_moved" && l.Kind != "rules_tick" {
+				if !l.Quiet {
 					t.Logf("%d %s", l.GameTimeMs, l.Text)
 				}
 			}
 		})
-		t.Fatalf("%s did not fall (seen %v)", mob, seen)
+		t.Fatalf("camp %s did not fall (seen %v)", id, seen)
 	}
 	// What it dropped appears a tick after the kill; hale takes it all.
 	w.Srv.Advance(time.Second)
 	w.Settle()
-	for range 6 {
+	// Hale takes what falls; when his bags are full (a camp of two drops twice as
+	// much) bram does, and what neither can carry crumbles away in two minutes.
+	looter, full := ann, map[*scenario.Player]bool{}
+	for range 24 {
 		left := 0
-		ann.Model(func(m *model.Model) { left = len(m.Drops) })
-		if left == 0 {
+		var to *pb.Pos
+		looter.Model(func(m *model.Model) {
+			left = len(m.Drops)
+			for _, did := range m.DropIDs() { // a pair falls a little apart: stand by the drop
+				if d := m.Drops[did].GetPos(); math.Hypot(float64(d.GetX()-m.Self.Pos.GetX()), float64(d.GetY()-m.Self.Pos.GetY())) > 3000 {
+					to = d
+					break
+				}
+			}
+		})
+		if left == 0 || (full[ann] && full[bob]) {
 			break
 		}
-		ann.Press("l")
+		if to != nil {
+			if _, err := looter.Sess.Move(context.Background(), to.GetX(), to.GetY()); err != nil {
+				t.Fatalf("move to the drop: %v", err)
+			}
+			looter.Sync()
+			w.Srv.Advance(4 * time.Second)
+			w.Settle()
+		}
+		looter.Press("l")
 		w.Srv.Advance(time.Second)
 		w.Settle()
-	}
-	ann.Model(func(m *model.Model) {
-		if len(m.Drops) != 0 {
-			t.Fatalf("%s: the drops are not taken: %v", id, m.Drops)
+		if n, bad := looter.Notice(); bad && strings.Contains(n, "bags are full") {
+			full[looter] = true
+			looter = bob
+			if full[bob] {
+				looter = ann
+			}
 		}
-	})
+	}
 }
 
 // walkCamp takes both to the camp: along the gallery to the shaft that leads to

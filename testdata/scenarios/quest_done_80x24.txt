@@ -1,24 +1,24 @@
 ┌─ Thornwick, at 103,50 m, north up ───────────────┐┌─ You ────────────────────┐
-│##### ######  ####### #######   #.                ││ hale  Lv 6 Warrior | 40cr│
-│##### ######  ################  #.                ││ HP 215/215 ############# │
-│              ################  #.                ││ XP ######----- 62 to Lv 7│
-│···········      $   #########  #.                ││ Atk off | none           │
-│···········          #########  #.                │└──────────────────────────┘
-│·&·········          ####@####  #.                │┌─ Quest ──────────────────┐
-│···$····························#.                ││ [x] 2. Break the Ra…done │
-│······························D··.                ││ Quest done! Choose your  │
-│·····$··························#.                ││ recruit's role: G at     │
-│···········            #######  #.                ││ the quest giver.         │
+│  ###### #####  ##############  #░                ││ hale  Lv 6 Warrior | 40cr│
+│                ##############  #░                ││ HP 215/215 ############# │
+│·············      B  ########  #░                ││ XP ######----- 62 to Lv 7│
+│·············         ########  #░                ││ Atk off | none           │
+│····&·g··················@Q·····#░                │└──────────────────────────┘
+│······························D··░                │┌─ Quest ──────────────────┐
+│··$·····H·······················#░                ││ [x] 2. Break the Ra…done │
+│·············           ######  #░                ││ Quest done! Choose your  │
+│·············           ######  #░                ││ recruit's role: G at     │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+│            you are seasoned. There is a larger task for those the Watch can  │
 │            trust. Prove yourself first, and come and see me.                 │
-│     N.Ns your quest is done: choose your recruit's role at the Watch Captain │
-│ +   N.Ns you handed in Break the Raiding Party to Captain Rhosyn Hartley and │
-│            got 100 XP and 40 crowns                                          │
+│     N.Ns You have earned a house companion                                   │
+│ +   N.Ns You hand in Break the Raiding Party: 100 experience, 40 crowns      │
 └──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Captain Rhosyn Hartley <Quest Giver>                                
  ONLINE | Thornwick | heard N.Ns ago                              ? help  q quit

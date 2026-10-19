@@ -1,45 +1,45 @@
-┌─ Testgrounds, at 14,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                           .                                                         #          ││ aria  Lv 1  XP 0             | 0 crowns│
-│                           .                                                         #          ││ HP 96/100 ##########################-- │
-│                           .                                                         #          ││ Target: Plain Scuttler                 │
-│                           .                                                         #          ││ Auto-attack: ON                        │
-│                           .                                                         #          │└────────────────────────────────────────┘
-│                           .                $  $  $  $  $  $                         #          │┌─ Quest ────────────────────────────────┐
-│                           .                                                         #          ││ [ ] 1. Scout the Lookout               │
-│                           .                                                         #          ││ Testgrounds Recruiter has work for you:│
-│                           .                $  $  $  &  ?                            #          ││ G.                                     │
-│                           .                               ?                         #          │└────────────────────────────────────────┘
-│                           .                                                         #          │┌─ Target ───────────────────────────────┐
-│                           .                                                         #          ││ M Plain Scuttler  Lv 1                 │
-│                           .                                                         #          ││ HP 23/40 #############---------- 2m E  │
-│                           .                                                         #          ││ even, fighting you                     │
-│                           .                    @   M          c                     #          │└────────────────────────────────────────┘
-│                           .                                                         #          │┌─ Nearby ───────────────────────────────┐
-│                           .                                                         #          ││ M Plain Scuttler       2m E 23/40 even │
-│                           .                                                         #          ││ $ Testgrounds Banker       8m N banker │
-│                           .                                                         #          ││ $ Testgrounds Binder       8m N binder │
-│                           .                                                         #          ││ $ Testgrounds Vendor       8m N vendor │
-│                           .                                                         #          ││ & Testgrounds Co… 9m NE contract_board │
-│                           .                                                         #          ││ ? Testgrounds Recr… 10m NE quest_giver │
-│                           .                                                         #          ││ ? Testgrounds Capt… 10m NE quest_giver │
-│                           .                                                         #          ││ $ Cleric Trainer         12m N trainer │
-│                           .                                                         #          ││ $ Rogue Trainer          12m N trainer │
-│                           .                                                         #          ││ $ Warrior Trainer        12m N trainer │
-│                           .                                                         #          ││ $ Wizard Trainer         12m N trainer │
-│                           .                                                         #          ││ $ Paladin Trainer       13m NE trainer │
-│                           .                                                         #          ││ +4 more                                │
+┌─ Testgrounds, at 14,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│                            ░                                                       #           ││ aria  Lv 1  XP 0             | 0 crowns│
+│                            ░                                                       #           ││ HP 96/100 ##########################-- │
+│                            ░                                                       #           ││ Target: Plain Scuttler                 │
+│                            ░                                                       #           ││ Auto-attack: ON                        │
+│                            ░                                                       #           ││ Attacked by Plain Scuttler             │
+│                            ░                                                       #           │└────────────────────────────────────────┘
+│                            ░                T  T T  T  T  T                        #           │┌─ Quest ────────────────────────────────┐
+│                            ░                                                       #           ││ [ ] 1. Scout the Lookout               │
+│                            ░                $  B H  &  Q                           #           ││ Testgrounds Recruiter has work for you:│
+│                            ░                                                       #           ││ G.                                     │
+│                            ░                              !                        #           │└────────────────────────────────────────┘
+│                            ░                                                       #           │┌─ Target ───────────────────────────────┐
+│                            ░                                                       #           ││ M Plain Scuttler  Lv 1                 │
+│                            ░                                                       #           ││ HP 23/40 #############---------- 2m E  │
+│                            ░                   @   M          c                    #           ││ even, fighting you                     │
+│                            ░                                                       #           │└────────────────────────────────────────┘
+│                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
+│                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
+│                            ░                                                       #           ││ ! Testgrounds Recruiter   10m NE [new] │
+│                            ░                                                       #           ││     <Quest Giver>                      │
+│                            ░                                                       #           ││ M Plain Scuttler       2m E 23/40 even │
+│                            ░                                                       #           ││ B Testgrounds Banker              8m N │
+│                            ░                                                       #           ││ H Testgrounds Binder              8m N │
+│                            ░                                                       #           ││ $ Testgrounds Vendor              8m N │
+│                            ░                                                       #           ││ Q Testgrounds Captain           10m NE │
+│                            ░                                                       #           ││     <Quest Giver>                      │
+│                            ░                                                       #           ││ T Cleric Trainer                 12m N │
+│                            ░                                                       #           ││ +8 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ <   N.Ns Plain Scuttler hit aria for 1                                                                                                   │
-│     N.Ns aria healed 2                                                                                                                   │
-│     N.Ns Plain Scuttler healed 1                                                                                                         │
-│     N.Ns aria hit Plain Scuttler for 6                                                                                                   │
-│     N.Ns aria missed Plain Scuttler                                                                                                      │
-│ <   N.Ns Plain Scuttler hit aria for 3                                                                                                   │
-│    NN.Ns aria hit Plain Scuttler for 5                                                                                                   │
-│ <  NN.Ns Plain Scuttler hit aria for 2                                                                                                   │
-│    NN.Ns aria healed 2                                                                                                                   │
-│    NN.Ns Plain Scuttler healed 1                                                                                                         │
-│    NN.Ns aria hit Plain Scuttler for 4                                                                                                   │
+│     N.Ns You start attacking something                                                                                                   │
+│ <   N.Ns Plain Scuttler hits you for 2                                                                                                   │
+│     N.Ns You start attacking Plain Scuttler                                                                                              │
+│     N.Ns You hit Plain Scuttler for 4                                                                                                    │
+│ <   N.Ns Plain Scuttler hits you for 1                                                                                                   │
+│     N.Ns You hit Plain Scuttler for 6                                                                                                    │
+│     N.Ns You miss Plain Scuttler                                                                                                         │
+│ <   N.Ns Plain Scuttler hits you for 3                                                                                                   │
+│    NN.Ns You hit Plain Scuttler for 5                                                                                                    │
+│ <  NN.Ns Plain Scuttler hits you for 2                                                                                                   │
+│    NN.Ns You hit Plain Scuttler for 4                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | Testgrounds | heard N.Ns ago | attack ok                                                                            ? help  q quit

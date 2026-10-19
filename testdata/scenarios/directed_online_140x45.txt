@@ -7,27 +7,26 @@
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
-│................................................................................................││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ p cy1                     3m S 100/100 │
-│                                                                                                ││ D Gate North                      3m S │
-│                                                                                                ││ p ann1                    4m S 100/100 │
-│                                                @                                               ││ $ Eastern Binder          75m S binder │
-│                                                                                                ││ $ Druid Trainer          84m W trainer │
-│                                                p                                               ││ $ Paladin Trainer        86m W trainer │
-│                                                                                                ││ ? Testgrounds Recr… 86m SW quest_giver │
-│                                                                                                ││ ? Testgrounds Capt… 87m SW quest_giver │
-│                                                                                                ││ $ Wizard Trainer         87m W trainer │
-│                                                                                                ││ & Testgrounds C… 89m SW contract_board │
-│                                                                                                ││ $ Rogue Trainer          89m W trainer │
-│                                                                                                ││ $ Testgrounds Binder      91m W binder │
-│                                                                                            c   ││ $ Cleric Trainer         91m W trainer │
-│                                                                                                ││ $ Testgrounds Banker      93m W banker │
-│                                                                                                ││ $ Warrior Trainer        93m W trainer │
-│                                                                                                ││ $ Testgrounds Vendor      95m W vendor │
-│                                                                                                ││ D Line East                    126m SE │
 │                                                                                                ││                                        │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ ! Testgrounds Recruiter   86m SW [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ & Testgrounds Contract B… 89m SW [new] │
+│                                                @                                               ││ p cy1                     3m S 100/100 │
+│                                                                                                ││ D Gate North                      3m S │
+│                                                p                                               ││ p ann1                    4m S 100/100 │
+│                                                p                                               ││ H Eastern Binder                 75m S │
+│                                                                                                ││ T Druid Trainer                  84m W │
+│                                                                                                ││ T Paladin Trainer                86m W │
+│                                                                                                ││ Q Testgrounds Captain           87m SW │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ T Wizard Trainer                 87m W │
+│                                                                                          c     ││ T Rogue Trainer                  89m W │
+│                                                                                                ││ H Testgrounds Binder             91m W │
+│                                                                                                ││ T Cleric Trainer                 91m W │
+│                                                                                                ││ B Testgrounds Banker             93m W │
+│                                                                                                ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │ nothing has happened yet                                                       ││ [say] cy1: hello both                                  │
@@ -42,4 +41,5 @@
 │                                                                                ││                                                        │
 │                                                                                ││                                                        │
 └────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
+ E: enter Gate North                                                                                                                        
  ONLINE | directing ann2 | Testgrounds | heard N.Ns ago | move ok                                                             ? help  q quit

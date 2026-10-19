@@ -1,45 +1,45 @@
 ┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                    .                                               #           ││ gorm  Lv 1 Warrior           | 0 crowns│
-│                                    .                                               #           ││ HP 120/120 ########################### │
-│                                    .                                               #           ││ XP ############------------- 20 to Lv 2│
-│                                    .                                               #           ││ Atk off | none                         │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .             $  $ $  $ $ $                     #           │┌─ Quest ────────────────────────────────┐
-│                                    .                                               #           ││ [ ] 1. Scout the Lookout               │
-│                                    .             $  $ $  & ?                       #           ││ Testgrounds Recruiter has work for you:│
-│                                    .                         ?                     #           ││ G.                                     │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Target ───────────────────────────────┐
-│                                    .                                               #           ││ no target (Tab to choose)              │
-│                                    .           @  *              c                 #           ││                                        │
-│                                    .                                 m             #           ││                                        │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
-│                                    .                                               #           ││ * Cracked Shell Fragment          2m E │
-│                                    .                                               #           ││ $ Testgrounds Vendor       8m N vendor │
-│                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
-│                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
-│                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
-│                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
-│                                    .                                               #           ││ $ Cleric Trainer         13m N trainer │
-│                                    .                                               #           ││ +10 more                               │
+│                                    ░                                             #             ││ gorm  Lv 1 Warrior           | 0 crowns│
+│                                    ░                                             #             ││ HP 120/120 ########################### │
+│                                    ░                                             #             ││ XP ############------------- 20 to Lv 2│
+│                                    ░                                             #             ││ Atk off | none                         │
+│                                    ░             T T T  T T T                    #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Quest ────────────────────────────────┐
+│                                    ░                                             #             ││ [ ] 1. Scout the Lookout               │
+│                                    ░             $ B H  & Q                      #             ││ Testgrounds Recruiter has work for you:│
+│                                    ░                        !                    #             ││ G.                                     │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Target ───────────────────────────────┐
+│                                    ░           @ *              c                #             ││ no target (Tab to choose)              │
+│                                    ░                                m            #             ││                                        │
+│                                    ░                                             #             ││                                        │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Nearby ───────────────────────────────┐
+│                                    ░                                             #             ││ & Testgrounds Contract B… 11m NE [new] │
+│                                    ░                                             #             ││ ! Testgrounds Recruiter   13m NE [new] │
+│                                    ░                                             #             ││     <Quest Giver>                      │
+│                                    ░                                             #             ││ * Cracked Shell Fragment          2m E │
+│                                    ░                                             #             ││ $ Testgrounds Vendor              8m N │
+│                                    ░                                             #             ││ B Testgrounds Banker             9m NE │
+│                                    ░                                             #             ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Taunt                       tgt? 2 Bash                       tgt? 3 Second Wind                 31s 4 -                         empty │
-│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ 1 Taunt tgt?                       2 Bash tgt?                       3 Second Wind 31s                 4 -                               │
+│ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ x  22.9s gorm killed Plain Scuttler                                                                                                      │
-│    22.9s gorm's target Plain Scuttler cleared: target_dead                                                                               │
-│    22.9s gorm stopped attacking                                                                                                          │
-│    22.9s Plain Scuttler dropped Cracked Shell Fragment (drop-enc-1-shell-fragment)                                                       │
-│    22.9s encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
-│ +  22.9s gorm received 20 xp from Plain Scuttler                                                                                         │
-│    22.9s Plain Scuttler left view                                                                                                        │
-│    24.0s gorm healed 2                                                                                                                   │
-│    30.0s gorm healed 2                                                                                                                   │
-│    36.0s gorm healed 1                                                                                                                   │
-│    52.9s Plain Scuttler (mob-near-2) appeared                                                                                            │
+│ <  22.8s Plain Scuttler hits you for 4                                                                                                   │
+│    22.9s You hit Plain Scuttler for 6                                                                                                    │
+│ x  22.9s You killed Plain Scuttler                                                                                                       │
+│    22.9s Your target Plain Scuttler is gone                                                                                              │
+│    22.9s You stop attacking                                                                                                              │
+│    22.9s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
+│    22.9s Plain Scuttler is dead: the fight is over                                                                                       │
+│    22.9s You are out of combat                                                                                                           │
+│ +  22.9s You gain 20 experience                                                                                                          │
+│    22.9s Plain Scuttler is out of view                                                                                                   │
+│    52.9s Plain Scuttler comes into view                                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ L: loot Cracked Shell Fragment  ·  Tab: target · F: attack                                                                                 
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Bash ok                                                                        ? help  q quit

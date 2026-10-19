@@ -1,45 +1,45 @@
 ┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                    .                                               #           ││ Zedd  Lv 1 Wizard            | 0 crowns│
-│                                    .                                               #           ││ HP 80/80 ############################# │
-│                                    .                                               #           ││ MP 150/150 ########################### │
-│                                    .                                               #           ││ XP ############------------- 20 to Lv 2│
-│                                    .                                               #           ││ Atk off | none                         │
-│                                    .             $  $ $  $ $ $                     #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Quest ────────────────────────────────┐
-│                                    .             $  $ $  & ?                       #           ││ [ ] 1. Scout the Lookout               │
-│                                    .                         ?                     #           ││ Testgrounds Recruiter has work for you:│
-│                                    .                                               #           ││ G.                                     │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Target ───────────────────────────────┐
-│                                    .           @              *  m                 #           ││ no target (Tab to choose)              │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           ││                                        │
-│                                    .                                               #           │└────────────────────────────────────────┘
-│                                    .                                               #           │┌─ Nearby ───────────────────────────────┐
-│                                    .                                               #           ││ $ Testgrounds Vendor       8m N vendor │
-│                                    .                                               #           ││ $ Testgrounds Banker      9m NE banker │
-│                                    .                                               #           ││ $ Testgrounds Binder     10m NE binder │
-│                                    .                                               #           ││ & Testgrounds C… 11m NE contract_board │
-│                                    .                                               #           ││ $ Warrior Trainer        12m N trainer │
-│                                    .                                               #           ││ * Cracked Shell Fragment         13m E │
-│                                    .                                               #           ││ +11 more                               │
+│                                    ░                                             #             ││ Zedd  Lv 1 Wizard            | 0 crowns│
+│                                    ░                                             #             ││ HP 80/80 ############################# │
+│                                    ░                                             #             ││ MP 150/150 ########################### │
+│                                    ░                                             #             ││ XP ############------------- 20 to Lv 2│
+│                                    ░             T T T  T T T                    #             ││ Atk off | none                         │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Quest ────────────────────────────────┐
+│                                    ░             $ B H  & Q                      #             ││ [ ] 1. Scout the Lookout               │
+│                                    ░                        !                    #             ││ Testgrounds Recruiter has work for you:│
+│                                    ░                                             #             ││ G.                                     │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░           @             *  m                #             │┌─ Target ───────────────────────────────┐
+│                                    ░                                             #             ││ no target (Tab to choose)              │
+│                                    ░                                             #             ││                                        │
+│                                    ░                                             #             ││                                        │
+│                                    ░                                             #             │└────────────────────────────────────────┘
+│                                    ░                                             #             │┌─ Nearby ───────────────────────────────┐
+│                                    ░                                             #             ││ & Testgrounds Contract B… 11m NE [new] │
+│                                    ░                                             #             ││ ! Testgrounds Recruiter   13m NE [new] │
+│                                    ░                                             #             ││     <Quest Giver>                      │
+│                                    ░                                             #             ││ $ Testgrounds Vendor              8m N │
+│                                    ░                                             #             ││ B Testgrounds Banker             9m NE │
+│                                    ░                                             #             ││ +13 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Root                   10mp tgt? 2 Frost Bolt            12mp tgt? 3 Flame Dart             6mp tgt? 4 -                         empty │
-│ 5 -                          empty 6 -                         empty 7 -                         empty 8 -                         empty │
+│ 1 Root 10mp tgt?                   2 Frost Bolt 12mp tgt?            3 Flame Dart 6mp tgt?             4 -                               │
+│ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns Zedd began casting Frost Bolt (2.0 s)                                                                                           │
-│    NN.Ns Plain Scuttler healed 1                                                                                                         │
-│    NN.Ns Zedd used Frost Bolt on Plain Scuttler                                                                                          │
-│    NN.Ns Zedd's Frost Bolt hit Plain Scuttler for 12                                                                                     │
-│ x  NN.Ns Zedd killed Plain Scuttler                                                                                                      │
-│    NN.Ns Zedd's target Plain Scuttler cleared: target_dead                                                                               │
-│    NN.Ns Plain Scuttler dropped Cracked Shell Fragment (drop-enc-1-shell-fragment)                                                       │
-│    NN.Ns encounter enc-1 with Plain Scuttler closed: mob_died                                                                            │
-│ +  NN.Ns Zedd received 20 xp from Plain Scuttler                                                                                         │
-│    NN.Ns Plain Scuttler left view                                                                                                        │
-│    NN.Ns Plain Scuttler (mob-near-2) appeared                                                                                            │
+│    NN.Ns You begin casting Frost Bolt on Plain Scuttler                                                                                  │
+│    NN.Ns You use Frost Bolt on Plain Scuttler                                                                                            │
+│    NN.Ns You hit Plain Scuttler with Frost Bolt for 12 cold damage                                                                       │
+│ x  NN.Ns You killed Plain Scuttler                                                                                                       │
+│    NN.Ns Your target Plain Scuttler is gone                                                                                              │
+│    NN.Ns Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
+│    NN.Ns Plain Scuttler is dead: the fight is over                                                                                       │
+│    NN.Ns You are out of combat                                                                                                           │
+│ +  NN.Ns You gain 20 experience                                                                                                          │
+│    NN.Ns Plain Scuttler is out of view                                                                                                   │
+│    NN.Ns Plain Scuttler comes into view                                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ Tab: target · F: attack                                                                                                                    
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok                                                                  ? help  q quit

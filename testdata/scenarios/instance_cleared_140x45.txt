@@ -5,8 +5,8 @@
 │                                                                                                ││ Auto-attack: off                       │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
-│................................................................................................││ Solo Trial ended                       │
-│                                                                                                ││ cleared                                │
+│                                                                                                ││ Solo Trial ended                       │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ cleared                                │
 │                                                                                                ││ you were handed back                   │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
@@ -15,31 +15,31 @@
 │                                                                                                ││                                        │
 │                                                @                                               │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
 │                                                                                                ││ D Gate North                   0m here │
-│                                                                                                ││ $ Eastern Binder          73m S binder │
-│                                                                                                ││ $ Druid Trainer          83m W trainer │
-│                                                                                                ││ $ Paladin Trainer        85m W trainer │
-│                                                                                                ││ ? Testgrounds Recr… 85m SW quest_giver │
-│                                                                                            c   ││ ? Testgrounds Capta… 86m W quest_giver │
-│                                                                                                ││ $ Wizard Trainer         87m W trainer │
-│                                                                                                ││ & Testgrounds Co… 88m W contract_board │
-│                                                                                                ││ $ Rogue Trainer          89m W trainer │
-│                                                                                                ││ $ Testgrounds Binder      90m W binder │
-│                                                                                                ││ $ Cleric Trainer         90m W trainer │
-│                                                                                                ││ $ Testgrounds Banker      92m W banker │
-│                                                                                                ││ +3 more                                │
+│                                                                                                ││ H Eastern Binder                 73m S │
+│                                                                                          c     ││ T Druid Trainer                  83m W │
+│                                                                                                ││ T Paladin Trainer                85m W │
+│                                                                                                ││ Q Testgrounds Captain            86m W │
+│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ T Wizard Trainer                 87m W │
+│                                                                                                ││ T Rogue Trainer                  89m W │
+│                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: mob_died                                                                     │
-│ +  NN.Ns aria received 20 xp from Plain Scuttler                                                                                         │
-│    NN.Ns Plain Scuttler left view                                                                                                        │
-│    NN.Ns aria healed 2                                                                                                                   │
-│    NN.Ns aria healed 2                                                                                                                   │
-│    NN.Ns aria healed 2                                                                                                                   │
-│    NN.Ns aria healed 2                                                                                                                   │
-│    NN.Ns drop drop-inst-1.enc-1-shell-fragment is gone: taken                                                                            │
-│ +  NN.Ns aria received Cracked Shell Fragment from drop-inst-1.enc-1-shell-fragment                                                      │
+│    NN.Ns Your target Plain Scuttler is gone                                                                                              │
+│    NN.Ns You stop attacking                                                                                                              │
+│    NN.Ns Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
+│    NN.Ns Plain Scuttler is dead: the fight is over                                                                                       │
+│    NN.Ns You are out of combat                                                                                                           │
+│ +  NN.Ns You gain 20 experience                                                                                                          │
+│    NN.Ns Plain Scuttler is out of view                                                                                                   │
+│    NN.Ns Cracked Shell Fragment was taken                                                                                                │
+│ +  NN.Ns You pick up Cracked Shell Fragment                                                                                              │
 │    NN.Ns instance ended, cleared: every mob dead and the loot taken                                                                      │
 │    NN.Ns entered Testgrounds                                                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North                                                                                                                        
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                                                                              ? help  q quit

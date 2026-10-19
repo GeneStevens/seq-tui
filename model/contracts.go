@@ -369,7 +369,7 @@ func (m *Model) KnownNPCs() []*pb.NpcInfo {
 	// The zone map lists the NPCs that stand where they are (D69), seen or not.
 	for _, n := range m.Map.GetNpcs() {
 		if byID[n.GetId()] == nil {
-			byID[n.GetId()] = &pb.NpcInfo{Id: n.GetId(), Name: n.GetName(), Role: n.GetRole(), Pos: n.GetPos()}
+			byID[n.GetId()] = &pb.NpcInfo{Id: n.GetId(), Name: n.GetName(), Role: n.GetRole(), Pos: n.GetPos(), Title: n.GetTitle()}
 		}
 	}
 	out := make([]*pb.NpcInfo, 0, len(byID))

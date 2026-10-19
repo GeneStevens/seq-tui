@@ -18,7 +18,7 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
-│                                                                              │
+│ slot 3 ok                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 80/80 | Target: none                                                        
  ONLINE | Testgrounds | heard N.Ns ago | slot 3 ok                ? help  q quit

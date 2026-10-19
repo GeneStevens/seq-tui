@@ -1,45 +1,45 @@
-┌─ Contracts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ You hold 2 of 3 contracts. Take them at a contract board (G beside it); only your own kills count.                                       │
-│                                                                                                                                          │
-│> Thin the Meadow Wolves (Hunt)                                                                                                           │
-│   0 of 3 killed                                                                                                                          │
-│   Pays 30 XP and 12 crowns                                                                                                               │
-│   Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.                                               │
-│  Pelts for the Tanners (Gather)                                                                                                          │
-│   0 of 3 carried                                                                                                                         │
-│   Pays 25 XP, 10 crowns and Cord Pendant                                                                                                 │
-│   Bring back 3 wolf pelts from the wolves of the Downs. Tanner's Row pays by the pelt.                                                   │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│ Up / Down choose. X gives the contract up (anywhere). Hand a finished one in at its board.                                               │
-│ Esc closes.                                                                                                                              │
+┌─ Contracts ────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ You hold 2 of 3 contracts. Take them at a contract board (G beside it); only your own kills co…││ Hale  Lv 1 Warrior           | 0 crowns│
+│                                                                                                ││ HP 130/130 ########################### │
+│> Thin the Meadow Wolves (Hunt)                                                                 ││ XP ------------------------- 40 to Lv 2│
+│   0 of 3 killed                                                                                ││ Atk off | none                         │
+│   Pays 30 XP and 12 crowns                                                                     │└────────────────────────────────────────┘
+│   Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.     │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│  Pelts for the Tanners (Gather)                                                                ││ First Steps                            │
+│   0 of 3 carried                                                                               ││ Step 2 of 4                            │
+│   Pays 25 XP, 10 crowns and Cord Pendant                                                       ││ Visit your class trainer in Trainers'  │
+│   Bring back 3 wolf pelts from the wolves of the Downs. Tanner's Row pays by the pelt.         ││ Lane. They will teach you your first   │
+│                                                                                                ││ lesson.                                │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Contracts (K) ────────────────────────┐
+│                                                                                                ││ Thin the Meadow Wolves             0/3 │
+│                                                                                                ││ Pelts for the Tanners              0/3 │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
+│                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
+│                                                                                                ││     <Warrior Trainer>                  │
+│                                                                                                ││ g Tamsin Hale <Guard>            5m SE │
+│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
+│ Up / Down choose. X gives the contract up (anywhere). Hand a finished one in at its board.     ││ $ Barnaby Tuck <Vendor>         13m SW │
+│ Esc closes.                                                                                    ││ +11 more                               │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
+│            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
+│ +   0.2s First Steps: step 1 done. Next: Visit your class trainer in Trainers' Lane. They will teach you your first lesson.              │
+│     0.5s Town Guard is out of view                                                                                                       │
+│     4.6s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
+│ +   4.7s You take the contract Thin the Meadow Wolves                                                                                    │
+│ +   4.8s You take the contract Pelts for the Tanners                                                                                     │
+│ +   4.9s You take the contract Word from Wickett Mill                                                                                    │
+│ !   5.0s You're carrying as many contracts as you can                                                                                    │
+│ +   5.1s You give up the contract Word from Wickett Mill                                                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 2/4 | Thornwick | road: faster, 125% | heard 0.4s ago                                                   ? help  q quit
+ ONLINE | Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard 0.4s ago               ? help  q quit

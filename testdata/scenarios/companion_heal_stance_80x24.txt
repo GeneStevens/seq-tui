@@ -1,24 +1,24 @@
 ┌─ Thornwick Downs, at 100,100 m, north up ────────┐┌─ You ────────────────────┐
-│#≈≈≈≈####   #####                      """""""""""││ hale  Lv 5 Warrior  | 0cr│
-│                                       """""c"""""││ HP 198/198 ############# │
-│                                      """"""""""""││ XP ---------- 145 to Lv 6│
-│                                      """"""""""""││ Atk off | none           │
-│                                     """""""""""""│└──────────────────────────┘
-│                         @p          """""""""""""│┌─ Companion, healer ──────┐
-│               cm                    """""""""""""││ Watch Medic  Lv 5        │
-│                                     """""""""""""││ HP 112/112 ############# │
-│                                     """""""""""""││ MP 122/122 ############# │
-│                                    """"""""""""""││ stance heal              │
+│### ≈≈≈####  #####           c        """"""""""""││ hale  Lv 5 Warrior  | 0cr│
+│                                     """""c"""""""││ HP 198/198 ############# │
+│                                     """""""""""""││ XP ---------- 145 to Lv 6│
+│                                    """"""""""""""││ Atk off | none           │
+│                         @p         """"""""""""""│└──────────────────────────┘
+│                m                   """"""""""""""│┌─ Companion, healer ──────┐
+│c                                   """"""""""""""││ Watch Medic  Lv 5        │
+│                                   """""""""""""""││ HP 112/112 ############# │
+│                                   """""""""""""""││ MP 122/122 ############# │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt        tgt? 2 Bash        tgt? 3 -          empty 4 -          empty │
-│ 5 -           empty 6 -          empty 7 -          empty 8 -          empty │
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│     N.Ns Field Boar (mob-field-boars-a-1) appeared                           │
-│     N.Ns your companion is now on assist                                     │
-│     N.Ns your companion is now on guard                                      │
-│     N.Ns your companion is now on heal                                       │
+│     N.Ns Field Boar comes into view                                          │
+│     N.Ns Your companion takes the assist stance                              │
+│     N.Ns Your companion takes the guard stance                               │
+│     N.Ns Your companion takes the heal stance                                │
 └──────────────────────────────────────────────────────────────────────────────┘
+ Tab: target · F: attack                                                        
  ONLINE | Thornwick Downs | heard N.Ns ago | companion stance heal ok     ? help

@@ -1,33 +1,32 @@
 ┌─ Testgrounds, at 194,10 m, north up ───────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                                        .                                       ││ aria  Lv 1  XP 0             | 0 crowns│
-│                                                        .                                       ││ HP 100/100 ########################### │
-│                                                        .                                       ││ Target: none                           │
-│                                                        .                                       ││ Auto-attack: off                       │
-│                                                        .                                       │└────────────────────────────────────────┘
-│                                                        .                                       │┌─ Target ───────────────────────────────┐
-│                                                        .                                       ││ no target (Tab to choose)              │
-│                                                        .                                       ││                                        │
-│                                                        .                                       ││                                        │
-│                                                        .                                       │└────────────────────────────────────────┘
-│                                                        .                                       │┌─ Nearby ───────────────────────────────┐
-│                                                        .                                       ││ D Line East                       1m E │
-│                                                        .                                       ││ $ Eastern Binder          75m W binder │
-│                                                        .                                       ││ D Gate North                   123m NW │
-│                                                @D      .                                       ││ ? Testgrounds Recr… 178m W quest_giver │
-│                                                        .                                       ││ $ Druid Trainer         180m W trainer │
-│                                                        .                                       ││ ? Testgrounds Capt… 180m W quest_giver │
-│                                                        .                                       ││ $ Paladin Trainer       182m W trainer │
-│                                                        .                                       ││ & Testgrounds C… 182m W contract_board │
-│                                                        .                                       ││ $ Wizard Trainer        184m W trainer │
-│                                                        .                                       ││ $ Testgrounds Binder     184m W binder │
-│.........................................................                                       ││ $ Rogue Trainer         185m W trainer │
-│                                                                                                ││ $ Testgrounds Banker     186m W banker │
-│                                                                                                ││ $ Cleric Trainer        187m W trainer │
-│                                                                                                ││ $ Testgrounds Vendor     188m W vendor │
-│                                                                                                ││ $ Warrior Trainer       189m W trainer │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│                                                        ░                                       ││ aria  Lv 1  XP 0             | 0 crowns│
+│                                                        ░                                       ││ HP 100/100 ########################### │
+│                                                        ░                                       ││ Target: none                           │
+│                                                        ░                                       ││ Auto-attack: off                       │
+│                                                        ░                                       │└────────────────────────────────────────┘
+│                                                        ░                                       │┌─ Target ───────────────────────────────┐
+│                                                        ░                                       ││ no target (Tab to choose)              │
+│                                                        ░                                       ││                                        │
+│                                                        ░                                       ││                                        │
+│                                                        ░                                       │└────────────────────────────────────────┘
+│                                                        ░                                       │┌─ Nearby ───────────────────────────────┐
+│                                                        ░                                       ││ ! Testgrounds Recruiter   178m W [new] │
+│                                                        ░                                       ││     <Quest Giver>                      │
+│                                                        ░                                       ││ & Testgrounds Contract B… 182m W [new] │
+│                                                @D      ░                                       ││ D Line East                       1m E │
+│                                                        ░                                       ││ H Eastern Binder                 75m W │
+│                                                        ░                                       ││ D Gate North                   123m NW │
+│                                                        ░                                       ││ T Druid Trainer                 180m W │
+│                                                        ░                                       ││ Q Testgrounds Captain           180m W │
+│                                                        ░                                       ││     <Quest Giver>                      │
+│                                                        ░                                       ││ T Paladin Trainer               182m W │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                       ││ T Wizard Trainer                184m W │
+│                                                                                                ││ H Testgrounds Binder            184m W │
+│                                                                                                ││ T Rogue Trainer                 185m W │
+│                                                                                                ││ B Testgrounds Banker            186m W │
+│                                                                                                ││ T Cleric Trainer                187m W │
+│                                                                                                ││ $ Testgrounds Vendor            188m W │
+│                                                                                                ││ T Warrior Trainer               189m W │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ nothing has happened yet                                                                                                                 │
@@ -42,4 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ E: go through the Line East to the Outskirts                                                                                               
  ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit

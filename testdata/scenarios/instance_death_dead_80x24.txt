@@ -1,14 +1,13 @@
 ┌─ Testgrounds (Solo Trial), at 100,87 m, north … ─┐┌─ You ────────────────────┐
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ DEAD  HP 0/6             │
-│..................................................││ Target: none             │
-│                                                  ││ You are dead. R: release │
+│                                                  ││ Target: none             │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ You are dead. R: release │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                         D                        ││ Solo Trial               │
 │                         @                        ││ real-time | inside       │
 │                         m                        ││ party up to 1 | normal   │
-│                                                  ││                          │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
@@ -16,9 +15,10 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
-│ <  NN.Ns Plain Scuttler hit aria for 3                                       │
-│ x  NN.Ns Plain Scuttler killed aria                                          │
-│    NN.Ns Plain Scuttler's target aria cleared: target_dead                   │
-│    NN.Ns encounter inst-1.enc-1 with Plain Scuttler closed: participants_dead│
+│    NN.Ns Your target is gone                                                 │
+│    NN.Ns Your target Plain Scuttler is gone                                  │
+│    NN.Ns Everyone in the fight with Plain Scuttler has fallen                │
+│    NN.Ns You are out of combat                                               │
 └──────────────────────────────────────────────────────────────────────────────┘
+ R: release your body and wake at your bind point                               
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | move ok     ? help  q quit

@@ -5,8 +5,8 @@
 │                                                                                                ││ Auto-attack: off                       │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
-│................................................................................................││ Duo Turns                              │
-│                                                                                                ││ turn-based | inside                    │
+│                                                                                                ││ Duo Turns                              │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ turn-based | inside                    │
 │                                                                                                ││ party up to 2 | normal                 │
 │                                                                                                ││ sleeps up to 7 d                       │
 │                                                                                                │└────────────────────────────────────────┘
@@ -18,13 +18,12 @@
 │                                                                                                ││  2 target Plain Scuttler               │
 │                                                                                                ││  3 companion: attack Plain Scuttler    │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Companion, tank ──────────────────────┐
 │                                                                                                ││ Watch Shieldman  Lv 1                  │
 │                                                                                                ││ HP 96/96 ############################# │
-│                                                m                                               ││ stance follow                          │
-│                                                                                                ││ following you                          │
+│                                                                                                ││ stance follow                          │
+│                                                m                                               ││ following you                          │
 │                                                                                                ││ P call or send away   H stance         │
 │                                                                                                ││ Y attack my target    U come here      │
 │                                                                                                ││ J stop    Z drop the order             │
@@ -42,4 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ E: enter Gate North  ·  Tab: target · F: attack                                                                                            
  ONLINE | heard N.Ns ago | ! a plan holds one companion stance and one companion order: Backspace removes the one it has      ? help  q quit

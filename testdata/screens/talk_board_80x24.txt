@@ -17,8 +17,8 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
 │ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.   │
-│ The answer is on the status line; every refusal says why.                    │
+│ talk to Thornwick Contract Board ok                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
  ONLINE | road: faster, 125% | talk to Thornwick Contract Board ok        ? help

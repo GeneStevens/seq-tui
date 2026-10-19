@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Wizard Trainer, trainer, 4m NE away. You have 102 crowns.                    │
+│ Wizard Trainer, 4m NE away. You have 102 crowns.                             │
 │                                                                              │
 │ You are level 3. Enter buys the ability under the cursor.                    │
 │  Flame Dart             level 1   known                                      │
@@ -17,8 +17,8 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
 │ Enter acts. Esc goes back.                                                   │
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 80/96 | Target: none                                                        
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

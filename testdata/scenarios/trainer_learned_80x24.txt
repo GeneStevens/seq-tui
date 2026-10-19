@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Gorran Stoutarm, trainer, 0m here away. You have 147 crowns.                 │
+│ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 147 crowns.        │
 │                                                                              │
 │ You are level 3. Enter buys the ability under the cursor.                    │
 │  Taunt                  level 1   known                                      │
@@ -17,8 +17,8 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
 │ Enter acts. Esc goes back.                                                   │
-│ The answer is on the status line; every denial says why.                     │
+│ train Second Wind ok                                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
+ HP 142/164 | Target: none                                                      
  ONLINE | road: faster, 125% | heard N.Ns ago | train Second Wind ok      ? help

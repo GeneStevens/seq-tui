@@ -11,14 +11,14 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
 │ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                             │
 │ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick│
 │ with them.                                                                   │
+│ Pays 30 XP and 12 crowns.                                                    │
+│                                                                              │
 │ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
 │ The answer is on the status line; every refusal says why.                    │
 └──────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 2/4 | Thornwick | road: faster, 125% | heard N.Ns ago     
+ HP 130/130 | Target: none                                                      
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW     ? help  q quit

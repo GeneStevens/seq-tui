@@ -113,6 +113,7 @@ func TestLoginMoveFightLoot(t *testing.T) {
 		}
 	})
 	p.Golden("play_looted")
+	p.Model(func(m *model.Model) { noIDs(t, m) }) // the log says names, never ids (D76)
 }
 
 // Stand beside a scuttler until it kills the character, press R, and respawn.

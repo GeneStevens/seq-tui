@@ -102,7 +102,7 @@ func TestEquipALootedItem(t *testing.T) {
 		t.Fatalf("after looting: %q, %d crowns", items, crowns)
 	}
 	p.Model(func(m *model.Model) {
-		if len(m.Drops) != 0 || !hasLog(m, "reward", "you took 5 crowns") {
+		if len(m.Drops) != 0 || !hasLog(m, "reward", "You find 5 crowns") {
 			t.Fatalf("drops %d; log ends %+v", len(m.Drops), m.Log[len(m.Log)-3:])
 		}
 	})
@@ -117,7 +117,7 @@ func TestEquipALootedItem(t *testing.T) {
 	p.Press("enter")
 	notice(t, p, "wear Scuttler Blade ok", false)
 	p.Model(func(m *model.Model) {
-		if m.Worn(8) != "scuttler-blade" || len(m.Self.Inventory) != 1 || !hasLog(m, "reward", "you put on Scuttler Blade (main_hand)") {
+		if m.Worn(8) != "scuttler-blade" || len(m.Self.Inventory) != 1 || !hasLog(m, "reward", "You equip Scuttler Blade") {
 			t.Fatalf("worn %q, carried %q", m.Self.Equipped, m.Self.Inventory)
 		}
 	})
@@ -198,12 +198,12 @@ func TestBuySellTrainBindAndBank(t *testing.T) {
 	p.Press("enter")
 	notice(t, p, "train Glyphshield ok", false)
 	p.Model(func(m *model.Model) {
-		if m.AbilityByID("wizard-glyphshield") == nil || m.SlotOf("wizard-glyphshield") != 3 || m.Self.Crowns != 114-12-45 || !hasLog(m, "reward", "you learned Glyphshield") {
+		if m.AbilityByID("wizard-glyphshield") == nil || m.SlotOf("wizard-glyphshield") != 3 || m.Self.Crowns != 114-12-45 || !hasLog(m, "reward", "You learn Glyphshield") {
 			t.Fatalf("after training: slots %s, %d crowns", slotsOf(m), m.Self.Crowns)
 		}
 	})
 	p.Press("enter")
-	notice(t, p, "already_known", true)
+	notice(t, p, "You already know that", true)
 	p.Press("esc", "esc")
 
 	// The binder sets the bind point; the banker keeps the buckler.
@@ -259,7 +259,7 @@ func TestTradeWithABoundItemRefused(t *testing.T) {
 	a.Press("enter")
 	notice(t, a, "offer Worn Cap ok", false)
 	a.Press("down", "enter")
-	notice(t, a, "offer Scuttler Blade denied: that item is bound and cannot be traded (bound)", true)
+	notice(t, a, "offer Scuttler Blade denied: That item is bound to you and can't be traded", true)
 	// Bob offers 7 crowns, typed.
 	b.Press("c")
 	b.Type("7")
@@ -281,7 +281,7 @@ func TestTradeWithABoundItemRefused(t *testing.T) {
 	})
 	a.Eventually("7 crowns", func(m *model.Model) bool { return m.Trade == nil && m.Self.Crowns == 7 })
 	b.Model(func(m *model.Model) {
-		if m.Self.Crowns != 13 || !hasLog(m, "reward", "the trade between") || !m.Bound("worn-cap!") {
+		if m.Self.Crowns != 13 || !hasLog(m, "trade", "is complete") || !m.Bound("worn-cap!") {
 			t.Fatalf("bob has %d crowns; log ends %+v", m.Self.Crowns, m.Log[len(m.Log)-3:])
 		}
 	})
@@ -308,7 +308,7 @@ func TestPerilEntryFee(t *testing.T) {
 	p.Press("enter")
 	w.Advance(time.Second)
 	p.Model(func(m *model.Model) {
-		if m.Opened == nil || m.Opened.Preset != "peril-den" || m.Self.Crowns != 30 || !hasLog(m, "reward", "you paid an entry fee of 50 crowns") {
+		if m.Opened == nil || m.Opened.Preset != "peril-den" || m.Self.Crowns != 30 || !hasLog(m, "reward", "You pay 50 crowns to enter") {
 			t.Fatalf("opened %+v, %d crowns; log ends %+v", m.Opened, m.Self.Crowns, m.Log[len(m.Log)-3:])
 		}
 	})
@@ -320,10 +320,10 @@ func TestPerilEntryFee(t *testing.T) {
 			t.Fatalf("the poor one has %d crowns", m.Self.Crowns)
 		}
 	})
-	if got, bad := poor.Notice(); !bad || !strings.Contains(got, "cannot_afford") {
+	if got, bad := poor.Notice(); !bad || !strings.Contains(got, "can't afford") {
 		// The server may answer in the event instead of the intent.
 		poor.Model(func(m *model.Model) {
-			if !hasLog(m, "instance_open_failed", "cannot_afford") && !hasLog(m, "denied", "cannot_afford") {
+			if !hasLog(m, "instance_open_failed", "can't afford") && !hasLog(m, "denied", "can't afford") {
 				t.Fatalf("no refusal: notice %q; log ends %+v", got, m.Log[len(m.Log)-3:])
 			}
 		})
