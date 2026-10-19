@@ -74,6 +74,9 @@ type App struct {
 	Bell   bool
 	alerts int // the alerts the bell has rung for
 
+	// NoMouse stops the program asking the terminal for mouse reports (D77).
+	NoMouse bool
+
 	// LogLabel, if set, is what the sessions view says of where the logs live,
 	// in place of the directory (a scenario's is a temporary one).
 	LogLabel string
@@ -635,7 +638,9 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 func (a *App) View() tea.View {
 	tv := tea.NewView(a.render(a.w, a.h, a.now().Sub(a.lastTick), screen.ANSI()))
 	tv.AltScreen = true
-	tv.MouseMode = tea.MouseModeAllMotion // clicks, the wheel and hovering (D77)
+	if !a.NoMouse {
+		tv.MouseMode = tea.MouseModeAllMotion // clicks, the wheel and hovering (D77)
+	}
 	tv.WindowTitle = "SEQ"
 	return tv
 }

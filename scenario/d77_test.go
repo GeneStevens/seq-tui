@@ -264,3 +264,54 @@ func TestMouseNPCAndTheLargeMap(t *testing.T) {
 		t.Error("M did not close the large map")
 	}
 }
+
+// Click loot: one click on a drop takes everything within reach, and the log says
+// so in one line.
+func TestClickingLootTakesAllOfIt(t *testing.T) {
+	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: []testserver.Account{{Name: "ann", Characters: []string{"c1"}}}})
+	w.Place("ann", "c1", 98000, 50000)
+	w.Srv.Attend("ann")
+	p := w.Login("ann", "c1")
+	p.Resize(140, 45)
+	p.Press("tab", "f")
+	for range 60 {
+		var drops int
+		p.Model(func(m *model.Model) { drops = len(m.Drops) })
+		if drops >= 3 {
+			break
+		}
+		w.Advance(time.Second)
+	}
+	var drop *pb.LootDropState
+	p.Model(func(m *model.Model) {
+		if len(m.Drops) < 3 {
+			t.Fatalf("%d drops", len(m.Drops))
+		}
+		drop = m.Drops[m.DropIDs()[0]]
+	})
+	x, y := at(t, p, drop.GetPos())
+	p.Hover(x, y, false)
+	if s := mapOf(p.Screen(140, 45)); !strings.Contains(s, "Scuttler Blade") && !strings.Contains(s, "Worn Cap") && !strings.Contains(s, "crowns") {
+		t.Errorf("hovering loot names it:\n%s", s)
+	}
+	p.Click(x, y)
+	p.Model(func(m *model.Model) {
+		if len(m.Drops) != 0 || len(m.Self.Inventory) != 2 {
+			t.Errorf("one click on loot should take all of it: %d drops left, bags %v", len(m.Drops), m.Self.Inventory)
+		}
+		n := 0
+		for _, e := range m.Log {
+			if e.Kind == "reward" && strings.HasPrefix(e.Text, "You took ") {
+				n++
+				for _, want := range []string{"Worn Cap", "Scuttler Blade", "5 crowns"} {
+					if !strings.Contains(e.Text, want) {
+						t.Errorf("the loot-all line %q lacks %q", e.Text, want)
+					}
+				}
+			}
+		}
+		if n != 1 {
+			t.Errorf("the log has %d loot-all lines, want 1: %+v", n, m.Log)
+		}
+	})
+}

@@ -41,6 +41,8 @@ This file lists each content item in `seq-tui` and its source (for example "inve
 
 | `model/legible.go`, `screen/legible.go`, `scenario/d75_test.go`, `scenario/d76_test.go`, `app/d75_internal_test.go`, the role glyphs (`T B H g Q`), the zone edge `░`, the pointer arrows, the legend and the help page on marks, the alarm and level-up wording | Written for SEQ, 2026-10-19 (TUI-027, D75 and D76). The glyphs, the wording and the layout are invented for SEQ; the titles, places, hints, texts and level-up and hand-in summaries on the screens are the server's own. |
 | `testdata/logs/*.jsonl`, `testdata/screens/*.txt`, `testdata/scenarios/*.txt` (regenerated) | Re-recorded by the scenarios (`make fixtures golden`, 2026-10-19, TUI-027) on seq at 035f218 (SEQ-083) and seq-world at 5f18c38 (WLD-017); every name, id and line in them is the server's own. |
+| `screen/mouse.go`, `screen/sidebar.go`, `app/mouse.go`, `model/d78.go`, `scenario/d77_test.go`, `scenario/d78_test.go`, `app/mouse_internal_test.go`, the info card, the labels, the tab sidebar and its drawer, the marks `▲ ▼ = x`, the stack count `×N`, the wording of the Stats tab and the mouse help page | Written for SEQ, 2026-10-19 (TUI-028, D77 and D78). The layout, the glyphs and the wording are invented for SEQ; the sheet, the verdicts, the titles, the places' names and every item are the server's own. |
+| `testdata/logs/*.jsonl`, `testdata/screens/*.txt`, `testdata/scenarios/*.txt` (regenerated) | Re-recorded by the scenarios (`make fixtures golden`, 2026-10-19, TUI-028) on seq at bb5e447 (SEQ-084) and seq-world at dc73965 (WLD-018); every name, id and line in them is the server's own. |
 
 ## Exclusions
 
