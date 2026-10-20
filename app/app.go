@@ -604,7 +604,7 @@ func (a *App) send(act Action) tea.Cmd {
 		case err != nil:
 			return resultMsg{note: what + ": " + err.Error(), bad: true}
 		case st.State == model.IntentDenied:
-			return resultMsg{note: fmt.Sprintf("%s denied: %s", what, deniedWords(st)), bad: true}
+			return resultMsg{note: deniedWords(st), bad: true} // the server's line, with no internal prefix
 		case st.Unknown && act.Kind == PlanSubmit:
 			return resultMsg{note: "plan: already applied (result unknown)", planSent: true, planRound: act.Round, planVer: act.Ver}
 		case st.Unknown:

@@ -102,6 +102,9 @@ func (m *Model) noteWalkStop(e *pb.Event) {
 }
 
 func (m *Model) addLog(e LogEntry) {
+	if m.repeatsRefusal(e) {
+		return
+	}
 	m.Log = append(m.Log, e)
 	m.trimLog()
 }

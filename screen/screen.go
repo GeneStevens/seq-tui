@@ -382,7 +382,7 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	if q := m.Quest(); q != nil {
 		quest = fmt.Sprintf("%s %d/%d", q.GetName(), q.GetStep(), q.GetSteps())
 	}
-	for _, parts := range [][]string{{conn, space, quest, objective, ground, heard, note}, {conn, quest, objective, ground, heard, note}, {conn, quest, objective, ground, note}, {conn, quest, objective, note}, {conn, objective, ground, note}, {conn, quest, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}} {
+	for _, parts := range [][]string{{conn, space, quest, objective, ground, heard, note}, {conn, quest, objective, ground, heard, note}, {conn, quest, objective, ground, note}, {conn, quest, objective, note}, {conn, objective, ground, note}, {conn, quest, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}, {note}} {
 		var kept []string
 		for _, p := range parts {
 			if p != "" {
@@ -395,9 +395,35 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 		left := " " + strings.Join(parts, " | ")
 		for _, hint := range []string{"? help  q quit", "? help", ""} {
 			if width(left)+1+width(hint) <= w {
-				return st.Reverse(fit(fit(left, w-width(hint)-1)+" "+hint, w))
+				return reverseWithAlert(fit(fit(left, w-width(hint)-1)+" "+hint, w), note, v.NoticeBad, st)
 			}
 		}
 	}
-	return st.Reverse(fit(" "+conn+" | "+note, w))
+	return reverseWithAlert(fit(" "+conn+" | "+note, w), note, v.NoticeBad, st)
+}
+
+// reverseWithAlert is the status line in reverse video, with the refusal in it
+// (note, when bad) on a red background in bold white: the one thing on the line
+// that must not be missed. The note is the last of the parts, so it is found from
+// the end of the plain text.
+func reverseWithAlert(line, note string, bad bool, st Styler) string {
+	if !bad || note == "" {
+		return st.Reverse(line)
+	}
+	cells := []rune(line)
+	n := len([]rune(note))
+	at := strings.LastIndex(line, note)
+	if at < 0 {
+		return st.Alert(line) // the note was cut: the whole line is the alarm
+	}
+	start := len([]rune(line[:at]))
+	end := min(start+n, len(cells))
+	// One cell of padding each side, so the red reads as a block.
+	if start > 0 {
+		start--
+	}
+	if end < len(cells) {
+		end++
+	}
+	return st.Reverse(string(cells[:start])) + st.Alert(string(cells[start:end])) + st.Reverse(string(cells[end:]))
 }

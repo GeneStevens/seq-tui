@@ -16,10 +16,10 @@
 │                                         ░                                                      ││ D Town Gate                    0m here │
 │                                         ░                                                      ││ % Wickett Mill      42m E scout marker │
 │                                         ░                                                      ││ ; Barleycross       65m E scout marker │
-│                                         ░               """"""""""""""""""""""                 ││ G Barleycross         67m E event goal │
+│                                         ░               """"""""""""""""""""""                 ││ ◆ Barleycross  67m E raiders head here │
 │                                         ░               """"""""""""""""""""""                 ││ ; Millrace Ford    168m E scout marker │
 │                                         ░                                                      ││ ; Goblin Lookout   224m E scout marker │
-│                                         ░                                                   %  ││ v Raid Edge         229m E event spawn │
+│                                         ░                                                   %  ││ v Raid Edge      229m E raiders gather │
 │                                         ░                                                      ││ ; Hollow Warren    382m E scout marker │
 │                                         ░                                                      ││ D Hollow Warren                 394m E │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘

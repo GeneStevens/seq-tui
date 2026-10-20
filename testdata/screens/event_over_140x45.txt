@@ -11,14 +11,14 @@
 │ ·······   #########                                                                            ││ trivial, not in a fight                │
 │ ·······   #########                                                                            │└────────────────────────────────────────┘
 │ ·······   #########                                                                            │┌─ Nearby ───────────────────────────────┐
-│ ···G···   #########                            @                     """"""""""                ││ M Roadside Cutpu… 9m S 120/120 trivial │
-│ ·······                                                             """""""""""""""""""""      ││ G Barleycross         40m W event goal │
+│ ···◆···   #########                            @                     """"""""""                ││ M Roadside Cutpu… 9m S 120/120 trivial │
+│ ·······                                                             """""""""""""""""""""      ││ ◆ Barleycross  40m W raiders head here │
 │         #########                                                   """""""""""""""""""""""""  ││ ; Barleycross       41m W scout marker │
 │         #########                                                   """""""""""""""""""""""""""││ ; Wickett Mill      65m W scout marker │
 │         #########                                                  """"""""""""""""""""""""""""││ ; Millrace Ford    77m NE scout marker │
 │         #########                            M                     """"""""""""""""""""""""""""││ D Town Gate                     106m W │
 │         #########                                                  """"""""""""""""""""""""""""││ ; Goblin Lookout   120m E scout marker │
-│                                                                   """""""""""""""""""""""""""""││ v Raid Edge         126m E event spawn │
+│                                                                   """""""""""""""""""""""""""""││ v Raid Edge      126m E raiders gather │
 │                                                                   """"""""""""c""""""""""""""""││ ; Hollow Warren    279m E scout marker │
 │                                                                  """"""""""""""""""""""""""""""││ D Hollow Warren                 291m E │
 │                                                                  """"""""""""""""""""""""""""""││                                        │

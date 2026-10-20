@@ -144,6 +144,10 @@ type Model struct {
 	Drops      map[string]*pb.LootDropState
 	Encounters map[string]*pb.EncounterState
 	Map        *pb.ZoneMap // nil until it arrives, which is after the snapshot (D40)
+	// Doors is what the server says of each door of Map: usable or not, and why
+	// not in its plain words (SEQ-092), by door id. A door it has said nothing
+	// of is taken as usable.
+	Doors map[string]*pb.DoorState
 
 	// Presets are the instance menu of the last zone map that listed one: the
 	// world zone's, kept while the character is inside an instance.
@@ -333,6 +337,11 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 				m.Presets = b.ZoneMap.GetInstancePresets()
 			}
 		}
+	case *pb.ServerMessage_DoorStates:
+		m.Doors = map[string]*pb.DoorState{}
+		for _, d := range b.DoorStates.GetDoors() {
+			m.Doors[d.GetId()] = d
+		}
 	case *pb.ServerMessage_Event:
 		m.applyEvent(b.Event)
 	case *pb.ServerMessage_IntentResult:
@@ -352,6 +361,9 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 }
 
 func (m *Model) applyResult(r *pb.IntentResult) {
+	if !r.GetAccepted() && !r.GetResultUnknown() {
+		m.noteRefused(firstText(r.GetText(), Words(r.GetReason())))
+	}
 	if !r.GetAccepted() && refusalReason(r.GetReason()) {
 		m.Refusal = &Refusal{Reason: r.GetReason(), Text: firstText(r.GetText(), refusalWords(r.GetReason(), ""))} // a door's refusal, in the server's words
 	}
@@ -374,6 +386,7 @@ func (m *Model) applyResult(r *pb.IntentResult) {
 func (m *Model) applySnapshot(s *pb.Snapshot) {
 	if m.Map != nil && m.Map.GetSpace() != s.GetSpace() {
 		m.Map = nil // the map of the space the character left
+		m.Doors = nil
 	}
 	if m.Space != s.GetSpace() {
 		m.Round = nil // a round belongs to its instance

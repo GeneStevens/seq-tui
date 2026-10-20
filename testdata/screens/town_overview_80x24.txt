@@ -1,23 +1,23 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
-│                ░#                South Wall                #░                │
-│                ░# ######····  The Cottages###       #####  #░                │
-│                ░# ######····      ##The Cottages### #####  #░                │
-│                ░The Armoury·####  #####The Counting House  #░                │
-│                ░# ######·The Smithy           ############ #░                │
-│                ░# ######··$·#### ···········    B  ####### #░                │
-│                ░# ##Tanner's Row ···@·······       ###Q### #░                │
-│                ░# ######Cross Street&·gCounting House Yard·#░                │
-│                ░The Tannery·······$····H·····g············D#░                │
-│                ░# ######··$·   Hawthorn SquareGatehouse Way#░                │
-│                ░# ######····     ·Thornwick·         ##### #░                │
-│                ░# ######····    Hawthorn Walk        ##### #░                │
-│                ░# ######····   Trainers' Lane              #░                │
-│                ░#  ··!·····T·····T·····T·····T·····T······ #░                │
-│                ░#  ##### ##Rogues' Hall### ##Druids' Hall  #░                │
-│                ░#  ##Clerics' Hall## #Paladins' Hall##     #░                │
-│                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                │
+│                          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░                        │
+│                          ░#####··  The Cottages### #░                        │
+│                          ░###The Smithy########### #░                        │
+│                          ░##Cross Street#####B######░                        │
+│                          ░#####$·  ··&@···    ##Q###░                        │
+│                          ░#####·······g···g·······D·░                        │
+│                          ░#####$·  ·$··H··     #####░                        │
+│                          ░#####·Hawthorn Walk  #####░                        │
+│                          ░#··!··T···T··T···T··T····#░                        │
+│                          ░Clerics' Hall#Druids' Hall░                        │
 │ Thornwick, 120m by 90m, north up. You: 56m E, 51m N of the SW corner.        │
-│ The legend is on page 2 of the help (?).                                     │
+│ You       @ you  % scout marker  + plan end  ◄ objective                     │
+│ People    p player  T trainer  $ vendor  B banker  H binder  g guard         │
+│           Q quest person  & board  D door                                    │
+│ Quest     ! new  ? hand in  ? in progress  m quest mob  D next door          │
+│ Events    ; scout point  v raiders appear  ◆ raiders head for                │
+│ Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp       │
+│ Ground    # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road    │
+│           . floor  ░ zone edge                                               │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      

@@ -14,10 +14,10 @@
 │≈≈≈≈≈≈≈≈                                                                                        │└────────────────────────────────────────┘
 │≈≈≈≈≈≈≈≈                                            ^^^^                                        │┌─ Nearby ───────────────────────────────┐
 │≈≈≈≈≈≈≈≈                                           ^^^^^^^^^                                    ││ % Goblin Lookout    14m E scout marker │
-│≈≈≈≈≈≈≈≈≈                                          ^^^^^^^^^^^                                  ││ v Raid Edge         21m NE event spawn │
+│≈≈≈≈≈≈≈≈≈                                          ^^^^^^^^^^^                                  ││ v Raid Edge      21m NE raiders gather │
 │≈≈≈≈≈≈≈≈≈                                         ^^^^^^^^^^^^                                  ││ ; Millrace Ford    57m NW scout marker │
 │≈≈≈≈≈≈≈≈≈                                        ^^^^^^^^^^^^^                                  ││ ; Barleycross      146m W scout marker │
-│≈≈≈≈≈≈≈≈≈                                        ^^^^^^^^^^^^                                   ││ G Barleycross        146m W event goal │
+│≈≈≈≈≈≈≈≈≈                                        ^^^^^^^^^^^^                                   ││ ◆ Barleycross 146m W raiders head here │
 │≈≈≈≈≈≈≈≈≈                                       ^^^^^^^^^^^^^                                   ││ ; Wickett Mill     171m W scout marker │
 │≈≈≈≈≈≈≈≈≈                                        ^^^^^^^^^^^                                    ││ ; Hollow Warren    172m E scout marker │
 │≈≈≈≈≈≈≈≈≈                                                  ^                                    ││ D Hollow Warren                 184m E │

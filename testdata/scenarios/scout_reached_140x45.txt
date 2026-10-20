@@ -13,15 +13,15 @@
 │                                                @                           ········   #########││ Word from Wickett Mill           READY │
 │                                                   ;                        ········   #########│└────────────────────────────────────────┘
 │                                                                            ········   #########│┌─ Nearby ───────────────────────────────┐
-│                                                                            ····G···   #########││ D Town Gate          39m W [next door] │
+│                                                                            ····◆···   #########││ D Town Gate          39m W [next door] │
 │                                                                            ········            ││ ; Wickett Mill      3m SE scout marker │
 │                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Barleycross       28m E scout marker │
-│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ G Barleycross         28m E event goal │
+│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ◆ Barleycross  28m E raiders head here │
 │                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Millrace Ford    136m E scout marker │
 │                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Goblin Lookout   187m E scout marker │
-│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ v Raid Edge         193m E event spawn │
+│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ v Raid Edge      193m E raiders gather │
 │                                             ############                                       ││ ; Hollow Warren    346m E scout marker │
-│                                                                                                ││ D Hollow Warren                 358m E │
+│                                                                                                ││ D Hollow Warren          358m E (shut) │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │

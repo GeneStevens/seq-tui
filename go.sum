@@ -16,6 +16,8 @@ github.com/GeneStevens/seq v0.0.0-20261020185147-18c9c324c56d h1:hoWIwRPFtl+OnEL
 github.com/GeneStevens/seq v0.0.0-20261020185147-18c9c324c56d/go.mod h1:p4i0wU1T4qyfvjkfpMeGtGnEJvb2ZU2US3UDNZ3bvlE=
 github.com/GeneStevens/seq v0.0.0-20261020214548-8098116d3e50 h1:V8Iu9FbEK6IxekIiqV1JEWrwvuyYu6zUA05OI6TMg7Q=
 github.com/GeneStevens/seq v0.0.0-20261020214548-8098116d3e50/go.mod h1:p4i0wU1T4qyfvjkfpMeGtGnEJvb2ZU2US3UDNZ3bvlE=
+github.com/GeneStevens/seq v0.0.0-20261020234347-fd13ead6e3bf h1:F2vdYZi8ztB7hCh2LdFMW27/i/6S3g4V918CqhrJ2Ho=
+github.com/GeneStevens/seq v0.0.0-20261020234347-fd13ead6e3bf/go.mod h1:p4i0wU1T4qyfvjkfpMeGtGnEJvb2ZU2US3UDNZ3bvlE=
 github.com/GeneStevens/seq-world v0.0.0-20261018183743-d6666a593bed h1:JD3+fBcNjnwm14ia/Pjy8SMYRIncFeMRnyEenWVJsJs=
 github.com/GeneStevens/seq-world v0.0.0-20261018183743-d6666a593bed/go.mod h1:FEwMJ9XpK0OIdHZWCimLc+r2OhvWHl9LIZjrhG+3hBE=
 github.com/GeneStevens/seq-world v0.0.0-20261019183047-5f18c38b8911 h1:GSyMwyAH1MBp6AxRetEGReF0qE9NMZW47IDw9iEkIOg=

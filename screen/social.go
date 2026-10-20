@@ -284,7 +284,7 @@ func friendRows(m *model.Model, ui *SocialUI, w, h int, st Styler) []string {
 
 // socialHelp are the lines of the second page of the key help: playing together.
 func socialHelp() []string {
-	return []string{
+	rows := []string{
 		"Command line     /  opens it (the slash is in it). Enter sends, Esc cancels",
 		"                 Plain text is said to the characters within 40 m of you",
 		"Chat             /say TEXT   /p TEXT: the party   /tell NAME TEXT",
@@ -310,4 +310,12 @@ func socialHelp() []string {
 		"Logs             Ctrl+L: sessions. Every session is recorded under its id in",
 		"                 seq-tui/sessions in your data dir (-log-dir, -no-record)",
 	}
+	// The topic is the first column of the table, drawn as a key.
+	for i, r := range rows {
+		if topic := strings.TrimSpace(r[:17]); topic != "" {
+			rows[i] = "{" + topic + "}" + strings.Repeat(" ", 17-len(topic)) + r[17:]
+		}
+		rows[i] = "  " + rows[i]
+	}
+	return rows
 }

@@ -17,16 +17,16 @@
 │                                                                                                ││ ~ Scuttler Blade ▲  16m S not lootable │
 │                                                                                                ││ ~ Worn Cap ▲        16m S not lootable │
 │                                                                                                ││ p c1                      16m S 94/100 │
-│                                                                                                ││ D Gate North                     24m N │
+│                                                                                                ││ D Gate North              24m N (shut) │
+│                                                                                                ││ ◆ Tester's Fa… 46m S raiders head here │
 │                                                                                                ││ H Eastern Binder                50m SE │
+│                                                                                                ││ v Brigands' Hol… 68m SE raiders gather │
 │                                                                                                ││ T Druid Trainer                  78m W │
 │                                                                                                ││ T Paladin Trainer                80m W │
 │                                                                                                ││ Q Testgrounds Captain <Quest Gi… 80m W │
-│                                                                                                ││ T Wizard Trainer                 82m W │
-│                                                                                                ││ T Rogue Trainer                  84m W │
-│                                             p  ~                                               ││ H Testgrounds Binder             84m W │
-│                                                                                                ││ T Cleric Trainer                 86m W │
-│                                                                                                ││ +4 more                                │
+│                                             p  ~                                               ││ T Wizard Trainer                 82m W │
+│                                                                                                ││ ; Windswept Overl… 84m SW scout marker │
+│                                                                                                ││ +8 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns C1 hits Trophy Scuttler for 4                                                                                                   │

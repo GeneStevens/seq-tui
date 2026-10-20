@@ -21,4 +21,4 @@
 │     N.Ns cora comes into view                                                │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: enter Delve Gate                                                            
- ONLINE | ! usage: /status away, /status autopilot or /status clear (no effect …
+ ! usage: /status away, /status autopilot or /status clear (no effect on play)  

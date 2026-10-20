@@ -6,10 +6,10 @@
 │                                  #░.......................................#           #########│└────────────────────────────────────────┘
 │                                  #░.......................................#           #........│┌─ Instance ─────────────────────────────┐
 │                                  #░.......................................#           #........││ No expedition                          │
-│                                  #░.......................................#           #........││ refused: Every place in that instance  │
-│                                  #░.......................................#           #........││   is taken, and a replacement can only │
-│                                  #░.......................................#############........││   fill one a member has left           │
-│                                  #░..................................#.........................││                                        │
+│                                  #░.......................................#           #........││ refused: Delve Gate is shut to you:    │
+│                                  #░.......................................#           #........││   every place in the expedition beyond │
+│                                  #░.......................................#############........││   it is taken, and a replacement can   │
+│                                  #░..................................#.........................││   only fill one a member has left.     │
 │                                  #░............@...............................................││                                        │
 │                                  #░..D........D................................................│└────────────────────────────────────────┘
 │                                  #░............................................................│┌─ Party, led by hale ───────────────────┐
@@ -32,8 +32,8 @@
 │     N.Ns bram is out of view                                                                                                             │
 │     N.Ns hale is out of view                                                                                                             │
 │     N.Ns hale invites you to a party                                                                                                     │
-│                                                                                                                                          │
-│                                                                                                                                          │
+│ !   N.Ns Delve Gate is shut to you: every place in the expedition beyond it is taken, and a replacement can only fill one a member has   │
+│            left.                                                                                                                         │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- E: enter Delve Gate                                                                                                                        
- ONLINE | heard N.Ns ago | ! use door denied: Every place in that instance is taken, and a replacement can only fill one a member has left  
+ Delve Gate is shut to you: every place in the expedition beyond it is taken, and a replacement can only fill one a member has left.        
+ ! Delve Gate is shut to you: every place in the expedition beyond it is taken, and a replacement can only fill one a member has left.      

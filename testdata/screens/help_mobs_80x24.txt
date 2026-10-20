@@ -1,23 +1,23 @@
 ┌─ Help: The mouse and the sidebar ────────────────────────────────────────────┐
 │ The mouse                                                                    │
-│   Click the ground to walk there; the server plans the route, inside this    │
-│   zone. The first click on a mob or a person selects it and opens a small    │
-│   card (name, title, level, difficulty, what they offer); a second click, or │
-│   F (attack) or G (talk), acts. A first click never attacks. Click loot to   │
-│   pick up everything within reach.                                           │
-│   Hover for a name and title beside the pointer. Hold Alt over the map to    │
-│   name everything on it; if your terminal does not send Alt with the mouse,  │
-│   Ctrl+A turns the names on and off. The wheel zooms (+ and - do too). M     │
-│   opens the large map: click a spot to walk there, or move the cursor with   │
-│   the arrows and press Enter.                                                │
-│   Right-click lets go of the selection, as Esc does. Shift+click is never    │
-│   used: terminals keep it for selecting text.                                │
-│   Every mouse action has a key: arrows or WASD walk, Tab selects, F and G    │
-│   act, L loots, + and - zoom, Ctrl+A names. The game is fully playable       │
-│   without a mouse.                                                           │
+│   Click ground      walk there; the server plans the route, inside this zone │
+│   Click mob, person select it and open its card; click again (or F to        │
+│                     attack, G to talk) to act                                │
+│   Click loot        pick up everything within reach                          │
+│   Click a marker    walk to it (a scout point, a world event's mark)         │
+│   Hover             its name beside the pointer: a mob, person, door,        │
+│                     marker, or you                                           │
+│   Alt, Ctrl+A       name everything on the map (Ctrl+A if your terminal      │
+│                     sends no Alt with the mouse)                             │
+│   Wheel, + -        zoom the map                                             │
+│   Right-click, Esc  let go of the selection                                  │
+│                                                                              │
+│   A first click never attacks. M opens the large map: click a spot to walk   │
+│   there, or move the cursor with the arrows and press Enter. Shift+click is  │
+│   never used: terminals keep it for selecting text. Every mouse action has a │
+│   key; the game is fully playable without a mouse.                           │
 │                                                                              │
 │ The character sidebar                                                        │
-│   Beside a trader, a trainer, the bank, a contract board or a conversation   │
 │ Page 3 of 9  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           

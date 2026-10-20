@@ -12,9 +12,9 @@
 │      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           │┌─ Nearby ───────────────────────────────┐
 │      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                            @     R                                         ││ R Old Grimt… 5m E 300/300 trivial RARE │
 │      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ ; Goblin Lookout    74m N scout marker │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ v Raid Edge          85m N event spawn │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ v Raid Edge       85m N raiders gather │
 │     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ ; Millrace Ford    112m N scout marker │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ G Barleycross       148m NW event goal │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ◆ Barleycro… 148m NW raiders head here │
 │     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Barleycross     151m NW scout marker │
 │    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Wickett Mill     172m W scout marker │
 │    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Hollow Warren   200m NE scout marker │

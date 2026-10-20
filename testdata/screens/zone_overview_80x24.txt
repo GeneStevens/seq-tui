@@ -1,23 +1,23 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
-│               ░  """       """"""≈≈                           ░              │
-│               ░ """""   c""""""""≈≈                  """""    ░              │
-│               ░ """South Farmstead≈  South Goblin Copse"""    ░              │
-│               ░          """"c"""≈≈        """"c""   """"     ░              │
-│               ░     c   c""""""c"≈≈      c  "Goblin Hutc      ░              │
-│               ░       South Greywoodc Goblin Hut  c#          ░              │
-│               ░  Barley Hedgerow ;:     Goblin Rocks     ^^^^^░              │
-│               ░·Mill Pond·····c·Goblin Lookout^···········^^^^░              │
-│               ░D···@··;#·····c···==·c··^;v·Far Road·······;D^^░              │
-│               ░    #≈#G#  c  "c""≈≈≈  Goblin Hut         ^^^^^░              │
-│               ░Barleycross Barn"" ≈≈      c#      c           ░              │
-│               ░    c   c    """"c≈≈≈        """"## c  c       ░              │
-│               ░       cNorth Greywood     Goblin Stockade     ░              │
-│               ░  """        ""c""≈≈         """Goblin Rocks   ░              │
-│               ░ """""c      """""≈≈        c                  ░              │
-│               ░ """"        """""≈≈                           ░              │
-│               ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░              │
+│                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                        │
+│                         ░"""  c""""≈≈   Goblin Hut  ░                        │
+│                         ░"""   #"c"≈≈    ""c"" """  ░                        │
+│                         ░  c  c"""c≈≈   c """## c   ░                        │
+│                         ░      ""c";:c   #^^ c   ^^^░                        │
+│                         D··@·;···c·==c·;v·^^······;D░                        │
+│                         ░  ;#◆ c c"≈≈  ^c#   c   ^^^░                        │
+│                         ░  c c  ""c≈Goblin Hutc c   ░                        │
+│                         ░ "" c  "c"≈≈Goblin Stockade░                        │
+│                         ░"""c   """≈≈    c          ░                        │
 │ Thornwick Downs, 420m by 300m, north up. You: 45m E, 136m N of the SW corner.│
-│ The legend is on page 2 of the help (?).                                     │
+│ You       @ you  % scout marker  + plan end  ◄ objective                     │
+│ People    p player  T trainer  $ vendor  B banker  H binder  g guard         │
+│           Q quest person  & board  D door                                    │
+│ Quest     ! new  ? hand in  ? in progress  m quest mob  D next door          │
+│ Events    ; scout point  v raiders appear  ◆ raiders head for                │
+│ Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp       │
+│ Ground    # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road    │
+│           . floor  ░ zone edge                                               │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      

@@ -13,11 +13,11 @@
 │                                         M      @                                               │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ M Goblin Scrapper    6m W 160/160 easy │
 │                                                                                                ││ ; Goblin Lookout   41m NW scout marker │
-│                                                                                                ││ v Raid Edge          48m N event spawn │
+│                                                                                                ││ v Raid Edge       48m N raiders gather │
 │                                                                                                ││ ; Millrace Ford   107m NW scout marker │
 │                                                                                                ││ ; Hollow Warren    144m E scout marker │
 │                                                                                                ││ D Hollow Warren                 156m E │
-│                                                                                 """            ││ G Barleycross        183m W event goal │
+│                                                                                 """            ││ ◆ Barleycross 183m W raiders head here │
 │                                                                             """"""""""""""     ││ ; Barleycross      184m W scout marker │
 │                                                                         """""""""""""""""""""""││ ; Wickett Mill     208m W scout marker │
 │                                                                      """"""""""""""""""""""""""││ D Town Gate                     249m W │

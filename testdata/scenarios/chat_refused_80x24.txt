@@ -12,7 +12,7 @@
 │                                              c   │┌─ Nearby ─────────────────┐
 │                                                  ││ ! Testgrou… 85m SW [new] │
 │                                                  ││ & Testgroun… 88m W [new] │
-│                                                  ││ +14 more                 │
+│                                                  ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
 │     N.Ns bob1 comes into view               ││ [say] ann1: spam a            │

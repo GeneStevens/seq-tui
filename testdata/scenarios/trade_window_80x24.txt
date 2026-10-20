@@ -18,7 +18,7 @@
 │                                                                              │
 │ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade     │
 │ Esc closes the screen and leaves the trade open.                             │
-│ ! offer Scuttler Blade denied: That item is bound to you and can't be traded │
+│ ! That item is bound to you and can't be traded                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 100/100 | Target: none                                                      
- ONLINE | ! offer Scuttler Blade denied: That item is bound to you and can't be…
+ ONLINE | heard N.Ns ago | ! That item is bound to you and can't be traded      

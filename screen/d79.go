@@ -123,7 +123,7 @@ func statusTag(status string) string {
 // the group tier's threshold and the personal reward. Nothing in it is the
 // client's own.
 func groupRulesPage(m *model.Model, w int) []string {
-	out := []string{"Two things count in an instance, and they are different:"}
+	out := []string{"  Two things count in an instance, and they are different:"}
 	for _, p := range []string{
 		"The size of the party, in characters, sets the difficulty: the mobs change by the factors below for a party of that size (the largest size at or below yours). They are fixed when the instance opens and never ease if somebody leaves.",
 		"The number of different players, counted by account, sets the group tier. Two characters of one account are one player: a party of two, not a group.",
@@ -134,7 +134,7 @@ func groupRulesPage(m *model.Model, w int) []string {
 		out = append(out, wrapIndent("  "+p, w, "  ")...)
 	}
 	if len(m.Presets) == 0 {
-		return append(out, "", "This zone offers no instances, or its map has not arrived: the rules of each are listed here when it does.")
+		return append(out, "", "  This zone offers no instances, or its map has not arrived: the rules of each are listed here when it does.")
 	}
 	for _, p := range m.Presets {
 		lines := agentkit.PartyRules(p)

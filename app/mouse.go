@@ -229,6 +229,8 @@ func (a *App) clickAction(m *model.Model, p screen.Pick) Action {
 func (a *App) pickAction(m *model.Model, p screen.Pick) Action {
 	ms := &a.mouse
 	switch p.Kind {
+	case screen.PickSelf:
+		return Action{} // you are already here
 	case screen.PickMob:
 		if ms.card == p.ID {
 			return Action{Kind: Attack, On: true, Note: "attack " + p.Name}

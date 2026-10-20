@@ -127,11 +127,11 @@ func TestARefusalIsShownInThePanel(t *testing.T) {
 	for _, sz := range [][2]int{{140, 45}, {80, 24}} {
 		s := p.Screen(sz[0], sz[1])
 		rows := strings.Split(s, "\n")
-		if !strings.Contains(strings.Join(rows[:len(rows)-1], "\n"), "denied: You can't do that while you're fighting") {
+		if !strings.Contains(strings.Join(rows[:len(rows)-1], "\n"), "! You can't do that while you're fighting") {
 			t.Errorf("at %v the refusal is not in the panel:\n%s", sz, s)
 		}
 		// On the status line the alarm stays and the answer follows it, cut if it must be.
-		if st := rows[len(rows)-1]; !strings.Contains(st, "⚠ Plain Scuttler") || !strings.Contains(st, "! buy") {
+		if st := rows[len(rows)-1]; !strings.Contains(st, "⚠ Plain Scuttler") || !strings.Contains(st, "! You can't") {
 			t.Errorf("at %v the status line: %q", sz, st)
 		}
 	}

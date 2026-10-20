@@ -6,8 +6,8 @@
 │                   #░D...@........#.............c.│└──────────────────────────┘
 │                   #░.............................│┌─ Instance ───────────────┐
 │                   #░...............#####.........││ No expedition            │
-│                   #░...............#####.........││ refused: Every place in  │
-│                   #░.....................########││   that instance is taken,│
+│                   #░...............#####.........││ refused: Delve Gate is   │
+│                   #░.....................########││   shut to you: every     │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│     N.Ns bram is out of view                                                 │
 │     N.Ns hale is out of view                                                 │
 │     N.Ns hale invites you to a party                                         │
-│                                                                              │
+│ !   N.Ns Delve Gate is shut to you: every place in the expedition beyond it  │
+│            is taken, and a replacement can only fill one a member has left.  │
 └──────────────────────────────────────────────────────────────────────────────┘
- E: enter Delve Gate                                                            
- ONLINE | ! use door denied: Every place in that instance is taken, and a repla…
+ Delve Gate is shut to you: every place in the expedition beyond it is taken, a…
+ ONLINE | ! Delve Gate is shut to you: every place in the expedition beyond it …

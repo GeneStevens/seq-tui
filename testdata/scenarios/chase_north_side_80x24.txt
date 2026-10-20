@@ -1,5 +1,5 @@
 ┌─ Thornwick Downs, at 35,112 m, north up ─────────┐┌─ You: in combat ─────────┐
-│         ░                 ##### ≈≈≈≈  ··G######  ││ hale  Lv 1 Warrior  | 0cr│
+│         ░                 ##### ≈≈≈≈  ··◆######  ││ hale  Lv 1 Warrior  | 0cr│
 │         ░                 ##### ≈≈≈####  #####   ││ HP 130/130 ############# │
 │         ░                 ##### ≈≈≈####  #####   ││ XP ----------- 40 to Lv 2│
 │         ░                                        ││ Atk ON Ret ON | Meadow W…│

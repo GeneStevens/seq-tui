@@ -25,9 +25,9 @@
 │                                                                                                ││ B Testgrounds Banker            36m SW │
 │                                                                                                ││ $ Testgrounds Vendor            37m SW │
 │                                                                                                ││ D Gate North                     69m E │
-│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade                       ││ H Eastern Binder               113m SE │
-│ Esc closes the screen and leaves the trade open.                                               ││ D Line East                    182m SE │
-│ offer 7 crowns ok                                                                              ││                                        │
+│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade                       ││ ; Windswept Overlo… 70m S scout marker │
+│ Esc closes the screen and leaves the trade open.                                               ││ ; Hollow Lookout    82m S scout marker │
+│ offer 7 crowns ok                                                                              ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns c1 asks to trade                                                                                                                │

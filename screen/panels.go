@@ -194,6 +194,7 @@ type nearby struct {
 	tag    string // what the objective hints say of it: "[step 2]", "[2/3]", "[new]"
 	quest  bool   // it matters to the quest or a held contract: Nearby lists it first
 	title  string // an NPC's title, shown beside the name
+	shut   bool   // a door the server says cannot be used: dim, "(shut)"
 }
 
 func nearbyList(m *model.Model) []nearby {
@@ -265,6 +266,9 @@ func nearbyList(m *model.Model) []nearby {
 		if m.IsNextDoor(d.GetId()) {
 			x.quest, x.tag = true, "[next door]"
 		}
+		if usable, _ := m.DoorUsable(d.GetId()); !usable {
+			x.shut = true
+		}
 		out = append(out, x)
 	}
 	held := map[string]bool{}
@@ -283,9 +287,9 @@ func nearbyList(m *model.Model) []nearby {
 		case "scout":
 			out = append(out, mk(glyphScout, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "scout marker"))
 		case "event_spawn":
-			out = append(out, mk(glyphSpawn, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "event spawn"))
+			out = append(out, mk(glyphSpawn, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "raiders gather"))
 		case "event_goal":
-			out = append(out, mk(glyphGoal, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "event goal"))
+			out = append(out, mk(glyphGoal, "marker-"+k.GetId(), k.GetName(), k.GetPos(), "raiders head here"))
 		}
 	}
 	// What matters to the quest and the held contracts comes first (D76).
@@ -313,6 +317,8 @@ func nearbyLines(m *model.Model, w, h int, st Styler) []string {
 		}
 		right := metres(n.d) + " " + bearing(n.dx, n.dy)
 		switch {
+		case n.shut:
+			right += " (shut)"
 		case n.tag != "":
 			right += " " + n.tag
 		default:
@@ -375,6 +381,9 @@ func nearbyRow(n nearby, g rune, right string, w int, st Styler) string {
 	line += gap + right
 	if n.target {
 		return st.Reverse(line)
+	}
+	if n.shut {
+		return st.Dim(line)
 	}
 	return line
 }
@@ -456,7 +465,7 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 		}
 		mark, fn := " ", func(s string) string { return s }
 		switch {
-		case e.Kind == "denied":
+		case e.Refused():
 			mark, fn = "!", func(s string) string { return st.Red(st.Bold(s)) }
 		case (e.Kind == "combat_hit" || e.Kind == "combat_miss") && e.Target == m.Self.ID:
 			mark, fn = "<", st.Red

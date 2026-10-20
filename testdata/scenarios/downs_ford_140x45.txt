@@ -12,13 +12,13 @@
 │                                       :::::::::::::::::::::::                                  │┌─ Nearby ───────────────────────────────┐
 │                                       :::::::::@:::::::::::::                                  ││ ; Millrace Ford     3m NE scout marker │
 │                                       :::::::::::::::::::::::                                  ││ ; Goblin Lookout   69m SE scout marker │
-│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ v Raid Edge          69m E event spawn │
+│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ v Raid Edge       69m E raiders gather │
 │                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ ; Barleycross      106m W scout marker │
-│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ G Barleycross       109m SW event goal │
+│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ ◆ Barleycro… 109m SW raiders head here │
 │             c                              ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Wickett Mill     131m W scout marker │
 │                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ D Town Gate                     166m W │
 │                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Hollow Warren    219m E scout marker │
-│                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ D Hollow Warren                 231m E │
+│                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ D Hollow Warren          231m E (shut) │
 │                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││                                        │
 │                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││                                        │
 │      ·····································===================········                          ││                                        │

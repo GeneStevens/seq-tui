@@ -18,15 +18,15 @@
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
 │                                                                                                ││ p bob1                    1m N 100/100 │
-│                                                                                                ││ D Gate North                      1m N │
-│                                                                                          c     ││ H Eastern Binder                 72m S │
+│                                                                                                ││ D Gate North               1m N (shut) │
+│                                                                                          c     ││ ◆ Tester's Fa… 69m S raiders head here │
+│                                                                                                ││ H Eastern Binder                 72m S │
 │                                                                                                ││ T Druid Trainer                  83m W │
 │                                                                                                ││ T Paladin Trainer                84m W │
+│                                                                                                ││ v Brigands' Hol… 85m SE raiders gather │
 │                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
 │                                                                                                ││ T Wizard Trainer                 86m W │
-│                                                                                                ││ T Rogue Trainer                  88m W │
-│                                                                                                ││ H Testgrounds Binder             90m W │
-│                                                                                                ││ +5 more                                │
+│                                                                                                ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │     N.Ns bob1 comes into view                                                  ││ [party] bob1: ready when you are                       │
@@ -41,5 +41,5 @@
 │                                                                                ││                                                        │
 │                                                                                ││                                                        │
 └────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
- E: enter Gate North                                                                                                                        
+ Gate North is shut: no expedition is open beyond it. Start one first.                                                                      
  ONLINE | Testgrounds | heard N.Ns ago | invited bob1                                                                         ? help  q quit

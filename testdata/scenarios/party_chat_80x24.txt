@@ -20,5 +20,5 @@
 │     N.Ns bob1 joined the party              ││                               │
 │                                             ││                               │
 └─────────────────────────────────────────────┘└───────────────────────────────┘
- E: enter Gate North                                                            
+ Gate North is shut: no expedition is open beyond it. Start one first.          
  ONLINE | Testgrounds | heard N.Ns ago | invited bob1             ? help  q quit

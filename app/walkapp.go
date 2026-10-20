@@ -142,7 +142,7 @@ func (ws *walkState) write(sess *client.Session, req walkReq) {
 		rctx, rcancel := context.WithTimeout(context.Background(), commandTimeout)
 		defer rcancel()
 		if st, err := sess.Result(rctx, id); err == nil && st.State == model.IntentDenied {
-			ws.denied.Store("walk denied: " + deniedWords(st))
+			ws.denied.Store(deniedWords(st))
 		}
 	}()
 }

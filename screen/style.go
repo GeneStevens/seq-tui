@@ -16,13 +16,17 @@ type Styler struct {
 	Red, Green, Yellow func(string) string
 	Cyan, Blue         func(string) string
 	Accent, Key        func(string) string
+	// Magenta is the colour of a world event's marks, a colour no person or quest
+	// mark has. Alert is a refusal on the status line: bold white on red, which
+	// stays a reverse bold line without colour.
+	Magenta, Alert func(string) string
 }
 
 func ident(s string) string { return s }
 
 // Plain is the Styler that adds nothing: golden screens and replays use it.
 func Plain() Styler {
-	return Styler{Bold: ident, Dim: ident, Reverse: ident, Red: ident, Green: ident, Yellow: ident, Cyan: ident, Blue: ident, Accent: ident, Key: ident}
+	return Styler{Bold: ident, Dim: ident, Reverse: ident, Red: ident, Green: ident, Yellow: ident, Cyan: ident, Blue: ident, Accent: ident, Key: ident, Magenta: ident, Alert: ident}
 }
 
 func sgr(code string) func(string) string {
@@ -40,14 +44,15 @@ func sgr(code string) func(string) string {
 // keys are plain in it.
 func ANSI() Styler {
 	return Styler{Bold: sgr("1"), Dim: sgr("2"), Reverse: sgr("7"), Red: sgr("31"), Green: sgr("32"), Yellow: sgr("33"), Cyan: sgr("36"), Blue: sgr("34"),
-		Accent: sgr("1;36"), Key: sgr("36")}
+		Accent: sgr("1;36"), Key: sgr("36"), Magenta: sgr("35"), Alert: sgr("1;97;41")}
 }
 
 // Mono is ANSI without colour, for NO_COLOR (no-color.org): the hierarchy is
 // kept with bold, dim and reverse, which are not colours.
 func Mono() Styler {
 	st := ANSI()
-	st.Red, st.Green, st.Yellow, st.Cyan, st.Blue = ident, ident, ident, ident, ident
+	st.Red, st.Green, st.Yellow, st.Cyan, st.Blue, st.Magenta = ident, ident, ident, ident, ident, ident
+	st.Alert = sgr("1;7")
 	st.Accent, st.Key = sgr("1"), sgr("1")
 	return st
 }
@@ -61,44 +66,54 @@ func Terminal(noColor bool) Styler {
 	return ANSI()
 }
 
+// warnOpen and warnClose bracket a warning in keyed markup: a refusal or a shut
+// door in the middle of a line of hints.
+const (
+	warnOpen  = "\x01"
+	warnClose = "\x02"
+)
+
 // keyed draws a line of markup w cells wide in the base style, with the words
-// in braces highlighted as keys: "{Tab} offered · {Enter} take". The braces are
-// not drawn; the layout is of the plain text, so the line is cut and padded as
-// fit would.
+// in braces highlighted as keys: "{Tab} offered · {Enter} take", and the words
+// between warnOpen and warnClose in red. The marks are not drawn; the layout is
+// of the plain text, so the line is cut and padded as fit would.
 func keyed(markup string, w int, base func(string) string, st Styler) string {
 	if w <= 0 {
 		return ""
 	}
-	var segs []struct {
+	type seg struct {
 		text string
-		key  bool
+		fn   func(string) string
 	}
+	var segs []seg
 	var plain strings.Builder
-	for rest := markup; rest != ""; {
-		open := strings.IndexByte(rest, '{')
-		closeAt := strings.IndexByte(rest, '}')
-		if open < 0 || closeAt < open {
-			segs = append(segs, struct {
-				text string
-				key  bool
-			}{rest, false})
-			plain.WriteString(rest)
-			break
+	cur, fn := strings.Builder{}, base
+	flush := func() {
+		if cur.Len() > 0 {
+			segs = append(segs, seg{cur.String(), fn})
+			plain.WriteString(cur.String())
+			cur.Reset()
 		}
-		if open > 0 {
-			segs = append(segs, struct {
-				text string
-				key  bool
-			}{rest[:open], false})
-			plain.WriteString(rest[:open])
-		}
-		segs = append(segs, struct {
-			text string
-			key  bool
-		}{rest[open+1 : closeAt], true})
-		plain.WriteString(rest[open+1 : closeAt])
-		rest = rest[closeAt+1:]
 	}
+	for _, r := range markup {
+		switch string(r) {
+		case "{":
+			flush()
+			fn = st.Key
+		case "}":
+			flush()
+			fn = base
+		case warnOpen:
+			flush()
+			fn = st.Red
+		case warnClose:
+			flush()
+			fn = base
+		default:
+			cur.WriteRune(r)
+		}
+	}
+	flush()
 	cells := []rune(fit(plain.String(), w))
 	var b strings.Builder
 	for _, s := range segs {
@@ -106,13 +121,8 @@ func keyed(markup string, w int, base func(string) string, st Styler) string {
 		if n == 0 {
 			continue
 		}
-		part := string(cells[:n])
+		b.WriteString(s.fn(string(cells[:n])))
 		cells = cells[n:]
-		if s.key {
-			b.WriteString(st.Key(part))
-		} else {
-			b.WriteString(base(part))
-		}
 	}
 	if len(cells) > 0 {
 		b.WriteString(base(string(cells)))

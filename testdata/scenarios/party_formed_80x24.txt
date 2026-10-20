@@ -20,5 +20,5 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- E: enter Gate North                                                            
+ Gate North is shut: no expedition is open beyond it. Start one first.          
  ONLINE | Testgrounds | heard N.Ns ago | accepted the invitation  ? help  q quit

@@ -527,7 +527,7 @@ func TestScreensUnderAttackFitTheirSize(t *testing.T) {
 		"help":      {Help: true},
 		"overview":  {Overview: true},
 		"quest":     {Quest: &screen.QuestUI{}},
-		"notice":    {Char: true, Notice: "wear Worn Cap denied: You can't do that while you're fighting", NoticeBad: true},
+		"notice":    {Char: true, Notice: "You can't do that while you're fighting", NoticeBad: true},
 	}
 	for name, v := range views {
 		v.Conn = screen.ConnOnline
@@ -650,13 +650,13 @@ func TestRoleGlyphsMarksAndLegend(t *testing.T) {
 		t.Errorf("Nearby does not list the marked trainer before the nearer binder:\n%s", nearby)
 	}
 	help := screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true, HelpPage: 1}, 140, 45, screen.Plain())
-	for _, want := range []string{"T trainer", "$ vendor", "B banker", "H binder", "g guard", "Q quest person", "& board", "! new for you (gold)", "? hand in ready (gold)", "? in progress (grey)", "c camp", "░ zone edge"} {
+	for _, want := range []string{"T trainer", "$ vendor", "B banker", "H binder", "g guard", "Q quest person", "& board", "! new", "? hand in", "? in progress", "c camp", "░ zone edge"} {
 		if !strings.Contains(help, want) {
 			t.Errorf("the legend lacks %q:\n%s", want, help)
 		}
 	}
 	over := screen.Render(m, screen.View{Conn: screen.ConnOnline, Overview: true}, 140, 45, screen.Plain())
-	for _, want := range []string{"T trainer", "░ zone edge", "gold D next door"} {
+	for _, want := range []string{"T trainer", "░ zone edge", "D next door"} {
 		if !strings.Contains(over, want) {
 			t.Errorf("the zone map's legend lacks %q:\n%s", want, over)
 		}

@@ -5,14 +5,14 @@
 │ #                                                ││ Atk off | Retaliate ON   │
 │ #                                                │└──────────────────────────┘
 │ #                                                │┌─ Target ─────────────────┐
-│ #          c                              c      ││ M Plain Scuttler  Lv 1   │
+│ #        You: aria, level 1, at 74,49 m   c      ││ M Plain Scuttler  Lv 1   │
 │ #           M Plain Scuttler  Lv 1, even         ││ HP 40/40 ######## 17m W  │
 │ #                                                ││ even, not in a fight     │
 │ #                                                │└──────────────────────────┘
 │ #                                                │┌─ Nearby ─────────────────┐
 │ #                                                ││ ! Testgroun… 53m W [new] │
 │ #                                                ││ & Testgroun… 57m W [new] │
-│ #                                                ││ +14 more                 │
+│ #                                                ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns Plain Scuttler comes into view                                      │

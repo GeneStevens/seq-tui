@@ -15,7 +15,7 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│     3.3s Aria targeted Shell Rat                                             │
+│ !   3.3s that mob is in someone else's fight (encounter_owned)               │
 │ !   3.4s Aria was refused auto_attack on Shell Rat: that mob is in someone   │
 │            else's fight                                                      │
 │     3.5s Bram hit Shell Rat for 7                                            │

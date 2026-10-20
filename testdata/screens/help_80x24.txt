@@ -1,23 +1,23 @@
 ┌─ Help: Moving, doors, people ────────────────────────────────────────────────┐
 │ Moving and doors                                                             │
-│   Walk with the arrow keys or W A S D: hold a key to keep walking, let go to │
-│   stop; two keys held at once walk a diagonal where your terminal reports    │
-│   them. Esc stops a walk begun by a click. Your own mark runs ahead of the   │
-│   server's word so the key shows at once, and it never walks through a wall; │
-│   the server settles where you are. The status line says how fast you go on  │
-│   the ground you stand on. A terminal that reports key releases (Kitty,      │
-│   Ghostty, WezTerm, recent iTerm2) stops you the moment you let go; any      │
-│   other stops you about a tenth of a second after the key stops repeating.   │
-│   M shows the whole zone you have seen. A door (D) leads to the next zone or │
-│   to an instance: stand at it and press E or Enter. A zone line (the east    │
-│   gate, say) takes you across; E at the far side brings you back.            │
-│   Nearby lists what is around you by name and distance: people, doors and    │
-│   places, and the town's fixed people even before you have seen them.        │
+│   Arrows, W A S D   tap for one 3 m step; hold to walk that way, let go to   │
+│                     stop                                                     │
+│   Esc               stop a walk begun by a click                             │
+│   E, Enter          go through the nearest door (stand at it)                │
+│   M                 the large map: click a spot to walk there                │
 │                                                                              │
-│ Talking, trainers and contracts                                              │
-│   G talks to the nearest person; their options open a trader, a trainer or a │
-│   board. N opens the traders in view: buy, sell, learn an ability from a     │
-│   trainer for crowns, set your bind point, bank.                             │
+│   A terminal that reports key releases (Kitty, Ghostty, WezTerm, recent      │
+│   iTerm2) stops you the moment you let go. Any other steps once on a single  │
+│   press and walks while the key repeats, stopping about a tenth of a second  │
+│   after the repeats stop. Two keys held at once walk a diagonal where your   │
+│   terminal reports them.                                                     │
+│   Your own mark runs ahead of the server's word so a key shows at once, and  │
+│   it never walks through a wall; the server settles where you are. The       │
+│   status line says how fast you go on the ground you stand on.               │
+│   A door (D) leads to the next zone or to an instance. A zone line (the east │
+│   gate, say) takes you across; E at the far side brings you back. A door     │
+│   that cannot be used says why in the line under the log, and Nearby marks   │
+│   it (shut).                                                                 │
 │ Page 1 of 9  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           
