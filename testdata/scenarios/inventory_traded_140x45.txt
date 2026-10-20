@@ -1,45 +1,45 @@
-┌─ Inventory and gear ───────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Crowns 13 | bags 1 of 20 slots | bank 0 | bind point none yet                                  ││ c2  Lv 1  XP 0              | 13 crowns│
-│ Gear worn                                     │ Items carried                                  ││ HP 100/100 ########################### │
-│ > Head      -                                 │> ▲ Worn Cap! Common [bound]                    ││ Target: none                           │
-│   Chest     -                                 │                                                ││ Auto-attack: off                       │
-│   Legs      -                                 │                                                │└────────────────────────────────────────┘
-│   Hands     -                                 │                                                │┌─ Target ───────────────────────────────┐
-│   Feet      -                                 │                                                ││ no target (Tab to choose)              │
-│   Ring 1    -                                 │                                                ││                                        │
-│   Ring 2    -                                 │                                                ││                                        │
-│   Neck      -                                 │                                                │└────────────────────────────────────────┘
-│   Main hand -                                 │                                                │┌─ Nearby ───────────────────────────────┐
-│   Off hand  -                                 │                                                ││ & Testgrounds Contract Bo… 35m S [new] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Testgrounds Recruiter    35m S [new] │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ p c1                      1m W 100/100 │
-│                                                                                                ││ T Druid Trainer                  29m S │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ T Paladin Trainer                30m S │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ T Wizard Trainer                31m SW │
-│                                                                                                ││ T Rogue Trainer                 32m SW │
-│                                                                                                ││ T Cleric Trainer                33m SW │
-│                                                                                                ││ Q Testgrounds Captain            34m S │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ T Warrior Trainer               34m SW │
-│                                                                                                ││ H Testgrounds Binder            35m SW │
-│                                                                                                ││ B Testgrounds Banker            36m SW │
-│                                                                                                ││ $ Testgrounds Vendor            37m SW │
-│                                                                                                ││ D Gate North                     69m E │
-│                                                                                                ││ H Eastern Binder               113m SE │
-│                                                                                                ││ D Line East                    182m SE │
-└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns c1 asks to trade                                                                                                                │
-│     N.Ns The trade with c1 is open                                                                                                       │
-│     N.Ns C1 offers Worn Cap                                                                                                              │
-│     N.Ns You offer 7 crowns                                                                                                              │
-│     N.Ns C1 confirms the trade                                                                                                           │
-│     N.Ns You confirm the trade                                                                                                           │
-│     N.Ns The trade with c1 is complete                                                                                                   │
-│ +   N.Ns the trade between c1 and c2 is saved                                                                                            │
+┌─ Your character ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Crowns 13 | bags 1 of 20 slots | bank 0 | bind point none yet                                                                            │
+│ [Gear]  Bags   Stats                                                                                                                     │
+│ Gear worn                                                                                                                                │
+│ > Head      -                                                                                                                            │
+│   Chest     -                                                                                                                            │
+│   Legs      -                                                                                                                            │
+│   Hands     -                                                                                                                            │
+│   Feet      -                                                                                                                            │
+│   Ring 1    -                                                                                                                            │
+│   Ring 2    -                                                                                                                            │
+│   Neck      -                                                                                                                            │
+│   Main hand -                                                                                                                            │
+│   Off hand  -                                                                                                                            │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ Nothing is worn there.                                                                                                                   │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Tab next tab · Up / Down choose · Enter takes it off · out of combat only                                                                │
+│ Esc or C closes · N traders · T trade                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: none                                                                                                                  
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

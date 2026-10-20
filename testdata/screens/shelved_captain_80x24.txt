@@ -17,7 +17,7 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.   │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again         │
 │ talk to Captain Rhosyn Hartley ok                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 215/215 | Target: none                                                      

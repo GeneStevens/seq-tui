@@ -28,7 +28,7 @@
 │ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
+┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │     N.Ns bram comes into view                                                  ││ [party] bram: the delve gate is right here             │
 │     N.Ns bram joined the party                                                 ││ [say] hale: I will take the front                      │
 │     N.Ns instance opened for your party: Warren Venture Delve (up to 2 in it); ││                                                        │

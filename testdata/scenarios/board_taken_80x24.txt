@@ -16,8 +16,8 @@
 │ Bring back 3 boar tusks from the boars in the barley fields. The miller at   │
 │ Wickett Mill trades in them.                                                 │
 │ Pays 18 XP, 8 crowns and Tin Ring ▲.                                         │
-│ Tin Ring: upgrade over an empty ring1: +10 health, +1 stamina                │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
+│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                 │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back             │
 │ take Wolves at Wickett Mill ok                                               │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      

@@ -26,10 +26,10 @@
 │ Pays nothing.                                                                                  ││                                        │
 │ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m NE.                         ││                                        │
 │                                                                                                ││                                        │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││                                        │
-│ The answer is on the status line; every refusal says why.                                      ││                                        │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │
+│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
 │            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
 │            Watch can trust. Prove yourself first, and come and see me.                                                                   │

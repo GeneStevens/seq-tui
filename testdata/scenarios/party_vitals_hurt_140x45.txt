@@ -20,15 +20,15 @@
 │                    ░                                                       #                   │└────────────────────────────────────────┘
 │                    ░                                                       #                   │┌─ Nearby ───────────────────────────────┐
 │                    ░                                                       #                   ││ ! Testgrounds Recruiter     6m N [new] │
-│                    ░                                                       #                   ││     <Quest Giver>                      │
 │                    ░                                                       #                   ││ & Testgrounds Contract Boa… 8m N [new] │
 │                    ░                                                       #                   ││ p ann1                     1m S 98/100 │
 │                    ░                                                       #                   ││ m Plain Scuttler       2m E 40/40 even │
-│                    ░                                                       #                   ││ Q Testgrounds Captain             8m N │
-│                    ░                                                       #                   ││     <Quest Giver>                      │
-│                    ░                                                       #                   ││ +12 more                               │
+│                    ░                                                       #                   ││ Q Testgrounds Captain <Quest Giv… 8m N │
+│                    ░                                                       #                   ││ H Testgrounds Binder             9m NW │
+│                    ░                                                       #                   ││ B Testgrounds Banker            10m NW │
+│                    ░                                                       #                   ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns ann1 invites you to a party                                                                                                     │
 │     N.Ns You start attacking ann1                                                                                                        │
 │     N.Ns Plain Scuttler misses ann1                                                                                                      │

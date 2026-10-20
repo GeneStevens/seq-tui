@@ -14,7 +14,7 @@
 │           ░                           #          ││ work for you: G.         │
 │           ░                           #          │└──────────────────────────┘
 └──────────────────────────────────────────────────┘                            
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns ann1 invites you to a party                                         │
 │     N.Ns You start attacking ann1                                            │
 │     N.Ns Plain Scuttler misses ann1                                          │

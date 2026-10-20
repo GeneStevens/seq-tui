@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Goblin Scrapper: none                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns Goblin Scrapper targeted hale                                       │
 │     N.Ns You begin fighting Goblin Scrapper                                  │
 │     N.Ns Goblin Scrapper (level 5, easy) is attacking you                    │

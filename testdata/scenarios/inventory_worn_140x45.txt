@@ -1,45 +1,45 @@
-┌─ Inventory and gear ───────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Crowns 5 | bags 0 of 20 slots | bank 0 | bind point none yet                                   ││ c1  Lv 1  XP 20              | 5 crowns│
-│ Gear worn                                     │ Items carried                                  ││ HP 94/100 ##########################-- │
-│ > Head      Worn Cap Common                   │  (nothing)                                     ││ Target: none                           │
-│   Chest     -                                 │                                                ││ Auto-attack: off                       │
-│   Legs      -                                 │                                                │└────────────────────────────────────────┘
-│   Hands     -                                 │                                                │┌─ Target ───────────────────────────────┐
-│   Feet      -                                 │                                                ││ no target (Tab to choose)              │
-│   Ring 1    -                                 │                                                ││                                        │
-│   Ring 2    -                                 │                                                ││                                        │
-│   Neck      -                                 │                                                │└────────────────────────────────────────┘
-│   Main hand Scuttler Blade Rare [bound]       │                                                │┌─ Nearby ───────────────────────────────┐
-│   Off hand  -                                 │                                                ││ ! Testgrounds Recruiter    76m W [new] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││     <Quest Giver>                      │
-│ Worn Cap: Common, Head; tradable once                                                          ││ & Testgrounds Contract Bo… 80m W [new] │
-│ armor +2                                                                                       ││ p c2                     16m N 100/100 │
-│                                                                                                ││ H Eastern Binder                37m SE │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           ││ D Gate North                     40m N │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ T Druid Trainer                  77m W │
-│                                                                                                ││ Q Testgrounds Captain            78m W │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ T Paladin Trainer                79m W │
-│                                                                                                ││ T Wizard Trainer                 81m W │
-│                                                                                                ││ H Testgrounds Binder             82m W │
-│                                                                                                ││ T Rogue Trainer                  83m W │
-│                                                                                                ││ B Testgrounds Banker             84m W │
-│                                                                                                ││ T Cleric Trainer                 85m W │
-│                                                                                                ││ $ Testgrounds Vendor             86m W │
-│                                                                                                ││ T Warrior Trainer                87m W │
-│                                                                                                ││ D Line East                     105m E │
-└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns Trophy Scuttler is dead: the fight is over                                                                                      │
-│    NN.Ns You are out of combat                                                                                                           │
-│ +  NN.Ns You gain 20 experience                                                                                                          │
-│    NN.Ns Trophy Scuttler is out of view                                                                                                  │
-│    NN.Ns Worn Cap was taken                                                                                                              │
-│    NN.Ns Scuttler Blade was taken                                                                                                        │
-│    NN.Ns 5 crowns was taken                                                                                                              │
-│ +  NN.Ns You took Worn Cap, Scuttler Blade, 5 crowns                                                                                     │
-│    NN.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-│ +  NN.Ns You equip Scuttler Blade (main hand)                                                                                            │
-│ +  NN.Ns You equip Worn Cap (head)                                                                                                       │
+┌─ Your character ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Crowns 5 | bags 0 of 20 slots | bank 0 | bind point none yet                                                                             │
+│ [Gear]  Bags   Stats                                                                                                                     │
+│ Gear worn                                                                                                                                │
+│ > Head      Worn Cap Common  armor +2                                                                                                    │
+│   Chest     -                                                                                                                            │
+│   Legs      -                                                                                                                            │
+│   Hands     -                                                                                                                            │
+│   Feet      -                                                                                                                            │
+│   Ring 1    -                                                                                                                            │
+│   Ring 2    -                                                                                                                            │
+│   Neck      -                                                                                                                            │
+│   Main hand Scuttler Blade Rare [bound]  damage 4-9 / N.Ns, str +3                                                                       │
+│   Off hand  -                                                                                                                            │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ Worn Cap: Common, Head; tradable once                                                                                                    │
+│ armor +2                                                                                                                                 │
+│                                                                                                                                          │
+│ Tab next tab · Up / Down choose · Enter takes it off · out of combat only                                                                │
+│ Esc or C closes · N traders · T trade                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 94/100 | Target: none                                                                                                                   
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

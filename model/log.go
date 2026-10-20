@@ -79,6 +79,9 @@ func (m *Model) logEvent(e *pb.Event) {
 	case *pb.Event_HandIn:
 		kind, quiet = "hand_in", true // the board panel shows it, and the hand-in's reward line is in the log
 	}
+	if kind == "npc_appeared" || kind == "npc_left" {
+		quiet = true // guards and townsfolk coming and going: the short log keeps the mobs
+	}
 	if (kind == "unknown" && e.GetText() == "") || kind == "entity_moved" || kind == "rules_tick" || kind == "resource_changed" {
 		quiet = true
 	}

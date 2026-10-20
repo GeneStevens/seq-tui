@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"fmt"
+	"os"
 	"slices"
 	"time"
 
@@ -37,7 +38,7 @@ type App struct {
 	menu     *screen.Menu   // the instance menu, nil when closed
 	slots    *screen.Slots  // the slot screen, nil when closed
 	create   *screen.Create // character creation, nil once a character is chosen
-	inv      *screen.Inventory
+	char     bool           // the character view is open (C)
 	traders  *screen.Traders
 	trade    *screen.TradeUI
 	talk     *screen.Talk // the conversation, nil when closed
@@ -309,8 +310,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 				step := act
 				act = Action{Kind: PlanAdd, Step: &step}
 			}
-		case a.inv != nil:
-			act = a.invKey(k, m)
+		case a.char:
+			act = a.charKey(k, m)
 		case a.traders != nil:
 			act = a.tradersKey(k, m)
 		case a.trade != nil:
@@ -351,9 +352,10 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 	case MoveCursor:
 		a.moveCursor(act.Note)
 	case SelectSide:
-		a.mouse.side.Tab = min(max(act.Count, 0), screen.Tabs-1)
+		a.activeSide().Tab = min(max(act.Count, 0), screen.Tabs-1)
 	case ScrollSide:
-		a.mouse.side.Scroll[a.mouse.side.Tab] = max(a.mouse.side.Scroll[a.mouse.side.Tab]+act.Count, 0)
+		sb := a.activeSide()
+		sb.Scroll[sb.Tab] = max(sb.Scroll[sb.Tab]+act.Count, 0)
 	case ToggleHelp:
 		a.view.Help, a.view.HelpPage, a.view.HelpScroll = true, 0, 0
 	case ToggleVerbose:
@@ -363,10 +365,17 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 	case OpenSlots:
 		a.slots = &screen.Slots{}
 	case OpenInventory:
-		a.inv = &screen.Inventory{}
-		a.sess.View(func(m *model.Model) { a.inv.Carried = len(m.Self.Inventory) > 0 })
+		a.char = true
+		a.sess.View(func(m *model.Model) {
+			// It opens on the bags when they hold anything: the way to wear a find.
+			sb := &a.mouse.charTab
+			*sb = screen.Sidebar{}
+			if len(m.Self.Inventory) > 0 {
+				sb.Tab = screen.TabBags
+			}
+		})
 	case OpenTraders:
-		a.inv, a.traders = nil, &screen.Traders{}
+		a.char, a.traders = false, &screen.Traders{}
 	case OpenTradersAt:
 		a.talk = nil
 		a.sess.View(func(m *model.Model) {
@@ -406,7 +415,7 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 		a.view.Notice = note
 		return a, cmd
 	case OpenTrade:
-		a.inv, a.trade = nil, &screen.TradeUI{}
+		a.char, a.trade = false, &screen.TradeUI{}
 		a.sess.View(func(m *model.Model) { a.trade.Who = askerIndex(m) })
 	case PlanAdd:
 		if why := a.draft.Add(*act.Step); why != "" {
@@ -603,7 +612,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v.Since = since
 	var out string
 	v.Menu, v.Slots, v.Create, v.Now = a.menu, a.slots, a.create, a.now()
-	v.Inventory, v.Traders, v.Trade = a.inv, a.traders, a.trade
+	v.Char, v.Traders, v.Trade = a.char, a.traders, a.trade
 	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
 	v.Line, v.Social, v.Sessions, v.Quest = a.line, a.soc, a.ses, a.quest
 	a.mouseView(&v)
@@ -637,7 +646,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 }
 
 func (a *App) View() tea.View {
-	tv := tea.NewView(a.render(a.w, a.h, a.now().Sub(a.lastTick), screen.ANSI()))
+	tv := tea.NewView(a.render(a.w, a.h, a.now().Sub(a.lastTick), screen.Terminal(os.Getenv("NO_COLOR") != "")))
 	tv.AltScreen = true
 	if !a.NoMouse {
 		tv.MouseMode = tea.MouseModeAllMotion // clicks, the wheel and hovering (D77)

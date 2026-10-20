@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Plain Scuttler: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns You use Taunt on Plain Scuttler                                     │
 │     N.Ns You begin fighting Plain Scuttler                                   │
 │     N.Ns You are in combat with Plain Scuttler                               │

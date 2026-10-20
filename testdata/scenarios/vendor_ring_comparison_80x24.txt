@@ -1,0 +1,24 @@
+┌─ Traders — C: your character ────────────────────────────────────────────────┐
+│ Barnaby Tuck <General Goods>, 1m E away. You have 5 crowns.                  │
+│                                                                              │
+│ For sale (Enter buys one)            │ You carry (Enter sells one)           │
+│> ▲ Tin Ring Common       12, short 7 │  (nothing)                            │
+│  ▲ Brass Ring Common    36, short 31 │                                       │
+│  ▲ Silver Ring Common   72, short 67 │                                       │
+│  ▲ Cord Pendant Common   12, short 7 │                                       │
+│  ▲ Bone Pendant Common  36, short 31 │                                       │
+│  ▲ Horn Pendant Common  72, short 67 │                                       │
+│  = Carved Orb Common     14, short 9 │                                       │
+│  = Etched Orb Common    42, short 37 │                                       │
+│  = Rune Orb Common      84, short 79 │                                       │
+│──────────────────────────────────────────────────────────────────────────────│
+│ ▲ Tin Ring: Common, Ring; tradable once                                      │
+│ sta +1; costs 12 crowns, short 7 crowns                                      │
+│ upgrade over an empty ring: +10 health, +1 stamina                           │
+│                                                                              │
+│                                                                              │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc b…│
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/164 | Target: none                                                      
+ ONLINE | Hawthorn Square, Thornwick | road: faster, 125% | heard N.Ns ago      

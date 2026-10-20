@@ -12,7 +12,6 @@
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 34m S [new] │
 │                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ p c2                      1m E 100/100 │
 │                                                                                                ││ T Druid Trainer                  29m S │
 │                                                                                                ││ T Paladin Trainer                30m S │
@@ -20,16 +19,17 @@
 │                                                                                                ││ T Rogue Trainer                 31m SW │
 │                                                                                                ││ T Cleric Trainer                32m SW │
 │                                                                                                ││ T Warrior Trainer               33m SW │
-│                                                                                                ││ Q Testgrounds Captain            34m S │
-│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 34m S │
 │                                                                                                ││ H Testgrounds Binder            35m SW │
 │                                                                                                ││ B Testgrounds Banker            36m SW │
 │                                                                                                ││ $ Testgrounds Vendor            37m SW │
-│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                      ││ D Gate North                     70m E │
-│ Esc closes the screen and leaves the trade open.                                               ││ H Eastern Binder               114m SE │
-│ ! offer Scuttler Blade denied: That item is bound to you and can't be traded                   ││ D Line East                    183m SE │
+│                                                                                                ││ D Gate North                     70m E │
+│                                                                                                ││ H Eastern Binder               114m SE │
+│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade                       ││ D Line East                    183m SE │
+│ Esc closes the screen and leaves the trade open.                                               ││                                        │
+│ ! offer Scuttler Blade denied: That item is bound to you and can't be traded                   ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │     N.Ns c2 comes into view                                                                                                              │
 │     N.Ns You ask c2 to trade                                                                                                             │

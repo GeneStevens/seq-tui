@@ -11,24 +11,24 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   123m W [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract B… 126m W [new] │
-│                                                @                                               ││ m Den Brute          13m SW 40/40 even │
-│                                                                                                ││ D Gate North                     40m W │
+│                                                                                                ││ m Den Brute          13m SW 40/40 even │
+│                                                @                                               ││ D Gate North                     40m W │
 │                                                                                                ││ H Eastern Binder                 72m S │
 │                                                                                                ││ D Line East                     96m SE │
 │                                                                                                ││ T Druid Trainer                 121m W │
 │                                                                                                ││ T Paladin Trainer               123m W │
-│                                  m                                                             ││ Q Testgrounds Captain           124m W │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ T Wizard Trainer                125m W │
+│                                                                                                ││ Q Testgrounds Captain <Quest G… 124m W │
+│                                  m                                                             ││ T Wizard Trainer                125m W │
 │                                                                                                ││ T Rogue Trainer                 127m W │
 │                                                                                                ││ H Testgrounds Binder            128m W │
 │                                                                                                ││ T Cleric Trainer                129m W │
 │                                                                                                ││ B Testgrounds Banker            130m W │
-│                                                                                                ││ +2 more                                │
+│                                                                                                ││ T Warrior Trainer               131m W │
+│                                                                                                ││ $ Testgrounds Vendor            132m W │
+│                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
+┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │ nothing has happened yet                                                       ││ [tell] bob1: psst, a word                              │
 │                                                                                ││ [tell] to bob1: on my way                              │
 │                                                                                ││                                                        │

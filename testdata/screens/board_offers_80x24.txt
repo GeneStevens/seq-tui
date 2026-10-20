@@ -15,10 +15,10 @@
 │ Boars in the Barley: Hunt, L1-3, for 3 kills.                                │
 │ Kill 3 boars in the Thornwick Downs before they ruin the harvest.            │
 │ Pays 21 XP, 10 crowns and Tin Ring ▲.                                        │
-│ Tin Ring: upgrade over an empty ring1: +10 health, +1 stamina                │
+│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                 │
 │                                                                              │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
-│ The answer is on the status line; every refusal says why.                    │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back             │
+│ Up / Down choose. The answer is on the status line; every refusal says why.  │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW     ? help  q quit

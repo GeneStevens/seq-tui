@@ -17,18 +17,18 @@
 │                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
 │                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
 │                            ░                                                       #           ││ ! Testgrounds Recruiter   10m NE [new] │
-│                            ░                                                       #           ││     <Quest Giver>                      │
 │                            ░                                                       #           ││ B Testgrounds Banker              8m N │
 │                            ░                                                       #           ││ H Testgrounds Binder              8m N │
 │                            ░                                                       #           ││ $ Testgrounds Vendor              8m N │
-│                            ░                                                       #           ││ Q Testgrounds Captain           10m NE │
-│                            ░                                                       #           ││     <Quest Giver>                      │
+│                            ░                                                       #           ││ Q Testgrounds Captain <Quest G… 10m NE │
 │                            ░                                                       #           ││ T Cleric Trainer                 12m N │
 │                            ░                                                       #           ││ T Rogue Trainer                  12m N │
 │                            ░                                                       #           ││ T Warrior Trainer                12m N │
-│                            ░                                                       #           ││ +6 more                                │
+│                            ░                                                       #           ││ T Wizard Trainer                 12m N │
+│                            ░                                                       #           ││ T Paladin Trainer               13m NE │
+│                            ░                                                       #           ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ x  NN.Ns You killed Plain Scuttler                                                                                                       │
 │    NN.Ns Your target Plain Scuttler is gone                                                                                              │
 │    NN.Ns You stop attacking                                                                                                              │

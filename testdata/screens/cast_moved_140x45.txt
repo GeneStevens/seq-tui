@@ -18,17 +18,17 @@
 │                                      ░                                             #           │┌─ Nearby ───────────────────────────────┐
 │                                      ░                                             #           ││ & Testgrounds Contract B… 12m NE [new] │
 │                                      ░                                             #           ││ ! Testgrounds Recruiter   14m NE [new] │
-│                                      ░                                             #           ││     <Quest Giver>                      │
 │                                      ░                                             #           ││ $ Testgrounds Vendor              9m N │
 │                                      ░                                             #           ││ B Testgrounds Banker            10m NE │
-│                                      ░                                             #           ││ +12 more                               │
+│                                      ░                                             #           ││ H Testgrounds Binder            11m NE │
+│                                      ░                                             #           ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Flame Dart 6mp gcd               2 Frost Bolt 12mp gcd             3 -                               4 -                               │
 │ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none   |   Plain Scuttler: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s You target Plain Scuttler                                                                                                       │
 │     0.3s You begin casting Frost Bolt on Plain Scuttler                                                                                  │
 │ !   0.9s Your Frost Bolt is cancelled: you moved, so the cast stopped                                                                    │

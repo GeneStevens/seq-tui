@@ -28,7 +28,7 @@
 │ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none   |   Warren Chief: chief-pack-cry 17s                                                                                         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │   NNN.Ns Warren Chief targeted hale                                                                                                      │
 │   NNN.Ns You begin fighting Warren Chief                                                                                                 │
 │ ! NNN.Ns Your walk stopped: you are fighting Warren Chief; a fight stops a walk. Move again to go on.                                    │

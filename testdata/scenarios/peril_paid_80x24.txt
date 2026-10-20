@@ -14,7 +14,7 @@
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns c2 comes into view                                                  │
 │ +   N.Ns You pay 50 crowns to enter                                          │
 │     N.Ns instance opened: Peril Den (up to 2 in it); enter at gate-north with│

@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Roadside Cutpurse: none                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │   140.0s Raiding Goblin is out of view                                       │
 │   140.0s Raiding Goblin is out of view                                       │
 │   140.0s Tip: tradable once means one trade to another player, then it is    │

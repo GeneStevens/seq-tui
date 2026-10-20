@@ -14,7 +14,7 @@
 │           ░                           #          ││                          │
 │           ░                           #          ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │    NN.Ns Everyone in the fight with Plain Scuttler has fallen                │
 │    NN.Ns You are out of combat                                               │
 │    NN.Ns Plain Scuttler reset to 40 hp                                       │

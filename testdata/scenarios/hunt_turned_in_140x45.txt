@@ -26,20 +26,20 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││                                        │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │
 │ hand in Wolves at Wickett Mill ok                                                              ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   NNN.Ns Captain Rhosyn Hartley is out of view                                                                                           │
-│   NNN.Ns Isolde Fenn <Binder> comes into view                                                                                            │
-│   NNN.Ns Tamsin Hale <Watch Greeter> comes into view                                                                                     │
-│   NNN.Ns Thornwick Contract Board <Jobs for the Downs> comes into view                                                                   │
-│   NNN.Ns Odalys Penn is out of view                                                                                                      │
-│   NNN.Ns Town Guard is out of view                                                                                                       │
-│   NNN.Ns Barnaby Tuck <General Goods> comes into view                                                                                    │
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │   NNN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │ + NNN.Ns You hand in Wolves at Wickett Mill: 22 experience, 10 crowns                                                                    │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125% | heard N.Ns ago | hand in Wolves at Wickett Mill ok    ? help

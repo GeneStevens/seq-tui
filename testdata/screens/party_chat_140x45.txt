@@ -15,20 +15,20 @@
 │                                                p                                               │└────────────────────────────────────────┘
 │                                                @                                               │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
 │                                                                                                ││ p bob1                    1m N 100/100 │
 │                                                                                                ││ D Gate North                      1m N │
-│                                                                                          c     ││ H Eastern Binder                 72m S │
-│                                                                                                ││ T Druid Trainer                  83m W │
+│                                                                                                ││ H Eastern Binder                 72m S │
+│                                                                                          c     ││ T Druid Trainer                  83m W │
 │                                                                                                ││ T Paladin Trainer                84m W │
-│                                                                                                ││ Q Testgrounds Captain            86m W │
-│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
 │                                                                                                ││ T Wizard Trainer                 86m W │
 │                                                                                                ││ T Rogue Trainer                  88m W │
-│                                                                                                ││ +6 more                                │
+│                                                                                                ││ H Testgrounds Binder             90m W │
+│                                                                                                ││ T Cleric Trainer                 90m W │
+│                                                                                                ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
+┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │     0.2s bob1 comes into view                                                  ││ [party] bob1: ready when you are                       │
 │     0.0s bob1 declined your party invitation                                   ││                                                        │
 │     0.0s bob1 joined the party                                                 ││                                                        │

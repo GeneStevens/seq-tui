@@ -70,11 +70,12 @@ type View struct {
 	// ability it will hold, "" for emptied.
 	PlanSlots map[int]string
 
-	// Inventory, Traders and Trade are the inventory and gear screen, the
-	// traders' screen and the trade window, nil when closed.
-	Inventory *Inventory
-	Traders   *Traders
-	Trade     *TradeUI
+	// Char is the character view open (C from the map): Gear, Bags and Stats as a
+	// panel, in the sidebar's state (Side). Traders and Trade are the traders'
+	// screen and the trade window, nil when closed.
+	Char    bool
+	Traders *Traders
+	Trade   *TradeUI
 
 	// Talk, Board and Contracts are the conversation, the contract board and
 	// the Contracts screen, nil when closed; Overview shows the whole zone.
@@ -177,6 +178,8 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		takeover("Ability slots", func(w, h int) []string { return slotScreenLines(m, v, w, h, st) })
 	case v.Role != nil:
 		takeover("Recruit's role", func(w, h int) []string { return roleLines(m, v.Role, w, h, st) })
+	case v.Char:
+		takeover("Your character", func(w, h int) []string { return charLines(m, v, w, h, st) })
 	case v.Overview && m.Map != nil && m.Self.Pos != nil:
 		takeover("Zone overview", func(w, h int) []string { return overviewLines(m, v, w, h, st) })
 	case v.Menu != nil:
@@ -261,9 +264,9 @@ func tooSmall(w, h int) string {
 
 func logMode(v View) string {
 	if v.Verbose {
-		return "all"
+		return "all · v: short"
 	}
-	return "v: all"
+	return "short · v: all"
 }
 
 func mapTitle(m *model.Model) string {
@@ -297,7 +300,7 @@ func mapPanel(m *model.Model, v View, cw, ch int, st Styler) []string {
 // box draws a titled frame of w x h cells around inner, whose lines are each
 // exactly w-2 cells wide once styling is ignored.
 func box(title string, w, h int, inner []string, st Styler) []string {
-	return boxWith(title, w, h, inner, st.Dim)
+	return boxWith(title, w, h, inner, st.Dim, st.Accent)
 }
 
 // boxA is box with a red border when alarm is set (D75): a screen over the map
@@ -306,12 +309,17 @@ func boxA(title string, w, h int, inner []string, st Styler, alarm bool) []strin
 	if !alarm {
 		return box(title, w, h, inner, st)
 	}
-	return boxWith(title+"  ⚠ UNDER ATTACK", w, h, inner, func(s string) string { return st.Red(st.Bold(s)) })
+	alarmed := func(s string) string { return st.Red(st.Bold(s)) }
+	return boxWith(title+"  ⚠ UNDER ATTACK", w, h, inner, alarmed, alarmed)
 }
 
-func boxWith(title string, w, h int, inner []string, border func(string) string) []string {
-	top := []rune("┌─ " + strings.TrimSpace(fit(title, w-6)) + " " + strings.Repeat("─", w))
-	rows := []string{border(string(top[:w-1]) + "┐")}
+// boxWith draws the frame in the border style, with the title in its own: the
+// panel's name is the first thing the eye should find.
+func boxWith(title string, w, h int, inner []string, border, name func(string) string) []string {
+	t := strings.TrimSpace(fit(title, w-6))
+	top := []rune("┌─ " + t + " " + strings.Repeat("─", w))
+	nt := len([]rune(t))
+	rows := []string{border("┌─ ") + name(t) + border(string(top[3+nt:w-1])+"┐")}
 	side := border("│")
 	for i := 0; i < h-2; i++ {
 		line := strings.Repeat(" ", w-2)

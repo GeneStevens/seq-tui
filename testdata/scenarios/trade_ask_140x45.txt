@@ -12,7 +12,6 @@
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 34m S [new] │
 │                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ p c2                      1m E 100/100 │
 │                                                                                                ││ T Druid Trainer                  29m S │
 │                                                                                                ││ T Paladin Trainer                30m S │
@@ -20,16 +19,17 @@
 │                                                                                                ││ T Rogue Trainer                 31m SW │
 │                                                                                                ││ T Cleric Trainer                32m SW │
 │                                                                                                ││ T Warrior Trainer               33m SW │
-│                                                                                                ││ Q Testgrounds Captain            34m S │
-│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 34m S │
 │                                                                                                ││ H Testgrounds Binder            35m SW │
 │                                                                                                ││ B Testgrounds Banker            36m SW │
 │                                                                                                ││ $ Testgrounds Vendor            37m SW │
 │                                                                                                ││ D Gate North                     70m E │
-│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││ H Eastern Binder               114m SE │
-│ The answer is on the status line; every denial says why.                                       ││ D Line East                    183m SE │
+│                                                                                                ││ H Eastern Binder               114m SE │
+│                                                                                                ││ D Line East                    183m SE │
+│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││                                        │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │     N.Ns c2 comes into view                                                                                                              │
 │                                                                                                                                          │

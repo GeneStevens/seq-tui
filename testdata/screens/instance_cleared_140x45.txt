@@ -16,19 +16,19 @@
 │                                                @                                               │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
 │                                                                                                ││ D Gate North                   0m here │
 │                                                                                                ││ H Eastern Binder                 73m S │
-│                                                                                          c     ││ T Druid Trainer                  83m W │
-│                                                                                                ││ T Paladin Trainer                85m W │
-│                                                                                                ││ Q Testgrounds Captain            86m W │
-│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ T Druid Trainer                  83m W │
+│                                                                                          c     ││ T Paladin Trainer                85m W │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
 │                                                                                                ││ T Wizard Trainer                 87m W │
 │                                                                                                ││ T Rogue Trainer                  89m W │
-│                                                                                                ││ +6 more                                │
+│                                                                                                ││ H Testgrounds Binder             90m W │
+│                                                                                                ││ T Cleric Trainer                 90m W │
+│                                                                                                ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    55.6s You stop attacking                                                                                                              │
 │    55.6s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
 │    55.6s Plain Scuttler is dead: the fight is over                                                                                       │

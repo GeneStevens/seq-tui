@@ -1,24 +1,24 @@
-┌─ Inventory and gear ─────────────────────────────────────────────────────────┐
+┌─ Your character ─────────────────────────────────────────────────────────────┐
 │ Crowns 5 | bags 2 of 20 slots | bank 0 | bind point none yet                 │
-│ Gear worn                            │ Items carried                         │
-│   Head      -                        │> ▲ Worn Cap Common                    │
-│   Chest     -                        │  ▲ Scuttler Blade Rare [bound]        │
-│   Legs      -                        │                                       │
-│   Hands     -                        │                                       │
-│   Feet      -                        │                                       │
-│   Ring 1    -                        │                                       │
-│   Ring 2    -                        │                                       │
-│   Neck      -                        │                                       │
-│   Main hand -                        │                                       │
-│   Off hand  -                        │                                       │
+│  Gear  [Bags]  Stats                                                         │
+│ Items carried                                                                │
+│ > ▲ Worn Cap Common  armor +2                                                │
+│   ▲ Scuttler Blade Rare [bound]  damage 4-9 / N.Ns, str +3                   │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
 │ ▲ Worn Cap: Common, Head; tradable once                                      │
 │ armor +2; a vendor pays 2 crowns                                             │
 │ upgrade over an empty head: +2 armour                                        │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.         │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
-│                                                                              │
-│                                                                              │
+│ Tab next tab · Up / Down choose · Enter wears it · out of combat only        │
+│ Esc or C closes · N traders · T trade                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 94/100 | Target: none                                                       
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

@@ -17,10 +17,10 @@
 │   The line under the log changes with what you stand next to: the door, the person, the drop, the mobs in view.                          │
 │                                                                                                                                          │
 │ Danger                                                                                                                                   │
-│   Services (traders, talk, the board, the inventory, contracts) are panels in the map's area: the You, Target and Nearby panels stay     │
-│   beside them. A screen never hides a fight. When something attacks you its border turns red, the status line names it and your health,  │
-│   and nothing closes by itself. Esc leaves the screen; the attacker is already your target, so F fights it. -bell rings the terminal's   │
-│   bell too.                                                                                                                              │
+│   Services (traders, talk, the board, the character view, contracts) are panels in the map's area: the You, Target and Nearby panels     │
+│   stay beside them. A screen never hides a fight. When something attacks you its border turns red, the status line names it and your     │
+│   health, and nothing closes by itself. Esc leaves the screen; the attacker is already your target, so F fights it. -bell rings the      │
+│   terminal's bell too.                                                                                                                   │
 │   The You panel says "in combat" and who is attacking. A hard or deadly mob is called out as DANGER.                                     │
 │                                                                                                                                          │
 │                                                                                                                                          │

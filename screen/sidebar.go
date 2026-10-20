@@ -24,10 +24,15 @@ var sideTabs = [Tabs]string{"Gear", "Bags", "Stats"}
 
 // Sidebar is the sidebar's state: the tab, whether the drawer is open (a narrow
 // window), and how far each tab is scrolled.
+//
+// Cur is the cursor in each tab: it is the character view's (C from the map),
+// where Enter wears or takes off the item under it. The sidebar beside a service
+// has no cursor.
 type Sidebar struct {
 	Tab    int
 	Drawer bool
 	Scroll [Tabs]int
+	Cur    [Tabs]int
 }
 
 // sidebarOpen says the screen is one a sidebar goes beside: the traders (list,
@@ -73,9 +78,9 @@ func sidebarLines(m *model.Model, v View, w, h, x, y int, st Styler) []string {
 	var body []string
 	switch sb.Tab {
 	case TabGear:
-		body = gearLines(m, w, st)
+		body = gearLines(m, w, -1, st)
 	case TabBags:
-		body = bagLines(m, w, st)
+		body = bagLines(m, w, "", -1, st)
 	default:
 		body = statLines(m, w, st)
 	}
@@ -87,29 +92,57 @@ func sidebarLines(m *model.Model, v View, w, h, x, y int, st Styler) []string {
 	return pad(rows, w, h)
 }
 
-// gearLines are the ten gear slots and what is worn in each.
-func gearLines(m *model.Model, w int, st Styler) []string {
+// gearLines are the ten gear slots and what is worn in each. cur is the slot the
+// cursor is on, -1 for none (the sidebar has no cursor).
+func gearLines(m *model.Model, w, cur int, st Styler) []string {
 	var rows []string
 	for i, slot := range model.GearSlots {
 		text := "-"
-		if item := m.Worn(i); item != "" {
-			text = itemRow(m, item, max(w-13, 1))
+		pre, cut := " ", 12
+		if cur >= 0 {
+			pre, cut = "   ", 14
+			if i == cur {
+				pre = " > "
+			}
 		}
-		rows = append(rows, fit(fmt.Sprintf(" %-9s %s", model.SlotWord(slot), strings.TrimRight(text, " ")), w))
+		if item := m.Worn(i); item != "" {
+			text = itemRow(m, item, max(w-cut, 1))
+		}
+		line := fit(fmt.Sprintf("%s%-9s %s", pre, model.SlotWord(slot), strings.TrimRight(text, " ")), w)
+		if i == cur {
+			line = st.Reverse(line)
+		}
+		rows = append(rows, line)
 	}
 	return rows
 }
 
-// bagLines are the bags: the slots used, the crowns, and every stack with its mark.
-func bagLines(m *model.Model, w int, st Styler) []string {
-	rows := []string{fit(fmt.Sprintf(" %d of %d slots · %s", m.BagSlotsUsed(), m.Self.InventorySize, inCrowns(m)), w)}
+// bagLines are the bags: the slots used and the crowns (or the title, if one is
+// given), and every stack with its mark. cur is the stack the cursor is on, -1 for
+// none.
+func bagLines(m *model.Model, w int, title string, cur int, st Styler) []string {
+	head := fit(fmt.Sprintf(" %d of %d slots · %s", m.BagSlotsUsed(), m.Self.InventorySize, inCrowns(m)), w)
+	if title != "" {
+		head = st.Bold(fit(title, w))
+	}
+	rows := []string{head}
 	stacks := m.Stacks(m.Self.Inventory)
 	if len(stacks) == 0 {
 		return append(rows, fit("  (nothing)", w))
 	}
-	for _, sk := range stacks {
-		line := fit(" "+itemRowM(m, sk.Inst, sk.Count, w-1), w)
-		if m.NotUsable(sk.Inst) {
+	for i, sk := range stacks {
+		pre := " "
+		if cur >= 0 {
+			pre = "   "
+			if i == cur {
+				pre = " > "
+			}
+		}
+		line := fit(pre+itemRowM(m, sk.Inst, sk.Count, w-width(pre)), w)
+		switch {
+		case i == cur:
+			line = st.Reverse(line)
+		case m.NotUsable(sk.Inst):
 			line = st.Dim(line)
 		}
 		rows = append(rows, line)

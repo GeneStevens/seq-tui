@@ -17,8 +17,8 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│ Up / Down choose. X gives the contract up (anywhere). Hand a finished one in…│
-│ Esc closes.                                                                  │
+│ Up / Down choose · X gives the contract up (anywhere) · hand a finished one …│
+│ Esc closes                                                                   │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW     ? help  q quit

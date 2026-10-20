@@ -95,8 +95,8 @@ func talkLines(m *model.Model, v View, t *Talk, w, h int, st Styler) []string {
 	for len(rows) < h-2 {
 		rows = append(rows, strings.Repeat(" ", w))
 	}
-	add(" Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.")
-	add(" The answer is on the status line; every refusal says why.")
+	rows = append(rows, help(" {1}-{9} or {Up} / {Down} choose · {Enter} does it · {Esc} closes · {G} talks again", w, st))
+	rows = append(rows, help(" The answer is on the status line; every refusal says why.", w, st))
 	return pad(rows[:min(len(rows), h)], w, h)
 }
 
@@ -149,8 +149,8 @@ func offerRow(o *pb.ContractOffer, w int) string {
 	return fit(fit(o.GetName(), max(w-width(rest), 4))+rest, w)
 }
 
-func heldRow(c *pb.ContractInfo, w int) string {
-	state := compactState(c)
+func heldRow(m *model.Model, c *pb.ContractInfo, w int) string {
+	state := stateWords(m, c, w)
 	return fit(fit(c.GetName(), max(w-width(state)-1, 4))+" "+state, w)
 }
 
@@ -168,7 +168,7 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 	rows = append(rows, moment...)
 	lw := (w - 1) / 2
 	rw := w - 1 - lw
-	left := []string{fit(" On offer now (Enter takes it)", lw)}
+	left := []string{st.Bold(fit(" On offer now (Enter takes it)", lw))}
 	var texts []string
 	for _, o := range n.GetOffers() {
 		texts = append(texts, offerRow(o, max(lw-4, 1)))
@@ -178,15 +178,15 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 	}
 	room := max(h-11-len(moment), 1)
 	left = append(left, listRows(texts, b.Cur[0], room, lw, b.Pane == 0, st)...)
-	right := []string{fit(" You hold (Enter hands in, X gives up)", rw)}
+	right := []string{st.Bold(fit(" You hold (Enter hands in, X gives up)", rw))}
 	texts = nil
 	for _, c := range held {
-		texts = append(texts, heldRow(c, max(rw-4, 1)))
+		texts = append(texts, heldRow(m, c, max(rw-4, 1)))
 	}
 	if len(texts) == 0 {
 		right = append(right, fit("  (none)", rw))
 	}
-	right = append(right, listRows(texts, b.Cur[1], room, rw, b.Pane == 1, st)...)
+	right = append(right, ready(listRows(texts, b.Cur[1], room, rw, b.Pane == 1, st), st)...)
 	rows = append(rows, cols(left, right, lw, rw)...)
 	for len(rows) < h-8 {
 		rows = append(rows, strings.Repeat(" ", w))
@@ -219,8 +219,8 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 	for len(rows) < h-2 {
 		rows = append(rows, strings.Repeat(" ", w))
 	}
-	add(" Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.")
-	add(" The answer is on the status line; every refusal says why.")
+	rows = append(rows, help(" {Tab} offered / held · {Enter} take / hand in · {X} give up · {Esc} back", w, st))
+	rows = append(rows, help(" {Up} / {Down} choose. The answer is on the status line; every refusal says why.", w, st))
 	return pad(rows[:min(len(rows), h)], w, h)
 }
 
@@ -280,8 +280,8 @@ func contractRows(m *model.Model, w int, full bool, sel int, st Styler) []string
 			mark = ">"
 		}
 		if !full {
-			state := compactState(c)
-			rows = append(rows, fit(fit(" "+c.GetName(), max(w-width(state)-2, 1))+" "+state, w))
+			state := stateWords(m, c, w-1)
+			rows = append(rows, ready([]string{fit(fit(" "+c.GetName(), max(w-width(state)-2, 1))+" "+state, w)}, st)...)
 			continue
 		}
 		state := model.Progress(c)
@@ -305,6 +305,39 @@ func contractRows(m *model.Model, w int, full bool, sel int, st Styler) []string
 		rows = append(rows, wrapped(c.GetDescription(), w, "   ")...)
 	}
 	return rows
+}
+
+// ready shows the word READY in green in the rows that are not reversed (the
+// cursor's row is drawn in reverse, and a colour inside would end it).
+func ready(rows []string, st Styler) []string {
+	for i, r := range rows {
+		if !strings.Contains(r, "\x1b[7m") {
+			rows[i] = strings.Replace(r, "READY", st.Green("READY"), 1)
+		}
+	}
+	return rows
+}
+
+// stateWords is a held contract's progress in as many words as the row has room
+// for: a scout says where to go ("0/1 — go to Wickett Mill (scout marker)"), the
+// rest are the short form of compactState. w is the row's width; the name keeps
+// at least 12 cells of it.
+func stateWords(m *model.Model, c *pb.ContractInfo, w int) string {
+	short := compactState(c)
+	if c.GetKind() != "scout" || c.GetReady() {
+		return short
+	}
+	where := "the marker"
+	if n := m.MarkerName(c.GetMarker()); n != c.GetMarker() {
+		where = n
+	}
+	head := fmt.Sprintf("%d/%d — go", c.GetHave(), c.GetNeed())
+	for _, v := range []string{head + " to " + where + " (scout marker)", head + " to " + where, head} {
+		if w-width(v)-1 >= min(width(c.GetName()), 12) {
+			return v
+		}
+	}
+	return head
 }
 
 // compactState is a contract's progress in the fewest cells: "2/3", "go", "READY".
@@ -333,8 +366,8 @@ func contractsScreenLines(m *model.Model, c *ContractsUI, w, h int, st Styler) [
 	for len(rows) < h-2 {
 		rows = append(rows, strings.Repeat(" ", w))
 	}
-	add(" Up / Down choose. X gives the contract up (anywhere). Hand a finished one in at its board.")
-	add(" Esc closes.")
+	rows = append(rows, help(" {Up} / {Down} choose · {X} gives the contract up (anywhere) · hand a finished one in at its board", w, st))
+	rows = append(rows, help(" {Esc} closes", w, st))
 	return pad(rows[:min(len(rows), h)], w, h)
 }
 

@@ -11,10 +11,10 @@
 │ #                                                │└──────────────────────────┘
 │ #                                                │┌─ Nearby ─────────────────┐
 │ #                                                ││ ! Testgroun… 53m W [new] │
-│ #                                                ││     <Quest Giver>        │
-│ #                                                ││ +15 more                 │
+│ #                                                ││ & Testgroun… 57m W [new] │
+│ #                                                ││ +14 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns Trophy Scuttler is out of view                                      │
 │     N.Ns Plain Scuttler comes into view                                      │
 │    NN.Ns You target Plain Scuttler                                           │

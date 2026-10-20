@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
+┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
 │            Cap, 9 crowns                    ││ [party] bram: the delve gate  │
 │    NN.Ns Tip: tradable once means one trade ││   is right here               │
 │            to another player, then it is    ││ [say] hale: I will take the   │

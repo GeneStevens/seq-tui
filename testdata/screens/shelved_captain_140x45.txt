@@ -11,25 +11,25 @@
 │ > 1  Take a contract                                                                           │└────────────────────────────────────────┘
 │   2  Turn in a contract                                                                        │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 47m W [new] │
-│                                                                                                ││     <Jobs for the Downs>               │
-│                                                                                                ││ Q Captain Rhosyn Hartley         1m NE │
-│                                                                                                ││     <Watch Captain>                    │
+│                                                                                                ││ Q Captain Rhosyn Hartley <Watch… 1m NE │
 │                                                                                                ││ D East Gate                     12m SE │
 │                                                                                                ││ B Odalys Penn <Banker>          17m NW │
-│                                                                                                ││ T Wynne Greenhollow              35m S │
-│                                                                                                ││     <Druid Trainer>                    │
+│                                                                                                ││ T Wynne Greenhollow <Druid Trai… 35m S │
 │                                                                                                ││ H Isolde Fenn <Binder>           40m W │
-│                                                                                                ││ T Ser Aldric Vane               41m SW │
-│                                                                                                ││     <Paladin Trainer>                  │
+│                                                                                                ││ T Ser Aldric Vane <Paladin Tra… 41m SW │
 │                                                                                                ││ g Tamsin Hale <Watch Greeter>    43m W │
 │                                                                                                ││ T Ormond Quill <Wizard Trainer> 52m SW │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>   54m W │
 │                                                                                                ││ T Pip Nettle <Rogue Trainer>    65m SW │
 │                                                                                                ││ $ Hilda Brasswick <Armourer>     75m W │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ $ Dunstan Reeve <Weaponsmith>    76m W │
-│ talk to Captain Rhosyn Hartley ok                                                              ││ +2 more                                │
+│                                                                                                ││ $ Dunstan Reeve <Weaponsmith>    76m W │
+│                                                                                                ││ T Mother Elswyth <Cleric Train… 79m SW │
+│                                                                                                ││ T Gorran Stoutarm <Warrior Trai… 93m W │
+│                                                                                                ││                                        │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││                                        │
+│ talk to Captain Rhosyn Hartley ok                                                              ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
 │            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
 │            Watch can trust. Prove yourself first, and come and see me.                                                                   │

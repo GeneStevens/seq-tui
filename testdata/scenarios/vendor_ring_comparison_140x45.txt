@@ -1,0 +1,45 @@
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Barnaby Tuck <General Goods>, 1m E away. You have 5 crowns.                                    ││ hale  Lv 3 Warrior           | 5 crowns│
+│                                                                                                ││ HP 130/164 #####################------ │
+│ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
+│> ▲ Tin Ring Common                12, short 7 │  (nothing)                                     ││ Atk off | none                         │
+│  ▲ Brass Ring Common             36, short 31 │                                                │└────────────────────────────────────────┘
+│  ▲ Silver Ring Common            72, short 67 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Cord Pendant Common            12, short 7 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Bone Pendant Common           36, short 31 │                                                ││ Head      -                            │
+│  ▲ Horn Pendant Common           72, short 67 │                                                ││ Chest     -                            │
+│  = Carved Orb Common              14, short 9 │                                                ││ Legs      -                            │
+│  = Etched Orb Common             42, short 37 │                                                ││ Hands     -                            │
+│  = Rune Orb Common               84, short 79 │                                                ││ Feet      -                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Ring 1    -                            │
+│ ▲ Tin Ring: Common, Ring; tradable once                                                        ││ Ring 2    -                            │
+│ sta +1; costs 12 crowns, short 7 crowns                                                        ││ Neck      -                            │
+│ upgrade over an empty ring: +10 health, +1 stamina                                             ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     N.Ns Barnaby Tuck says: Rings, pendants and a little something for the casters. Fair prices, friend. I buy what you carry for a      │
+│            quarter of what I'd sell it at. Bound or not.                                                                                 │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Hawthorn Square, Thornwick | road: faster, 125% | heard N.Ns ago                                                    ? help  q quit

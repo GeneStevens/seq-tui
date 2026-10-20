@@ -17,7 +17,7 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back             │
 │ hand in Wolves at Wickett Mill ok                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      

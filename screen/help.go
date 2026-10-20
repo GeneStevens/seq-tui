@@ -46,12 +46,12 @@ var Bindings = []Binding{
 	{Keys: []string{"k"}, Show: "K", What: "contracts you hold (X gives one up)", Group: "People and things"},
 	{Keys: []string{"ctrl+k"}, Show: "Ctrl+K", What: "your quest chain: its step; X dismisses it for good", Group: "People and things"},
 	{Keys: []string{"n"}, Show: "N", What: "traders: buy, sell, train, bind, bank", Group: "People and things"},
-	{Keys: []string{"c"}, Show: "C", What: "inventory: wear and take off gear (beside a trader, C turns the sidebar tab)", Group: "People and things"},
+	{Keys: []string{"c"}, Show: "C", What: "your character: gear, bags and stats; Enter wears or takes off (beside a trader, C turns the sidebar tab)", Group: "People and things"},
 	{Keys: []string{"t"}, Show: "T", What: "trade with a character in reach", Group: "People and things"},
 	{Keys: []string{"i"}, Show: "I", What: "this zone's instance menu (Enter opens one)", Group: "People and things"},
 	{Keys: []string{"/"}, Show: "/", What: "the command line: chat, parties, /quest, /dismiss", Group: "Screens"},
 	{Keys: []string{"ctrl+l"}, Show: "Ctrl+L", What: "your session logs: replay, read, export", Group: "Screens"},
-	{Keys: []string{"v"}, Show: "V", What: "more log: routine movement and rules ticks", Group: "Screens"},
+	{Keys: []string{"v"}, Show: "V", What: "the log, short or all: routine movement, rules ticks and people coming into view (the Events title says which)", Group: "Screens"},
 	{Keys: []string{"?", "f1"}, Show: "? or F1", What: "this help (from any screen); ? turns the page, Esc closes", Group: "Leaving and help"},
 	{Keys: []string{"o"}, Show: "O", What: "log out", Group: "Leaving and help"},
 	{Keys: []string{"q", "ctrl+c"}, Show: "Q, Ctrl+C", What: "quit the screen only (your character stays in the world)", Group: "Leaving and help"},
@@ -123,7 +123,7 @@ func mapPage(m *model.Model, w int) []string {
 	}
 	out = append(out, "", "Danger")
 	for _, p := range []string{
-		"Services (traders, talk, the board, the inventory, contracts) are panels in the map's area: the You, Target and Nearby panels stay beside them. A screen never hides a fight. When something attacks you its border turns red, the status line names it and your health, and nothing closes by itself. Esc leaves the screen; the attacker is already your target, so F fights it. -bell rings the terminal's bell too.",
+		"Services (traders, talk, the board, the character view, contracts) are panels in the map's area: the You, Target and Nearby panels stay beside them. A screen never hides a fight. When something attacks you its border turns red, the status line names it and your health, and nothing closes by itself. Esc leaves the screen; the attacker is already your target, so F fights it. -bell rings the terminal's bell too.",
 		"The You panel says \"in combat\" and who is attacking. A hard or deadly mob is called out as DANGER.",
 	} {
 		out = append(out, wrapIndent("  "+p, w, "  ")...)

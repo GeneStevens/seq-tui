@@ -14,7 +14,7 @@
 │                  ░                           #   ││                          │
 │                  ░                           #   ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │    NN.Ns You are out of combat                                               │
 │    NN.Ns Plain Scuttler reset to 40 hp                                       │
 │    NN.Ns You release your body and will return in 5 seconds                  │

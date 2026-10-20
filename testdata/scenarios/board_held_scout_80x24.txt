@@ -1,0 +1,24 @@
+┌─ Contract board — C: your character ─────────────────────────────────────────┐
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | …│
+│ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
+│  Thin the Meadow Wolves Hunt   L1-3  │> Word from W… 0/1 — go to the marker  │
+│> Pelts for the Tanners  Gather L1-3  │                                       │
+│  Tusks for the Miller   Gather L1-3  │                                       │
+│  Word from Barleycross  Scout  L1-3  │                                       │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│──────────────────────────────────────────────────────────────────────────────│
+│ Word from Wickett Mill: Scout, go to the marker.                             │
+│ Walk out to Wickett Mill, west of the river, and return to the board with    │
+│ word that the road is clear.                                                 │
+│ Pays 20 XP and 8 crowns.                                                     │
+│ Not finished yet.                                                            │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back             │
+│ Up / Down choose. The answer is on the status line; every refusal says why.  │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125%   

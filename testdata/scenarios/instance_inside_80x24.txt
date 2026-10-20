@@ -14,7 +14,7 @@
 │                                                  ││                          │
 │                         m                        ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns instance opened: Solo Trial (up to 1 in it); enter at gate-north    │
 │            with E                                                            │
 │     N.Ns entered Testgrounds (Solo Trial)                                    │

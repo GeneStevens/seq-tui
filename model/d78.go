@@ -81,10 +81,21 @@ func (m *Model) Mark(inst string) string {
 // FactWords is the comparison in words ("upgrade over an empty main hand:
 // +1.5 damage/s"), "" when there is none.
 func (m *Model) FactWords(inst string) string {
-	if f := m.Fact(inst); f != nil {
-		return agentkit.FactText(f)
+	f := m.Fact(inst)
+	if f == nil {
+		return ""
 	}
-	return ""
+	text := agentkit.FactText(f)
+	// The server names the ring slot it compared with ("ring1"), and the item worn
+	// there by its id; the player says "an empty ring" and the item's name.
+	if f.GetAgainst() == "" {
+		if slot := f.GetSlot(); slot == "ring1" || slot == "ring2" {
+			text = strings.Replace(text, "an empty "+slot, "an empty ring", 1)
+		}
+	} else {
+		text = strings.Replace(text, " over "+f.GetAgainst(), " over "+m.ItemName(f.GetAgainst()), 1)
+	}
+	return text
 }
 
 // NotUsable says the server told this character cannot use the item.

@@ -14,7 +14,7 @@
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
+┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
 │     0.2s bob1 comes into view               ││ [party] bob1: ready when you  │
 │     0.0s bob1 declined your party invitation││   are                         │
 │     0.0s bob1 joined the party              ││                               │

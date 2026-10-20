@@ -11,10 +11,10 @@
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Nearby ─────────────────┐
 │                                                  ││ ! Testgroun… 79m W [new] │
-│                        p~                        ││     <Quest Giver>        │
-│                                                  ││ +18 more                 │
+│                        p~                        ││ & Testgroun… 82m W [new] │
+│                                                  ││ +17 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │            yours to take                                                     │
 │    NN.Ns Trophy Scuttler dropped 5 crowns                                    │
 │    NN.Ns Trophy Scuttler is dead: the fight is over                          │
