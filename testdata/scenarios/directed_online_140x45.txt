@@ -1,8 +1,9 @@
-┌─ Testgrounds, at 100,91 m, north up ───────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Testgrounds, at 100,92 m, north up ───────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │                                                                                                ││ ann2  Lv 1  XP 0             | 0 crowns│
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -11,22 +12,21 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   86m SW [new] │
-│                                                                                                ││ & Testgrounds Contract Bo… 89m W [new] │
-│                                                                                                ││ p cy1                     2m S 100/100 │
-│                                                @                                               ││ D Gate North                      2m S │
-│                                                p                                               ││ p ann1                    3m S 100/100 │
+│                                                                                                ││ & Testgrounds Contract B… 89m SW [new] │
+│                                                @                                               ││ p cy1                     3m S 100/100 │
+│                                                                                                ││ D Gate North                      3m S │
+│                                                p                                               ││ p ann1                    4m S 100/100 │
 │                                                p                                               ││ H Eastern Binder                 75m S │
 │                                                                                                ││ T Druid Trainer                  84m W │
-│                                                                                                ││ T Paladin Trainer                85m W │
+│                                                                                                ││ T Paladin Trainer                86m W │
 │                                                                                                ││ Q Testgrounds Captain <Quest G… 87m SW │
 │                                                                                                ││ T Wizard Trainer                 87m W │
 │                                                                                                ││ T Rogue Trainer                  89m W │
 │                                                                                          c     ││ H Testgrounds Binder             91m W │
 │                                                                                                ││ T Cleric Trainer                 91m W │
-│                                                                                                ││ B Testgrounds Banker             92m W │
+│                                                                                                ││ B Testgrounds Banker             93m W │
 │                                                                                                ││ T Warrior Trainer                93m W │
-│                                                                                                ││ $ Testgrounds Vendor             94m W │
-│                                                                                                ││ D Line East                    125m SE │
+│                                                                                                ││ +2 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │ nothing has happened yet                                                       ││ [say] cy1: hello both                                  │

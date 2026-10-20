@@ -178,9 +178,7 @@ func (m *Model) applyNotice(n *pb.SocialNotice) {
 		}
 	}
 	m.Log = append(m.Log, LogEntry{Kind: "notice_" + n.GetKind(), Text: text})
-	if over := len(m.Log) - m.logCap; over > 0 {
-		m.Log = append([]LogEntry(nil), m.Log[over:]...)
-	}
+	m.trimLog()
 }
 
 // ClearInvite drops the invitation: it was answered, or it ran out.

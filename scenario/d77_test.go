@@ -273,7 +273,7 @@ func TestClickingLootTakesAllOfIt(t *testing.T) {
 	w.Srv.Attend("ann")
 	p := w.Login("ann", "c1")
 	p.Resize(140, 45)
-	p.Press("tab", "f")
+	attack(p)
 	for range 60 {
 		var drops int
 		p.Model(func(m *model.Model) { drops = len(m.Drops) })

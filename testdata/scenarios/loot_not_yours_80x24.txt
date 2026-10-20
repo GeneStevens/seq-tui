@@ -2,7 +2,7 @@
 │                                                  ││ c2  Lv 1  XP 0 | 0 crowns│
 │                                                  ││ HP 100/100 ############# │
 │                                              c   ││ Target: none             │
-│                                                  ││ Auto-attack: off         │
+│                                                  ││ Atk off | Retaliate ON   │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│

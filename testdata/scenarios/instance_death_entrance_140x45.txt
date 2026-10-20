@@ -3,20 +3,21 @@
 │                                                                                                ││ HP 6/6 ############################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
-│                                                                                                ││ Solo Trial                             │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ real-time | inside                     │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Solo Trial                             │
+│                                                                                                ││ real-time | inside                     │
 │                                                                                                ││ party up to 1 | normal                 │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                @                                               │└────────────────────────────────────────┘
+│                                                @                                               ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ D Gate North                   0m here │
-│                                                                                                ││ m Plain Scuttler      16m S 40/40 even │
+│                                                                                                ││ m Plain Scuttler      18m S 40/40 even │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -24,17 +25,16 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                           m                                                    ││                                        │
-│                                                                                                ││                                        │
+│                                                    m                                           ││                                        │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ <  NN.Ns Plain Scuttler hits you for 1                                                                                                   │
+│    NN.Ns You miss Plain Scuttler                                                                                                         │
 │ <  NN.Ns Plain Scuttler hits you for 3                                                                                                   │
-│ <  NN.Ns Plain Scuttler hits you for 1                                                                                                   │
 │ x  NN.Ns Plain Scuttler killed you                                                                                                       │
 │    NN.Ns Your target is gone                                                                                                             │
 │    NN.Ns Your target Plain Scuttler is gone                                                                                              │
+│    NN.Ns You stop attacking                                                                                                              │
 │    NN.Ns Everyone in the fight with Plain Scuttler has fallen                                                                            │
 │    NN.Ns You are out of combat                                                                                                           │
 │    NN.Ns You release your body and will return in 5 seconds                                                                              │

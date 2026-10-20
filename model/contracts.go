@@ -201,9 +201,7 @@ func (m *Model) joinPay(old Self) {
 	}
 	text := "owed pay arrived with the join: " + m.RewardWords(&pb.RewardInfo{Xp: max(xp, 0), Crowns: max(crowns, 0)})
 	m.Log = append(m.Log, LogEntry{Seq: m.last, GameTimeMs: m.GameTimeMs, Kind: "reward", Text: text, Actor: m.Self.ID})
-	if over := len(m.Log) - m.logCap; over > 0 {
-		m.Log = append([]LogEntry(nil), m.Log[over:]...)
-	}
+	m.trimLog()
 }
 
 // applyDialogue keeps what an NPC said to the character.
@@ -308,9 +306,7 @@ func (m *Model) owedAtLogin() {
 		text := fmt.Sprintf("owed pay waiting from %s: %s, paid at your next join", what, m.RewardWords(&pb.RewardInfo{Xp: o.GetXp(), Crowns: o.GetCrowns()}))
 		m.Log = append(m.Log, LogEntry{Seq: m.last, GameTimeMs: m.GameTimeMs, Kind: "reward", Text: text, Actor: m.Self.ID})
 	}
-	if over := len(m.Log) - m.logCap; over > 0 {
-		m.Log = append([]LogEntry(nil), m.Log[over:]...)
-	}
+	m.trimLog()
 }
 
 // npcLeft removes an NPC that went out of view. What the character has seen of

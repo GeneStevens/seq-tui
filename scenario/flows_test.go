@@ -51,6 +51,18 @@ func back(m *model.Model) bool {
 
 func lastLog(m *model.Model) model.LogEntry { return m.Log[len(m.Log)-1] }
 
+// attack targets what is in view and attacks it with Tab and F, unless the
+// character is swinging already: with auto-retaliate on (D85) a mob's first blow
+// starts the fight, and F would end it.
+func attack(p *scenario.Player) {
+	p.Press("tab")
+	armed := false
+	p.Model(func(m *model.Model) { armed = m.Self.AutoAttack })
+	if !armed {
+		p.Press("f")
+	}
+}
+
 func notice(t *testing.T, p *scenario.Player, want string, bad bool) {
 	t.Helper()
 	if got, b := p.Notice(); !strings.Contains(got, want) || b != bad {
@@ -70,16 +82,15 @@ func TestLoginMoveFightLoot(t *testing.T) {
 		}
 	})
 
-	// Two taps east: a key on a terminal that reports no release walks until its
-	// repeat is missed, 2 m at 4 m/s. The scuttler at (25000, 50000) wakes at 12 m
-	// and attacks: a fight stops a walk (D66), so the second ends at 14000 and the
-	// log says so.
+	// Two taps east: on a terminal that reports no release each is a step of 3 m
+	// (D85). The scuttler at (25000, 50000) wakes at 12 m and attacks: a fight stops
+	// a walk (D66), so the second ends short of 16000 and the log says so.
 	p.Press("right")
 	w.Advance(time.Second)
 	p.Press("right")
 	w.Advance(time.Second)
 	p.Model(func(m *model.Model) {
-		if m.Self.Pos.GetX() != 14000 || m.Self.Pos.GetY() != 50000 {
+		if x := m.Self.Pos.GetX(); x <= 13000 || x >= 16000 || m.Self.Pos.GetY() != 50000 {
 			t.Fatalf("after two steps east: at %v", m.Self.Pos)
 		}
 		if !hasLog(m, "walk_stopped", "you are fighting Plain Scuttler") {
@@ -87,11 +98,11 @@ func TestLoginMoveFightLoot(t *testing.T) {
 		}
 	})
 
-	// The scuttler is fighting the character already. Tab picks it, F attacks.
+	// The scuttler is fighting the character already, and with auto-retaliate on
+	// (D85) the character fights back: Tab picks it, and the attack is on.
 	p.Press("tab")
 	notice(t, p, "target ok", false)
 	w.Advance(2 * time.Second) // it closes the 10 m to melee
-	p.Press("f")
 	p.Model(func(m *model.Model) {
 		if m.Self.Target == "" || !m.Self.AutoAttack {
 			t.Fatalf("target %q, auto-attack %v", m.Self.Target, m.Self.AutoAttack)
@@ -203,12 +214,9 @@ func TestSoloTrialClear(t *testing.T) {
 	p.Golden("instance_inside")
 
 	// The scuttler stands 14 m south and wakes at 12 m: one step closer, and it
-	// comes. Then Tab, F, and the fight.
+	// comes, and the character fights back with no key (D85).
 	p.Press("down")
-	w.Advance(40 * time.Second)
-	p.Press("tab", "f")
-	notice(t, p, "attack ok", false)
-	w.Advance(40 * time.Second)
+	w.Advance(80 * time.Second)
 	p.Model(func(m *model.Model) {
 		if len(m.Drops) != 1 {
 			t.Fatalf("drops %d", len(m.Drops))

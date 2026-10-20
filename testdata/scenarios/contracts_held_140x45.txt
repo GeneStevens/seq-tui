@@ -3,15 +3,16 @@
 │                                                                                                ││ HP 130/130 ########################### │
 │> Wolves at Wickett Mill (Hunt)                                                                 ││ XP ------------------------- 40 to Lv 2│
 │   0 of 4 killed                                                                                ││ Atk off | none                         │
-│   Pays 22 XP and 10 crowns                                                                     │└────────────────────────────────────────┘
-│   Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,  │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│   west of the river.                                                                           ││ First Steps                            │
-│  Word from Barleycross (Scout)                                                                 ││ Step 2 of 4                            │
-│   go to the marker                                                                             ││ Speak to your class trainer on         │
-│   the marker is in another place                                                               ││ Trainers' Lane, by the north wall      │
-│   Pays 12 XP and 5 crowns                                                                      ││ (warriors at the west end, druids at   │
-│   Walk out to Barleycross, along the road west of the river, and return to the board with news ││ the east), for your first lesson.      │
-│   of the village.                                                                              │└────────────────────────────────────────┘
+│   Pays 22 XP and 10 crowns                                                                     ││ Auto-retaliate: ON  (Ctrl+R)           │
+│   Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,  │└────────────────────────────────────────┘
+│   west of the river.                                                                           │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│  Word from Barleycross (Scout)                                                                 ││ First Steps                            │
+│   go to the marker                                                                             ││ Step 2 of 4                            │
+│   the marker is in another place                                                               ││ Speak to your class trainer on         │
+│   Pays 12 XP and 5 crowns                                                                      ││ Trainers' Lane, by the north wall      │
+│   Walk out to Barleycross, along the road west of the river, and return to the board with news ││ (warriors at the west end, druids at   │
+│   of the village.                                                                              ││ the east), for your first lesson.      │
+│                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
@@ -22,12 +23,11 @@
 │                                                                                                ││ Word from Barl… 0/1 — go to the marker │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board  2m S [new] │
+│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>    6m SE │
-│                                                                                                ││ $ Barnaby Tuck <General Goods>  13m SW │
-│ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ H Isolde Fenn <Binder>          14m SE │
-│ Esc closes                                                                                     ││ +11 more                               │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    5m SE │
+│ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ H Isolde Fenn <Binder>          13m SE │
+│ Esc closes                                                                                     ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │

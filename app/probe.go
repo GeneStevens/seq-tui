@@ -75,14 +75,14 @@ func (a *App) Resize(w, h int) { a.w, a.h = w, h }
 // It reports whether it sent a movement intent, and whether a key is down or a walk
 // is not yet stopped.
 func (a *App) Frame() (sent, active bool) {
-	if !a.walk.w.Active() && a.walk.queued.Load() == 0 {
+	if !a.walk.w.Active() && a.walk.queued.Load() == 0 && a.walk.pred.Settled() {
 		return false, false
 	}
 	a.walk.framing = false
 	_ = a.walkPoll()
 	a.walk.framing = false
 	a.sess.View(func(m *model.Model) { a.drawAhead(m)() }) // the draw the renderer would make
-	return a.walk.queued.Load() > 0, a.walk.w.Active()
+	return a.walk.queued.Load() > 0, a.walk.w.Active() || !a.walk.pred.Settled()
 }
 
 // KeyboardEvents tells the program the terminal reports key releases and

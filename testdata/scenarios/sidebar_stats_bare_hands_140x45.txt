@@ -3,20 +3,20 @@
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
 │  ▲ Cudgel Common                           15 │  (nothing)                                     ││ Atk off | none                         │
-│  ▲ Short Sword Common                      24 │                                                │└────────────────────────────────────────┘
-│  ▲ Dirk Common                             22 │                                                │┌─ Your character (C: tab) ──────────────┐
-│  x Ashwood Staff Common                    22 │                                                ││  Gear   Bags  [Stats]                  │
-│  ▲ Flanged Mace Common           48, short 18 │                                                ││ Level 3 Warrior                        │
-│  ▲ Long Sword Common             56, short 26 │                                                ││ Health   164  (regen 4 a tick)         │
-│  ▲ Stiletto Common               52, short 22 │                                                ││ Armour   20  (cuts 17% of a hit)       │
-│  x Yew Staff Common              52, short 22 │                                                ││ Accuracy 0  (75% to hit)               │
-│  ▲ Spiked Mace Common           110, short 80 │                                                ││ Fists: 7–13 / N.Ns  (5.0 damage/s)     │
-│> ▲ Broad Sword Common           120, short 90 │                                                ││ Strength  28                           │
-│  ▲ Poniard Common               110, short 80 │                                                ││ Agility   0                            │
-│  x Elder Staff Common           110, short 80 │                                                ││ Stamina   0                            │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ Intellect 0                            │
-│ ▲ Broad Sword: Common, Main hand; tradable once                                                ││ Wisdom    0                            │
-│ damage 7-11 / N.Ns; costs 120 crowns, short 90 crowns                                          ││                                        │
+│  ▲ Short Sword Common                      24 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  ▲ Dirk Common                             22 │                                                │└────────────────────────────────────────┘
+│  x Ashwood Staff Common                    22 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Flanged Mace Common           48, short 18 │                                                ││  Gear   Bags  [Stats]                  │
+│  ▲ Long Sword Common             56, short 26 │                                                ││ Level 3 Warrior                        │
+│  ▲ Stiletto Common               52, short 22 │                                                ││ Health   164  (regen 4 a tick)         │
+│  x Yew Staff Common              52, short 22 │                                                ││ Armour   20  (cuts 17% of a hit)       │
+│  ▲ Spiked Mace Common           110, short 80 │                                                ││ Accuracy 0  (75% to hit)               │
+│> ▲ Broad Sword Common           120, short 90 │                                                ││ Fists: 7–13 / N.Ns  (5.0 damage/s)     │
+│  ▲ Poniard Common               110, short 80 │                                                ││ Strength  28                           │
+│  x Elder Staff Common           110, short 80 │                                                ││ Agility   0                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Stamina   0                            │
+│ ▲ Broad Sword: Common, Main hand; tradable once                                                ││ Intellect 0                            │
+│ damage 7-11 / N.Ns; costs 120 crowns, short 90 crowns                                          ││ Wisdom    0                            │
 │ upgrade over an empty main hand: +3.6 damage/s                                                 ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

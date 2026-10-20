@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/GeneStevens/seq-tui/model"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
 // Hold-to-walk (SEQ-088, TUI-031). A held movement key walks the character along
@@ -29,6 +30,9 @@ const (
 	// repeat, until one has been seen: a key held for the first time must not stop
 	// in that pause.
 	firstDelay = 450 * time.Millisecond
+	// tapHold is how long a key whose release is reported may be down and still be
+	// a tap: one 3 m step (D85). Held past it the key walks, and a release stops it.
+	tapHold = 200 * time.Millisecond
 	// keyLost is how long a key whose release is reported may be silent (no
 	// repeat) before it counts as let go anyway: a release that never came, on a
 	// terminal that lost the focus say.
@@ -68,9 +72,11 @@ type heldKey struct {
 	dir         [2]int
 }
 
-// WalkOut is an intent the walker asks to send: Stop, or Walk along Heading.
+// WalkOut is an intent the walker asks to send: Stop, Walk along Heading, or
+// Step: move StepMm along Heading (a tap, D85).
 type WalkOut struct {
 	Stop    bool
+	Step    bool
 	Heading int
 }
 
@@ -84,6 +90,14 @@ type Walker struct {
 	held  map[string]*heldKey
 	first time.Duration // the pause before the first repeat, as far as it has been seen
 
+	// A group is the keys down together, from the first going down to the last
+	// coming up (releases reported). Let go inside tapHold, with no walk begun, it
+	// is a tap along the directions it held.
+	group      map[string][2]int
+	groupSince time.Time
+	walked     bool // a walk began in this group
+	step       int  // the heading of a tap not yet sent, noHeading for none
+
 	sent   int // the heading last told, noHeading for a stop, unknown for nothing yet
 	sentAt time.Time
 }
@@ -95,7 +109,7 @@ const (
 
 // NewWalker returns a walker with no key down.
 func NewWalker() *Walker {
-	return &Walker{held: map[string]*heldKey{}, first: firstDelay, sent: noHeading}
+	return &Walker{held: map[string]*heldKey{}, group: map[string][2]int{}, first: firstDelay, sent: noHeading, step: noHeading}
 }
 
 // Press notes a key going down, or repeating when it is down already.
@@ -115,7 +129,17 @@ func (w *Walker) Press(key string, now time.Time) {
 	}
 	h := w.held[name]
 	if h == nil {
+		if len(w.held) == 0 {
+			clear(w.group)
+			w.groupSince, w.walked = now, false
+		}
+		w.group[name] = dirOf[key]
 		w.held[name] = &heldKey{since: now, last: now, dir: dirOf[key]}
+		if !w.Releases {
+			// No release will tell a tap from a hold: the press is a step at once, and
+			// a repeat after it turns it into a walk.
+			w.step = headingOf(dirOf[key])
+		}
 		return
 	}
 	switch {
@@ -132,8 +156,31 @@ func (w *Walker) Press(key string, now time.Time) {
 	h.last = now
 }
 
-// Release notes a key coming up.
-func (w *Walker) Release(key string) { delete(w.held, dirName[key]) }
+// Release notes a key coming up. The last key of a group coming up inside tapHold
+// with no walk begun is a tap: a step along what the group held.
+func (w *Walker) Release(key string, now time.Time) {
+	name := dirName[key]
+	if _, ok := w.held[name]; !ok {
+		return
+	}
+	delete(w.held, name)
+	if len(w.held) == 0 && w.Releases && !w.walked && now.Sub(w.groupSince) < tapHold {
+		var s [2]int
+		for _, d := range w.group {
+			s[0] += d[0]
+			s[1] += d[1]
+		}
+		w.step = headingOf([2]int{sign(s[0]), sign(s[1])})
+	}
+}
+
+// headingOf is the heading of a direction, noHeading for none.
+func headingOf(d [2]int) int {
+	if h, ok := degrees[d]; ok {
+		return h
+	}
+	return noHeading
+}
 
 // ReleaseAll lets every key go: the window lost the focus, say.
 func (w *Walker) ReleaseAll() { clear(w.held) }
@@ -158,8 +205,14 @@ func (w *Walker) expire(now time.Time) {
 // keys cancel).
 func (w *Walker) Heading(now time.Time) int {
 	w.expire(now)
+	if w.Releases && !w.walked && now.Sub(w.groupSince) < tapHold {
+		return noHeading // it may be a tap: the walk begins once the key is held past tapHold
+	}
 	var s [2]int
 	for _, h := range w.held {
+		if !w.Releases && !h.repeated {
+			continue // a press alone is a step, not a walk
+		}
 		s[0] += h.dir[0]
 		s[1] += h.dir[1]
 	}
@@ -182,7 +235,9 @@ func sign(n int) int {
 
 // Active says the walker has work: a key is down, or a walk it started is not
 // yet stopped.
-func (w *Walker) Active() bool { return len(w.held) > 0 || w.sent >= 0 || w.sent == unknown }
+func (w *Walker) Active() bool {
+	return len(w.held) > 0 || w.sent >= 0 || w.sent == unknown || w.step != noHeading
+}
 
 // Walking says the character is, as far as the walker has told, walking.
 func (w *Walker) Walking() bool { return w.sent >= 0 }
@@ -193,19 +248,29 @@ func (w *Walker) Walking() bool { return w.sent >= 0 }
 func (w *Walker) Poll(now time.Time) (WalkOut, bool) {
 	want := w.Heading(now)
 	since := now.Sub(w.sentAt)
+	held := since < walkGap && !w.sentAt.IsZero() // a tick has not passed: coalesced into the next
 	switch {
-	case want == w.sent:
-		if want >= 0 && since >= walkKeepAlive {
-			break
+	case want == w.sent && want == noHeading:
+		// Standing: nothing to say, but for a tap waiting for its tick.
+		if w.step == noHeading || held {
+			return WalkOut{}, false
 		}
+		h := w.step
+		w.step, w.sentAt = noHeading, now
+		return WalkOut{Step: true, Heading: h}, true
+	case want == w.sent:
+		if since < walkKeepAlive {
+			return WalkOut{}, false
+		}
+	case held:
 		return WalkOut{}, false
-	case since < walkGap && !w.sentAt.IsZero():
-		return WalkOut{}, false // a tick has not passed: coalesced into the next
 	}
 	w.sent, w.sentAt = want, now
 	if want == noHeading {
 		return WalkOut{Stop: true}, true
 	}
+	w.step = noHeading // a walk has taken over from the tap
+	w.walked = true
 	return WalkOut{Heading: want}, true
 }
 
@@ -240,6 +305,13 @@ type Predictor struct {
 	// the program drew in between.
 	Direct bool
 
+	// A tap's step (D85): the mark runs StepMm along stepHeading from where it
+	// stood, at the walking speed, ahead of the server's word.
+	stepping    bool
+	stepHeading int
+	stepAt      time.Time
+	stepFrom    [2]float64
+
 	seq    uint64
 	bx, by float64   // the server's last word
 	baseAt time.Time // when it arrived, or when the walk began
@@ -251,7 +323,15 @@ type Predictor struct {
 
 // Settled says the mark is at the server's word and nothing moves it.
 func (p *Predictor) Settled() bool {
-	return !p.valid || (!p.moving && math.Hypot(p.x-p.bx, p.y-p.by) < 5)
+	return !p.valid || (!p.stepping && !p.moving && math.Hypot(p.x-p.bx, p.y-p.by) < 5)
+}
+
+// StartStep begins a tap's step along the heading from where the server has the
+// character (the step's own start): the mark moves at once, with no walk to stop
+// and no coasting.
+func (p *Predictor) StartStep(heading int, from *pb.Pos, now time.Time) {
+	p.stepping, p.stepHeading, p.stepAt = true, heading, now
+	p.stepFrom = [2]float64{float64(from.GetX()), float64(from.GetY())}
 }
 
 // Step moves the mark to now and returns where to draw the character. heading
@@ -273,6 +353,21 @@ func (p *Predictor) Step(m *model.Model, heading int, now time.Time) (x, y int64
 	}
 	p.moving = heading != noHeading
 	tx, ty := p.bx, p.by
+	if p.stepping && !p.moving {
+		age := now.Sub(p.stepAt)
+		v := float64(m.WalkSpeedMmS())
+		dist := min(v*age.Seconds(), StepMm)
+		tx, ty = walkAlong(m, p.stepFrom[0], p.stepFrom[1], p.stepHeading, dist)
+		// It is over when the server has brought the character to the end of the
+		// step, or long after it should have (a wall, a snare).
+		ex, ey := walkAlong(m, p.stepFrom[0], p.stepFrom[1], p.stepHeading, StepMm)
+		due := time.Duration(StepMm/max(v, 1)*float64(time.Second)) + 600*time.Millisecond
+		if v <= 0 || age > due || math.Hypot(p.bx-ex, p.by-ey) < 150 {
+			p.stepping = false
+		}
+	} else if p.moving {
+		p.stepping = false
+	}
 	if v := m.WalkSpeedMmS(); p.moving && v > 0 {
 		age := now.Sub(p.baseAt)
 		if age > predictSilent {

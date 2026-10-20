@@ -3,6 +3,7 @@
 │                                                       ░                                        ││ HP 100/100 ########################### │
 │                                                       ░                                        ││ Target: none                           │
 │                                                       ░                                        ││ Auto-attack: off                       │
+│                                                       ░                                        ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                       ░                                        │└────────────────────────────────────────┘
 │                                                       ░                                        │┌─ Target ───────────────────────────────┐
 │                                                       ░                                        ││ no target (Tab to choose)              │
@@ -12,20 +13,19 @@
 │                                                       ░                                        │┌─ Nearby ───────────────────────────────┐
 │                                                       ░                                        ││ ! Testgrounds Recruiter   179m W [new] │
 │                                                       ░                                        ││ & Testgrounds Contract B… 183m W [new] │
-│                                                       ░                                        ││ D Line East                    0m here │
-│                                                @      ░                                        ││ H Eastern Binder                 76m W │
+│                                                @      ░                                        ││ D Line East                    0m here │
+│                                                       ░                                        ││ H Eastern Binder                 76m W │
 │                                                       ░                                        ││ D Gate North                   124m NW │
 │                                                       ░                                        ││ T Druid Trainer                 181m W │
 │                                                       ░                                        ││ Q Testgrounds Captain <Quest G… 181m W │
 │                                                       ░                                        ││ T Paladin Trainer               183m W │
 │                                                       ░                                        ││ T Wizard Trainer                184m W │
-│                                                       ░                                        ││ H Testgrounds Binder            185m W │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                        ││ T Rogue Trainer                 186m W │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                        ││ H Testgrounds Binder            185m W │
+│                                                                                                ││ T Rogue Trainer                 186m W │
 │                                                                                                ││ B Testgrounds Banker            187m W │
 │                                                                                                ││ T Cleric Trainer                188m W │
 │                                                                                                ││ $ Testgrounds Vendor            189m W │
 │                                                                                                ││ T Warrior Trainer               190m W │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -33,10 +33,10 @@
 │     N.Ns Plain Scuttler targeted aria                                                                                                    │
 │     N.Ns You begin fighting Plain Scuttler                                                                                               │
 │     N.Ns You target Plain Scuttler                                                                                                       │
+│     N.Ns You start attacking Plain Scuttler                                                                                              │
 │     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
 │     N.Ns You are in combat with Plain Scuttler                                                                                           │
 │     N.Ns entered Testgrounds                                                                                                             │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

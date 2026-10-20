@@ -4,6 +4,7 @@
 │ You carry (Enter banks one)                   │ In the bank, 1 (Enter takes one)               ││ MP 150/196 ####################------- │
 │  (nothing)                                    │> ▲ Buckler Common                              ││ XP ------------------------- 90 to Lv 4│
 │                                                                                                ││ Atk off | none                         │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Your character (C: tab) ──────────────┐
 │                                                                                                ││ [Gear]  Bags   Stats                   │
@@ -17,7 +18,6 @@
 │                                                                                                ││ Neck      -                            │
 │                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

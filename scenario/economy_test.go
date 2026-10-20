@@ -66,7 +66,7 @@ func TestEquipALootedItem(t *testing.T) {
 	p := w.Login("ann", "c1")
 	b := w.Login("bob", "c2")
 
-	p.Press("tab", "f")
+	attack(p)
 	for i := 0; i < 60; i++ {
 		var drops int
 		p.Model(func(m *model.Model) { drops = len(m.Drops) })

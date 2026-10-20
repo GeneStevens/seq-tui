@@ -3,17 +3,17 @@
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
+│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
-│                                                                                                ││ Duo Turns                              │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ turn-based | inside                    │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Duo Turns                              │
+│                                                                                                ││ turn-based | inside                    │
 │                                                                                                ││ party up to 2 | normal                 │
 │                                                                                                ││ sleeps up to 7 d                       │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Round 1, 20 s left ───────────────────┐
 │                                                                                                ││ 0 of 1 submitted                       │
-│                                                                                                ││ Plan (3/16): not sent yet              │
-│                                                @ p                                             ││  Enter submits; else safe default      │
+│                                                @ p                                             ││ Plan (3/16): not sent yet              │
 │                                                                                                ││  1 companion: stance assist            │
 │                                                                                                ││  2 target Plain Scuttler               │
 │                                                                                                ││  3 companion: attack Plain Scuttler    │

@@ -3,20 +3,20 @@
 │                                                                                                ││ HP 215/215 ########################### │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”     ││ XP ------------------------ 162 to Lv 7│
 │ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are         ││ Atk off | none                         │
-│ seasoned.”                                                                                     │└────────────────────────────────────────┘
-│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │┌─ Your character (C: tab) ──────────────┐
-│ me.”                                                                                           ││ [Gear]  Bags   Stats                   │
-│                                                                                                ││ Head      -                            │
-│ What they can do for you:                                                                      ││ Chest     -                            │
-│ > 1  Take a contract                                                                           ││ Legs      -                            │
-│   2  Turn in a contract                                                                        ││ Hands     -                            │
+│ seasoned.”                                                                                     ││ Auto-retaliate: ON  (Ctrl+R)           │
+│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │└────────────────────────────────────────┘
+│ me.”                                                                                           │┌─ Your character (C: tab) ──────────────┐
+│                                                                                                ││ [Gear]  Bags   Stats                   │
+│ What they can do for you:                                                                      ││ Head      -                            │
+│ > 1  Take a contract                                                                           ││ Chest     -                            │
+│   2  Turn in a contract                                                                        ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
 │                                                                                                ││ Ring 1    -                            │
 │                                                                                                ││ Ring 2    -                            │
 │                                                                                                ││ Neck      -                            │
 │                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

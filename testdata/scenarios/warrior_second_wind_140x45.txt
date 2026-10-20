@@ -2,7 +2,7 @@
 │                                    ░                                             #             ││ gorm  Lv 1 Warrior           | 0 crowns│
 │                                    ░                                             #             ││ HP 114/120 #########################-- │
 │                                    ░                                             #             ││ XP ------------------------- 40 to Lv 2│
-│                                    ░                                             #             ││ Atk ON | Plain Scuttler                │
+│                                    ░                                             #             ││ Atk ON Ret ON | Plain Scuttler         │
 │                                    ░             T T T  T T T                    #             ││ Attacked by Plain Scuttler             │
 │                                    ░                                             #             │└────────────────────────────────────────┘
 │                                    ░                                             #             │┌─ Quest ────────────────────────────────┐
@@ -33,7 +33,7 @@
 │     N.Ns You begin fighting Plain Scuttler                                                                                               │
 │     N.Ns You are in combat with Plain Scuttler                                                                                           │
 │     N.Ns Plain Scuttler targeted gorm                                                                                                    │
-│     N.Ns You start attacking something                                                                                                   │
+│     N.Ns Plain Scuttler began attacking gorm                                                                                             │
 │ <   N.Ns Plain Scuttler hits you for 4                                                                                                   │
 │     N.Ns You start attacking Plain Scuttler                                                                                              │
 │     N.Ns You miss Plain Scuttler                                                                                                         │

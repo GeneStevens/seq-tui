@@ -2,11 +2,11 @@
 │               ░                           #      ││ aria  Lv 1  XP 0    | 0cr│
 │               ░                           #      ││ HP 96/100 #############- │
 │               ░                           #      ││ Target: Plain Scuttler   │
-│               ░       T TT TTT            #      ││ Auto-attack: ON          │
+│               ░       T TT TTT            #      ││ Atk ON | Retaliate ON    │
 │               ░                           #      ││ Attacked by Plain Scuttl…│
 │               ░       $ BH &Q!            #      │└──────────────────────────┘
 │               ░                           #      │┌─ Quest ──────────────────┐
-│               ░         @M      c         #      ││ [ ] 1. Scout the Lookout │
+│               ░         @ M     c         #      ││ [ ] 1. Scout the Lookout │
 │               ░                           #      ││ Testgrounds Recruiter has│
 │               ░                           #      ││ work for you: G.         │
 │               ░                           #      │└──────────────────────────┘
@@ -15,10 +15,10 @@
 │               ░                           #      ││ HP 23/40 #####---- 2m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│     N.Ns You hit Plain Scuttler for 5                                        │
 │ <   N.Ns Plain Scuttler hits you for 3                                       │
-│    NN.Ns You hit Plain Scuttler for 5                                        │
-│ <  NN.Ns Plain Scuttler hits you for 2                                       │
 │    NN.Ns You hit Plain Scuttler for 4                                        │
+│ <  NN.Ns Plain Scuttler hits you for 2                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                      
- ONLINE | Testgrounds | heard N.Ns ago | attack ok                ? help  q quit
+ ONLINE | Testgrounds | heard N.Ns ago | target ok                ? help  q quit

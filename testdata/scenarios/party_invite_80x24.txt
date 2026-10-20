@@ -3,7 +3,7 @@
 │                                                  ││ bob1  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Target: none             │
-│                                                  ││ Auto-attack: off         │
+│                                                  ││ Atk off | Retaliate ON   │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                         @                        ││ no target (Tab to choose)│

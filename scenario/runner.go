@@ -118,6 +118,12 @@ func NewWithWalkTimeout(t *testing.T, o testserver.Options, ms int) *World {
 	o.Manual = true
 	zone := o.Zone
 	o.Zone = func(space string, z *core.Zone) {
+		if space == testserver.Testgrounds {
+			// SEQ-091 put a town (no mob, no combat, D75) around the arrival point; these
+			// scenarios fight and walk from it, as on the plain field they were written
+			// for, so the town is left off.
+			z.Areas = nil
+		}
 		if zone != nil {
 			zone(space, z)
 		}
@@ -457,7 +463,7 @@ func (p *Player) Fresh() {
 
 var keyBytes = map[string]string{
 	"enter": "\r", "backspace": "\x7f", "esc": "\x1b", "tab": "\t", "space": " ",
-	"ctrl+l": "\x0c", "ctrl+k": "\x0b", "ctrl+a": "\x01", "f1": "\x1bOP", "home": "\x1b[H", "end": "\x1b[F", "up": "\x1b[A", "down": "\x1b[B", "right": "\x1b[C", "left": "\x1b[D",
+	"ctrl+l": "\x0c", "ctrl+k": "\x0b", "ctrl+a": "\x01", "ctrl+r": "\x12", "f1": "\x1bOP", "home": "\x1b[H", "end": "\x1b[F", "up": "\x1b[A", "down": "\x1b[B", "right": "\x1b[C", "left": "\x1b[D",
 }
 
 // Press presses the keys, one after another, waiting after each until the
@@ -540,9 +546,9 @@ func (p *Player) Let(key string) {
 }
 
 // Step walks one step of 3 m the way a player taps a key on a terminal that
-// reports releases: the key goes down, the clock runs until the character has
-// moved 3 m, the key comes up and the walk has stopped. It fails if the
-// character does not move.
+// reports releases: the key goes down and comes up at once (a tap, D85), the
+// server walks the character to the destination 3 m away, and the clock runs
+// until it has arrived. It fails if the character does not move.
 func (p *Player) Step(key string) {
 	p.w.T.Helper()
 	if !p.TryStep(key) {
@@ -551,15 +557,16 @@ func (p *Player) Step(key string) {
 }
 
 // TryStep is Step that says whether the character moved, for a walk a fight may
-// stop (D66). The steps average 3 m: a tick of walking is a few hundred
-// millimetres, so each step makes up for the last one's overshoot, and for the
-// tick the character coasts after the key comes up.
+// stop (D66).
 func (p *Player) TryStep(key string) bool { return p.TryStepBy(key, 3000) }
 
-// TryStepBy is TryStep for a walk of mm millimetres.
+// TryStepBy is TryStep for a walk of about mm millimetres: a tap for each 3 m
+// when it is one or two, else the key held, which walks until it comes up (the
+// steps of a long leg average mm: each makes up for the last one's overshoot).
 func (p *Player) TryStepBy(key string, mm int64) bool {
 	p.w.T.Helper()
 	p.Kitty()
+	defer p.Legacy()
 	from := p.pos()
 	var perTick int64 = 400
 	p.Model(func(m *model.Model) {
@@ -567,8 +574,21 @@ func (p *Player) TryStepBy(key string, mm int64) bool {
 			perTick = v / 10
 		}
 	})
+	if mm < 6000 {
+		for range max((mm+1500)/3000, 1) {
+			p.KeyEvent(key, KeyDown)
+			p.KeyEvent(key, KeyRelease)
+			before := p.pos()
+			p.w.advance(time.Duration((3000+perTick-1)/perTick+1) * Tick)
+			if p.pos() == before {
+				p.w.Advance(2 * Tick) // a fight or a late answer: one more look
+			}
+		}
+		return p.dist(from) > 0
+	}
 	target := mm - p.stepCarry
 	p.KeyEvent(key, KeyDown)
+	p.w.advance(tapHoldTicks * Tick) // past a tap: the walk begins
 	first, stuck, last := true, 0, int64(-1)
 	for range 80 {
 		got := p.dist(from)
@@ -601,12 +621,14 @@ func (p *Player) TryStepBy(key string, mm int64) bool {
 			break
 		}
 	}
-	p.Legacy()
 	moved := p.dist(from)
 	p.stepCarry = max(min(moved-mm, 1500), -1500)
 	p.stepCoast = int((moved - atRelease + perTick/2) / perTick)
 	return moved > 0
 }
+
+// tapHoldTicks is the ticks that carry a held key past a tap (200 ms).
+const tapHoldTicks = 3
 
 // Pos is the character's position in millimetres, as the server last said.
 func (p *Player) Pos() [2]int64 { return p.pos() }

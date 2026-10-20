@@ -2,7 +2,7 @@
 │              """"""""""""""""""  ≈≈≈≈≈≈          ││ hale  Lv 5 Warrior  | 0cr│
 │             """""""""""""""""""  ≈≈≈≈≈≈          ││ HP 198/198 ############# │
 │             """"""""""""""""""   ≈≈≈≈≈≈≈         ││ XP ---------- 145 to Lv 6│
-│             """"""""""""""""""   ≈≈≈≈≈≈≈         ││ Atk ON | Bramble Tusker  │
+│             """"""""""""""""""   ≈≈≈≈≈≈≈         ││ Atk off Ret ON | Bramble…│
 │             """"""""""""@Mc"""   ≈≈≈≈≈≈          ││ Attacked by Bramble Tusk…│
 │            """""""""""""""""""   ≈≈≈≈≈≈          │└──────────────────────────┘
 │            """""""""""""""""""   ≈≈≈≈≈≈          │┌─ Companion, tank ────────┐
@@ -16,9 +16,9 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns You stop attacking                                                  │
-│     N.Ns Bramble Tusker targeted hale                                        │
-│     N.Ns You start attacking something                                       │
-│ <   N.Ns Bramble Tusker misses you                                           │
+│     N.Ns Your companion is ordered: stop                                     │
+│     N.Ns Your target Bramble Tusker is gone                                  │
+│     N.Ns Watch Shieldman stopped attacking                                   │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                      
+ F: attack · Tab: next target                                                   
  ONLINE | forest: slowed to 75% | heard N.Ns ago | companion order: stop ok     

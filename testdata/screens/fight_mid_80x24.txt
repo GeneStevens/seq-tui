@@ -2,7 +2,7 @@
 │                                                  ││ Aria  Lv 3  XP 250  | 0cr│
 │                                                  ││ HP 115/120 ############- │
 │                                                  ││ Target: Shell Rat        │
-│                                                  ││ Auto-attack: ON          │
+│                                                  ││ Atk ON | Retaliate off   │
 │                                                  │└──────────────────────────┘
 │                  ###############                 │┌─ Target ─────────────────┐
 │                                                  ││ M Shell Rat  Lv 1        │

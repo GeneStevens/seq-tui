@@ -42,6 +42,13 @@ func (s *Session) Attack(ctx context.Context, on bool) (string, error) {
 	return s.intent(ctx, "attack", func(i *pb.Intent) { i.Body = &pb.Intent_Attack{Attack: &pb.Attack{On: on}} })
 }
 
+// AutoRetaliate turns the auto-retaliate setting on or off (D85).
+func (s *Session) AutoRetaliate(ctx context.Context, on bool) (string, error) {
+	return s.intent(ctx, "auto_retaliate", func(i *pb.Intent) {
+		i.Body = &pb.Intent_AutoRetaliate{AutoRetaliate: &pb.AutoRetaliate{On: on}}
+	})
+}
+
 // Loot takes the item from a drop.
 func (s *Session) Loot(ctx context.Context, drop string) (string, error) {
 	return s.intent(ctx, "loot", func(i *pb.Intent) { i.Body = &pb.Intent_Loot{Loot: &pb.Loot{Drop: drop}} })

@@ -3,7 +3,8 @@
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
-│                                                                                          c     │└────────────────────────────────────────┘
+│                                                                                          c     ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
@@ -12,8 +13,8 @@
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter    79m W [new] │
 │                                                                                                ││ & Testgrounds Contract Bo… 82m W [new] │
-│                                                                                                ││ ~ 5 crowns          16m S not lootable │
-│                                                @                                               ││ ~ Scuttler Blade ▲  16m S not lootable │
+│                                                @                                               ││ ~ 5 crowns          16m S not lootable │
+│                                                                                                ││ ~ Scuttler Blade ▲  16m S not lootable │
 │                                                                                                ││ ~ Worn Cap ▲        16m S not lootable │
 │                                                                                                ││ p c1                      16m S 94/100 │
 │                                                                                                ││ D Gate North                     24m N │
@@ -23,10 +24,9 @@
 │                                                                                                ││ Q Testgrounds Captain <Quest Gi… 80m W │
 │                                                                                                ││ T Wizard Trainer                 82m W │
 │                                                                                                ││ T Rogue Trainer                  84m W │
-│                                                                                                ││ H Testgrounds Binder             84m W │
-│                                             p  ~                                               ││ T Cleric Trainer                 86m W │
-│                                                                                                ││ B Testgrounds Banker             86m W │
-│                                                                                                ││ +3 more                                │
+│                                             p  ~                                               ││ H Testgrounds Binder             84m W │
+│                                                                                                ││ T Cleric Trainer                 86m W │
+│                                                                                                ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns C1 hits Trophy Scuttler for 4                                                                                                   │
@@ -34,7 +34,7 @@
 │    NN.Ns C1 hits Trophy Scuttler for 4                                                                                                   │
 │ x  NN.Ns C1 killed Trophy Scuttler                                                                                                       │
 │    NN.Ns Your target Trophy Scuttler is gone                                                                                             │
-│    NN.Ns You stop attacking                                                                                                              │
+│    NN.Ns c1 stopped attacking                                                                                                            │
 │    NN.Ns Trophy Scuttler dropped Worn Cap: not yours to take                                                                             │
 │    NN.Ns Trophy Scuttler dropped Scuttler Blade [Rare, bound on pickup]: not yours to take                                               │
 │    NN.Ns Trophy Scuttler dropped 5 crowns                                                                                                │

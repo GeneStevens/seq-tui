@@ -1,22 +1,22 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick <Armourer>, 3m S away. You have 200 crowns.                                    ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Armourer>, 2m S away. You have 200 crowns.                                    ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
 │> ▲ Tanned Cap Common                        8 │  (nothing)                                     ││ Atk off | none                         │
-│  ▲ Ringed Cap Common                       24 │                                                │└────────────────────────────────────────┘
-│  ▲ Studded Cap Common                      48 │                                                │┌─ Your character (C: tab) ──────────────┐
-│  ▲ Tanned Jerkin Common                    20 │                                                ││ [Gear]  Bags   Stats                   │
-│  ▲ Ringed Jerkin Common                    60 │                                                ││ Head      -                            │
-│  ▲ Studded Jerkin Common                  120 │                                                ││ Chest     -                            │
-│  ▲ Tanned Leggings Common                  16 │                                                ││ Legs      -                            │
-│  ▲ Ringed Leggings Common                  48 │                                                ││ Hands     -                            │
-│  ▲ Studded Leggings Common                 96 │                                                ││ Feet      -                            │
-│  ▲ Tanned Gloves Common                     8 │                                                ││ Ring 1    -                            │
-│  ▲ Ringed Gloves Common                    24 │                                                ││ Ring 2    -                            │
-│  ▲ Studded Gloves Common                   48 │                                                ││ Neck      -                            │
-│  ▲ Tanned Boots Common                     10 │                                                ││ Main hand -                            │
-│  ▲ Ringed Boots Common                     30 │                                                ││ Off hand  -                            │
-│  ▲ Studded Boots Common                    60 │                                                ││                                        │
+│  ▲ Ringed Cap Common                       24 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  ▲ Studded Cap Common                      48 │                                                │└────────────────────────────────────────┘
+│  ▲ Tanned Jerkin Common                    20 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Ringed Jerkin Common                    60 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Studded Jerkin Common                  120 │                                                ││ Head      -                            │
+│  ▲ Tanned Leggings Common                  16 │                                                ││ Chest     -                            │
+│  ▲ Ringed Leggings Common                  48 │                                                ││ Legs      -                            │
+│  ▲ Studded Leggings Common                 96 │                                                ││ Hands     -                            │
+│  ▲ Tanned Gloves Common                     8 │                                                ││ Feet      -                            │
+│  ▲ Ringed Gloves Common                    24 │                                                ││ Ring 1    -                            │
+│  ▲ Studded Gloves Common                   48 │                                                ││ Ring 2    -                            │
+│  ▲ Tanned Boots Common                     10 │                                                ││ Neck      -                            │
+│  ▲ Ringed Boots Common                     30 │                                                ││ Main hand -                            │
+│  ▲ Studded Boots Common                    60 │                                                ││ Off hand  -                            │
 │  ▲ Oak Buckler Common                      14 │                                                ││                                        │
 │  ▲ Iron-Rimmed Shield Common               42 │                                                ││                                        │
 │  ▲ Bossed Shield Common                    84 │                                                ││                                        │

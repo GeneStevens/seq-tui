@@ -2,7 +2,7 @@
 │    ░···········································  ││ Hale  Lv 1 Warrior  | 0cr│
 │    ░··D··········································││ HP 130/130 ############# │
 │    ░·············································││ XP ----------- 40 to Lv 2│
-│    ░                             ····            ││ Atk off | none           │
+│    ░                             ····            ││ Atk off Ret off | none   │
 │    ░     """""""""      @        ··;·""""""""""  │└──────────────────────────┘
 │    ░                   ;         ····#####       │┌─ Target ─────────────────┐
 │    ░                 ##### ≈≈≈≈  ··G######       ││ no target (Tab to choose)│
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│            and experience.                                                   │
+│ +   2.8s You take the contract Word from Wickett Mill                        │
 │    26.7s entered Thornwick Downs                                             │
 │ +  42.2s Word from Wickett Mill: 1 of 1                                      │
-│                                                                              │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Walk: click or arrows · M: large map · ?: help                                 
  ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 42m W | move ok  ? help

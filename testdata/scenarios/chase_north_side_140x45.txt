@@ -1,27 +1,27 @@
-┌─ Thornwick Downs, at 36,112 m, north up ───────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
-│      ░                                                                            ····G···   ##││ hale  Lv 1 Warrior           | 0 crowns│
-│      ░                                                                            ········     ││ HP 129/130 ##########################- │
-│      ░                                             ############  ≈≈≈≈≈≈≈≈≈########        #####││ XP ------------------------- 40 to Lv 2│
-│      ░                                             ############  ≈≈≈≈≈≈≈≈≈########        #####││ Atk off | Meadow Wolf                  │
-│      ░                                             ############  ≈≈≈≈≈≈≈≈≈########        #####││ Attacked by Meadow Wolf                │
-│      ░                                             ############  ≈≈≈≈≈≈≈≈≈########        #####│└────────────────────────────────────────┘
-│      ░                                             ############  ≈≈≈≈≈≈≈≈≈########        #####│┌─ Target ───────────────────────────────┐
-│      ░                                             ############                                ││ M Meadow Wolf  Lv 1                    │
-│      ░                                                                                         ││ HP 45/45 ####################### 3m E  │
-│      ░                                                                                         ││ even, fighting you                     │
-│      ░                                                                                         │└────────────────────────────────────────┘
-│      ░                                         @   M                                           │┌─ Nearby ───────────────────────────────┐
-│      ░                                                                                         ││ M Meadow Wolf          3m E 45/45 even │
-│      ░                                                                                         ││ ; Wickett Mill      24m N scout marker │
-│      ░                                                                                         ││ G Barleycross        38m NE event goal │
-│      ░                                                                                         ││ ; Barleycross      42m NE scout marker │
-│      ░                                                                                         ││ D Town Gate                     49m NW │
-│      ░                                                                                         ││ ; Millrace Ford   150m NE scout marker │
-│      ░                                                                                         ││ ; Goblin Lookout   195m E scout marker │
-│      ░                                                                                         ││ v Raid Edge         202m E event spawn │
-│      ░                                                                                         ││ ; Hollow Warren    353m E scout marker │
-│      ░                                                   c                                     ││ D Hollow Warren                 365m E │
-│      ░                                                                                         ││                                        │
+┌─ Thornwick Downs, at 35,112 m, north up ───────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│       ░                                                                            ····G···   #││ hale  Lv 1 Warrior           | 0 crowns│
+│       ░                                                                            ········    ││ HP 130/130 ########################### │
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########        ####││ XP ------------------------- 40 to Lv 2│
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########        ####││ Atk ON Ret ON | Meadow Wolf            │
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########        ####││ Attacked by Meadow Wolf                │
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########        ####│└────────────────────────────────────────┘
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########        ####│┌─ Target ───────────────────────────────┐
+│       ░                                             ############                               ││ M Meadow Wolf  Lv 1                    │
+│       ░                                                                                        ││ HP 45/45 ####################### 5m E  │
+│       ░                                                                                        ││ even, fighting you                     │
+│       ░                                                                                        │└────────────────────────────────────────┘
+│       ░                                        @    M                                          │┌─ Nearby ───────────────────────────────┐
+│       ░                                                                                        ││ M Meadow Wolf          5m E 45/45 even │
+│       ░                                                                                        ││ ; Wickett Mill     24m NE scout marker │
+│       ░                                                                                        ││ G Barleycross        39m NE event goal │
+│       ░                                                                                        ││ ; Barleycross      43m NE scout marker │
+│       ░                                                                                        ││ D Town Gate                     48m NW │
+│       ░                                                                                        ││ ; Millrace Ford   151m NE scout marker │
+│       ░                                                                                        ││ ; Goblin Lookout   197m E scout marker │
+│       ░                                                                                        ││ v Raid Edge         203m E event spawn │
+│       ░                                                                                        ││ ; Hollow Warren    355m E scout marker │
+│       ░                                                   c                                    ││ D Hollow Warren                 367m E │
+│       ░                                                                                        ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt ready                      2 Bash range                      3 -                               4 -                               │
@@ -32,14 +32,14 @@
 │     N.Ns Meadow Wolf targeted hale                                                                                                       │
 │     N.Ns You begin fighting Meadow Wolf                                                                                                  │
 │     N.Ns You target Meadow Wolf                                                                                                          │
+│     N.Ns You start attacking Meadow Wolf                                                                                                 │
 │     N.Ns Meadow Wolf (level 1, even) is attacking you                                                                                    │
 │     N.Ns You are in combat with Meadow Wolf                                                                                              │
-│     N.Ns You start attacking something                                                                                                   │
-│ <   N.Ns Meadow Wolf hits you for 1                                                                                                      │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                                                                               
+ F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | Thornwick Downs | heard N.Ns ago                                                                                    ? help  q quit

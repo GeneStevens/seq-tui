@@ -2,7 +2,7 @@
 │                          """"""""""""""""""""""""""""""""""""""""           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈     ││ hale  Lv 5 Warrior           | 0 crowns│
 │                          """""""""""""""""""""""""""""""""""""""""          ≈≈≈≈≈≈≈≈≈≈≈≈≈≈     ││ HP 198/198 ########################### │
 │                         """"""""""""""""""""""""""""""""""""""""""""        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈    ││ XP ------------------------ 145 to Lv 6│
-│                         """""""""""""""""""""""""""""""""""""""""""""       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈    ││ Atk off | Bramble Tusker               │
+│                         """""""""""""""""""""""""""""""""""""""""""""       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈    ││ Atk ON Ret ON | Bramble Tusker         │
 │                        """""""""""""""""""""""""""""""""""""""""""""        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈    ││ Attacked by Bramble Tusker             │
 │                        """""""""""""""""""""""""""""""""""""""""""""        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈    │└────────────────────────────────────────┘
 │                        """""""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈    │┌─ Companion, healer ────────────────────┐
@@ -32,6 +32,7 @@
 │     N.Ns Bramble Tusker targeted Watch Medic                                                                                             │
 │     N.Ns Watch Medic begins fighting Bramble Tusker                                                                                      │
 │     N.Ns You target Bramble Tusker                                                                                                       │
+│     N.Ns You start attacking Bramble Tusker                                                                                              │
 │     N.Ns Bramble Tusker (level 5, even) is attacking you                                                                                 │
 │     N.Ns You are in combat with Bramble Tusker                                                                                           │
 │     N.Ns bram comes into view                                                                                                            │
@@ -39,7 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                                                                               
+ F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | second character in play                 ? help  q quit

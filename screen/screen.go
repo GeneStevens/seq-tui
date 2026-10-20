@@ -42,6 +42,7 @@ type View struct {
 	// scrolled.
 	HelpPage, HelpScroll int
 	Verbose              bool // log routine movement and rules ticks too
+	roomy                bool // the You panel may take a row of its own for auto-retaliate (set by the column)
 	Conn                 Conn
 	// Since is how long ago the server last said anything (an event, a result,
 	// a pong); HasTick is false before any.

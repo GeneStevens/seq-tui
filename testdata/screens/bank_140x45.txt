@@ -4,6 +4,7 @@
 │ You carry (Enter banks one)                   │ In the bank, 1 (Enter takes one)               ││ MP 150/196 ####################------- │
 │  (nothing)                                    │> ▲ Buckler Common                              ││ XP ------------------------- 90 to Lv 4│
 │                                                                                                ││ Atk off | none                         │
+│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Quest ────────────────────────────────┐
 │                                                                                                ││ [ ] 1. Scout the Lookout               │
@@ -25,9 +26,8 @@
 │                                                                                                ││ T Warrior Trainer                3m NW │
 │                                                                                                ││ $ Testgrounds Vendor             3m SW │
 │                                                                                                ││ T Wizard Trainer                 4m NE │
-│                                                                                                ││ Q Testgrounds Captain <Quest Giv… 6m E │
-│ Tab switches list · Up / Down choose · Enter acts on the item · Esc back                       ││ T Paladin Trainer                 6m E │
-│ bank Buckler ok                                                                                ││ +5 more                                │
+│ Tab switches list · Up / Down choose · Enter acts on the item · Esc back                       ││ Q Testgrounds Captain <Quest Giv… 6m E │
+│ bank Buckler ok                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.2s You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │

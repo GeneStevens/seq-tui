@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	"math"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -21,6 +22,7 @@ type frameMsg struct{}
 // walkReq is a movement intent waiting to be written.
 type walkReq struct {
 	out  WalkOut
+	x, y int64  // a Step: where it ends
 	for_ string // the character it is for when it is not the player's own (D56)
 }
 
@@ -51,7 +53,7 @@ func (a *App) walkKey(k string) tea.Cmd {
 
 // walkRelease handles a movement key coming up.
 func (a *App) walkRelease(k string) tea.Cmd {
-	a.walk.w.Release(k)
+	a.walk.w.Release(k, a.now())
 	return a.walkPoll()
 }
 
@@ -64,6 +66,14 @@ func (a *App) walkPoll() tea.Cmd {
 	}
 	if out, ok := ws.w.Poll(a.now()); ok {
 		req := walkReq{out: out}
+		if out.Step {
+			a.focusSess().View(func(m *model.Model) {
+				req.x, req.y = stepEnd(m.Self.Pos, out.Heading)
+				if !a.focus {
+					ws.pred.StartStep(out.Heading, m.Self.Pos, a.now())
+				}
+			})
+		}
 		if a.Clock != nil { // a scenario counts them
 			ws.sends = append(ws.sends, WalkSend{At: a.now(), WalkOut: out})
 		}
@@ -115,9 +125,12 @@ func (ws *walkState) write(sess *client.Session, req walkReq) {
 		id  string
 		err error
 	)
-	if req.out.Stop {
+	switch {
+	case req.out.Stop:
 		id, err = sess.Stop(ctx)
-	} else {
+	case req.out.Step:
+		id, err = sess.Move(ctx, req.x, req.y)
+	default:
 		id, err = sess.Walk(ctx, uint32(req.out.Heading))
 	}
 	if err != nil {
@@ -132,6 +145,13 @@ func (ws *walkState) write(sess *client.Session, req walkReq) {
 			ws.denied.Store("walk denied: " + deniedWords(st))
 		}
 	}()
+}
+
+// stepEnd is where a tap along the heading ends: StepMm from where the character
+// stands, as a key press moved before hold-to-walk.
+func stepEnd(from *pb.Pos, heading int) (x, y int64) {
+	rad := float64(heading) * math.Pi / 180
+	return from.GetX() + int64(math.Round(StepMm*math.Cos(rad))), from.GetY() + int64(math.Round(StepMm*math.Sin(rad)))
 }
 
 // stopWalking lets every key go and says so: another screen took the keys, or

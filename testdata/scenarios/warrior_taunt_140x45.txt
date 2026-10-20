@@ -2,7 +2,7 @@
 │                                    ░                                             #             ││ gorm  Lv 1 Warrior           | 0 crowns│
 │                                    ░                                             #             ││ HP 120/120 ########################### │
 │                                    ░                                             #             ││ XP ------------------------- 40 to Lv 2│
-│                                    ░                                             #             ││ Atk off | Plain Scuttler               │
+│                                    ░                                             #             ││ Atk off Ret ON | Plain Scuttler        │
 │                                    ░             T T T  T T T                    #             ││ Attacked by Plain Scuttler             │
 │                                    ░                                             #             │└────────────────────────────────────────┘
 │                                    ░                                             #             │┌─ Quest ────────────────────────────────┐

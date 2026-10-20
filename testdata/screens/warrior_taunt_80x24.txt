@@ -2,7 +2,7 @@
 │                    ░                 #           ││ gorm  Lv 1 Warrior  | 0cr│
 │                    ░    TTTTTT       #           ││ HP 120/120 ############# │
 │                    ░    $BH&Q!       #           ││ XP ----------- 40 to Lv 2│
-│                    ░                 #           ││ Atk off | Plain Scuttler │
+│                    ░                 #           ││ Atk off Ret off | Plain …│
 │                    ░    @    Mc      #      c    ││ Attacked by Plain Scuttl…│
 │                    ░                 #           │└──────────────────────────┘
 │                    ░                 #           │┌─ Quest ──────────────────┐
@@ -20,5 +20,5 @@
 │     0.3s You are in combat with Plain Scuttler                               │
 │     0.4s Plain Scuttler targeted gorm                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                   
+ F: attack · Tab: next target  ·  Ctrl+R: fight back when attacked              
  ONLINE | Testgrounds | heard 0.4s ago | key 1 Taunt ok           ? help  q quit

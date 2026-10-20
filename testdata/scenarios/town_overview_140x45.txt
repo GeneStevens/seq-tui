@@ -12,7 +12,7 @@
 │                         ░##   ########### ······ ########                                B   The Watch House  ##░                        │
 │                         ░##   ########### ···$·· ######## ·····················Counting House Yard#########   ##░                        │
 │                         ░##   ########### ······          ·····················              Watch House Yard ##░                        │
-│                         ░##               ······          ·······@·············                     Q         ##░                        │
+│                         ░##               ······          ········@············                     Q         ##░                        │
 │                         ░##   #########Tanner's Row       ·······&············································##░                        │
 │                         ░##   ########### ··························g···········································░                        │
 │                         ░##   ########### ·····Cross Street··Hawthorn Square······g······Gatehouse Way······D···░                        │
@@ -32,7 +32,7 @@
 │                         ░##    ##########  ##########  #########   #########  ##########  ##########          ##░                        │
 │                         ░######################################North Wall#######################################░                        │
 │                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                        │
-│ Thornwick, 120m by 90m, north up. You: 56m E, 51m N of the SW corner.                                                                    │
+│ Thornwick, 120m by 90m, north up. You: 57m E, 51m N of the SW corner.                                                                    │
 │ @ you  m mob  M target  x dead  p player  r rare  * loot  ~ not yours                                                                    │
 │ T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  D door                                                        │
 │ ! new for you (gold)  ? hand in ready (gold)  ? in progress (grey)  gold m quest mob  gold D next door                                   │

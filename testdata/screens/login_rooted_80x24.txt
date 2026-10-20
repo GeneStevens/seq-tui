@@ -3,7 +3,7 @@
 │                    ░    TTTTTT       #           ││ HP 80/80 ############### │
 │                    ░    $BH&Q!       #           ││ MP 140/150 ############- │
 │                    ░                 #           ││ XP ----------- 40 to Lv 2│
-│                    ░    @    Mc      #      c    ││ Atk off | Plain Scuttler │
+│                    ░    @    Mc      #      c    ││ Atk off Ret off | Plain …│
 │                    ░                 #           ││ Attacked by Plain Scuttl…│
 │                    ░                 #           │└──────────────────────────┘
 │                    ░                 #           │┌─ Quest ──────────────────┐
@@ -20,5 +20,5 @@
 │     1.8s You are in combat with Plain Scuttler                               │
 │     1.9s Plain Scuttler targeted zedd                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                   
+ F: attack · Tab: next target  ·  Ctrl+R: fight back when attacked              
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

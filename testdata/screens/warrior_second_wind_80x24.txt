@@ -2,7 +2,7 @@
 │                    ░                 #           ││ gorm  Lv 1 Warrior  | 0cr│
 │                    ░    TTTTTT       #           ││ HP 114/120 ############- │
 │                    ░    $BH&Q!       #           ││ XP ----------- 40 to Lv 2│
-│                    ░                 #           ││ Atk ON | Plain Scuttler  │
+│                    ░                 #           ││ Atk ON Ret off | Plain S…│
 │                    ░    @M    c      #      c    ││ Attacked by Plain Scuttl…│
 │                    ░                 #           │└──────────────────────────┘
 │                    ░                 #           │┌─ Quest ──────────────────┐
@@ -20,5 +20,5 @@
 │     7.0s You are affected by Second Wind                                     │
 │ <   7.4s Plain Scuttler hits you for 4                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                      
+ F: stop attacking · Esc: clear the target  ·  Ctrl+R: fight back when attacked 
  ONLINE | Testgrounds | heard 0.4s ago | key 3 Second Wind ok     ? help  q quit

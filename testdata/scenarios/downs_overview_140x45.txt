@@ -32,7 +32,7 @@
 │                       ░   """""""                """"""""  ≈≈≈≈                                                   ░                      │
 │                       ░        "                      "    ≈≈≈≈                                                   ░                      │
 │                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
-│ Thornwick Downs, 420m by 300m, north up. You: 185m E, 176m N of the SW corner.                                                           │
+│ Thornwick Downs, 420m by 300m, north up. You: 185m E, 174m N of the SW corner.                                                           │
 │ @ you  m mob  M target  x dead  p player  r rare  * loot  ~ not yours                                                                    │
 │ T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  D door                                                        │
 │ ! new for you (gold)  ? hand in ready (gold)  ? in progress (grey)  gold m quest mob  gold D next door                                   │

@@ -4,20 +4,20 @@
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ MP 150/196 ####################------- │
 │    Cracked Shell Fragment Common            1 │  (nothing)                                     ││ XP ------------------------- 90 to Lv 4│
 │> ▲ Worn Cap Common                          8 │                                                ││ Atk off | none                         │
-│  ▲ Padded Vest Common                      20 │                                                │└────────────────────────────────────────┘
-│  ▲ Padded Leggings Common                  16 │                                                │┌─ Your character (C: tab) ──────────────┐
-│  ▲ Padded Gloves Common                     8 │                                                ││ [Gear]  Bags   Stats                   │
-│  ▲ Stout Boots Common                      10 │                                                ││ Head      -                            │
-│  ▲ Copper Ring Fine                        40 │                                                ││ Chest     -                            │
-│  ▲ Bone Charm Fine                         45 │                                                ││ Legs      -                            │
-│  ▲ Plain Club Common                       15 │                                                ││ Hands     -                            │
-│  ▲ Buckler Common                          12 │                                                ││ Feet      -                            │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ Ring 1    -                            │
-│ ▲ Worn Cap: Common, Head; tradable once                                                        ││ Ring 2    -                            │
-│ armor +2; costs 8 crowns                                                                       ││ Neck      -                            │
-│ upgrade over an empty head: +2 armour                                                          ││ Main hand -                            │
+│  ▲ Padded Vest Common                      20 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  ▲ Padded Leggings Common                  16 │                                                │└────────────────────────────────────────┘
+│  ▲ Padded Gloves Common                     8 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Stout Boots Common                      10 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Copper Ring Fine                        40 │                                                ││ Head      -                            │
+│  ▲ Bone Charm Fine                         45 │                                                ││ Chest     -                            │
+│  ▲ Plain Club Common                       15 │                                                ││ Legs      -                            │
+│  ▲ Buckler Common                          12 │                                                ││ Hands     -                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Feet      -                            │
+│ ▲ Worn Cap: Common, Head; tradable once                                                        ││ Ring 1    -                            │
+│ armor +2; costs 8 crowns                                                                       ││ Ring 2    -                            │
+│ upgrade over an empty head: +2 armour                                                          ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

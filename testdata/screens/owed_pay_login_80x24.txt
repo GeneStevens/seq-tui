@@ -2,7 +2,7 @@
 │                  ░                           #   ││ aria  Lv 1  XP 0    | 0cr│
 │                  ░                           #   ││ HP 100/100 ############# │
 │                  ░                           #   ││ Target: none             │
-│                  ░       T TT TTT            #   ││ Auto-attack: off         │
+│                  ░       T TT TTT            #   ││ Atk off | Retaliate off  │
 │                  ░                           #   │└──────────────────────────┘
 │                  ░       $ BH &Q!            #   │┌─ Quest ──────────────────┐
 │                  ░                           #   ││ [ ] 1. Scout the Lookout │

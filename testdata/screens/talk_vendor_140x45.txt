@@ -3,10 +3,11 @@
 │                                                                                                ││ HP 130/164 #####################------ │
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row.”             ││ XP ------------------------- 90 to Lv 4│
 │ “Armour is cheaper than a healer's patience.”                                                  ││ Atk off | none                         │
-│                                                                                                │└────────────────────────────────────────┘
-│ What they can do for you:                                                                      │┌─ Target ───────────────────────────────┐
-│ > 1  Buy                                                                                       ││ no target (Tab to choose)              │
-│   2  Sell                                                                                      ││                                        │
+│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│ What they can do for you:                                                                      │└────────────────────────────────────────┘
+│ > 1  Buy                                                                                       │┌─ Target ───────────────────────────────┐
+│   2  Sell                                                                                      ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
@@ -25,8 +26,7 @@
 │                                                                                                ││ T Ser Aldric Vane <Paladin Tra… 67m SE │
 │                                                                                                ││ Q Captain Rhosyn Hartley <Watch… 76m E │
 │                                                                                                ││ T Wynne Greenhollow <Druid Tra… 80m SE │
-│                                                                                                ││ D East Gate                      87m E │
-│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││                                        │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ D East Gate                      87m E │
 │ talk to Hilda Brasswick ok                                                                     ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

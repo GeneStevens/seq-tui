@@ -3,6 +3,7 @@
 │                                                        ░                                       ││ HP 100/100 ########################### │
 │                                                        ░                                       ││ Target: none                           │
 │                                                        ░                                       ││ Auto-attack: off                       │
+│                                                        ░                                       ││ Auto-retaliate: off  (Ctrl+R)          │
 │                                                        ░                                       │└────────────────────────────────────────┘
 │                                                        ░                                       │┌─ Target ───────────────────────────────┐
 │                                                        ░                                       ││ no target (Tab to choose)              │
@@ -12,20 +13,19 @@
 │                                                        ░                                       │┌─ Nearby ───────────────────────────────┐
 │                                                        ░                                       ││ ! Testgrounds Recruiter   178m W [new] │
 │                                                        ░                                       ││ & Testgrounds Contract B… 182m W [new] │
-│                                                        ░                                       ││ D Line East                       1m E │
-│                                                @D      ░                                       ││ H Eastern Binder                 75m W │
+│                                                @D      ░                                       ││ D Line East                       1m E │
+│                                                        ░                                       ││ H Eastern Binder                 75m W │
 │                                                        ░                                       ││ D Gate North                   123m NW │
 │                                                        ░                                       ││ T Druid Trainer                 180m W │
 │                                                        ░                                       ││ Q Testgrounds Captain <Quest G… 180m W │
 │                                                        ░                                       ││ T Paladin Trainer               182m W │
 │                                                        ░                                       ││ T Wizard Trainer                184m W │
-│                                                        ░                                       ││ H Testgrounds Binder            184m W │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                       ││ T Rogue Trainer                 185m W │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                       ││ H Testgrounds Binder            184m W │
+│                                                                                                ││ T Rogue Trainer                 185m W │
 │                                                                                                ││ B Testgrounds Banker            186m W │
 │                                                                                                ││ T Cleric Trainer                187m W │
 │                                                                                                ││ $ Testgrounds Vendor            188m W │
 │                                                                                                ││ T Warrior Trainer               189m W │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

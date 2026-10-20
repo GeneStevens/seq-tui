@@ -3,8 +3,9 @@
 ││ Plain Scuttler           │                                                                    ││ HP 100/100 ########################### │
 ││ Level 1, even            │                                                                    ││ Target: Plain Scuttler                 │
 ││ HP 40/40, 17m W          │                                                                    ││ Auto-attack: off                       │
-││ Click again or F: attack │                                                                    │└────────────────────────────────────────┘
-│└──────────────────────────┘                                                                    │┌─ Target ───────────────────────────────┐
+││ Click again or F: attack │                                                                    ││ Auto-retaliate: ON  (Ctrl+R)           │
+│└──────────────────────────┘                                                                    │└────────────────────────────────────────┘
+│#                                                                                               │┌─ Target ───────────────────────────────┐
 │#                                                                                               ││ M Plain Scuttler  Lv 1                 │
 │#                                                                                               ││ HP 40/40 ###################### 17m W  │
 │#                                                                                               ││ even, not in a fight                   │
@@ -12,9 +13,9 @@
 │#                                                                                               │┌─ Nearby ───────────────────────────────┐
 │#                                                                                               ││ ! Testgrounds Recruiter    53m W [new] │
 │#                                                                                               ││ & Testgrounds Contract Bo… 57m W [new] │
-│#                                                                                               ││ M Plain Scuttler      17m W 40/40 even │
-│#                    c                          @                                   c           ││ D Gate North                    48m NE │
-│#                       M Plain Scuttler  Lv 1, even                                            ││ T Druid Trainer                  54m W │
+│#                    c                          @                                   c           ││ M Plain Scuttler      17m W 40/40 even │
+│#                       M Plain Scuttler  Lv 1, even                                            ││ D Gate North                    48m NE │
+│#                                                                                               ││ T Druid Trainer                  54m W │
 │#                                                                                               ││ H Eastern Binder                55m SE │
 │#                                                                                               ││ Q Testgrounds Captain <Quest Gi… 55m W │
 │#                                                                                               ││ T Paladin Trainer                56m W │
@@ -26,7 +27,6 @@
 │#                                                                                               ││ $ Testgrounds Vendor             63m W │
 │#                                                                                               ││ T Warrior Trainer                63m W │
 │#                                                                                               ││ D Line East                     127m E │
-│#                                                                                               ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Trophy Scuttler is out of view                                                                                                  │

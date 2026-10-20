@@ -3,17 +3,18 @@
 │                            ░                                                       #           ││ HP 96/100 ##########################-- │
 │                            ░                                                       #           ││ Target: Plain Scuttler                 │
 │                            ░                                                       #           ││ Auto-attack: ON                        │
+│                            ░                                                       #           ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                            ░                                                       #           ││ Attacked by Plain Scuttler             │
+│                            ░                T  T T  T  T  T                        #           │└────────────────────────────────────────┘
+│                            ░                                                       #           │┌─ Quest ────────────────────────────────┐
+│                            ░                $  B H  &  Q                           #           ││ [ ] 1. Scout the Lookout               │
+│                            ░                                                       #           ││ Testgrounds Recruiter has work for you:│
+│                            ░                              !                        #           ││ G.                                     │
 │                            ░                                                       #           │└────────────────────────────────────────┘
-│                            ░                T  T T  T  T  T                        #           │┌─ Quest ────────────────────────────────┐
-│                            ░                                                       #           ││ [ ] 1. Scout the Lookout               │
-│                            ░                $  B H  &  Q                           #           ││ Testgrounds Recruiter has work for you:│
-│                            ░                                                       #           ││ G.                                     │
-│                            ░                              !                        #           │└────────────────────────────────────────┘
 │                            ░                                                       #           │┌─ Target ───────────────────────────────┐
 │                            ░                                                       #           ││ M Plain Scuttler  Lv 1                 │
-│                            ░                                                       #           ││ HP 23/40 #############---------- 2m E  │
-│                            ░                   @  M           c                    #           ││ even, fighting you                     │
+│                            ░                   @   M          c                    #           ││ HP 23/40 #############---------- 2m E  │
+│                            ░                                                       #           ││ even, fighting you                     │
 │                            ░                                                       #           │└────────────────────────────────────────┘
 │                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
 │                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
@@ -25,21 +26,20 @@
 │                            ░                                                       #           ││ Q Testgrounds Captain <Quest G… 10m NE │
 │                            ░                                                       #           ││ T Cleric Trainer                 12m N │
 │                            ░                                                       #           ││ T Rogue Trainer                  12m N │
-│                            ░                                                       #           ││ T Warrior Trainer                12m N │
-│                            ░                                                       #           ││ +6 more                                │
+│                            ░                                                       #           ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns You start attacking something                                                                                                   │
-│ <   N.Ns Plain Scuttler hits you for 2                                                                                                   │
-│     N.Ns You start attacking Plain Scuttler                                                                                              │
+│     N.Ns You target Plain Scuttler                                                                                                       │
 │     N.Ns You hit Plain Scuttler for 4                                                                                                    │
-│ <   N.Ns Plain Scuttler hits you for 1                                                                                                   │
+│     N.Ns Plain Scuttler began attacking aria                                                                                             │
+│ <   N.Ns Plain Scuttler hits you for 2                                                                                                   │
 │     N.Ns You hit Plain Scuttler for 6                                                                                                    │
+│ <   N.Ns Plain Scuttler hits you for 1                                                                                                   │
 │     N.Ns You miss Plain Scuttler                                                                                                         │
+│     N.Ns You hit Plain Scuttler for 5                                                                                                    │
 │ <   N.Ns Plain Scuttler hits you for 3                                                                                                   │
-│    NN.Ns You hit Plain Scuttler for 5                                                                                                    │
-│ <  NN.Ns Plain Scuttler hits you for 2                                                                                                   │
 │    NN.Ns You hit Plain Scuttler for 4                                                                                                    │
+│ <  NN.Ns Plain Scuttler hits you for 2                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
- ONLINE | Testgrounds | heard N.Ns ago | attack ok                                                                            ? help  q quit
+ ONLINE | Testgrounds | heard N.Ns ago | target ok                                                                            ? help  q quit

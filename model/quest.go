@@ -103,9 +103,7 @@ func (m *Model) noteWalkStop(e *pb.Event) {
 
 func (m *Model) addLog(e LogEntry) {
 	m.Log = append(m.Log, e)
-	if over := len(m.Log) - m.logCap; over > 0 {
-		m.Log = append([]LogEntry(nil), m.Log[over:]...)
-	}
+	m.trimLog()
 }
 
 // noteQuestAtLogin logs the chain a character comes into the world on: its first

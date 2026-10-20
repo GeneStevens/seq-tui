@@ -540,6 +540,9 @@ func (a *App) send(act Action) tea.Cmd {
 		case Attack:
 			what = "attack"
 			id, err = a.sess.Attack(ctx, act.On)
+		case AutoRetaliate:
+			what = "auto-retaliate"
+			id, err = a.sess.AutoRetaliate(ctx, act.On)
 		case Loot:
 			what = "loot"
 			id, err = a.sess.Loot(ctx, act.ID)

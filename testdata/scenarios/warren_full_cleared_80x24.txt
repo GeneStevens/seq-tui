@@ -20,5 +20,5 @@
 │ The legend is on page 2 of the help (?).                                     │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘
- HP 917/917 | Target: none                                                      
+ HP 916/917 | Target: none                                                      
  ONLINE | Hollow Warren | heard N.Ns ago                          ? help  q quit

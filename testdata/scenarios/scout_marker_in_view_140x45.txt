@@ -2,7 +2,7 @@
 │                                         ░                                                      ││ Hale  Lv 1 Warrior           | 0 crowns│
 │                                         ░                                                      ││ HP 130/130 ########################### │
 │                                         ░                                                      ││ XP ------------------------- 40 to Lv 2│
-│                                         ░               """""""""""""""""""""""""""""""""""""""││ Atk off | none                         │
+│                                         ░               """""""""""""""""""""""""""""""""""""""││ Atk off Ret ON | none                  │
 │                                         ░               """""""""""""""""""""""""""""""""""""""│└────────────────────────────────────────┘
 │                                         ░                                                      │┌─ Target ───────────────────────────────┐
 │                                         ░                                                      ││ no target (Tab to choose)              │
@@ -29,12 +29,12 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
+│            /dismiss gives it up for good.                                                                                                │
+│     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
+│ +   N.Ns You take the contract Word from Wickett Mill                                                                                    │
 │    NN.Ns entered Thornwick Downs                                                                                                         │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

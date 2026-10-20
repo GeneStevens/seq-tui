@@ -41,5 +41,5 @@
 │ Ground  # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  . floor                                                         │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- HP 917/917 | Target: none                                                                                                                  
+ HP 916/917 | Target: none                                                                                                                  
  ONLINE | Hollow Warren | heard N.Ns ago                                                                                      ? help  q quit

@@ -187,6 +187,11 @@ func describe(e *pb.Event, label, ability func(string) string) (kind, text, reas
 			return "auto_attack_changed", fmt.Sprintf("%s began attacking %s", label(a.GetActor()), label(a.GetTarget())), ""
 		}
 		return "auto_attack_changed", label(a.GetActor()) + " stopped attacking", ""
+	case *pb.Event_AutoRetaliateChanged:
+		if b.AutoRetaliateChanged.GetOn() {
+			return "auto_retaliate_changed", "Auto-retaliate on: you fight back when attacked", ""
+		}
+		return "auto_retaliate_changed", "Auto-retaliate off: you will not fight back on your own", ""
 	case *pb.Event_LootDropped:
 		d := b.LootDropped
 		return "loot_dropped", fmt.Sprintf("%s dropped %s", label(d.GetMob()), d.GetItem()), ""
@@ -211,4 +216,44 @@ func reasonWords(code string) string {
 		return w
 	}
 	return code
+}
+
+// Hidden says the line is routine and the Events panel leaves it out unless
+// verbose is on.
+func (e LogEntry) Hidden() bool {
+	return e.Quiet || e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed" || e.Kind == "unknown"
+}
+
+// trimLog bounds the log: at most logCap lines the panel shows and at most
+// logCap routine ones, each oldest first. They are counted apart so a flood of
+// routine lines (movement, regeneration, ticks) can never push out the lines
+// that matter, a death say, however long the player waits. The order, which is
+// the time, is kept, so verbose mode reads both merged.
+func (m *Model) trimLog() {
+	if len(m.Log) <= m.logCap {
+		return
+	}
+	quiet := 0
+	for _, e := range m.Log {
+		if e.Hidden() {
+			quiet++
+		}
+	}
+	shown := len(m.Log) - quiet
+	dropQuiet, dropShown := max(quiet-m.logCap, 0), max(shown-m.logCap, 0)
+	if dropQuiet == 0 && dropShown == 0 {
+		return
+	}
+	out := make([]LogEntry, 0, len(m.Log)-dropQuiet-dropShown)
+	for _, e := range m.Log {
+		switch {
+		case e.Hidden() && dropQuiet > 0:
+			dropQuiet--
+		case !e.Hidden() && dropShown > 0:
+			dropShown--
+		default:
+			out = append(out, e)
+		}
+	}
+	m.Log = out
 }

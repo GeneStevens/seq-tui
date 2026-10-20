@@ -3,6 +3,7 @@
 │ Up / Down choose a character; Enter asks them. They ask back to open it.                       ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │ > c2                   1m E                                                                    ││ Auto-attack: off                       │
+│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -25,8 +26,7 @@
 │                                                                                                ││ $ Testgrounds Vendor            37m SW │
 │                                                                                                ││ D Gate North                     70m E │
 │                                                                                                ││ H Eastern Binder               114m SE │
-│                                                                                                ││ D Line East                    183m SE │
-│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││                                        │
+│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││ D Line East                    183m SE │
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

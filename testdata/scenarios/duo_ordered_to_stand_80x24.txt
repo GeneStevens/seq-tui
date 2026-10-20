@@ -1,13 +1,13 @@
-┌─ Thornwick Downs — North Greywood, at 152,95 m… ─┐┌─ You: in combat ─────────┐
-│             """"""""""""""""""  ≈≈≈≈≈≈           ││ hale  Lv 5 Warrior  | 0cr│
-│            """""""""""""""""""  ≈≈≈≈≈≈           ││ HP 198/198 ############# │
-│            """"""""""""""""""   ≈≈≈≈≈≈≈          ││ XP ---------- 145 to Lv 6│
-│            """"""""""""""""""   ≈≈≈≈≈≈≈          ││ Atk ON | Bramble Tusker  │
-│            """"""""""""M@c"""   ≈≈≈≈≈≈           ││ Attacked by Bramble Tusk…│
-│           """""""""""""""""""   ≈≈≈≈≈≈           │└──────────────────────────┘
-│           """""""""""""""""""   ≈≈≈≈≈≈           │┌─ Party, 2nd character ───┐
-│           """"""""""""""""""   ≈≈≈≈≈≈≈           ││ bram  Lv 5               │
-│           """"""""""""""""""   ≈≈≈≈≈≈            ││ HP 140/140 ############# │
+┌─ Thornwick Downs — North Greywood, at 149,95 m… ─┐┌─ You: in combat ─────────┐
+│               """"""""""""""""""  ≈≈≈≈≈≈         ││ hale  Lv 5 Warrior  | 0cr│
+│              """""""""""""""""""  ≈≈≈≈≈≈         ││ HP 198/198 ############# │
+│              """"""""""""""""""   ≈≈≈≈≈≈≈        ││ XP ---------- 145 to Lv 6│
+│              """"""""""""""""""   ≈≈≈≈≈≈≈        ││ Atk off Ret ON | Bramble…│
+│              """""""""""@M"c"""   ≈≈≈≈≈≈         ││ Attacked by Bramble Tusk…│
+│             """""""""""""""""""   ≈≈≈≈≈≈         │└──────────────────────────┘
+│             """""""""""""""""""   ≈≈≈≈≈≈         │┌─ Party, 2nd character ───┐
+│             """"""""""""""""""   ≈≈≈≈≈≈≈         ││ bram  Lv 5               │
+│             """"""""""""""""""   ≈≈≈≈≈≈          ││ HP 140/140 ############# │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt ready       2 Bash ready       3 -                4 -                │
@@ -16,9 +16,9 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns Bram hits Bramble Tusker for 4                                      │
+│ <   N.Ns Bramble Tusker misses you                                           │
 │     N.Ns bram cleared the target                                             │
-│     N.Ns You stop attacking                                                  │
-│     N.Ns You hit Bramble Tusker for 13                                       │
+│     N.Ns bram stopped attacking                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                      
+ F: attack · Tab: next target                                                   
  ONLINE | forest: slowed to 75% | second character ordered: stop  ? help  q quit

@@ -3,22 +3,23 @@
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: Plain Scuttler                 │
 │                                                                                                ││ Auto-attack: ON                        │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                ││ Attacked by Plain Scuttler             │
-│                                                                                                │└────────────────────────────────────────┘
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│┌─ Instance ─────────────────────────────┐
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└────────────────────────────────────────┘
+│                                                                                                │┌─ Instance ─────────────────────────────┐
 │                                                                                                ││ Duo Turns                              │
 │                                                                                                ││ turn-based | inside                    │
 │                                                                                                ││ party up to 2 | normal                 │
 │                                                                                                ││ sleeps up to 7 d                       │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Round 2, 6 s left ────────────────────┐
-│                                                D                                               ││ 0 of 2 submitted                       │
-│                                                @                                               ││ [ ] you  [ ] bram                      │
+│                                                D                                               │┌─ Round 2, 6 s left ────────────────────┐
+│                                                @                                               ││ 0 of 2 submitted                       │
+│                                                                                                ││ [ ] you  [ ] bram                      │
 │                                                                                                ││ Plan: empty, not sent                  │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                M                                               │┌─ Party, 2nd character ─────────────────┐
+│                                                M                                               │└────────────────────────────────────────┘
+│                                                                                                │┌─ Party, 2nd character ─────────────────┐
 │                                                                                                ││ bram  Lv 1                             │
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ stance follow                          │
@@ -26,11 +27,10 @@
 │                                                                                                ││ P call or send away   H stance         │
 │                                                                                                ││ Y attack my target    U come here      │
 │                                                                                                ││ J stop    Z drop the order             │
-│                                                                                                ││ X direct it: its screen, your keys     │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns bram targeted Plain Scuttler                                                                                                    │
-│     N.Ns You start attacking Plain Scuttler                                                                                              │
+│     N.Ns bram began attacking Plain Scuttler                                                                                             │
 │     N.Ns You target Plain Scuttler                                                                                                       │
 │     N.Ns You start attacking Plain Scuttler                                                                                              │
 │     N.Ns Plain Scuttler targeted aria                                                                                                    │
