@@ -2,7 +2,7 @@
 │                      ░                           ││ Hale  Lv 1 Warrior | 15cr│
 │                      ░     """"""""""""""""""""""││ HP 130/130 ############# │
 │                      ░     """"""""""""""""""""""││ XP #####------ 20 to Lv 2│
-│                      ░···························││ Atk off | none           │
+│                      ░···························││ Atk off Ret ON | none    │
 │                      ░··@························│└──────────────────────────┘
 │                      ░···························│┌─ Target ─────────────────┐
 │                      ░                           ││ no target (Tab to choose)│
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│            Downs.                                                            │
+│ +  NN.Ns You take the contract Boars in the Barley                           │
 │ +  NN.Ns Quest complete: First Steps: 20 experience                          │
 │    NN.Ns entered Thornwick Downs                                             │
-│                                                                              │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
  ONLINE | → Boars in the Barley, 92m SE | road: faster, 125% | use door ok      

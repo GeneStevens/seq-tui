@@ -1,13 +1,13 @@
-┌─ Thornwick Downs, at 42,103 m, north up ─────────┐┌─ You ────────────────────┐
-│      ░                 ##### ≈≈≈####  #####      ││ Hale  Lv 1 Warrior  | 0cr│
-│      ░                                           ││ HP 130/130 ############# │
-│      ░                                           ││ XP ----------- 40 to Lv 2│
-│      ░                                           ││ Atk off | none           │
-│      ░                  @                        │└──────────────────────────┘
-│      ░                                   c       │┌─ Target ─────────────────┐
-│      ░                   cm                      ││ no target (Tab to choose)│
-│      ░                                           ││                          │
-│      ░                                           ││                          │
+┌─ Thornwick Downs, at 43,105 m, north up ─────────┐┌─ You ────────────────────┐
+│     ░                 ##### ≈≈≈####  #####       ││ Hale  Lv 1 Warrior  | 0cr│
+│     ░                 ##### ≈≈≈####  #####       ││ HP 130/130 ############# │
+│     ░                                            ││ XP ----------- 40 to Lv 2│
+│     ░                                            ││ Atk off Ret ON | none    │
+│     ░                   @                        │└──────────────────────────┘
+│     ░                                            │┌─ Target ─────────────────┐
+│     ░                  m                c        ││ no target (Tab to choose)│
+│     ░                   c                        ││                          │
+│     ░                                            ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│            and experience.                                                   │
+│ +   N.Ns You take the contract Wolves at Wickett Mill                        │
+│    NN.Ns entered Thornwick Downs                                             │
 │    NN.Ns Meadow Wolf comes into view                                         │
-│                                                                              │
-│                                                                              │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                        
- ONLINE | Thornwick Downs | → Wolves at Wickett Mill, 10m S | heard N.Ns ago    
+ ONLINE | Thornwick Downs | → Wolves at Wickett Mill, 12m S | heard N.Ns ago    

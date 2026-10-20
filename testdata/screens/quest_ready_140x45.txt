@@ -3,6 +3,7 @@
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 215/215 ########################### │
 │  (nothing for your level)                     │> Break the Raiding Party                READY  ││ XP ------------------------ 162 to Lv 7│
 │                                                                                                ││ Atk off | none                         │
+│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Quest ────────────────────────────────┐
 │                                                                                                ││ [!] 2. Break the Raiding Party   READY │
@@ -19,15 +20,14 @@
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ? Captain Rhosyn Hart… 1m NE [hand in] │
 │                                                                                                ││ & Thornwick Contract Board 47m W [new] │
-│                                                                                                ││ D East Gate                     12m SE │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ B Odalys Penn <Banker>          17m NW │
-│ Break the Raiding Party: Hunt, 5 of 5 killed.                                                  ││ T Wynne Greenhollow <Druid Trai… 35m S │
-│                                                                                                ││ H Isolde Fenn <Binder>           40m W │
-│ Pays nothing.                                                                                  ││ T Ser Aldric Vane <Paladin Tra… 41m SW │
-│ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m NE.                         ││ g Tamsin Hale <Watch Greeter>    43m W │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer> 52m SW │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ $ Barnaby Tuck <General Goods>   54m W │
-│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +5 more                                │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ D East Gate                     12m SE │
+│ Break the Raiding Party: Hunt, 5 of 5 killed.                                                  ││ B Odalys Penn <Banker>          17m NW │
+│                                                                                                ││ T Wynne Greenhollow <Druid Trai… 35m S │
+│ Pays nothing.                                                                                  ││ H Isolde Fenn <Binder>           40m W │
+│ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m NE.                         ││ T Ser Aldric Vane <Paladin Tra… 41m SW │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    43m W │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ T Ormond Quill <Wizard Trainer> 52m SW │
+│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│

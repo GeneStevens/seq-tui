@@ -2,7 +2,7 @@
 │                                    ░                                             #             ││ gorm  Lv 1 Warrior           | 0 crowns│
 │                                    ░                                             #             ││ HP 120/120 ########################### │
 │                                    ░                                             #             ││ XP ------------------------- 40 to Lv 2│
-│                                    ░                                             #             ││ Atk off | Plain Scuttler               │
+│                                    ░                                             #             ││ Atk off Ret off | Plain Scuttler       │
 │                                    ░             T T T  T T T                    #             ││ Attacked by Plain Scuttler             │
 │                                    ░                                             #             │└────────────────────────────────────────┘
 │                                    ░                                             #             │┌─ Quest ────────────────────────────────┐
@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                                                                               
+ F: attack · Tab: next target  ·  Ctrl+R: fight back when attacked                                                                          
  ONLINE | Testgrounds | heard 0.4s ago | key 1 Taunt ok                                                                       ? help  q quit

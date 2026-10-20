@@ -2,7 +2,7 @@
 │.#                #..........................................................#░                 ││ hale  Lv 12 Warrior        | 435 crowns│
 │.#                #..........................................................#░                 ││ HP 908/917 ##########################- │
 │.#                #..........................................................#░                 ││ XP #############---------- 135 to Lv 13│
-│.#                #..........................................................#░                 ││ Atk off | Warren Chief                 │
+│.#                #..........................................................#░                 ││ Atk ON Ret ON | Warren Chief           │
 │.#                #..........................................................#░                 ││ Attacked by Warren Chief               │
 │.#                #..........................................................#░                 │└────────────────────────────────────────┘
 │.#                #..........................................................#░                 │┌─ Instance ─────────────────────────────┐
@@ -21,7 +21,7 @@
 │..........#       #..........................................................#░                 │└────────────────────────────────────────┘
 │..........#       #..........................................................#░                 │┌─ Target ───────────────────────────────┐
 │..........#       #..........................................................#░                 ││ M Warren Chief  Lv 12                  │
-│..........#       #..........................................................#░                 ││ HP 1000/1000 ################### 2m E  │
+│..........#       #..........................................................#░                 ││ HP 775/1000 ###############----- 2m E  │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt ready                      2 Bash ready                      3 -                               4 -                               │
@@ -29,17 +29,17 @@
 │ You: none   |   Warren Chief: chief-pack-cry 17s                                                                                         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   NNN.Ns Warren Chief targeted hale                                                                                                      │
-│   NNN.Ns You begin fighting Warren Chief                                                                                                 │
-│ ! NNN.Ns Your walk stopped: you are fighting Warren Chief; a fight stops a walk. Move again to go on.                                    │
-│   NNN.Ns bram targeted Warren Chief                                                                                                      │
+│   NNN.Ns bram began attacking Warren Chief                                                                                               │
 │   NNN.Ns You target Warren Chief                                                                                                         │
+│   NNN.Ns You start attacking Warren Chief                                                                                                │
 │   NNN.Ns Warren Chief (level 12, even) is attacking you                                                                                  │
 │   NNN.Ns You are in combat with Warren Chief                                                                                             │
 │   NNN.Ns Warren Chief uses Pack Cry                                                                                                      │
 │   NNN.Ns Warren Chief is affected by Pack Cry                                                                                            │
-│   NNN.Ns You start attacking something                                                                                                   │
+│   NNN.Ns You hit Warren Chief for 108                                                                                                    │
+│   NNN.Ns Bram hits Warren Chief for 117                                                                                                  │
+│   NNN.Ns Warren Chief began attacking hale                                                                                               │
 │ < NNN.Ns Warren Chief hits you for 9                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                                                                               
+ F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok                                                     ? help  q quit

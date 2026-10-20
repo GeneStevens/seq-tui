@@ -30,7 +30,7 @@ var Groups = []string{"Moving", "Fighting", "People and things", "Screens", "Lea
 // Bindings is every key of the main view. Screens that open from it list their
 // own keys on their last line.
 var Bindings = []Binding{
-	{Keys: []string{"up", "down", "left", "right", "w", "a", "s", "d"}, Show: "Arrows, W A S D", What: "hold to walk that way, let go to stop (Esc stops a click-walk)", Group: "Moving"},
+	{Keys: []string{"up", "down", "left", "right", "w", "a", "s", "d"}, Show: "Arrows, W A S D", What: "tap to step 3 m, hold to walk that way and let go to stop (Esc stops a click-walk)", Group: "Moving"},
 	{Keys: []string{"e", "enter"}, Show: "E, Enter", What: "go through the nearest door (stand at it)", Group: "Moving"},
 	{Keys: []string{"m"}, Show: "M", What: "the large map: click a spot to walk there (arrows and Enter do too)", Group: "Moving"},
 	{Keys: []string{"+", "=", "-", "_"}, Show: "+ / -", What: "zoom the map in and out (the scroll wheel does too)", Group: "Moving"},
@@ -38,6 +38,7 @@ var Bindings = []Binding{
 	{Keys: []string{"tab"}, Show: "Tab", What: "choose the next target", Group: "Fighting"},
 	{Keys: []string{"esc"}, Show: "Esc", What: "clear the target", Group: "Fighting"},
 	{Keys: []string{"f", "space"}, Show: "F, Space", What: "auto-attack on or off (none targeted: what attacks you)", Group: "Fighting"},
+	{Keys: []string{"ctrl+r"}, Show: "Ctrl+R", What: "auto-retaliate on or off: fight back at once when something attacks you (on by default)", Group: "Fighting"},
 	{Keys: []string{"1", "2", "3", "4", "5", "6", "7", "8"}, Show: "1-8", What: "use that slot's ability on your target", Group: "Fighting"},
 	{Keys: []string{"b"}, Show: "B", What: "set the ability slots (out of combat)", Group: "Fighting"},
 	{Keys: []string{"r"}, Show: "R", What: "when you are dead: give up your body and respawn", Group: "Fighting"},
@@ -160,7 +161,7 @@ var guideChains = []section{
 		"Ctrl+K (or /quest) shows the chain. X there (or /dismiss) gives it up for good, after one question: a dismissed chain is never offered again.",
 	}},
 	{"Fighting", []string{
-		"Tab chooses a target (Esc clears it). F or Space turns auto-attack on or off. 1-8 use the abilities in your slots on your target.",
+		"Tab chooses a target (Esc clears it). F or Space turns auto-attack on or off. Ctrl+R turns auto-retaliate on or off (on, you fight back when attacked, even with no input). 1-8 use the abilities in your slots on your target.",
 		"With no target, an attack or an ability goes to whatever is attacking you, the nearest first; the status line names the one picked. If nothing is attacking you it is refused: Tab to a target first.",
 		"A fight stops your walk: attacking, using an ability on an enemy, or something attacking you. The log says \"Your walk stopped\"; hold a move key to go on.",
 		"To back off: F turns auto-attack off, Esc clears the target, then walk away. If you die, R gives up your body and you wake at your bind point.",

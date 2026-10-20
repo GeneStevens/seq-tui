@@ -2,7 +2,7 @@
 │┌──────────────────────────┐                      ││ aria  Lv 1  XP 0    | 0cr│
 ││ Plain Scuttler           │                      ││ HP 100/100 ############# │
 ││ Level 1, even            │                      ││ Target: Plain Scuttler   │
-││ HP 40/40, 17m W          │                      ││ Auto-attack: off         │
+││ HP 40/40, 17m W          │                      ││ Atk off | Retaliate ON   │
 ││ Click again or F: attack │                      │└──────────────────────────┘
 │└──────────────────────────┘                      │┌─ Target ─────────────────┐
 │ #          c                              c      ││ M Plain Scuttler  Lv 1   │

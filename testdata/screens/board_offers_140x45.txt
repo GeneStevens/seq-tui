@@ -3,8 +3,9 @@
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
 │> Boars in the Barley             Hunt   L1-3  │  (none)                                        ││ XP ------------------------- 40 to Lv 2│
 │  Word from Wickett Mill          Scout  L1-3  │                                                ││ Atk off | none                         │
-│  Wolves at Wickett Mill          Hunt   L1-3  │                                                │└────────────────────────────────────────┘
-│  Tusks for the Miller            Gather L1-3  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│  Wolves at Wickett Mill          Hunt   L1-3  │                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
 │                                                                                                ││ First Steps                            │
 │                                                                                                ││ Step 2 of 4                            │
 │                                                                                                ││ Speak to your class trainer on         │
@@ -19,15 +20,14 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board  2m S [new] │
-│                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ g Tamsin Hale <Watch Greeter>    6m SE │
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ $ Barnaby Tuck <General Goods>  13m SW │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ H Isolde Fenn <Binder>          14m SE │
-│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││ g Town Guard <Thornwick Watch>   23m E │
-│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ $ Hilda Brasswick <Armourer>     29m W │
-│                                                                                                ││ B Odalys Penn <Banker>           32m E │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ $ Dunstan Reeve <Weaponsmith>   32m SW │
-│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +7 more                                │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Gorran Stoutarm      54m SW [step 2] │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ g Tamsin Hale <Watch Greeter>    6m SE │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ $ Barnaby Tuck <General Goods>  13m SW │
+│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││ H Isolde Fenn <Binder>          14m SE │
+│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ g Town Guard <Thornwick Watch>   23m E │
+│                                                                                                ││ $ Hilda Brasswick <Armourer>     29m W │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ B Odalys Penn <Banker>           32m E │
+│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +8 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │

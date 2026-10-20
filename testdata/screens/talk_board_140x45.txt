@@ -3,11 +3,12 @@
 │                                                                                                ││ HP 130/130 ########################### │
 │ “Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the     ││ XP ------------------------- 40 to Lv 2│
 │ proof back here.”                                                                              ││ Atk off | none                         │
-│ “Hunts, hauls and scouting: every job is paid in crowns and experience.”                       │└────────────────────────────────────────┘
-│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│ What they can do for you:                                                                      ││ First Steps                            │
-│ > 1  Take a contract                                                                           ││ Step 2 of 4                            │
-│   2  Turn in a contract                                                                        ││ Speak to your class trainer on         │
+│ “Hunts, hauls and scouting: every job is paid in crowns and experience.”                       ││ Auto-retaliate: off  (Ctrl+R)          │
+│                                                                                                │└────────────────────────────────────────┘
+│ What they can do for you:                                                                      │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│ > 1  Take a contract                                                                           ││ First Steps                            │
+│   2  Turn in a contract                                                                        ││ Step 2 of 4                            │
+│                                                                                                ││ Speak to your class trainer on         │
 │                                                                                                ││ Trainers' Lane, by the north wall      │
 │                                                                                                ││ (warriors at the west end, druids at   │
 │                                                                                                ││ the east), for your first lesson.      │
@@ -25,9 +26,8 @@
 │                                                                                                ││ H Isolde Fenn <Binder>          14m SE │
 │                                                                                                ││ g Town Guard <Thornwick Watch>   23m E │
 │                                                                                                ││ $ Hilda Brasswick <Armourer>     29m W │
-│                                                                                                ││ B Odalys Penn <Banker>           32m E │
-│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ $ Dunstan Reeve <Weaponsmith>   32m SW │
-│ talk to Thornwick Contract Board ok                                                            ││ +7 more                                │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ B Odalys Penn <Banker>           32m E │
+│ talk to Thornwick Contract Board ok                                                            ││ +8 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │

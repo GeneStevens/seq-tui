@@ -41,7 +41,7 @@ func TestAThirtyMillisecondRepeatIsCoalescedToOneIntentForATick(t *testing.T) {
 		}
 		for now := end; now.Before(end.Add(time.Second)); now = now.Add(frameEvery) {
 			if releases && now == end {
-				d.w.Release("right")
+				d.w.Release("right", now)
 			}
 			d.poll(now)
 		}
@@ -64,21 +64,25 @@ func TestAThirtyMillisecondRepeatIsCoalescedToOneIntentForATick(t *testing.T) {
 	}
 }
 
-// Without releases the first repeat comes after the terminal's pause, which does
-// not stop the walk; the pause is learned, and later holds stop sooner after
-// the last repeat.
+// Without releases a press alone is a step; the first repeat comes after the
+// terminal's pause and turns it into a walk, which the pause does not stop; the
+// pause is learned, and later holds stop sooner after the last repeat.
 func TestTheFirstRepeatPauseDoesNotStopTheWalk(t *testing.T) {
 	d := &driven{w: NewWalker()}
 	d.w.Press("up", t0)
 	for now := t0; now.Before(t0.Add(400 * time.Millisecond)); now = now.Add(frameEvery) {
 		d.poll(now)
 	}
-	if len(d.sends) == 0 || d.sends[len(d.sends)-1].Stop {
-		t.Fatalf("the walk stopped in the pause: %+v", d.sends)
+	if len(d.sends) != 1 || !d.sends[0].Step || d.sends[0].Heading != 90 {
+		t.Fatalf("a press alone sent %+v, not one step north", d.sends)
 	}
 	d.w.Press("up", t0.Add(400*time.Millisecond)) // the first repeat
 	if d.w.first != 460*time.Millisecond {
 		t.Fatalf("the pause learned is %v", d.w.first)
+	}
+	d.poll(t0.Add(400 * time.Millisecond))
+	if n := len(d.sends); n != 2 || d.sends[1].Stop || d.sends[1].Step || d.sends[1].Heading != 90 {
+		t.Fatalf("the first repeat did not begin a walk: %+v", d.sends)
 	}
 	// Quiet after the repeat: stopped inside repeatIdle plus a frame.
 	last := t0.Add(430 * time.Millisecond)
@@ -95,27 +99,67 @@ func TestTheFirstRepeatPauseDoesNotStopTheWalk(t *testing.T) {
 	}
 }
 
-// A key reported released stops at once (after the tick's gap), a tap is a
-// walk and a stop a tick apart, and a key whose release was lost is let go
-// after keyLost.
+// With releases a key let go inside tapHold is one step, a diagonal tap is one
+// step along the diagonal, and a key held past tapHold walks and a release stops
+// it. A key whose release was lost is let go after keyLost.
 func TestReleasesAndLostKeys(t *testing.T) {
 	d := &driven{w: NewWalker()}
 	d.w.Releases = true
 	d.w.Press("a", t0)
 	d.poll(t0)
-	d.w.Release("a")
-	d.poll(t0.Add(10 * time.Millisecond)) // inside the gap: held back
-	if len(d.sends) != 1 {
-		t.Fatalf("the stop was not coalesced into the tick: %+v", d.sends)
-	}
+	d.w.Release("a", t0.Add(80*time.Millisecond))
 	d.poll(t0.Add(100 * time.Millisecond))
-	if len(d.sends) != 2 || !d.sends[1].Stop || d.sends[0].Heading != 180 {
+	if len(d.sends) != 1 || !d.sends[0].Step || d.sends[0].Heading != 180 {
 		t.Fatalf("a tap sent %+v", d.sends)
 	}
-	d.w.Press("w", t0.Add(time.Second))
 	d.poll(t0.Add(time.Second))
-	d.poll(t0.Add(time.Second + keyLost + frameEvery))
-	if n := len(d.sends); !d.sends[n-1].Stop {
+	if len(d.sends) != 1 {
+		t.Fatalf("a tap went on after its step: %+v", d.sends)
+	}
+
+	// Two keys down together and up inside tapHold, one after the other: one step.
+	at := t0.Add(2 * time.Second)
+	d.sends = nil
+	d.w.Press("right", at)
+	d.w.Press("up", at.Add(20*time.Millisecond))
+	d.w.Release("right", at.Add(60*time.Millisecond))
+	d.poll(at.Add(60 * time.Millisecond))
+	d.w.Release("up", at.Add(90*time.Millisecond))
+	d.poll(at.Add(200 * time.Millisecond))
+	d.poll(at.Add(400 * time.Millisecond))
+	if len(d.sends) != 1 || !d.sends[0].Step || d.sends[0].Heading != 45 {
+		t.Fatalf("a diagonal tap sent %+v", d.sends)
+	}
+
+	// Held past tapHold: a walk, and the release is a stop and no step.
+	at = t0.Add(4 * time.Second)
+	d.sends = nil
+	d.w.Press("up", at)
+	d.poll(at.Add(tapHold - frameEvery)) // still maybe a tap
+	if len(d.sends) != 0 {
+		t.Fatalf("a key inside tapHold sent %+v", d.sends)
+	}
+	d.poll(at.Add(tapHold + frameEvery))
+	if len(d.sends) != 1 || d.sends[0].Step || d.sends[0].Stop || d.sends[0].Heading != 90 {
+		t.Fatalf("a hold began with %+v", d.sends)
+	}
+	rel := at.Add(tapHold + 2*frameEvery)
+	d.w.Release("up", rel)
+	d.poll(rel.Add(walkGap))
+	if len(d.sends) != 2 || !d.sends[1].Stop {
+		t.Fatalf("the release of a hold sent %+v", d.sends)
+	}
+	d.poll(rel.Add(time.Second))
+	if len(d.sends) != 2 {
+		t.Fatalf("the release of a hold went on to %+v", d.sends)
+	}
+
+	d.sends = nil
+	at = t0.Add(10 * time.Second)
+	d.w.Press("w", at)
+	d.poll(at.Add(tapHold + frameEvery))
+	d.poll(at.Add(keyLost + frameEvery))
+	if n := len(d.sends); n == 0 || !d.sends[n-1].Stop {
 		t.Fatalf("a key with no release stayed down: %+v", d.sends)
 	}
 }
@@ -192,5 +236,43 @@ func TestPredictionBlendsAndSnaps(t *testing.T) {
 	}
 	if x > 20100 {
 		t.Fatalf("a silent server left the mark at %d", x)
+	}
+}
+
+// Ten taps a second for ten seconds, on a terminal that reports releases, send
+// no more than one intent for each server tick, every one a step.
+func TestTenTapsASecondAreNeverMoreThanOneIntentATick(t *testing.T) {
+	d := &driven{w: NewWalker()}
+	d.w.Releases = true
+	end := t0.Add(10 * time.Second)
+	for now := t0; now.Before(end); now = now.Add(frameEvery) {
+		phase := now.Sub(t0) % (100 * time.Millisecond)
+		if phase < frameEvery { // a tap begins every 100 ms and lasts 50 ms
+			d.w.Press("right", now)
+		} else if phase < 2*frameEvery {
+			d.w.Release("right", now)
+		}
+		d.poll(now)
+	}
+	if len(d.sends) < 60 {
+		t.Fatalf("100 taps sent only %d intents", len(d.sends))
+	}
+	for i, s := range d.sends {
+		if !s.Step || s.Heading != 0 {
+			t.Fatalf("intent %d of a tapping run is %+v", i, s)
+		}
+		if i > 0 && s.At.Sub(d.sends[i-1].At) < walkGap {
+			t.Fatalf("intents %d and %d are %v apart", i-1, i, s.At.Sub(d.sends[i-1].At))
+		}
+	}
+}
+
+// A tap's step is StepMm from where the character stands, along the heading.
+func TestAStepEndsStepMmAway(t *testing.T) {
+	from := &pb.Pos{X: 10000, Y: 50000}
+	for h, want := range map[int][2]int64{0: {13000, 50000}, 90: {10000, 53000}, 180: {7000, 50000}, 270: {10000, 47000}, 45: {12121, 52121}} {
+		if x, y := stepEnd(from, h); x != want[0] || y != want[1] {
+			t.Errorf("heading %d ends at %d,%d, want %v", h, x, y, want)
+		}
 	}
 }

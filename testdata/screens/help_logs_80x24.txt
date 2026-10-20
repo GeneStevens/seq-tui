@@ -12,12 +12,12 @@
 │                                                                              │
 │ Fighting                                                                     │
 │   Tab chooses a target (Esc clears it). F or Space turns auto-attack on or   │
-│   off. 1-8 use the abilities in your slots on your target.                   │
+│   off. Ctrl+R turns auto-retaliate on or off (on, you fight back when        │
+│   attacked, even with no input). 1-8 use the abilities in your slots on your │
+│   target.                                                                    │
 │   With no target, an attack or an ability goes to whatever is attacking you, │
 │   the nearest first; the status line names the one picked. If nothing is     │
 │   attacking you it is refused: Tab to a target first.                        │
-│   A fight stops your walk: attacking, using an ability on an enemy, or       │
-│   something attacking you. The log says "Your walk stopped"; hold a move key │
 │ Page 4 of 9  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           

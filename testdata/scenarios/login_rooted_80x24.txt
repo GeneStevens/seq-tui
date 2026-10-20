@@ -3,7 +3,7 @@
 │                    ░    TTTTTT       #           ││ HP 80/80 ############### │
 │                    ░    $BH&Q!       #           ││ MP 140/150 ############- │
 │                    ░                 #           ││ XP ----------- 40 to Lv 2│
-│                    ░    @    Mc      #      c    ││ Atk off | Plain Scuttler │
+│                    ░    @    Mc      #      c    ││ Atk off Ret ON | Plain S…│
 │                    ░                 #           ││ Attacked by Plain Scuttl…│
 │                    ░                 #           │└──────────────────────────┘
 │                    ░                 #           │┌─ Quest ──────────────────┐

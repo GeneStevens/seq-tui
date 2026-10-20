@@ -3,7 +3,7 @@
 │                                    ░                                             #             ││ HP 80/80 ############################# │
 │                                    ░                                             #             ││ MP 140/150 #########################-- │
 │                                    ░                                             #             ││ XP ------------------------- 40 to Lv 2│
-│                                    ░             T T T  T T T                    #             ││ Atk off | Plain Scuttler               │
+│                                    ░             T T T  T T T                    #             ││ Atk off Ret off | Plain Scuttler       │
 │                                    ░                                             #             ││ Attacked by Plain Scuttler             │
 │                                    ░                                             #             │└────────────────────────────────────────┘
 │                                    ░             $ B H  & Q                      #             │┌─ Quest ────────────────────────────────┐
@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                                                                               
+ F: attack · Tab: next target  ·  Ctrl+R: fight back when attacked                                                                          
  ONLINE | Testgrounds | heard 0.4s ago | key 1 Root ok                                                                        ? help  q quit

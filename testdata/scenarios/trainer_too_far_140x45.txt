@@ -1,22 +1,22 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │ Traders in view. Up / Down choose, Enter opens, Esc closes. Walk up to one first.              ││ hale  Lv 1 Warrior           | 0 crowns│
 │                                                                                                ││ HP 130/130 ########################### │
-│ > $ Dunstan Reeve <Weaponsmith>: sells and buys                                    6m N too far││ XP ------------------------- 40 to Lv 2│
-│   T Mother Elswyth <Cleric Trainer>: teaches                                      15m S too far││ Atk off | none                         │
-│   g Town Guard <Thornwick Watch>: keeps watch over the town                       15m S too far│└────────────────────────────────────────┘
-│   T Gorran Stoutarm <Warrior Trainer>: teaches                                   18m SW too far│┌─ Your character (C: tab) ──────────────┐
-│   $ Barnaby Tuck <General Goods>: sells and buys                                 24m NE too far││ [Gear]  Bags   Stats                   │
-│   T Pip Nettle <Rogue Trainer>: teaches                                          24m SE too far││ Head      -                            │
-│   $ Hilda Brasswick <Armourer>: sells and buys                                    26m N too far││ Chest     -                            │
-│   & Thornwick Contract Board <Jobs for the Downs>: posts contracts               34m NE too far││ Legs      -                            │
-│   g Tamsin Hale <Watch Greeter>: keeps watch over the town                       36m NE too far││ Hands     -                            │
-│   H Isolde Fenn <Binder>: sets your bind point                                    37m E too far││ Feet      -                            │
-│   T Ormond Quill <Wizard Trainer>: teaches                                        39m E too far││ Ring 1    -                            │
-│   T Ser Aldric Vane <Paladin Trainer>: teaches                                    54m E too far││ Ring 2    -                            │
-│   B Odalys Penn <Banker>: keeps your bank                                        67m NE too far││ Neck      -                            │
-│   T Wynne Greenhollow <Druid Trainer>: teaches                                    69m E too far││ Main hand -                            │
-│   Q Captain Rhosyn Hartley <Watch Captain>: talks                                 79m E too far││ Off hand  -                            │
-│                                                                                                ││                                        │
+│ > $ Dunstan Reeve <Weaponsmith>: sells and buys                                            5m N││ XP ------------------------- 40 to Lv 2│
+│   T Mother Elswyth <Cleric Trainer>: teaches                                      16m S too far││ Atk off | none                         │
+│   g Town Guard <Thornwick Watch>: keeps watch over the town                       16m S too far││ Auto-retaliate: ON  (Ctrl+R)           │
+│   T Gorran Stoutarm <Warrior Trainer>: teaches                                   19m SW too far│└────────────────────────────────────────┘
+│   $ Barnaby Tuck <General Goods>: sells and buys                                  24m E too far│┌─ Your character (C: tab) ──────────────┐
+│   T Pip Nettle <Rogue Trainer>: teaches                                          25m SE too far││ [Gear]  Bags   Stats                   │
+│   $ Hilda Brasswick <Armourer>: sells and buys                                    25m N too far││ Head      -                            │
+│   & Thornwick Contract Board <Jobs for the Downs>: posts contracts               34m NE too far││ Chest     -                            │
+│   g Tamsin Hale <Watch Greeter>: keeps watch over the town                       36m NE too far││ Legs      -                            │
+│   H Isolde Fenn <Binder>: sets your bind point                                    37m E too far││ Hands     -                            │
+│   T Ormond Quill <Wizard Trainer>: teaches                                       39m SE too far││ Feet      -                            │
+│   T Ser Aldric Vane <Paladin Trainer>: teaches                                    54m E too far││ Ring 1    -                            │
+│   B Odalys Penn <Banker>: keeps your bank                                        66m NE too far││ Ring 2    -                            │
+│   T Wynne Greenhollow <Druid Trainer>: teaches                                    70m E too far││ Neck      -                            │
+│   Q Captain Rhosyn Hartley <Watch Captain>: talks                                 79m E too far││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

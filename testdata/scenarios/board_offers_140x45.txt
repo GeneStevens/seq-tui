@@ -3,8 +3,9 @@
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
 │> Boars in the Barley             Hunt   L1-3  │  (none)                                        ││ XP ------------------------- 40 to Lv 2│
 │  Word from Wickett Mill          Scout  L1-3  │                                                ││ Atk off | none                         │
-│  Wolves at Wickett Mill          Hunt   L1-3  │                                                │└────────────────────────────────────────┘
-│  Tusks for the Miller            Gather L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
+│  Wolves at Wickett Mill          Hunt   L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Your character (C: tab) ──────────────┐
 │                                                                                                ││ [Gear]  Bags   Stats                   │
 │                                                                                                ││ Head      -                            │
 │                                                                                                ││ Chest     -                            │
@@ -16,7 +17,6 @@
 │                                                                                                ││ Neck      -                            │
 │                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

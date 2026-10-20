@@ -3,17 +3,18 @@
 │                    ░                                                       #                   ││ HP 100/100 ########################### │
 │                    ░                                                       #                   ││ Target: none                           │
 │                    ░                                                       #                   ││ Auto-attack: off                       │
+│                    ░                                                       #                   ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                    ░                                                       #                   │└────────────────────────────────────────┘
-│                    ░                                                       #                   │┌─ Party, led by ann1 ───────────────────┐
-│                    ░                T  T T  T  T  T                        #                   ││ *ann1  Lv 1  Testgrounds               │
-│                    ░                                                       #                   ││   HP 98/100 #######-                   │
-│                    ░                $  B H  &  Q                           #                   │└────────────────────────────────────────┘
-│                    ░                                                       #                   │┌─ Quest ────────────────────────────────┐
-│                    ░                              !                        #                   ││ [ ] 1. Scout the Lookout               │
+│                    ░                T  T T  T  T  T                        #                   │┌─ Party, led by ann1 ───────────────────┐
+│                    ░                                                       #                   ││ *ann1  Lv 1  Testgrounds               │
+│                    ░                $  B H  &  Q                           #                   ││   HP 98/100 #######-                   │
+│                    ░                                                       #                   │└────────────────────────────────────────┘
+│                    ░                              !                        #                   │┌─ Quest ────────────────────────────────┐
+│                    ░                                                       #                   ││ [ ] 1. Scout the Lookout               │
 │                    ░                                                       #                   ││ Testgrounds Recruiter has work for you:│
 │                    ░                                                       #                   ││ G.                                     │
-│                    ░                                                       #                   │└────────────────────────────────────────┘
-│                    ░                           @  m   c                    #                   │┌─ Target ───────────────────────────────┐
+│                    ░                           @  m   c                    #                   │└────────────────────────────────────────┘
+│                    ░                                                       #                   │┌─ Target ───────────────────────────────┐
 │                    ░                                                       #                   ││ no target (Tab to choose)              │
 │                    ░                                                       #                   ││                                        │
 │                    ░                                                       #                   ││                                        │
@@ -22,19 +23,18 @@
 │                    ░                                                       #                   ││ ! Testgrounds Recruiter     6m N [new] │
 │                    ░                                                       #                   ││ & Testgrounds Contract Boa… 8m N [new] │
 │                    ░                                                       #                   ││ p ann1                     1m S 98/100 │
-│                    ░                                                       #                   ││ m Plain Scuttler       2m E 40/40 even │
+│                    ░                                                       #                   ││ m Plain Scuttler       2m E 34/40 even │
 │                    ░                                                       #                   ││ Q Testgrounds Captain <Quest Giv… 8m N │
 │                    ░                                                       #                   ││ H Testgrounds Binder             9m NW │
-│                    ░                                                       #                   ││ B Testgrounds Banker            10m NW │
-│                    ░                                                       #                   ││ +10 more                               │
+│                    ░                                                       #                   ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns ann1 invites you to a party                                                                                                     │
-│     N.Ns You start attacking ann1                                                                                                        │
+│     N.Ns Ann1 misses Plain Scuttler                                                                                                      │
+│     N.Ns Plain Scuttler began attacking ann1                                                                                             │
 │     N.Ns Plain Scuttler misses ann1                                                                                                      │
+│     N.Ns Ann1 hits Plain Scuttler for 6                                                                                                  │
 │     N.Ns Plain Scuttler hits ann1 for 2                                                                                                  │
-│                                                                                                                                          │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

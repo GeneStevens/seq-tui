@@ -2,7 +2,7 @@
 │                    ░                 #           ││ gorm  Lv 1 Warrior  | 0cr│
 │                    ░    TTTTTT       #           ││ HP 120/120 ############# │
 │                    ░    $BH&Q!       #           ││ XP #####------ 20 to Lv 2│
-│                    ░                 #           ││ Atk off | none           │
+│                    ░                 #           ││ Atk off Ret ON | none    │
 │                    ░    @*    c m    #      c    │└──────────────────────────┘
 │                    ░                 #           │┌─ Quest ──────────────────┐
 │                    ░                 #           ││ [ ] 1. Scout the Lookout │

@@ -216,6 +216,9 @@ func hintLine(m *model.Model, v View, w int, st Styler) string {
 			default:
 				parts = append(parts, "{Tab}: target · {F}: attack")
 			}
+			if !m.Self.AutoRetaliate && len(m.AttackerNames()) > 0 {
+				parts = append(parts, "{Ctrl+R}: fight back when attacked")
+			}
 		}
 	}
 	if len(parts) == 0 {

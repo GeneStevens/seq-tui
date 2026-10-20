@@ -3,15 +3,16 @@
 │                                                                                                ││ HP 142/164 #######################---- │
 │ You are level 3. Enter buys the ability under the cursor.                                      ││ XP ------------------------- 90 to Lv 4│
 │  Taunt                  level 1   known                                                        ││ Atk off | none                         │
-│  Bash                   level 1   known                                                        │└────────────────────────────────────────┘
-│> Second Wind            level 3   45 crowns                                                    │┌─ Target ───────────────────────────────┐
-│  Bulwark Stance         level 5   75 crowns                                                    ││ no target (Tab to choose)              │
-│  Cleave                 level 7   105 crowns                                                   ││                                        │
+│  Bash                   level 1   known                                                        ││ Auto-retaliate: off  (Ctrl+R)          │
+│> Second Wind            level 3   45 crowns                                                    │└────────────────────────────────────────┘
+│  Bulwark Stance         level 5   75 crowns                                                    │┌─ Target ───────────────────────────────┐
+│  Cleave                 level 7   105 crowns                                                   ││ no target (Tab to choose)              │
 │  Rallying Shout         level 9   135 crowns                                                   ││                                        │
-│  Sunder                 level 11  165 crowns                                                   │└────────────────────────────────────────┘
-│────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Nearby ───────────────────────────────┐
-│ Second Wind: For a short while, a share of the damage you deal comes back to you as health. Use││ & Thornwick Contract Boa… 52m NE [new] │
-│ it in the thick of a long fight.                                                               ││ T Gorran Stoutarm <Warrior Train… 1m S │
+│  Sunder                 level 11  165 crowns                                                   ││                                        │
+│────────────────────────────────────────────────────────────────────────────────────────────────│└────────────────────────────────────────┘
+│ Second Wind: For a short while, a share of the damage you deal comes back to you as health. Use│┌─ Nearby ───────────────────────────────┐
+│ it in the thick of a long fight.                                                               ││ & Thornwick Contract Boa… 52m NE [new] │
+│                                                                                                ││ T Gorran Stoutarm <Warrior Train… 1m S │
 │                                                                                                ││ T Mother Elswyth <Cleric Traine… 16m E │
 │                                                                                                ││ $ Dunstan Reeve <Weaponsmith>   23m NE │
 │                                                                                                ││ g Town Guard <Thornwick Watch>   30m E │
@@ -25,17 +26,16 @@
 │                                                                                                ││ T Ser Aldric Vane <Paladin Trai… 64m E │
 │                                                                                                ││ T Wynne Greenhollow <Druid Trai… 80m E │
 │                                                                                                ││ B Odalys Penn <Banker>          84m NE │
-│                                                                                                ││ Q Captain Rhosyn Hartley <Watch… 95m E │
-│ Enter acts · Esc back                                                                          ││ D East Gate                     102m E │
-│ The answer is on the status line; every denial says why.                                       ││                                        │
+│ Enter acts · Esc back                                                                          ││ Q Captain Rhosyn Hartley <Watch… 95m E │
+│ The answer is on the status line; every denial says why.                                       ││ D East Gate                     102m E │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│     1.8s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
+│            healer's patience.                                                                                                            │
+│ +   1.9s You buy Tanned Cap from Hilda Brasswick for 8 crowns                                                                            │
+│     1.9s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │    21.0s Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
 │            else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.                       │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

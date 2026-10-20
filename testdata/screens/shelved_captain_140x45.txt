@@ -3,13 +3,14 @@
 │                                                                                                ││ HP 215/215 ########################### │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”     ││ XP ------------------------ 162 to Lv 7│
 │ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are         ││ Atk off | none                         │
-│ seasoned.”                                                                                     │└────────────────────────────────────────┘
-│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │┌─ Target ───────────────────────────────┐
-│ me.”                                                                                           ││ no target (Tab to choose)              │
-│                                                                                                ││                                        │
+│ seasoned.”                                                                                     ││ Auto-retaliate: off  (Ctrl+R)          │
+│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │└────────────────────────────────────────┘
+│ me.”                                                                                           │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
 │ What they can do for you:                                                                      ││                                        │
-│ > 1  Take a contract                                                                           │└────────────────────────────────────────┘
-│   2  Turn in a contract                                                                        │┌─ Nearby ───────────────────────────────┐
+│ > 1  Take a contract                                                                           ││                                        │
+│   2  Turn in a contract                                                                        │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 47m W [new] │
 │                                                                                                ││ Q Captain Rhosyn Hartley <Watch… 1m NE │
 │                                                                                                ││ D East Gate                     12m SE │
@@ -25,7 +26,6 @@
 │                                                                                                ││ $ Dunstan Reeve <Weaponsmith>    76m W │
 │                                                                                                ││ T Mother Elswyth <Cleric Train… 79m SW │
 │                                                                                                ││ T Gorran Stoutarm <Warrior Trai… 93m W │
-│                                                                                                ││                                        │
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││                                        │
 │ talk to Captain Rhosyn Hartley ok                                                              ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘

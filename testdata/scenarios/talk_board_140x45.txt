@@ -1,13 +1,14 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Jobs for the Downs>, 2m S of you                                     ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board <Jobs for the Downs>, 1m SW of you                                    ││ Hale  Lv 1 Warrior           | 0 crowns│
 │                                                                                                ││ HP 130/130 ########################### │
 │ “Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the     ││ XP ------------------------- 40 to Lv 2│
 │ proof back here.”                                                                              ││ Atk off | none                         │
-│ “Hunts, hauls and scouting: every job is paid in crowns and experience.”                       │└────────────────────────────────────────┘
-│                                                                                                │┌─ Your character (C: tab) ──────────────┐
-│ What they can do for you:                                                                      ││ [Gear]  Bags   Stats                   │
-│ > 1  Take a contract                                                                           ││ Head      -                            │
-│   2  Turn in a contract                                                                        ││ Chest     -                            │
+│ “Hunts, hauls and scouting: every job is paid in crowns and experience.”                       ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                                                                                │└────────────────────────────────────────┘
+│ What they can do for you:                                                                      │┌─ Your character (C: tab) ──────────────┐
+│ > 1  Take a contract                                                                           ││ [Gear]  Bags   Stats                   │
+│   2  Turn in a contract                                                                        ││ Head      -                            │
+│                                                                                                ││ Chest     -                            │
 │                                                                                                ││ Legs      -                            │
 │                                                                                                ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
@@ -16,7 +17,6 @@
 │                                                                                                ││ Neck      -                            │
 │                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

@@ -2,7 +2,7 @@
 │                                                  ││ aria  Lv 1  XP 20   | 0cr│
 │                                                  ││ HP 92/100 ############-- │
 │                                                  ││ Target: none             │
-│                                                  ││ Auto-attack: off         │
+│                                                  ││ Atk off | Retaliate ON   │
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Instance ended           │

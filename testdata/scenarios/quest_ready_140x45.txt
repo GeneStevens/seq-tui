@@ -3,6 +3,7 @@
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 215/215 ########################### │
 │  (nothing for your level)                     │> Break the Raiding Party                READY  ││ XP ------------------------ 162 to Lv 7│
 │                                                                                                ││ Atk off | none                         │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Your character (C: tab) ──────────────┐
 │                                                                                                ││ [Gear]  Bags   Stats                   │
@@ -16,7 +17,6 @@
 │                                                                                                ││ Neck      -                            │
 │                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

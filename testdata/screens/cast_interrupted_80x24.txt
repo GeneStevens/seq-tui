@@ -20,5 +20,5 @@
 │ <  23.8s Plain Scuttler hits you for 4                                       │
 │ !  23.8s Your Frost Bolt is interrupted                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                   
+ F: attack · Tab: next target  ·  Ctrl+R: fight back when attacked              
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok      ? help  q quit

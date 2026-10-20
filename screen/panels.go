@@ -19,6 +19,7 @@ const (
 // Instance panel, or to the Round panel when Nearby does not fit.
 func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	iw := rw - 2
+	v.roomy = th >= roomyRows
 	you := youLines(m, v, iw, st)
 	rows := box(youTitle(m), rw, len(you)+2, you, st)
 	left := th - len(rows)
@@ -114,6 +115,16 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	return rows
 }
 
+// roomyRows is how tall the right column must be for the You panel to give
+// auto-retaliate (D85) a row of its own; a shorter one folds it into the attack
+// row, so the panels below keep their lines on an 80 x 24 screen.
+const roomyRows = 30
+
+// retaliateLine is the auto-retaliate setting (D85) and the key that turns it.
+func retaliateLine(s model.Self, w int) string {
+	return fit(" Auto-retaliate: "+onOff(s.AutoRetaliate)+"  (Ctrl+R)", w)
+}
+
 func onOff(b bool) string {
 	if b {
 		return "ON"
@@ -140,6 +151,9 @@ func youLines(m *model.Model, v View, w int, st Styler) []string {
 		hpLine = st.Red(hpLine)
 	}
 	last := fit(" Auto-attack: "+onOff(s.AutoAttack), w)
+	if !v.roomy {
+		last = fit(" Atk "+onOff(s.AutoAttack)+" | Retaliate "+onOff(s.AutoRetaliate), w)
+	}
 	if s.Dead {
 		// Nothing else can be done but release (D41); say so, and what is
 		// happening once it is done.
@@ -153,6 +167,9 @@ func youLines(m *model.Model, v View, w int, st Styler) []string {
 		hpLine,
 		fit(" Target: "+targetName(m), w),
 		last,
+	}
+	if !s.Dead && v.roomy {
+		rows = append(rows, retaliateLine(s, w))
 	}
 	return withAttackers(m, withStatus(m, rows, w, st), w, st)
 }
@@ -434,7 +451,7 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 	}
 	var all []styled
 	for _, e := range m.Log {
-		if !v.Verbose && (e.Quiet || e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed" || e.Kind == "unknown") {
+		if !v.Verbose && e.Hidden() {
 			continue
 		}
 		mark, fn := " ", func(s string) string { return s }

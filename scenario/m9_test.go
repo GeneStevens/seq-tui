@@ -334,14 +334,14 @@ func walkBoth(t *testing.T, w *scenario.World, to [2]int64, ps ...*scenario.Play
 		if len(keys) == 0 {
 			return
 		}
-		// Both walk together: the keys go down, seven ticks of walking (a step of
+		// Both walk together: the keys go down, ten ticks, three of them to hold past a tap, of walking (a step of
 		// about 3 m), and come up.
 		for _, p := range ps {
 			if k, ok := keys[p]; ok {
 				p.Hold(k)
 			}
 		}
-		w.Advance(7 * scenario.Tick)
+		w.Advance(10 * scenario.Tick)
 		for _, p := range ps {
 			if k, ok := keys[p]; ok {
 				p.Let(k)
@@ -494,7 +494,7 @@ func TestTwoAccountsClearAWarrenRoomTogether(t *testing.T) {
 
 	// Out again, together; the party chat still reaches both.
 	ann.Press("f")
-	walkBoth(t, w, [2]int64{13000, 70000}, ann, bob)
+	walkBoth(t, w, [2]int64{12000, 70000}, ann, bob)
 	ann.Press("e")
 	bob.Press("e")
 	for _, p := range []*scenario.Player{ann, bob} {

@@ -201,6 +201,7 @@ func statLines(m *model.Model, w int, st Styler) []string {
 // the rest. x0, y0 is where the column starts on the screen.
 func sidebarColumn(m *model.Model, v View, rw, th, x0, y0 int, st Styler) []string {
 	iw := rw - 2
+	v.roomy = th >= roomyRows
 	you := youLines(m, v, iw, st)
 	rows := box(youTitle(m), rw, len(you)+2, you, st)
 	if left := th - len(rows); left >= 6 {

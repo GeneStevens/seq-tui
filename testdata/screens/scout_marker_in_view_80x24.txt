@@ -2,7 +2,7 @@
 │                      ░                           ││ Hale  Lv 1 Warrior  | 0cr│
 │                      ░     """"""""""""""""""""""││ HP 130/130 ############# │
 │                      ░     """"""""""""""""""""""││ XP ----------- 40 to Lv 2│
-│                      ░···························││ Atk off | none           │
+│                      ░···························││ Atk off Ret off | none   │
 │                      ░··@························│└──────────────────────────┘
 │                      ░···························│┌─ Target ─────────────────┐
 │                      ░                           ││ no target (Tab to choose)│
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│            back here. Hunts, hauls and scouting: every job is paid in crowns │
+│            and experience.                                                   │
+│ +   2.8s You take the contract Word from Wickett Mill                        │
 │    26.7s entered Thornwick Downs                                             │
-│                                                                              │
-│                                                                              │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
  ONLINE | → Word from Wickett Mill, 42m E | road: faster, 125% | use door ok    

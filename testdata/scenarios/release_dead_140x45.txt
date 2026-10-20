@@ -29,14 +29,14 @@
 │                    ░                                                       #                   ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns You start attacking something                                                                                                   │
-│ <   N.Ns Plain Scuttler hits you for 2                                                                                                   │
-│ <   N.Ns Plain Scuttler hits you for 1                                                                                                   │
+│     N.Ns You hit Plain Scuttler for 5                                                                                                    │
 │ <   N.Ns Plain Scuttler hits you for 3                                                                                                   │
+│     N.Ns You hit Plain Scuttler for 4                                                                                                    │
 │ <  NN.Ns Plain Scuttler hits you for 2                                                                                                   │
 │ x  NN.Ns Plain Scuttler killed you                                                                                                       │
 │    NN.Ns Your target is gone                                                                                                             │
 │    NN.Ns Your target Plain Scuttler is gone                                                                                              │
+│    NN.Ns You stop attacking                                                                                                              │
 │    NN.Ns Everyone in the fight with Plain Scuttler has fallen                                                                            │
 │    NN.Ns You are out of combat                                                                                                           │
 │    NN.Ns Plain Scuttler reset to 40 hp                                                                                                   │

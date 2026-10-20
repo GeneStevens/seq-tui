@@ -2,7 +2,7 @@
 │                                         ░                                                      ││ Hale  Lv 1 Warrior          | 15 crowns│
 │                                         ░                                                      ││ HP 130/130 ########################### │
 │                                         ░                                                      ││ XP ############------------- 20 to Lv 2│
-│                                         ░               """""""""""""""""""""""""""""""""""""""││ Atk off | none                         │
+│                                         ░               """""""""""""""""""""""""""""""""""""""││ Atk off Ret ON | none                  │
 │                                         ░               """""""""""""""""""""""""""""""""""""""│└────────────────────────────────────────┘
 │                                         ░                                                      │┌─ Target ───────────────────────────────┐
 │                                         ░                                                      ││ no target (Tab to choose)              │
@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    NN.Ns Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
+│            else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.                       │
+│ +  NN.Ns First Steps: step 2 done: 15 crowns. Next: Take a contract from the Thornwick Contract Board, here in Hawthorn Square. Jobs pay │
+│            crowns and experience.                                                                                                        │
+│    NN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
+│ +  NN.Ns First Steps: step 3 done. Next: Walk east along Gatehouse Way to the East Gate and press E at the gate to go out to the         │
+│            Thornwick Downs.                                                                                                              │
+│ +  NN.Ns You take the contract Boars in the Barley                                                                                       │
 │ +  NN.Ns Quest complete: First Steps: 20 experience                                                                                      │
 │    NN.Ns entered Thornwick Downs                                                                                                         │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                                                                               
  ONLINE | Thornwick Gate, Thornwick Downs | → Boars in the Barley, 92m SE | road: faster, 125% | heard N.Ns ago | use door ok ? help  q quit

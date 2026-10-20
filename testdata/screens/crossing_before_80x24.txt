@@ -2,7 +2,7 @@
 │                          ░                       ││ Aria  Lv 3  XP 10   | 0cr│
 │                          ░                       ││ HP 120/120 ############# │
 │                          ░                       ││ Target: none             │
-│                          ░                       ││ Auto-attack: off         │
+│                          ░                       ││ Atk off | Retaliate off  │
 │                          ░                       │└──────────────────────────┘
 │                          ░                       │┌─ Target ─────────────────┐
 │                          ░                       ││ no target (Tab to choose)│

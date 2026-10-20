@@ -135,8 +135,13 @@ func kitLines(m *model.Model, v View, w int, st Styler) []string {
 		rows = append(rows, last)
 	case castLine(m, v, w, st) != "":
 		rows = append(rows, castLine(m, v, w, st))
-	default:
+	case v.roomy:
 		rows = append(rows, fit(" Atk "+onOff(s.AutoAttack)+" | "+targetName(m), w))
+	default:
+		rows = append(rows, fit(" Atk "+onOff(s.AutoAttack)+" Ret "+onOff(s.AutoRetaliate)+" | "+targetName(m), w))
+	}
+	if !s.Dead && v.roomy {
+		rows = append(rows, retaliateLine(s, w))
 	}
 	return withAttackers(m, withStatus(m, rows, w, st), w, st)
 }

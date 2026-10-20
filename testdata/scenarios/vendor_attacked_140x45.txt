@@ -2,22 +2,22 @@
 │ Testgrounds Vendor, 1m NE away. You have 0 crowns.                                             ││ aria  Lv 1  XP 0             | 0 crowns│
 │                                                                                                ││ HP 100/100 ########################### │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ Target: Plain Scuttler                 │
-│>   Cracked Shell Fragment Common   1, short 1 │  (nothing)                                     ││ Auto-attack: off                       │
-│  ▲ Worn Cap Common                 8, short 8 │                                                ││ Attacked by Plain Scuttler             │
-│  ▲ Padded Vest Common            20, short 20 │                                                │└────────────────────────────────────────┘
-│  ▲ Padded Leggings Common        16, short 16 │                                                │┌─ Your character (C: tab) ──────────────┐
-│  ▲ Padded Gloves Common            8, short 8 │                                                ││ [Gear]  Bags   Stats                   │
-│  ▲ Stout Boots Common            10, short 10 │                                                ││ Head      -                            │
-│  ▲ Copper Ring Fine              40, short 40 │                                                ││ Chest     -                            │
-│  ▲ Bone Charm Fine               45, short 45 │                                                ││ Legs      -                            │
-│  ▲ Plain Club Common             15, short 15 │                                                ││ Hands     -                            │
-│  ▲ Buckler Common                12, short 12 │                                                ││ Feet      -                            │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ Ring 1    -                            │
-│ Cracked Shell Fragment: Common, no gear slot; tradable once                                    ││ Ring 2    -                            │
-│ costs 1 crown, short 1 crown                                                                   ││ Neck      -                            │
+│>   Cracked Shell Fragment Common   1, short 1 │  (nothing)                                     ││ Auto-attack: ON                        │
+│  ▲ Worn Cap Common                 8, short 8 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  ▲ Padded Vest Common            20, short 20 │                                                ││ Attacked by Plain Scuttler             │
+│  ▲ Padded Leggings Common        16, short 16 │                                                │└────────────────────────────────────────┘
+│  ▲ Padded Gloves Common            8, short 8 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Stout Boots Common            10, short 10 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Copper Ring Fine              40, short 40 │                                                ││ Head      -                            │
+│  ▲ Bone Charm Fine               45, short 45 │                                                ││ Chest     -                            │
+│  ▲ Plain Club Common             15, short 15 │                                                ││ Legs      -                            │
+│  ▲ Buckler Common                12, short 12 │                                                ││ Hands     -                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Feet      -                            │
+│ Cracked Shell Fragment: Common, no gear slot; tradable once                                    ││ Ring 1    -                            │
+│ costs 1 crown, short 1 crown                                                                   ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
 │                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -33,9 +33,9 @@
 │     N.Ns Plain Scuttler targeted aria                                                                                                    │
 │     N.Ns You begin fighting Plain Scuttler                                                                                               │
 │     N.Ns You target Plain Scuttler                                                                                                       │
+│     N.Ns You start attacking Plain Scuttler                                                                                              │
 │     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
 │     N.Ns You are in combat with Plain Scuttler                                                                                           │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

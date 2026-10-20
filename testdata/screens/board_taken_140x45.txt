@@ -3,8 +3,9 @@
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
 │> Thin the Meadow Wolves          Hunt   L1-3  │> Wolves at Wickett Mill                   0/4  ││ XP ------------------------- 40 to Lv 2│
 │  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
-│  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
-│  Word from Barleycross           Scout  L1-3  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│  Tusks for the Miller            Gather L1-3  │                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│  Word from Barleycross           Scout  L1-3  │                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
 │                                                                                                ││ First Steps                            │
 │                                                                                                ││ Step 2 of 4                            │
 │                                                                                                ││ Speak to your class trainer on         │
@@ -19,15 +20,14 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
 │                                                                                                ││ Wolves at Wickett Mill             0/4 │
-│                                                                                                │└────────────────────────────────────────┘
-│────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Nearby ───────────────────────────────┐
-│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ & Thornwick Contract Board  2m S [new] │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ ! Gorran Stoutarm      54m SW [step 2] │
-│ Pays 21 XP and 8 crowns.                                                                       ││ g Tamsin Hale <Watch Greeter>    6m SE │
+│────────────────────────────────────────────────────────────────────────────────────────────────│└────────────────────────────────────────┘
+│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               │┌─ Nearby ───────────────────────────────┐
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ & Thornwick Contract Board  2m S [new] │
+│ Pays 21 XP and 8 crowns.                                                                       ││ ! Gorran Stoutarm      54m SW [step 2] │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    6m SE │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>  13m SW │
-│                                                                                                ││ H Isolde Fenn <Binder>          14m SE │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ g Town Guard <Thornwick Watch>   23m E │
-│ take Thin the Meadow Wolves ok                                                                 ││ +10 more                               │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ H Isolde Fenn <Binder>          14m SE │
+│ take Thin the Meadow Wolves ok                                                                 ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │

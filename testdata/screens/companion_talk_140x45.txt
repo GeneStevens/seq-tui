@@ -3,14 +3,15 @@
 │                                                                                                ││ HP 215/215 ########################### │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”     ││ XP ------------------------ 162 to Lv 7│
 │ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are         ││ Atk off | none                         │
-│ seasoned.”                                                                                     │└────────────────────────────────────────┘
-│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │┌─ Quest ────────────────────────────────┐
-│ me.”                                                                                           ││ [ ] 1. Eyes on the Goblins             │
-│                                                                                                ││ Captain Rhosyn Hartley has work for    │
-│ What they can do for you:                                                                      ││ you: G.                                │
-│ > 1  Choose your recruit's role                                                                │└────────────────────────────────────────┘
-│   2  Take a contract                                                                           │┌─ Target ───────────────────────────────┐
-│   3  Turn in a contract                                                                        ││ no target (Tab to choose)              │
+│ seasoned.”                                                                                     ││ Auto-retaliate: off  (Ctrl+R)          │
+│ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │└────────────────────────────────────────┘
+│ me.”                                                                                           │┌─ Quest ────────────────────────────────┐
+│                                                                                                ││ [ ] 1. Eyes on the Goblins             │
+│ What they can do for you:                                                                      ││ Captain Rhosyn Hartley has work for    │
+│ > 1  Choose your recruit's role                                                                ││ you: G.                                │
+│   2  Take a contract                                                                           │└────────────────────────────────────────┘
+│   3  Turn in a contract                                                                        │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
@@ -25,9 +26,8 @@
 │                                                                                                ││ g Tamsin Hale <Watch Greeter>    43m W │
 │                                                                                                ││ T Ormond Quill <Wizard Trainer> 52m SW │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>   54m W │
-│                                                                                                ││ T Pip Nettle <Rogue Trainer>    65m SW │
-│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ $ Hilda Brasswick <Armourer>     75m W │
-│ talk to Captain Rhosyn Hartley ok                                                              ││ +3 more                                │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ T Pip Nettle <Rogue Trainer>    65m SW │
+│ talk to Captain Rhosyn Hartley ok                                                              ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│

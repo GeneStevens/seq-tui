@@ -3,11 +3,12 @@
 │ Your offer                                    │ c2's offer                                     ││ HP 100/100 ########################### │
 │ not confirmed                                 │ not confirmed                                  ││ Target: none                           │
 │ crowns 0                                      │ crowns 7                                       ││ Auto-attack: off                       │
-│> Worn Cap Common                              │  (no items)                                    │└────────────────────────────────────────┘
-│────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Target ───────────────────────────────┐
-│ You carry, 0 crowns (Enter puts the item in the offer)                                         ││ no target (Tab to choose)              │
-│  ▲ Worn Cap Common  armor +2                                                                   ││                                        │
+│> Worn Cap Common                              │  (no items)                                    ││ Auto-retaliate: off  (Ctrl+R)          │
+│────────────────────────────────────────────────────────────────────────────────────────────────│└────────────────────────────────────────┘
+│ You carry, 0 crowns (Enter puts the item in the offer)                                         │┌─ Target ───────────────────────────────┐
+│  ▲ Worn Cap Common  armor +2                                                                   ││ no target (Tab to choose)              │
 │> ▲ Scuttler Blade Rare [bound]  damage 4-9 / 2.0s, str +3                                      ││                                        │
+│                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 34m S [new] │
@@ -24,9 +25,8 @@
 │                                                                                                ││ B Testgrounds Banker            36m SW │
 │                                                                                                ││ $ Testgrounds Vendor            37m SW │
 │                                                                                                ││ D Gate North                     70m E │
-│                                                                                                ││ H Eastern Binder               114m SE │
-│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade                       ││ D Line East                    183m SE │
-│ Esc closes the screen and leaves the trade open.                                               ││                                        │
+│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade                       ││ H Eastern Binder               114m SE │
+│ Esc closes the screen and leaves the trade open.                                               ││ D Line East                    183m SE │
 │ ! offer Scuttler Blade denied: that item is bound and cannot be traded (bound)                 ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

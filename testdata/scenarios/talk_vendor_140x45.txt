@@ -1,12 +1,13 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick <Armourer>, 3m S of you                                                        ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Armourer>, 2m S of you                                                        ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row.”             ││ XP ------------------------- 90 to Lv 4│
 │ “Armour is cheaper than a healer's patience.”                                                  ││ Atk off | none                         │
-│                                                                                                │└────────────────────────────────────────┘
-│ What they can do for you:                                                                      │┌─ Your character (C: tab) ──────────────┐
-│ > 1  Buy                                                                                       ││ [Gear]  Bags   Stats                   │
-│   2  Sell                                                                                      ││ Head      -                            │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│ What they can do for you:                                                                      │└────────────────────────────────────────┘
+│ > 1  Buy                                                                                       │┌─ Your character (C: tab) ──────────────┐
+│   2  Sell                                                                                      ││ [Gear]  Bags   Stats                   │
+│                                                                                                ││ Head      -                            │
 │                                                                                                ││ Chest     -                            │
 │                                                                                                ││ Legs      -                            │
 │                                                                                                ││ Hands     -                            │
@@ -16,7 +17,6 @@
 │                                                                                                ││ Neck      -                            │
 │                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

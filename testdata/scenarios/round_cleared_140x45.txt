@@ -3,30 +3,30 @@
 │                                                                                                ││ HP 92/100 #########################--- │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
-│                                                                                                ││ Instance ended                         │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ cleared                                │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Instance ended                         │
+│                                                                                                ││ cleared                                │
 │                                                                                                ││ you were handed back                   │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                @                                               │└────────────────────────────────────────┘
+│                                                @                                               ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
 │                                                                                                ││ D Gate North                   0m here │
 │                                                                                                ││ H Eastern Binder                 73m S │
-│                                                                                                ││ T Druid Trainer                  83m W │
-│                                                                                          c     ││ T Paladin Trainer                85m W │
+│                                                                                          c     ││ T Druid Trainer                  83m W │
+│                                                                                                ││ T Paladin Trainer                85m W │
 │                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
 │                                                                                                ││ T Wizard Trainer                 87m W │
 │                                                                                                ││ T Rogue Trainer                  89m W │
 │                                                                                                ││ H Testgrounds Binder             90m W │
-│                                                                                                ││ T Cleric Trainer                 90m W │
-│                                                                                                ││ +4 more                                │
+│                                                                                                ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns Plain Scuttler is out of view                                                                                                   │

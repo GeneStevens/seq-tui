@@ -26,6 +26,9 @@ func walker(t *testing.T) (*scenario.World, *scenario.Player) {
 
 const tick = scenario.Tick
 
+// tapHold is how long a key may be down and still be a tap (app.tapHold).
+const tapHold = 200 * time.Millisecond
+
 // stops and walks count the movement intents the program sent.
 func counts(p *scenario.Player) (walks, stops int) {
 	for _, s := range p.WalkSends() {
@@ -38,8 +41,8 @@ func counts(p *scenario.Player) (walks, stops int) {
 	return
 }
 
-// A terminal that reports releases: the key going down sends Walk and the
-// character has moved by the end of the tick that holds it; held, the walk is
+// A terminal that reports releases: a key held past a tap (200 ms) sends Walk and
+// the character has moved by the end of the tick after it; held, the walk is
 // kept alive well past the server's 500 ms timeout; the release sends Stop and
 // the character stands still within one tick of it.
 func TestKittyHoldWalksAndReleaseStops(t *testing.T) {
@@ -51,15 +54,20 @@ func TestKittyHoldWalksAndReleaseStops(t *testing.T) {
 	if got := p.Pos(); got != start {
 		t.Fatalf("the character moved before a tick: %v", got)
 	}
+	w.Advance(tick) // inside a tap: nothing is sent yet
+	if got := p.Pos(); got != start || len(p.WalkSends()) != 0 {
+		t.Fatalf("a key down 100 ms moved the character to %v or sent %v", got, p.WalkSends())
+	}
+	w.Advance(2 * tick) // past it: the walk is told
 	w.Advance(tick)
 	first := p.Pos()
 	if first[0] <= start[0] || first[1] != start[1] {
-		t.Fatalf("a tick after the key went down the character is at %v, from %v", first, start)
+		t.Fatalf("a tick after the walk began the character is at %v, from %v", first, start)
 	}
-	t.Logf("key down to first movement: %v of game time (one tick), %d mm", tick, first[0]-start[0])
+	t.Logf("key down to first movement: %v of game time (a tap's 200 ms and a tick), %d mm", 4*tick, first[0]-start[0])
 
 	prev := first
-	for i := range 29 { // three seconds held: far past the walk timeout
+	for i := range 25 { // nearly three seconds held (keyLost lets a key with no repeat go at 3): far past the walk timeout
 		w.Advance(tick)
 		if now := p.Pos(); now[0] != prev[0]+400 {
 			t.Fatalf("tick %d of the hold: at %v after %v", i+2, now, prev)
@@ -371,13 +379,15 @@ func TestTheKeyShowsWithinAFrameAndTheMapScrollsWithinACell(t *testing.T) {
 			serverAt = at
 		}
 	}
-	if markAt == 0 || markAt > 66*time.Millisecond {
+	// A key held is a walk once it is held past a tap (200 ms): the mark moves a
+	// frame or two after that, the server a tick after the walk is told.
+	if markAt == 0 || markAt > tapHold+66*time.Millisecond {
 		t.Fatalf("the mark moved after %v", markAt)
 	}
-	if serverAt == 0 || serverAt > 132*time.Millisecond {
+	if serverAt == 0 || serverAt > tapHold+166*time.Millisecond {
 		t.Fatalf("the server moved the character after %v", serverAt)
 	}
-	if cellAt == 0 || cellAt > 400*time.Millisecond {
+	if cellAt == 0 || cellAt > 600*time.Millisecond {
 		t.Fatalf("the map scrolled a cell after %v", cellAt)
 	}
 	t.Logf("key down to the mark's first movement: %v; to the server's first move: %v; to the first cell the map scrolls: %v", markAt, serverAt, cellAt)

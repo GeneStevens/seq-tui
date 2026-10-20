@@ -3,8 +3,9 @@
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
 │> Thin the Meadow Wolves          Hunt   L1-3  │> Wolves at Wickett Mill                 READY  ││ XP #####-------------------- 32 to Lv 2│
 │  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
-│  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
-│  Word from Barleycross           Scout  L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
+│  Tusks for the Miller            Gather L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  Word from Barleycross           Scout  L1-3  │                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Your character (C: tab) ──────────────┐
 │                                                                                                ││ [Gear]  Bags   Stats                   │
 │                                                                                                ││ Head      -                            │
 │                                                                                                ││ Chest     -                            │
@@ -19,27 +20,26 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
 │────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
 │ Wolves at Wickett Mill: Hunt, 4 of 4 killed.                                                   ││                                        │
 │ Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,    ││                                        │
 │ west of the river.                                                                             ││                                        │
 │ Pays 22 XP and 10 crowns.                                                                      ││                                        │
-│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 1m NW.                  ││                                        │
+│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 3m SW.                  ││                                        │
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│   NNN.Ns You stop attacking                                                                                                              │
+│   NNN.Ns Meadow Wolf dropped Wolf Pelt                                                                                                   │
+│   NNN.Ns Meadow Wolf dropped 1 crown                                                                                                     │
+│   NNN.Ns Meadow Wolf is dead: the fight is over                                                                                          │
+│   NNN.Ns You are out of combat                                                                                                           │
+│ + NNN.Ns You gain 2 experience                                                                                                           │
+│ + NNN.Ns Wolves at Wickett Mill: 4 of 4                                                                                                  │
+│   NNN.Ns Meadow Wolf is out of view                                                                                                      │
+│   NNN.Ns entered Thornwick                                                                                                               │
 │   NNN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 4m SE | road: faster, 125% | heard N.Ns ago   ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 5m S | road: faster, 125% | heard N.Ns ago    ? help  q quit

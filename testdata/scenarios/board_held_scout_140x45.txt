@@ -3,8 +3,9 @@
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
 │  Thin the Meadow Wolves          Hunt   L1-3  │> Word from Wickett Mi… 0/1 — go to the marker  ││ XP ------------------------- 40 to Lv 2│
 │> Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
-│  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
-│  Word from Barleycross           Scout  L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
+│  Tusks for the Miller            Gather L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  Word from Barleycross           Scout  L1-3  │                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Your character (C: tab) ──────────────┐
 │                                                                                                ││ [Gear]  Bags   Stats                   │
 │                                                                                                ││ Head      -                            │
 │                                                                                                ││ Chest     -                            │
@@ -16,7 +17,6 @@
 │                                                                                                ││ Neck      -                            │
 │                                                                                                ││ Main hand -                            │
 │                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 6m SE | road: faster, 125% | heard N.Ns ago   ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125% | heard N.Ns ago   ? help  q quit

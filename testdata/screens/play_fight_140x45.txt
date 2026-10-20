@@ -3,17 +3,18 @@
 │                            ░                                                       #           ││ HP 96/100 ##########################-- │
 │                            ░                                                       #           ││ Target: Plain Scuttler                 │
 │                            ░                                                       #           ││ Auto-attack: ON                        │
+│                            ░                                                       #           ││ Auto-retaliate: off  (Ctrl+R)          │
 │                            ░                                                       #           ││ Attacked by Plain Scuttler             │
+│                            ░                T  T T  T  T  T                        #           │└────────────────────────────────────────┘
+│                            ░                                                       #           │┌─ Quest ────────────────────────────────┐
+│                            ░                $  B H  &  Q                           #           ││ [ ] 1. Scout the Lookout               │
+│                            ░                                                       #           ││ Testgrounds Recruiter has work for you:│
+│                            ░                              !                        #           ││ G.                                     │
 │                            ░                                                       #           │└────────────────────────────────────────┘
-│                            ░                T  T T  T  T  T                        #           │┌─ Quest ────────────────────────────────┐
-│                            ░                                                       #           ││ [ ] 1. Scout the Lookout               │
-│                            ░                $  B H  &  Q                           #           ││ Testgrounds Recruiter has work for you:│
-│                            ░                                                       #           ││ G.                                     │
-│                            ░                              !                        #           │└────────────────────────────────────────┘
 │                            ░                                                       #           │┌─ Target ───────────────────────────────┐
 │                            ░                                                       #           ││ M Plain Scuttler  Lv 1                 │
-│                            ░                                                       #           ││ HP 23/40 #############---------- 2m E  │
-│                            ░                   @  M           c                    #           ││ even, fighting you                     │
+│                            ░                   @  M           c                    #           ││ HP 23/40 #############---------- 2m E  │
+│                            ░                                                       #           ││ even, fighting you                     │
 │                            ░                                                       #           │└────────────────────────────────────────┘
 │                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
 │                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
@@ -25,8 +26,7 @@
 │                            ░                                                       #           ││ Q Testgrounds Captain <Quest G… 10m NE │
 │                            ░                                                       #           ││ T Cleric Trainer                 12m N │
 │                            ░                                                       #           ││ T Rogue Trainer                  12m N │
-│                            ░                                                       #           ││ T Warrior Trainer                12m N │
-│                            ░                                                       #           ││ +6 more                                │
+│                            ░                                                       #           ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     3.1s You start attacking something                                                                                                   │
@@ -41,5 +41,5 @@
 │ <  12.1s Plain Scuttler hits you for 2                                                                                                   │
 │    12.3s You hit Plain Scuttler for 4                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                                                                                  
+ F: stop attacking · Esc: clear the target  ·  Ctrl+R: fight back when attacked                                                             
  ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit

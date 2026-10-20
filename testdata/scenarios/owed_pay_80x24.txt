@@ -3,7 +3,7 @@
 │                       ░                          ││ hale  Lv 12 Warri… | 30cr│
 │                       ░                          ││ HP 317/317 ############# │
 │                       ░     """""""""""""""""""  ││ XP #-------- 255 to Lv 13│
-│                       ░··························││ Atk off | none           │
+│                       ░··························││ Atk off Ret ON | none    │
 │                       ░·@··G··················v··│└──────────────────────────┘
 │                       ░····················     ·│┌─ Target ─────────────────┐
 │                       ░     """"""""             ││ no target (Tab to choose)│
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│ !  NN.Ns You have no target                                                  │
+│    NN.Ns entered Thornwick                                                   │
 │   NNN.Ns entered Thornwick Downs                                             │
 │ + NNN.Ns owed pay arrived with the join: 60 XP and 30 crowns                 │
-│                                                                              │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
  ONLINE | road: faster, 125% | heard N.Ns ago | use door ok       ? help  q quit

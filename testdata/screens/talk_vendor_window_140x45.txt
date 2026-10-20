@@ -3,30 +3,30 @@
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
 │> ▲ Tanned Cap Common                        8 │  (nothing)                                     ││ Atk off | none                         │
-│  ▲ Ringed Cap Common                       24 │                                                │└────────────────────────────────────────┘
-│  ▲ Studded Cap Common                      48 │                                                │┌─ Target ───────────────────────────────┐
-│  ▲ Tanned Jerkin Common                    20 │                                                ││ no target (Tab to choose)              │
-│  ▲ Ringed Jerkin Common                    60 │                                                ││                                        │
+│  ▲ Ringed Cap Common                       24 │                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│  ▲ Studded Cap Common                      48 │                                                │└────────────────────────────────────────┘
+│  ▲ Tanned Jerkin Common                    20 │                                                │┌─ Target ───────────────────────────────┐
+│  ▲ Ringed Jerkin Common                    60 │                                                ││ no target (Tab to choose)              │
 │  ▲ Studded Jerkin Common                  120 │                                                ││                                        │
-│  ▲ Tanned Leggings Common                  16 │                                                │└────────────────────────────────────────┘
-│  ▲ Ringed Leggings Common                  48 │                                                │┌─ Nearby ───────────────────────────────┐
-│  ▲ Studded Leggings Common                 96 │                                                ││ & Thornwick Contract Board 29m E [new] │
-│  ▲ Tanned Gloves Common                     8 │                                                ││ $ Hilda Brasswick <Armourer>      3m S │
-│  ▲ Ringed Gloves Common                    24 │                                                ││ g Town Guard <Thornwick Watch>   15m N │
-│  ▲ Studded Gloves Common                   48 │                                                ││ $ Dunstan Reeve <Weaponsmith>    23m S │
-│  ▲ Tanned Boots Common                     10 │                                                ││ $ Barnaby Tuck <General Goods>  29m SE │
-│  ▲ Ringed Boots Common                     30 │                                                ││ g Tamsin Hale <Watch Greeter>    34m E │
-│  ▲ Studded Boots Common                    60 │                                                ││ H Isolde Fenn <Binder>          40m SE │
-│  ▲ Oak Buckler Common                      14 │                                                ││ T Mother Elswyth <Cleric Traine… 43m S │
-│  ▲ Iron-Rimmed Shield Common               42 │                                                ││ T Gorran Stoutarm <Warrior Trai… 44m S │
-│  ▲ Bossed Shield Common                    84 │                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
-│  ▲ Linen Hood Common                        8 │                                                ││ T Ormond Quill <Wizard Trainer> 56m SE │
-│  ▲ Wool Hood Common                        24 │                                                ││ B Odalys Penn <Banker>           60m E │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ T Ser Aldric Vane <Paladin Tra… 67m SE │
-│ ▲ Tanned Cap: Common, Head; tradable once                                                      ││ Q Captain Rhosyn Hartley <Watch… 76m E │
-│ armor +2; costs 8 crowns                                                                       ││ T Wynne Greenhollow <Druid Tra… 80m SE │
-│ upgrade over an empty head: +2 armour                                                          ││ D East Gate                      87m E │
-│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
+│  ▲ Tanned Leggings Common                  16 │                                                ││                                        │
+│  ▲ Ringed Leggings Common                  48 │                                                │└────────────────────────────────────────┘
+│  ▲ Studded Leggings Common                 96 │                                                │┌─ Nearby ───────────────────────────────┐
+│  ▲ Tanned Gloves Common                     8 │                                                ││ & Thornwick Contract Board 29m E [new] │
+│  ▲ Ringed Gloves Common                    24 │                                                ││ $ Hilda Brasswick <Armourer>      3m S │
+│  ▲ Studded Gloves Common                   48 │                                                ││ g Town Guard <Thornwick Watch>   15m N │
+│  ▲ Tanned Boots Common                     10 │                                                ││ $ Dunstan Reeve <Weaponsmith>    23m S │
+│  ▲ Ringed Boots Common                     30 │                                                ││ $ Barnaby Tuck <General Goods>  29m SE │
+│  ▲ Studded Boots Common                    60 │                                                ││ g Tamsin Hale <Watch Greeter>    34m E │
+│  ▲ Oak Buckler Common                      14 │                                                ││ H Isolde Fenn <Binder>          40m SE │
+│  ▲ Iron-Rimmed Shield Common               42 │                                                ││ T Mother Elswyth <Cleric Traine… 43m S │
+│  ▲ Bossed Shield Common                    84 │                                                ││ T Gorran Stoutarm <Warrior Trai… 44m S │
+│  ▲ Linen Hood Common                        8 │                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
+│  ▲ Wool Hood Common                        24 │                                                ││ T Ormond Quill <Wizard Trainer> 56m SE │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ B Odalys Penn <Banker>           60m E │
+│ ▲ Tanned Cap: Common, Head; tradable once                                                      ││ T Ser Aldric Vane <Paladin Tra… 67m SE │
+│ armor +2; costs 8 crowns                                                                       ││ Q Captain Rhosyn Hartley <Watch… 76m E │
+│ upgrade over an empty head: +2 armour                                                          ││ T Wynne Greenhollow <Druid Tra… 80m SE │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││ D East Gate                      87m E │
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

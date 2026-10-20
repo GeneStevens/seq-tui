@@ -2,11 +2,12 @@
 │ Testgrounds Vendor, 1m NE of you                                                               ││ aria  Lv 1  XP 0             | 0 crowns│
 │                                                                                                ││ HP 100/100 ########################### │
 │ “Fresh stock, fair prices.”                                                                    ││ Target: Plain Scuttler                 │
-│ “I buy what you carry, for a quarter of what I sell it at.”                                    ││ Auto-attack: off                       │
-│                                                                                                ││ Attacked by Plain Scuttler             │
-│ What they can do for you:                                                                      │└────────────────────────────────────────┘
-│ > 1  Buy                                                                                       │┌─ Your character (C: tab) ──────────────┐
-│   2  Sell                                                                                      ││ [Gear]  Bags   Stats                   │
+│ “I buy what you carry, for a quarter of what I sell it at.”                                    ││ Auto-attack: ON                        │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│ What they can do for you:                                                                      ││ Attacked by Plain Scuttler             │
+│ > 1  Buy                                                                                       │└────────────────────────────────────────┘
+│   2  Sell                                                                                      │┌─ Your character (C: tab) ──────────────┐
+│                                                                                                ││ [Gear]  Bags   Stats                   │
 │                                                                                                ││ Head      -                            │
 │                                                                                                ││ Chest     -                            │
 │                                                                                                ││ Legs      -                            │
@@ -25,7 +26,6 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││                                        │
 │ talk to Testgrounds Vendor ok                                                                  ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
@@ -34,9 +34,9 @@
 │     N.Ns Plain Scuttler targeted aria                                                                                                    │
 │     N.Ns You begin fighting Plain Scuttler                                                                                               │
 │     N.Ns You target Plain Scuttler                                                                                                       │
+│     N.Ns You start attacking Plain Scuttler                                                                                              │
 │     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
 │     N.Ns You are in combat with Plain Scuttler                                                                                           │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

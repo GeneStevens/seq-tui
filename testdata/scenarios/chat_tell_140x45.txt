@@ -3,30 +3,30 @@
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Target ───────────────────────────────┐
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ no target (Tab to choose)              │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   123m W [new] │
 │                                                                                                ││ & Testgrounds Contract B… 126m W [new] │
-│                                                                                                ││ m Den Brute          13m SW 40/40 even │
-│                                                @                                               ││ D Gate North                     40m W │
+│                                                @                                               ││ m Den Brute          13m SW 40/40 even │
+│                                                                                                ││ D Gate North                     40m W │
 │                                                                                                ││ H Eastern Binder                 72m S │
 │                                                                                                ││ D Line East                     96m SE │
 │                                                                                                ││ T Druid Trainer                 121m W │
 │                                                                                                ││ T Paladin Trainer               123m W │
-│                                                                                                ││ Q Testgrounds Captain <Quest G… 124m W │
-│                                  m                                                             ││ T Wizard Trainer                125m W │
+│                                  m                                                             ││ Q Testgrounds Captain <Quest G… 124m W │
+│                                                                                                ││ T Wizard Trainer                125m W │
 │                                                                                                ││ T Rogue Trainer                 127m W │
 │                                                                                                ││ H Testgrounds Binder            128m W │
 │                                                                                                ││ T Cleric Trainer                129m W │
 │                                                                                                ││ B Testgrounds Banker            130m W │
 │                                                                                                ││ T Warrior Trainer               131m W │
 │                                                                                                ││ $ Testgrounds Vendor            132m W │
-│                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │ nothing has happened yet                                                       ││ [tell] bob1: psst, a word                              │

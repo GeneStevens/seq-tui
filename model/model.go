@@ -58,6 +58,7 @@ type Self struct {
 	Pos            *pb.Pos
 	Target         string
 	AutoAttack     bool
+	AutoRetaliate  bool // the auto-retaliate setting (D85), on by default
 	HasDestination bool
 	Destination    *pb.Pos
 	Stats          *pb.Stats
@@ -392,7 +393,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	m.Self = Self{
 		ID: e.GetId(), Name: e.GetName(), Level: e.GetLevel(), HP: e.GetHp(), MaxHP: e.GetMaxHp(), Dead: e.GetDead(),
-		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(),
+		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(), AutoRetaliate: self.GetAutoRetaliate(),
 		HasDestination: self.GetHasDestination(), Destination: clonePos(self.GetDestination()),
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
 		Ground: self.GetGround(), SpeedPct: self.GetSpeedPct(), EffectiveSpeedMmS: self.GetEffectiveSpeedMmS(),
@@ -582,6 +583,10 @@ func (m *Model) apply(e *pb.Event) {
 			m.Self.AutoAttack = a.GetOn()
 		} else if g := m.Group[a.GetActor()]; g != nil {
 			g.AutoAttack = a.GetOn()
+		}
+	case *pb.Event_AutoRetaliateChanged:
+		if a := b.AutoRetaliateChanged; a.GetActor() == m.Self.ID {
+			m.Self.AutoRetaliate = a.GetOn()
 		}
 	case *pb.Event_LootDropped:
 		d := b.LootDropped

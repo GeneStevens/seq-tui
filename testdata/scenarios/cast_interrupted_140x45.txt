@@ -1,30 +1,30 @@
-┌─ Testgrounds, at 8,50 m, north up ─────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
-│                                       ░                                             #          ││ zedd  Lv 1 Wizard            | 0 crowns│
-│                                       ░                                             #          ││ HP 74/80 ##########################--- │
-│                                       ░                                             #          ││ MP 110/150 ###################-------- │
-│                                       ░                                             #          ││ XP ------------------------- 40 to Lv 2│
-│                                       ░             T T T  T T T                    #          ││ ! Frost Bolt interrupted: damage       │
-│                                       ░                                             #          ││ Attacked by Plain Scuttler             │
-│                                       ░                                             #          │└────────────────────────────────────────┘
-│                                       ░             $ B H  & Q                      #          │┌─ Quest ────────────────────────────────┐
-│                                       ░                        !                    #          ││ [ ] 1. Scout the Lookout               │
-│                                       ░                                             #          ││ Testgrounds Recruiter has work for you:│
-│                                       ░                                             #          ││ G.                                     │
-│                                       ░        @  M                c                #          │└────────────────────────────────────────┘
-│                                       ░                                             #          │┌─ Target ───────────────────────────────┐
-│                                       ░                                             #          ││ M Plain Scuttler  Lv 1                 │
-│                                       ░                                             #          ││ HP 339/400 #################---- 2m E  │
-│                                       ░                                             #          ││ even, fighting you                     │
-│                                       ░                                             #          │└────────────────────────────────────────┘
-│                                       ░                                             #          │┌─ Nearby ───────────────────────────────┐
-│                                       ░                                             #          ││ & Testgrounds Contract B… 13m NE [new] │
-│                                       ░                                             #          ││ ! Testgrounds Recruiter   15m NE [new] │
-│                                       ░                                             #          ││ M Plain Scuttler     2m E 339/400 even │
-│                                       ░                                             #          ││ $ Testgrounds Vendor             9m NE │
-│                                       ░                                             #          ││ +12 more                               │
+┌─ Testgrounds, at 7,50 m, north up ─────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│                                        ░                                             #         ││ zedd  Lv 1 Wizard            | 0 crowns│
+│                                        ░                                             #         ││ HP 73/80 ##########################--- │
+│                                        ░                                             #         ││ MP 110/150 ###################-------- │
+│                                        ░                                             #         ││ XP ------------------------- 40 to Lv 2│
+│                                        ░             T T T  T T T                    #         ││ ! Frost Bolt interrupted: damage       │
+│                                        ░                                             #         ││ Attacked by Plain Scuttler             │
+│                                        ░                                             #         │└────────────────────────────────────────┘
+│                                        ░             $ B H  & Q                      #         │┌─ Quest ────────────────────────────────┐
+│                                        ░                        !                    #         ││ [ ] 1. Scout the Lookout               │
+│                                        ░                                             #         ││ Testgrounds Recruiter has work for you:│
+│                                        ░                                             #         ││ G.                                     │
+│                                        ░       @  M                 c                #         │└────────────────────────────────────────┘
+│                                        ░                                             #         │┌─ Target ───────────────────────────────┐
+│                                        ░                                             #         ││ M Plain Scuttler  Lv 1                 │
+│                                        ░                                             #         ││ HP 339/400 #################---- 2m E  │
+│                                        ░                                             #         ││ even, fighting you                     │
+│                                        ░                                             #         │└────────────────────────────────────────┘
+│                                        ░                                             #         │┌─ Nearby ───────────────────────────────┐
+│                                        ░                                             #         ││ & Testgrounds Contract B… 14m NE [new] │
+│                                        ░                                             #         ││ ! Testgrounds Recruiter    16m E [new] │
+│                                        ░                                             #         ││ M Plain Scuttler     2m E 339/400 even │
+│                                        ░                                             #         ││ $ Testgrounds Vendor             9m NE │
+│                                        ░                                             #         ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Flame Dart 6mp gcd               2 Frost Bolt 12mp gcd             3 -                               4 -                               │
+│ 1 Flame Dart 6mp ready             2 Frost Bolt 12mp ready           3 -                               4 -                               │
 │ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none   |   Plain Scuttler: Snared 9s                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘

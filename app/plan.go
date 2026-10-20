@@ -93,6 +93,7 @@ const (
 	SelectSide      // pick the sidebar tab Count (D78)
 	ScrollSide      // scroll the sidebar by Count rows
 	MoveCursor      // move the large map's cursor a cell: Note is the key
+	AutoRetaliate   // turn auto-retaliate On (D85)
 	WalkKey         // a movement key went down: Note is the key (hold-to-walk)
 )
 
@@ -103,7 +104,7 @@ type Action struct {
 	ID   string // Target, Loot, UseDoor: what it names
 	// Target is the mob an order to attack names.
 	Target string
-	On     bool   // Attack
+	On     bool   // Attack, AutoRetaliate
 	Slot   int    // UseAbility, SetSlot: 1 to 8
 	NPC    string // Buy, Sell, Train, Bind, BankDeposit, BankWithdraw: the trader
 	Gear   string // Unequip: the gear slot
@@ -148,6 +149,8 @@ func Plan(key string, m *model.Model) Action {
 		}
 	case "f", "space", " ":
 		return Action{Kind: Attack, On: !m.Self.AutoAttack}
+	case "ctrl+r":
+		return Action{Kind: AutoRetaliate, On: !m.Self.AutoRetaliate}
 	case "l":
 		return lootAllAction(m)
 	case "e", "enter":

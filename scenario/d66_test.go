@@ -15,6 +15,8 @@ import (
 func TestAnUntargetedAttackGoesToWhatAttacksYou(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria")})
 	p := w.Login("ann", "aria")
+	p.Press("ctrl+r") // this is the way before auto-retaliate (D85): a character that fights back needs no F
+	notice(t, p, "auto-retaliate ok", false)
 
 	p.Press("f")
 	notice(t, p, "You have no target", true)
