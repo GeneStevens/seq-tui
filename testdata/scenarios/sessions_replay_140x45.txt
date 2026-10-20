@@ -26,11 +26,11 @@
 │                                  ░                                                       #     ││ T Cleric Trainer                 13m N │
 │                                  ░                                                       #     ││ Q Testgrounds Captain <Quest G… 13m NE │
 │                                  ░                                                       #     ││ T Rogue Trainer                 13m NE │
-│                                  ░                                                       #     ││ +6 more                                │
+│                                  ░                                                       #     ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ !   N.Ns You have no target                                                                                                              │
-│ !   N.Ns You have no target                                                                                                              │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                                    
- REPLAY | Testgrounds | nothing heard yet | tui-ann-1: message 32 of 32  Left, Right step  Home, End  Esc back                ? help  q quit
+ REPLAY | Testgrounds | nothing heard yet | tui-ann-1: message 33 of 33  Left, Right step  Home, End  Esc back                ? help  q quit

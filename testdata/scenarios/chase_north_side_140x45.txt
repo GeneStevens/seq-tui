@@ -1,5 +1,5 @@
 ┌─ Thornwick Downs, at 35,112 m, north up ───────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
-│       ░                                                                            ····G···   #││ hale  Lv 1 Warrior           | 0 crowns│
+│       ░                                                                            ····◆···   #││ hale  Lv 1 Warrior           | 0 crowns│
 │       ░                                                                            ········    ││ HP 130/130 ########################### │
 │       ░                                             ############  ≈≈≈≈≈≈≈≈≈########        ####││ XP ------------------------- 40 to Lv 2│
 │       ░                                             ############  ≈≈≈≈≈≈≈≈≈########        ####││ Atk ON Ret ON | Meadow Wolf            │
@@ -13,14 +13,14 @@
 │       ░                                        @    M                                          │┌─ Nearby ───────────────────────────────┐
 │       ░                                                                                        ││ M Meadow Wolf          5m E 45/45 even │
 │       ░                                                                                        ││ ; Wickett Mill     24m NE scout marker │
-│       ░                                                                                        ││ G Barleycross        39m NE event goal │
+│       ░                                                                                        ││ ◆ Barleycross 39m NE raiders head here │
 │       ░                                                                                        ││ ; Barleycross      43m NE scout marker │
 │       ░                                                                                        ││ D Town Gate                     48m NW │
 │       ░                                                                                        ││ ; Millrace Ford   151m NE scout marker │
 │       ░                                                                                        ││ ; Goblin Lookout   197m E scout marker │
-│       ░                                                                                        ││ v Raid Edge         203m E event spawn │
+│       ░                                                                                        ││ v Raid Edge      203m E raiders gather │
 │       ░                                                                                        ││ ; Hollow Warren    355m E scout marker │
-│       ░                                                   c                                    ││ D Hollow Warren                 367m E │
+│       ░                                                   c                                    ││ D Hollow Warren          367m E (shut) │
 │       ░                                                                                        ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐

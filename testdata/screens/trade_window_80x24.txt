@@ -21,4 +21,4 @@
 │ ! offer Scuttler Blade denied: that item is bound and cannot be traded (boun…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 100/100 | Target: none                                                      
- ONLINE | ! offer Scuttler Blade denied: that item is bound and cannot be trade…
+ ! offer Scuttler Blade denied: that item is bound and cannot be traded (bound) 

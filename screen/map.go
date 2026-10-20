@@ -33,7 +33,7 @@ const (
 	glyphMarker    = '%' // where a held scout contract sends you
 	glyphScout     = ';' // any other scout marker of the zone map
 	glyphSpawn     = 'v' // where a world event's raiders appear
-	glyphGoal      = 'G' // where a world event's raiders are heading
+	glyphGoal      = '◆' // where a world event's raiders are heading (not G: it read as g, the guard)
 	glyphCamp      = 'c' // a camp: where the zone's mobs are found (the zone map's)
 	glyphRare      = 'r' // a roaming rare in view
 	glyphDoor      = 'D'
@@ -70,6 +70,7 @@ const (
 	kDoor
 	kDrop
 	kPlan
+	kEvent    // a world event's spawn and goal: magenta, no person's or quest's colour
 	kMarkGrey // a quest in progress (D76)
 	kMarkGold // something new, or ready to hand in; the board that has it
 	kNextDoor // the next door on the way to the objective
@@ -507,9 +508,9 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 		case "scout":
 			g.put(c, r, glyphScout, kPlan)
 		case "event_spawn":
-			g.put(c, r, glyphSpawn, kPlan)
+			g.put(c, r, glyphSpawn, kEvent)
 		case "event_goal":
-			g.put(c, r, glyphGoal, kPlan)
+			g.put(c, r, glyphGoal, kEvent)
 		}
 	}
 	for _, n := range m.KnownNPCs() {
@@ -567,47 +568,46 @@ func (g *grid) styled(st Styler) []string {
 		var b strings.Builder
 		for _, c := range g.cells[r] {
 			s := string(c.r)
-			switch c.k {
-			case kEmpty:
+			if c.k == kEmpty {
 				s = " "
-			case kGround:
-				s = groundStyle(c.a, st)(s)
-			case kPlace:
-				s = st.Bold(s)
-			case kLabel:
-				s = st.Reverse(s)
-			case kCard:
-				s = st.Bold(s)
-			case kCursor:
-				s = st.Reverse(st.Bold(s))
-			case kBounds, kCamp:
-				s = st.Dim(s)
-			case kDoor:
-				s = st.Cyan(s)
-			case kMarkGold, kNextDoor, kPointer:
-				s = st.Yellow(st.Bold(s))
-			case kMarkGrey:
-				s = st.Dim(s)
-			case kQuestMob:
-				s = st.Yellow(s)
-			case kDrop:
-				s = st.Green(s)
-			case kPlan:
-				s = st.Yellow(s)
-			case kMob:
-				s = st.Red(s)
-			case kRare:
-				s = st.Yellow(st.Bold(s))
-			case kTarget:
-				s = st.Reverse(st.Bold(s))
-			case kSelf:
-				s = st.Bold(s)
 			}
-			b.WriteString(s)
+			b.WriteString(cellStyle(c.k, c.a, st)(s))
 		}
 		rows[r] = b.String()
 	}
 	return rows
+}
+
+// cellStyle is how a map cell of kind k is drawn. The map and the legend both
+// draw through it, so a glyph in the legend looks as it does on the map.
+func cellStyle(k cellKind, area model.AreaKind, st Styler) func(string) string {
+	switch k {
+	case kGround:
+		return groundStyle(area, st)
+	case kPlace, kCard, kSelf:
+		return st.Bold
+	case kLabel:
+		return st.Reverse
+	case kCursor:
+		return func(s string) string { return st.Reverse(st.Bold(s)) }
+	case kBounds, kCamp, kMarkGrey:
+		return st.Dim
+	case kDoor:
+		return st.Cyan
+	case kMarkGold, kNextDoor, kPointer, kRare:
+		return func(s string) string { return st.Yellow(st.Bold(s)) }
+	case kQuestMob, kPlan:
+		return st.Yellow
+	case kDrop:
+		return st.Green
+	case kMob:
+		return st.Red
+	case kEvent:
+		return st.Magenta
+	case kTarget:
+		return func(s string) string { return st.Reverse(st.Bold(s)) }
+	}
+	return ident
 }
 
 // groundStyle is the colour of a kind of ground; it only repeats the glyph.

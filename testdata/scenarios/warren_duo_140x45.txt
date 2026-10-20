@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- E: enter Delve Gate                                                                                                                        
+ Delve Gate is shut: no expedition is open beyond it. Start one first.                                                                      
  ONLINE | Hollow Warren | heard N.Ns ago | second character: stance assist                                                    ? help  q quit

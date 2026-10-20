@@ -259,7 +259,7 @@ func TestTradeWithABoundItemRefused(t *testing.T) {
 	a.Press("enter")
 	notice(t, a, "offer Worn Cap ok", false)
 	a.Press("down", "enter")
-	notice(t, a, "offer Scuttler Blade denied: That item is bound to you and can't be traded", true)
+	notice(t, a, "That item is bound to you and can't be traded", true)
 	// Bob offers 7 crowns, typed.
 	b.Press("c")
 	b.Type("7")

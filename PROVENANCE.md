@@ -54,3 +54,5 @@ All content that existed before the reset is excluded: nothing from the tree at 
 
 | `app/walk.go`, `app/walkapp.go`, `scenario/tui031_test.go`, `app/walk_internal_test.go` | Written for SEQ, 2026-10-20 (TUI-031). Hold-to-walk, the throttle and the walking prediction are designed here from SEQ-088's Walk and Stop intents; the timings (a tick's gap, the 200 ms keep-alive, the 150 ms repeat idle, the 450 ms first-repeat guess, the half-metre snap) are invented for SEQ. The kitty keyboard protocol's key events are a public terminal protocol; no code is copied. |
 | `testdata/logs/*.jsonl`, `testdata/screens/*.txt`, `testdata/scenarios/*.txt` (regenerated) | Re-recorded by the scenarios (`make fixtures golden`, 2026-10-20, TUI-031) on seq at 8a83e7e (SEQ-088) and seq-world at 9b75692 (WLD-024); every name, id and line in them is the server's own. |
+
+| `screen/legend.go`, `model/refused.go`, the `◆` event-goal glyph and the purple event colour, the help tables (TUI-034) | Written for SEQ, 2026-10-20. The glyph, the colour and the wording are invented for SEQ; the door texts shown are the server's (SEQ-092). |

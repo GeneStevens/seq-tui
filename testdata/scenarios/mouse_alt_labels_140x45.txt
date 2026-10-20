@@ -13,20 +13,20 @@
 │#                                                                                               │┌─ Nearby ───────────────────────────────┐
 │#                                                                                               ││ ! Testgrounds Recruiter    53m W [new] │
 │#                                                                                               ││ & Testgrounds Contract Bo… 57m W [new] │
-│#                    c                          @                                   c           ││ M Plain Scuttler      17m W 40/40 even │
-│#                       M Plain Scuttler  Lv 1, even                                            ││ D Gate North                    48m NE │
+│#                    c                          @ You: aria, level 1, at 74,49 m    c           ││ M Plain Scuttler      17m W 40/40 even │
+│#                       M Plain Scuttler  Lv 1, even                                            ││ ◆ Tester's F… 40m SE raiders head here │
+│#                                                                                               ││ D Gate North             48m NE (shut) │
+│#                                                                                               ││ ; Windswept Overl… 53m SW scout marker │
 │#                                                                                               ││ T Druid Trainer                  54m W │
 │#                                                                                               ││ H Eastern Binder                55m SE │
 │#                                                                                               ││ Q Testgrounds Captain <Quest Gi… 55m W │
 │#                                                                                               ││ T Paladin Trainer                56m W │
+│#                                                                                               ││ ; Hollow Lookout   57m SW scout marker │
 │#                                                                                               ││ T Wizard Trainer                 58m W │
 │#                                                                                               ││ H Testgrounds Binder             59m W │
 │#                                                                                               ││ T Rogue Trainer                  59m W │
 │#                                                                                               ││ B Testgrounds Banker             61m W │
-│#                                                                                               ││ T Cleric Trainer                 61m W │
-│#                                                                                               ││ $ Testgrounds Vendor             63m W │
-│#                                                                                               ││ T Warrior Trainer                63m W │
-│#                                                                                               ││ D Line East                     127m E │
+│#                                                                                               ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Trophy Scuttler is out of view                                                                                                  │

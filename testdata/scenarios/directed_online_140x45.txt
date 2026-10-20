@@ -14,19 +14,19 @@
 │                                                                                                ││ ! Testgrounds Recruiter   86m SW [new] │
 │                                                                                                ││ & Testgrounds Contract B… 89m SW [new] │
 │                                                @                                               ││ p cy1                     3m S 100/100 │
-│                                                                                                ││ D Gate North                      3m S │
+│                                                                                                ││ D Gate North               3m S (shut) │
 │                                                p                                               ││ p ann1                    4m S 100/100 │
-│                                                p                                               ││ H Eastern Binder                 75m S │
+│                                                p                                               ││ ◆ Tester's Fa… 73m S raiders head here │
+│                                                                                                ││ H Eastern Binder                 75m S │
 │                                                                                                ││ T Druid Trainer                  84m W │
 │                                                                                                ││ T Paladin Trainer                86m W │
 │                                                                                                ││ Q Testgrounds Captain <Quest G… 87m SW │
 │                                                                                                ││ T Wizard Trainer                 87m W │
+│                                                                                          c     ││ v Brigands' Hol… 88m SE raiders gather │
 │                                                                                                ││ T Rogue Trainer                  89m W │
-│                                                                                          c     ││ H Testgrounds Binder             91m W │
+│                                                                                                ││ H Testgrounds Binder             91m W │
 │                                                                                                ││ T Cleric Trainer                 91m W │
-│                                                                                                ││ B Testgrounds Banker             93m W │
-│                                                                                                ││ T Warrior Trainer                93m W │
-│                                                                                                ││ +2 more                                │
+│                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │ nothing has happened yet                                                       ││ [say] cy1: hello both                                  │
@@ -41,5 +41,5 @@
 │                                                                                ││                                                        │
 │                                                                                ││                                                        │
 └────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
- E: enter Gate North                                                                                                                        
+ Gate North is shut: no expedition is open beyond it. Start one first.                                                                      
  ONLINE | directing ann2 | Testgrounds | heard N.Ns ago                                                                       ? help  q quit

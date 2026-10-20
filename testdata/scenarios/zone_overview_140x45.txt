@@ -17,7 +17,7 @@
 │                       ░·········Barleycross Barn·····Millrace Bridge·         ·······························^^^^^░                      │
 │                       ░D··········Barley Hedgerow··c·······====··c········v·······Far Road·················;·^D^^^░                      │
 │                       ░        @;    ;·##    Brigands' Road≈≈≈≈       ^^^;                                 ^^^^^^^░                      │
-│                       ░        ###≈##G###         """"""   ≈≈≈≈ Goblin Lookout                            ^^^^^^^^░                      │
+│                       ░        ###≈##◆###         """"""   ≈≈≈≈ Goblin Lookout                            ^^^^^^^^░                      │
 │                       ░     Barleycross Hall  c   ""c"""""  ≈≈≈          Goblin Hut                       ^^^^^^^^░                      │
 │                       ░       Mill Pond           """"""""" ≈≈≈             c###           c                      ░                      │
 │                       ░                 c        """""""""" ≈≈≈                              c                    ░                      │
@@ -33,12 +33,12 @@
 │                       ░        "                      "    ≈≈≈≈                                                   ░                      │
 │                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
 │ Thornwick Downs, 420m by 300m, north up. You: 42m E, 135m N of the SW corner.                                                            │
-│ @ you  m mob  M target  x dead  p player  r rare  * loot  ~ not yours                                                                    │
-│ T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  D door                                                        │
-│ ! new for you (gold)  ? hand in ready (gold)  ? in progress (grey)  gold m quest mob  gold D next door                                   │
-│ c camp: where mobs are found (dim)  ░ zone edge: walking ends  ◄ ► ▲ ▼ the objective, off the map                                        │
-│ % your marker  ; scout marker  v event spawn  G event goal  + plan end                                                                   │
-│ Ground  # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  . floor                                                         │
+│ You       @ you  % scout marker  + plan end  ◄ objective                                                                                 │
+│ People    p player  T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  D door                                    │
+│ Quest     ! new  ? hand in  ? in progress  m quest mob  D next door                                                                      │
+│ Events    ; scout point  v raiders appear  ◆ raiders head for                                                                            │
+│ Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp                                                                   │
+│ Ground    # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  . floor  ░ zone edge                                          │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                                                  

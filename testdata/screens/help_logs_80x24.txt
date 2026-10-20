@@ -1,23 +1,23 @@
 ┌─ Help: Quest chains and fighting ────────────────────────────────────────────┐
 │ Quest chains                                                                 │
+│   Ctrl+K            the quest chain screen (or /quest); X there gives it up  │
+│                     for good, after one question                             │
+│                                                                              │
 │   A new character is offered First Steps in Thornwick: talk to the Watch     │
 │   greeter in Hawthorn Square, talk to your class trainer, take a contract    │
 │   from the board, then go out through the east gate. It pays a small reward  │
 │   at the end.                                                                │
 │   It is optional. Nothing walks you anywhere and nothing reminds you; the    │
 │   Quest chain panel shows the step you are on, and the log tells you when    │
-│   one is done.                                                               │
-│   Ctrl+K (or /quest) shows the chain. X there (or /dismiss) gives it up for  │
-│   good, after one question: a dismissed chain is never offered again.        │
+│   one is done. A dismissed chain is never offered again.                     │
 │                                                                              │
 │ Fighting                                                                     │
-│   Tab chooses a target (Esc clears it). F or Space turns auto-attack on or   │
-│   off. Ctrl+R turns auto-retaliate on or off (on, you fight back when        │
-│   attacked, even with no input). 1-8 use the abilities in your slots on your │
-│   target.                                                                    │
-│   With no target, an attack or an ability goes to whatever is attacking you, │
-│   the nearest first; the status line names the one picked. If nothing is     │
-│   attacking you it is refused: Tab to a target first.                        │
+│   Tab               choose the next target                                   │
+│   Esc               clear the target                                         │
+│   F, Space          auto-attack on or off                                    │
+│   Ctrl+R            auto-retaliate on or off (on, you fight back when        │
+│                     attacked, even with no input)                            │
+│   1-8               use the ability in that slot on your target              │
 │ Page 4 of 9  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           

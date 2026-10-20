@@ -1,13 +1,13 @@
 ┌─ Help: Logs and replay ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ Logs and replay                                                                                                                          │
+│   Ctrl+L            your sessions, and the server's log of them                                                                          │
+│   Enter             replay the session in place (Left, Right step; Home, End jump; Esc comes back)                                       │
+│   R, E              read the server's log of one; export one to a file                                                                   │
+│   V                 the log, short or all: routine movement and rules ticks                                                              │
+│                                                                                                                                          │
 │   Every session is recorded by default, under its id, in seq-tui/sessions in your data dir (-log-dir moves it, -no-record turns it off). │
 │   A log never holds your credential.                                                                                                     │
-│   Ctrl+L lists your sessions, yours and the server's log of them: Enter replays one in place (Left and Right step, Home and End jump,    │
-│   Esc comes back), R reads the server's log, E exports one to a file.                                                                    │
 │   seq-tui -replay FILE (or a session id) draws a recording with no server; -text prints it as plain text.                                │
-│   V shows more of the event log: routine movement and rules ticks.                                                                       │
-│                                                                                                                                          │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

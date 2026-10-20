@@ -25,9 +25,9 @@
 │                                                                                                ││ B Testgrounds Banker            36m SW │
 │                                                                                                ││ $ Testgrounds Vendor            37m SW │
 │                                                                                                ││ D Gate North                     70m E │
-│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade                       ││ H Eastern Binder               114m SE │
-│ Esc closes the screen and leaves the trade open.                                               ││ D Line East                    183m SE │
-│ ! offer Scuttler Blade denied: That item is bound to you and can't be traded                   ││                                        │
+│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade                       ││ ; Windswept Overlo… 70m S scout marker │
+│ Esc closes the screen and leaves the trade open.                                               ││ ; Hollow Lookout    82m S scout marker │
+│ ! That item is bound to you and can't be traded                                                ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Testgrounds | heard N.Ns ago | ! offer Scuttler Blade denied: That item is bound to you and can't be traded         ? help  q quit
+ ONLINE | Testgrounds | heard N.Ns ago | ! That item is bound to you and can't be traded                                      ? help  q quit

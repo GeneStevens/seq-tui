@@ -194,7 +194,11 @@ func hintLine(m *model.Model, v View, w int, st Styler) string {
 	case m.Self.Pos == nil:
 	default:
 		if d := nearestDoorHint(m); d != nil {
-			parts = append(parts, "{E}: "+doorWords(d))
+			if usable, why := m.DoorUsable(d.GetId()); usable {
+				parts = append(parts, "{E}: "+doorWords(d))
+			} else {
+				parts = append(parts, warnOpen+shutWords(d, why)+warnClose) // never offered as an action
+			}
 		}
 		if n := nearestNPCHint(m); n != nil {
 			parts = append(parts, "{G}: talk to "+model.NPCLabel(n))
@@ -238,6 +242,22 @@ func doorWords(d *pb.Door) string {
 		return "enter " + label
 	}
 	return "go through the " + label
+}
+
+// shutWords is a door that cannot be used and why, in the server's words, which
+// name the door already; "Gate North: …" when they do not.
+func shutWords(d *pb.Door, why string) string {
+	name := d.GetName()
+	if name == "" {
+		name = d.GetLabel()
+	}
+	switch {
+	case why == "":
+		return name + " is shut"
+	case name == "" || strings.Contains(why, name):
+		return why
+	}
+	return name + ": " + why
 }
 
 func nearestDoorHint(m *model.Model) *pb.Door {
@@ -406,33 +426,4 @@ func handInLines(m *model.Model, v View, w int, st Styler) []string {
 		line += fmt.Sprintf(". You reached level %d!", l.GetLevel())
 	}
 	return []string{st.Green(st.Bold(fit(line, w)))}
-}
-
-// legendLines is the key to the map's glyphs and marks (D76), wrapped to w.
-func legendLines(m *model.Model, w int) []string {
-	rows := [][]string{
-		{"@ you", "m mob", "M target", "x dead", "p player", "r rare", "* loot", "~ not yours"},
-		{"T trainer", "$ vendor", "B banker", "H binder", "g guard", "Q quest person", "& board", "D door"},
-		{"! new for you (gold)", "? hand in ready (gold)", "? in progress (grey)", "gold m quest mob", "gold D next door"},
-		{"c camp: where mobs are found (dim)", "░ zone edge: walking ends", "◄ ► ▲ ▼ the objective, off the map"},
-		{"% your marker", "; scout marker", "v event spawn", "G event goal", "+ plan end"},
-		{"Ground  # building  ^ rock  ≈ water  : ford  = bridge  \" forest  · road  . floor"},
-	}
-	var out []string
-	for _, r := range rows {
-		line := ""
-		for _, item := range r {
-			switch {
-			case line == "":
-				line = item
-			case width(line)+2+width(item) <= w:
-				line += "  " + item
-			default:
-				out = append(out, line)
-				line = item
-			}
-		}
-		out = append(out, line)
-	}
-	return out
 }

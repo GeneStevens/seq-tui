@@ -16,9 +16,9 @@
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │ !   N.Ns You have no target                                                  │
-│ !   N.Ns You have no target                                                  │
+│                                                                              │
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                        
- REPLAY | tui-ann-1: message 32 of 32  Left, Right step  Home, End  Esc back    
+ REPLAY | tui-ann-1: message 33 of 33  Left, Right step  Home, End  Esc back    

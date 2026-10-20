@@ -1,23 +1,23 @@
 ┌─ Help: The map and its legend ───────────────────────────────────────────────┐
 │ Legend                                                                       │
-│   @ you  m mob  M target  x dead  p player  r rare  * loot  ~ not yours      │
-│   T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  │
-│   D door                                                                     │
-│   ! new for you (gold)  ? hand in ready (gold)  ? in progress (grey)         │
-│   gold m quest mob  gold D next door                                         │
-│   c camp: where mobs are found (dim)  ░ zone edge: walking ends              │
-│   ◄ ► ▲ ▼ the objective, off the map                                         │
-│   % your marker  ; scout marker  v event spawn  G event goal  + plan end     │
-│   Ground  # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  .…│
+│   You       @ you  % scout marker  + plan end  ◄ objective                   │
+│   People    p player  T trainer  $ vendor  B banker  H binder  g guard       │
+│             Q quest person  & board  D door                                  │
+│   Quest     ! new  ? hand in  ? in progress  m quest mob  D next door        │
+│   Events    ; scout point  v raiders appear  ◆ raiders head for              │
+│   Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp     │
+│   Ground    # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  │
+│             . floor  ░ zone edge                                             │
 │                                                                              │
 │ Marks and pointers                                                           │
-│   A gold ! is somebody with something new for you; a gold ? is a hand-in     │
-│   that is ready, a grey ? a quest in progress. A board that has something to │
-│   take or hand in is gold. Mobs that count for a contract you hold are gold, │
-│   and the next door on your way is a gold D. Shape says it as well as        │
-│   colour.                                                                    │
-│   When your objective is off the map an arrow at the edge points to it, with │
-│   its name and distance (◄ Gorran 23m); the status line names it too. Nearby │
+│   Gold is the quest's alone. A gold ! is somebody with something new for     │
+│   you; a gold ? is a hand-in that is ready, a grey ? a quest in progress. A  │
+│   board that has something to take or hand in is gold. Mobs that count for a │
+│   contract you hold are gold, and the next door on your way is a gold D.     │
+│   Shape says it as well as colour.                                           │
+│   World events and scouting have their own marks. The scout points (;) are   │
+│   gold, as your own scout marker (%) is. A world event's raiders appear at a │
+│   purple v and head for a purple ◆. Hover over any of them for its name, or  │
 │ Page 2 of 9  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           

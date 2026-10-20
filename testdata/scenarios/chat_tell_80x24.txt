@@ -12,7 +12,7 @@
 │                  m                               │┌─ Nearby ─────────────────┐
 │                                                  ││ ! Testgrou… 123m W [new] │
 │                                                  ││ & Testgrou… 126m W [new] │
-│                                                  ││ +14 more                 │
+│                                                  ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
 │ nothing has happened yet                    ││ [tell] bob1: psst, a word     │

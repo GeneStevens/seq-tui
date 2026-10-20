@@ -20,13 +20,13 @@
 │                                                                                                ││ ! Testgrounds Recruiter   123m W [new] │
 │                                                                                                ││ & Testgrounds Contract B… 126m W [new] │
 │                                  m                                                             ││ m Den Brute          13m SW 40/40 even │
-│                                                                                                ││ D Gate North                     40m W │
+│                                                                                                ││ D Gate North              40m W (shut) │
+│                                                                                                ││ v Brigands' Holl… 70m S raiders gather │
 │                                                                                                ││ H Eastern Binder                 72m S │
-│                                                                                                ││ D Line East                     96m SE │
+│                                                                                                ││ ◆ Tester's F… 80m SW raiders head here │
+│                                                                                                ││ D Line East              96m SE (shut) │
 │                                                                                                ││ T Druid Trainer                 121m W │
-│                                                                                                ││ T Paladin Trainer               123m W │
-│                                                                                                ││ Q Testgrounds Captain <Quest G… 124m W │
-│                                                                                                ││ +7 more                                │
+│                                                                                                ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns ann1 invites you to a party                                                                                                     │

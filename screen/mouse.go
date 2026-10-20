@@ -69,6 +69,8 @@ const (
 	PickDrop
 	PickDoor
 	PickPlayer
+	PickSelf   // the character's own mark: hover only
+	PickMarker // a named place of the zone map (a scout point, a world event's spawn or goal): a click walks there
 )
 
 // Pick is what the pointer is over on the map: a thing, or the ground at Pos.
@@ -118,6 +120,9 @@ func things(g *grid, m *model.Model) []thing {
 		add(Pick{Kind: kind, ID: e.GetId(), Pos: e.GetPos(), Name: e.GetName()}, label)
 		dead = false
 	}
+	if m.Self.Pos != nil {
+		add(Pick{Kind: PickSelf, ID: m.Self.ID, Pos: m.Self.Pos, Name: m.Self.Name}, SelfLabel(m))
+	}
 	for _, id := range m.GroupIDs() {
 		ent(m.Group[id].Entity)
 	}
@@ -146,9 +151,48 @@ func things(g *grid, m *model.Model) []thing {
 		if name == "" {
 			name = m.MarkerName(d.GetId())
 		}
-		add(Pick{Kind: PickDoor, ID: d.GetId(), Pos: d.GetPos(), Name: name}, name)
+		label := name
+		if usable, _ := m.DoorUsable(d.GetId()); !usable {
+			label += " (shut)"
+		}
+		add(Pick{Kind: PickDoor, ID: d.GetId(), Pos: d.GetPos(), Name: name}, label)
+	}
+	for _, k := range m.Map.GetMarkers() {
+		if label := MarkerLabel(m, k); label != "" {
+			add(Pick{Kind: PickMarker, ID: k.GetId(), Pos: k.GetPos(), Name: m.MarkerName(k.GetId())}, label)
+		}
 	}
 	return out
+}
+
+// SelfLabel is what hovering the character's own mark says: "You: Aria, level 3,
+// at 12,40 m", and where it is walking to when it is.
+func SelfLabel(m *model.Model) string {
+	s := fmt.Sprintf("You: %s, level %d, at %d,%d m", m.Self.Name, m.Self.Level, m.Self.Pos.GetX()/1000, m.Self.Pos.GetY()/1000)
+	if m.Self.HasDestination && m.Self.Destination != nil {
+		s += fmt.Sprintf(", walking to %d,%d m", m.Self.Destination.GetX()/1000, m.Self.Destination.GetY()/1000)
+	}
+	return s
+}
+
+// MarkerLabel is what hovering a marker of the zone map says, "The Overlook: a
+// scout point", "" for the kinds that are doors (the doors list names those).
+func MarkerLabel(m *model.Model, k *pb.Marker) string {
+	var what string
+	switch k.GetKind() {
+	case "scout":
+		what = "a scout point"
+	case "event_spawn":
+		what = "raiders gather here (world event)"
+	case "event_goal":
+		what = "raiders head here (world event)"
+	default:
+		return ""
+	}
+	if name := m.MarkerName(k.GetId()); name != k.GetId() {
+		return name + ": " + what
+	}
+	return strings.ToUpper(what[:1]) + what[1:]
 }
 
 // worldOf is the middle of the cell (c, r) of the grid, in the world.
@@ -235,11 +279,13 @@ func paintOverlays(g *grid, m *model.Model, v View) {
 	place := func(t thing, text string) bool {
 		text = " " + text + " "
 		w := width(text)
-		for _, c := range []int64{t.c + 1, t.c - int64(w)} {
-			if g.labelRoom(used, c, t.r, w) {
-				g.text(c, t.r, text, kLabel)
+		// Beside the thing, right then left; failing that (a long label by a thing
+		// in the middle), on the row above or below it, kept inside the map.
+		for _, at := range [][2]int64{{t.c + 1, t.r}, {t.c - int64(w), t.r}, {min(max(t.c-int64(w)/2, 0), int64(g.cw-w)), t.r - 1}, {min(max(t.c-int64(w)/2, 0), int64(g.cw-w)), t.r + 1}} {
+			if g.labelRoom(used, at[0], at[1], w) {
+				g.text(at[0], at[1], text, kLabel)
 				for i := 0; i < w; i++ {
-					used[[2]int64{c + int64(i), t.r}] = true
+					used[[2]int64{at[0] + int64(i), at[1]}] = true
 				}
 				return true
 			}

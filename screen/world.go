@@ -383,10 +383,10 @@ func contractsBox(m *model.Model, w int, st Styler) (h int, lines []string) {
 
 // minOverviewRows is the least the large map is given before its legend gives
 // way to a line.
-const minOverviewRows = 14
+const minOverviewRows = 10
 
 func overviewLines(m *model.Model, v View, w, h int, st Styler) []string {
-	legend := legendLines(m, w-2)
+	legend := legendLines(m, w-2, st)
 	if room := h - 2 - minOverviewRows; len(legend) > room {
 		legend = []string{"The legend is on page 2 of the help (?)."} // a short window keeps its map
 	}

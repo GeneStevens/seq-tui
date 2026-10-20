@@ -15,12 +15,12 @@
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ m Meadow Wolf              10m S [0/4] │
 │                                                                                                ││ ; Wickett Mill      28m N scout marker │
-│                                                                                                ││ G Barleycross        37m NE event goal │
+│                                                                                                ││ ◆ Barleycross 37m NE raiders head here │
 │                                               m                                          c     ││ ; Barleycross      42m NE scout marker │
 │                                                  c                                             ││ D Town Gate                     58m NW │
 │                                                                                                ││ ; Millrace Ford   147m NE scout marker │
 │                                                                                                ││ ; Goblin Lookout   190m E scout marker │
-│                                                                                                ││ v Raid Edge         197m E event spawn │
+│                                                                                                ││ v Raid Edge      197m E raiders gather │
 │                                                                                                ││ +2 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐

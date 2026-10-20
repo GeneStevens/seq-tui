@@ -21,4 +21,4 @@
 │ slot change added to the plan: Esc closes this, Enter submits the plan       │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 80/80 | Target: none                                                        
- ONLINE | slot change added to the plan: Esc closes this, Enter submits the plan
+ slot change added to the plan: Esc closes this, Enter submits the plan   ? help

@@ -12,7 +12,7 @@
 │                                                  │┌─ Nearby ─────────────────┐
 │                                              c   ││ ! Testgrou… 86m SW [new] │
 │                                                  ││ & Testgrou… 89m SW [new] │
-│                                                  ││ +15 more                 │
+│                                                  ││ +19 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
 │ nothing has happened yet                    ││ [say] cy1: hello both         │
@@ -20,5 +20,5 @@
 │                                             ││                               │
 │                                             ││                               │
 └─────────────────────────────────────────────┘└───────────────────────────────┘
- E: enter Gate North                                                            
+ Gate North is shut: no expedition is open beyond it. Start one first.          
  ONLINE | directing ann2 | Testgrounds | heard N.Ns ago           ? help  q quit

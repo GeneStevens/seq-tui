@@ -25,9 +25,9 @@
 │                                                                                                ││ B Testgrounds Banker            36m SW │
 │                                                                                                ││ $ Testgrounds Vendor            37m SW │
 │                                                                                                ││ D Gate North                     69m E │
-│                                                                                                ││ H Eastern Binder               113m SE │
-│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││ D Line East                    182m SE │
-│ The answer is on the status line; every denial says why.                                       ││                                        │
+│                                                                                                ││ ; Windswept Overlo… 70m S scout marker │
+│ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││ ; Hollow Lookout    82m S scout marker │
+│ The answer is on the status line; every denial says why.                                       ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns c1 asks to trade                                                                                                                │
