@@ -143,9 +143,7 @@ func newOn(t *testing.T, srv *testserver.Server) *World {
 			return // every step was held to the limit as it ended
 		}
 		note(t.Name(), took)
-		if msg := TooSlow("scenario "+t.Name(), took, MaxScenario); msg != "" {
-			t.Error(msg)
-		}
+		gate("scenario "+t.Name(), took, MaxScenario, func(m string) { t.Error(m) }, func(m string) { t.Log(m) })
 	})
 	return w
 }
@@ -165,9 +163,7 @@ func (w *World) Step(name string, f func()) {
 	w.stepAt = time.Now()
 	w.T.Logf("scenario %s, step %s: %v", w.T.Name(), name, took.Round(time.Millisecond))
 	note(w.T.Name()+" "+name, took)
-	if msg := TooSlow("scenario "+w.T.Name()+", step "+name, took, MaxScenario); msg != "" {
-		w.T.Error(msg)
-	}
+	gate("scenario "+w.T.Name()+", step "+name, took, MaxScenario, func(m string) { w.T.Error(m) }, func(m string) { w.T.Log(m) })
 }
 
 // The zones of seq-world's Thornwick pack (D54), by id. The scenarios load
@@ -1077,10 +1073,7 @@ func Main(m *testing.M) {
 	if len(times) > 0 {
 		fmt.Printf("scenario times:\n%s\nsuite: %v\n", strings.Join(times, "\n"), total.Round(time.Millisecond))
 	}
-	if msg := TooSlow("the scenario suite", total, MaxSuite); msg != "" {
-		fmt.Println("FAIL:", msg)
-		code = 1
-	}
+	gate("the scenario suite", total, MaxSuite, func(m string) { fmt.Println("FAIL:", m); code = 1 }, func(m string) { fmt.Println(m) })
 	os.Exit(code)
 }
 

@@ -227,7 +227,7 @@ The Thornwick scenarios (`scenario/town_test.go`) run on `scenario.StartTown`, a
 
 The older scenarios (`scenario/flows_test.go`): login, move, target, attack, kill and loot; die, release and respawn; the door across and back; solo-trial from the menu to the hand-back; quick-turns round by round (plans edited with Backspace and Esc, the receipt, a missed deadline, a dropped and resumed connection, a fresh login into the open round, clear); a duo on one account entering together in the gathering round.
 
-Speed gates (D49), enforced in the test code: each scenario under 2 s, the whole suite under 15 s (`scenario.Main` in `TestMain`). `SEQ_SCENARIO_SLOW=3s go test ./scenario` makes each scenario wait 3 s at its end and shows the gate failing. The suite's gate counts the whole run, so it means something with `-count=1`.
+Speed gates (D49), enforced in the test code: each scenario under 2 s, the whole suite under 15 s (`scenario.Main` in `TestMain`). `SEQ_SCENARIO_SLOW=3s go test ./scenario` makes each scenario wait 3 s at its end and shows the gate failing. The suite's gate counts the whole run, so it means something with `-count=1`. On a host with a load average of 0.5 per CPU or more, a gate over its limit is a logged warning with the load (it fails past 5 times the limit, or 3 times the load per CPU if more); on a quiet host it fails at the limit (`scenario/budget.go`, TUI-032).
 
 `make fixtures` runs the scenarios with `SEQ_FIXTURES` set, which makes the scenarios that declare a fixture write their recording to `testdata/logs`, and rebuilds the hand-built logs. Run `make golden` after it, and review both diffs. (`make fixtures` also rewrites the scenario goldens as it runs, so a screen that changed does not stop the recording half way.)
 
