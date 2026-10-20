@@ -4,33 +4,33 @@
 {"pong":{"nonce":"101"}}
 {"event":{"seq":"1","game_time_ms":"200","text":"bob1 comes into view","entity_appeared":{"entity":{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"89500"},"hp":"100","max_hp":"100","level":"1"}}}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
-{"social_result":{"request_id":"s12","ok":true}}
+{"social_result":{"request_id":"s18","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"hello there","at_ms":"1735689600300"}}
 {"pong":{"nonce":"102"}}
 {"pong":{"nonce":"103"}}
 {"pong":{"nonce":"104"}}
 {"pong":{"nonce":"105"}}
-{"social_result":{"request_id":"s15","reason":"not_online"}}
+{"social_result":{"request_id":"s21","reason":"not_online"}}
 {"pong":{"nonce":"106"}}
-{"social_result":{"request_id":"s16","reason":"no_such_character"}}
+{"social_result":{"request_id":"s22","reason":"no_such_character"}}
 {"pong":{"nonce":"107"}}
 {"pong":{"nonce":"108"}}
 {"pong":{"nonce":"109"}}
-{"social_result":{"request_id":"s18","ok":true}}
+{"social_result":{"request_id":"s24","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"spam a","at_ms":"1735689600300"}}
 {"pong":{"nonce":"110"}}
-{"social_result":{"request_id":"s19","ok":true}}
+{"social_result":{"request_id":"s25","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"spam b","at_ms":"1735689600300"}}
 {"pong":{"nonce":"111"}}
-{"social_result":{"request_id":"s20","ok":true}}
+{"social_result":{"request_id":"s26","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"spam c","at_ms":"1735689600300"}}
 {"pong":{"nonce":"112"}}
-{"social_result":{"request_id":"s21","ok":true}}
+{"social_result":{"request_id":"s27","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"spam d","at_ms":"1735689600300"}}
 {"pong":{"nonce":"113"}}
-{"social_result":{"request_id":"s22","reason":"rate_limited"}}
+{"social_result":{"request_id":"s28","reason":"rate_limited"}}
 {"pong":{"nonce":"114"}}
-{"social_result":{"request_id":"s23","reason":"rate_limited"}}
+{"social_result":{"request_id":"s29","reason":"rate_limited"}}
 {"pong":{"nonce":"115"}}
 {"pong":{"nonce":"116"}}
 # mark chat_refused
@@ -42,87 +42,87 @@
 {"pong":{"nonce":"122"}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
-{"social_result":{"request_id":"s29","ok":true}}
+{"social_result":{"request_id":"s35","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number a","at_ms":"1735689602300"}}
 {"pong":{"nonce":"125"}}
 {"pong":{"nonce":"126"}}
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
-{"social_result":{"request_id":"s30","ok":true}}
+{"social_result":{"request_id":"s36","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number b","at_ms":"1735689603300"}}
 {"pong":{"nonce":"129"}}
 {"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
 {"pong":{"nonce":"132"}}
-{"social_result":{"request_id":"s31","ok":true}}
+{"social_result":{"request_id":"s37","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number c","at_ms":"1735689604300"}}
 {"pong":{"nonce":"133"}}
 {"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
 {"pong":{"nonce":"136"}}
-{"social_result":{"request_id":"s32","ok":true}}
+{"social_result":{"request_id":"s38","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number d","at_ms":"1735689605300"}}
 {"pong":{"nonce":"137"}}
 {"pong":{"nonce":"138"}}
 {"pong":{"nonce":"139"}}
 {"event":{"seq":"2","game_time_ms":"6000","rules_tick":{}}}
 {"pong":{"nonce":"140"}}
-{"social_result":{"request_id":"s33","ok":true}}
+{"social_result":{"request_id":"s39","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number e","at_ms":"1735689606300"}}
 {"pong":{"nonce":"141"}}
 {"pong":{"nonce":"142"}}
 {"pong":{"nonce":"143"}}
 {"pong":{"nonce":"144"}}
-{"social_result":{"request_id":"s34","ok":true}}
+{"social_result":{"request_id":"s40","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number f","at_ms":"1735689607300"}}
 {"pong":{"nonce":"145"}}
 {"pong":{"nonce":"146"}}
 {"pong":{"nonce":"147"}}
 {"pong":{"nonce":"148"}}
-{"social_result":{"request_id":"s35","ok":true}}
+{"social_result":{"request_id":"s41","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number g","at_ms":"1735689608300"}}
 {"pong":{"nonce":"149"}}
 {"pong":{"nonce":"150"}}
 {"pong":{"nonce":"151"}}
 {"pong":{"nonce":"152"}}
-{"social_result":{"request_id":"s36","ok":true}}
+{"social_result":{"request_id":"s42","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number h","at_ms":"1735689609300"}}
 {"pong":{"nonce":"153"}}
 {"pong":{"nonce":"154"}}
 {"pong":{"nonce":"155"}}
 {"pong":{"nonce":"156"}}
-{"social_result":{"request_id":"s37","ok":true}}
+{"social_result":{"request_id":"s43","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number i","at_ms":"1735689610300"}}
 {"pong":{"nonce":"157"}}
 {"pong":{"nonce":"158"}}
 {"pong":{"nonce":"159"}}
 {"pong":{"nonce":"160"}}
-{"social_result":{"request_id":"s38","ok":true}}
+{"social_result":{"request_id":"s44","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number j","at_ms":"1735689611300"}}
 {"pong":{"nonce":"161"}}
 {"pong":{"nonce":"162"}}
 {"pong":{"nonce":"163"}}
 {"event":{"seq":"3","game_time_ms":"12000","rules_tick":{}}}
 {"pong":{"nonce":"164"}}
-{"social_result":{"request_id":"s39","ok":true}}
+{"social_result":{"request_id":"s45","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number k","at_ms":"1735689612300"}}
 {"pong":{"nonce":"165"}}
 {"pong":{"nonce":"166"}}
 {"pong":{"nonce":"167"}}
 {"pong":{"nonce":"168"}}
-{"social_result":{"request_id":"s40","ok":true}}
+{"social_result":{"request_id":"s46","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number l","at_ms":"1735689613300"}}
 {"pong":{"nonce":"169"}}
 {"pong":{"nonce":"170"}}
 {"pong":{"nonce":"171"}}
 {"pong":{"nonce":"172"}}
-{"social_result":{"request_id":"s41","ok":true}}
+{"social_result":{"request_id":"s47","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number m","at_ms":"1735689614300"}}
 {"pong":{"nonce":"173"}}
 {"pong":{"nonce":"174"}}
 {"pong":{"nonce":"175"}}
 {"pong":{"nonce":"176"}}
-{"social_result":{"request_id":"s42","ok":true}}
+{"social_result":{"request_id":"s48","ok":true}}
 {"chat":{"channel":"say","from":"ann1","text":"line number n","at_ms":"1735689615300"}}
 {"pong":{"nonce":"177"}}
 {"pong":{"nonce":"178"}}

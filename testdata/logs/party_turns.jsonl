@@ -4,7 +4,7 @@
 {"pong":{"nonce":"101"}}
 {"event":{"seq":"1","game_time_ms":"200","text":"bob1 comes into view","entity_appeared":{"entity":{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"101000","y":"89000"},"hp":"100","max_hp":"100","level":"1"}}}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
-{"social_result":{"request_id":"s72","ok":true}}
+{"social_result":{"request_id":"s78","ok":true}}
 {"pong":{"nonce":"102"}}
 {"pong":{"nonce":"103"}}
 {"notice":{"kind":"party_joined","from":"bob1"}}
@@ -19,7 +19,7 @@
 {"pong":{"nonce":"110"}}
 {"snapshot":{"seq":"1","game_time_ms":"1300","tick":"13","space":"Testgrounds","self":{"entity":{"id":"ann1","kind":"ENTITY_KIND_CHARACTER","name":"ann1","pos":{"x":"100000","y":"89000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","hints":[{"kind":"offer","id":"board","pos":{"x":"18000","y":"58000"},"label":"New contracts","note":"4 to take"},{"kind":"offer","id":"recruiter","pos":{"x":"22000","y":"56000"},"label":"New contracts","note":"1 to take"}],"sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"101000","y":"89000"},"hp":"100","max_hp":"100","level":"1"}}]}}
 {"intent_result":{"intent_id":"party-12-\"party-1\"","accepted":true}}
-{"event":{"seq":"2","game_time_ms":"1300","text":"Your group's instance is ready: Duo Turns","instance_opened":{"instance":"inst-1","preset":"duo-turns","party_cap":"2"}}}
+{"event":{"seq":"2","game_time_ms":"1300","text":"Your group's instance is ready: Duo Turns","instance_opened":{"instance":"inst-1","preset":"duo-turns","party_cap":"2","players":"2","slots":"2"}}}
 {"pong":{"nonce":"111"}}
 {"pong":{"nonce":"112"}}
 {"pong":{"nonce":"113"}}
@@ -37,7 +37,7 @@
 {"pong":{"nonce":"124"}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
 {"event":{"seq":"1","space_changed":{"space":"Testgrounds (Duo Turns)"}}}
-{"snapshot":{"seq":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"ann1","kind":"ENTITY_KIND_CHARACTER","name":"ann1","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"100000","y":"76000"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000"}}}
+{"snapshot":{"seq":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"ann1","kind":"ENTITY_KIND_CHARACTER","name":"ann1","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"100000","y":"76000"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000","slots":"2","players":"2"}}}
 {"zone_map":{"space":"Testgrounds (Duo Turns)","name":"Testgrounds (Duo Turns)","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North","label":"Gate North"}],"view_radius_mm":"20000","markers":[{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}}]}}
 {"event":{"seq":"2","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689907300","participants":"2"}}}
 {"party":{"id":"party-1","leader":"ann1","members":[{"name":"ann1","online":true,"leader":true,"zone":"Testgrounds","level":1,"hp":100,"max_hp":100},{"name":"bob1","online":true,"zone":"Testgrounds","level":1,"hp":100,"max_hp":100}]}}
@@ -54,14 +54,12 @@
 {"pong":{"nonce":"134"}}
 # mark party_round_bob_sent
 {"intent_result":{"intent_id":"tui-2","accepted":true}}
-{"pong":{"nonce":"135"}}
 {"event":{"seq":"4","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689609200","submitted":["ann1","bob1"],"participants":"2"}}}
+{"pong":{"nonce":"135"}}
 {"pong":{"nonce":"136"}}
 {"pong":{"nonce":"137"}}
-{"pong":{"nonce":"138"}}
-{"pong":{"nonce":"139"}}
 {"event":{"seq":"5","game_time_ms":"100","entity_moved":{"id":"mob-pair-1","pos":{"x":"99792","y":"75785"}}}}
-{"snapshot":{"seq":"5","game_time_ms":"100","tick":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"ann1","kind":"ENTITY_KIND_CHARACTER","name":"ann1","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"99792","y":"75785"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000"}}}
+{"snapshot":{"seq":"5","game_time_ms":"100","tick":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"ann1","kind":"ENTITY_KIND_CHARACTER","name":"ann1","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"99792","y":"75785"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000","slots":"2","players":"2"}}}
 {"event":{"seq":"6","game_time_ms":"200","entity_moved":{"id":"mob-pair-1","pos":{"x":"99584","y":"75570"}}}}
 {"event":{"seq":"7","game_time_ms":"300","entity_moved":{"id":"mob-pair-1","pos":{"x":"99376","y":"75355"}}}}
 {"event":{"seq":"8","game_time_ms":"400","entity_moved":{"id":"mob-pair-1","pos":{"x":"99168","y":"75140"}}}}
@@ -83,6 +81,6 @@
 {"event":{"seq":"24","game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"all_submitted","submitted":["ann1","bob1"],"deadline_ms":"1735689609200","plays":[{"character":"ann1","source":"own_plan"},{"character":"bob1","source":"own_plan"}],"participants":"2"}}}
 {"event":{"seq":"25","game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689609300","participants":"2"}}}
 {"party":{"id":"party-1","leader":"ann1","members":[{"name":"ann1","online":true,"leader":true,"zone":"Testgrounds (Duo Turns)","level":1,"hp":100,"max_hp":100},{"name":"bob1","online":true,"zone":"Testgrounds (Duo Turns)","level":1,"hp":100,"max_hp":100}]}}
-{"pong":{"nonce":"140"}}
-{"pong":{"nonce":"141"}}
+{"pong":{"nonce":"138"}}
+{"pong":{"nonce":"139"}}
 {"party":{"id":"party-1","leader":"ann1","members":[{"name":"ann1","online":true,"leader":true,"zone":"Testgrounds (Duo Turns)","level":1,"hp":100,"max_hp":100},{"name":"bob1"}]}}

@@ -5,15 +5,15 @@
 │  ▲ Cudgel Common                           15 │  (nothing)                                     ││ Atk off | none                         │
 │> ▲ Short Sword Common                      24 │                                                │└────────────────────────────────────────┘
 │  ▲ Dirk Common                             22 │                                                │┌─ Your character (C: tab) ──────────────┐
-│  = Ashwood Staff Common                    22 │                                                ││ [Gear]  Bags   Stats                   │
+│  x Ashwood Staff Common                    22 │                                                ││ [Gear]  Bags   Stats                   │
 │  ▲ Flanged Mace Common           48, short 18 │                                                ││ Head      -                            │
 │  ▲ Long Sword Common             56, short 26 │                                                ││ Chest     -                            │
 │  ▲ Stiletto Common               52, short 22 │                                                ││ Legs      -                            │
-│  ▲ Yew Staff Common              52, short 22 │                                                ││ Hands     -                            │
+│  x Yew Staff Common              52, short 22 │                                                ││ Hands     -                            │
 │  ▲ Spiked Mace Common           110, short 80 │                                                ││ Feet      -                            │
 │  ▲ Broad Sword Common           120, short 90 │                                                ││ Ring 1    -                            │
 │  ▲ Poniard Common               110, short 80 │                                                ││ Ring 2    -                            │
-│  ▲ Elder Staff Common           110, short 80 │                                                ││ Neck      -                            │
+│  x Elder Staff Common           110, short 80 │                                                ││ Neck      -                            │
 │────────────────────────────────────────────────────────────────────────────────────────────────││ Main hand -                            │
 │ ▲ Short Sword: Common, Main hand; tradable once                                                ││ Off hand  -                            │
 │ damage 3-6 / N.Ns; costs 24 crowns                                                             ││                                        │

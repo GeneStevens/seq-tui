@@ -5,11 +5,11 @@
 │> ▲ Cudgel Common        15, short 13 │> ▲ Short Sword Common          pays 6 │
 │  ▲ Short Sword Common   24, short 22 │                                       │
 │  ▲ Dirk Common          22, short 20 │                                       │
-│  = Ashwood Staff Common 22, short 20 │                                       │
+│  x Ashwood Staff Common 22, short 20 │                                       │
 │  ▲ Flanged Mace Common  48, short 46 │                                       │
 │  ▲ Long Sword Common    56, short 54 │                                       │
 │  ▲ Stiletto Common      52, short 50 │                                       │
-│  ▲ Yew Staff Common     52, short 50 │                                       │
+│  x Yew Staff Common     52, short 50 │                                       │
 │  ▲ Spiked Mace Common 110, short 108 │                                       │
 │  ▲ Broad Sword Common 120, short 118 │                                       │
 │  ▲ Poniard Common     110, short 108 │                                       │

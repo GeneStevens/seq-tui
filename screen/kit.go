@@ -138,7 +138,7 @@ func kitLines(m *model.Model, v View, w int, st Styler) []string {
 	default:
 		rows = append(rows, fit(" Atk "+onOff(s.AutoAttack)+" | "+targetName(m), w))
 	}
-	return withAttackers(m, rows, w, st)
+	return withAttackers(m, withStatus(m, rows, w, st), w, st)
 }
 
 // slotStatus says in a word whether the slot can be used now.

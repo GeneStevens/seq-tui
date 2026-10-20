@@ -14,19 +14,19 @@
 │                                                                                                ││ 0 of 2 submitted                       │
 │                                                                                                ││ [ ] you  [ ] aria                      │
 │                                                @                                               ││ bram's plan (3/16): not sent yet       │
-│                                                                                                ││  1 move (100000,87000)                 │
-│                                                +                                               ││  2 target Plain Scuttler               │
-│                                                                                                ││  3 attack on                           │
+│                                                                                                ││  …2 earlier                            │
+│                                                +                                               ││  3 attack on                           │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                │┌─ Party slots ──────────────────────────┐
+│                                                                                                ││ Slots: 2, 1 player                     │
+│                                                                                                ││  1  bram (you)  your account           │
+│                                                                                                ││  2  empty slot                         │
+│                                                                                                ││ replacement open between encounters    │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                m                                               │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                m                                               │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ p aria                 0m here 100/100 │
-│                                                                                                ││ D Gate North                   0m here │
-│                                                                                                ││ m Plain Scuttler      14m S 40/40 even │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns instance opened: Duo Turns (up to 2 in it); enter at gate-north with E                                                          │

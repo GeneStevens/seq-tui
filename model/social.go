@@ -210,13 +210,17 @@ type Mate struct {
 	HP, MaxHP     int64
 	Mana, MaxMana int64
 	Dead          bool
+	Status        string // "away", "autopilot" or "" (D79)
 }
 
 // Mates are the party's members for the Party panel, in the order they joined.
 func (m *Model) Mates() []Mate {
 	var out []Mate
 	for _, pm := range m.PartyMembers() {
-		mt := Mate{Name: pm.GetName(), Leader: pm.GetLeader(), Online: pm.GetOnline()}
+		mt := Mate{Name: pm.GetName(), Leader: pm.GetLeader(), Online: pm.GetOnline(), Status: pm.GetStatus()}
+		if Key(pm.GetName()) == Key(m.Self.Name) {
+			mt.Status = m.Status
+		}
 		if Key(pm.GetName()) == Key(m.Self.Name) {
 			mt.Me, mt.Level = true, m.Self.Level
 			mt.HP, mt.MaxHP, mt.Mana, mt.MaxMana, mt.Dead = m.Self.HP, m.Self.MaxHP, m.Self.Mana, m.Self.MaxMana, m.Self.Dead

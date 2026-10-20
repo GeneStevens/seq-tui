@@ -4,32 +4,32 @@
 {"pong":{"nonce":"101"}}
 {"event":{"seq":"1","game_time_ms":"200","text":"bob1 comes into view","entity_appeared":{"entity":{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"89500"},"hp":"100","max_hp":"100","level":"1"}}}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
-{"who":{"request_id":"s53","entries":[{"name":"ann1","class_id":"warrior","level":1,"zone":"Testgrounds"},{"name":"bob1","class_id":"warrior","level":1,"zone":"Testgrounds"},{"name":"cy1","class_id":"warrior","level":1,"zone":"Testgrounds"}]}}
-{"social_result":{"request_id":"s53","ok":true}}
+{"who":{"request_id":"s59","entries":[{"name":"ann1","class_id":"warrior","level":1,"zone":"Testgrounds"},{"name":"bob1","class_id":"warrior","level":1,"zone":"Testgrounds"},{"name":"cy1","class_id":"warrior","level":1,"zone":"Testgrounds"}]}}
+{"social_result":{"request_id":"s59","ok":true}}
 {"pong":{"nonce":"102"}}
 {"pong":{"nonce":"103"}}
 # mark who_list
-{"who":{"request_id":"s54"}}
-{"social_result":{"request_id":"s54","ok":true}}
+{"who":{"request_id":"s60"}}
+{"social_result":{"request_id":"s60","ok":true}}
 {"pong":{"nonce":"104"}}
 {"pong":{"nonce":"105"}}
 # mark who_nobody
-{"who":{"request_id":"s55"}}
-{"social_result":{"request_id":"s55","ok":true}}
+{"who":{"request_id":"s61"}}
+{"social_result":{"request_id":"s61","ok":true}}
 {"pong":{"nonce":"106"}}
 {"pong":{"nonce":"107"}}
-{"social_result":{"request_id":"s56","ok":true}}
-{"friends":{"request_id":"s57","friends":[{"name":"cy1","online":true,"zone":"Testgrounds"}]}}
-{"social_result":{"request_id":"s57","ok":true}}
+{"social_result":{"request_id":"s62","ok":true}}
+{"friends":{"request_id":"s63","friends":[{"name":"cy1","online":true,"zone":"Testgrounds"}]}}
+{"social_result":{"request_id":"s63","ok":true}}
 {"pong":{"nonce":"108"}}
-{"social_result":{"request_id":"s58","ok":true}}
-{"friends":{"request_id":"s59","friends":[{"name":"cy1","online":true,"zone":"Testgrounds"},{"name":"dan1"}]}}
-{"social_result":{"request_id":"s59","ok":true}}
+{"social_result":{"request_id":"s64","ok":true}}
+{"friends":{"request_id":"s65","friends":[{"name":"cy1","online":true,"zone":"Testgrounds"},{"name":"dan1"}]}}
+{"social_result":{"request_id":"s65","ok":true}}
 {"pong":{"nonce":"109"}}
-{"social_result":{"request_id":"s60","reason":"cannot_target_self"}}
+{"social_result":{"request_id":"s66","reason":"cannot_target_self"}}
 {"pong":{"nonce":"110"}}
-{"friends":{"request_id":"s61","friends":[{"name":"cy1","online":true,"zone":"Testgrounds"},{"name":"dan1"}]}}
-{"social_result":{"request_id":"s61","ok":true}}
+{"friends":{"request_id":"s67","friends":[{"name":"cy1","online":true,"zone":"Testgrounds"},{"name":"dan1"}]}}
+{"social_result":{"request_id":"s67","ok":true}}
 {"pong":{"nonce":"111"}}
 {"pong":{"nonce":"112"}}
 # mark friends_list
@@ -40,20 +40,20 @@
 {"pong":{"nonce":"115"}}
 {"pong":{"nonce":"116"}}
 # mark friend_logged_in
-{"friends":{"request_id":"s62","friends":[{"name":"cy1","online":true,"zone":"Testgrounds"},{"name":"dan1"}]}}
-{"social_result":{"request_id":"s62","ok":true}}
+{"friends":{"request_id":"s68","friends":[{"name":"cy1","online":true,"zone":"Testgrounds"},{"name":"dan1"}]}}
+{"social_result":{"request_id":"s68","ok":true}}
 {"pong":{"nonce":"117"}}
 {"pong":{"nonce":"118"}}
 # mark friends_after
 {"pong":{"nonce":"119"}}
-{"social_result":{"request_id":"s63","ok":true}}
-{"friends":{"request_id":"s64","friends":[{"name":"dan1"}]}}
-{"social_result":{"request_id":"s64","ok":true}}
+{"social_result":{"request_id":"s69","ok":true}}
+{"friends":{"request_id":"s70","friends":[{"name":"dan1"}]}}
+{"social_result":{"request_id":"s70","ok":true}}
 {"pong":{"nonce":"120"}}
-{"social_result":{"request_id":"s65","ok":true}}
+{"social_result":{"request_id":"s71","ok":true}}
 {"pong":{"nonce":"121"}}
-{"who":{"request_id":"s66","entries":[{"name":"ann1","class_id":"warrior","level":1},{"name":"bob1","class_id":"warrior","level":1,"zone":"Testgrounds"},{"name":"cy1","class_id":"warrior","level":1,"zone":"Testgrounds"}]}}
-{"social_result":{"request_id":"s66","ok":true}}
+{"who":{"request_id":"s72","entries":[{"name":"ann1","class_id":"warrior","level":1},{"name":"bob1","class_id":"warrior","level":1,"zone":"Testgrounds"},{"name":"cy1","class_id":"warrior","level":1,"zone":"Testgrounds"}]}}
+{"social_result":{"request_id":"s72","ok":true}}
 {"pong":{"nonce":"122"}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}

@@ -102,10 +102,11 @@ func chatLines(m *model.Model, w, h int, st Styler) []string {
 // partyPanel is the Party panel: the party's other members with their health,
 // mana, level and zone. It is nil outside a party.
 func partyPanel(m *model.Model, iw int, st Styler) *panel {
-	if !m.InParty() {
+	slots := slotRows(m, iw, st)
+	if !m.InParty() && len(slots) == 0 {
 		return nil
 	}
-	var rows []string
+	rows := slots
 	for _, mt := range m.Mates() {
 		if mt.Me {
 			continue
@@ -114,7 +115,7 @@ func partyPanel(m *model.Model, iw int, st Styler) *panel {
 		if mt.Leader {
 			mark = "*"
 		}
-		head := fmt.Sprintf("%s%s", mark, mt.Name)
+		head := fmt.Sprintf("%s%s", mark, mt.Name) + statusTag(mt.Status)
 		if mt.Level > 0 {
 			head += fmt.Sprintf("  Lv %d", mt.Level)
 		}
@@ -145,7 +146,10 @@ func partyPanel(m *model.Model, iw int, st Styler) *panel {
 		rows = append(rows, st.Dim(fit(" just you so far", iw)))
 	}
 	title := "Party, led by " + m.Social.Party.GetLeader()
-	if m.IsLeader() {
+	switch {
+	case !m.InParty():
+		title = "Party slots"
+	case m.IsLeader():
 		title = "Party, you lead"
 	}
 	return &panel{title, rows}
@@ -242,7 +246,7 @@ func whoRows(ui *SocialUI, w, h int, st Styler) []string {
 		if zone == "" {
 			zone = "(hidden)"
 		}
-		lines = append(lines, fmt.Sprintf("%-16s %-10s %3d  %s", e.GetName(), e.GetClassId(), e.GetLevel(), zone))
+		lines = append(lines, fmt.Sprintf("%-16s %-10s %3d  %s%s", e.GetName(), e.GetClassId(), e.GetLevel(), zone, statusTag(e.GetStatus())))
 	}
 	ui.Sel = max(min(ui.Sel, len(lines)-1), 0)
 	head := fmt.Sprintf("  %-16s %-10s %3s  %s", "Name", "Class", "Lv", "Zone")
@@ -294,7 +298,10 @@ func socialHelp() []string {
 		"                 Y accepts it, N declines it",
 		"                 The Party panel: * leads, health, mana, level, zone",
 		"Instances        any member opens one with I; all walk to its door, E",
+		"                 The Party panel lists its slots; ? Group rules says who counts",
 		"                 turn-based: the Round panel marks each member's plan",
+		"Status           /status away, /status autopilot, /status clear: a word beside",
+		"                 your name in who, the party and You. It has no reward effect",
 		"Who              /who zone=NAME class=ID 3-7 (every filter optional)",
 		"                 Up / Down choose; I invites, F makes a friend, R asks again",
 		"Friends          /friends   /friend add NAME   /friend remove NAME",

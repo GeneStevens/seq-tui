@@ -7,7 +7,7 @@
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                        M@                        ││ Duo Turns                │
-│                                                  ││ turn-based | inside      │
+│                                                  ││ 2 players                │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Round 5, 6 s left ──────┐
 │                                                  ││ 0 of 2 submitted         │

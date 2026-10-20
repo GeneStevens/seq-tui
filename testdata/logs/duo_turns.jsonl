@@ -9,7 +9,7 @@
 {"pong":{"nonce":"104"}}
 {"pong":{"nonce":"105"}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
-{"event":{"seq":"2","game_time_ms":"300","text":"Your group's instance is ready: Duo Turns","instance_opened":{"instance":"inst-1","preset":"duo-turns","party_cap":"2"}}}
+{"event":{"seq":"2","game_time_ms":"300","text":"Your group's instance is ready: Duo Turns","instance_opened":{"instance":"inst-1","preset":"duo-turns","party_cap":"2","players":"1","slots":"2"}}}
 {"pong":{"nonce":"106"}}
 {"pong":{"nonce":"107"}}
 {"pong":{"nonce":"108"}}
@@ -20,7 +20,7 @@
 {"pong":{"nonce":"113"}}
 {"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"event":{"seq":"1","space_changed":{"space":"Testgrounds (Duo Turns)"}}}
-{"snapshot":{"seq":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"100000","y":"76000"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000"}}}
+{"snapshot":{"seq":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"100000","y":"76000"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000","slots":"2","players":"1"}}}
 {"zone_map":{"space":"Testgrounds (Duo Turns)","name":"Testgrounds (Duo Turns)","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North","label":"Gate North"}],"view_radius_mm":"20000","markers":[{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}}]}}
 {"event":{"seq":"2","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689906300","participants":"1"}}}
 {"pong":{"nonce":"114"}}
@@ -45,11 +45,15 @@
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
 {"intent_result":{"intent_id":"tui-4","accepted":true}}
-{"event":{"seq":"6","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria"],"participants":"2"}}}
 {"pong":{"nonce":"129"}}
-{"event":{"seq":"7","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria","bram"],"participants":"2"}}}
+{"event":{"seq":"6","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria"],"participants":"2"}}}
 {"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
+{"pong":{"nonce":"132"}}
+{"event":{"seq":"7","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria","bram"],"participants":"2"}}}
+{"pong":{"nonce":"133"}}
+{"pong":{"nonce":"134"}}
+{"pong":{"nonce":"135"}}
 {"event":{"seq":"8","game_time_ms":"100","entity_moved":{"id":"aria","pos":{"x":"100400","y":"90000"}}}}
 {"event":{"seq":"9","game_time_ms":"100","entity_moved":{"id":"mob-pair-1","pos":{"x":"100088","y":"76286"}}}}
 {"event":{"seq":"10","game_time_ms":"200","entity_moved":{"id":"aria","pos":{"x":"100800","y":"90000"}}}}
@@ -86,6 +90,6 @@
 {"event":{"seq":"41","game_time_ms":"2000","entity_moved":{"id":"mob-pair-1","pos":{"x":"100570","y":"81865"}}}}
 {"event":{"seq":"42","game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"all_submitted","submitted":["aria","bram"],"deadline_ms":"1735689607700","plays":[{"character":"aria","source":"own_plan"},{"character":"bram","source":"own_plan"}],"participants":"2"}}}
 {"event":{"seq":"43","game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689607800","participants":"2"}}}
-{"pong":{"nonce":"132"}}
-{"pong":{"nonce":"133"}}
+{"pong":{"nonce":"136"}}
+{"pong":{"nonce":"137"}}
 # mark duo_two_of_two

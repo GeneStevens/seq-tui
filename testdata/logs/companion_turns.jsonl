@@ -8,7 +8,7 @@
 {"pong":{"nonce":"105"}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
-{"event":{"seq":"1","game_time_ms":"200","text":"Your group's instance is ready: Duo Turns","instance_opened":{"instance":"inst-1","preset":"duo-turns","party_cap":"2"}}}
+{"event":{"seq":"1","game_time_ms":"200","text":"Your group's instance is ready: Duo Turns","instance_opened":{"instance":"inst-1","preset":"duo-turns","party_cap":"2","players":"1","slots":"1"}}}
 {"pong":{"nonce":"106"}}
 {"pong":{"nonce":"107"}}
 {"pong":{"nonce":"108"}}
@@ -19,7 +19,7 @@
 {"pong":{"nonce":"113"}}
 {"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"event":{"seq":"1","space_changed":{"space":"Testgrounds (Duo Turns)"}}}
-{"snapshot":{"seq":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"follow","summoned":true,"present":true,"id":"comp-aria"},"ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-aria","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"101500","y":"90000"},"hp":"96","max_hp":"96","level":"1","owner":"aria"}}],"entities":[{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"100000","y":"76000"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000"}}}
+{"snapshot":{"seq":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"follow","summoned":true,"present":true,"id":"comp-aria"},"ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-aria","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"101500","y":"90000"},"hp":"96","max_hp":"96","level":"1","owner":"aria"}}],"entities":[{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"100000","y":"76000"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000","slots":"1","players":"1"}}}
 {"zone_map":{"space":"Testgrounds (Duo Turns)","name":"Testgrounds (Duo Turns)","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North","label":"Gate North"}],"view_radius_mm":"20000","markers":[{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}}]}}
 {"event":{"seq":"2","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689906200","participants":"1"}}}
 {"pong":{"nonce":"114"}}
@@ -33,12 +33,10 @@
 {"pong":{"nonce":"122"}}
 # mark companion_plan
 {"intent_result":{"intent_id":"tui-3","accepted":true}}
-{"pong":{"nonce":"123"}}
 {"event":{"seq":"3","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607400","submitted":["aria"],"participants":"1"}}}
+{"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
 {"pong":{"nonce":"125"}}
-{"pong":{"nonce":"126"}}
-{"pong":{"nonce":"127"}}
 {"event":{"seq":"4","game_time_ms":"100","text":"Your companion takes the assist stance","companion":{"owner":"aria","companion":"comp-aria","reason":"stance","text":"assist"}}}
 {"event":{"seq":"5","game_time_ms":"100","text":"You target Plain Scuttler","target_changed":{"actor":"aria","target":"mob-pair-1"}}}
 {"event":{"seq":"6","game_time_ms":"100","text":"Your companion is ordered: attack","companion":{"owner":"aria","companion":"comp-aria","reason":"order","text":"attack"}}}
@@ -47,7 +45,7 @@
 {"event":{"seq":"9","game_time_ms":"100","text":"Watch Shieldman begins fighting Plain Scuttler","encounter_opened":{"id":"inst-1.enc-1","owner":"comp-aria","mob":"mob-pair-1"}}}
 {"event":{"seq":"10","game_time_ms":"100","entity_moved":{"id":"mob-pair-1","pos":{"x":"99738","y":"76145"}}}}
 {"event":{"seq":"11","game_time_ms":"100","text":"You are in combat with Plain Scuttler","combat_state":{"actor":"aria","in_combat":true,"attackers":["mob-pair-1"]}}}
-{"snapshot":{"seq":"11","game_time_ms":"100","tick":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"target":"mob-pair-1","gcd_ms":"1500","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"assist","summoned":true,"present":true,"id":"comp-aria","order":"attack"},"ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","in_combat":true,"attackers":["mob-pair-1"],"sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-aria","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"101500","y":"90000"},"hp":"96","max_hp":"96","level":"1","owner":"aria"},"target":"mob-pair-1"}],"entities":[{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"99738","y":"76145"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"encounters":[{"id":"inst-1.enc-1","mob":"mob-pair-1","owner":"comp-aria"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000"}}}
+{"snapshot":{"seq":"11","game_time_ms":"100","tick":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"target":"mob-pair-1","gcd_ms":"1500","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"assist","summoned":true,"present":true,"id":"comp-aria","order":"attack"},"ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","in_combat":true,"attackers":["mob-pair-1"],"sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-aria","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"101500","y":"90000"},"hp":"96","max_hp":"96","level":"1","owner":"aria"},"target":"mob-pair-1"}],"entities":[{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"99738","y":"76145"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"encounters":[{"id":"inst-1.enc-1","mob":"mob-pair-1","owner":"comp-aria"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000","slots":"1","players":"1"}}}
 {"event":{"seq":"12","game_time_ms":"200","target_changed":{"actor":"mob-pair-1","target":"comp-aria"}}}
 {"event":{"seq":"13","game_time_ms":"200","entity_moved":{"id":"comp-aria","pos":{"x":"101450","y":"89604"}}}}
 {"event":{"seq":"14","game_time_ms":"200","entity_moved":{"id":"mob-pair-1","pos":{"x":"99476","y":"76290"}}}}
@@ -89,6 +87,6 @@
 {"event":{"seq":"50","game_time_ms":"2000","text":"Plain Scuttler hits Watch Shieldman for 2","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-pair-1","target":"comp-aria","amount":"2"}}}
 {"event":{"seq":"51","game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"all_submitted","submitted":["aria"],"deadline_ms":"1735689607400","plays":[{"character":"aria","source":"own_plan"}],"participants":"1"}}}
 {"event":{"seq":"52","game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689607500","participants":"1"}}}
-{"pong":{"nonce":"128"}}
-{"pong":{"nonce":"129"}}
+{"pong":{"nonce":"126"}}
+{"pong":{"nonce":"127"}}
 # mark companion_round

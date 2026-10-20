@@ -53,6 +53,12 @@ func (s *Session) Anonymous(ctx context.Context, on bool) (*pb.SocialResult, err
 	return s.Social(ctx, agentkit.Anonymous(on))
 }
 
+// Status sets the character's optional status (D79): "away", "autopilot" or ""
+// to clear it. It has no effect on play.
+func (s *Session) Status(ctx context.Context, status string) (*pb.SocialResult, error) {
+	return s.Social(ctx, agentkit.Status(status))
+}
+
 // Who lists the characters online; every filter is optional.
 func (s *Session) Who(ctx context.Context, zone, class string, minLevel, maxLevel uint32) (*pb.WhoList, *pb.SocialResult, error) {
 	res, err := s.Social(ctx, agentkit.WhoIs(zone, class, minLevel, maxLevel))

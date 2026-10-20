@@ -461,13 +461,13 @@
 {"event":{"seq":"427","game_time_ms":"61000","text":"You killed Raiding Goblin","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"hale","target":"mob-ev-harvest-raid-2-1-1"}}}
 {"event":{"seq":"428","game_time_ms":"61000","text":"Your target Raiding Goblin is gone","target_cleared":{"actor":"hale","target":"mob-ev-harvest-raid-2-1-1","reason":"target_dead"}}}
 {"event":{"seq":"429","game_time_ms":"61000","text":"You stop attacking","auto_attack_changed":{"actor":"hale","target":"mob-ev-harvest-raid-2-1-1"}}}
-{"event":{"seq":"430","game_time_ms":"61000","text":"Raiding Goblin dropped Rowan Focus","loot_dropped":{"drop":"drop-enc-1-rowan-focus","mob":"mob-ev-harvest-raid-2-1-1","item":"rowan-focus","pos":{"x":"36000","y":"150000"},"encounter":"enc-1","can_loot":true,"item_info":{"id":"rowan-focus","name":"Rowan Focus","slot":"off_hand","tier":"fine","price":"110","sell_price":"27","stats":{"intellect":"3","wisdom":"1","max_mana":"14"}}}}}
+{"event":{"seq":"430","game_time_ms":"61000","text":"Raiding Goblin dropped Rowan Focus","loot_dropped":{"drop":"drop-enc-1-rowan-focus","mob":"mob-ev-harvest-raid-2-1-1","item":"rowan-focus","pos":{"x":"36000","y":"150000"},"encounter":"enc-1","can_loot":true,"item_info":{"id":"rowan-focus","name":"Rowan Focus","slot":"off_hand","tier":"fine","price":"110","sell_price":"27","stats":{"intellect":"3","wisdom":"1","max_mana":"14"},"classes":["wizard","cleric","druid"]}}}}
 {"event":{"seq":"431","game_time_ms":"61000","text":"Raiding Goblin dropped 4 crowns","loot_dropped":{"drop":"drop-enc-1-crowns","mob":"mob-ev-harvest-raid-2-1-1","pos":{"x":"36000","y":"150000"},"encounter":"enc-1","crowns":"4","can_loot":true}}}
 {"event":{"seq":"432","game_time_ms":"61000","text":"Raiding Goblin is dead: the fight is over","encounter_closed":{"id":"enc-1","owner":"hale","mob":"mob-ev-harvest-raid-2-1-1","reason":"mob_died"}}}
 {"event":{"seq":"433","game_time_ms":"61000","text":"You are out of combat","combat_state":{"actor":"hale"}}}
 {"event":{"seq":"434","game_time_ms":"61000","text":"You gain 1 experience","reward":{"recipient":"hale","source":"mob-ev-harvest-raid-2-1-1","kind":"xp","amount":"1"}}}
 {"event":{"seq":"435","game_time_ms":"61000","text":"Raiding Goblin is out of view","entity_left":{"id":"mob-ev-harvest-raid-2-1-1"}}}
-{"event":{"seq":"436","game_time_ms":"61000","item_facts":{"actor":"hale","facts":[{"item":"rowan-focus","verdict":"sidegrade","slot":"off_hand","delta":{"max_mana":"44","intellect":"3","wisdom":"1"}}]}}}
+{"event":{"seq":"436","game_time_ms":"61000","item_facts":{"actor":"hale","facts":[{"item":"rowan-focus","verdict":"not_usable","reason":"class","need":"wizard,cleric,druid","delta":{}}]}}}
 {"pong":{"nonce":"129"}}
 {"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
