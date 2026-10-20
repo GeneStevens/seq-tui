@@ -1,24 +1,24 @@
-┌─ Testgrounds, at 7,50 m, north up ───────────────┐┌─ You: in combat ─────────┐
-│                      ░                 #         ││ zedd  Lv 1 Wizard   | 0cr│
-│                      ░    TTTTTT       #         ││ HP 73/80 #############-- │
-│                      ░    $BH&Q!       #         ││ MP 110/150 #########---- │
-│                      ░                 #         ││ XP ----------- 40 to Lv 2│
-│                      ░  @M      c      #      c  ││ ! Interrupted: damage    │
-│                      ░                 #         ││ Attacked by Plain Scuttl…│
-│                      ░                 #         │└──────────────────────────┘
-│                      ░                 #         │┌─ Quest ──────────────────┐
-│                      ░                 #         ││ [ ] 1. Scout the Lookout │
+┌─ Testgrounds, at 8,50 m, north up ───────────────┐┌─ You: in combat ─────────┐
+│                     ░                 #          ││ zedd  Lv 1 Wizard   | 0cr│
+│                     ░    TTTTTT       #          ││ HP 74/80 #############-- │
+│                     ░    $BH&Q!       #          ││ MP 110/150 #########---- │
+│                     ░                 #          ││ XP ----------- 40 to Lv 2│
+│                     ░   @M     c      #      c   ││ ! Interrupted: damage    │
+│                     ░                 #          ││ Attacked by Plain Scuttl…│
+│                     ░                 #          │└──────────────────────────┘
+│                     ░                 #          │┌─ Quest ──────────────────┐
+│                     ░                 #          ││ [ ] 1. Scout the Lookout │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Flame Dart ready  2 Frost Bo… ready  3 -                4 -                │
+│ 1 Flame Dart gcd    2 Frost Bolt gcd   3 -                4 -                │
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Plain Scuttler: Snared 9s                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│ <  21.5s Plain Scuttler hits you for 3                                       │
-│    22.8s You begin casting Frost Bolt on Plain Scuttler                      │
-│ <  24.5s Plain Scuttler hits you for 4                                       │
-│ !  24.5s Your Frost Bolt is interrupted                                      │
+│ <  20.8s Plain Scuttler hits you for 3                                       │
+│    22.7s You begin casting Frost Bolt on Plain Scuttler                      │
+│ <  23.8s Plain Scuttler hits you for 4                                       │
+│ !  23.8s Your Frost Bolt is interrupted                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok      ? help  q quit

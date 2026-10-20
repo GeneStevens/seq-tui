@@ -20,7 +20,7 @@
 {"pong":{"nonce":"113"}}
 {"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"event":{"seq":"1","space_changed":{"space":"Testgrounds (Duo Turns)"}}}
-{"snapshot":{"seq":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"100000","y":"76000"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000","slots":"2","players":"1"}}}
+{"snapshot":{"seq":"1","space":"Testgrounds (Duo Turns)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"mob-pair-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"100000","y":"76000"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"duo-turns","party_cap":"2","time_mode":"turn_based","difficulty":"normal","sleep_limit_ms":"604800000","slots":"2","players":"1","holders":[{"slot":"1","player":"Player 1","character":"aria","name":"aria","state":"held"},{"slot":"2","player":"Player 1","character":"bram","state":"reserved"}]}}}
 {"zone_map":{"space":"Testgrounds (Duo Turns)","name":"Testgrounds (Duo Turns)","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North","label":"Gate North"}],"view_radius_mm":"20000","markers":[{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}}]}}
 {"event":{"seq":"2","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689906300","participants":"1"}}}
 {"pong":{"nonce":"114"}}
@@ -30,7 +30,8 @@
 {"pong":{"nonce":"118"}}
 {"pong":{"nonce":"119"}}
 {"event":{"seq":"3","text":"bram comes into view","entity_appeared":{"entity":{"id":"bram","kind":"ENTITY_KIND_CHARACTER","name":"bram","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"}}}}
-{"event":{"seq":"4","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689906300","participants":"2"}}}
+{"event":{"seq":"4","instance_slots":{"actor":"aria","holders":[{"slot":"1","player":"Player 1","character":"aria","name":"aria","state":"held"},{"slot":"2","player":"Player 1","character":"bram","name":"bram","state":"held"}]}}}
+{"event":{"seq":"5","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689906300","participants":"2"}}}
 {"pong":{"nonce":"120"}}
 {"pong":{"nonce":"121"}}
 {"pong":{"nonce":"122"}}
@@ -38,58 +39,56 @@
 # mark duo_gathered
 {"pong":{"nonce":"124"}}
 {"intent_result":{"intent_id":"tui-3","accepted":true}}
-{"event":{"seq":"5","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria"],"participants":"2"}}}
 {"pong":{"nonce":"125"}}
+{"event":{"seq":"6","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria"],"participants":"2"}}}
 {"pong":{"nonce":"126"}}
-# mark duo_one_of_two
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
-{"intent_result":{"intent_id":"tui-4","accepted":true}}
+# mark duo_one_of_two
 {"pong":{"nonce":"129"}}
-{"event":{"seq":"6","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria"],"participants":"2"}}}
 {"pong":{"nonce":"130"}}
+{"intent_result":{"intent_id":"tui-4","accepted":true}}
+{"event":{"seq":"7","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria"],"participants":"2"}}}
 {"pong":{"nonce":"131"}}
+{"event":{"seq":"8","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria","bram"],"participants":"2"}}}
 {"pong":{"nonce":"132"}}
-{"event":{"seq":"7","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria","bram"],"participants":"2"}}}
 {"pong":{"nonce":"133"}}
+{"event":{"seq":"9","game_time_ms":"100","entity_moved":{"id":"aria","pos":{"x":"100400","y":"90000"}}}}
+{"event":{"seq":"10","game_time_ms":"100","entity_moved":{"id":"mob-pair-1","pos":{"x":"100088","y":"76286"}}}}
+{"event":{"seq":"11","game_time_ms":"200","entity_moved":{"id":"aria","pos":{"x":"100800","y":"90000"}}}}
+{"event":{"seq":"12","game_time_ms":"200","entity_moved":{"id":"mob-pair-1","pos":{"x":"100175","y":"76572"}}}}
+{"event":{"seq":"13","game_time_ms":"300","entity_moved":{"id":"aria","pos":{"x":"101200","y":"90000"}}}}
+{"event":{"seq":"14","game_time_ms":"300","entity_moved":{"id":"mob-pair-1","pos":{"x":"100263","y":"76858"}}}}
+{"event":{"seq":"15","game_time_ms":"400","entity_moved":{"id":"aria","pos":{"x":"101600","y":"90000"}}}}
+{"event":{"seq":"16","game_time_ms":"400","entity_moved":{"id":"mob-pair-1","pos":{"x":"100351","y":"77144"}}}}
+{"event":{"seq":"17","game_time_ms":"500","entity_moved":{"id":"aria","pos":{"x":"102000","y":"90000"}}}}
+{"event":{"seq":"18","game_time_ms":"500","entity_moved":{"id":"mob-pair-1","pos":{"x":"100438","y":"77430"}}}}
+{"event":{"seq":"19","game_time_ms":"600","entity_moved":{"id":"aria","pos":{"x":"102400","y":"90000"}}}}
+{"event":{"seq":"20","game_time_ms":"600","entity_moved":{"id":"mob-pair-1","pos":{"x":"100526","y":"77716"}}}}
+{"event":{"seq":"21","game_time_ms":"700","entity_moved":{"id":"aria","pos":{"x":"102800","y":"90000"}}}}
+{"event":{"seq":"22","game_time_ms":"700","entity_moved":{"id":"mob-pair-1","pos":{"x":"100614","y":"78002"}}}}
+{"event":{"seq":"23","game_time_ms":"800","entity_moved":{"id":"aria","pos":{"x":"103000","y":"90000"}}}}
+{"event":{"seq":"24","game_time_ms":"800","entity_moved":{"id":"mob-pair-1","pos":{"x":"100702","y":"78289"}}}}
+{"event":{"seq":"25","game_time_ms":"900","target_changed":{"actor":"mob-pair-1","target":"bram"}}}
+{"event":{"seq":"26","game_time_ms":"900","text":"Bram begins fighting Plain Scuttler","encounter_opened":{"id":"inst-1.enc-1","owner":"bram","mob":"mob-pair-1"}}}
+{"event":{"seq":"27","game_time_ms":"900","text":"You target Plain Scuttler","target_changed":{"actor":"aria","target":"mob-pair-1"}}}
+{"event":{"seq":"28","game_time_ms":"900","target_changed":{"actor":"bram","target":"mob-pair-1"}}}
+{"event":{"seq":"29","game_time_ms":"900","text":"Plain Scuttler (level 1, even) is attacking you","attack_began":{"actor":"aria","mob":"mob-pair-1","name":"Plain Scuttler","level":"1","con":"even"}}}
+{"event":{"seq":"30","game_time_ms":"900","entity_moved":{"id":"mob-pair-1","pos":{"x":"100790","y":"78576"}}}}
+{"event":{"seq":"31","game_time_ms":"900","text":"You are in combat with Plain Scuttler","combat_state":{"actor":"aria","in_combat":true,"attackers":["mob-pair-1"]}}}
+{"event":{"seq":"32","game_time_ms":"1000","entity_moved":{"id":"mob-pair-1","pos":{"x":"100770","y":"78875"}}}}
+{"event":{"seq":"33","game_time_ms":"1100","entity_moved":{"id":"mob-pair-1","pos":{"x":"100750","y":"79174"}}}}
+{"event":{"seq":"34","game_time_ms":"1200","entity_moved":{"id":"mob-pair-1","pos":{"x":"100730","y":"79473"}}}}
+{"event":{"seq":"35","game_time_ms":"1300","entity_moved":{"id":"mob-pair-1","pos":{"x":"100710","y":"79772"}}}}
+{"event":{"seq":"36","game_time_ms":"1400","entity_moved":{"id":"mob-pair-1","pos":{"x":"100690","y":"80071"}}}}
+{"event":{"seq":"37","game_time_ms":"1500","entity_moved":{"id":"mob-pair-1","pos":{"x":"100670","y":"80370"}}}}
+{"event":{"seq":"38","game_time_ms":"1600","entity_moved":{"id":"mob-pair-1","pos":{"x":"100650","y":"80669"}}}}
+{"event":{"seq":"39","game_time_ms":"1700","entity_moved":{"id":"mob-pair-1","pos":{"x":"100630","y":"80968"}}}}
+{"event":{"seq":"40","game_time_ms":"1800","entity_moved":{"id":"mob-pair-1","pos":{"x":"100610","y":"81267"}}}}
+{"event":{"seq":"41","game_time_ms":"1900","entity_moved":{"id":"mob-pair-1","pos":{"x":"100590","y":"81566"}}}}
+{"event":{"seq":"42","game_time_ms":"2000","entity_moved":{"id":"mob-pair-1","pos":{"x":"100570","y":"81865"}}}}
+{"event":{"seq":"43","game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"all_submitted","submitted":["aria","bram"],"deadline_ms":"1735689607700","plays":[{"character":"aria","source":"own_plan"},{"character":"bram","source":"own_plan"}],"participants":"2"}}}
+{"event":{"seq":"44","game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689607800","participants":"2"}}}
 {"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
-{"event":{"seq":"8","game_time_ms":"100","entity_moved":{"id":"aria","pos":{"x":"100400","y":"90000"}}}}
-{"event":{"seq":"9","game_time_ms":"100","entity_moved":{"id":"mob-pair-1","pos":{"x":"100088","y":"76286"}}}}
-{"event":{"seq":"10","game_time_ms":"200","entity_moved":{"id":"aria","pos":{"x":"100800","y":"90000"}}}}
-{"event":{"seq":"11","game_time_ms":"200","entity_moved":{"id":"mob-pair-1","pos":{"x":"100175","y":"76572"}}}}
-{"event":{"seq":"12","game_time_ms":"300","entity_moved":{"id":"aria","pos":{"x":"101200","y":"90000"}}}}
-{"event":{"seq":"13","game_time_ms":"300","entity_moved":{"id":"mob-pair-1","pos":{"x":"100263","y":"76858"}}}}
-{"event":{"seq":"14","game_time_ms":"400","entity_moved":{"id":"aria","pos":{"x":"101600","y":"90000"}}}}
-{"event":{"seq":"15","game_time_ms":"400","entity_moved":{"id":"mob-pair-1","pos":{"x":"100351","y":"77144"}}}}
-{"event":{"seq":"16","game_time_ms":"500","entity_moved":{"id":"aria","pos":{"x":"102000","y":"90000"}}}}
-{"event":{"seq":"17","game_time_ms":"500","entity_moved":{"id":"mob-pair-1","pos":{"x":"100438","y":"77430"}}}}
-{"event":{"seq":"18","game_time_ms":"600","entity_moved":{"id":"aria","pos":{"x":"102400","y":"90000"}}}}
-{"event":{"seq":"19","game_time_ms":"600","entity_moved":{"id":"mob-pair-1","pos":{"x":"100526","y":"77716"}}}}
-{"event":{"seq":"20","game_time_ms":"700","entity_moved":{"id":"aria","pos":{"x":"102800","y":"90000"}}}}
-{"event":{"seq":"21","game_time_ms":"700","entity_moved":{"id":"mob-pair-1","pos":{"x":"100614","y":"78002"}}}}
-{"event":{"seq":"22","game_time_ms":"800","entity_moved":{"id":"aria","pos":{"x":"103000","y":"90000"}}}}
-{"event":{"seq":"23","game_time_ms":"800","entity_moved":{"id":"mob-pair-1","pos":{"x":"100702","y":"78289"}}}}
-{"event":{"seq":"24","game_time_ms":"900","target_changed":{"actor":"mob-pair-1","target":"bram"}}}
-{"event":{"seq":"25","game_time_ms":"900","text":"Bram begins fighting Plain Scuttler","encounter_opened":{"id":"inst-1.enc-1","owner":"bram","mob":"mob-pair-1"}}}
-{"event":{"seq":"26","game_time_ms":"900","text":"You target Plain Scuttler","target_changed":{"actor":"aria","target":"mob-pair-1"}}}
-{"event":{"seq":"27","game_time_ms":"900","target_changed":{"actor":"bram","target":"mob-pair-1"}}}
-{"event":{"seq":"28","game_time_ms":"900","text":"Plain Scuttler (level 1, even) is attacking you","attack_began":{"actor":"aria","mob":"mob-pair-1","name":"Plain Scuttler","level":"1","con":"even"}}}
-{"event":{"seq":"29","game_time_ms":"900","entity_moved":{"id":"mob-pair-1","pos":{"x":"100790","y":"78576"}}}}
-{"event":{"seq":"30","game_time_ms":"900","text":"You are in combat with Plain Scuttler","combat_state":{"actor":"aria","in_combat":true,"attackers":["mob-pair-1"]}}}
-{"event":{"seq":"31","game_time_ms":"1000","entity_moved":{"id":"mob-pair-1","pos":{"x":"100770","y":"78875"}}}}
-{"event":{"seq":"32","game_time_ms":"1100","entity_moved":{"id":"mob-pair-1","pos":{"x":"100750","y":"79174"}}}}
-{"event":{"seq":"33","game_time_ms":"1200","entity_moved":{"id":"mob-pair-1","pos":{"x":"100730","y":"79473"}}}}
-{"event":{"seq":"34","game_time_ms":"1300","entity_moved":{"id":"mob-pair-1","pos":{"x":"100710","y":"79772"}}}}
-{"event":{"seq":"35","game_time_ms":"1400","entity_moved":{"id":"mob-pair-1","pos":{"x":"100690","y":"80071"}}}}
-{"event":{"seq":"36","game_time_ms":"1500","entity_moved":{"id":"mob-pair-1","pos":{"x":"100670","y":"80370"}}}}
-{"event":{"seq":"37","game_time_ms":"1600","entity_moved":{"id":"mob-pair-1","pos":{"x":"100650","y":"80669"}}}}
-{"event":{"seq":"38","game_time_ms":"1700","entity_moved":{"id":"mob-pair-1","pos":{"x":"100630","y":"80968"}}}}
-{"event":{"seq":"39","game_time_ms":"1800","entity_moved":{"id":"mob-pair-1","pos":{"x":"100610","y":"81267"}}}}
-{"event":{"seq":"40","game_time_ms":"1900","entity_moved":{"id":"mob-pair-1","pos":{"x":"100590","y":"81566"}}}}
-{"event":{"seq":"41","game_time_ms":"2000","entity_moved":{"id":"mob-pair-1","pos":{"x":"100570","y":"81865"}}}}
-{"event":{"seq":"42","game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"all_submitted","submitted":["aria","bram"],"deadline_ms":"1735689607700","plays":[{"character":"aria","source":"own_plan"},{"character":"bram","source":"own_plan"}],"participants":"2"}}}
-{"event":{"seq":"43","game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689607800","participants":"2"}}}
-{"pong":{"nonce":"136"}}
-{"pong":{"nonce":"137"}}
 # mark duo_two_of_two

@@ -1,24 +1,24 @@
-┌─ Thornwick Downs, at 36,112 m, north up ─────────┐┌─ You: in combat ─────────┐
+┌─ Thornwick Downs, at 35,112 m, north up ─────────┐┌─ You: in combat ─────────┐
 │         ░                 ##### ≈≈≈≈  ··G######  ││ hale  Lv 1 Warrior  | 0cr│
-│         ░                 ##### ≈≈≈####  #####   ││ HP 129/130 ############- │
+│         ░                 ##### ≈≈≈####  #####   ││ HP 130/130 ############# │
 │         ░                 ##### ≈≈≈####  #####   ││ XP ----------- 40 to Lv 2│
 │         ░                                        ││ Atk off | Meadow Wolf    │
-│         ░               @M                       ││ Attacked by Meadow Wolf  │
+│         ░               @ M                      ││ Attacked by Meadow Wolf  │
 │         ░                                        │└──────────────────────────┘
 │         ░                                        │┌─ Target ─────────────────┐
 │         ░                                   c    ││ M Meadow Wolf  Lv 1      │
-│         ░                   c                    ││ HP 45/45 ######### 2m E  │
+│         ░                   c                    ││ HP 45/45 ######### 5m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt ready       2 Bash ready       3 -                4 -                │
+│ 1 Taunt ready       2 Bash range       3 -                4 -                │
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Meadow Wolf: none                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│     N.Ns You begin fighting Meadow Wolf                                      │
+│     N.Ns You target Meadow Wolf                                              │
 │     N.Ns Meadow Wolf (level 1, even) is attacking you                        │
 │     N.Ns You are in combat with Meadow Wolf                                  │
-│     N.Ns You start attacking something                                       │
-│ <   N.Ns Meadow Wolf hits you for 1                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                   
- ONLINE | Thornwick Downs | heard N.Ns ago | move ok              ? help  q quit
+ ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

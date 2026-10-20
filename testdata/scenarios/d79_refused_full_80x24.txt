@@ -6,8 +6,8 @@
 │                   #░D...@........#.............c.│└──────────────────────────┘
 │                   #░.............................│┌─ Instance ───────────────┐
 │                   #░...............#####.........││ No expedition            │
-│                   #░...............#####.........││ refused: That party is   │
-│                   #░.....................########││   full                   │
+│                   #░...............#####.........││ refused: Every place in  │
+│                   #░.....................########││   that instance is taken,│
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: enter Delve Gate                                                            
- ONLINE | heard N.Ns ago | ! use door denied: That party is full  ? help  q quit
+ ONLINE | ! use door denied: Every place in that instance is taken, and a repla…

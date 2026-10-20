@@ -8,7 +8,7 @@
 │                                  #░.......................................#           #........││ Warren Venture Delve                   │
 │                                  #░.......................................#           #........││ 2 players                              │
 │                                  #░.......................................#############........││ real-time | open                       │
-│                                  #░..................................#.........................││ party up to 2 | normal                 │
+│                                  #░..................................#.........................││ party up to 3 | normal                 │
 │                                  #░............p...............................................││ enter at delve-gate (E)                │
 │                                  #░..D........D@...............................................││                                        │
 │                                  #░............................................................││                                        │
@@ -31,7 +31,7 @@
 ┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │     0.2s bram comes into view                                                  ││ [party] bram: the delve gate is right here             │
 │     0.0s bram joined the party                                                 ││ [say] hale: I will take the front                      │
-│     1.3s instance opened for your party: Warren Venture Delve (up to 2 in it); ││                                                        │
+│     1.3s instance opened for your party: Warren Venture Delve (up to 3 in it); ││                                                        │
 │            enter at delve-gate with E                                          ││                                                        │
 │                                                                                ││                                                        │
 │                                                                                ││                                                        │

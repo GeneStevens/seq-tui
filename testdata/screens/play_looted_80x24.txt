@@ -15,9 +15,9 @@
 │               ░                           #      ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│    42.6s Cracked Shell Fragment was taken                                    │
-│ +  42.6s You pick up Cracked Shell Fragment                                  │
-│    42.6s Tip: tradable once means one trade to another player, then it is    │
+│    42.4s Cracked Shell Fragment was taken                                    │
+│ +  42.4s You pick up Cracked Shell Fragment                                  │
+│    42.4s Tip: tradable once means one trade to another player, then it is    │
 │            bound to them.                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
  Walk: click or arrows · M: large map · ?: help                                 

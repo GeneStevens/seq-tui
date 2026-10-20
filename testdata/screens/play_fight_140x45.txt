@@ -13,7 +13,7 @@
 │                            ░                                                       #           │┌─ Target ───────────────────────────────┐
 │                            ░                                                       #           ││ M Plain Scuttler  Lv 1                 │
 │                            ░                                                       #           ││ HP 23/40 #############---------- 2m E  │
-│                            ░                   @   M          c                    #           ││ even, fighting you                     │
+│                            ░                   @  M           c                    #           ││ even, fighting you                     │
 │                            ░                                                       #           │└────────────────────────────────────────┘
 │                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
 │                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
@@ -29,17 +29,17 @@
 │                            ░                                                       #           ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     2.9s You start attacking something                                                                                                   │
-│ <   2.9s Plain Scuttler hits you for 2                                                                                                   │
-│     4.5s You start attacking Plain Scuttler                                                                                              │
-│     4.5s You hit Plain Scuttler for 4                                                                                                    │
-│ <   5.9s Plain Scuttler hits you for 1                                                                                                   │
-│     6.5s You hit Plain Scuttler for 6                                                                                                    │
-│     8.5s You miss Plain Scuttler                                                                                                         │
-│ <   8.9s Plain Scuttler hits you for 3                                                                                                   │
-│    10.5s You hit Plain Scuttler for 5                                                                                                    │
-│ <  11.9s Plain Scuttler hits you for 2                                                                                                   │
-│    12.5s You hit Plain Scuttler for 4                                                                                                    │
+│     3.1s You start attacking something                                                                                                   │
+│ <   3.1s Plain Scuttler hits you for 2                                                                                                   │
+│     4.3s You start attacking Plain Scuttler                                                                                              │
+│     4.3s You hit Plain Scuttler for 4                                                                                                    │
+│ <   6.1s Plain Scuttler hits you for 1                                                                                                   │
+│     6.3s You hit Plain Scuttler for 6                                                                                                    │
+│     8.3s You miss Plain Scuttler                                                                                                         │
+│ <   9.1s Plain Scuttler hits you for 3                                                                                                   │
+│    10.3s You hit Plain Scuttler for 5                                                                                                    │
+│ <  12.1s Plain Scuttler hits you for 2                                                                                                   │
+│    12.3s You hit Plain Scuttler for 4                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit

@@ -1,13 +1,13 @@
-┌─ Thornwick Downs, at 45,130 m, north up ─────────┐┌─ You: in combat ─────────┐
-│     ░············································││ hale  Lv 1 Warrior  | 0cr│
-│     ░                             ····           ││ HP 128/130 ############- │
-│     ░     """""""""               ··;·"""""""""" ││ XP ----------- 40 to Lv 2│
-│     ░                   ;         ····#####      ││ Atk off | Meadow Wolf    │
-│     ░                 #M@## ≈≈≈≈  ··G######      ││ Attacked by Meadow Wolf  │
-│     ░                 ##### ≈≈≈####  #####       │└──────────────────────────┘
-│     ░                 ##### ≈≈≈####  #####       │┌─ Target ─────────────────┐
-│     ░                                            ││ M Meadow Wolf  Lv 1      │
-│     ░                                            ││ HP 45/45 ######### 2m W  │
+┌─ Thornwick Downs, at 43,130 m, north up ─────────┐┌─ You: in combat ─────────┐
+│      ░···········································││ hale  Lv 1 Warrior  | 0cr│
+│      ░                             ····          ││ HP 130/130 ############# │
+│      ░     """""""""               ··;·""""""""""││ XP ----------- 40 to Lv 2│
+│      ░                   ;         ····#####     ││ Atk off | Meadow Wolf    │
+│      ░                 M@### ≈≈≈≈  ··G######     ││ Attacked by Meadow Wolf  │
+│      ░                 ##### ≈≈≈####  #####      │└──────────────────────────┘
+│      ░                 ##### ≈≈≈####  #####      │┌─ Target ─────────────────┐
+│      ░                                           ││ M Meadow Wolf  Lv 1      │
+│      ░                                           ││ HP 45/45 ######### 2m W  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt ready       2 Bash ready       3 -                4 -                │
@@ -15,10 +15,10 @@
 │ You: none   |   Meadow Wolf: none                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│     N.Ns You target Meadow Wolf                                              │
+│     N.Ns Meadow Wolf (level 1, even) is attacking you                        │
+│     N.Ns You are in combat with Meadow Wolf                                  │
 │     N.Ns You start attacking something                                       │
-│ <   N.Ns Meadow Wolf hits you for 1                                          │
-│ <   N.Ns Meadow Wolf hits you for 4                                          │
-│                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                   
- ONLINE | Thornwick Downs | heard N.Ns ago | move ok              ? help  q quit
+ ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

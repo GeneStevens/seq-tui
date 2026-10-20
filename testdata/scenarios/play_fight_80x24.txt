@@ -6,7 +6,7 @@
 │               ░                           #      ││ Attacked by Plain Scuttl…│
 │               ░       $ BH &Q!            #      │└──────────────────────────┘
 │               ░                           #      │┌─ Quest ──────────────────┐
-│               ░         @ M     c         #      ││ [ ] 1. Scout the Lookout │
+│               ░         @M      c         #      ││ [ ] 1. Scout the Lookout │
 │               ░                           #      ││ Testgrounds Recruiter has│
 │               ░                           #      ││ work for you: G.         │
 │               ░                           #      │└──────────────────────────┘

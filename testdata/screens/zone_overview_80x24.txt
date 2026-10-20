@@ -16,9 +16,9 @@
 │               ░ """""c      """""≈≈        c                  ░              │
 │               ░ """"        """""≈≈                           ░              │
 │               ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░              │
-│ Thornwick Downs, 420m by 300m, north up. You: 45m E, 135m N of the SW corner.│
+│ Thornwick Downs, 420m by 300m, north up. You: 44m E, 135m N of the SW corner.│
 │ The legend is on page 2 of the help (?).                                     │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 42m W | heard 0.4s ago 
+ ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 41m W | heard 0.4s ago 

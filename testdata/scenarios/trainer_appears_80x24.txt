@@ -1,4 +1,4 @@
-┌─ Thornwick — Tanner's Row, at 28,31 m, north up ─┐┌─ You ────────────────────┐
+┌─ Thornwick — Tanner's Row, at 28,30 m, north up ─┐┌─ You ────────────────────┐
 │            ░#  #######··············&·!··········││ hale  Lv 1 Warrior  | 0cr│
 │            ░#  #######···························││ HP 130/130 ############# │
 │            ░#  #######····      ··$·····H········││ XP ----------- 40 to Lv 2│
@@ -20,5 +20,5 @@
 │            gives it up for good.                                             │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- G: talk to Dunstan Reeve <Weaponsmith>                                         
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 36m NE | move ok       ? help
+ Walk: click or arrows · M: large map · ?: help                                 
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 36m NE | road: faster, 125%  

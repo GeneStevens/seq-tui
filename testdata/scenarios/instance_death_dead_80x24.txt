@@ -1,4 +1,4 @@
-┌─ Testgrounds (Solo Trial), at 100,87 m, north … ─┐┌─ You ────────────────────┐
+┌─ Testgrounds (Solo Trial), at 100,88 m, north … ─┐┌─ You ────────────────────┐
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ DEAD  HP 0/6             │
 │                                                  ││ Target: none             │
@@ -7,8 +7,8 @@
 │                                                  │┌─ Instance ───────────────┐
 │                         D                        ││ Solo Trial               │
 │                         @                        ││ real-time | inside       │
-│                         m                        ││ party up to 1 | normal   │
-│                                                  │└──────────────────────────┘
+│                                                  ││ party up to 1 | normal   │
+│                         m                        │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │
@@ -21,4 +21,4 @@
 │    NN.Ns You are out of combat                                               │
 └──────────────────────────────────────────────────────────────────────────────┘
  R: release your body and wake at your bind point                               
- ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | move ok     ? help  q quit
+ ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago               ? help  q quit

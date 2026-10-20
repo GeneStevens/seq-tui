@@ -24,7 +24,7 @@ type Probe struct {
 func (a *App) Idle(keys int) bool {
 	seen := false
 	a.sess.View(func(m *model.Model) { seen = m.Heard == a.lastN })
-	return a.keys >= keys && a.inflight == 0 && seen
+	return a.keys >= keys && a.inflight == 0 && a.walk.queued.Load() == 0 && seen
 }
 
 // Commanding says a command the program sent has not been answered: it is
@@ -67,3 +67,45 @@ func (a *App) MouseState() (zoom, bigZoom int, card string, labels bool, tab int
 
 // Resize tells the program the window is w x h, as the terminal does.
 func (a *App) Resize(w, h int) { a.w, a.h = w, h }
+
+// Frame runs what a frame tick does, once, at the program's clock: the walker
+// says what to send, and the mark moves. A scenario's clock is the server's and
+// moves only when the scenario says, so it asks for the frame itself.
+//
+// It reports whether the program had a walk to see to, or something to send.
+func (a *App) Frame() (busy bool) {
+	if !a.walk.w.Active() && a.walk.queued.Load() == 0 {
+		return false
+	}
+	a.walk.framing = false
+	_ = a.walkPoll()
+	a.walk.framing = false
+	a.sess.View(func(m *model.Model) { a.drawAhead(m)() }) // the draw the renderer would make
+	return true
+}
+
+// KeyboardEvents tells the program the terminal reports key releases and
+// repeats, as a terminal with the kitty keyboard protocol answers when asked.
+func (a *App) KeyboardEvents(on bool) { a.walk.w.Releases = on }
+
+// Walking says the walker has told the server to walk and not yet to stop.
+func (a *App) Walking() bool { return a.walk.w.Walking() }
+
+// WalkActive says a movement key is down, or a walk the program began has not
+// been stopped.
+func (a *App) WalkActive() bool { return a.walk.w.Active() }
+
+// WalkSends lists every movement intent (Walk or Stop) the program has sent for
+// held keys, with the time of each.
+func (a *App) WalkSends() []WalkSend { return append([]WalkSend(nil), a.walk.sends...) }
+
+// Drawn is where the screen draws the character now: the predicted mark, which
+// runs ahead of the server's position while a key is held.
+func (a *App) Drawn() (x, y int64) {
+	a.sess.View(func(m *model.Model) {
+		restore := a.drawAhead(m)
+		x, y = m.Self.Pos.GetX(), m.Self.Pos.GetY()
+		restore()
+	})
+	return
+}

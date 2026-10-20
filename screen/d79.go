@@ -65,9 +65,10 @@ func groupLines(m *model.Model, w int) []string {
 }
 
 // slotRows are the rows of the Party panel that list the instance's slots, one
-// each, then when a replacement may join. The wire never names an account, so
-// a slot says whose account it is only as far as this client knows its own
-// characters; any other holder is another player.
+// each, then when a replacement may join. They are the server's holder list
+// (D82): the player's handle, "Player 2", is the same for everyone and tells
+// nothing of the account, so a holder is told as yours only by the characters
+// this client plays.
 func slotRows(m *model.Model, iw int, st Styler) []string {
 	slots := m.Slots()
 	if len(slots) < 2 { // a solo instance has one slot and nothing to list
@@ -75,16 +76,22 @@ func slotRows(m *model.Model, iw int, st Styler) []string {
 	}
 	rows := []string{fit(fmt.Sprintf(" Slots: %d, %s", len(slots), playersWords(m.Players())), iw)}
 	for _, s := range slots {
+		player := s.Player
+		if player == "" {
+			player = "a player"
+		}
 		var row string
 		switch {
-		case s.Holder == "":
-			row = st.Dim(fit(fmt.Sprintf("  %d  empty slot", s.N), iw))
+		case s.State == model.HolderReserved:
+			row = st.Dim(fit(fmt.Sprintf("  %d  reserved  %s, not yet in", s.N, player), iw))
+		case s.State == model.HolderEmpty:
+			row = st.Dim(fit(fmt.Sprintf("  %d  empty  was %s's, open", s.N, player), iw))
 		case s.Me:
-			row = fit(fmt.Sprintf("  %d  %s (you)  your account", s.N, s.Holder), iw)
+			row = fit(fmt.Sprintf("  %d  %s (you)  %s, you", s.N, s.Holder, player), iw)
 		case s.Own:
-			row = fit(fmt.Sprintf("  %d  %s  your account, other character", s.N, s.Holder), iw)
+			row = fit(fmt.Sprintf("  %d  %s  %s, yours", s.N, s.Holder, player), iw)
 		default:
-			row = fit(fmt.Sprintf("  %d  %s  another player", s.N, s.Holder), iw)
+			row = fit(fmt.Sprintf("  %d  %s  %s", s.N, s.Holder, player), iw)
 		}
 		rows = append(rows, row)
 	}

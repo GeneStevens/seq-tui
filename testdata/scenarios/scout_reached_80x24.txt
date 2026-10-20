@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 45,135 m, north up ─────────┐┌─ You ────────────────────┐
+┌─ Thornwick Downs, at 44,135 m, north up ─────────┐┌─ You ────────────────────┐
 │     ░··D·········································││ Hale  Lv 1 Warrior  | 0cr│
 │     ░············································││ HP 130/130 ############# │
 │     ░                             ····           ││ XP ----------- 40 to Lv 2│
@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Walk: click or arrows · M: large map · ?: help                                 
- ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 42m W | move ok  ? help
+ ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 41m W | heard N.Ns ago 

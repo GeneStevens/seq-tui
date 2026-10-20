@@ -1,4 +1,4 @@
-┌─ Hollow Warren, at 129,70 m, north up ───────────┐┌─ You ────────────────────┐
+┌─ Hollow Warren, at 129,69 m, north up ───────────┐┌─ You ────────────────────┐
 │..# #.....c.....#        ####.....#######.........││ hale  Lv 1 Warrior  | 0cr│
 │..###...........#        #........................││ HP 130/130 ############# │
 │.....####....####        #........................││ XP ----------- 40 to Lv 2│
@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Walk: click or arrows · M: large map · ?: help                                 
- ONLINE | Hollow Warren | heard N.Ns ago | move ok                ? help  q quit
+ ONLINE | Hollow Warren | heard N.Ns ago                          ? help  q quit

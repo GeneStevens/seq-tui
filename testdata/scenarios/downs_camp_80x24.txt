@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 45,105 m, north up ─────────┐┌─ You ────────────────────┐
+┌─ Thornwick Downs, at 44,105 m, north up ─────────┐┌─ You ────────────────────┐
 │     ░                 ##### ≈≈≈####  #####       ││ Hale  Lv 1 Warrior  | 0cr│
 │     ░                 ##### ≈≈≈####  #####       ││ HP 130/130 ############# │
 │     ░                                            ││ XP ----------- 40 to Lv 2│
@@ -6,7 +6,7 @@
 │     ░                   @                        │└──────────────────────────┘
 │     ░                                            │┌─ Target ─────────────────┐
 │     ░                                   c        ││ no target (Tab to choose)│
-│     ░                   cm                       ││                          │
+│     ░                   m                        ││                          │
 │     ░                                            ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                        
- ONLINE | → Wolves at Wickett Mill, 11m S | heard N.Ns ago | move ok      ? help
+ ONLINE | Thornwick Downs | → Wolves at Wickett Mill, 12m S | heard N.Ns ago    

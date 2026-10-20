@@ -16,7 +16,7 @@
 │               ░ """""c      """""≈≈        c                  ░              │
 │               ░ """"        """""≈≈                           ░              │
 │               ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░              │
-│ Thornwick Downs, 420m by 300m, north up. You: 183m E, 176m N of the SW corne…│
+│ Thornwick Downs, 420m by 300m, north up. You: 185m E, 174m N of the SW corne…│
 │ The legend is on page 2 of the help (?).                                     │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘

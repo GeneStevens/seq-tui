@@ -322,13 +322,13 @@ func walkBoth(t *testing.T, w *scenario.World, to [2]int64, ps ...*scenario.Play
 			dx, dy := to[0]-x, to[1]-y
 			switch {
 			case dx >= step:
-				p.Press("right")
+				p.TryStep("right")
 			case dx <= -step:
-				p.Press("left")
+				p.TryStep("left")
 			case dy >= step:
-				p.Press("up")
+				p.TryStep("up")
 			case dy <= -step:
-				p.Press("down")
+				p.TryStep("down")
 			default:
 				continue
 			}
@@ -337,7 +337,6 @@ func walkBoth(t *testing.T, w *scenario.World, to [2]int64, ps ...*scenario.Play
 		if !moved {
 			return
 		}
-		w.Advance(time.Second)
 	}
 	t.Fatalf("the players did not reach %v", to)
 }

@@ -21,12 +21,12 @@
 │                                                                                                ││ Wolves at Wickett Mill             0/4 │
 │                                                                                                │└────────────────────────────────────────┘
 │────────────────────────────────────────────────────────────────────────────────────────────────│┌─ Nearby ───────────────────────────────┐
-│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ & Thornwick Contract Board 1m SW [new] │
+│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ & Thornwick Contract Board  2m S [new] │
 │ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ ! Gorran Stoutarm      54m SW [step 2] │
-│ Pays 21 XP and 8 crowns.                                                                       ││ g Tamsin Hale <Watch Greeter>    5m SE │
-│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
+│ Pays 21 XP and 8 crowns.                                                                       ││ g Tamsin Hale <Watch Greeter>    6m SE │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>  13m SW │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ g Town Guard <Thornwick Watch>   22m E │
+│                                                                                                ││ H Isolde Fenn <Binder>          14m SE │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ g Town Guard <Thornwick Watch>   23m E │
 │ take Thin the Meadow Wolves ok                                                                 ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -37,9 +37,9 @@
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     4.6s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│     2.7s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   4.7s You take the contract Wolves at Wickett Mill                                                                                    │
+│ +   2.8s You take the contract Wolves at Wickett Mill                                                                                    │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard 0.4s ago | take Thin the Meadow Wolves ok  ? help

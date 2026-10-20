@@ -1,6 +1,6 @@
-┌─ Thornwick Downs, at 45,99 m, north up ────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│▲ Town Gate 63m                           ############                                          ││ Hale  Lv 1 Warrior           | 0 crowns│
-│                                                                                                ││ HP 124/130 #########################-- │
+┌─ Thornwick Downs, at 44,100 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│▲ Town Gate 62m                            ############  ≈≈≈≈≈≈≈≈≈########        ##########    ││ Hale  Lv 1 Warrior           | 0 crowns│
+│                                           ############                                         ││ HP 123/130 #########################-- │
 │                                                                                                ││ XP #####-------------------- 32 to Lv 2│
 │                                                                                                ││ Atk off | none                         │
 │                                                                                                │└────────────────────────────────────────┘
@@ -11,16 +11,16 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
 │                                                @                                               ││ Wolves at Wickett Mill           READY │
-│                                                *                                               │└────────────────────────────────────────┘
-│                                                                                        c       │┌─ Nearby ───────────────────────────────┐
-│                                                c                                               ││ D Town Gate         64m NW [next door] │
-│                                                                                                ││ * 2 crowns                        2m S │
+│                                                 *                                              │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                         c      ││ D Town Gate         63m NW [next door] │
+│                                                 c                                              ││ * 2 crowns                        2m S │
 │                                                                                                ││ * Wolf Pelt                       2m S │
 │                                                                                                ││ * 1 crowns                        2m S │
 │                                                                                                ││ * Wolf Pelt                       2m S │
 │                                                                                                ││ ; Wickett Mill      34m N scout marker │
 │                                                                                                ││ G Barleycross        40m NE event goal │
-│                                                                                                ││ ; Barleycross      46m NE scout marker │
+│                                                                                                ││ ; Barleycross      45m NE scout marker │
 │                                                                                                ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -29,7 +29,7 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   NNN.Ns You hit Meadow Wolf for 7                                                                                                       │
+│   NNN.Ns You hit Meadow Wolf for 6                                                                                                       │
 │ x NNN.Ns You killed Meadow Wolf                                                                                                          │
 │   NNN.Ns Your target Meadow Wolf is gone                                                                                                 │
 │   NNN.Ns You stop attacking                                                                                                              │
@@ -42,4 +42,4 @@
 │   NNN.Ns Meadow Wolf is out of view                                                                                                      │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot all 4 drops                                                                                                                        
- ONLINE | Thornwick Downs | → Hand in: Wolves at Wickett Mill (Thornwick), 64m NW | heard N.Ns ago | attack ok                ? help  q quit
+ ONLINE | Thornwick Downs | → Hand in: Wolves at Wickett Mill (Thornwick), 63m NW | heard N.Ns ago | attack ok                ? help  q quit

@@ -1,45 +1,45 @@
-┌─ Testgrounds, at 14,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
-│                            ░                                                       #           ││ aria  Lv 1  XP 0             | 0 crowns│
-│                            ░                                                       #           ││ HP 100/100 ########################### │
-│                            ░                                                       #           ││ Target: Plain Scuttler                 │
-│                            ░                                                       #           ││ Auto-attack: off                       │
-│                            ░                                                       #           ││ Attacked by Plain Scuttler             │
-│                            ░                                                       #           │└────────────────────────────────────────┘
-│                            ░                T  T T  T  T  T                        #           │┌─ Quest ────────────────────────────────┐
-│                            ░                                                       #           ││ [ ] 1. Scout the Lookout               │
-│                            ░                $  B H  &  Q                           #           ││ Testgrounds Recruiter has work for you:│
-│                            ░                                                       #           ││ G.                                     │
-│                            ░                              !                        #           │└────────────────────────────────────────┘
-│                            ░                                                       #           │┌─ Target ───────────────────────────────┐
-│                            ░                                                       #           ││ M Plain Scuttler  Lv 1                 │
-│                            ░                                                       #           ││ HP 40/40 ####################### 4m E  │
-│                            ░                   @    M         c                    #           ││ even, fighting you                     │
-│                            ░                                                       #           │└────────────────────────────────────────┘
-│                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
-│                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
-│                            ░                                                       #           ││ ! Testgrounds Recruiter   10m NE [new] │
-│                            ░                                                       #           ││ M Plain Scuttler       4m E 40/40 even │
-│                            ░                                                       #           ││ B Testgrounds Banker              8m N │
-│                            ░                                                       #           ││ H Testgrounds Binder              8m N │
-│                            ░                                                       #           ││ $ Testgrounds Vendor              8m N │
-│                            ░                                                       #           ││ Q Testgrounds Captain <Quest G… 10m NE │
-│                            ░                                                       #           ││ T Cleric Trainer                 12m N │
-│                            ░                                                       #           ││ T Rogue Trainer                  12m N │
-│                            ░                                                       #           ││ T Warrior Trainer                12m N │
-│                            ░                                                       #           ││ +6 more                                │
+┌─ Testgrounds, at 10,50 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                  ░                                                       #     ││ aria  Lv 1  XP 0             | 0 crowns│
+│                                  ░                                                       #     ││ HP 100/100 ########################### │
+│                                  ░                                                       #     ││ Target: none                           │
+│                                  ░                                                       #     ││ Auto-attack: off                       │
+│                                  ░                                                       #     │└────────────────────────────────────────┘
+│                                  ░                                                       #     │┌─ Quest ────────────────────────────────┐
+│                                  ░                T  T T  T  T  T                        #     ││ [ ] 1. Scout the Lookout               │
+│                                  ░                                                       #     ││ Testgrounds Recruiter has work for you:│
+│                                  ░                $  B H  &  Q                           #     ││ G.                                     │
+│                                  ░                                                       #     │└────────────────────────────────────────┘
+│                                  ░                              !                        #     │┌─ Target ───────────────────────────────┐
+│                                  ░                                                       #     ││ no target (Tab to choose)              │
+│                                  ░                                                       #     ││                                        │
+│                                  ░                                                       #     ││                                        │
+│                                  ░             @                 m  c                    #     │└────────────────────────────────────────┘
+│                                  ░                                                       #     │┌─ Nearby ───────────────────────────────┐
+│                                  ░                                                       #     ││ & Testgrounds Contract B… 11m NE [new] │
+│                                  ░                                                       #     ││ ! Testgrounds Recruiter   13m NE [new] │
+│                                  ░                                                       #     ││ $ Testgrounds Vendor              8m N │
+│                                  ░                                                       #     ││ B Testgrounds Banker             9m NE │
+│                                  ░                                                       #     ││ H Testgrounds Binder            10m NE │
+│                                  ░                                                       #     ││ T Warrior Trainer                12m N │
+│                                  ░                                                       #     ││ m Plain Scuttler      13m E 40/40 even │
+│                                  ░                                                       #     ││ T Cleric Trainer                 13m N │
+│                                  ░                                                       #     ││ Q Testgrounds Captain <Quest G… 13m NE │
+│                                  ░                                                       #     ││ T Rogue Trainer                 13m NE │
+│                                  ░                                                       #     ││ T Wizard Trainer                14m NE │
+│                                  ░                                                       #     ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Plain Scuttler targeted aria                                                                                                    │
-│     N.Ns You begin fighting Plain Scuttler                                                                                               │
-│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                                  │
-│     N.Ns You target Plain Scuttler                                                                                                       │
-│     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
-│     N.Ns You are in combat with Plain Scuttler                                                                                           │
+│ !   N.Ns You have no target                                                                                                              │
+│ !   N.Ns You have no target                                                                                                              │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target                                                                                                               
- REPLAY | Testgrounds | nothing heard yet | tui-ann-1: message 62 of 62  Left, Right step  Home, End  Esc back                ? help  q quit
+ Tab: target · F: attack                                                                                                                    
+ REPLAY | Testgrounds | nothing heard yet | tui-ann-1: message 32 of 32  Left, Right step  Home, End  Esc back                ? help  q quit

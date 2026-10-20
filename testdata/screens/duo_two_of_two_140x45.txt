@@ -20,8 +20,8 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Party slots ──────────────────────────┐
 │                                             M                                                  ││ Slots: 2, 1 player                     │
-│                                                                                                ││  1  aria (you)  your account           │
-│                                                                                                ││  2  empty slot                         │
+│                                                                                                ││  1  aria (you)  Player 1, you          │
+│                                                                                                ││  2  bram  Player 1                     │
 │                                                                                                ││ replacement waits for the encounter    │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐

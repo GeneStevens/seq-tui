@@ -1,27 +1,27 @@
-┌─ Testgrounds, at 8,50 m, north up ─────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                      ░                                             #           ││ zedd  Lv 1 Wizard            | 0 crowns│
-│                                      ░                                             #           ││ HP 80/80 ############################# │
-│                                      ░                                             #           ││ MP 150/150 ########################### │
-│                                      ░                                             #           ││ XP ------------------------- 40 to Lv 2│
-│                                      ░             T T T  T T T                    #           ││ ! Frost Bolt cancelled: you moved      │
-│                                      ░                                             #           │└────────────────────────────────────────┘
-│                                      ░                                             #           │┌─ Quest ────────────────────────────────┐
-│                                      ░             $ B H  & Q                      #           ││ [ ] 1. Scout the Lookout               │
-│                                      ░                        !                    #           ││ Testgrounds Recruiter has work for you:│
-│                                      ░                                             #           ││ G.                                     │
-│                                      ░                                             #           │└────────────────────────────────────────┘
-│                                      ░         @               M  c                #           │┌─ Target ───────────────────────────────┐
-│                                      ░                                             #           ││ M Plain Scuttler  Lv 1                 │
-│                                      ░                                             #           ││ HP 400/400 #################### 14m E  │
-│                                      ░                                             #           ││ even, not in a fight                   │
-│                                      ░                                             #           │└────────────────────────────────────────┘
-│                                      ░                                             #           │┌─ Nearby ───────────────────────────────┐
-│                                      ░                                             #           ││ & Testgrounds Contract B… 12m NE [new] │
-│                                      ░                                             #           ││ ! Testgrounds Recruiter   14m NE [new] │
-│                                      ░                                             #           ││ $ Testgrounds Vendor              9m N │
-│                                      ░                                             #           ││ B Testgrounds Banker            10m NE │
-│                                      ░                                             #           ││ H Testgrounds Binder            11m NE │
-│                                      ░                                             #           ││ +11 more                               │
+┌─ Testgrounds, at 9,50 m, north up ─────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                     ░                                             #            ││ zedd  Lv 1 Wizard            | 0 crowns│
+│                                     ░                                             #            ││ HP 80/80 ############################# │
+│                                     ░                                             #            ││ MP 150/150 ########################### │
+│                                     ░                                             #            ││ XP ------------------------- 40 to Lv 2│
+│                                     ░             T T T  T T T                    #            ││ ! Frost Bolt cancelled: you moved      │
+│                                     ░                                             #            │└────────────────────────────────────────┘
+│                                     ░                                             #            │┌─ Quest ────────────────────────────────┐
+│                                     ░             $ B H  & Q                      #            ││ [ ] 1. Scout the Lookout               │
+│                                     ░                        !                    #            ││ Testgrounds Recruiter has work for you:│
+│                                     ░                                             #            ││ G.                                     │
+│                                     ░                                             #            │└────────────────────────────────────────┘
+│                                     ░          @              M  c                #            │┌─ Target ───────────────────────────────┐
+│                                     ░                                             #            ││ M Plain Scuttler  Lv 1                 │
+│                                     ░                                             #            ││ HP 400/400 #################### 13m E  │
+│                                     ░                                             #            ││ even, not in a fight                   │
+│                                     ░                                             #            │└────────────────────────────────────────┘
+│                                     ░                                             #            │┌─ Nearby ───────────────────────────────┐
+│                                     ░                                             #            ││ & Testgrounds Contract B… 12m NE [new] │
+│                                     ░                                             #            ││ ! Testgrounds Recruiter   14m NE [new] │
+│                                     ░                                             #            ││ $ Testgrounds Vendor              8m N │
+│                                     ░                                             #            ││ B Testgrounds Banker             9m NE │
+│                                     ░                                             #            ││ H Testgrounds Binder            10m NE │
+│                                     ░                                             #            ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Flame Dart 6mp gcd               2 Frost Bolt 12mp gcd             3 -                               4 -                               │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                                                                               
- ONLINE | Testgrounds | heard N.Ns ago | move ok                                                                              ? help  q quit
+ ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

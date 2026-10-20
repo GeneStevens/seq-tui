@@ -30,7 +30,7 @@ var Groups = []string{"Moving", "Fighting", "People and things", "Screens", "Lea
 // Bindings is every key of the main view. Screens that open from it list their
 // own keys on their last line.
 var Bindings = []Binding{
-	{Keys: []string{"up", "down", "left", "right", "w", "a", "s", "d"}, Show: "Arrows, W A S D", What: "walk a few metres that way", Group: "Moving"},
+	{Keys: []string{"up", "down", "left", "right", "w", "a", "s", "d"}, Show: "Arrows, W A S D", What: "hold to walk that way, let go to stop (Esc stops a click-walk)", Group: "Moving"},
 	{Keys: []string{"e", "enter"}, Show: "E, Enter", What: "go through the nearest door (stand at it)", Group: "Moving"},
 	{Keys: []string{"m"}, Show: "M", What: "the large map: click a spot to walk there (arrows and Enter do too)", Group: "Moving"},
 	{Keys: []string{"+", "=", "-", "_"}, Show: "+ / -", What: "zoom the map in and out (the scroll wheel does too)", Group: "Moving"},
@@ -99,7 +99,7 @@ type section struct {
 
 var guidePlaying = []section{
 	{"Moving and doors", []string{
-		"Walk with the arrow keys or W A S D; each press sends you a few metres on. The status line says how fast you go on the ground you stand on.",
+		"Walk with the arrow keys or W A S D: hold a key to keep walking, let go to stop; two keys held at once walk a diagonal where your terminal reports them. Esc stops a walk begun by a click. Your own mark runs ahead of the server's word so the key shows at once, and it never walks through a wall; the server settles where you are. The status line says how fast you go on the ground you stand on. A terminal that reports key releases (Kitty, Ghostty, WezTerm, recent iTerm2) stops you the moment you let go; any other stops you about a tenth of a second after the key stops repeating.",
 		"M shows the whole zone you have seen. A door (D) leads to the next zone or to an instance: stand at it and press E or Enter. A zone line (the east gate, say) takes you across; E at the far side brings you back.",
 		"Nearby lists what is around you by name and distance: people, doors and places, and the town's fixed people even before you have seen them.",
 	}},
@@ -162,7 +162,7 @@ var guideChains = []section{
 	{"Fighting", []string{
 		"Tab chooses a target (Esc clears it). F or Space turns auto-attack on or off. 1-8 use the abilities in your slots on your target.",
 		"With no target, an attack or an ability goes to whatever is attacking you, the nearest first; the status line names the one picked. If nothing is attacking you it is refused: Tab to a target first.",
-		"A fight stops your walk: attacking, using an ability on an enemy, or something attacking you. The log says \"Your walk stopped\"; press a move key to go on.",
+		"A fight stops your walk: attacking, using an ability on an enemy, or something attacking you. The log says \"Your walk stopped\"; hold a move key to go on.",
 		"To back off: F turns auto-attack off, Esc clears the target, then walk away. If you die, R gives up your body and you wake at your bind point.",
 	}},
 }

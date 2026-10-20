@@ -17,6 +17,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -199,11 +200,32 @@ func (w *World) Fixture(name string) {
 // taken in what the server sent for it.
 func (w *World) Advance(d time.Duration) {
 	w.T.Helper()
-	w.barrier() // every player's intents are in before the clock moves
-	w.Srv.Advance(d)
-	for _, p := range w.players {
-		p.Sync()
+	for d > 0 {
+		step := d
+		if w.walking() {
+			// A held key is kept alive, or let go, as the program's frame clock
+			// does in real time; the server's walk lasts 500 ms.
+			step = min(d, 3*Tick)
+		}
+		w.barrier() // every player's intents are in before the clock moves
+		w.Srv.Advance(step)
+		for _, p := range w.players {
+			p.Sync()
+		}
+		d -= step
 	}
+}
+
+// walking says some player's program has a movement key down, or a walk it has
+// not yet stopped.
+func (w *World) walking() bool {
+	any := false
+	for _, p := range w.players {
+		if p.prog != nil {
+			p.probe(func(a *app.App) { any = any || a.WalkActive() })
+		}
+	}
+	return any
 }
 
 // Settle returns when every player has taken in what the server sent so far,
@@ -229,6 +251,8 @@ func (w *World) Place(account, character string, x, y int) {
 // Player is one TUI: a program, its session and its key input.
 type Player struct {
 	w         *World
+	stepCarry int64 // how far the last Step overshot 3 m
+	stepCoast int   // the ticks the character walked on after the key came up
 	Account   string
 	Character string
 	Sess      *client.Session
@@ -423,6 +447,136 @@ func (p *Player) Press(keys ...string) {
 	}
 }
 
+// Kitty makes this player's terminal one that reports key repeats and releases
+// (the kitty keyboard protocol's event types), as the program learns when the
+// terminal answers its request for them.
+func (p *Player) Kitty() {
+	p.w.T.Helper()
+	p.prog.Send(tea.KeyboardEnhancementsMsg{Flags: 1 | 2})
+	p.probe(func(*app.App) {})
+}
+
+// Legacy makes the terminal one that reports no releases again.
+func (p *Player) Legacy() {
+	p.w.T.Helper()
+	p.prog.Send(tea.KeyboardEnhancementsMsg{Flags: 0})
+	p.probe(func(*app.App) {})
+}
+
+// Key events of the kitty protocol.
+const (
+	KeyDown    = 1
+	KeyRepeat  = 2
+	KeyRelease = 3
+)
+
+// kittyKey is the bytes a terminal that reports event types sends for a key's
+// press, repeat or release: CSI 1 ; 1 : event A for an arrow, CSI code ; 1 : event
+// u for a letter.
+func kittyKey(key string, event int) string {
+	arrows := map[string]string{"up": "A", "down": "B", "right": "C", "left": "D"}
+	if f, ok := arrows[key]; ok {
+		return fmt.Sprintf("\x1b[1;1:%d%s", event, f)
+	}
+	return fmt.Sprintf("\x1b[%d;1:%du", []rune(key)[0], event)
+}
+
+// KeyEvent writes one key event as a terminal with the kitty protocol sends it:
+// event is KeyDown, KeyRepeat or KeyRelease. The clock does not move.
+func (p *Player) KeyEvent(key string, event int) {
+	p.w.T.Helper()
+	if _, err := io.WriteString(p.in, kittyKey(key, event)); err != nil {
+		p.w.T.Fatalf("%s: key %q event %d: %v", p.Character, key, event, err)
+	}
+	p.keys++
+	p.Sync()
+}
+
+// Step walks one step of 3 m the way a player taps a key on a terminal that
+// reports releases: the key goes down, the clock runs until the character has
+// moved 3 m, the key comes up and the walk has stopped. It fails if the
+// character does not move.
+func (p *Player) Step(key string) {
+	p.w.T.Helper()
+	if !p.TryStep(key) {
+		p.w.T.Fatalf("%s: a step %s moved the character nowhere", p.Character, key)
+	}
+}
+
+// TryStep is Step that says whether the character moved, for a walk a fight may
+// stop (D66). The steps average 3 m: a tick of walking is a few hundred
+// millimetres, so each step makes up for the last one's overshoot, and for the
+// tick the character coasts after the key comes up.
+func (p *Player) TryStep(key string) bool { return p.TryStepBy(key, 3000) }
+
+// TryStepBy is TryStep for a walk of mm millimetres.
+func (p *Player) TryStepBy(key string, mm int64) bool {
+	p.w.T.Helper()
+	p.Kitty()
+	from := p.pos()
+	var perTick int64 = 400
+	p.Model(func(m *model.Model) {
+		if v := m.Self.EffectiveSpeedMmS; v > 0 {
+			perTick = v / 10
+		}
+	})
+	target := mm - p.stepCarry
+	p.KeyEvent(key, KeyDown)
+	for range 80 {
+		rem := target - p.dist(from) - int64(p.stepCoast)*perTick
+		if rem < perTick/2 {
+			break
+		}
+		p.w.Advance(time.Duration(min((rem+perTick/2)/perTick, 3)) * Tick)
+	}
+	atRelease := p.dist(from)
+	p.KeyEvent(key, KeyRelease)
+	for range 5 {
+		p.w.Advance(Tick)
+		walking := false
+		p.probe(func(a *app.App) { walking = a.Walking() })
+		if !walking {
+			break
+		}
+	}
+	p.Legacy()
+	moved := p.dist(from)
+	p.stepCarry = max(min(moved-mm, 1500), -1500)
+	p.stepCoast = int((moved - atRelease + perTick/2) / perTick)
+	return moved > 0
+}
+
+// Pos is the character's position in millimetres, as the server last said.
+func (p *Player) Pos() [2]int64 { return p.pos() }
+
+func (p *Player) pos() (xy [2]int64) {
+	p.Model(func(m *model.Model) { xy = [2]int64{m.Self.Pos.GetX(), m.Self.Pos.GetY()} })
+	return
+}
+
+func (p *Player) dist(from [2]int64) int64 {
+	to := p.pos()
+	return int64(math.Hypot(float64(to[0]-from[0]), float64(to[1]-from[1])))
+}
+
+// WalkSends lists the movement intents the program has sent for held keys.
+func (p *Player) WalkSends() (out []app.WalkSend) {
+	p.probe(func(a *app.App) { out = a.WalkSends() })
+	return
+}
+
+// Drawn0 is Drawn as a pair.
+func (p *Player) Drawn0() [2]int64 {
+	x, y := p.Drawn()
+	return [2]int64{x, y}
+}
+
+// Drawn is where the screen draws the character: its predicted mark.
+func (p *Player) Drawn() (x, y int64) {
+	p.probe(func(a *app.App) { x, y = a.Drawn() })
+	return
+}
+
 // LogOut presses O, the logout key, and waits for the program to end, as it
 // does once the server has let the character go. The player is then done and
 // leaves the world: the scenario goes on with the others.
@@ -462,6 +616,14 @@ func (p *Player) Sync() {
 	t := p.w.T
 	t.Helper()
 	p.idle()
+	if p.prog != nil {
+		// A frame tick at the new time: a held key is kept alive or let go.
+		busy := false
+		p.probe(func(a *app.App) { busy = a.Frame() })
+		if busy {
+			p.idle()
+		}
+	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	// A pong comes from the session's actor and can overtake an event still on its
@@ -631,6 +793,23 @@ func (p *Player) Type(text string) {
 		p.w.T.Fatalf("%s: typing %q: %v", p.Character, text, err)
 	}
 	p.keys += len([]rune(text))
+	p.Sync()
+}
+
+// Repeat writes n presses of an arrow or letter key, as a terminal repeating it
+// sends them, before the player syncs once.
+func (p *Player) Repeat(key string, n int) {
+	p.w.T.Helper()
+	b, ok := keyBytes[key]
+	if !ok {
+		b = key
+	}
+	for range n {
+		if _, err := io.WriteString(p.in, b); err != nil {
+			p.w.T.Fatalf("%s: pressing %q: %v", p.Character, key, err)
+		}
+	}
+	p.keys += n
 	p.Sync()
 }
 

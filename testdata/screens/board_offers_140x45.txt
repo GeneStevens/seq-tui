@@ -18,15 +18,15 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
+│                                                                                                ││ & Thornwick Contract Board  2m S [new] │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ g Tamsin Hale <Watch Greeter>    5m SE │
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ H Isolde Fenn <Binder>          13m SE │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ $ Barnaby Tuck <General Goods>  13m SW │
-│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││ g Town Guard <Thornwick Watch>   22m E │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ g Tamsin Hale <Watch Greeter>    6m SE │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ $ Barnaby Tuck <General Goods>  13m SW │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ H Isolde Fenn <Binder>          14m SE │
+│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││ g Town Guard <Thornwick Watch>   23m E │
 │ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ $ Hilda Brasswick <Armourer>     29m W │
 │                                                                                                ││ B Odalys Penn <Banker>           32m E │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ $ Dunstan Reeve <Weaponsmith>   33m SW │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ $ Dunstan Reeve <Weaponsmith>   32m SW │
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -37,7 +37,7 @@
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     4.6s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│     2.7s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │

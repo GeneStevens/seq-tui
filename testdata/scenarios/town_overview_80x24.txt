@@ -5,7 +5,7 @@
 │                ░The Armoury·####  #####The Counting House  #░                │
 │                ░# ######·The Smithy           ############ #░                │
 │                ░# ######··$·#### ···········    B  ####### #░                │
-│                ░# ##Tanner's Row ····@······       ###Q### #░                │
+│                ░# ##Tanner's Row ···@·······       ###Q### #░                │
 │                ░# ######Cross Street&·gCounting House Yard·#░                │
 │                ░The Tannery·······$····H·····g············D#░                │
 │                ░# ######··$·   Hawthorn SquareGatehouse Way#░                │
@@ -16,7 +16,7 @@
 │                ░#  ##### ##Rogues' Hall### ##Druids' Hall  #░                │
 │                ░#  ##Clerics' Hall## #Paladins' Hall##     #░                │
 │                ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                │
-│ Thornwick, 120m by 90m, north up. You: 57m E, 51m N of the SW corner.        │
+│ Thornwick, 120m by 90m, north up. You: 56m E, 51m N of the SW corner.        │
 │ The legend is on page 2 of the help (?).                                     │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘

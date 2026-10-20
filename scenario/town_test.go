@@ -50,15 +50,13 @@ func offered(t *testing.T, p *scenario.Player, board, name string) int {
 // toTheBoard walks from the start to the contract board, round the Watch's
 // greeter, who stands between: G there talks to the nearest person, the board.
 func toTheBoard(w *scenario.World, p *scenario.Player) {
-	p.Press("left")
-	w.Advance(2 * time.Second)
+	p.Step("left")
 	walk(w, p, "up", 2)
 }
 
 func walk(w *scenario.World, p *scenario.Player, key string, n int) {
 	for range n {
-		p.Press(key)
-		w.Advance(time.Second)
+		p.Step(key)
 	}
 }
 
@@ -77,31 +75,29 @@ func walkVia(t *testing.T, w *scenario.World, p *scenario.Player, pts ...[2]int6
 		for range 400 {
 			x, y := pos()
 			dx, dy := pt[0]-x, pt[1]-y
-			key := ""
+			key, along := "", int64(0)
 			switch {
 			case dx >= step:
-				key = "right"
+				key, along = "right", dx
 			case dx <= -step:
-				key = "left"
+				key, along = "left", -dx
 			case dy >= step:
-				key = "up"
+				key, along = "up", dy
 			case dy <= -step:
-				key = "down"
+				key, along = "down", -dy
 			default:
 				key = ""
 			}
 			if key == "" {
 				break
 			}
-			p.Press(key)
-			w.Advance(time.Second)
-			if nx, ny := pos(); nx == x && ny == y {
-				// A mob that engages the character in that second stops the walk
+			// A leg is walked in holds of up to 12 m, none past the point.
+			hold := min(along/step*step, 12000)
+			if !p.TryStepBy(key, hold) {
+				// A mob that engages the character in that step stops the walk
 				// (D66); a later press is obeyed.
-				p.Press(key)
-				w.Advance(time.Second)
-				if nx, ny := pos(); nx == x && ny == y {
-					t.Fatalf("pressing %s at (%d, %d) on the way to (%d, %d) moves nowhere", key, x, y, pt[0], pt[1])
+				if !p.TryStepBy(key, hold) {
+					t.Fatalf("a step %s at (%d, %d) on the way to (%d, %d) moves nowhere", key, x, y, pt[0], pt[1])
 				}
 			}
 		}

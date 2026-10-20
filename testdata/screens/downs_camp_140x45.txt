@@ -1,9 +1,9 @@
-┌─ Thornwick Downs, at 45,105 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                          ############  ≈≈≈≈≈≈≈≈≈########        ##########     ││ Hale  Lv 1 Warrior           | 0 crowns│
-│                                          ############  ≈≈≈≈≈≈≈≈≈########        ##########     ││ HP 130/130 ########################### │
-│                                          ############  ≈≈≈≈≈≈≈≈≈########        ##########     ││ XP ------------------------- 40 to Lv 2│
-│                                          ############                                          ││ Atk off | none                         │
-│                                                                                                │└────────────────────────────────────────┘
+┌─ Thornwick Downs, at 44,105 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                           ############  ≈≈≈≈≈≈≈≈≈########        ##########    ││ Hale  Lv 1 Warrior           | 0 crowns│
+│                                           ############  ≈≈≈≈≈≈≈≈≈########        ##########    ││ HP 130/130 ########################### │
+│                                           ############  ≈≈≈≈≈≈≈≈≈########        ##########    ││ XP ------------------------- 40 to Lv 2│
+│                                           ############  ≈≈≈≈≈≈≈≈≈########        ##########    ││ Atk off | none                         │
+│                                           ############                                         │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
@@ -13,11 +13,11 @@
 │                                                @                                               ││ Wolves at Wickett Mill             0/4 │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ m Meadow Wolf              13m S [0/4] │
-│                                                                                                ││ ; Wickett Mill      29m N scout marker │
-│                                                                                        c       ││ G Barleycross        36m NE event goal │
-│                                                c                                               ││ ; Barleycross      41m NE scout marker │
-│                                                 m                                              ││ D Town Gate                     60m NW │
+│                                                                                                ││ m Meadow Wolf              11m S [0/4] │
+│                                                                                                ││ ; Wickett Mill      28m N scout marker │
+│                                                                                                ││ G Barleycross        36m NE event goal │
+│                                                                                         c      ││ ; Barleycross      41m NE scout marker │
+│                                                mc                                              ││ D Town Gate                     59m NW │
 │                                                                                                ││ ; Millrace Ford   146m NE scout marker │
 │                                                                                                ││ ; Goblin Lookout   188m E scout marker │
 │                                                                                                ││ v Raid Edge         195m E event spawn │
@@ -29,7 +29,7 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    50.5s Meadow Wolf comes into view                                                                                                     │
+│    47.4s Meadow Wolf comes into view                                                                                                     │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                                    
- ONLINE | Thornwick Downs | → Wolves at Wickett Mill, 11m S | heard 0.4s ago | move ok                                        ? help  q quit
+ ONLINE | Thornwick Downs | → Wolves at Wickett Mill, 12m S | heard 0.4s ago | move ok                                        ? help  q quit

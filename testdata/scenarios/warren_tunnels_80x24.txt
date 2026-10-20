@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Walk: click or arrows · M: large map · ?: help                                 
- ONLINE | Hollow Warren | heard N.Ns ago | move ok                ? help  q quit
+ ONLINE | Hollow Warren | heard N.Ns ago                          ? help  q quit

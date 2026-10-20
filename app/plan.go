@@ -93,6 +93,7 @@ const (
 	SelectSide      // pick the sidebar tab Count (D78)
 	ScrollSide      // scroll the sidebar by Count rows
 	MoveCursor      // move the large map's cursor a cell: Note is the key
+	WalkKey         // a movement key went down: Note is the key (hold-to-walk)
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -139,6 +140,9 @@ func Plan(key string, m *model.Model) Action {
 		}
 		return Action{Note: "no target in view"}
 	case "esc":
+		if m.Walking() {
+			return Action{Kind: Stop} // a click-walk (D77) is ended by Esc
+		}
 		if m.Self.Target != "" {
 			return Action{Kind: Target}
 		}

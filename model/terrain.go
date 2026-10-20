@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"math"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
@@ -207,4 +208,87 @@ func (m *Model) Underfoot() AreaKind {
 		return ""
 	}
 	return m.Ground().Ground(m.Self.Pos.GetX(), m.Self.Pos.GetY())
+}
+
+// moveWindowMs is the longest gap between two moves that still count as one
+// walk when the speed is read off them: a heading walk moves every tick (100 ms).
+const moveWindowMs = 250
+
+// noteSelfSpeed reads the character's speed off a move that follows another
+// within a walk's gap: millimetres moved over game time passed. The server does
+// not say the speed in a moved event, and the snapshot's goes stale on other
+// ground, so the client measures it (SelfSpeedMmS).
+func (m *Model) noteSelfSpeed(to *pb.Pos, atMs int64) {
+	from := m.Self.Pos
+	dt := atMs - m.lastSelfMoveMs
+	if from == nil || to == nil || m.lastSelfMoveMs == 0 || dt <= 0 || dt > moveWindowMs {
+		return
+	}
+	dx, dy := float64(to.GetX()-from.GetX()), float64(to.GetY()-from.GetY())
+	if d := math.Hypot(dx, dy); d > 0 {
+		m.SelfSpeedMmS = int64(d * 1000 / float64(dt))
+	}
+}
+
+// WalkSpeedMmS is how fast the character walks, for a client that predicts its
+// own steps: the speed its last moves showed, else the snapshot's, 0 if neither.
+func (m *Model) WalkSpeedMmS() int64 {
+	if m.SelfSpeedMmS > 0 {
+		return m.SelfSpeedMmS
+	}
+	return m.Self.EffectiveSpeedMmS
+}
+
+// CanStandAt says a character may stand at the point as far as the zone map
+// tells: inside the bounds, not in a building, rock or water (a ford and a
+// bridge are ground), and on floor in a dungeon. It is only a guide for
+// prediction; the server decides.
+func (m *Model) CanStandAt(x, y int64) bool {
+	if b := m.Map.GetBounds(); b != nil && (b.GetMinX() != b.GetMaxX() || b.GetMinY() != b.GetMaxY()) {
+		if x < b.GetMinX() || x > b.GetMaxX() || y < b.GetMinY() || y > b.GetMaxY() {
+			return false
+		}
+	}
+	t := m.Ground()
+	switch k := t.Ground(x, y); k {
+	case Building, Rock, Water:
+		return false
+	case "":
+		return !t.HasFloor()
+	}
+	return true
+}
+
+// StepBlocked says a wall of the zone map lies between two points.
+func (m *Model) StepBlocked(ax, ay, bx, by int64) bool {
+	for _, w := range m.Map.GetWalls() {
+		if segmentsCross(ax, ay, bx, by, w.GetA().GetX(), w.GetA().GetY(), w.GetB().GetX(), w.GetB().GetY()) {
+			return true
+		}
+	}
+	return false
+}
+
+// segmentsCross says the segment a-b meets the segment c-d.
+func segmentsCross(ax, ay, bx, by, cx, cy, dx, dy int64) bool {
+	side := func(px, py, qx, qy, rx, ry int64) int {
+		v := (qx-px)*(ry-py) - (qy-py)*(rx-px)
+		switch {
+		case v > 0:
+			return 1
+		case v < 0:
+			return -1
+		}
+		return 0
+	}
+	d1, d2 := side(ax, ay, bx, by, cx, cy), side(ax, ay, bx, by, dx, dy)
+	d3, d4 := side(cx, cy, dx, dy, ax, ay), side(cx, cy, dx, dy, bx, by)
+	if d1 != d2 && d3 != d4 {
+		return true
+	}
+	on := func(px, py, qx, qy, rx, ry int64) bool {
+		return rx >= min(px, qx) && rx <= max(px, qx) && ry >= min(py, qy) && ry <= max(py, qy)
+	}
+	return d1 == 0 && on(ax, ay, bx, by, cx, cy) || d2 == 0 && on(ax, ay, bx, by, dx, dy) ||
+		d3 == 0 && on(cx, cy, dx, dy, ax, ay) || d4 == 0 && on(cx, cy, dx, dy, bx, by)
 }

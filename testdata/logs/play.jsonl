@@ -6,21 +6,21 @@
 # mark play_login
 {"pong":{"nonce":"103"}}
 {"pong":{"nonce":"104"}}
+{"pong":{"nonce":"105"}}
 {"event":{"seq":"1","game_time_ms":"200","entity_moved":{"id":"aria","pos":{"x":"10400","y":"50000"}}}}
 {"event":{"seq":"2","game_time_ms":"200","entity_moved":{"id":"mob-near-1","pos":{"x":"24402","y":"50046"}}}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
-{"pong":{"nonce":"105"}}
-{"pong":{"nonce":"106"}}
-{"pong":{"nonce":"107"}}
-{"pong":{"nonce":"108"}}
-{"pong":{"nonce":"109"}}
 {"event":{"seq":"3","game_time_ms":"300","entity_moved":{"id":"aria","pos":{"x":"10800","y":"50000"}}}}
 {"event":{"seq":"4","game_time_ms":"300","entity_moved":{"id":"mob-near-1","pos":{"x":"24103","y":"50069"}}}}
 {"event":{"seq":"5","game_time_ms":"400","entity_moved":{"id":"aria","pos":{"x":"11200","y":"50000"}}}}
 {"event":{"seq":"6","game_time_ms":"400","entity_moved":{"id":"mob-near-1","pos":{"x":"23804","y":"50092"}}}}
+{"pong":{"nonce":"106"}}
+{"pong":{"nonce":"107"}}
+{"pong":{"nonce":"108"}}
 {"event":{"seq":"7","game_time_ms":"500","entity_moved":{"id":"aria","pos":{"x":"11600","y":"50000"}}}}
 {"event":{"seq":"8","game_time_ms":"500","entity_moved":{"id":"mob-near-1","pos":{"x":"23505","y":"50115"}}}}
+{"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"event":{"seq":"9","game_time_ms":"600","target_changed":{"actor":"mob-near-1","target":"aria"}}}
 {"event":{"seq":"10","game_time_ms":"600","text":"You begin fighting Plain Scuttler","encounter_opened":{"id":"enc-1","owner":"aria","mob":"mob-near-1"}}}
 {"event":{"seq":"11","game_time_ms":"600","text":"You target Plain Scuttler","target_changed":{"actor":"aria","target":"mob-near-1"}}}
@@ -28,103 +28,111 @@
 {"event":{"seq":"13","game_time_ms":"600","entity_moved":{"id":"mob-near-1","pos":{"x":"23206","y":"50138"}}}}
 {"event":{"seq":"14","game_time_ms":"600","text":"You are in combat with Plain Scuttler","combat_state":{"actor":"aria","in_combat":true,"attackers":["mob-near-1"]}}}
 {"event":{"seq":"15","game_time_ms":"700","entity_moved":{"id":"mob-near-1","pos":{"x":"22906","y":"50135"}}}}
+{"pong":{"nonce":"109"}}
+{"pong":{"nonce":"110"}}
+{"pong":{"nonce":"111"}}
 {"event":{"seq":"16","game_time_ms":"800","entity_moved":{"id":"mob-near-1","pos":{"x":"22606","y":"50132"}}}}
+{"intent_result":{"intent_id":"tui-3","accepted":true}}
 {"event":{"seq":"17","game_time_ms":"900","entity_moved":{"id":"mob-near-1","pos":{"x":"22306","y":"50129"}}}}
 {"event":{"seq":"18","game_time_ms":"1000","entity_moved":{"id":"mob-near-1","pos":{"x":"22006","y":"50126"}}}}
 {"event":{"seq":"19","game_time_ms":"1100","entity_moved":{"id":"mob-near-1","pos":{"x":"21706","y":"50123"}}}}
-{"event":{"seq":"20","game_time_ms":"1200","entity_moved":{"id":"mob-near-1","pos":{"x":"21406","y":"50120"}}}}
-{"pong":{"nonce":"110"}}
-{"pong":{"nonce":"111"}}
 {"pong":{"nonce":"112"}}
-{"event":{"seq":"21","game_time_ms":"1300","entity_moved":{"id":"aria","pos":{"x":"12000","y":"50000"}}}}
-{"event":{"seq":"22","game_time_ms":"1300","entity_moved":{"id":"mob-near-1","pos":{"x":"21106","y":"50117"}}}}
-{"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"pong":{"nonce":"113"}}
 {"pong":{"nonce":"114"}}
 {"pong":{"nonce":"115"}}
+{"event":{"seq":"20","game_time_ms":"1200","entity_moved":{"id":"aria","pos":{"x":"12000","y":"50000"}}}}
+{"event":{"seq":"21","game_time_ms":"1200","entity_moved":{"id":"mob-near-1","pos":{"x":"21406","y":"50120"}}}}
+{"intent_result":{"intent_id":"tui-4","accepted":true}}
+{"event":{"seq":"22","game_time_ms":"1300","entity_moved":{"id":"aria","pos":{"x":"12400","y":"50000"}}}}
+{"event":{"seq":"23","game_time_ms":"1300","entity_moved":{"id":"mob-near-1","pos":{"x":"21106","y":"50117"}}}}
+{"event":{"seq":"24","game_time_ms":"1400","entity_moved":{"id":"aria","pos":{"x":"12800","y":"50000"}}}}
+{"event":{"seq":"25","game_time_ms":"1400","entity_moved":{"id":"mob-near-1","pos":{"x":"20806","y":"50113"}}}}
 {"pong":{"nonce":"116"}}
 {"pong":{"nonce":"117"}}
-{"event":{"seq":"23","game_time_ms":"1400","entity_moved":{"id":"aria","pos":{"x":"12400","y":"50000"}}}}
-{"event":{"seq":"24","game_time_ms":"1400","entity_moved":{"id":"mob-near-1","pos":{"x":"20806","y":"50114"}}}}
-{"event":{"seq":"25","game_time_ms":"1500","entity_moved":{"id":"aria","pos":{"x":"12800","y":"50000"}}}}
-{"event":{"seq":"26","game_time_ms":"1500","entity_moved":{"id":"mob-near-1","pos":{"x":"20506","y":"50110"}}}}
-{"event":{"seq":"27","game_time_ms":"1600","entity_moved":{"id":"aria","pos":{"x":"13200","y":"50000"}}}}
-{"event":{"seq":"28","game_time_ms":"1600","entity_moved":{"id":"mob-near-1","pos":{"x":"20206","y":"50106"}}}}
-{"event":{"seq":"29","game_time_ms":"1700","entity_moved":{"id":"aria","pos":{"x":"13600","y":"50000"}}}}
-{"event":{"seq":"30","game_time_ms":"1700","entity_moved":{"id":"mob-near-1","pos":{"x":"19906","y":"50102"}}}}
-{"event":{"seq":"31","game_time_ms":"1800","entity_moved":{"id":"aria","pos":{"x":"14000","y":"50000"}}}}
-{"event":{"seq":"32","game_time_ms":"1800","entity_moved":{"id":"mob-near-1","pos":{"x":"19606","y":"50098"}}}}
-{"event":{"seq":"33","game_time_ms":"1900","entity_moved":{"id":"aria","pos":{"x":"14400","y":"50000"}}}}
-{"event":{"seq":"34","game_time_ms":"1900","entity_moved":{"id":"mob-near-1","pos":{"x":"19306","y":"50093"}}}}
-{"event":{"seq":"35","game_time_ms":"2000","entity_moved":{"id":"aria","pos":{"x":"14600","y":"50000"}}}}
-{"event":{"seq":"36","game_time_ms":"2000","entity_moved":{"id":"mob-near-1","pos":{"x":"19006","y":"50088"}}}}
-{"event":{"seq":"37","game_time_ms":"2100","entity_moved":{"id":"mob-near-1","pos":{"x":"18706","y":"50083"}}}}
-{"event":{"seq":"38","game_time_ms":"2200","entity_moved":{"id":"mob-near-1","pos":{"x":"18406","y":"50077"}}}}
-{"event":{"seq":"39","game_time_ms":"2300","entity_moved":{"id":"mob-near-1","pos":{"x":"18106","y":"50071"}}}}
 {"pong":{"nonce":"118"}}
+{"event":{"seq":"26","game_time_ms":"1500","entity_moved":{"id":"aria","pos":{"x":"13200","y":"50000"}}}}
+{"event":{"seq":"27","game_time_ms":"1500","entity_moved":{"id":"mob-near-1","pos":{"x":"20506","y":"50109"}}}}
+{"intent_result":{"intent_id":"tui-5","accepted":true}}
+{"event":{"seq":"28","game_time_ms":"1600","entity_moved":{"id":"aria","pos":{"x":"13600","y":"50000"}}}}
+{"event":{"seq":"29","game_time_ms":"1600","entity_moved":{"id":"mob-near-1","pos":{"x":"20206","y":"50105"}}}}
+{"event":{"seq":"30","game_time_ms":"1700","entity_moved":{"id":"aria","pos":{"x":"14000","y":"50000"}}}}
+{"event":{"seq":"31","game_time_ms":"1700","entity_moved":{"id":"mob-near-1","pos":{"x":"19906","y":"50101"}}}}
 {"pong":{"nonce":"119"}}
 {"pong":{"nonce":"120"}}
-{"event":{"seq":"40","game_time_ms":"2400","text":"You target Plain Scuttler","target_changed":{"actor":"aria","target":"mob-near-1"}}}
-{"event":{"seq":"41","game_time_ms":"2400","entity_moved":{"id":"mob-near-1","pos":{"x":"17806","y":"50065"}}}}
-{"intent_result":{"intent_id":"tui-3","accepted":true}}
 {"pong":{"nonce":"121"}}
+{"event":{"seq":"32","game_time_ms":"1800","entity_moved":{"id":"mob-near-1","pos":{"x":"19606","y":"50096"}}}}
+{"intent_result":{"intent_id":"tui-6","accepted":true}}
+{"event":{"seq":"33","game_time_ms":"1900","entity_moved":{"id":"mob-near-1","pos":{"x":"19306","y":"50091"}}}}
+{"event":{"seq":"34","game_time_ms":"2000","entity_moved":{"id":"mob-near-1","pos":{"x":"19006","y":"50086"}}}}
+{"event":{"seq":"35","game_time_ms":"2100","entity_moved":{"id":"mob-near-1","pos":{"x":"18706","y":"50081"}}}}
 {"pong":{"nonce":"122"}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
+{"event":{"seq":"36","game_time_ms":"2200","text":"You target Plain Scuttler","target_changed":{"actor":"aria","target":"mob-near-1"}}}
+{"event":{"seq":"37","game_time_ms":"2200","entity_moved":{"id":"mob-near-1","pos":{"x":"18406","y":"50076"}}}}
+{"intent_result":{"intent_id":"tui-7","accepted":true}}
 {"pong":{"nonce":"125"}}
-{"event":{"seq":"42","game_time_ms":"2500","entity_moved":{"id":"mob-near-1","pos":{"x":"17506","y":"50059"}}}}
-{"event":{"seq":"43","game_time_ms":"2600","entity_moved":{"id":"mob-near-1","pos":{"x":"17206","y":"50053"}}}}
-{"event":{"seq":"44","game_time_ms":"2700","entity_moved":{"id":"mob-near-1","pos":{"x":"16906","y":"50047"}}}}
-{"event":{"seq":"45","game_time_ms":"2900","text":"You start attacking something","auto_attack_changed":{"actor":"mob-near-1","target":"aria","on":true}}}
-{"event":{"seq":"46","game_time_ms":"2900","text":"Plain Scuttler hits you for 2","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"2"}}}
 {"pong":{"nonce":"126"}}
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
-{"event":{"seq":"47","game_time_ms":"4500","text":"You start attacking Plain Scuttler","auto_attack_changed":{"actor":"aria","target":"mob-near-1","on":true}}}
-{"event":{"seq":"48","game_time_ms":"4500","text":"You hit Plain Scuttler for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"4"}}}
-{"intent_result":{"intent_id":"tui-4","accepted":true}}
 {"pong":{"nonce":"129"}}
+{"event":{"seq":"38","game_time_ms":"2300","entity_moved":{"id":"mob-near-1","pos":{"x":"18106","y":"50071"}}}}
+{"event":{"seq":"39","game_time_ms":"2400","entity_moved":{"id":"mob-near-1","pos":{"x":"17806","y":"50066"}}}}
+{"event":{"seq":"40","game_time_ms":"2500","entity_moved":{"id":"mob-near-1","pos":{"x":"17506","y":"50061"}}}}
+{"event":{"seq":"41","game_time_ms":"2600","entity_moved":{"id":"mob-near-1","pos":{"x":"17206","y":"50056"}}}}
+{"event":{"seq":"42","game_time_ms":"2700","entity_moved":{"id":"mob-near-1","pos":{"x":"16906","y":"50051"}}}}
+{"event":{"seq":"43","game_time_ms":"2800","entity_moved":{"id":"mob-near-1","pos":{"x":"16606","y":"50046"}}}}
+{"event":{"seq":"44","game_time_ms":"2900","entity_moved":{"id":"mob-near-1","pos":{"x":"16306","y":"50041"}}}}
+{"event":{"seq":"45","game_time_ms":"3100","text":"You start attacking something","auto_attack_changed":{"actor":"mob-near-1","target":"aria","on":true}}}
+{"event":{"seq":"46","game_time_ms":"3100","text":"Plain Scuttler hits you for 2","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"2"}}}
 {"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
 {"pong":{"nonce":"132"}}
+{"event":{"seq":"47","game_time_ms":"4300","text":"You start attacking Plain Scuttler","auto_attack_changed":{"actor":"aria","target":"mob-near-1","on":true}}}
+{"event":{"seq":"48","game_time_ms":"4300","text":"You hit Plain Scuttler for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"4"}}}
+{"intent_result":{"intent_id":"tui-8","accepted":true}}
 {"pong":{"nonce":"133"}}
-{"event":{"seq":"49","game_time_ms":"5900","text":"Plain Scuttler hits you for 1","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"1"}}}
-{"event":{"seq":"50","game_time_ms":"6000","rules_tick":{}}}
-{"event":{"seq":"51","game_time_ms":"6000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"2"}}}
-{"event":{"seq":"52","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
-{"event":{"seq":"53","game_time_ms":"6500","text":"You hit Plain Scuttler for 6","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"6"}}}
-{"event":{"seq":"54","game_time_ms":"8500","text":"You miss Plain Scuttler","combat":{"kind":"COMBAT_KIND_MISS","attacker":"aria","target":"mob-near-1"}}}
-{"event":{"seq":"55","game_time_ms":"8900","text":"Plain Scuttler hits you for 3","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"3"}}}
-{"event":{"seq":"56","game_time_ms":"10500","text":"You hit Plain Scuttler for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"5"}}}
-{"event":{"seq":"57","game_time_ms":"11900","text":"Plain Scuttler hits you for 2","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"2"}}}
-{"event":{"seq":"58","game_time_ms":"12000","rules_tick":{}}}
-{"event":{"seq":"59","game_time_ms":"12000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"2"}}}
-{"event":{"seq":"60","game_time_ms":"12000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
-{"event":{"seq":"61","game_time_ms":"12500","text":"You hit Plain Scuttler for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"4"}}}
 {"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
-# mark play_fight
 {"pong":{"nonce":"136"}}
 {"pong":{"nonce":"137"}}
-{"event":{"seq":"62","game_time_ms":"14500","text":"You hit Plain Scuttler for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"5"}}}
-{"event":{"seq":"63","game_time_ms":"14900","text":"Plain Scuttler hits you for 1","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"1"}}}
-{"event":{"seq":"64","game_time_ms":"16500","text":"You hit Plain Scuttler for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"5"}}}
-{"event":{"seq":"65","game_time_ms":"17900","text":"Plain Scuttler hits you for 3","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"3"}}}
-{"event":{"seq":"66","game_time_ms":"18000","rules_tick":{}}}
-{"event":{"seq":"67","game_time_ms":"18000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"2"}}}
-{"event":{"seq":"68","game_time_ms":"18000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
-{"event":{"seq":"69","game_time_ms":"18500","text":"You hit Plain Scuttler for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"4"}}}
-{"event":{"seq":"70","game_time_ms":"20500","text":"You hit Plain Scuttler for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"7"}}}
-{"event":{"seq":"71","game_time_ms":"20900","text":"Plain Scuttler hits you for 1","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"1"}}}
-{"event":{"seq":"72","game_time_ms":"22500","text":"You hit Plain Scuttler for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"8"}}}
-{"event":{"seq":"73","game_time_ms":"22500","text":"You killed Plain Scuttler","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"aria","target":"mob-near-1"}}}
-{"event":{"seq":"74","game_time_ms":"22500","text":"Your target Plain Scuttler is gone","target_cleared":{"actor":"aria","target":"mob-near-1","reason":"target_dead"}}}
-{"event":{"seq":"75","game_time_ms":"22500","text":"You stop attacking","auto_attack_changed":{"actor":"aria","target":"mob-near-1"}}}
-{"event":{"seq":"76","game_time_ms":"22500","text":"Plain Scuttler dropped Cracked Shell Fragment","loot_dropped":{"drop":"drop-enc-1-shell-fragment","mob":"mob-near-1","item":"shell-fragment","pos":{"x":"16906","y":"50047"},"encounter":"enc-1","can_loot":true,"item_info":{"id":"shell-fragment","name":"Cracked Shell Fragment","tier":"common","price":"1","sell_price":"1","stats":{}}}}}
-{"event":{"seq":"77","game_time_ms":"22500","text":"Plain Scuttler is dead: the fight is over","encounter_closed":{"id":"enc-1","owner":"aria","mob":"mob-near-1","reason":"mob_died"}}}
-{"event":{"seq":"78","game_time_ms":"22500","text":"You are out of combat","combat_state":{"actor":"aria"}}}
-{"event":{"seq":"79","game_time_ms":"22500","text":"You gain 20 experience","reward":{"recipient":"aria","source":"mob-near-1","kind":"xp","amount":"20"}}}
-{"event":{"seq":"80","game_time_ms":"22500","text":"Plain Scuttler is out of view","entity_left":{"id":"mob-near-1"}}}
+{"event":{"seq":"49","game_time_ms":"6000","rules_tick":{}}}
+{"event":{"seq":"50","game_time_ms":"6000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"2"}}}
+{"event":{"seq":"51","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
+{"event":{"seq":"52","game_time_ms":"6100","text":"Plain Scuttler hits you for 1","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"1"}}}
+{"event":{"seq":"53","game_time_ms":"6300","text":"You hit Plain Scuttler for 6","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"6"}}}
+{"event":{"seq":"54","game_time_ms":"8300","text":"You miss Plain Scuttler","combat":{"kind":"COMBAT_KIND_MISS","attacker":"aria","target":"mob-near-1"}}}
+{"event":{"seq":"55","game_time_ms":"9100","text":"Plain Scuttler hits you for 3","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"3"}}}
+{"event":{"seq":"56","game_time_ms":"10300","text":"You hit Plain Scuttler for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"5"}}}
+{"event":{"seq":"57","game_time_ms":"12000","rules_tick":{}}}
+{"event":{"seq":"58","game_time_ms":"12000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"2"}}}
+{"event":{"seq":"59","game_time_ms":"12000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
+{"event":{"seq":"60","game_time_ms":"12100","text":"Plain Scuttler hits you for 2","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"2"}}}
+{"event":{"seq":"61","game_time_ms":"12300","text":"You hit Plain Scuttler for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"4"}}}
+{"pong":{"nonce":"138"}}
+{"pong":{"nonce":"139"}}
+# mark play_fight
+{"pong":{"nonce":"140"}}
+{"pong":{"nonce":"141"}}
+{"event":{"seq":"62","game_time_ms":"14300","text":"You hit Plain Scuttler for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"5"}}}
+{"event":{"seq":"63","game_time_ms":"15100","text":"Plain Scuttler hits you for 1","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"1"}}}
+{"event":{"seq":"64","game_time_ms":"16300","text":"You hit Plain Scuttler for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"5"}}}
+{"event":{"seq":"65","game_time_ms":"18000","rules_tick":{}}}
+{"event":{"seq":"66","game_time_ms":"18000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"2"}}}
+{"event":{"seq":"67","game_time_ms":"18000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-near-1","amount":"1"}}}
+{"event":{"seq":"68","game_time_ms":"18100","text":"Plain Scuttler hits you for 3","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"3"}}}
+{"event":{"seq":"69","game_time_ms":"18300","text":"You hit Plain Scuttler for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"4"}}}
+{"event":{"seq":"70","game_time_ms":"20300","text":"You hit Plain Scuttler for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"7"}}}
+{"event":{"seq":"71","game_time_ms":"21100","text":"Plain Scuttler hits you for 1","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-near-1","target":"aria","amount":"1"}}}
+{"event":{"seq":"72","game_time_ms":"22300","text":"You hit Plain Scuttler for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"aria","target":"mob-near-1","amount":"8"}}}
+{"event":{"seq":"73","game_time_ms":"22300","text":"You killed Plain Scuttler","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"aria","target":"mob-near-1"}}}
+{"event":{"seq":"74","game_time_ms":"22300","text":"Your target Plain Scuttler is gone","target_cleared":{"actor":"aria","target":"mob-near-1","reason":"target_dead"}}}
+{"event":{"seq":"75","game_time_ms":"22300","text":"You stop attacking","auto_attack_changed":{"actor":"aria","target":"mob-near-1"}}}
+{"event":{"seq":"76","game_time_ms":"22300","text":"Plain Scuttler dropped Cracked Shell Fragment","loot_dropped":{"drop":"drop-enc-1-shell-fragment","mob":"mob-near-1","item":"shell-fragment","pos":{"x":"16306","y":"50041"},"encounter":"enc-1","can_loot":true,"item_info":{"id":"shell-fragment","name":"Cracked Shell Fragment","tier":"common","price":"1","sell_price":"1","stats":{}}}}}
+{"event":{"seq":"77","game_time_ms":"22300","text":"Plain Scuttler is dead: the fight is over","encounter_closed":{"id":"enc-1","owner":"aria","mob":"mob-near-1","reason":"mob_died"}}}
+{"event":{"seq":"78","game_time_ms":"22300","text":"You are out of combat","combat_state":{"actor":"aria"}}}
+{"event":{"seq":"79","game_time_ms":"22300","text":"You gain 20 experience","reward":{"recipient":"aria","source":"mob-near-1","kind":"xp","amount":"20"}}}
+{"event":{"seq":"80","game_time_ms":"22300","text":"Plain Scuttler is out of view","entity_left":{"id":"mob-near-1"}}}
 {"event":{"seq":"81","game_time_ms":"24000","rules_tick":{}}}
 {"event":{"seq":"82","game_time_ms":"24000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"2"}}}
 {"event":{"seq":"83","game_time_ms":"30000","rules_tick":{}}}
@@ -133,14 +141,14 @@
 {"event":{"seq":"86","game_time_ms":"36000","text":"You regenerate 2 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"2"}}}
 {"event":{"seq":"87","game_time_ms":"42000","rules_tick":{}}}
 {"event":{"seq":"88","game_time_ms":"42000","text":"You regenerate 1 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"aria","amount":"1"}}}
-{"pong":{"nonce":"138"}}
-{"pong":{"nonce":"139"}}
-{"pong":{"nonce":"140"}}
-{"event":{"seq":"89","game_time_ms":"42600","text":"Cracked Shell Fragment was taken","loot_gone":{"drop":"drop-enc-1-shell-fragment","pos":{"x":"16906","y":"50047"},"reason":"taken"}}}
-{"event":{"seq":"90","game_time_ms":"42600","text":"You pick up Cracked Shell Fragment","reward":{"recipient":"aria","source":"drop-enc-1-shell-fragment","kind":"loot","item":"shell-fragment","item_info":{"id":"shell-fragment","name":"Cracked Shell Fragment","tier":"common","price":"1","sell_price":"1","stats":{}}}}}
-{"intent_result":{"intent_id":"tui-5","accepted":true}}
-{"pong":{"nonce":"141"}}
 {"pong":{"nonce":"142"}}
 {"pong":{"nonce":"143"}}
 {"pong":{"nonce":"144"}}
+{"event":{"seq":"89","game_time_ms":"42400","text":"Cracked Shell Fragment was taken","loot_gone":{"drop":"drop-enc-1-shell-fragment","pos":{"x":"16306","y":"50041"},"reason":"taken"}}}
+{"event":{"seq":"90","game_time_ms":"42400","text":"You pick up Cracked Shell Fragment","reward":{"recipient":"aria","source":"drop-enc-1-shell-fragment","kind":"loot","item":"shell-fragment","item_info":{"id":"shell-fragment","name":"Cracked Shell Fragment","tier":"common","price":"1","sell_price":"1","stats":{}}}}}
+{"intent_result":{"intent_id":"tui-9","accepted":true}}
+{"pong":{"nonce":"145"}}
+{"pong":{"nonce":"146"}}
+{"pong":{"nonce":"147"}}
+{"pong":{"nonce":"148"}}
 # mark play_looted
