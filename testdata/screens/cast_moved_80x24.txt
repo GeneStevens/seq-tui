@@ -1,4 +1,4 @@
-┌─ Testgrounds, at 8,50 m, north up ───────────────┐┌─ You ────────────────────┐
+┌─ Testgrounds, at 9,50 m, north up ───────────────┐┌─ You ────────────────────┐
 │                     ░                 #          ││ zedd  Lv 1 Wizard   | 0cr│
 │                     ░    TTTTTT       #          ││ HP 80/80 ############### │
 │                     ░    $BH&Q!       #          ││ MP 150/150 ############# │

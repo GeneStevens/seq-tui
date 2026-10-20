@@ -45,7 +45,12 @@ func insideTheStirredWarren() *model.Model {
 			Self:  &pb.SelfState{Entity: char("hale", "Hale", 10000)},
 			Group: []*pb.GroupMember{{Entity: char("bram", "Bram", 11000)}, {Entity: char("cora", "Cora", 12000)}},
 			Instance: &pb.InstanceInfo{Preset: "peril-warren", PartyCap: 4, TimeMode: "realtime", Difficulty: "hard", Slots: 4, Players: 3, GroupTier: "peril-together",
-				Stirred: []string{"The Warren stirs: a lieutenant answers the Chief's call."}}}}},
+				Stirred: []string{"The Warren stirs: a lieutenant answers the Chief's call."},
+				Holders: []*pb.SlotHolder{
+					{Slot: 1, Player: "Player 1", Character: "hale", Name: "Hale", State: "held"},
+					{Slot: 2, Player: "Player 2", Character: "bram", Name: "Bram", State: "held"},
+					{Slot: 3, Player: "Player 1", Character: "cora", Name: "Cora", State: "held"},
+					{Slot: 4, Player: "Player 3", Name: "Dane", State: "empty"}}}}}},
 	)
 	return m
 }
@@ -73,7 +78,7 @@ func TestTheSlotsAreListedAndReplacementOpensAndWaits(t *testing.T) {
 	m.SetOwn("Cora") // the player's second character
 	view := func() string { return screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()) }
 	out := view()
-	for _, want := range []string{"Slots: 4, 3 players", "1  Hale (you)  your account", "2  Bram  another player", "3  Cora  your account, other character", "4  empty slot", "replacement open between encounters"} {
+	for _, want := range []string{"Slots: 4, 3 players", "1  Hale (you)  Player 1, you", "2  Bram  Player 2", "3  Cora  Player 1, yours", "4  empty  was Player 3's, open", "replacement open between encounters"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("between encounters lacks %q:\n%s", want, out)
 		}
@@ -161,5 +166,106 @@ func TestTheGroupRulesPageIsDrawnFromTheServersMenu(t *testing.T) {
 		if got := screen.Render(m, screen.View{Conn: screen.ConnOnline, Help: true, HelpPage: page}, sz[0], sz[1], screen.Plain()); strings.Count(got, "\n")+1 != sz[1] {
 			t.Errorf("%v: the page does not fit", sz)
 		}
+	}
+}
+
+// The slot list is the server's (D82): an instance_slots event replaces it, a
+// slot nobody has entered is reserved, and a replacement who fills the empty
+// slot is told the tier it joined.
+func TestSlotHoldersFollowTheServerAndAReservedSlotIsToldAsOne(t *testing.T) {
+	m := insideTheStirredWarren()
+	view := func() string { return screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain()) }
+	apply(m, event(2, func(e *pb.Event) {
+		e.Body = &pb.Event_InstanceSlots{InstanceSlots: &pb.InstanceSlots{Actor: "dane", Holders: []*pb.SlotHolder{
+			{Slot: 1, Player: "Player 1", Character: "hale", Name: "Hale", State: "held"},
+			{Slot: 2, Player: "Player 2", Character: "bram", Name: "Bram", State: "held"},
+			{Slot: 3, Player: "Player 1", Character: "cora", Name: "Cora", State: "held"},
+			{Slot: 4, Player: "Player 3", Character: "dane", Name: "Dane", State: "held"}}}}
+	}))
+	out := view()
+	for _, want := range []string{"4  Dane  Player 3", "replacement open; no slot is empty"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("after the slot was taken lacks %q:\n%s", want, out)
+		}
+	}
+	if strings.Contains(out, "empty  Player 3") {
+		t.Errorf("the slot taken is still shown empty:\n%s", out)
+	}
+	apply(m, event(3, func(e *pb.Event) {
+		e.Body = &pb.Event_InstanceSlots{InstanceSlots: &pb.InstanceSlots{Holders: []*pb.SlotHolder{
+			{Slot: 1, Player: "Player 1", Character: "hale", Name: "Hale", State: "held"},
+			{Slot: 2, Player: "Player 2", State: "reserved"}}}}
+	}))
+	if out = view(); !strings.Contains(out, "2  reserved  Player 2, not yet in") {
+		t.Errorf("a reserved slot is not told:\n%s", out)
+	}
+}
+
+// A replacement is told what it joined, in the server's words, and the Instance
+// panel carries the tier and the Stir state from the instance it joined.
+func TestAReplacementIsToldTheTierAndTheStir(t *testing.T) {
+	m := insideTheStirredWarren()
+	apply(m, event(2, func(e *pb.Event) {
+		e.Text = "You take a place in The Warren (Peril): Peril tier, 3 players, group tier Peril together, stirred"
+		e.Body = &pb.Event_InstanceJoined{InstanceJoined: &pb.InstanceJoined{Actor: "hale", Instance: "inst-1", Preset: "peril-warren", Tier: "peril", Players: 3, GroupTier: "peril-together", Stirred: 1, Slots: 4}}
+	}))
+	var got string
+	for _, l := range m.Log {
+		if l.Kind == "instance_joined" {
+			got = l.Text
+		}
+	}
+	if !strings.HasPrefix(got, "You take a place in The Warren (Peril): Peril tier") {
+		t.Errorf("the log says %q", got)
+	}
+	if m.Joined == nil || m.Joined.GroupTier != "peril-together" || m.Joined.Stirred != 1 {
+		t.Errorf("joined %+v", m.Joined)
+	}
+	out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.Plain())
+	for _, want := range []string{"Peril together | 3 players", "stirred: The Warren stirs"} {
+		if !strings.Contains(out, want) {
+			t.Errorf("the panel lacks %q:\n%s", want, out)
+		}
+	}
+	// With words left out the client says it in its own.
+	m2 := insideTheStirredWarren()
+	apply(m2, event(2, func(e *pb.Event) {
+		e.Body = &pb.Event_InstanceJoined{InstanceJoined: &pb.InstanceJoined{Preset: "peril-warren", Tier: "peril", Players: 3, GroupTier: "Peril together", Stirred: 1}}
+	}))
+	if l := m2.Log[len(m2.Log)-1]; l.Kind != "instance_joined" || l.Text != "You take a place in The Warren (Peril): peril tier, 3 players, group tier Peril together, stirred" {
+		t.Errorf("fallback words %+v", l)
+	}
+}
+
+// A personal reward is shown in the server's first-person words, with the item
+// when it names one; the account's other character taking it is told too.
+func TestPersonalRewardsAreShownInTheServersFirstPerson(t *testing.T) {
+	m := insideTheStirredWarren()
+	apply(m,
+		event(2, func(e *pb.Event) {
+			e.Text = "Your account's bonus roll for the Hollow Warren's Chief: Pate Cleaver."
+			e.Body = &pb.Event_Reward{Reward: &pb.Reward{Recipient: "hale", Kind: "personal", Detail: "bonus-roll", Item: "pate-cleaver", Entitlement: "inst-1.enc-4/entitlement/bonus-roll"}}
+		}),
+		event(3, func(e *pb.Event) {
+			e.Text = "Your other character, Cora, took this account's bonus roll"
+			e.Body = &pb.Event_EntitlementTaken{EntitlementTaken: &pb.EntitlementTaken{Actor: "hale", Taker: "cora", Entitlement: "inst-1.enc-4/entitlement/bonus-roll", Kind: "bonus-roll"}}
+		}),
+		event(4, func(e *pb.Event) {
+			e.Body = &pb.Event_EntitlementTaken{EntitlementTaken: &pb.EntitlementTaken{Actor: "hale", Taker: "cora", Kind: "bonus-roll"}}
+		}),
+	)
+	var got []string
+	for _, l := range m.Log {
+		if l.Kind == "reward" || l.Kind == "entitlement_taken" {
+			got = append(got, l.Text)
+		}
+	}
+	want := []string{
+		"Your account's bonus roll for the Hollow Warren's Chief: Pate Cleaver.",
+		"Your other character, Cora, took this account's bonus roll",
+		"Your other character, Cora, took this account's bonus roll",
+	}
+	if strings.Join(got, "\n") != strings.Join(want, "\n") {
+		t.Errorf("got\n%s\nwant\n%s", strings.Join(got, "\n"), strings.Join(want, "\n"))
 	}
 }

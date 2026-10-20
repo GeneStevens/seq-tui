@@ -117,7 +117,10 @@ func TestDirectYourSecondCharacter(t *testing.T) {
 	var hx, hy, bx, by int64
 	p.Model(func(m *model.Model) { hx, hy = posOf(m) })
 	p.Duo(func(m *model.Model) { bx, by = posOf(m) })
-	walk(w, p, "up", 2)
+	for range 2 { // two taps on a terminal that reports no release: bram is walked
+		p.Press("up")
+		w.Advance(time.Second)
+	}
 	p.Model(func(m *model.Model) {
 		if x, y := posOf(m); x != hx || y != hy {
 			t.Fatalf("hale moved from (%d,%d) to (%d,%d) while bram was directed", hx, hy, x, y)

@@ -22,11 +22,11 @@
 │                                                                                                ││ Word from Barl… 0/1 — go to the marker │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
+│                                                                                                ││ & Thornwick Contract Board  2m S [new] │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>    5m SE │
-│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
-│ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ $ Barnaby Tuck <General Goods>  13m SW │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    6m SE │
+│                                                                                                ││ $ Barnaby Tuck <General Goods>  13m SW │
+│ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ H Isolde Fenn <Binder>          14m SE │
 │ Esc closes                                                                                     ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

@@ -17,9 +17,13 @@ func inAnInstance(t *testing.T) *model.Model {
 	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ZoneMap{ZoneMap: &pb.ZoneMap{Space: "inst-1", InstancePresets: []*pb.InstancePreset{{
 		Id: "warren", Name: "The Warren", GroupTier: &pb.GroupTierRule{Id: "together", Name: "Together", MinPlayers: 2, Bonus: "rare-roll"}}}}}})
 	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "inst-1", Seq: 1,
-		Self:     &pb.SelfState{Entity: char("hale", "Hale")},
-		Group:    []*pb.GroupMember{{Entity: char("zehen", "Zehen")}, {Entity: char("cass", "Cass")}},
-		Instance: &pb.InstanceInfo{Preset: "warren", Slots: 4, Players: 2, GroupTier: "together"}}}})
+		Self:  &pb.SelfState{Entity: char("hale", "Hale")},
+		Group: []*pb.GroupMember{{Entity: char("zehen", "Zehen")}, {Entity: char("cass", "Cass")}},
+		Instance: &pb.InstanceInfo{Preset: "warren", Slots: 4, Players: 2, GroupTier: "together", Holders: []*pb.SlotHolder{
+			{Slot: 1, Player: "Player 1", Character: "hale", Name: "Hale", State: "held"},
+			{Slot: 2, Player: "Player 2", Character: "cass", Name: "Cass", State: "held"},
+			{Slot: 3, Player: "Player 1", Character: "zehen", Name: "Zehen", State: "held"},
+			{Slot: 4, Player: "Player 3", Name: "Dane", State: "empty"}}}}}})
 	return m
 }
 
@@ -55,7 +59,7 @@ func TestSlotsHoldersAndWhenAReplacementMayJoin(t *testing.T) {
 	m := inAnInstance(t)
 	m.SetOwn("zehen")
 	slots := m.Slots()
-	if len(slots) != 4 || !slots[0].Me || slots[0].Holder != "Hale" || slots[1].Own || slots[1].Holder != "Cass" || !slots[2].Own || slots[2].Holder != "Zehen" || slots[3].Holder != "" {
+	if len(slots) != 4 || !slots[0].Me || slots[0].Holder != "Hale" || slots[1].Own || slots[1].Holder != "Cass" || !slots[2].Own || slots[2].Holder != "Zehen" || slots[3].State != model.HolderEmpty || slots[3].Player != "Player 3" {
 		t.Fatalf("slots %+v", slots)
 	}
 	if m.Vacant() != 1 || m.EncounterOpen() || m.ReplacementWords() != "replacement open between encounters" {

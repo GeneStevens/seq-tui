@@ -15,8 +15,8 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│ +  80.6s Quest complete: First Steps: 20 experience                          │
-│    80.7s entered Thornwick Downs                                             │
+│ +  77.5s Quest complete: First Steps: 20 experience                          │
+│    77.6s entered Thornwick Downs                                             │
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘

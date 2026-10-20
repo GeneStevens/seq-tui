@@ -12,7 +12,7 @@
 │                                   #░............p..............................................││   expedition: Warren Venture Delve.    │
 │                                   #░..D........@...............................................││   Finish it or leave it first          │
 │                                   #░...........................................................││ real-time | open                       │
-│                                   #░...........................................................││ party up to 2 | normal                 │
+│                                   #░...........................................................││ party up to 3 | normal                 │
 │                                   #░.......................................#############.......││ enter at delve-gate (E)                │
 │                                   #░.......................................#           #.......││                                        │
 │                                   #░.......................................#           #.......││                                        │
@@ -31,7 +31,7 @@
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns cora comes into view                                                                                                            │
 │     N.Ns hale invites you to a party                                                                                                     │
-│     N.Ns instance opened for your party: Warren Venture Delve (up to 2 in it); enter at delve-gate with E                                │
+│     N.Ns instance opened for your party: Warren Venture Delve (up to 3 in it); enter at delve-gate with E                                │
 │     N.Ns entered Hollow Warren (Warren Venture Delve)                                                                                    │
 │     N.Ns hale comes into view                                                                                                            │
 │     N.Ns cora joined the party                                                                                                           │

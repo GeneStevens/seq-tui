@@ -10,13 +10,13 @@
 │                                   #░.......................................#############.......││ stirred: The Warren stirs: more voices │
 │                                   #░..................................#........................││   answer the Diggers' call.            │
 │                                   #░...........................................................││ real-time | inside                     │
-│                                   #░...........@...............................................││ party up to 2 | normal                 │
+│                                   #░...........@...............................................││ party up to 3 | normal                 │
 │                                   #░...........................................................││                                        │
 │                                   #░...........................................................│└────────────────────────────────────────┘
 │                                   #░.......................................#############.......│┌─ Party, you lead ──────────────────────┐
 │                                   #░.......................................#           #.......││ Slots: 2, 2 players                    │
-│                                   #░.......................................#           #.......││  1  hale (you)  your account           │
-│                                   #░.......................................#           #.......││  2  cora  another player               │
+│                                   #░.......................................#           #.......││  1  cora  Player 1                     │
+│                                   #░.......................................#           #.......││  2  hale (you)  Player 2, you          │
 │                                   #░.......................................#           ########││ replacement open; no slot is empty     │
 │                                   #░.......................................#                   ││  bram  Lv 12  Hollow Warren            │
 │                                   #░.......................................###############     ││   HP 810/810 ######## MP 130           │
@@ -32,7 +32,7 @@
 │     N.Ns bram comes into view                                                                                                            │
 │     N.Ns cora comes into view                                                                                                            │
 │     N.Ns bram joined the party                                                                                                           │
-│     N.Ns instance opened for your party: Warren Venture Delve (up to 2 in it); enter at delve-gate with E                                │
+│     N.Ns instance opened for your party: Warren Venture Delve (up to 3 in it); enter at delve-gate with E                                │
 │     N.Ns bram is out of view                                                                                                             │
 │     N.Ns entered Hollow Warren (Warren Venture Delve)                                                                                    │
 │     N.Ns cora joined the party                                                                                                           │

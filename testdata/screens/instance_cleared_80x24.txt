@@ -1,6 +1,6 @@
 ┌─ Testgrounds, at 100,90 m, north up ─────────────┐┌─ You ────────────────────┐
 │                                                  ││ aria  Lv 1  XP 20   | 0cr│
-│                                                  ││ HP 93/100 #############- │
+│                                                  ││ HP 100/100 ############# │
 │                                                  ││ Target: none             │
 │                                                  ││ Auto-attack: off         │
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
@@ -15,10 +15,10 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│    81.7s Tip: tradable once means one trade to another player, then it is    │
+│    81.5s Tip: tradable once means one trade to another player, then it is    │
 │            bound to them.                                                    │
-│    81.7s instance ended, cleared: every mob dead and the loot taken          │
-│    82.0s entered Testgrounds                                                 │
+│    81.5s instance ended, cleared: every mob dead and the loot taken          │
+│    81.8s entered Testgrounds                                                 │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                  ? help  q quit

@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Hilda Brasswick <Armourer>, 2m S away. You have 200 crowns.                  │
+│ Hilda Brasswick <Armourer>, 3m S away. You have 200 crowns.                  │
 │                                                                              │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
 │> ▲ Tanned Cap Common               8 │  (nothing)                            │

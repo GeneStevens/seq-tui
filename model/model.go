@@ -234,11 +234,23 @@ type Model struct {
 	// questGiver is the NPC whose board offered a quest step (D55), questOffered
 	// the contract ids it offers now and questSteps/questOrder every quest step
 	// seen, offered or held.
-	questGiver     string
+	questGiver string
+	holders    []*pb.SlotHolder // who holds each slot of the instance (D82)
+	// Joined is what the server told a replacement that took a place in a running
+	// instance (D82), nil until it did.
+	Joined *Joined
+
 	lastSelfMoveMs int64 // the game time of the last move of the character told
-	questOffered   map[string]bool
-	questSteps     map[string]questSeen
-	questOrder     []string
+
+	// SelfMoves counts the positions of the character told (each moved event,
+	// each snapshot); SelfSpeedMmS is how fast its last two moves, a tick apart,
+	// say it walks, ground and snares included (0 until it has walked two ticks).
+	// A client that predicts its own walk reads both.
+	SelfMoves    uint64
+	SelfSpeedMmS int64
+	questOffered map[string]bool
+	questSteps   map[string]questSeen
+	questOrder   []string
 	// openFailed and refunds count the instance openings the server said failed
 	// and the entry fees it refunded: a refund with no failed opening to answer
 	// for was owed to a character that was away (D55).
@@ -374,6 +386,10 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	if m.Instance != nil {
 		m.Refusal = nil // it went in
 	}
+	m.holders = slices.Clone(m.Instance.GetHolders())
+	if m.Instance == nil {
+		m.Joined = nil
+	}
 	m.Self = Self{
 		ID: e.GetId(), Name: e.GetName(), Level: e.GetLevel(), HP: e.GetHp(), MaxHP: e.GetMaxHp(), Dead: e.GetDead(),
 		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(),
@@ -387,6 +403,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		Sheet: self.GetSheet(), Facts: factsByItem(self.GetFacts()), BagSlots: self.GetBagSlots(),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
+	m.SelfMoves++
 	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
 	m.remember(e)
 	// Everything in view carries its effects (D50): a fresh snapshot, a login in
@@ -484,8 +501,10 @@ func (m *Model) apply(e *pb.Event) {
 		if en := m.entity(mv.GetId()); en != nil {
 			en.Pos = clonePos(mv.GetPos())
 		} else if mv.GetId() == m.Self.ID {
+			m.noteSelfSpeed(mv.GetPos(), e.GetGameTimeMs())
 			m.Self.Pos = clonePos(mv.GetPos())
 			m.lastSelfMoveMs = e.GetGameTimeMs()
+			m.SelfMoves++
 			if m.Self.HasDestination && m.Self.Destination.GetX() == mv.GetPos().GetX() && m.Self.Destination.GetY() == mv.GetPos().GetY() {
 				m.Self.HasDestination = false
 			}
@@ -512,6 +531,10 @@ func (m *Model) apply(e *pb.Event) {
 		m.noteRefusal(e)
 	case *pb.Event_InstanceStirred:
 		m.noteStirred(e)
+	case *pb.Event_InstanceSlots:
+		m.noteSlots(e)
+	case *pb.Event_InstanceJoined:
+		m.noteJoined(e)
 	case *pb.Event_Reward:
 		w := b.Reward
 		if w.GetKind() == "refund" && m.refunds < m.openFailed {

@@ -1,5 +1,5 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Jobs for the Downs>, 1m SW of you                                    ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board <Jobs for the Downs>, 2m S of you                                     ││ Hale  Lv 1 Warrior           | 0 crowns│
 │                                                                                                ││ HP 130/130 ########################### │
 │ “Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the     ││ XP ------------------------- 40 to Lv 2│
 │ proof back here.”                                                                              ││ Atk off | none                         │
@@ -18,15 +18,15 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
+│                                                                                                ││ & Thornwick Contract Board  2m S [new] │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>    5m SE │
-│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    6m SE │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>  13m SW │
-│                                                                                                ││ g Town Guard <Thornwick Watch>   22m E │
+│                                                                                                ││ H Isolde Fenn <Binder>          14m SE │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   23m E │
 │                                                                                                ││ $ Hilda Brasswick <Armourer>     29m W │
 │                                                                                                ││ B Odalys Penn <Banker>           32m E │
-│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ $ Dunstan Reeve <Weaponsmith>   33m SW │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ $ Dunstan Reeve <Weaponsmith>   32m SW │
 │ talk to Thornwick Contract Board ok                                                            ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -37,7 +37,7 @@
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     4.6s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│     2.8s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │

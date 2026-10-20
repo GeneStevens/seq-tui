@@ -1,13 +1,13 @@
-┌─ Thornwick Downs, at 45,99 m, north up ──────────┐┌─ You ────────────────────┐
-│ ▲ Town Gate 63m                                  ││ Hale  Lv 1 Warrior  | 0cr│
-│     ░                                            ││ HP 124/130 ############- │
-│     ░                                            ││ XP ##--------- 32 to Lv 2│
-│     ░                                            ││ Atk off | none           │
-│     ░                   @               c        │└──────────────────────────┘
-│     ░                   c                        │┌─ Target ─────────────────┐
-│     ░                                            ││ no target (Tab to choose)│
-│     ░                                            ││                          │
-│     ░                                            ││                          │
+┌─ Thornwick Downs, at 42,99 m, north up ──────────┐┌─ You ────────────────────┐
+│  ▲ Town Gate 61m                                 ││ Hale  Lv 1 Warrior  | 0cr│
+│      ░                                           ││ HP 124/130 ############- │
+│      ░                                           ││ XP ##--------- 32 to Lv 2│
+│      ░                                           ││ Atk off | none           │
+│      ░                  @                c       │└──────────────────────────┘
+│      ░                   c                       │┌─ Target ─────────────────┐
+│      ░                                           ││ no target (Tab to choose)│
+│      ░                                           ││                          │
+│      ░                                           ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │   NNN.Ns Meadow Wolf is out of view                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
  L: loot all 4 drops                                                            
- ONLINE | → Hand in: Wolves at Wickett Mill (Thornwick), 64m NW | attack ok     
+ ONLINE | → Hand in: Wolves at Wickett Mill (Thornwick), 62m NW | attack ok     

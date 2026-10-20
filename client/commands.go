@@ -20,7 +20,14 @@ func (s *Session) Move(ctx context.Context, x, y int64) (string, error) {
 	return s.intent(ctx, "move", func(i *pb.Intent) { i.Body = &pb.Intent_Move{Move: &pb.Move{Destination: &pb.Pos{X: x, Y: y}}} })
 }
 
-// Stop cancels a move in progress.
+// Walk keeps the character walking along a heading in whole degrees (0 east, 90
+// north, counter-clockwise) until Stop; sending the same heading again within the
+// server's walk timeout keeps it going (SEQ-088).
+func (s *Session) Walk(ctx context.Context, headingDeg uint32) (string, error) {
+	return s.intent(ctx, "walk", func(i *pb.Intent) { i.Body = &pb.Intent_Walk{Walk: &pb.Walk{HeadingDeg: headingDeg}} })
+}
+
+// Stop cancels a move or a walk in progress.
 func (s *Session) Stop(ctx context.Context) (string, error) {
 	return s.intent(ctx, "stop", func(i *pb.Intent) { i.Body = &pb.Intent_Stop{Stop: &pb.Stop{}} })
 }

@@ -186,7 +186,7 @@ func TestOwedPayArrivesAtTheNextJoin(t *testing.T) {
 	// The character kills a raider, so it has taken part; then it leaves by the gate.
 	fightUntil(t, w, p, func(m *model.Model) bool { return hasLog(m, "combat_death", "killed Raiding Goblin") }, 20)
 	p.Press("f") // auto-attack off: the way out is not a fight
-	walk(w, p, "left", 10)
+	walk(w, p, "left", 9)
 	p.Press("e")
 	p.Eventually("Thornwick", inSpace("Thornwick"))
 

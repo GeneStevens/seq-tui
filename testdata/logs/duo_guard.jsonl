@@ -37,14 +37,10 @@
 {"pong":{"nonce":"120"}}
 {"pong":{"nonce":"121"}}
 {"pong":{"nonce":"122"}}
-{"event":{"seq":"11","game_time_ms":"1400","entity_moved":{"id":"hale","pos":{"x":"146300","y":"95000"}}}}
-{"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
-{"pong":{"nonce":"125"}}
-{"pong":{"nonce":"126"}}
-{"pong":{"nonce":"127"}}
-{"pong":{"nonce":"128"}}
+{"event":{"seq":"11","game_time_ms":"1400","entity_moved":{"id":"hale","pos":{"x":"146300","y":"95000"}}}}
+{"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"event":{"seq":"12","game_time_ms":"1500","entity_moved":{"id":"hale","pos":{"x":"146600","y":"95000"}}}}
 {"event":{"seq":"13","game_time_ms":"1600","target_changed":{"actor":"mob-bramble-tuskers-a-1","target":"hale"}}}
 {"event":{"seq":"14","game_time_ms":"1600","text":"You begin fighting Bramble Tusker","encounter_opened":{"id":"enc-1","owner":"hale","mob":"mob-bramble-tuskers-a-1"}}}
@@ -58,134 +54,170 @@
 {"event":{"seq":"22","game_time_ms":"2100","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"154107","y":"93573"}}}}
 {"event":{"seq":"23","game_time_ms":"2200","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153886","y":"93615"}}}}
 {"event":{"seq":"24","game_time_ms":"2300","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153665","y":"93657"}}}}
-{"event":{"seq":"25","game_time_ms":"2400","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153444","y":"93699"}}}}
+{"pong":{"nonce":"125"}}
+{"pong":{"nonce":"126"}}
+{"pong":{"nonce":"127"}}
+{"event":{"seq":"25","game_time_ms":"2400","target_changed":{"actor":"bram"}}}
+{"event":{"seq":"26","game_time_ms":"2400","entity_moved":{"id":"hale","pos":{"x":"146900","y":"95000"}}}}
+{"event":{"seq":"27","game_time_ms":"2400","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153444","y":"93699"}}}}
+{"intent_result":{"intent_id":"tui-3","accepted":true}}
+{"pong":{"nonce":"128"}}
 {"pong":{"nonce":"129"}}
 {"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
-{"event":{"seq":"26","game_time_ms":"2500","target_changed":{"actor":"bram"}}}
-{"event":{"seq":"27","game_time_ms":"2500","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153223","y":"93741"}}}}
 {"pong":{"nonce":"132"}}
+{"event":{"seq":"28","game_time_ms":"2500","entity_moved":{"id":"hale","pos":{"x":"147200","y":"95000"}}}}
+{"event":{"seq":"29","game_time_ms":"2500","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153224","y":"93742"}}}}
+{"event":{"seq":"30","game_time_ms":"2600","entity_moved":{"id":"hale","pos":{"x":"147500","y":"95000"}}}}
+{"event":{"seq":"31","game_time_ms":"2600","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153004","y":"93788"}}}}
+{"event":{"seq":"32","game_time_ms":"2700","entity_moved":{"id":"hale","pos":{"x":"147800","y":"95000"}}}}
+{"event":{"seq":"33","game_time_ms":"2700","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"152785","y":"93836"}}}}
 {"pong":{"nonce":"133"}}
 {"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
 {"pong":{"nonce":"136"}}
-{"event":{"seq":"28","game_time_ms":"2600","entity_moved":{"id":"hale","pos":{"x":"146900","y":"95000"}}}}
-{"event":{"seq":"29","game_time_ms":"2600","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"153002","y":"93783"}}}}
-{"intent_result":{"intent_id":"tui-3","accepted":true}}
+{"event":{"seq":"34","game_time_ms":"2800","entity_moved":{"id":"hale","pos":{"x":"148100","y":"95000"}}}}
+{"event":{"seq":"35","game_time_ms":"2800","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"152566","y":"93887"}}}}
+{"intent_result":{"intent_id":"tui-4","accepted":true}}
+{"event":{"seq":"36","game_time_ms":"2900","entity_moved":{"id":"hale","pos":{"x":"148400","y":"95000"}}}}
+{"event":{"seq":"37","game_time_ms":"2900","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"152348","y":"93941"}}}}
+{"event":{"seq":"38","game_time_ms":"3000","entity_moved":{"id":"hale","pos":{"x":"148700","y":"95000"}}}}
+{"event":{"seq":"39","game_time_ms":"3000","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"152131","y":"93999"}}}}
 {"pong":{"nonce":"137"}}
 {"pong":{"nonce":"138"}}
 {"pong":{"nonce":"139"}}
 {"pong":{"nonce":"140"}}
+{"event":{"seq":"40","game_time_ms":"3100","entity_moved":{"id":"hale","pos":{"x":"149000","y":"95000"}}}}
+{"event":{"seq":"41","game_time_ms":"3100","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"151916","y":"94062"}}}}
+{"intent_result":{"intent_id":"tui-5","accepted":true}}
 {"pong":{"nonce":"141"}}
 {"pong":{"nonce":"142"}}
-{"event":{"seq":"30","game_time_ms":"2700","entity_moved":{"id":"hale","pos":{"x":"147200","y":"95000"}}}}
-{"event":{"seq":"31","game_time_ms":"2700","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"152782","y":"93827"}}}}
-{"event":{"seq":"32","game_time_ms":"2800","entity_moved":{"id":"hale","pos":{"x":"147500","y":"95000"}}}}
-{"event":{"seq":"33","game_time_ms":"2800","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"152562","y":"93873"}}}}
-{"event":{"seq":"34","game_time_ms":"2900","entity_moved":{"id":"hale","pos":{"x":"147800","y":"95000"}}}}
-{"event":{"seq":"35","game_time_ms":"2900","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"152343","y":"93921"}}}}
-{"event":{"seq":"36","game_time_ms":"3000","entity_moved":{"id":"hale","pos":{"x":"148100","y":"95000"}}}}
-{"event":{"seq":"37","game_time_ms":"3000","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"152125","y":"93972"}}}}
-{"event":{"seq":"38","game_time_ms":"3100","entity_moved":{"id":"hale","pos":{"x":"148400","y":"95000"}}}}
-{"event":{"seq":"39","game_time_ms":"3100","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"151907","y":"94027"}}}}
-{"event":{"seq":"40","game_time_ms":"3200","entity_moved":{"id":"hale","pos":{"x":"148700","y":"95000"}}}}
-{"event":{"seq":"41","game_time_ms":"3200","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"151691","y":"94087"}}}}
-{"event":{"seq":"42","game_time_ms":"3300","entity_moved":{"id":"hale","pos":{"x":"149000","y":"95000"}}}}
-{"event":{"seq":"43","game_time_ms":"3300","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"151476","y":"94152"}}}}
-{"event":{"seq":"44","game_time_ms":"3400","entity_moved":{"id":"hale","pos":{"x":"149300","y":"95000"}}}}
-{"event":{"seq":"45","game_time_ms":"3400","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"151264","y":"94224"}}}}
-{"event":{"seq":"46","game_time_ms":"3500","entity_moved":{"id":"hale","pos":{"x":"149600","y":"95000"}}}}
-{"event":{"seq":"47","game_time_ms":"3600","text":"You start attacking something","auto_attack_changed":{"actor":"mob-bramble-tuskers-a-1","target":"hale","on":true}}}
-{"event":{"seq":"48","game_time_ms":"3600","text":"Bramble Tusker hits you for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-bramble-tuskers-a-1","target":"hale","amount":"4"}}}
 {"pong":{"nonce":"143"}}
 {"pong":{"nonce":"144"}}
 {"pong":{"nonce":"145"}}
-{"event":{"seq":"49","game_time_ms":"3700","target_changed":{"actor":"bram","target":"mob-bramble-tuskers-a-1"}}}
 {"pong":{"nonce":"146"}}
+{"event":{"seq":"42","game_time_ms":"3200","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"151702","y":"94130"}}}}
+{"intent_result":{"intent_id":"tui-6","accepted":true}}
 {"pong":{"nonce":"147"}}
 {"pong":{"nonce":"148"}}
 {"pong":{"nonce":"149"}}
-{"event":{"seq":"50","game_time_ms":"3800","entity_moved":{"id":"bram","pos":{"x":"144298","y":"94969"}}}}
 {"pong":{"nonce":"150"}}
 {"pong":{"nonce":"151"}}
 {"pong":{"nonce":"152"}}
+{"event":{"seq":"43","game_time_ms":"3300","entity_moved":{"id":"hale","pos":{"x":"149300","y":"95000"}}}}
+{"event":{"seq":"44","game_time_ms":"3300","entity_moved":{"id":"mob-bramble-tuskers-a-1","pos":{"x":"151488","y":"94198"}}}}
+{"intent_result":{"intent_id":"tui-7","accepted":true}}
+{"event":{"seq":"45","game_time_ms":"3400","entity_moved":{"id":"hale","pos":{"x":"149600","y":"95000"}}}}
+{"event":{"seq":"46","game_time_ms":"3500","text":"You start attacking something","auto_attack_changed":{"actor":"mob-bramble-tuskers-a-1","target":"hale","on":true}}}
+{"event":{"seq":"47","game_time_ms":"3500","entity_moved":{"id":"hale","pos":{"x":"149900","y":"95000"}}}}
+{"event":{"seq":"48","game_time_ms":"3500","text":"Bramble Tusker hits you for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-bramble-tuskers-a-1","target":"hale","amount":"4"}}}
+{"event":{"seq":"49","game_time_ms":"3600","entity_moved":{"id":"hale","pos":{"x":"150200","y":"95000"}}}}
+{"event":{"seq":"50","game_time_ms":"3700","entity_moved":{"id":"hale","pos":{"x":"150500","y":"95000"}}}}
+{"event":{"seq":"51","game_time_ms":"3800","entity_moved":{"id":"hale","pos":{"x":"150800","y":"95000"}}}}
+{"event":{"seq":"52","game_time_ms":"3900","entity_moved":{"id":"hale","pos":{"x":"151100","y":"95000"}}}}
+{"event":{"seq":"53","game_time_ms":"4000","entity_moved":{"id":"hale","pos":{"x":"151400","y":"95000"}}}}
+{"event":{"seq":"54","game_time_ms":"4100","entity_moved":{"id":"hale","pos":{"x":"151700","y":"95000"}}}}
+{"event":{"seq":"55","game_time_ms":"4200","entity_moved":{"id":"hale","pos":{"x":"152000","y":"95000"}}}}
 {"pong":{"nonce":"153"}}
 {"pong":{"nonce":"154"}}
-{"event":{"seq":"51","game_time_ms":"3900","text":"You start attacking Bramble Tusker","auto_attack_changed":{"actor":"hale","target":"mob-bramble-tuskers-a-1","on":true}}}
-{"event":{"seq":"52","game_time_ms":"3900","entity_moved":{"id":"bram","pos":{"x":"144596","y":"94938"}}}}
-{"event":{"seq":"53","game_time_ms":"3900","text":"You hit Bramble Tusker for 10","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"10"}}}
-{"intent_result":{"intent_id":"tui-4","accepted":true}}
 {"pong":{"nonce":"155"}}
+{"event":{"seq":"56","game_time_ms":"4300","target_changed":{"actor":"bram","target":"mob-bramble-tuskers-a-1"}}}
+{"event":{"seq":"57","game_time_ms":"4300","entity_moved":{"id":"hale","pos":{"x":"152300","y":"95000"}}}}
+{"intent_result":{"intent_id":"tui-8","accepted":true}}
 {"pong":{"nonce":"156"}}
 {"pong":{"nonce":"157"}}
 {"pong":{"nonce":"158"}}
 {"pong":{"nonce":"159"}}
+{"event":{"seq":"58","game_time_ms":"4400","entity_moved":{"id":"bram","pos":{"x":"144298","y":"94969"}}}}
+{"event":{"seq":"59","game_time_ms":"4400","entity_moved":{"id":"hale","pos":{"x":"152600","y":"95000"}}}}
 {"pong":{"nonce":"160"}}
-{"event":{"seq":"54","game_time_ms":"4000","entity_moved":{"id":"bram","pos":{"x":"144894","y":"94907"}}}}
-{"event":{"seq":"55","game_time_ms":"4100","entity_moved":{"id":"bram","pos":{"x":"145192","y":"94876"}}}}
-{"event":{"seq":"56","game_time_ms":"4200","entity_moved":{"id":"bram","pos":{"x":"145490","y":"94844"}}}}
-{"event":{"seq":"57","game_time_ms":"4300","entity_moved":{"id":"bram","pos":{"x":"145788","y":"94812"}}}}
-{"event":{"seq":"58","game_time_ms":"4400","entity_moved":{"id":"bram","pos":{"x":"146086","y":"94780"}}}}
-{"event":{"seq":"59","game_time_ms":"4500","entity_moved":{"id":"bram","pos":{"x":"146384","y":"94748"}}}}
-{"event":{"seq":"60","game_time_ms":"4600","entity_moved":{"id":"bram","pos":{"x":"146682","y":"94716"}}}}
-{"event":{"seq":"61","game_time_ms":"4700","entity_moved":{"id":"bram","pos":{"x":"146980","y":"94684"}}}}
-{"event":{"seq":"62","game_time_ms":"4800","entity_moved":{"id":"bram","pos":{"x":"147278","y":"94652"}}}}
-{"event":{"seq":"63","game_time_ms":"4900","entity_moved":{"id":"bram","pos":{"x":"147576","y":"94620"}}}}
 {"pong":{"nonce":"161"}}
 {"pong":{"nonce":"162"}}
 {"pong":{"nonce":"163"}}
 {"pong":{"nonce":"164"}}
-{"event":{"seq":"64","game_time_ms":"5000","entity_moved":{"id":"bram","pos":{"x":"147874","y":"94588"}}}}
-{"event":{"seq":"65","game_time_ms":"5100","entity_moved":{"id":"bram","pos":{"x":"148172","y":"94556"}}}}
-{"event":{"seq":"66","game_time_ms":"5200","entity_moved":{"id":"bram","pos":{"x":"148470","y":"94524"}}}}
-{"event":{"seq":"67","game_time_ms":"5300","entity_moved":{"id":"bram","pos":{"x":"148768","y":"94492"}}}}
-{"event":{"seq":"68","game_time_ms":"5400","entity_moved":{"id":"bram","pos":{"x":"149066","y":"94460"}}}}
-{"event":{"seq":"69","game_time_ms":"5500","entity_moved":{"id":"bram","pos":{"x":"149364","y":"94428"}}}}
-{"event":{"seq":"70","game_time_ms":"5600","entity_moved":{"id":"bram","pos":{"x":"149662","y":"94396"}}}}
-{"event":{"seq":"71","game_time_ms":"5700","entity_moved":{"id":"bram","pos":{"x":"149960","y":"94364"}}}}
-{"event":{"seq":"72","game_time_ms":"5800","entity_moved":{"id":"bram","pos":{"x":"150258","y":"94332"}}}}
-{"event":{"seq":"73","game_time_ms":"5900","entity_moved":{"id":"bram","pos":{"x":"150556","y":"94300"}}}}
-{"event":{"seq":"74","game_time_ms":"5900","text":"You hit Bramble Tusker for 11","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"11"}}}
 {"pong":{"nonce":"165"}}
 {"pong":{"nonce":"166"}}
+{"event":{"seq":"60","game_time_ms":"4500","entity_moved":{"id":"bram","pos":{"x":"144596","y":"94938"}}}}
+{"intent_result":{"intent_id":"tui-9","accepted":true}}
 {"pong":{"nonce":"167"}}
-{"event":{"seq":"75","game_time_ms":"6000","rules_tick":{}}}
-{"event":{"seq":"76","game_time_ms":"6000","text":"You regenerate 4 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"4"}}}
-{"event":{"seq":"77","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-bramble-tuskers-a-1","amount":"1"}}}
 {"pong":{"nonce":"168"}}
 {"pong":{"nonce":"169"}}
 {"pong":{"nonce":"170"}}
+{"event":{"seq":"61","game_time_ms":"4600","text":"You start attacking Bramble Tusker","auto_attack_changed":{"actor":"hale","target":"mob-bramble-tuskers-a-1","on":true}}}
+{"event":{"seq":"62","game_time_ms":"4600","entity_moved":{"id":"bram","pos":{"x":"144894","y":"94906"}}}}
+{"event":{"seq":"63","game_time_ms":"4600","text":"You hit Bramble Tusker for 10","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"10"}}}
+{"intent_result":{"intent_id":"tui-10","accepted":true}}
 {"pong":{"nonce":"171"}}
-{"event":{"seq":"78","game_time_ms":"6100","text":"You start attacking Bramble Tusker","auto_attack_changed":{"actor":"bram","target":"mob-bramble-tuskers-a-1","on":true}}}
-{"event":{"seq":"79","game_time_ms":"6100","text":"Bram hits Bramble Tusker for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-bramble-tuskers-a-1","amount":"4"}}}
 {"pong":{"nonce":"172"}}
 {"pong":{"nonce":"173"}}
 {"pong":{"nonce":"174"}}
 {"pong":{"nonce":"175"}}
 {"pong":{"nonce":"176"}}
-# mark duo_guard_fight
+{"event":{"seq":"64","game_time_ms":"4700","entity_moved":{"id":"bram","pos":{"x":"145192","y":"94874"}}}}
+{"event":{"seq":"65","game_time_ms":"4800","entity_moved":{"id":"bram","pos":{"x":"145490","y":"94842"}}}}
+{"event":{"seq":"66","game_time_ms":"4900","entity_moved":{"id":"bram","pos":{"x":"145788","y":"94810"}}}}
+{"event":{"seq":"67","game_time_ms":"5000","entity_moved":{"id":"bram","pos":{"x":"146086","y":"94778"}}}}
+{"event":{"seq":"68","game_time_ms":"5100","entity_moved":{"id":"bram","pos":{"x":"146384","y":"94746"}}}}
+{"event":{"seq":"69","game_time_ms":"5200","entity_moved":{"id":"bram","pos":{"x":"146682","y":"94714"}}}}
+{"event":{"seq":"70","game_time_ms":"5300","entity_moved":{"id":"bram","pos":{"x":"146980","y":"94682"}}}}
+{"event":{"seq":"71","game_time_ms":"5400","entity_moved":{"id":"bram","pos":{"x":"147278","y":"94650"}}}}
+{"event":{"seq":"72","game_time_ms":"5500","entity_moved":{"id":"bram","pos":{"x":"147576","y":"94618"}}}}
+{"event":{"seq":"73","game_time_ms":"5600","entity_moved":{"id":"bram","pos":{"x":"147874","y":"94586"}}}}
 {"pong":{"nonce":"177"}}
 {"pong":{"nonce":"178"}}
 {"pong":{"nonce":"179"}}
 {"pong":{"nonce":"180"}}
-{"event":{"seq":"80","game_time_ms":"6800","text":"Bramble Tusker misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-bramble-tuskers-a-1","target":"hale"}}}
+{"event":{"seq":"74","game_time_ms":"5700","entity_moved":{"id":"bram","pos":{"x":"148172","y":"94554"}}}}
+{"event":{"seq":"75","game_time_ms":"5800","entity_moved":{"id":"bram","pos":{"x":"148470","y":"94522"}}}}
+{"event":{"seq":"76","game_time_ms":"5900","entity_moved":{"id":"bram","pos":{"x":"148768","y":"94490"}}}}
+{"event":{"seq":"77","game_time_ms":"6000","rules_tick":{}}}
+{"event":{"seq":"78","game_time_ms":"6000","text":"You regenerate 4 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"4"}}}
+{"event":{"seq":"79","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-bramble-tuskers-a-1","amount":"1"}}}
+{"event":{"seq":"80","game_time_ms":"6000","entity_moved":{"id":"bram","pos":{"x":"149066","y":"94458"}}}}
+{"event":{"seq":"81","game_time_ms":"6100","entity_moved":{"id":"bram","pos":{"x":"149364","y":"94426"}}}}
+{"event":{"seq":"82","game_time_ms":"6200","entity_moved":{"id":"bram","pos":{"x":"149662","y":"94394"}}}}
+{"event":{"seq":"83","game_time_ms":"6300","entity_moved":{"id":"bram","pos":{"x":"149960","y":"94362"}}}}
+{"event":{"seq":"84","game_time_ms":"6400","entity_moved":{"id":"bram","pos":{"x":"150258","y":"94330"}}}}
+{"event":{"seq":"85","game_time_ms":"6500","entity_moved":{"id":"bram","pos":{"x":"150556","y":"94298"}}}}
+{"event":{"seq":"86","game_time_ms":"6600","entity_moved":{"id":"bram","pos":{"x":"150854","y":"94266"}}}}
+{"event":{"seq":"87","game_time_ms":"6600","text":"You hit Bramble Tusker for 11","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"11"}}}
 {"pong":{"nonce":"181"}}
 {"pong":{"nonce":"182"}}
 {"pong":{"nonce":"183"}}
+{"event":{"seq":"88","game_time_ms":"6700","text":"Bramble Tusker misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-bramble-tuskers-a-1","target":"hale"}}}
 {"pong":{"nonce":"184"}}
 {"pong":{"nonce":"185"}}
 {"pong":{"nonce":"186"}}
 {"pong":{"nonce":"187"}}
-{"event":{"seq":"81","game_time_ms":"7300","target_changed":{"actor":"bram"}}}
-{"event":{"seq":"82","game_time_ms":"7300","text":"You stop attacking","auto_attack_changed":{"actor":"bram"}}}
+{"event":{"seq":"89","game_time_ms":"6800","text":"You start attacking Bramble Tusker","auto_attack_changed":{"actor":"bram","target":"mob-bramble-tuskers-a-1","on":true}}}
+{"event":{"seq":"90","game_time_ms":"6800","text":"Bram hits Bramble Tusker for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-bramble-tuskers-a-1","amount":"4"}}}
 {"pong":{"nonce":"188"}}
 {"pong":{"nonce":"189"}}
 {"pong":{"nonce":"190"}}
 {"pong":{"nonce":"191"}}
 {"pong":{"nonce":"192"}}
-{"event":{"seq":"83","game_time_ms":"7900","text":"You hit Bramble Tusker for 13","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"13"}}}
+# mark duo_guard_fight
 {"pong":{"nonce":"193"}}
 {"pong":{"nonce":"194"}}
 {"pong":{"nonce":"195"}}
 {"pong":{"nonce":"196"}}
+{"pong":{"nonce":"197"}}
+{"pong":{"nonce":"198"}}
+{"pong":{"nonce":"199"}}
+{"pong":{"nonce":"200"}}
+{"pong":{"nonce":"201"}}
+{"pong":{"nonce":"202"}}
+{"pong":{"nonce":"203"}}
+{"event":{"seq":"91","game_time_ms":"8000","target_changed":{"actor":"bram"}}}
+{"event":{"seq":"92","game_time_ms":"8000","text":"You stop attacking","auto_attack_changed":{"actor":"bram"}}}
+{"pong":{"nonce":"204"}}
+{"pong":{"nonce":"205"}}
+{"pong":{"nonce":"206"}}
+{"pong":{"nonce":"207"}}
+{"pong":{"nonce":"208"}}
+{"event":{"seq":"93","game_time_ms":"8600","text":"You hit Bramble Tusker for 13","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"13"}}}
+{"pong":{"nonce":"209"}}
+{"pong":{"nonce":"210"}}
+{"pong":{"nonce":"211"}}
+{"pong":{"nonce":"212"}}
 # mark duo_ordered_to_stand

@@ -24,7 +24,7 @@
 │                            ░                                                       #           ││ T Cleric Trainer                 12m N │
 │                            ░                                                       #           ││ T Rogue Trainer                  12m N │
 │                            ░                                                       #           ││ T Warrior Trainer                12m N │
-│                            ░                                                       #           ││ T Wizard Trainer                 12m N │
+│                            ░                                                       #           ││ T Wizard Trainer                 13m N │
 │                            ░                                                       #           ││ T Paladin Trainer               13m NE │
 │                            ░                                                       #           ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘

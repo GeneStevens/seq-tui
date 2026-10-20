@@ -24,22 +24,22 @@
 │                            ░                                                       #           ││ T Cleric Trainer                 12m N │
 │                            ░                                                       #           ││ T Rogue Trainer                  12m N │
 │                            ░                                                       #           ││ T Warrior Trainer                12m N │
-│                            ░                                                       #           ││ T Wizard Trainer                 12m N │
+│                            ░                                                       #           ││ T Wizard Trainer                 13m N │
 │                            ░                                                       #           ││ T Paladin Trainer               13m NE │
 │                            ░                                                       #           ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ x  22.5s You killed Plain Scuttler                                                                                                       │
-│    22.5s Your target Plain Scuttler is gone                                                                                              │
-│    22.5s You stop attacking                                                                                                              │
-│    22.5s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
-│    22.5s Plain Scuttler is dead: the fight is over                                                                                       │
-│    22.5s You are out of combat                                                                                                           │
-│ +  22.5s You gain 20 experience                                                                                                          │
-│    22.5s Plain Scuttler is out of view                                                                                                   │
-│    42.6s Cracked Shell Fragment was taken                                                                                                │
-│ +  42.6s You pick up Cracked Shell Fragment                                                                                              │
-│    42.6s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│ x  22.3s You killed Plain Scuttler                                                                                                       │
+│    22.3s Your target Plain Scuttler is gone                                                                                              │
+│    22.3s You stop attacking                                                                                                              │
+│    22.3s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
+│    22.3s Plain Scuttler is dead: the fight is over                                                                                       │
+│    22.3s You are out of combat                                                                                                           │
+│ +  22.3s You gain 20 experience                                                                                                          │
+│    22.3s Plain Scuttler is out of view                                                                                                   │
+│    42.4s Cracked Shell Fragment was taken                                                                                                │
+│ +  42.4s You pick up Cracked Shell Fragment                                                                                              │
+│    42.4s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: click or arrows · M: large map · ?: help                                                                                             
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                                                                              ? help  q quit

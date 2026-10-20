@@ -1,11 +1,11 @@
 ┌─ Sessions: the server's log ─────────────────────────────────────────────────┐
 │ tui-ann-1: the server's log, 7 lines (UTC)                                   │
 │ 2025-01-01 00:00:00.NNN  connect: aria in testgrounds (client agentkit)      │
-│ 2025-01-01 00:00:00.100  intent tui-1: move {"move":{"destination":{"x":"130…│
+│ 2025-01-01 00:00:00.100  intent tui-1: attack {"attack":{"on":true}}         │
 │ 2025-01-01 00:00:00.200  result attend-1-ann-here: accepted                  │
-│ 2025-01-01 00:00:00.200  result tui-1: accepted                              │
-│ 2025-01-01 00:00:01.200  intent tui-2: move {"move":{"destination":{"x":"146…│
-│ 2025-01-01 00:00:01.300  result tui-2: accepted                              │
+│ 2025-01-01 00:00:00.200  result tui-1: refused (no_target)                   │
+│ 2025-01-01 00:00:01.200  intent tui-2: attack {"attack":{"on":true}}         │
+│ 2025-01-01 00:00:01.300  result tui-2: refused (no_target)                   │
 │ 2025-01-01 00:00:02.300  disconnect: connection closed                       │
 │                                                                              │
 │                                                                              │
@@ -21,4 +21,4 @@
 │                                                                              │
 │ Up, Down, PgUp, PgDn scroll   E exports this log to a file   Esc back        │
 └──────────────────────────────────────────────────────────────────────────────┘
- ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                  
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

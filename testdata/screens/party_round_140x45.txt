@@ -22,9 +22,9 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Party, you lead ──────────────────────┐
 │                                                                                                ││ Slots: 2, 2 players                    │
-│                                                                                                ││  1  ann1 (you)  your account           │
-│                                                m                                               ││  2  empty slot                         │
-│                                                                                                ││ replacement open between encounters    │
+│                                                                                                ││  1  bob1  Player 1                     │
+│                                                m                                               ││  2  ann1 (you)  Player 2, you          │
+│                                                                                                ││ replacement open; no slot is empty     │
 │                                                                                                ││  bob1  Lv 1  Testgrounds               │
 │                                                                                                ││   HP 100/100 ########                  │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘

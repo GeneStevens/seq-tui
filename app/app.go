@@ -82,13 +82,14 @@ type App struct {
 	// in place of the directory (a scenario's is a temporary one).
 	LogLabel string
 
-	keys     int // key presses handled, and commands sent and answered: what a scenario waits on
+	walk     *walkState // hold-to-walk: the keys down, the intents, the predicted mark
+	keys     int        // key presses handled, and commands sent and answered: what a scenario waits on
 	inflight int
 }
 
 // New returns the program's model for a session that has logged in.
 func New(sess *client.Session) *App {
-	return &App{sess: sess, w: screen.MinWidth, h: screen.MinHeight, view: screen.View{Conn: screen.ConnOnline}}
+	return &App{sess: sess, w: screen.MinWidth, h: screen.MinHeight, view: screen.View{Conn: screen.ConnOnline}, walk: newWalkState()}
 }
 
 // NewCreator returns the program's model for a session that is connected and
@@ -166,11 +167,24 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if a.pings++; a.pings%pingEvery == 0 {
 			cmds = append(cmds, a.ping)
 		}
+		cmds = append(cmds, a.walkTick())
 		return a, tea.Batch(cmds...)
+	case frameMsg:
+		return a, a.walkFrame()
+	case tea.KeyboardEnhancementsMsg:
+		a.walk.w.Releases = msg.SupportsEventTypes()
+	case tea.BlurMsg:
+		return a, a.stopWalking()
+	case tea.KeyReleaseMsg:
+		a.keys++
+		if MoveKey(msg.String()) {
+			return a, a.walkRelease(msg.String())
+		}
 	case changedMsg:
 		a.watch = a.sess.Changed() // before reading, so no change is missed
 		a.observe()
 		cmds := []tea.Cmd{a.waitChange()}
+		cmds = append(cmds, a.walkTick())
 		a.sess.View(a.watchInvite)
 		a.sess.View(func(m *model.Model) {
 			a.walkedAway(m)
@@ -181,6 +195,7 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if closed, _ := a.sess.Closed(); closed {
 			if a.sess.LoggedOut() {
 				a.view.Conn = screen.ConnLoggedOut
+				a.closeWalk()
 				return a, tea.Quit
 			}
 			a.view.Conn = screen.ConnReconnecting
@@ -328,6 +343,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.helperAction(k, m)
 		case m.TurnBased():
 			act = TurnKey(k, m, &a.draft)
+		case MoveKey(k):
+			act = Action{Kind: WalkKey, Note: k}
 		default:
 			act = Plan(k, m)
 		}
@@ -341,7 +358,10 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 	a.view.Notice, a.view.NoticeBad = "", false
 	switch act.Kind {
 	case Quit:
+		a.closeWalk()
 		return a, tea.Quit
+	case WalkKey:
+		return a, a.walkKey(act.Note)
 	case ZoomMap:
 		a.zoomMap(act.Count)
 	case ToggleLabels:
@@ -404,12 +424,14 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 			a.role.Sel = max(slices.Index(agentkit.CompanionRoles, m.Companion().GetRole()), 0)
 		})
 	case Focus:
+		cmd := a.stopWalking() // the Stop goes to the character that was walking
 		a.setFocus(!a.focus)
 		if a.focus {
 			a.view.Notice = "directing " + a.duoName() + ": X back, Z its stance"
 		} else {
 			a.view.Notice = "you are back on your own character"
 		}
+		return a, cmd
 	case DuoSummon, DuoDismiss, DuoStance, DuoOrder:
 		cmd, note := a.duoDo(act)
 		a.view.Notice = note
@@ -632,6 +654,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	}
 	a.focusSess().View(func(m *model.Model) {
 		a.sync(m)
+		defer a.drawAhead(m)()
 		v.KeysToDuo = a.keysToDuo(m)
 		if !a.gameAt.IsZero() && a.gameMs == m.GameTimeMs && a.Clock == nil && !m.TurnBased() { // between events the game time runs on
 			v.GameNow = m.GameTimeMs + a.now().Sub(a.gameAt).Milliseconds()
@@ -646,12 +669,22 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 }
 
 func (a *App) View() tea.View {
+	// A scenario's clock is the server's and moves between messages; the program's
+	// own draws (this one is made after every message) leave the walking mark
+	// alone, and the scenario draws when it looks.
+	a.walk.still = a.Clock != nil
+	defer func() { a.walk.still = false }()
 	tv := tea.NewView(a.render(a.w, a.h, a.now().Sub(a.lastTick), screen.Terminal(os.Getenv("NO_COLOR") != "")))
 	tv.AltScreen = true
 	if !a.NoMouse {
 		tv.MouseMode = tea.MouseModeAllMotion // clicks, the wheel and hovering (D77)
 	}
 	tv.WindowTitle = "SEQ"
+	// Key releases (the kitty keyboard protocol) end a walk the moment the key
+	// comes up, where the terminal reports them; the focus tells a walk that its
+	// keys are gone when the window loses it.
+	tv.KeyboardEnhancements = tea.KeyboardEnhancements{ReportEventTypes: true}
+	tv.ReportFocus = true
 	return tv
 }
 

@@ -26,6 +26,9 @@ const (
 // roll for each of them, and a Stir rule for two.
 func stirred(space string, z *core.Zone) {
 	z.NoCompanions = true
+	for i := range z.MobTemplates {
+		z.MobTemplates[i].TierBonus = true // D82: only a marked encounter pays the bonus roll
+	}
 	for i := range z.InstancePresets {
 		if z.InstancePresets[i].ID == "venture-warren" {
 			z.InstancePresets[i].GroupTier = &core.GroupTierRule{ID: "venture-together", Name: groupTier, MinAccounts: 2, Bonus: "bonus-roll"}
@@ -81,7 +84,7 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 			}
 		})
 		screen := ann.Screen(140, 45)
-		for _, want := range []string{"Venture together | 2 players", "stirred: " + stirText[:30], "Slots: 2, 2 players", "hale (you)  your account", "bram  another player", "replacement open; no slot is empty"} {
+		for _, want := range []string{"Venture together | 2 players", "stirred: " + stirText[:30], "Slots: 2, 2 players", "hale (you)  Player 2, you", "bram  Player 1", "replacement open; no slot is empty"} {
 			if !strings.Contains(screen, want) {
 				t.Errorf("hale's screen lacks %q:\n%s", want, screen)
 			}
@@ -97,8 +100,8 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 		cass.Eventually("in the party of three", func(m *model.Model) bool { return len(m.PartyMembers()) == 3 })
 		w.Advance(time.Second)
 		cass.Press("e")
-		cass.Eventually("refused: the party is full", func(m *model.Model) bool {
-			return m.Refusal != nil && m.Refusal.Reason == "party_full" && strings.Contains(m.Refusal.Text, "full")
+		cass.Eventually("refused: every slot is held", func(m *model.Model) bool {
+			return m.Refusal != nil && m.Refusal.Reason == "no_slot" && strings.Contains(m.Refusal.Text, "taken")
 		})
 		if n, bad := cass.Notice(); !bad || n == "" {
 			t.Errorf("the status line says %q (denied %v)", n, bad)
@@ -133,17 +136,33 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 			return !m.InInstance() && m.Ready() && m.Map != nil && m.Map.GetSpace() == m.Space
 		})
 		w.Advance(time.Second)
-		cass.Press("e")
-		cass.Eventually("cora in the delve", inside)
-		w.Advance(time.Second)
-		ann.Eventually("cora holds the slot", func(m *model.Model) bool {
+		ann.Eventually("bram's slot is empty, open to a replacement", func(m *model.Model) bool {
 			for _, s := range m.Slots() {
-				if s.Holder == "cora" {
+				if s.State == model.HolderEmpty && s.Player == "Player 1" {
 					return true
 				}
 			}
 			return false
 		})
+		if scr := ann.Screen(140, 45); !strings.Contains(scr, "empty  was Player 1's, open") {
+			t.Errorf("hale's screen does not show the empty slot:\n%s", scr)
+		}
+		cass.Press("e")
+		cass.Eventually("cora in the delve", inside)
+		w.Advance(time.Second)
+		ann.Eventually("cora holds the slot", func(m *model.Model) bool {
+			for _, s := range m.Slots() {
+				if s.Holder == "cora" && s.State == model.HolderHeld && s.Player == "Player 1" {
+					return true
+				}
+			}
+			return false
+		})
+		// The replacement's panel carries the tier and the Stir state of the instance
+		// it joined (D82); the server's snapshot says them.
+		if scr := cass.Screen(140, 45); !strings.Contains(scr, "Venture together | 2 players") || !strings.Contains(scr, "stirred: "+stirText[:30]) {
+			t.Errorf("cora's panel lacks the tier and the Stir:\n%s", scr)
+		}
 		w.Advance(time.Second)
 		if has(cass, func(m *model.Model) bool { return m.Refusal != nil }) {
 			t.Error("cora's refusal outlived her going in")
@@ -167,7 +186,7 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 		for _, p := range []*scenario.Player{ann, cass} {
 			p.Eventually("told the bonus roll", func(m *model.Model) bool {
 				for _, l := range m.Log {
-					if strings.Contains(l.Text, "Your account's bonus roll for this encounter went to you") {
+					if l.Kind == "reward" && strings.HasPrefix(l.Text, "Your account's bonus roll for ") {
 						return true
 					}
 				}

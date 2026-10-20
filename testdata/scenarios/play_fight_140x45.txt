@@ -13,7 +13,7 @@
 │                            ░                                                       #           │┌─ Target ───────────────────────────────┐
 │                            ░                                                       #           ││ M Plain Scuttler  Lv 1                 │
 │                            ░                                                       #           ││ HP 23/40 #############---------- 2m E  │
-│                            ░                   @   M          c                    #           ││ even, fighting you                     │
+│                            ░                   @  M           c                    #           ││ even, fighting you                     │
 │                            ░                                                       #           │└────────────────────────────────────────┘
 │                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
 │                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │

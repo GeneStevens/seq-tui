@@ -315,29 +315,39 @@ func walkBoth(t *testing.T, w *scenario.World, to [2]int64, ps ...*scenario.Play
 	t.Helper()
 	const step = 3000
 	for range 400 {
-		moved := false
+		keys := map[*scenario.Player]string{}
 		for _, p := range ps {
 			var x, y int64
 			p.Model(func(m *model.Model) { x, y = posOf(m) })
 			dx, dy := to[0]-x, to[1]-y
 			switch {
 			case dx >= step:
-				p.Press("right")
+				keys[p] = "right"
 			case dx <= -step:
-				p.Press("left")
+				keys[p] = "left"
 			case dy >= step:
-				p.Press("up")
+				keys[p] = "up"
 			case dy <= -step:
-				p.Press("down")
-			default:
-				continue
+				keys[p] = "down"
 			}
-			moved = true
 		}
-		if !moved {
+		if len(keys) == 0 {
 			return
 		}
-		w.Advance(time.Second)
+		// Both walk together: the keys go down, seven ticks of walking (a step of
+		// about 3 m), and come up.
+		for _, p := range ps {
+			if k, ok := keys[p]; ok {
+				p.Hold(k)
+			}
+		}
+		w.Advance(7 * scenario.Tick)
+		for _, p := range ps {
+			if k, ok := keys[p]; ok {
+				p.Let(k)
+			}
+		}
+		w.Advance(scenario.Tick)
 	}
 	t.Fatalf("the players did not reach %v", to)
 }

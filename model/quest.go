@@ -59,6 +59,10 @@ func (m *Model) walking() bool {
 	return m.Self.HasDestination || (m.lastSelfMoveMs > 0 && m.GameTimeMs-m.lastSelfMoveMs <= walkWindowMs)
 }
 
+// Walking says the character is on its way somewhere as far as the server has
+// said (a destination, or its own moves told lately): Esc ends the walk.
+func (m *Model) Walking() bool { return m.walking() }
+
 // noteWalkStop logs that a fight stopped the character's walk (D66), after the
 // line of the event that did it: the server cancels the order and says nothing
 // else, so the log says it in plain words.

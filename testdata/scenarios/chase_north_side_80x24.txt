@@ -3,14 +3,14 @@
 │         ░                 ##### ≈≈≈####  #####   ││ HP 129/130 ############- │
 │         ░                 ##### ≈≈≈####  #####   ││ XP ----------- 40 to Lv 2│
 │         ░                                        ││ Atk off | Meadow Wolf    │
-│         ░               @M                       ││ Attacked by Meadow Wolf  │
+│         ░               @ M                      ││ Attacked by Meadow Wolf  │
 │         ░                                        │└──────────────────────────┘
 │         ░                                        │┌─ Target ─────────────────┐
 │         ░                                   c    ││ M Meadow Wolf  Lv 1      │
-│         ░                   c                    ││ HP 45/45 ######### 2m E  │
+│         ░                   c                    ││ HP 45/45 ######### 3m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt ready       2 Bash ready       3 -                4 -                │
+│ 1 Taunt ready       2 Bash range       3 -                4 -                │
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Meadow Wolf: none                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
@@ -21,4 +21,4 @@
 │ <   N.Ns Meadow Wolf hits you for 1                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                   
- ONLINE | Thornwick Downs | heard N.Ns ago | move ok              ? help  q quit
+ ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

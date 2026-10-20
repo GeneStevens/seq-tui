@@ -7,7 +7,7 @@
 │                   #░.............................│┌─ Instance ───────────────┐
 │                   #░...............#####.........││ Warren Venture Delve     │
 │                   #░...............#####.........││ real-time | inside       │
-│                   #░.....................########││ party up to 2 | normal   │
+│                   #░.....................########││ party up to 3 | normal   │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -15,7 +15,7 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│     N.Ns instance opened: Warren Venture Delve (up to 2 in it); enter at     │
+│     N.Ns instance opened: Warren Venture Delve (up to 3 in it); enter at     │
 │            delve-gate with E                                                 │
 │     N.Ns entered Hollow Warren (Warren Venture Delve)                        │
 │     N.Ns bram comes into view                                                │

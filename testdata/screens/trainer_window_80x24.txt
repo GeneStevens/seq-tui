@@ -1,5 +1,5 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 192 crowns.        │
+│ Gorran Stoutarm <Warrior Trainer>, 1m S away. You have 192 crowns.           │
 │                                                                              │
 │ You are level 3. Enter buys the ability under the cursor.                    │
 │  Taunt                  level 1   known                                      │

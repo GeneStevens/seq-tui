@@ -135,6 +135,9 @@ func (m *Model) Players() int64 {
 	if m.Instance != nil && m.Instance.GetPlayers() > 0 {
 		return m.Instance.GetPlayers()
 	}
+	if m.Instance != nil && m.Joined != nil && m.Joined.Players > 0 {
+		return m.Joined.Players
+	}
 	if m.Opened != nil {
 		return m.Opened.Players
 	}
@@ -147,7 +150,7 @@ func (m *Model) GroupTierName() string {
 		return m.Instance.GetGroupTier()
 	}
 	if m.Instance != nil {
-		return ""
+		return firstText(m.joinedTier())
 	}
 	if m.Opened != nil {
 		return m.Opened.GroupTier
@@ -181,45 +184,78 @@ func (m *Model) SlotCount() int64 {
 	return 0
 }
 
-// Slot is one slot of the instance as the client can tell it.
+// Slot holder states, as the server tells them (D82).
+const (
+	HolderHeld     = "held"     // the holder is in the instance
+	HolderEmpty    = "empty"    // the holder is gone: open to a replacement between encounters
+	HolderReserved = "reserved" // nobody has entered it yet
+)
+
+// Slot is one slot of the instance as the server lists it (D82).
 type Slot struct {
-	N      int
-	Holder string // the character's name; "" for an empty slot
-	Me     bool   // the holder is this character
-	Own    bool   // the holder is another character of this player's account
+	N int
+	// Holder is the character's name, "" for a slot nobody has entered.
+	Holder string
+	// Player is the server's handle for the player, "Player 2": the same for
+	// every viewer, and nothing about the account.
+	Player string
+	State  string
+	Me     bool // the holder is this character
+	Own    bool // the holder is another character of this player's account
 }
 
-// Slots lists the instance's slots: this character, the other characters of
-// its group in the instance, and the rest empty. The wire does not say which
-// slot a character was made for, so the order is the order they are seen in.
+// Slots lists the instance's slots as the server's holder list has them: who holds
+// each, which player that is, and whether it is held, empty (open to a
+// replacement) or reserved. The list is the snapshot's, kept current by the
+// instance_slots event; a server that sends none gives no slots.
 func (m *Model) Slots() []Slot {
-	n := m.SlotCount()
-	if n == 0 || m.Instance == nil {
+	if m.Instance == nil {
 		return nil
 	}
 	var out []Slot
-	add := func(name string, me, own bool) {
-		out = append(out, Slot{N: len(out) + 1, Holder: name, Me: me, Own: own})
-	}
-	add(m.Self.Name, true, true)
-	for _, id := range m.GroupIDs() {
-		en := m.Group[id].Entity
-		if en.GetKind() != pb.EntityKind_ENTITY_KIND_CHARACTER || en.GetOwner() != "" {
-			continue
+	for _, h := range m.holders {
+		s := Slot{N: int(h.GetSlot()), Holder: h.GetName(), Player: h.GetPlayer(), State: h.GetState()}
+		if s.N == 0 {
+			s.N = len(out) + 1
 		}
-		add(en.GetName(), false, m.isOwn(en.GetName()))
-	}
-	for int64(len(out)) < n {
-		add("", false, false)
+		if h.GetCharacter() != "" && h.GetCharacter() == m.Self.ID && m.Self.ID != "" {
+			s.Me = true
+		} else if s.Holder != "" && s.State == HolderHeld {
+			s.Own = m.isOwn(s.Holder)
+		}
+		out = append(out, s)
 	}
 	return out
+}
+
+// noteSlots keeps the holder list an instance_slots event carries.
+func (m *Model) noteSlots(e *pb.Event) {
+	if o := e.GetInstanceSlots(); o != nil && m.Instance != nil {
+		m.holders = slices.Clone(o.GetHolders())
+	}
+}
+
+// Joined is what the server told a character that filled a slot someone else
+// held (D82): the preset and tier it joined and what the group rules had made of
+// the instance.
+type Joined struct {
+	Preset, Tier, GroupTier string
+	Players, Stirred, Slots int64
+	Text                    string
+}
+
+// noteJoined keeps the instance_joined event.
+func (m *Model) noteJoined(e *pb.Event) {
+	if o := e.GetInstanceJoined(); o != nil {
+		m.Joined = &Joined{Preset: o.GetPreset(), Tier: o.GetTier(), GroupTier: o.GetGroupTier(), Players: o.GetPlayers(), Stirred: o.GetStirred(), Slots: o.GetSlots(), Text: e.GetText()}
+	}
 }
 
 // Vacant says how many slots have no holder in the instance now.
 func (m *Model) Vacant() int {
 	v := 0
 	for _, s := range m.Slots() {
-		if s.Holder == "" {
+		if s.State == HolderEmpty {
 			v++
 		}
 	}
@@ -242,7 +278,9 @@ func (m *Model) ReplacementWords() string {
 }
 
 // describeGroup is the log line of an event of the group rules: the instance
-// stirring and a personal reward (D79, D81).
+// stirring, a personal reward and a seat taken in a running instance (D79, D81,
+// D82). The server's own first-person words come first; the client's fallback is
+// for a server that left them out.
 func (m *Model) describeGroup(e *pb.Event) (kind, text, reason string, ok bool) {
 	switch b := e.GetBody().(type) {
 	case *pb.Event_InstanceStirred:
@@ -253,9 +291,47 @@ func (m *Model) describeGroup(e *pb.Event) (kind, text, reason string, ok bool) 
 		if w.GetKind() != "personal" {
 			return "", "", "", false
 		}
-		return "reward", m.entitlementWords(w), "", true
+		return "reward", firstText(e.GetText(), m.entitlementWords(w)), "", true
+	case *pb.Event_InstanceJoined:
+		o := b.InstanceJoined
+		return "instance_joined", firstText(e.GetText(), m.joinedWords(o)), "", true
+	case *pb.Event_EntitlementTaken:
+		o := b.EntitlementTaken
+		who := firstText(m.label(o.GetTaker()), "another")
+		return "entitlement_taken", firstText(e.GetText(), fmt.Sprintf("Your other character, %s, took this account's %s", who, entitlementName(o.GetKind()))), "", true
 	}
 	return "", "", "", false
+}
+
+// joinedWords says what a replacement took a place in, when the server left the
+// words out.
+func (m *Model) joinedWords(o *pb.InstanceJoined) string {
+	s := "You take a place in " + firstText(m.presetName(o.GetPreset()), "the instance")
+	if o.GetTier() != "" {
+		s += ": " + o.GetTier() + " tier"
+	}
+	s += ", " + playersCount(o.GetPlayers())
+	if o.GetGroupTier() != "" {
+		s += ", group tier " + o.GetGroupTier()
+	}
+	if o.GetStirred() > 0 {
+		s += ", stirred"
+	}
+	return s
+}
+
+func playersCount(n int64) string {
+	if n == 1 {
+		return "1 player"
+	}
+	return fmt.Sprintf("%d players", n)
+}
+
+func (m *Model) presetName(id string) string {
+	if p := m.Preset(id); p != nil {
+		return p.GetName()
+	}
+	return id
 }
 
 // entitlementWords says what became of an account's personal reward for an
@@ -266,6 +342,9 @@ func (m *Model) entitlementWords(w *pb.Reward) string {
 		detail = m.Current().GetGroupTier().GetBonus()
 	}
 	what := entitlementName(detail)
+	if w.GetItem() != "" {
+		what += " (" + m.ItemName(w.GetItem()) + ")"
+	}
 	who := m.label(w.GetRecipient())
 	switch {
 	case w.GetRecipient() == m.Self.ID && m.Self.ID != "":
@@ -282,4 +361,12 @@ func entitlementName(id string) string {
 		return "personal reward"
 	}
 	return strings.NewReplacer("-", " ", "_", " ").Replace(id)
+}
+
+// joinedTier is the group tier a replacement was told it joined, "" for none.
+func (m *Model) joinedTier() string {
+	if m.Joined != nil {
+		return m.Joined.GroupTier
+	}
+	return ""
 }

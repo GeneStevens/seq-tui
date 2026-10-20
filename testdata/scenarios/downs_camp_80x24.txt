@@ -1,13 +1,13 @@
-┌─ Thornwick Downs, at 45,105 m, north up ─────────┐┌─ You ────────────────────┐
-│     ░                 ##### ≈≈≈####  #####       ││ Hale  Lv 1 Warrior  | 0cr│
-│     ░                 ##### ≈≈≈####  #####       ││ HP 130/130 ############# │
-│     ░                                            ││ XP ----------- 40 to Lv 2│
-│     ░                                            ││ Atk off | none           │
-│     ░                   @                        │└──────────────────────────┘
-│     ░                                            │┌─ Target ─────────────────┐
-│     ░                                   c        ││ no target (Tab to choose)│
-│     ░                   cm                       ││                          │
-│     ░                                            ││                          │
+┌─ Thornwick Downs, at 42,103 m, north up ─────────┐┌─ You ────────────────────┐
+│      ░                 ##### ≈≈≈####  #####      ││ Hale  Lv 1 Warrior  | 0cr│
+│      ░                                           ││ HP 130/130 ############# │
+│      ░                                           ││ XP ----------- 40 to Lv 2│
+│      ░                                           ││ Atk off | none           │
+│      ░                  @                        │└──────────────────────────┘
+│      ░                                   c       │┌─ Target ─────────────────┐
+│      ░                   cm                      ││ no target (Tab to choose)│
+│      ░                                           ││                          │
+│      ░                                           ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                        
- ONLINE | → Wolves at Wickett Mill, 11m S | heard N.Ns ago | move ok      ? help
+ ONLINE | Thornwick Downs | → Wolves at Wickett Mill, 10m S | heard N.Ns ago    

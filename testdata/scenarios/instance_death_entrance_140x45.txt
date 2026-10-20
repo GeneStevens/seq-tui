@@ -16,7 +16,7 @@
 │                                                @                                               │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ D Gate North                   0m here │
-│                                                                                                ││ m Plain Scuttler      18m S 40/40 even │
+│                                                                                                ││ m Plain Scuttler      16m S 40/40 even │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -24,14 +24,14 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
+│                                           m                                                    ││                                        │
 │                                                                                                ││                                        │
-│                                                    m                                           ││                                        │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ <  NN.Ns Plain Scuttler hits you for 1                                                                                                   │
-│ <  NN.Ns Plain Scuttler hits you for 1                                                                                                   │
 │ <  NN.Ns Plain Scuttler hits you for 3                                                                                                   │
+│ <  NN.Ns Plain Scuttler hits you for 1                                                                                                   │
 │ x  NN.Ns Plain Scuttler killed you                                                                                                       │
 │    NN.Ns Your target is gone                                                                                                             │
 │    NN.Ns Your target Plain Scuttler is gone                                                                                              │

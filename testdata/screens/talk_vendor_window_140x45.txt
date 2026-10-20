@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick <Armourer>, 2m S away. You have 200 crowns.                                    ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Armourer>, 3m S away. You have 200 crowns.                                    ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
 │> ▲ Tanned Cap Common                        8 │  (nothing)                                     ││ Atk off | none                         │
@@ -11,16 +11,16 @@
 │  ▲ Tanned Leggings Common                  16 │                                                │└────────────────────────────────────────┘
 │  ▲ Ringed Leggings Common                  48 │                                                │┌─ Nearby ───────────────────────────────┐
 │  ▲ Studded Leggings Common                 96 │                                                ││ & Thornwick Contract Board 29m E [new] │
-│  ▲ Tanned Gloves Common                     8 │                                                ││ $ Hilda Brasswick <Armourer>      2m S │
+│  ▲ Tanned Gloves Common                     8 │                                                ││ $ Hilda Brasswick <Armourer>      3m S │
 │  ▲ Ringed Gloves Common                    24 │                                                ││ g Town Guard <Thornwick Watch>   15m N │
-│  ▲ Studded Gloves Common                   48 │                                                ││ $ Dunstan Reeve <Weaponsmith>    22m S │
-│  ▲ Tanned Boots Common                     10 │                                                ││ $ Barnaby Tuck <General Goods>  28m SE │
+│  ▲ Studded Gloves Common                   48 │                                                ││ $ Dunstan Reeve <Weaponsmith>    23m S │
+│  ▲ Tanned Boots Common                     10 │                                                ││ $ Barnaby Tuck <General Goods>  29m SE │
 │  ▲ Ringed Boots Common                     30 │                                                ││ g Tamsin Hale <Watch Greeter>    34m E │
 │  ▲ Studded Boots Common                    60 │                                                ││ H Isolde Fenn <Binder>          40m SE │
-│  ▲ Oak Buckler Common                      14 │                                                ││ T Mother Elswyth <Cleric Traine… 42m S │
+│  ▲ Oak Buckler Common                      14 │                                                ││ T Mother Elswyth <Cleric Traine… 43m S │
 │  ▲ Iron-Rimmed Shield Common               42 │                                                ││ T Gorran Stoutarm <Warrior Trai… 44m S │
 │  ▲ Bossed Shield Common                    84 │                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
-│  ▲ Linen Hood Common                        8 │                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
+│  ▲ Linen Hood Common                        8 │                                                ││ T Ormond Quill <Wizard Trainer> 56m SE │
 │  ▲ Wool Hood Common                        24 │                                                ││ B Odalys Penn <Banker>           60m E │
 │────────────────────────────────────────────────────────────────────────────────────────────────││ T Ser Aldric Vane <Paladin Tra… 67m SE │
 │ ▲ Tanned Cap: Common, Head; tradable once                                                      ││ Q Captain Rhosyn Hartley <Watch… 76m E │
@@ -30,7 +30,7 @@
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     2.4s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
+│     1.8s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
 │            healer's patience.                                                                                                            │
 │                                                                                                                                          │
 │                                                                                                                                          │

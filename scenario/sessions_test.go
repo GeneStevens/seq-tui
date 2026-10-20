@@ -29,14 +29,14 @@ func screenHas(p *scenario.Player, want ...string) bool {
 func TestSessionsViewListsReplaysAndExports(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria")})
 	p := w.Login("ann", "aria")
-	p.Press("right")
+	p.Press("f") // commands for the logs to hold: the walk's keep-alives are timed by the clock, and a log shows when the server answered
 	w.Advance(time.Second)
-	p.Press("right")
+	p.Press("f")
 	w.Advance(time.Second)
 
 	// A second session of the same player: the first is over and has its end.
 	p.Fresh()
-	p.Press("left")
+	p.Press("f")
 	w.Advance(time.Second)
 
 	p.Press("ctrl+l")
@@ -93,7 +93,9 @@ func TestSessionsViewListsReplaysAndExports(t *testing.T) {
 		t.Fatalf("Esc did not return to play:\n%s", p.Screen(140, 45))
 	}
 	p.Press("right")
-	notice(t, p, "move ok", false)
+	if sends := p.WalkSends(); len(sends) == 0 || sends[0].Stop {
+		t.Fatalf("the arrow key did not walk the character: %v", sends)
+	}
 }
 
 // The sessions view opens from the character creation screen, where a player

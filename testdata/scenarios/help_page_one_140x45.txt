@@ -1,7 +1,10 @@
 ┌─ Help: Moving, doors, people ────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ Moving and doors                                                                                                                         │
-│   Walk with the arrow keys or W A S D; each press sends you a few metres on. The status line says how fast you go on the ground you      │
-│   stand on.                                                                                                                              │
+│   Walk with the arrow keys or W A S D: hold a key to keep walking, let go to stop; two keys held at once walk a diagonal where your      │
+│   terminal reports them. Esc stops a walk begun by a click. Your own mark runs ahead of the server's word so the key shows at once, and  │
+│   it never walks through a wall; the server settles where you are. The status line says how fast you go on the ground you stand on. A    │
+│   terminal that reports key releases (Kitty, Ghostty, WezTerm, recent iTerm2) stops you the moment you let go; any other stops you about │
+│   a tenth of a second after the key stops repeating.                                                                                     │
 │   M shows the whole zone you have seen. A door (D) leads to the next zone or to an instance: stand at it and press E or Enter. A zone    │
 │   line (the east gate, say) takes you across; E at the far side brings you back.                                                         │
 │   Nearby lists what is around you by name and distance: people, doors and places, and the town's fixed people even before you have seen  │
@@ -13,9 +16,6 @@
 │   A contract board offers hunts, gathering and scouting. K lists the contracts you hold. Hand a finished one in at any contract board in │
 │   town, not only the one that posted it.                                                                                                 │
 │   Nothing here is required and nothing waits for you: play in any order.                                                                 │
-│                                                                                                                                          │
-│                                                                                                                                          │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -19,9 +19,9 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Party slots ──────────────────────────┐
 │                                                                                                ││ Slots: 2, 1 player                     │
-│                                                                                                ││  1  bram (you)  your account           │
-│                                                                                                ││  2  empty slot                         │
-│                                                                                                ││ replacement open between encounters    │
+│                                                                                                ││  1  aria  Player 1                     │
+│                                                                                                ││  2  bram (you)  Player 1, you          │
+│                                                                                                ││ replacement open; no slot is empty     │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                m                                               │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │

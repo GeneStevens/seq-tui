@@ -1,5 +1,5 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Jobs for the Downs>, 1m SW of you                                    ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board <Jobs for the Downs>, 2m S of you                                     ││ Hale  Lv 1 Warrior           | 0 crowns│
 │                                                                                                ││ HP 130/130 ########################### │
 │ “Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the     ││ XP ------------------------- 40 to Lv 2│
 │ proof back here.”                                                                              ││ Atk off | none                         │
