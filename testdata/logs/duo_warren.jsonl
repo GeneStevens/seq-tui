@@ -1,6 +1,6 @@
 {"welcome":{"protocol_version":1,"min_protocol_version":1,"tick_ms":100,"limits":{"max_message_bytes":4096,"max_intents_per_second":20},"classes":[{"id":"warrior","name":"Warrior","roles":["tank"],"description":"Armored front-liner who holds enemies' attention and soaks up their blows.","kit":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"Stuns for 1.5 s, interrupts a cast. On an enemy within 2.5 m."}]},{"id":"cleric","name":"Cleric","roles":["healer"],"description":"Healer who mends wounds and wards allies, with a hallowed blow of their own.","kit":[{"id":"cleric-minor-heal","name":"Minor Heal","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"ally","description":"Heals 15-20. On an ally within 25 m."},{"id":"cleric-smite","name":"Smite","cast_ms":"1500","cooldown_ms":"6000","mana_cost":"8","range_mm":"25000","target":"enemy","description":"Deals 10-14 holy damage. On an enemy within 25 m."}]},{"id":"rogue","name":"Rogue","roles":["melee"],"description":"Quick melee striker: sneaks, backstabs, bleeds enemies and slips out of fights.","kit":[{"id":"rogue-backstab","name":"Backstab","cooldown_ms":"9000","range_mm":"2500","target":"enemy","description":"Deals 12-18 physical damage. On an enemy within 2.5 m."},{"id":"rogue-sneak","name":"Sneak","cooldown_ms":"6000","target":"self","description":"Hides you until you act. On yourself."}]},{"id":"wizard","name":"Wizard","roles":["spell"],"description":"Fragile caster with the strongest spells, from bolts of fire and frost to roots.","kit":[{"id":"wizard-flame-dart","name":"Flame Dart","cast_ms":"1000","mana_cost":"6","range_mm":"25000","target":"enemy","description":"Deals 8-12 fire damage. On an enemy within 25 m."},{"id":"wizard-frost-bolt","name":"Frost Bolt","cast_ms":"2000","mana_cost":"12","range_mm":"25000","target":"enemy","description":"Deals 10-14 cold damage, slows by 40% for 12 s. On an enemy within 25 m."}]},{"id":"paladin","name":"Paladin","roles":["tank","healer"],"description":"Armored hybrid who fights at the front and can heal, cleanse and judge.","kit":[{"id":"paladin-hallowed-blow","name":"Hallowed Blow","cooldown_ms":"12000","range_mm":"2500","target":"enemy","description":"Deals 8-12 holy damage, heals you for 50% of the damage you deal. On an enemy within 2.5 m."},{"id":"paladin-challenge","name":"Challenge","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."}]},{"id":"druid","name":"Druid","roles":["healer","spell"],"description":"Nature caster who heals over time, entangles and slows enemies, and poisons them.","kit":[{"id":"druid-thorn-bolt","name":"Thorn Bolt","cast_ms":"1500","mana_cost":"7","range_mm":"25000","target":"enemy","description":"Deals 8-12 nature damage. On an enemy within 25 m."},{"id":"druid-mend","name":"Mend","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"ally","description":"Heals 14-18. On an ally within 25 m."}]}]}}
 {"snapshot":{"game_time_ms":"100","tick":"1","space":"Hollow Warren","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"11000","y":"70000"},"hp":"232","max_hp":"232","level":"7"},"stats":{"level":"7","max_hp":"232","regen":"8","armor":"32","strength":"36","weapon_min":"5","weapon_max":"15","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"627","abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"627","xp_next_level":"808","inventory_size":"20","ground":"floor","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"7","max_hp":"232","regen":"8","armor":"32","armor_cut_pct":"25","hit_pct":"75","swing_min":"8","swing_max":"18","delay_ms":"2000","dps_tenths":"65","attributes":[{"name":"strength","base":"36"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}}}}
-{"zone_map":{"space":"Hollow Warren","name":"Hollow Warren","bounds":{"max_x":"360000","max_y":"140000"},"walls":[{"a":{"x":"30000","y":"72800"},"b":{"x":"30000","y":"73200"}},{"a":{"x":"72000","y":"72800"},"b":{"x":"72000","y":"73200"}},{"a":{"x":"96000","y":"72800"},"b":{"x":"96000","y":"73200"}},{"a":{"x":"142000","y":"72800"},"b":{"x":"142000","y":"73200"}},{"a":{"x":"172000","y":"72800"},"b":{"x":"172000","y":"73200"}},{"a":{"x":"204000","y":"72800"},"b":{"x":"204000","y":"73200"}},{"a":{"x":"262000","y":"72800"},"b":{"x":"262000","y":"73200"}},{"a":{"x":"288000","y":"72800"},"b":{"x":"288000","y":"73200"}},{"a":{"x":"312000","y":"72800"},"b":{"x":"312000","y":"73200"}}],"doors":[{"id":"mouth","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"3000","y":"70000"},"name":"Warren Mouth","leads_to":"thornwick-downs","label":"Warren Mouth — to the Thornwick Downs"},{"id":"delve-gate","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"10000","y":"70000"},"name":"Delve Gate","label":"Delve Gate"}],"view_radius_mm":"20000","instance_presets":[{"id":"venture-warren","name":"Warren Venture Delve","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"delve-gate","idle_ms":"8000","max_lifetime_ms":"3600000","tier":"venture"},{"id":"peril-warren","name":"Warren Peril Delve","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"delve-gate","idle_ms":"8000","max_lifetime_ms":"3600000","tier":"peril","entry_fee":"50"},{"id":"venture-warren-turns","name":"Warren Venture Delve by Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"delve-gate","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"60","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture"}],"markers":[{"id":"mouth","kind":"zone_line","pos":{"x":"3000","y":"70000"},"name":"Warren Mouth"},{"id":"delve-gate","kind":"instance_entrance","pos":{"x":"10000","y":"70000"},"name":"Delve Gate"},{"id":"den-threshold","kind":"scout","pos":{"x":"130000","y":"70000"},"name":"Den Threshold"},{"id":"deep-threshold","kind":"scout","pos":{"x":"250000","y":"70000"},"name":"Deep Threshold"}],"camps":[{"id":"diggers-a","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"30000","y":"35000"}},{"id":"diggers-b","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"28000","y":"100000"}},{"id":"diggers-c","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"62000","y":"70000"}},{"id":"scouts-a","mob":"Tunnel Scout","level":"6","count":"2","pos":{"x":"72000","y":"28000"}},{"id":"scouts-b","mob":"Tunnel Scout","level":"6","count":"2","pos":{"x":"72000","y":"112000"}},{"id":"slingers-a","mob":"Pit Slinger","level":"7","count":"1","pos":{"x":"72000","y":"16000"}},{"id":"slingers-b","mob":"Pit Slinger","level":"7","count":"1","pos":{"x":"96000","y":"90000"}},{"id":"cutthroats-a","mob":"Den Cutthroat","level":"8","count":"1","pos":{"x":"142000","y":"35000"}},{"id":"cutthroats-b","mob":"Den Cutthroat","level":"8","count":"1","pos":{"x":"142000","y":"105000"}},{"id":"shamans-a","mob":"Den Shaman","level":"9","count":"2","pos":{"x":"172000","y":"50000"}},{"id":"shamans-b","mob":"Den Shaman","level":"9","count":"2","pos":{"x":"180000","y":"95000"}},{"id":"brutes-a","mob":"Den Brute","level":"10","count":"1","pos":{"x":"204000","y":"32000"}},{"id":"brutes-b","mob":"Den Brute","level":"10","count":"1","pos":{"x":"214000","y":"106000"}},{"id":"brutes-c","mob":"Den Brute","level":"10","count":"1","pos":{"x":"224000","y":"70000"}},{"id":"stalkers-a","mob":"Deep Stalker","level":"11","count":"1","pos":{"x":"262000","y":"38000"}},{"id":"stalkers-b","mob":"Deep Stalker","level":"11","count":"1","pos":{"x":"262000","y":"102000"}},{"id":"deep-shamans-a","mob":"Deep Shaman","level":"11","count":"2","pos":{"x":"288000","y":"55000"}},{"id":"deep-shamans-b","mob":"Deep Shaman","level":"11","count":"2","pos":{"x":"288000","y":"108000"}},{"id":"wardens-a","mob":"Warren Warden","level":"12","count":"2","pos":{"x":"312000","y":"36000"}},{"id":"wardens-b","mob":"Warren Warden","level":"12","count":"2","pos":{"x":"312000","y":"104000"}},{"id":"chief","mob":"Warren Chief","level":"12","count":"1","pos":{"x":"340000","y":"70000"}}],"areas":[{"id":"mouth","kind":"floor","poly":[{"y":"54000"},{"x":"28000","y":"54000"},{"x":"28000","y":"86000"},{"y":"86000"}]},{"id":"gallery-diggings","kind":"floor","poly":[{"x":"24000","y":"66000"},{"x":"112000","y":"66000"},{"x":"112000","y":"74000"},{"x":"24000","y":"74000"}]},{"id":"neck-to-den","kind":"floor","poly":[{"x":"112000","y":"67500"},{"x":"128000","y":"67500"},{"x":"128000","y":"72500"},{"x":"112000","y":"72500"}]},{"id":"gallery-den","kind":"floor","poly":[{"x":"128000","y":"66000"},{"x":"232000","y":"66000"},{"x":"232000","y":"74000"},{"x":"128000","y":"74000"}]},{"id":"neck-to-deep","kind":"floor","poly":[{"x":"232000","y":"67500"},{"x":"248000","y":"67500"},{"x":"248000","y":"72500"},{"x":"232000","y":"72500"}]},{"id":"gallery-deep","kind":"floor","poly":[{"x":"248000","y":"66000"},{"x":"320000","y":"66000"},{"x":"320000","y":"74000"},{"x":"248000","y":"74000"}]},{"id":"dig-hall","kind":"floor","poly":[{"x":"46000","y":"58000"},{"x":"82000","y":"58000"},{"x":"82000","y":"82000"},{"x":"46000","y":"82000"}]},{"id":"den-hall","kind":"floor","poly":[{"x":"130000","y":"56000"},{"x":"170000","y":"56000"},{"x":"170000","y":"84000"},{"x":"130000","y":"84000"}]},{"id":"brute-hall","kind":"floor","poly":[{"x":"212000","y":"56000"},{"x":"238000","y":"56000"},{"x":"238000","y":"84000"},{"x":"212000","y":"84000"}]},{"id":"chief-chamber","kind":"floor","poly":[{"x":"316000","y":"46000"},{"x":"358000","y":"46000"},{"x":"358000","y":"94000"},{"x":"316000","y":"94000"}]},{"id":"shaft-1n","kind":"floor","poly":[{"x":"26000","y":"50000"},{"x":"34000","y":"50000"},{"x":"34000","y":"66000"},{"x":"26000","y":"66000"}]},{"id":"north-dig","kind":"floor","poly":[{"x":"14000","y":"18000"},{"x":"46000","y":"18000"},{"x":"46000","y":"52000"},{"x":"14000","y":"52000"}]},{"id":"shaft-1s","kind":"floor","poly":[{"x":"26000","y":"74000"},{"x":"34000","y":"74000"},{"x":"34000","y":"90000"},{"x":"26000","y":"90000"}]},{"id":"south-dig","kind":"floor","poly":[{"x":"14000","y":"88000"},{"x":"46000","y":"88000"},{"x":"46000","y":"112000"},{"x":"14000","y":"112000"}]},{"id":"shaft-2n","kind":"floor","poly":[{"x":"68000","y":"38000"},{"x":"76000","y":"38000"},{"x":"76000","y":"60000"},{"x":"68000","y":"60000"}]},{"id":"scout-pit-north","kind":"floor","poly":[{"x":"56000","y":"8000"},{"x":"100000","y":"8000"},{"x":"100000","y":"40000"},{"x":"56000","y":"40000"}]},{"id":"shaft-2s","kind":"floor","poly":[{"x":"68000","y":"80000"},{"x":"76000","y":"80000"},{"x":"76000","y":"100000"},{"x":"68000","y":"100000"}]},{"id":"scout-pit-south","kind":"floor","poly":[{"x":"56000","y":"98000"},{"x":"100000","y":"98000"},{"x":"100000","y":"128000"},{"x":"56000","y":"128000"}]},{"id":"shaft-roost","kind":"floor","poly":[{"x":"92000","y":"74000"},{"x":"100000","y":"74000"},{"x":"100000","y":"84000"},{"x":"92000","y":"84000"}]},{"id":"slinger-roost","kind":"floor","poly":[{"x":"84000","y":"82000"},{"x":"108000","y":"82000"},{"x":"108000","y":"96000"},{"x":"84000","y":"96000"}]},{"id":"cross-1s","kind":"floor","poly":[{"x":"44000","y":"106000"},{"x":"58000","y":"106000"},{"x":"58000","y":"114000"},{"x":"44000","y":"114000"}]},{"id":"shaft-3n","kind":"floor","poly":[{"x":"138000","y":"44000"},{"x":"146000","y":"44000"},{"x":"146000","y":"58000"},{"x":"138000","y":"58000"}]},{"id":"cutthroat-lair-north","kind":"floor","poly":[{"x":"126000","y":"14000"},{"x":"160000","y":"14000"},{"x":"160000","y":"46000"},{"x":"126000","y":"46000"}]},{"id":"shaft-3s","kind":"floor","poly":[{"x":"138000","y":"82000"},{"x":"146000","y":"82000"},{"x":"146000","y":"98000"},{"x":"138000","y":"98000"}]},{"id":"cutthroat-lair-south","kind":"floor","poly":[{"x":"126000","y":"96000"},{"x":"160000","y":"96000"},{"x":"160000","y":"126000"},{"x":"126000","y":"126000"}]},{"id":"shaft-4n","kind":"floor","poly":[{"x":"168000","y":"56000"},{"x":"176000","y":"56000"},{"x":"176000","y":"66000"},{"x":"168000","y":"66000"}]},{"id":"shaman-cave-north","kind":"floor","poly":[{"x":"164000","y":"28000"},{"x":"200000","y":"28000"},{"x":"200000","y":"58000"},{"x":"164000","y":"58000"}]},{"id":"shaft-4s","kind":"floor","poly":[{"x":"168000","y":"74000"},{"x":"176000","y":"74000"},{"x":"176000","y":"84000"},{"x":"168000","y":"84000"}]},{"id":"shaman-hall-south","kind":"floor","poly":[{"x":"164000","y":"74000"},{"x":"232000","y":"74000"},{"x":"232000","y":"120000"},{"x":"164000","y":"120000"}]},{"id":"shaft-5n","kind":"floor","poly":[{"x":"200000","y":"44000"},{"x":"208000","y":"44000"},{"x":"208000","y":"66000"},{"x":"200000","y":"66000"}]},{"id":"brute-pen-north","kind":"floor","poly":[{"x":"196000","y":"12000"},{"x":"240000","y":"12000"},{"x":"240000","y":"46000"},{"x":"196000","y":"46000"}]},{"id":"cross-3n","kind":"floor","poly":[{"x":"156000","y":"34000"},{"x":"168000","y":"34000"},{"x":"168000","y":"42000"},{"x":"156000","y":"42000"}]},{"id":"wing-link-north","kind":"floor","poly":[{"x":"98000","y":"22000"},{"x":"128000","y":"22000"},{"x":"128000","y":"28000"},{"x":"98000","y":"28000"}]},{"id":"shaft-6n","kind":"floor","poly":[{"x":"258000","y":"44000"},{"x":"266000","y":"44000"},{"x":"266000","y":"66000"},{"x":"258000","y":"66000"}]},{"id":"stalker-den-north","kind":"floor","poly":[{"x":"248000","y":"18000"},{"x":"290000","y":"18000"},{"x":"290000","y":"46000"},{"x":"248000","y":"46000"}]},{"id":"shaft-6s","kind":"floor","poly":[{"x":"258000","y":"74000"},{"x":"266000","y":"74000"},{"x":"266000","y":"96000"},{"x":"258000","y":"96000"}]},{"id":"shaft-7n","kind":"floor","poly":[{"x":"284000","y":"58000"},{"x":"292000","y":"58000"},{"x":"292000","y":"67000"},{"x":"284000","y":"67000"}]},{"id":"shaman-alcove-north","kind":"floor","poly":[{"x":"276000","y":"46000"},{"x":"300000","y":"46000"},{"x":"300000","y":"60000"},{"x":"276000","y":"60000"}]},{"id":"shaft-8n","kind":"floor","poly":[{"x":"308000","y":"46000"},{"x":"316000","y":"46000"},{"x":"316000","y":"66000"},{"x":"308000","y":"66000"}]},{"id":"warden-post-north","kind":"floor","poly":[{"x":"300000","y":"22000"},{"x":"326000","y":"22000"},{"x":"326000","y":"48000"},{"x":"300000","y":"48000"}]},{"id":"shaft-8s","kind":"floor","poly":[{"x":"308000","y":"74000"},{"x":"316000","y":"74000"},{"x":"316000","y":"94000"},{"x":"308000","y":"94000"}]},{"id":"shaft-7s","kind":"floor","poly":[{"x":"284000","y":"73000"},{"x":"292000","y":"73000"},{"x":"292000","y":"92000"},{"x":"284000","y":"92000"}]},{"id":"deep-hall-south","kind":"floor","poly":[{"x":"248000","y":"90000"},{"x":"326000","y":"90000"},{"x":"326000","y":"124000"},{"x":"248000","y":"124000"}]}]}}
+{"zone_map":{"space":"Hollow Warren","name":"Hollow Warren","bounds":{"max_x":"360000","max_y":"140000"},"walls":[{"a":{"x":"30000","y":"72800"},"b":{"x":"30000","y":"73200"}},{"a":{"x":"72000","y":"72800"},"b":{"x":"72000","y":"73200"}},{"a":{"x":"96000","y":"72800"},"b":{"x":"96000","y":"73200"}},{"a":{"x":"142000","y":"72800"},"b":{"x":"142000","y":"73200"}},{"a":{"x":"172000","y":"72800"},"b":{"x":"172000","y":"73200"}},{"a":{"x":"204000","y":"72800"},"b":{"x":"204000","y":"73200"}},{"a":{"x":"262000","y":"72800"},"b":{"x":"262000","y":"73200"}},{"a":{"x":"288000","y":"72800"},"b":{"x":"288000","y":"73200"}},{"a":{"x":"312000","y":"72800"},"b":{"x":"312000","y":"73200"}}],"doors":[{"id":"mouth","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"3000","y":"70000"},"name":"Warren Mouth","leads_to":"thornwick-downs","label":"Warren Mouth — to the Thornwick Downs"},{"id":"delve-gate","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"10000","y":"70000"},"name":"Delve Gate","label":"Delve Gate"}],"view_radius_mm":"20000","instance_presets":[{"id":"venture-warren","name":"Warren Venture Delve","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"delve-gate","idle_ms":"8000","max_lifetime_ms":"3600000","tier":"venture","party_size":[{"size":"1","mob_pct":"70"},{"size":"2","mob_hp_pct":"100","mob_damage_pct":"150"}]},{"id":"peril-warren","name":"Warren Peril Delve","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"delve-gate","idle_ms":"8000","max_lifetime_ms":"3600000","tier":"peril","entry_fee":"50","party_size":[{"size":"1","mob_pct":"83"},{"size":"2","mob_hp_pct":"150","mob_damage_pct":"150"}]},{"id":"venture-warren-turns","name":"Warren Venture Delve by Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"delve-gate","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"60","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture","party_size":[{"size":"1","mob_pct":"70"},{"size":"2","mob_hp_pct":"100","mob_damage_pct":"150"}]}],"markers":[{"id":"mouth","kind":"zone_line","pos":{"x":"3000","y":"70000"},"name":"Warren Mouth"},{"id":"delve-gate","kind":"instance_entrance","pos":{"x":"10000","y":"70000"},"name":"Delve Gate"},{"id":"den-threshold","kind":"scout","pos":{"x":"130000","y":"70000"},"name":"Den Threshold"},{"id":"deep-threshold","kind":"scout","pos":{"x":"250000","y":"70000"},"name":"Deep Threshold"}],"camps":[{"id":"diggers-a","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"30000","y":"35000"}},{"id":"diggers-b","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"28000","y":"100000"}},{"id":"diggers-c","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"62000","y":"70000"}},{"id":"scouts-a","mob":"Tunnel Scout","level":"6","count":"2","pos":{"x":"72000","y":"28000"}},{"id":"scouts-b","mob":"Tunnel Scout","level":"6","count":"2","pos":{"x":"72000","y":"112000"}},{"id":"slingers-a","mob":"Pit Slinger","level":"7","count":"1","pos":{"x":"72000","y":"16000"}},{"id":"slingers-b","mob":"Pit Slinger","level":"7","count":"1","pos":{"x":"96000","y":"90000"}},{"id":"cutthroats-a","mob":"Den Cutthroat","level":"8","count":"1","pos":{"x":"142000","y":"35000"}},{"id":"cutthroats-b","mob":"Den Cutthroat","level":"8","count":"1","pos":{"x":"142000","y":"105000"}},{"id":"shamans-a","mob":"Den Shaman","level":"9","count":"2","pos":{"x":"172000","y":"50000"}},{"id":"shamans-b","mob":"Den Shaman","level":"9","count":"2","pos":{"x":"180000","y":"95000"}},{"id":"brutes-a","mob":"Den Brute","level":"10","count":"1","pos":{"x":"204000","y":"32000"}},{"id":"brutes-b","mob":"Den Brute","level":"10","count":"1","pos":{"x":"214000","y":"106000"}},{"id":"brutes-c","mob":"Den Brute","level":"10","count":"1","pos":{"x":"224000","y":"70000"}},{"id":"stalkers-a","mob":"Deep Stalker","level":"11","count":"1","pos":{"x":"262000","y":"38000"}},{"id":"stalkers-b","mob":"Deep Stalker","level":"11","count":"1","pos":{"x":"262000","y":"102000"}},{"id":"deep-shamans-a","mob":"Deep Shaman","level":"11","count":"2","pos":{"x":"288000","y":"55000"}},{"id":"deep-shamans-b","mob":"Deep Shaman","level":"11","count":"2","pos":{"x":"288000","y":"108000"}},{"id":"wardens-a","mob":"Warren Warden","level":"12","count":"2","pos":{"x":"312000","y":"36000"}},{"id":"wardens-b","mob":"Warren Warden","level":"12","count":"2","pos":{"x":"312000","y":"104000"}},{"id":"chief","mob":"Warren Chief","level":"12","count":"1","pos":{"x":"340000","y":"70000"}}],"areas":[{"id":"mouth","kind":"floor","poly":[{"y":"54000"},{"x":"28000","y":"54000"},{"x":"28000","y":"86000"},{"y":"86000"}]},{"id":"gallery-diggings","kind":"floor","poly":[{"x":"24000","y":"66000"},{"x":"112000","y":"66000"},{"x":"112000","y":"74000"},{"x":"24000","y":"74000"}]},{"id":"neck-to-den","kind":"floor","poly":[{"x":"112000","y":"67500"},{"x":"128000","y":"67500"},{"x":"128000","y":"72500"},{"x":"112000","y":"72500"}]},{"id":"gallery-den","kind":"floor","poly":[{"x":"128000","y":"66000"},{"x":"232000","y":"66000"},{"x":"232000","y":"74000"},{"x":"128000","y":"74000"}]},{"id":"neck-to-deep","kind":"floor","poly":[{"x":"232000","y":"67500"},{"x":"248000","y":"67500"},{"x":"248000","y":"72500"},{"x":"232000","y":"72500"}]},{"id":"gallery-deep","kind":"floor","poly":[{"x":"248000","y":"66000"},{"x":"320000","y":"66000"},{"x":"320000","y":"74000"},{"x":"248000","y":"74000"}]},{"id":"dig-hall","kind":"floor","poly":[{"x":"46000","y":"58000"},{"x":"82000","y":"58000"},{"x":"82000","y":"82000"},{"x":"46000","y":"82000"}]},{"id":"den-hall","kind":"floor","poly":[{"x":"130000","y":"56000"},{"x":"170000","y":"56000"},{"x":"170000","y":"84000"},{"x":"130000","y":"84000"}]},{"id":"brute-hall","kind":"floor","poly":[{"x":"212000","y":"56000"},{"x":"238000","y":"56000"},{"x":"238000","y":"84000"},{"x":"212000","y":"84000"}]},{"id":"chief-chamber","kind":"floor","poly":[{"x":"316000","y":"46000"},{"x":"358000","y":"46000"},{"x":"358000","y":"94000"},{"x":"316000","y":"94000"}]},{"id":"shaft-1n","kind":"floor","poly":[{"x":"26000","y":"50000"},{"x":"34000","y":"50000"},{"x":"34000","y":"66000"},{"x":"26000","y":"66000"}]},{"id":"north-dig","kind":"floor","poly":[{"x":"14000","y":"18000"},{"x":"46000","y":"18000"},{"x":"46000","y":"52000"},{"x":"14000","y":"52000"}]},{"id":"shaft-1s","kind":"floor","poly":[{"x":"26000","y":"74000"},{"x":"34000","y":"74000"},{"x":"34000","y":"90000"},{"x":"26000","y":"90000"}]},{"id":"south-dig","kind":"floor","poly":[{"x":"14000","y":"88000"},{"x":"46000","y":"88000"},{"x":"46000","y":"112000"},{"x":"14000","y":"112000"}]},{"id":"shaft-2n","kind":"floor","poly":[{"x":"68000","y":"38000"},{"x":"76000","y":"38000"},{"x":"76000","y":"60000"},{"x":"68000","y":"60000"}]},{"id":"scout-pit-north","kind":"floor","poly":[{"x":"56000","y":"8000"},{"x":"100000","y":"8000"},{"x":"100000","y":"40000"},{"x":"56000","y":"40000"}]},{"id":"shaft-2s","kind":"floor","poly":[{"x":"68000","y":"80000"},{"x":"76000","y":"80000"},{"x":"76000","y":"100000"},{"x":"68000","y":"100000"}]},{"id":"scout-pit-south","kind":"floor","poly":[{"x":"56000","y":"98000"},{"x":"100000","y":"98000"},{"x":"100000","y":"128000"},{"x":"56000","y":"128000"}]},{"id":"shaft-roost","kind":"floor","poly":[{"x":"92000","y":"74000"},{"x":"100000","y":"74000"},{"x":"100000","y":"84000"},{"x":"92000","y":"84000"}]},{"id":"slinger-roost","kind":"floor","poly":[{"x":"84000","y":"82000"},{"x":"108000","y":"82000"},{"x":"108000","y":"96000"},{"x":"84000","y":"96000"}]},{"id":"cross-1s","kind":"floor","poly":[{"x":"44000","y":"106000"},{"x":"58000","y":"106000"},{"x":"58000","y":"114000"},{"x":"44000","y":"114000"}]},{"id":"shaft-3n","kind":"floor","poly":[{"x":"138000","y":"44000"},{"x":"146000","y":"44000"},{"x":"146000","y":"58000"},{"x":"138000","y":"58000"}]},{"id":"cutthroat-lair-north","kind":"floor","poly":[{"x":"126000","y":"14000"},{"x":"160000","y":"14000"},{"x":"160000","y":"46000"},{"x":"126000","y":"46000"}]},{"id":"shaft-3s","kind":"floor","poly":[{"x":"138000","y":"82000"},{"x":"146000","y":"82000"},{"x":"146000","y":"98000"},{"x":"138000","y":"98000"}]},{"id":"cutthroat-lair-south","kind":"floor","poly":[{"x":"126000","y":"96000"},{"x":"160000","y":"96000"},{"x":"160000","y":"126000"},{"x":"126000","y":"126000"}]},{"id":"shaft-4n","kind":"floor","poly":[{"x":"168000","y":"56000"},{"x":"176000","y":"56000"},{"x":"176000","y":"66000"},{"x":"168000","y":"66000"}]},{"id":"shaman-cave-north","kind":"floor","poly":[{"x":"164000","y":"28000"},{"x":"200000","y":"28000"},{"x":"200000","y":"58000"},{"x":"164000","y":"58000"}]},{"id":"shaft-4s","kind":"floor","poly":[{"x":"168000","y":"74000"},{"x":"176000","y":"74000"},{"x":"176000","y":"84000"},{"x":"168000","y":"84000"}]},{"id":"shaman-hall-south","kind":"floor","poly":[{"x":"164000","y":"74000"},{"x":"232000","y":"74000"},{"x":"232000","y":"120000"},{"x":"164000","y":"120000"}]},{"id":"shaft-5n","kind":"floor","poly":[{"x":"200000","y":"44000"},{"x":"208000","y":"44000"},{"x":"208000","y":"66000"},{"x":"200000","y":"66000"}]},{"id":"brute-pen-north","kind":"floor","poly":[{"x":"196000","y":"12000"},{"x":"240000","y":"12000"},{"x":"240000","y":"46000"},{"x":"196000","y":"46000"}]},{"id":"cross-3n","kind":"floor","poly":[{"x":"156000","y":"34000"},{"x":"168000","y":"34000"},{"x":"168000","y":"42000"},{"x":"156000","y":"42000"}]},{"id":"wing-link-north","kind":"floor","poly":[{"x":"98000","y":"22000"},{"x":"128000","y":"22000"},{"x":"128000","y":"28000"},{"x":"98000","y":"28000"}]},{"id":"shaft-6n","kind":"floor","poly":[{"x":"258000","y":"44000"},{"x":"266000","y":"44000"},{"x":"266000","y":"66000"},{"x":"258000","y":"66000"}]},{"id":"stalker-den-north","kind":"floor","poly":[{"x":"248000","y":"18000"},{"x":"290000","y":"18000"},{"x":"290000","y":"46000"},{"x":"248000","y":"46000"}]},{"id":"shaft-6s","kind":"floor","poly":[{"x":"258000","y":"74000"},{"x":"266000","y":"74000"},{"x":"266000","y":"96000"},{"x":"258000","y":"96000"}]},{"id":"shaft-7n","kind":"floor","poly":[{"x":"284000","y":"58000"},{"x":"292000","y":"58000"},{"x":"292000","y":"67000"},{"x":"284000","y":"67000"}]},{"id":"shaman-alcove-north","kind":"floor","poly":[{"x":"276000","y":"46000"},{"x":"300000","y":"46000"},{"x":"300000","y":"60000"},{"x":"276000","y":"60000"}]},{"id":"shaft-8n","kind":"floor","poly":[{"x":"308000","y":"46000"},{"x":"316000","y":"46000"},{"x":"316000","y":"66000"},{"x":"308000","y":"66000"}]},{"id":"warden-post-north","kind":"floor","poly":[{"x":"300000","y":"22000"},{"x":"326000","y":"22000"},{"x":"326000","y":"48000"},{"x":"300000","y":"48000"}]},{"id":"shaft-8s","kind":"floor","poly":[{"x":"308000","y":"74000"},{"x":"316000","y":"74000"},{"x":"316000","y":"94000"},{"x":"308000","y":"94000"}]},{"id":"shaft-7s","kind":"floor","poly":[{"x":"284000","y":"73000"},{"x":"292000","y":"73000"},{"x":"292000","y":"92000"},{"x":"284000","y":"92000"}]},{"id":"deep-hall-south","kind":"floor","poly":[{"x":"248000","y":"90000"},{"x":"326000","y":"90000"},{"x":"326000","y":"124000"},{"x":"248000","y":"124000"}]}]}}
 {"pong":{"nonce":"101"}}
 {"event":{"seq":"1","game_time_ms":"200","text":"bram comes into view","entity_appeared":{"entity":{"id":"bram","kind":"ENTITY_KIND_CHARACTER","name":"bram","pos":{"x":"24000","y":"70000"},"hp":"160","max_hp":"160","level":"7"}}}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
@@ -38,7 +38,7 @@
 {"pong":{"nonce":"121"}}
 {"event":{"seq":"13","game_time_ms":"1400","entity_moved":{"id":"bram","pos":{"x":"19200","y":"70000"}}}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
-{"event":{"seq":"14","game_time_ms":"1400","text":"Your group's instance is ready: Warren Venture Delve","instance_opened":{"instance":"inst-1","preset":"venture-warren","party_cap":"2"}}}
+{"event":{"seq":"14","game_time_ms":"1400","text":"Your group's instance is ready: Warren Venture Delve","instance_opened":{"instance":"inst-1","preset":"venture-warren","party_cap":"2","players":"1","slots":"2"}}}
 {"pong":{"nonce":"122"}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
@@ -62,7 +62,7 @@
 {"event":{"seq":"25","game_time_ms":"2500","entity_moved":{"id":"bram","pos":{"x":"14800","y":"70000"}}}}
 {"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"event":{"seq":"1","game_time_ms":"1200","space_changed":{"space":"Hollow Warren (Warren Venture Delve)"}}}
-{"snapshot":{"seq":"1","game_time_ms":"1200","tick":"12","space":"Hollow Warren (Warren Venture Delve)","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"10000","y":"70000"},"hp":"232","max_hp":"232","level":"7"},"stats":{"level":"7","max_hp":"232","regen":"8","armor":"32","strength":"36","weapon_min":"5","weapon_max":"15","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"627","abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"627","xp_next_level":"808","inventory_size":"20","ground":"floor","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"7","max_hp":"232","regen":"8","armor":"32","armor_cut_pct":"25","hit_pct":"75","swing_min":"8","swing_max":"18","delay_ms":"2000","dps_tenths":"65","attributes":[{"name":"strength","base":"36"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"instance":{"preset":"venture-warren","party_cap":"2","time_mode":"realtime","difficulty":"normal"}}}
+{"snapshot":{"seq":"1","game_time_ms":"1200","tick":"12","space":"Hollow Warren (Warren Venture Delve)","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"10000","y":"70000"},"hp":"232","max_hp":"232","level":"7"},"stats":{"level":"7","max_hp":"232","regen":"8","armor":"32","strength":"36","weapon_min":"5","weapon_max":"15","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"627","abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"627","xp_next_level":"808","inventory_size":"20","ground":"floor","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"7","max_hp":"232","regen":"8","armor":"32","armor_cut_pct":"25","hit_pct":"75","swing_min":"8","swing_max":"18","delay_ms":"2000","dps_tenths":"65","attributes":[{"name":"strength","base":"36"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"instance":{"preset":"venture-warren","party_cap":"2","time_mode":"realtime","difficulty":"normal","slots":"2","players":"1"}}}
 {"zone_map":{"space":"Hollow Warren (Warren Venture Delve)","name":"Hollow Warren (Warren Venture Delve)","bounds":{"max_x":"360000","max_y":"140000"},"walls":[{"a":{"x":"30000","y":"72800"},"b":{"x":"30000","y":"73200"}},{"a":{"x":"72000","y":"72800"},"b":{"x":"72000","y":"73200"}},{"a":{"x":"96000","y":"72800"},"b":{"x":"96000","y":"73200"}},{"a":{"x":"142000","y":"72800"},"b":{"x":"142000","y":"73200"}},{"a":{"x":"172000","y":"72800"},"b":{"x":"172000","y":"73200"}},{"a":{"x":"204000","y":"72800"},"b":{"x":"204000","y":"73200"}},{"a":{"x":"262000","y":"72800"},"b":{"x":"262000","y":"73200"}},{"a":{"x":"288000","y":"72800"},"b":{"x":"288000","y":"73200"}},{"a":{"x":"312000","y":"72800"},"b":{"x":"312000","y":"73200"}}],"doors":[{"id":"delve-gate","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"10000","y":"70000"},"name":"Delve Gate","label":"Delve Gate"}],"view_radius_mm":"20000","markers":[{"id":"delve-gate","kind":"instance_entrance","pos":{"x":"10000","y":"70000"},"name":"Delve Gate"}],"areas":[{"id":"mouth","kind":"floor","poly":[{"y":"54000"},{"x":"28000","y":"54000"},{"x":"28000","y":"86000"},{"y":"86000"}]},{"id":"gallery-diggings","kind":"floor","poly":[{"x":"24000","y":"66000"},{"x":"112000","y":"66000"},{"x":"112000","y":"74000"},{"x":"24000","y":"74000"}]},{"id":"neck-to-den","kind":"floor","poly":[{"x":"112000","y":"67500"},{"x":"128000","y":"67500"},{"x":"128000","y":"72500"},{"x":"112000","y":"72500"}]},{"id":"gallery-den","kind":"floor","poly":[{"x":"128000","y":"66000"},{"x":"232000","y":"66000"},{"x":"232000","y":"74000"},{"x":"128000","y":"74000"}]},{"id":"neck-to-deep","kind":"floor","poly":[{"x":"232000","y":"67500"},{"x":"248000","y":"67500"},{"x":"248000","y":"72500"},{"x":"232000","y":"72500"}]},{"id":"gallery-deep","kind":"floor","poly":[{"x":"248000","y":"66000"},{"x":"320000","y":"66000"},{"x":"320000","y":"74000"},{"x":"248000","y":"74000"}]},{"id":"dig-hall","kind":"floor","poly":[{"x":"46000","y":"58000"},{"x":"82000","y":"58000"},{"x":"82000","y":"82000"},{"x":"46000","y":"82000"}]},{"id":"den-hall","kind":"floor","poly":[{"x":"130000","y":"56000"},{"x":"170000","y":"56000"},{"x":"170000","y":"84000"},{"x":"130000","y":"84000"}]},{"id":"brute-hall","kind":"floor","poly":[{"x":"212000","y":"56000"},{"x":"238000","y":"56000"},{"x":"238000","y":"84000"},{"x":"212000","y":"84000"}]},{"id":"chief-chamber","kind":"floor","poly":[{"x":"316000","y":"46000"},{"x":"358000","y":"46000"},{"x":"358000","y":"94000"},{"x":"316000","y":"94000"}]},{"id":"shaft-1n","kind":"floor","poly":[{"x":"26000","y":"50000"},{"x":"34000","y":"50000"},{"x":"34000","y":"66000"},{"x":"26000","y":"66000"}]},{"id":"north-dig","kind":"floor","poly":[{"x":"14000","y":"18000"},{"x":"46000","y":"18000"},{"x":"46000","y":"52000"},{"x":"14000","y":"52000"}]},{"id":"shaft-1s","kind":"floor","poly":[{"x":"26000","y":"74000"},{"x":"34000","y":"74000"},{"x":"34000","y":"90000"},{"x":"26000","y":"90000"}]},{"id":"south-dig","kind":"floor","poly":[{"x":"14000","y":"88000"},{"x":"46000","y":"88000"},{"x":"46000","y":"112000"},{"x":"14000","y":"112000"}]},{"id":"shaft-2n","kind":"floor","poly":[{"x":"68000","y":"38000"},{"x":"76000","y":"38000"},{"x":"76000","y":"60000"},{"x":"68000","y":"60000"}]},{"id":"scout-pit-north","kind":"floor","poly":[{"x":"56000","y":"8000"},{"x":"100000","y":"8000"},{"x":"100000","y":"40000"},{"x":"56000","y":"40000"}]},{"id":"shaft-2s","kind":"floor","poly":[{"x":"68000","y":"80000"},{"x":"76000","y":"80000"},{"x":"76000","y":"100000"},{"x":"68000","y":"100000"}]},{"id":"scout-pit-south","kind":"floor","poly":[{"x":"56000","y":"98000"},{"x":"100000","y":"98000"},{"x":"100000","y":"128000"},{"x":"56000","y":"128000"}]},{"id":"shaft-roost","kind":"floor","poly":[{"x":"92000","y":"74000"},{"x":"100000","y":"74000"},{"x":"100000","y":"84000"},{"x":"92000","y":"84000"}]},{"id":"slinger-roost","kind":"floor","poly":[{"x":"84000","y":"82000"},{"x":"108000","y":"82000"},{"x":"108000","y":"96000"},{"x":"84000","y":"96000"}]},{"id":"cross-1s","kind":"floor","poly":[{"x":"44000","y":"106000"},{"x":"58000","y":"106000"},{"x":"58000","y":"114000"},{"x":"44000","y":"114000"}]},{"id":"shaft-3n","kind":"floor","poly":[{"x":"138000","y":"44000"},{"x":"146000","y":"44000"},{"x":"146000","y":"58000"},{"x":"138000","y":"58000"}]},{"id":"cutthroat-lair-north","kind":"floor","poly":[{"x":"126000","y":"14000"},{"x":"160000","y":"14000"},{"x":"160000","y":"46000"},{"x":"126000","y":"46000"}]},{"id":"shaft-3s","kind":"floor","poly":[{"x":"138000","y":"82000"},{"x":"146000","y":"82000"},{"x":"146000","y":"98000"},{"x":"138000","y":"98000"}]},{"id":"cutthroat-lair-south","kind":"floor","poly":[{"x":"126000","y":"96000"},{"x":"160000","y":"96000"},{"x":"160000","y":"126000"},{"x":"126000","y":"126000"}]},{"id":"shaft-4n","kind":"floor","poly":[{"x":"168000","y":"56000"},{"x":"176000","y":"56000"},{"x":"176000","y":"66000"},{"x":"168000","y":"66000"}]},{"id":"shaman-cave-north","kind":"floor","poly":[{"x":"164000","y":"28000"},{"x":"200000","y":"28000"},{"x":"200000","y":"58000"},{"x":"164000","y":"58000"}]},{"id":"shaft-4s","kind":"floor","poly":[{"x":"168000","y":"74000"},{"x":"176000","y":"74000"},{"x":"176000","y":"84000"},{"x":"168000","y":"84000"}]},{"id":"shaman-hall-south","kind":"floor","poly":[{"x":"164000","y":"74000"},{"x":"232000","y":"74000"},{"x":"232000","y":"120000"},{"x":"164000","y":"120000"}]},{"id":"shaft-5n","kind":"floor","poly":[{"x":"200000","y":"44000"},{"x":"208000","y":"44000"},{"x":"208000","y":"66000"},{"x":"200000","y":"66000"}]},{"id":"brute-pen-north","kind":"floor","poly":[{"x":"196000","y":"12000"},{"x":"240000","y":"12000"},{"x":"240000","y":"46000"},{"x":"196000","y":"46000"}]},{"id":"cross-3n","kind":"floor","poly":[{"x":"156000","y":"34000"},{"x":"168000","y":"34000"},{"x":"168000","y":"42000"},{"x":"156000","y":"42000"}]},{"id":"wing-link-north","kind":"floor","poly":[{"x":"98000","y":"22000"},{"x":"128000","y":"22000"},{"x":"128000","y":"28000"},{"x":"98000","y":"28000"}]},{"id":"shaft-6n","kind":"floor","poly":[{"x":"258000","y":"44000"},{"x":"266000","y":"44000"},{"x":"266000","y":"66000"},{"x":"258000","y":"66000"}]},{"id":"stalker-den-north","kind":"floor","poly":[{"x":"248000","y":"18000"},{"x":"290000","y":"18000"},{"x":"290000","y":"46000"},{"x":"248000","y":"46000"}]},{"id":"shaft-6s","kind":"floor","poly":[{"x":"258000","y":"74000"},{"x":"266000","y":"74000"},{"x":"266000","y":"96000"},{"x":"258000","y":"96000"}]},{"id":"shaft-7n","kind":"floor","poly":[{"x":"284000","y":"58000"},{"x":"292000","y":"58000"},{"x":"292000","y":"67000"},{"x":"284000","y":"67000"}]},{"id":"shaman-alcove-north","kind":"floor","poly":[{"x":"276000","y":"46000"},{"x":"300000","y":"46000"},{"x":"300000","y":"60000"},{"x":"276000","y":"60000"}]},{"id":"shaft-8n","kind":"floor","poly":[{"x":"308000","y":"46000"},{"x":"316000","y":"46000"},{"x":"316000","y":"66000"},{"x":"308000","y":"66000"}]},{"id":"warden-post-north","kind":"floor","poly":[{"x":"300000","y":"22000"},{"x":"326000","y":"22000"},{"x":"326000","y":"48000"},{"x":"300000","y":"48000"}]},{"id":"shaft-8s","kind":"floor","poly":[{"x":"308000","y":"74000"},{"x":"316000","y":"74000"},{"x":"316000","y":"94000"},{"x":"308000","y":"94000"}]},{"id":"shaft-7s","kind":"floor","poly":[{"x":"284000","y":"73000"},{"x":"292000","y":"73000"},{"x":"292000","y":"92000"},{"x":"284000","y":"92000"}]},{"id":"deep-hall-south","kind":"floor","poly":[{"x":"248000","y":"90000"},{"x":"326000","y":"90000"},{"x":"326000","y":"124000"},{"x":"248000","y":"124000"}]}]}}
 {"pong":{"nonce":"132"}}
 {"pong":{"nonce":"133"}}
@@ -493,7 +493,7 @@
 {"pong":{"nonce":"333"}}
 {"pong":{"nonce":"334"}}
 {"pong":{"nonce":"335"}}
-{"event":{"seq":"211","game_time_ms":"25500","text":"Warren Digger comes into view","entity_appeared":{"entity":{"id":"mob-diggers-c-1","kind":"ENTITY_KIND_MOB","name":"Warren Digger","pos":{"x":"71780","y":"70000"},"hp":"121","max_hp":"121","level":"5","con":"easy"}}}}
+{"event":{"seq":"211","game_time_ms":"25500","text":"Warren Digger comes into view","entity_appeared":{"entity":{"id":"mob-diggers-c-1","kind":"ENTITY_KIND_MOB","name":"Warren Digger","pos":{"x":"71780","y":"70000"},"hp":"173","max_hp":"173","level":"5","con":"easy"}}}}
 {"event":{"seq":"212","game_time_ms":"25600","entity_moved":{"id":"mob-diggers-c-1","pos":{"x":"71440","y":"70000"}}}}
 {"event":{"seq":"213","game_time_ms":"25700","entity_moved":{"id":"mob-diggers-c-1","pos":{"x":"71100","y":"70000"}}}}
 {"event":{"seq":"214","game_time_ms":"25800","entity_moved":{"id":"mob-diggers-c-1","pos":{"x":"70760","y":"70000"}}}}
@@ -634,7 +634,7 @@
 {"event":{"seq":"290","game_time_ms":"30000","rules_tick":{}}}
 {"event":{"seq":"291","game_time_ms":"30000","text":"You start attacking Warren Digger","auto_attack_changed":{"actor":"hale","target":"mob-diggers-c-1","on":true}}}
 {"event":{"seq":"292","game_time_ms":"30000","entity_moved":{"id":"bram","pos":{"x":"51200","y":"70000"}}}}
-{"event":{"seq":"293","game_time_ms":"30000","text":"You hit Warren Digger for 13","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"13"}}}
+{"event":{"seq":"293","game_time_ms":"30000","text":"You hit Warren Digger for 12","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"12"}}}
 {"intent_result":{"intent_id":"tui-21","accepted":true}}
 {"pong":{"nonce":"390"}}
 {"pong":{"nonce":"391"}}
@@ -667,7 +667,7 @@
 {"event":{"seq":"312","game_time_ms":"31900","entity_moved":{"id":"bram","pos":{"x":"58800","y":"70000"}}}}
 {"event":{"seq":"313","game_time_ms":"31900","text":"Warren Digger misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-diggers-c-1","target":"hale"}}}
 {"event":{"seq":"314","game_time_ms":"32000","entity_moved":{"id":"bram","pos":{"x":"59200","y":"70000"}}}}
-{"event":{"seq":"315","game_time_ms":"32000","text":"You hit Warren Digger for 9","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"9"}}}
+{"event":{"seq":"315","game_time_ms":"32000","text":"You hit Warren Digger for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"8"}}}
 {"pong":{"nonce":"400"}}
 {"pong":{"nonce":"401"}}
 {"pong":{"nonce":"402"}}
@@ -686,7 +686,7 @@
 {"pong":{"nonce":"413"}}
 {"pong":{"nonce":"414"}}
 {"pong":{"nonce":"415"}}
-{"event":{"seq":"318","game_time_ms":"34000","text":"You hit Warren Digger for 9","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"9"}}}
+{"event":{"seq":"318","game_time_ms":"34000","text":"You hit Warren Digger for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"8"}}}
 {"event":{"seq":"319","game_time_ms":"34200","text":"Bram hits Warren Digger for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"5"}}}
 {"pong":{"nonce":"416"}}
 {"pong":{"nonce":"417"}}
@@ -709,8 +709,8 @@
 {"pong":{"nonce":"429"}}
 {"pong":{"nonce":"430"}}
 {"pong":{"nonce":"431"}}
-{"event":{"seq":"325","game_time_ms":"37500","text":"Warren Digger hits you for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"5"}}}
-{"event":{"seq":"326","game_time_ms":"38000","text":"You hit Warren Digger for 9","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"9"}}}
+{"event":{"seq":"325","game_time_ms":"37500","text":"Warren Digger hits you for 10","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"10"}}}
+{"event":{"seq":"326","game_time_ms":"38000","text":"You hit Warren Digger for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"8"}}}
 {"event":{"seq":"327","game_time_ms":"38200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
 {"pong":{"nonce":"432"}}
 {"pong":{"nonce":"433"}}
@@ -721,12 +721,12 @@
 {"pong":{"nonce":"438"}}
 {"pong":{"nonce":"439"}}
 {"event":{"seq":"328","game_time_ms":"40000","text":"You hit Warren Digger for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"8"}}}
-{"event":{"seq":"329","game_time_ms":"40200","text":"Bram hits Warren Digger for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"5"}}}
+{"event":{"seq":"329","game_time_ms":"40200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
 {"pong":{"nonce":"440"}}
 {"pong":{"nonce":"441"}}
 {"pong":{"nonce":"442"}}
 {"pong":{"nonce":"443"}}
-{"event":{"seq":"330","game_time_ms":"40300","text":"Warren Digger hits you for 3","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"3"}}}
+{"event":{"seq":"330","game_time_ms":"40300","text":"Warren Digger hits you for 9","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"9"}}}
 {"pong":{"nonce":"444"}}
 {"pong":{"nonce":"445"}}
 {"pong":{"nonce":"446"}}
@@ -734,13 +734,13 @@
 {"event":{"seq":"331","game_time_ms":"42000","rules_tick":{}}}
 {"event":{"seq":"332","game_time_ms":"42000","text":"You regenerate 8 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"8"}}}
 {"event":{"seq":"333","game_time_ms":"42000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-diggers-c-1","amount":"1"}}}
-{"event":{"seq":"334","game_time_ms":"42000","text":"You hit Warren Digger for 10","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"10"}}}
-{"event":{"seq":"335","game_time_ms":"42200","text":"Bram hits Warren Digger for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"5"}}}
+{"event":{"seq":"334","game_time_ms":"42000","text":"You hit Warren Digger for 9","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"9"}}}
+{"event":{"seq":"335","game_time_ms":"42200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
 {"pong":{"nonce":"448"}}
 {"pong":{"nonce":"449"}}
 {"pong":{"nonce":"450"}}
 {"pong":{"nonce":"451"}}
-{"event":{"seq":"336","game_time_ms":"43100","text":"Warren Digger hits you for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"5"}}}
+{"event":{"seq":"336","game_time_ms":"43100","text":"Warren Digger hits you for 11","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"11"}}}
 {"pong":{"nonce":"452"}}
 {"pong":{"nonce":"453"}}
 {"pong":{"nonce":"454"}}
@@ -767,7 +767,7 @@
 {"pong":{"nonce":"470"}}
 {"pong":{"nonce":"471"}}
 {"event":{"seq":"342","game_time_ms":"48000","rules_tick":{}}}
-{"event":{"seq":"343","game_time_ms":"48000","text":"You regenerate 5 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"5"}}}
+{"event":{"seq":"343","game_time_ms":"48000","text":"You regenerate 8 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"8"}}}
 {"event":{"seq":"344","game_time_ms":"48000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-diggers-c-1","amount":"1"}}}
 {"event":{"seq":"345","game_time_ms":"48000","text":"You miss Warren Digger","combat":{"kind":"COMBAT_KIND_MISS","attacker":"hale","target":"mob-diggers-c-1"}}}
 {"event":{"seq":"346","game_time_ms":"48200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
@@ -775,7 +775,7 @@
 {"pong":{"nonce":"473"}}
 {"pong":{"nonce":"474"}}
 {"pong":{"nonce":"475"}}
-{"event":{"seq":"347","game_time_ms":"48700","text":"Warren Digger hits you for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"5"}}}
+{"event":{"seq":"347","game_time_ms":"48700","text":"Warren Digger hits you for 6","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"6"}}}
 {"pong":{"nonce":"476"}}
 {"pong":{"nonce":"477"}}
 {"pong":{"nonce":"478"}}
@@ -790,7 +790,7 @@
 {"pong":{"nonce":"485"}}
 {"pong":{"nonce":"486"}}
 {"pong":{"nonce":"487"}}
-{"event":{"seq":"350","game_time_ms":"51500","text":"Warren Digger hits you for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"4"}}}
+{"event":{"seq":"350","game_time_ms":"51500","text":"Warren Digger hits you for 6","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"6"}}}
 {"event":{"seq":"351","game_time_ms":"52000","text":"You miss Warren Digger","combat":{"kind":"COMBAT_KIND_MISS","attacker":"hale","target":"mob-diggers-c-1"}}}
 {"event":{"seq":"352","game_time_ms":"52200","text":"Bram hits Warren Digger for 3","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"3"}}}
 {"pong":{"nonce":"488"}}
@@ -804,550 +804,622 @@
 {"event":{"seq":"353","game_time_ms":"54000","rules_tick":{}}}
 {"event":{"seq":"354","game_time_ms":"54000","text":"You regenerate 8 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"8"}}}
 {"event":{"seq":"355","game_time_ms":"54000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-diggers-c-1","amount":"1"}}}
-{"event":{"seq":"356","game_time_ms":"54000","text":"You hit Warren Digger for 10","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"10"}}}
-{"event":{"seq":"357","game_time_ms":"54200","text":"Bram hits Warren Digger for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"5"}}}
-{"event":{"seq":"358","game_time_ms":"54200","text":"Bram killed Warren Digger","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"bram","target":"mob-diggers-c-1"}}}
-{"event":{"seq":"359","game_time_ms":"54200","text":"Your target Warren Digger is gone","target_cleared":{"actor":"bram","target":"mob-diggers-c-1","reason":"target_dead"}}}
-{"event":{"seq":"360","game_time_ms":"54200","text":"You stop attacking","auto_attack_changed":{"actor":"bram","target":"mob-diggers-c-1"}}}
-{"event":{"seq":"361","game_time_ms":"54200","text":"Your target Warren Digger is gone","target_cleared":{"actor":"hale","target":"mob-diggers-c-1","reason":"target_dead"}}}
-{"event":{"seq":"362","game_time_ms":"54200","text":"You stop attacking","auto_attack_changed":{"actor":"hale","target":"mob-diggers-c-1"}}}
-{"event":{"seq":"363","game_time_ms":"54200","text":"Warren Digger dropped Digger's Claw","loot_dropped":{"drop":"drop-inst-1.enc-1-digger-claw","mob":"mob-diggers-c-1","item":"digger-claw","pos":{"x":"60220","y":"70000"},"encounter":"inst-1.enc-1","can_loot":true,"item_info":{"id":"digger-claw","name":"Digger's Claw","tier":"common","price":"6","sell_price":"1","stats":{}}}}}
-{"event":{"seq":"364","game_time_ms":"54200","text":"Warren Digger dropped 9 crowns","loot_dropped":{"drop":"drop-inst-1.enc-1-crowns","mob":"mob-diggers-c-1","pos":{"x":"60220","y":"70000"},"encounter":"inst-1.enc-1","crowns":"9","can_loot":true}}}
-{"event":{"seq":"365","game_time_ms":"54200","text":"Warren Digger is dead: the fight is over","encounter_closed":{"id":"inst-1.enc-1","owner":"hale","mob":"mob-diggers-c-1","reason":"mob_died"}}}
-{"event":{"seq":"366","game_time_ms":"54200","text":"You are out of combat","combat_state":{"actor":"hale"}}}
-{"event":{"seq":"367","game_time_ms":"54200","reward":{"recipient":"bram","source":"mob-diggers-c-1","kind":"xp","amount":"11"}}}
-{"event":{"seq":"368","game_time_ms":"54200","text":"You gain 11 experience","reward":{"recipient":"hale","source":"mob-diggers-c-1","kind":"xp","amount":"11"}}}
-{"event":{"seq":"369","game_time_ms":"54200","text":"Warren Digger is out of view","entity_left":{"id":"mob-diggers-c-1"}}}
-{"event":{"seq":"370","game_time_ms":"54200","item_facts":{"actor":"hale","facts":[{"item":"digger-claw","verdict":"not_gear","delta":{}}]}}}
+{"event":{"seq":"356","game_time_ms":"54000","text":"You hit Warren Digger for 9","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"9"}}}
+{"event":{"seq":"357","game_time_ms":"54200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
 {"pong":{"nonce":"496"}}
 {"pong":{"nonce":"497"}}
 {"pong":{"nonce":"498"}}
 {"pong":{"nonce":"499"}}
-# mark warren_room_cleared
+{"event":{"seq":"358","game_time_ms":"54300","text":"Warren Digger misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-diggers-c-1","target":"hale"}}}
 {"pong":{"nonce":"500"}}
 {"pong":{"nonce":"501"}}
-{"event":{"seq":"371","game_time_ms":"54300","text":"You have no target","denied":{"intent":"auto_attack","reason":"no_target","actor":"hale","text":"You have no target"}}}
-{"intent_result":{"intent_id":"tui-22","reason":"no_target","text":"You have no target"}}
 {"pong":{"nonce":"502"}}
 {"pong":{"nonce":"503"}}
+{"event":{"seq":"359","game_time_ms":"56000","text":"You hit Warren Digger for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"8"}}}
+{"event":{"seq":"360","game_time_ms":"56200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
 {"pong":{"nonce":"504"}}
 {"pong":{"nonce":"505"}}
 {"pong":{"nonce":"506"}}
 {"pong":{"nonce":"507"}}
-{"event":{"seq":"372","game_time_ms":"54400","entity_moved":{"id":"hale","pos":{"x":"60600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-23","accepted":true}}
+{"event":{"seq":"361","game_time_ms":"57100","text":"Warren Digger hits you for 10","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-diggers-c-1","target":"hale","amount":"10"}}}
 {"pong":{"nonce":"508"}}
 {"pong":{"nonce":"509"}}
 {"pong":{"nonce":"510"}}
 {"pong":{"nonce":"511"}}
+{"event":{"seq":"362","game_time_ms":"58000","text":"You hit Warren Digger for 13","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"13"}}}
+{"event":{"seq":"363","game_time_ms":"58200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
 {"pong":{"nonce":"512"}}
 {"pong":{"nonce":"513"}}
-{"event":{"seq":"373","game_time_ms":"54500","entity_moved":{"id":"hale","pos":{"x":"60200","y":"70000"}}}}
-{"event":{"seq":"374","game_time_ms":"54600","entity_moved":{"id":"hale","pos":{"x":"59800","y":"70000"}}}}
-{"event":{"seq":"375","game_time_ms":"54700","entity_moved":{"id":"hale","pos":{"x":"59400","y":"70000"}}}}
-{"event":{"seq":"376","game_time_ms":"54800","entity_moved":{"id":"hale","pos":{"x":"59000","y":"70000"}}}}
-{"event":{"seq":"377","game_time_ms":"54900","entity_moved":{"id":"hale","pos":{"x":"58600","y":"70000"}}}}
-{"event":{"seq":"378","game_time_ms":"55000","entity_moved":{"id":"hale","pos":{"x":"58200","y":"70000"}}}}
-{"event":{"seq":"379","game_time_ms":"55100","entity_moved":{"id":"hale","pos":{"x":"58000","y":"70000"}}}}
 {"pong":{"nonce":"514"}}
 {"pong":{"nonce":"515"}}
 {"pong":{"nonce":"516"}}
 {"pong":{"nonce":"517"}}
-{"event":{"seq":"380","game_time_ms":"55500","entity_moved":{"id":"hale","pos":{"x":"57600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-24","accepted":true}}
 {"pong":{"nonce":"518"}}
 {"pong":{"nonce":"519"}}
+{"event":{"seq":"364","game_time_ms":"59900","text":"Warren Digger misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-diggers-c-1","target":"hale"}}}
+{"event":{"seq":"365","game_time_ms":"60000","rules_tick":{}}}
+{"event":{"seq":"366","game_time_ms":"60000","text":"You regenerate 8 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"8"}}}
+{"event":{"seq":"367","game_time_ms":"60000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-diggers-c-1","amount":"1"}}}
+{"event":{"seq":"368","game_time_ms":"60000","text":"You hit Warren Digger for 9","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"9"}}}
+{"event":{"seq":"369","game_time_ms":"60200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
 {"pong":{"nonce":"520"}}
 {"pong":{"nonce":"521"}}
 {"pong":{"nonce":"522"}}
 {"pong":{"nonce":"523"}}
-{"event":{"seq":"381","game_time_ms":"55600","entity_moved":{"id":"hale","pos":{"x":"57200","y":"70000"}}}}
-{"event":{"seq":"382","game_time_ms":"55700","entity_moved":{"id":"hale","pos":{"x":"56800","y":"70000"}}}}
-{"event":{"seq":"383","game_time_ms":"55800","entity_moved":{"id":"hale","pos":{"x":"56400","y":"70000"}}}}
-{"event":{"seq":"384","game_time_ms":"55900","entity_moved":{"id":"hale","pos":{"x":"56000","y":"70000"}}}}
-{"event":{"seq":"385","game_time_ms":"56000","entity_moved":{"id":"hale","pos":{"x":"55600","y":"70000"}}}}
-{"event":{"seq":"386","game_time_ms":"56100","entity_moved":{"id":"hale","pos":{"x":"55200","y":"70000"}}}}
-{"event":{"seq":"387","game_time_ms":"56200","entity_moved":{"id":"hale","pos":{"x":"55000","y":"70000"}}}}
 {"pong":{"nonce":"524"}}
 {"pong":{"nonce":"525"}}
 {"pong":{"nonce":"526"}}
 {"pong":{"nonce":"527"}}
-{"event":{"seq":"388","game_time_ms":"56600","entity_moved":{"id":"hale","pos":{"x":"54600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-25","accepted":true}}
+{"event":{"seq":"370","game_time_ms":"62000","text":"You hit Warren Digger for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"7"}}}
+{"event":{"seq":"371","game_time_ms":"62200","text":"Bram misses Warren Digger","combat":{"kind":"COMBAT_KIND_MISS","attacker":"bram","target":"mob-diggers-c-1"}}}
 {"pong":{"nonce":"528"}}
 {"pong":{"nonce":"529"}}
 {"pong":{"nonce":"530"}}
 {"pong":{"nonce":"531"}}
+{"event":{"seq":"372","game_time_ms":"62700","text":"Warren Digger misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-diggers-c-1","target":"hale"}}}
 {"pong":{"nonce":"532"}}
 {"pong":{"nonce":"533"}}
-{"event":{"seq":"389","game_time_ms":"56700","entity_moved":{"id":"hale","pos":{"x":"54200","y":"70000"}}}}
-{"event":{"seq":"390","game_time_ms":"56800","entity_moved":{"id":"hale","pos":{"x":"53800","y":"70000"}}}}
-{"event":{"seq":"391","game_time_ms":"56900","entity_moved":{"id":"hale","pos":{"x":"53400","y":"70000"}}}}
-{"event":{"seq":"392","game_time_ms":"57000","entity_moved":{"id":"hale","pos":{"x":"53000","y":"70000"}}}}
-{"event":{"seq":"393","game_time_ms":"57100","entity_moved":{"id":"hale","pos":{"x":"52600","y":"70000"}}}}
-{"event":{"seq":"394","game_time_ms":"57200","entity_moved":{"id":"hale","pos":{"x":"52200","y":"70000"}}}}
-{"event":{"seq":"395","game_time_ms":"57300","entity_moved":{"id":"hale","pos":{"x":"52000","y":"70000"}}}}
 {"pong":{"nonce":"534"}}
 {"pong":{"nonce":"535"}}
+{"event":{"seq":"373","game_time_ms":"64000","text":"You hit Warren Digger for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-diggers-c-1","amount":"7"}}}
+{"event":{"seq":"374","game_time_ms":"64200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
 {"pong":{"nonce":"536"}}
-{"event":{"seq":"396","game_time_ms":"57700","entity_moved":{"id":"bram","pos":{"x":"58800","y":"70000"}}}}
 {"pong":{"nonce":"537"}}
 {"pong":{"nonce":"538"}}
 {"pong":{"nonce":"539"}}
 {"pong":{"nonce":"540"}}
 {"pong":{"nonce":"541"}}
-{"event":{"seq":"397","game_time_ms":"57800","entity_moved":{"id":"bram","pos":{"x":"58400","y":"70000"}}}}
-{"event":{"seq":"398","game_time_ms":"57800","entity_moved":{"id":"hale","pos":{"x":"51600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-26","accepted":true}}
 {"pong":{"nonce":"542"}}
 {"pong":{"nonce":"543"}}
+{"event":{"seq":"375","game_time_ms":"65500","text":"Warren Digger misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-diggers-c-1","target":"hale"}}}
+{"event":{"seq":"376","game_time_ms":"66000","rules_tick":{}}}
+{"event":{"seq":"377","game_time_ms":"66000","text":"You regenerate 8 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"8"}}}
+{"event":{"seq":"378","game_time_ms":"66000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-diggers-c-1","amount":"1"}}}
+{"event":{"seq":"379","game_time_ms":"66000","text":"You miss Warren Digger","combat":{"kind":"COMBAT_KIND_MISS","attacker":"hale","target":"mob-diggers-c-1"}}}
+{"event":{"seq":"380","game_time_ms":"66200","text":"Bram hits Warren Digger for 4","combat":{"kind":"COMBAT_KIND_HIT","attacker":"bram","target":"mob-diggers-c-1","amount":"4"}}}
+{"event":{"seq":"381","game_time_ms":"66200","text":"Bram killed Warren Digger","combat":{"kind":"COMBAT_KIND_DEATH","attacker":"bram","target":"mob-diggers-c-1"}}}
+{"event":{"seq":"382","game_time_ms":"66200","text":"Your target Warren Digger is gone","target_cleared":{"actor":"bram","target":"mob-diggers-c-1","reason":"target_dead"}}}
+{"event":{"seq":"383","game_time_ms":"66200","text":"You stop attacking","auto_attack_changed":{"actor":"bram","target":"mob-diggers-c-1"}}}
+{"event":{"seq":"384","game_time_ms":"66200","text":"Your target Warren Digger is gone","target_cleared":{"actor":"hale","target":"mob-diggers-c-1","reason":"target_dead"}}}
+{"event":{"seq":"385","game_time_ms":"66200","text":"You stop attacking","auto_attack_changed":{"actor":"hale","target":"mob-diggers-c-1"}}}
+{"event":{"seq":"386","game_time_ms":"66200","text":"Warren Digger dropped Digger's Claw","loot_dropped":{"drop":"drop-inst-1.enc-1-digger-claw","mob":"mob-diggers-c-1","item":"digger-claw","pos":{"x":"60220","y":"70000"},"encounter":"inst-1.enc-1","can_loot":true,"item_info":{"id":"digger-claw","name":"Digger's Claw","tier":"common","price":"6","sell_price":"1","stats":{}}}}}
+{"event":{"seq":"387","game_time_ms":"66200","text":"Warren Digger dropped 9 crowns","loot_dropped":{"drop":"drop-inst-1.enc-1-crowns","mob":"mob-diggers-c-1","pos":{"x":"60220","y":"70000"},"encounter":"inst-1.enc-1","crowns":"9","can_loot":true}}}
+{"event":{"seq":"388","game_time_ms":"66200","text":"Warren Digger is dead: the fight is over","encounter_closed":{"id":"inst-1.enc-1","owner":"hale","mob":"mob-diggers-c-1","reason":"mob_died"}}}
+{"event":{"seq":"389","game_time_ms":"66200","text":"You are out of combat","combat_state":{"actor":"hale"}}}
+{"event":{"seq":"390","game_time_ms":"66200","reward":{"recipient":"bram","source":"mob-diggers-c-1","kind":"xp","amount":"3"}}}
+{"event":{"seq":"391","game_time_ms":"66200","text":"You gain 3 experience","reward":{"recipient":"hale","source":"mob-diggers-c-1","kind":"xp","amount":"3"}}}
+{"event":{"seq":"392","game_time_ms":"66200","text":"Warren Digger is out of view","entity_left":{"id":"mob-diggers-c-1"}}}
+{"event":{"seq":"393","game_time_ms":"66200","item_facts":{"actor":"hale","facts":[{"item":"digger-claw","verdict":"not_gear","delta":{}}]}}}
 {"pong":{"nonce":"544"}}
 {"pong":{"nonce":"545"}}
 {"pong":{"nonce":"546"}}
 {"pong":{"nonce":"547"}}
-{"event":{"seq":"399","game_time_ms":"57900","entity_moved":{"id":"bram","pos":{"x":"58000","y":"70000"}}}}
-{"event":{"seq":"400","game_time_ms":"57900","entity_moved":{"id":"hale","pos":{"x":"51200","y":"70000"}}}}
-{"event":{"seq":"401","game_time_ms":"58000","entity_moved":{"id":"bram","pos":{"x":"57600","y":"70000"}}}}
-{"event":{"seq":"402","game_time_ms":"58000","entity_moved":{"id":"hale","pos":{"x":"50800","y":"70000"}}}}
-{"event":{"seq":"403","game_time_ms":"58100","entity_moved":{"id":"bram","pos":{"x":"57200","y":"70000"}}}}
-{"event":{"seq":"404","game_time_ms":"58100","entity_moved":{"id":"hale","pos":{"x":"50400","y":"70000"}}}}
-{"event":{"seq":"405","game_time_ms":"58200","entity_moved":{"id":"bram","pos":{"x":"56800","y":"70000"}}}}
-{"event":{"seq":"406","game_time_ms":"58200","entity_moved":{"id":"hale","pos":{"x":"50000","y":"70000"}}}}
-{"event":{"seq":"407","game_time_ms":"58300","entity_moved":{"id":"bram","pos":{"x":"56400","y":"70000"}}}}
-{"event":{"seq":"408","game_time_ms":"58300","entity_moved":{"id":"hale","pos":{"x":"49600","y":"70000"}}}}
-{"event":{"seq":"409","game_time_ms":"58400","entity_moved":{"id":"bram","pos":{"x":"56000","y":"70000"}}}}
-{"event":{"seq":"410","game_time_ms":"58400","entity_moved":{"id":"hale","pos":{"x":"49200","y":"70000"}}}}
-{"event":{"seq":"411","game_time_ms":"58500","entity_moved":{"id":"bram","pos":{"x":"55600","y":"70000"}}}}
-{"event":{"seq":"412","game_time_ms":"58500","entity_moved":{"id":"hale","pos":{"x":"49000","y":"70000"}}}}
-{"event":{"seq":"413","game_time_ms":"58600","entity_moved":{"id":"bram","pos":{"x":"55200","y":"70000"}}}}
-{"event":{"seq":"414","game_time_ms":"58700","entity_moved":{"id":"bram","pos":{"x":"54800","y":"70000"}}}}
-{"event":{"seq":"415","game_time_ms":"58800","entity_moved":{"id":"bram","pos":{"x":"54400","y":"70000"}}}}
+# mark warren_room_cleared
 {"pong":{"nonce":"548"}}
 {"pong":{"nonce":"549"}}
+{"event":{"seq":"394","game_time_ms":"66300","text":"You have no target","denied":{"intent":"auto_attack","reason":"no_target","actor":"hale","text":"You have no target"}}}
+{"intent_result":{"intent_id":"tui-22","reason":"no_target","text":"You have no target"}}
 {"pong":{"nonce":"550"}}
 {"pong":{"nonce":"551"}}
-{"event":{"seq":"416","game_time_ms":"58900","entity_moved":{"id":"bram","pos":{"x":"54000","y":"70000"}}}}
-{"event":{"seq":"417","game_time_ms":"58900","entity_moved":{"id":"hale","pos":{"x":"48600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-27","accepted":true}}
 {"pong":{"nonce":"552"}}
 {"pong":{"nonce":"553"}}
 {"pong":{"nonce":"554"}}
 {"pong":{"nonce":"555"}}
+{"event":{"seq":"395","game_time_ms":"66400","entity_moved":{"id":"hale","pos":{"x":"60600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-23","accepted":true}}
 {"pong":{"nonce":"556"}}
 {"pong":{"nonce":"557"}}
-{"event":{"seq":"418","game_time_ms":"59000","entity_moved":{"id":"bram","pos":{"x":"53600","y":"70000"}}}}
-{"event":{"seq":"419","game_time_ms":"59000","entity_moved":{"id":"hale","pos":{"x":"48200","y":"70000"}}}}
-{"event":{"seq":"420","game_time_ms":"59100","entity_moved":{"id":"bram","pos":{"x":"53200","y":"70000"}}}}
-{"event":{"seq":"421","game_time_ms":"59100","entity_moved":{"id":"hale","pos":{"x":"47800","y":"70000"}}}}
-{"event":{"seq":"422","game_time_ms":"59200","entity_moved":{"id":"bram","pos":{"x":"52800","y":"70000"}}}}
-{"event":{"seq":"423","game_time_ms":"59200","entity_moved":{"id":"hale","pos":{"x":"47400","y":"70000"}}}}
-{"event":{"seq":"424","game_time_ms":"59300","entity_moved":{"id":"bram","pos":{"x":"52400","y":"70000"}}}}
-{"event":{"seq":"425","game_time_ms":"59300","entity_moved":{"id":"hale","pos":{"x":"47000","y":"70000"}}}}
-{"event":{"seq":"426","game_time_ms":"59400","entity_moved":{"id":"bram","pos":{"x":"52000","y":"70000"}}}}
-{"event":{"seq":"427","game_time_ms":"59400","entity_moved":{"id":"hale","pos":{"x":"46600","y":"70000"}}}}
-{"event":{"seq":"428","game_time_ms":"59500","entity_moved":{"id":"hale","pos":{"x":"46200","y":"70000"}}}}
-{"event":{"seq":"429","game_time_ms":"59600","entity_moved":{"id":"hale","pos":{"x":"46000","y":"70000"}}}}
 {"pong":{"nonce":"558"}}
 {"pong":{"nonce":"559"}}
 {"pong":{"nonce":"560"}}
 {"pong":{"nonce":"561"}}
-{"event":{"seq":"430","game_time_ms":"60000","rules_tick":{}}}
-{"event":{"seq":"431","game_time_ms":"60000","text":"You regenerate 1 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"1"}}}
-{"event":{"seq":"432","game_time_ms":"60000","entity_moved":{"id":"hale","pos":{"x":"45600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-28","accepted":true}}
+{"event":{"seq":"396","game_time_ms":"66500","entity_moved":{"id":"hale","pos":{"x":"60200","y":"70000"}}}}
+{"event":{"seq":"397","game_time_ms":"66600","entity_moved":{"id":"hale","pos":{"x":"59800","y":"70000"}}}}
+{"event":{"seq":"398","game_time_ms":"66700","entity_moved":{"id":"hale","pos":{"x":"59400","y":"70000"}}}}
+{"event":{"seq":"399","game_time_ms":"66800","entity_moved":{"id":"hale","pos":{"x":"59000","y":"70000"}}}}
+{"event":{"seq":"400","game_time_ms":"66900","entity_moved":{"id":"hale","pos":{"x":"58600","y":"70000"}}}}
+{"event":{"seq":"401","game_time_ms":"67000","entity_moved":{"id":"hale","pos":{"x":"58200","y":"70000"}}}}
+{"event":{"seq":"402","game_time_ms":"67100","entity_moved":{"id":"hale","pos":{"x":"58000","y":"70000"}}}}
 {"pong":{"nonce":"562"}}
 {"pong":{"nonce":"563"}}
 {"pong":{"nonce":"564"}}
 {"pong":{"nonce":"565"}}
+{"event":{"seq":"403","game_time_ms":"67500","entity_moved":{"id":"hale","pos":{"x":"57600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-24","accepted":true}}
 {"pong":{"nonce":"566"}}
 {"pong":{"nonce":"567"}}
-{"event":{"seq":"433","game_time_ms":"60100","entity_moved":{"id":"hale","pos":{"x":"45200","y":"70000"}}}}
-{"event":{"seq":"434","game_time_ms":"60200","entity_moved":{"id":"hale","pos":{"x":"44800","y":"70000"}}}}
-{"event":{"seq":"435","game_time_ms":"60300","entity_moved":{"id":"hale","pos":{"x":"44400","y":"70000"}}}}
-{"event":{"seq":"436","game_time_ms":"60400","entity_moved":{"id":"hale","pos":{"x":"44000","y":"70000"}}}}
-{"event":{"seq":"437","game_time_ms":"60500","entity_moved":{"id":"hale","pos":{"x":"43600","y":"70000"}}}}
-{"event":{"seq":"438","game_time_ms":"60600","entity_moved":{"id":"hale","pos":{"x":"43200","y":"70000"}}}}
-{"event":{"seq":"439","game_time_ms":"60700","entity_moved":{"id":"hale","pos":{"x":"43000","y":"70000"}}}}
 {"pong":{"nonce":"568"}}
 {"pong":{"nonce":"569"}}
 {"pong":{"nonce":"570"}}
-{"event":{"seq":"440","game_time_ms":"61100","entity_moved":{"id":"bram","pos":{"x":"51600","y":"70000"}}}}
 {"pong":{"nonce":"571"}}
+{"event":{"seq":"404","game_time_ms":"67600","entity_moved":{"id":"hale","pos":{"x":"57200","y":"70000"}}}}
+{"event":{"seq":"405","game_time_ms":"67700","entity_moved":{"id":"hale","pos":{"x":"56800","y":"70000"}}}}
+{"event":{"seq":"406","game_time_ms":"67800","entity_moved":{"id":"hale","pos":{"x":"56400","y":"70000"}}}}
+{"event":{"seq":"407","game_time_ms":"67900","entity_moved":{"id":"hale","pos":{"x":"56000","y":"70000"}}}}
+{"event":{"seq":"408","game_time_ms":"68000","entity_moved":{"id":"hale","pos":{"x":"55600","y":"70000"}}}}
+{"event":{"seq":"409","game_time_ms":"68100","entity_moved":{"id":"hale","pos":{"x":"55200","y":"70000"}}}}
+{"event":{"seq":"410","game_time_ms":"68200","entity_moved":{"id":"hale","pos":{"x":"55000","y":"70000"}}}}
 {"pong":{"nonce":"572"}}
 {"pong":{"nonce":"573"}}
 {"pong":{"nonce":"574"}}
 {"pong":{"nonce":"575"}}
-{"event":{"seq":"441","game_time_ms":"61200","entity_moved":{"id":"bram","pos":{"x":"51200","y":"70000"}}}}
-{"event":{"seq":"442","game_time_ms":"61200","entity_moved":{"id":"hale","pos":{"x":"42600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-29","accepted":true}}
+{"event":{"seq":"411","game_time_ms":"68600","entity_moved":{"id":"hale","pos":{"x":"54600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-25","accepted":true}}
 {"pong":{"nonce":"576"}}
 {"pong":{"nonce":"577"}}
 {"pong":{"nonce":"578"}}
 {"pong":{"nonce":"579"}}
 {"pong":{"nonce":"580"}}
 {"pong":{"nonce":"581"}}
-{"event":{"seq":"443","game_time_ms":"61300","entity_moved":{"id":"bram","pos":{"x":"50800","y":"70000"}}}}
-{"event":{"seq":"444","game_time_ms":"61300","entity_moved":{"id":"hale","pos":{"x":"42200","y":"70000"}}}}
-{"event":{"seq":"445","game_time_ms":"61400","entity_moved":{"id":"bram","pos":{"x":"50400","y":"70000"}}}}
-{"event":{"seq":"446","game_time_ms":"61400","entity_moved":{"id":"hale","pos":{"x":"41800","y":"70000"}}}}
-{"event":{"seq":"447","game_time_ms":"61500","entity_moved":{"id":"bram","pos":{"x":"50000","y":"70000"}}}}
-{"event":{"seq":"448","game_time_ms":"61500","entity_moved":{"id":"hale","pos":{"x":"41400","y":"70000"}}}}
-{"event":{"seq":"449","game_time_ms":"61600","entity_moved":{"id":"bram","pos":{"x":"49600","y":"70000"}}}}
-{"event":{"seq":"450","game_time_ms":"61600","entity_moved":{"id":"hale","pos":{"x":"41000","y":"70000"}}}}
-{"event":{"seq":"451","game_time_ms":"61700","entity_moved":{"id":"bram","pos":{"x":"49200","y":"70000"}}}}
-{"event":{"seq":"452","game_time_ms":"61700","entity_moved":{"id":"hale","pos":{"x":"40600","y":"70000"}}}}
-{"event":{"seq":"453","game_time_ms":"61800","entity_moved":{"id":"bram","pos":{"x":"48800","y":"70000"}}}}
-{"event":{"seq":"454","game_time_ms":"61800","entity_moved":{"id":"hale","pos":{"x":"40200","y":"70000"}}}}
-{"event":{"seq":"455","game_time_ms":"61800","item_facts":{"actor":"hale"}}}
-{"event":{"seq":"456","game_time_ms":"61900","entity_moved":{"id":"bram","pos":{"x":"48400","y":"70000"}}}}
-{"event":{"seq":"457","game_time_ms":"61900","entity_moved":{"id":"hale","pos":{"x":"40000","y":"70000"}}}}
-{"event":{"seq":"458","game_time_ms":"62000","entity_moved":{"id":"bram","pos":{"x":"48000","y":"70000"}}}}
-{"event":{"seq":"459","game_time_ms":"62100","entity_moved":{"id":"bram","pos":{"x":"47600","y":"70000"}}}}
-{"event":{"seq":"460","game_time_ms":"62200","entity_moved":{"id":"bram","pos":{"x":"47200","y":"70000"}}}}
+{"event":{"seq":"412","game_time_ms":"68700","entity_moved":{"id":"hale","pos":{"x":"54200","y":"70000"}}}}
+{"event":{"seq":"413","game_time_ms":"68800","entity_moved":{"id":"hale","pos":{"x":"53800","y":"70000"}}}}
+{"event":{"seq":"414","game_time_ms":"68900","entity_moved":{"id":"hale","pos":{"x":"53400","y":"70000"}}}}
+{"event":{"seq":"415","game_time_ms":"69000","entity_moved":{"id":"hale","pos":{"x":"53000","y":"70000"}}}}
+{"event":{"seq":"416","game_time_ms":"69100","entity_moved":{"id":"hale","pos":{"x":"52600","y":"70000"}}}}
+{"event":{"seq":"417","game_time_ms":"69200","entity_moved":{"id":"hale","pos":{"x":"52200","y":"70000"}}}}
+{"event":{"seq":"418","game_time_ms":"69300","entity_moved":{"id":"hale","pos":{"x":"52000","y":"70000"}}}}
 {"pong":{"nonce":"582"}}
 {"pong":{"nonce":"583"}}
 {"pong":{"nonce":"584"}}
+{"event":{"seq":"419","game_time_ms":"69700","entity_moved":{"id":"bram","pos":{"x":"58800","y":"70000"}}}}
 {"pong":{"nonce":"585"}}
-{"event":{"seq":"461","game_time_ms":"62300","entity_moved":{"id":"bram","pos":{"x":"46800","y":"70000"}}}}
-{"event":{"seq":"462","game_time_ms":"62300","entity_moved":{"id":"hale","pos":{"x":"39600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-30","accepted":true}}
 {"pong":{"nonce":"586"}}
 {"pong":{"nonce":"587"}}
 {"pong":{"nonce":"588"}}
 {"pong":{"nonce":"589"}}
+{"event":{"seq":"420","game_time_ms":"69800","entity_moved":{"id":"bram","pos":{"x":"58400","y":"70000"}}}}
+{"event":{"seq":"421","game_time_ms":"69800","entity_moved":{"id":"hale","pos":{"x":"51600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-26","accepted":true}}
 {"pong":{"nonce":"590"}}
 {"pong":{"nonce":"591"}}
-{"event":{"seq":"463","game_time_ms":"62400","entity_moved":{"id":"bram","pos":{"x":"46400","y":"70000"}}}}
-{"event":{"seq":"464","game_time_ms":"62400","entity_moved":{"id":"hale","pos":{"x":"39200","y":"70000"}}}}
-{"event":{"seq":"465","game_time_ms":"62500","entity_moved":{"id":"bram","pos":{"x":"46000","y":"70000"}}}}
-{"event":{"seq":"466","game_time_ms":"62500","entity_moved":{"id":"hale","pos":{"x":"38800","y":"70000"}}}}
-{"event":{"seq":"467","game_time_ms":"62600","entity_moved":{"id":"bram","pos":{"x":"45600","y":"70000"}}}}
-{"event":{"seq":"468","game_time_ms":"62600","entity_moved":{"id":"hale","pos":{"x":"38400","y":"70000"}}}}
-{"event":{"seq":"469","game_time_ms":"62700","entity_moved":{"id":"bram","pos":{"x":"45200","y":"70000"}}}}
-{"event":{"seq":"470","game_time_ms":"62700","entity_moved":{"id":"hale","pos":{"x":"38000","y":"70000"}}}}
-{"event":{"seq":"471","game_time_ms":"62800","entity_moved":{"id":"bram","pos":{"x":"44800","y":"70000"}}}}
-{"event":{"seq":"472","game_time_ms":"62800","entity_moved":{"id":"hale","pos":{"x":"37600","y":"70000"}}}}
-{"event":{"seq":"473","game_time_ms":"62900","entity_moved":{"id":"bram","pos":{"x":"44400","y":"70000"}}}}
-{"event":{"seq":"474","game_time_ms":"62900","entity_moved":{"id":"hale","pos":{"x":"37200","y":"70000"}}}}
-{"event":{"seq":"475","game_time_ms":"63000","entity_moved":{"id":"bram","pos":{"x":"44000","y":"70000"}}}}
-{"event":{"seq":"476","game_time_ms":"63000","entity_moved":{"id":"hale","pos":{"x":"37000","y":"70000"}}}}
-{"event":{"seq":"477","game_time_ms":"63100","entity_moved":{"id":"bram","pos":{"x":"43600","y":"70000"}}}}
-{"event":{"seq":"478","game_time_ms":"63200","entity_moved":{"id":"bram","pos":{"x":"43200","y":"70000"}}}}
-{"event":{"seq":"479","game_time_ms":"63300","entity_moved":{"id":"bram","pos":{"x":"43000","y":"70000"}}}}
 {"pong":{"nonce":"592"}}
 {"pong":{"nonce":"593"}}
 {"pong":{"nonce":"594"}}
 {"pong":{"nonce":"595"}}
-{"event":{"seq":"480","game_time_ms":"63400","entity_moved":{"id":"hale","pos":{"x":"36600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-31","accepted":true}}
+{"event":{"seq":"422","game_time_ms":"69900","entity_moved":{"id":"bram","pos":{"x":"58000","y":"70000"}}}}
+{"event":{"seq":"423","game_time_ms":"69900","entity_moved":{"id":"hale","pos":{"x":"51200","y":"70000"}}}}
+{"event":{"seq":"424","game_time_ms":"70000","entity_moved":{"id":"bram","pos":{"x":"57600","y":"70000"}}}}
+{"event":{"seq":"425","game_time_ms":"70000","entity_moved":{"id":"hale","pos":{"x":"50800","y":"70000"}}}}
+{"event":{"seq":"426","game_time_ms":"70100","entity_moved":{"id":"bram","pos":{"x":"57200","y":"70000"}}}}
+{"event":{"seq":"427","game_time_ms":"70100","entity_moved":{"id":"hale","pos":{"x":"50400","y":"70000"}}}}
+{"event":{"seq":"428","game_time_ms":"70200","entity_moved":{"id":"bram","pos":{"x":"56800","y":"70000"}}}}
+{"event":{"seq":"429","game_time_ms":"70200","entity_moved":{"id":"hale","pos":{"x":"50000","y":"70000"}}}}
+{"event":{"seq":"430","game_time_ms":"70300","entity_moved":{"id":"bram","pos":{"x":"56400","y":"70000"}}}}
+{"event":{"seq":"431","game_time_ms":"70300","entity_moved":{"id":"hale","pos":{"x":"49600","y":"70000"}}}}
+{"event":{"seq":"432","game_time_ms":"70400","entity_moved":{"id":"bram","pos":{"x":"56000","y":"70000"}}}}
+{"event":{"seq":"433","game_time_ms":"70400","entity_moved":{"id":"hale","pos":{"x":"49200","y":"70000"}}}}
+{"event":{"seq":"434","game_time_ms":"70500","entity_moved":{"id":"bram","pos":{"x":"55600","y":"70000"}}}}
+{"event":{"seq":"435","game_time_ms":"70500","entity_moved":{"id":"hale","pos":{"x":"49000","y":"70000"}}}}
+{"event":{"seq":"436","game_time_ms":"70600","entity_moved":{"id":"bram","pos":{"x":"55200","y":"70000"}}}}
+{"event":{"seq":"437","game_time_ms":"70700","entity_moved":{"id":"bram","pos":{"x":"54800","y":"70000"}}}}
+{"event":{"seq":"438","game_time_ms":"70800","entity_moved":{"id":"bram","pos":{"x":"54400","y":"70000"}}}}
 {"pong":{"nonce":"596"}}
 {"pong":{"nonce":"597"}}
 {"pong":{"nonce":"598"}}
 {"pong":{"nonce":"599"}}
+{"event":{"seq":"439","game_time_ms":"70900","entity_moved":{"id":"bram","pos":{"x":"54000","y":"70000"}}}}
+{"event":{"seq":"440","game_time_ms":"70900","entity_moved":{"id":"hale","pos":{"x":"48600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-27","accepted":true}}
 {"pong":{"nonce":"600"}}
 {"pong":{"nonce":"601"}}
-{"event":{"seq":"481","game_time_ms":"63500","entity_moved":{"id":"hale","pos":{"x":"36200","y":"70000"}}}}
-{"event":{"seq":"482","game_time_ms":"63600","entity_moved":{"id":"hale","pos":{"x":"35800","y":"70000"}}}}
-{"event":{"seq":"483","game_time_ms":"63700","entity_moved":{"id":"hale","pos":{"x":"35400","y":"70000"}}}}
-{"event":{"seq":"484","game_time_ms":"63800","entity_moved":{"id":"hale","pos":{"x":"35000","y":"70000"}}}}
-{"event":{"seq":"485","game_time_ms":"63900","entity_moved":{"id":"hale","pos":{"x":"34600","y":"70000"}}}}
-{"event":{"seq":"486","game_time_ms":"64000","entity_moved":{"id":"hale","pos":{"x":"34200","y":"70000"}}}}
-{"event":{"seq":"487","game_time_ms":"64100","entity_moved":{"id":"hale","pos":{"x":"34000","y":"70000"}}}}
 {"pong":{"nonce":"602"}}
 {"pong":{"nonce":"603"}}
 {"pong":{"nonce":"604"}}
-{"event":{"seq":"488","game_time_ms":"64500","entity_moved":{"id":"bram","pos":{"x":"42600","y":"70000"}}}}
 {"pong":{"nonce":"605"}}
+{"event":{"seq":"441","game_time_ms":"71000","entity_moved":{"id":"bram","pos":{"x":"53600","y":"70000"}}}}
+{"event":{"seq":"442","game_time_ms":"71000","entity_moved":{"id":"hale","pos":{"x":"48200","y":"70000"}}}}
+{"event":{"seq":"443","game_time_ms":"71100","entity_moved":{"id":"bram","pos":{"x":"53200","y":"70000"}}}}
+{"event":{"seq":"444","game_time_ms":"71100","entity_moved":{"id":"hale","pos":{"x":"47800","y":"70000"}}}}
+{"event":{"seq":"445","game_time_ms":"71200","entity_moved":{"id":"bram","pos":{"x":"52800","y":"70000"}}}}
+{"event":{"seq":"446","game_time_ms":"71200","entity_moved":{"id":"hale","pos":{"x":"47400","y":"70000"}}}}
+{"event":{"seq":"447","game_time_ms":"71300","entity_moved":{"id":"bram","pos":{"x":"52400","y":"70000"}}}}
+{"event":{"seq":"448","game_time_ms":"71300","entity_moved":{"id":"hale","pos":{"x":"47000","y":"70000"}}}}
+{"event":{"seq":"449","game_time_ms":"71400","entity_moved":{"id":"bram","pos":{"x":"52000","y":"70000"}}}}
+{"event":{"seq":"450","game_time_ms":"71400","entity_moved":{"id":"hale","pos":{"x":"46600","y":"70000"}}}}
+{"event":{"seq":"451","game_time_ms":"71500","entity_moved":{"id":"hale","pos":{"x":"46200","y":"70000"}}}}
+{"event":{"seq":"452","game_time_ms":"71600","entity_moved":{"id":"hale","pos":{"x":"46000","y":"70000"}}}}
 {"pong":{"nonce":"606"}}
 {"pong":{"nonce":"607"}}
 {"pong":{"nonce":"608"}}
 {"pong":{"nonce":"609"}}
-{"event":{"seq":"489","game_time_ms":"64600","entity_moved":{"id":"bram","pos":{"x":"42200","y":"70000"}}}}
-{"event":{"seq":"490","game_time_ms":"64600","entity_moved":{"id":"hale","pos":{"x":"33600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-32","accepted":true}}
+{"event":{"seq":"453","game_time_ms":"72000","rules_tick":{}}}
+{"event":{"seq":"454","game_time_ms":"72000","text":"You regenerate 8 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"8"}}}
+{"event":{"seq":"455","game_time_ms":"72000","entity_moved":{"id":"hale","pos":{"x":"45600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-28","accepted":true}}
 {"pong":{"nonce":"610"}}
 {"pong":{"nonce":"611"}}
 {"pong":{"nonce":"612"}}
 {"pong":{"nonce":"613"}}
 {"pong":{"nonce":"614"}}
 {"pong":{"nonce":"615"}}
-{"event":{"seq":"491","game_time_ms":"64700","entity_moved":{"id":"bram","pos":{"x":"41800","y":"70000"}}}}
-{"event":{"seq":"492","game_time_ms":"64700","entity_moved":{"id":"hale","pos":{"x":"33200","y":"70000"}}}}
-{"event":{"seq":"493","game_time_ms":"64800","entity_moved":{"id":"bram","pos":{"x":"41400","y":"70000"}}}}
-{"event":{"seq":"494","game_time_ms":"64800","entity_moved":{"id":"hale","pos":{"x":"32800","y":"70000"}}}}
-{"event":{"seq":"495","game_time_ms":"64900","entity_moved":{"id":"bram","pos":{"x":"41000","y":"70000"}}}}
-{"event":{"seq":"496","game_time_ms":"64900","entity_moved":{"id":"hale","pos":{"x":"32400","y":"70000"}}}}
-{"event":{"seq":"497","game_time_ms":"65000","entity_moved":{"id":"bram","pos":{"x":"40600","y":"70000"}}}}
-{"event":{"seq":"498","game_time_ms":"65000","entity_moved":{"id":"hale","pos":{"x":"32000","y":"70000"}}}}
-{"event":{"seq":"499","game_time_ms":"65100","entity_moved":{"id":"bram","pos":{"x":"40200","y":"70000"}}}}
-{"event":{"seq":"500","game_time_ms":"65100","entity_moved":{"id":"hale","pos":{"x":"31600","y":"70000"}}}}
-{"event":{"seq":"501","game_time_ms":"65200","entity_moved":{"id":"bram","pos":{"x":"39800","y":"70000"}}}}
-{"event":{"seq":"502","game_time_ms":"65200","entity_moved":{"id":"hale","pos":{"x":"31200","y":"70000"}}}}
-{"event":{"seq":"503","game_time_ms":"65300","entity_moved":{"id":"bram","pos":{"x":"39400","y":"70000"}}}}
-{"event":{"seq":"504","game_time_ms":"65300","entity_moved":{"id":"hale","pos":{"x":"31000","y":"70000"}}}}
-{"event":{"seq":"505","game_time_ms":"65400","entity_moved":{"id":"bram","pos":{"x":"39000","y":"70000"}}}}
-{"event":{"seq":"506","game_time_ms":"65500","entity_moved":{"id":"bram","pos":{"x":"38600","y":"70000"}}}}
-{"event":{"seq":"507","game_time_ms":"65600","entity_moved":{"id":"bram","pos":{"x":"38200","y":"70000"}}}}
+{"event":{"seq":"456","game_time_ms":"72100","entity_moved":{"id":"hale","pos":{"x":"45200","y":"70000"}}}}
+{"event":{"seq":"457","game_time_ms":"72200","entity_moved":{"id":"hale","pos":{"x":"44800","y":"70000"}}}}
+{"event":{"seq":"458","game_time_ms":"72300","entity_moved":{"id":"hale","pos":{"x":"44400","y":"70000"}}}}
+{"event":{"seq":"459","game_time_ms":"72400","entity_moved":{"id":"hale","pos":{"x":"44000","y":"70000"}}}}
+{"event":{"seq":"460","game_time_ms":"72500","entity_moved":{"id":"hale","pos":{"x":"43600","y":"70000"}}}}
+{"event":{"seq":"461","game_time_ms":"72600","entity_moved":{"id":"hale","pos":{"x":"43200","y":"70000"}}}}
+{"event":{"seq":"462","game_time_ms":"72700","entity_moved":{"id":"hale","pos":{"x":"43000","y":"70000"}}}}
 {"pong":{"nonce":"616"}}
 {"pong":{"nonce":"617"}}
 {"pong":{"nonce":"618"}}
+{"event":{"seq":"463","game_time_ms":"73100","entity_moved":{"id":"bram","pos":{"x":"51600","y":"70000"}}}}
 {"pong":{"nonce":"619"}}
-{"event":{"seq":"508","game_time_ms":"65700","entity_moved":{"id":"bram","pos":{"x":"37800","y":"70000"}}}}
-{"event":{"seq":"509","game_time_ms":"65700","entity_moved":{"id":"hale","pos":{"x":"30600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-33","accepted":true}}
 {"pong":{"nonce":"620"}}
 {"pong":{"nonce":"621"}}
 {"pong":{"nonce":"622"}}
 {"pong":{"nonce":"623"}}
+{"event":{"seq":"464","game_time_ms":"73200","entity_moved":{"id":"bram","pos":{"x":"51200","y":"70000"}}}}
+{"event":{"seq":"465","game_time_ms":"73200","entity_moved":{"id":"hale","pos":{"x":"42600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-29","accepted":true}}
 {"pong":{"nonce":"624"}}
 {"pong":{"nonce":"625"}}
-{"event":{"seq":"510","game_time_ms":"65800","entity_moved":{"id":"bram","pos":{"x":"37400","y":"70000"}}}}
-{"event":{"seq":"511","game_time_ms":"65800","entity_moved":{"id":"hale","pos":{"x":"30200","y":"70000"}}}}
-{"event":{"seq":"512","game_time_ms":"65900","entity_moved":{"id":"bram","pos":{"x":"37000","y":"70000"}}}}
-{"event":{"seq":"513","game_time_ms":"65900","entity_moved":{"id":"hale","pos":{"x":"29800","y":"70000"}}}}
-{"event":{"seq":"514","game_time_ms":"66000","rules_tick":{}}}
-{"event":{"seq":"515","game_time_ms":"66000","entity_moved":{"id":"bram","pos":{"x":"36600","y":"70000"}}}}
-{"event":{"seq":"516","game_time_ms":"66000","entity_moved":{"id":"hale","pos":{"x":"29400","y":"70000"}}}}
-{"event":{"seq":"517","game_time_ms":"66100","entity_moved":{"id":"bram","pos":{"x":"36200","y":"70000"}}}}
-{"event":{"seq":"518","game_time_ms":"66100","entity_moved":{"id":"hale","pos":{"x":"29000","y":"70000"}}}}
-{"event":{"seq":"519","game_time_ms":"66200","entity_moved":{"id":"bram","pos":{"x":"35800","y":"70000"}}}}
-{"event":{"seq":"520","game_time_ms":"66200","entity_moved":{"id":"hale","pos":{"x":"28600","y":"70000"}}}}
-{"event":{"seq":"521","game_time_ms":"66300","entity_moved":{"id":"bram","pos":{"x":"35400","y":"70000"}}}}
-{"event":{"seq":"522","game_time_ms":"66300","entity_moved":{"id":"hale","pos":{"x":"28200","y":"70000"}}}}
-{"event":{"seq":"523","game_time_ms":"66400","entity_moved":{"id":"bram","pos":{"x":"35000","y":"70000"}}}}
-{"event":{"seq":"524","game_time_ms":"66400","entity_moved":{"id":"hale","pos":{"x":"28000","y":"70000"}}}}
-{"event":{"seq":"525","game_time_ms":"66500","entity_moved":{"id":"bram","pos":{"x":"34600","y":"70000"}}}}
-{"event":{"seq":"526","game_time_ms":"66600","entity_moved":{"id":"bram","pos":{"x":"34200","y":"70000"}}}}
-{"event":{"seq":"527","game_time_ms":"66700","entity_moved":{"id":"bram","pos":{"x":"34000","y":"70000"}}}}
 {"pong":{"nonce":"626"}}
 {"pong":{"nonce":"627"}}
 {"pong":{"nonce":"628"}}
 {"pong":{"nonce":"629"}}
-{"event":{"seq":"528","game_time_ms":"66800","entity_moved":{"id":"hale","pos":{"x":"27600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-34","accepted":true}}
+{"event":{"seq":"466","game_time_ms":"73300","entity_moved":{"id":"bram","pos":{"x":"50800","y":"70000"}}}}
+{"event":{"seq":"467","game_time_ms":"73300","entity_moved":{"id":"hale","pos":{"x":"42200","y":"70000"}}}}
+{"event":{"seq":"468","game_time_ms":"73400","entity_moved":{"id":"bram","pos":{"x":"50400","y":"70000"}}}}
+{"event":{"seq":"469","game_time_ms":"73400","entity_moved":{"id":"hale","pos":{"x":"41800","y":"70000"}}}}
+{"event":{"seq":"470","game_time_ms":"73500","entity_moved":{"id":"bram","pos":{"x":"50000","y":"70000"}}}}
+{"event":{"seq":"471","game_time_ms":"73500","entity_moved":{"id":"hale","pos":{"x":"41400","y":"70000"}}}}
+{"event":{"seq":"472","game_time_ms":"73600","entity_moved":{"id":"bram","pos":{"x":"49600","y":"70000"}}}}
+{"event":{"seq":"473","game_time_ms":"73600","entity_moved":{"id":"hale","pos":{"x":"41000","y":"70000"}}}}
+{"event":{"seq":"474","game_time_ms":"73700","entity_moved":{"id":"bram","pos":{"x":"49200","y":"70000"}}}}
+{"event":{"seq":"475","game_time_ms":"73700","entity_moved":{"id":"hale","pos":{"x":"40600","y":"70000"}}}}
+{"event":{"seq":"476","game_time_ms":"73800","entity_moved":{"id":"bram","pos":{"x":"48800","y":"70000"}}}}
+{"event":{"seq":"477","game_time_ms":"73800","entity_moved":{"id":"hale","pos":{"x":"40200","y":"70000"}}}}
+{"event":{"seq":"478","game_time_ms":"73800","item_facts":{"actor":"hale"}}}
+{"event":{"seq":"479","game_time_ms":"73900","entity_moved":{"id":"bram","pos":{"x":"48400","y":"70000"}}}}
+{"event":{"seq":"480","game_time_ms":"73900","entity_moved":{"id":"hale","pos":{"x":"40000","y":"70000"}}}}
+{"event":{"seq":"481","game_time_ms":"74000","entity_moved":{"id":"bram","pos":{"x":"48000","y":"70000"}}}}
+{"event":{"seq":"482","game_time_ms":"74100","entity_moved":{"id":"bram","pos":{"x":"47600","y":"70000"}}}}
+{"event":{"seq":"483","game_time_ms":"74200","entity_moved":{"id":"bram","pos":{"x":"47200","y":"70000"}}}}
 {"pong":{"nonce":"630"}}
 {"pong":{"nonce":"631"}}
 {"pong":{"nonce":"632"}}
 {"pong":{"nonce":"633"}}
+{"event":{"seq":"484","game_time_ms":"74300","entity_moved":{"id":"bram","pos":{"x":"46800","y":"70000"}}}}
+{"event":{"seq":"485","game_time_ms":"74300","entity_moved":{"id":"hale","pos":{"x":"39600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-30","accepted":true}}
 {"pong":{"nonce":"634"}}
 {"pong":{"nonce":"635"}}
-{"event":{"seq":"529","game_time_ms":"66900","entity_moved":{"id":"hale","pos":{"x":"27200","y":"70000"}}}}
-{"event":{"seq":"530","game_time_ms":"67000","entity_moved":{"id":"hale","pos":{"x":"26800","y":"70000"}}}}
-{"event":{"seq":"531","game_time_ms":"67100","entity_moved":{"id":"hale","pos":{"x":"26400","y":"70000"}}}}
-{"event":{"seq":"532","game_time_ms":"67200","entity_moved":{"id":"hale","pos":{"x":"26000","y":"70000"}}}}
-{"event":{"seq":"533","game_time_ms":"67300","entity_moved":{"id":"hale","pos":{"x":"25600","y":"70000"}}}}
-{"event":{"seq":"534","game_time_ms":"67400","entity_moved":{"id":"hale","pos":{"x":"25200","y":"70000"}}}}
-{"event":{"seq":"535","game_time_ms":"67500","entity_moved":{"id":"hale","pos":{"x":"25000","y":"70000"}}}}
 {"pong":{"nonce":"636"}}
 {"pong":{"nonce":"637"}}
 {"pong":{"nonce":"638"}}
-{"event":{"seq":"536","game_time_ms":"67900","entity_moved":{"id":"bram","pos":{"x":"33600","y":"70000"}}}}
 {"pong":{"nonce":"639"}}
+{"event":{"seq":"486","game_time_ms":"74400","entity_moved":{"id":"bram","pos":{"x":"46400","y":"70000"}}}}
+{"event":{"seq":"487","game_time_ms":"74400","entity_moved":{"id":"hale","pos":{"x":"39200","y":"70000"}}}}
+{"event":{"seq":"488","game_time_ms":"74500","entity_moved":{"id":"bram","pos":{"x":"46000","y":"70000"}}}}
+{"event":{"seq":"489","game_time_ms":"74500","entity_moved":{"id":"hale","pos":{"x":"38800","y":"70000"}}}}
+{"event":{"seq":"490","game_time_ms":"74600","entity_moved":{"id":"bram","pos":{"x":"45600","y":"70000"}}}}
+{"event":{"seq":"491","game_time_ms":"74600","entity_moved":{"id":"hale","pos":{"x":"38400","y":"70000"}}}}
+{"event":{"seq":"492","game_time_ms":"74700","entity_moved":{"id":"bram","pos":{"x":"45200","y":"70000"}}}}
+{"event":{"seq":"493","game_time_ms":"74700","entity_moved":{"id":"hale","pos":{"x":"38000","y":"70000"}}}}
+{"event":{"seq":"494","game_time_ms":"74800","entity_moved":{"id":"bram","pos":{"x":"44800","y":"70000"}}}}
+{"event":{"seq":"495","game_time_ms":"74800","entity_moved":{"id":"hale","pos":{"x":"37600","y":"70000"}}}}
+{"event":{"seq":"496","game_time_ms":"74900","entity_moved":{"id":"bram","pos":{"x":"44400","y":"70000"}}}}
+{"event":{"seq":"497","game_time_ms":"74900","entity_moved":{"id":"hale","pos":{"x":"37200","y":"70000"}}}}
+{"event":{"seq":"498","game_time_ms":"75000","entity_moved":{"id":"bram","pos":{"x":"44000","y":"70000"}}}}
+{"event":{"seq":"499","game_time_ms":"75000","entity_moved":{"id":"hale","pos":{"x":"37000","y":"70000"}}}}
+{"event":{"seq":"500","game_time_ms":"75100","entity_moved":{"id":"bram","pos":{"x":"43600","y":"70000"}}}}
+{"event":{"seq":"501","game_time_ms":"75200","entity_moved":{"id":"bram","pos":{"x":"43200","y":"70000"}}}}
+{"event":{"seq":"502","game_time_ms":"75300","entity_moved":{"id":"bram","pos":{"x":"43000","y":"70000"}}}}
 {"pong":{"nonce":"640"}}
 {"pong":{"nonce":"641"}}
 {"pong":{"nonce":"642"}}
 {"pong":{"nonce":"643"}}
-{"event":{"seq":"537","game_time_ms":"68000","entity_moved":{"id":"bram","pos":{"x":"33200","y":"70000"}}}}
-{"event":{"seq":"538","game_time_ms":"68000","entity_moved":{"id":"hale","pos":{"x":"24600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-35","accepted":true}}
+{"event":{"seq":"503","game_time_ms":"75400","entity_moved":{"id":"hale","pos":{"x":"36600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-31","accepted":true}}
 {"pong":{"nonce":"644"}}
 {"pong":{"nonce":"645"}}
 {"pong":{"nonce":"646"}}
 {"pong":{"nonce":"647"}}
 {"pong":{"nonce":"648"}}
 {"pong":{"nonce":"649"}}
-{"event":{"seq":"539","game_time_ms":"68100","entity_moved":{"id":"bram","pos":{"x":"32800","y":"70000"}}}}
-{"event":{"seq":"540","game_time_ms":"68100","entity_moved":{"id":"hale","pos":{"x":"24200","y":"70000"}}}}
-{"event":{"seq":"541","game_time_ms":"68200","entity_moved":{"id":"bram","pos":{"x":"32400","y":"70000"}}}}
-{"event":{"seq":"542","game_time_ms":"68200","entity_moved":{"id":"hale","pos":{"x":"23800","y":"70000"}}}}
-{"event":{"seq":"543","game_time_ms":"68300","entity_moved":{"id":"bram","pos":{"x":"32000","y":"70000"}}}}
-{"event":{"seq":"544","game_time_ms":"68300","entity_moved":{"id":"hale","pos":{"x":"23400","y":"70000"}}}}
-{"event":{"seq":"545","game_time_ms":"68400","entity_moved":{"id":"bram","pos":{"x":"31600","y":"70000"}}}}
-{"event":{"seq":"546","game_time_ms":"68400","entity_moved":{"id":"hale","pos":{"x":"23000","y":"70000"}}}}
-{"event":{"seq":"547","game_time_ms":"68500","entity_moved":{"id":"bram","pos":{"x":"31200","y":"70000"}}}}
-{"event":{"seq":"548","game_time_ms":"68500","entity_moved":{"id":"hale","pos":{"x":"22600","y":"70000"}}}}
-{"event":{"seq":"549","game_time_ms":"68600","entity_moved":{"id":"bram","pos":{"x":"30800","y":"70000"}}}}
-{"event":{"seq":"550","game_time_ms":"68600","entity_moved":{"id":"hale","pos":{"x":"22200","y":"70000"}}}}
-{"event":{"seq":"551","game_time_ms":"68700","entity_moved":{"id":"bram","pos":{"x":"30400","y":"70000"}}}}
-{"event":{"seq":"552","game_time_ms":"68700","entity_moved":{"id":"hale","pos":{"x":"22000","y":"70000"}}}}
-{"event":{"seq":"553","game_time_ms":"68800","entity_moved":{"id":"bram","pos":{"x":"30000","y":"70000"}}}}
-{"event":{"seq":"554","game_time_ms":"68900","entity_moved":{"id":"bram","pos":{"x":"29600","y":"70000"}}}}
-{"event":{"seq":"555","game_time_ms":"69000","entity_moved":{"id":"bram","pos":{"x":"29200","y":"70000"}}}}
+{"event":{"seq":"504","game_time_ms":"75500","entity_moved":{"id":"hale","pos":{"x":"36200","y":"70000"}}}}
+{"event":{"seq":"505","game_time_ms":"75600","entity_moved":{"id":"hale","pos":{"x":"35800","y":"70000"}}}}
+{"event":{"seq":"506","game_time_ms":"75700","entity_moved":{"id":"hale","pos":{"x":"35400","y":"70000"}}}}
+{"event":{"seq":"507","game_time_ms":"75800","entity_moved":{"id":"hale","pos":{"x":"35000","y":"70000"}}}}
+{"event":{"seq":"508","game_time_ms":"75900","entity_moved":{"id":"hale","pos":{"x":"34600","y":"70000"}}}}
+{"event":{"seq":"509","game_time_ms":"76000","entity_moved":{"id":"hale","pos":{"x":"34200","y":"70000"}}}}
+{"event":{"seq":"510","game_time_ms":"76100","entity_moved":{"id":"hale","pos":{"x":"34000","y":"70000"}}}}
 {"pong":{"nonce":"650"}}
 {"pong":{"nonce":"651"}}
 {"pong":{"nonce":"652"}}
+{"event":{"seq":"511","game_time_ms":"76500","entity_moved":{"id":"bram","pos":{"x":"42600","y":"70000"}}}}
 {"pong":{"nonce":"653"}}
-{"event":{"seq":"556","game_time_ms":"69100","entity_moved":{"id":"bram","pos":{"x":"28800","y":"70000"}}}}
-{"event":{"seq":"557","game_time_ms":"69100","entity_moved":{"id":"hale","pos":{"x":"21600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-36","accepted":true}}
 {"pong":{"nonce":"654"}}
 {"pong":{"nonce":"655"}}
 {"pong":{"nonce":"656"}}
 {"pong":{"nonce":"657"}}
+{"event":{"seq":"512","game_time_ms":"76600","entity_moved":{"id":"bram","pos":{"x":"42200","y":"70000"}}}}
+{"event":{"seq":"513","game_time_ms":"76600","entity_moved":{"id":"hale","pos":{"x":"33600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-32","accepted":true}}
 {"pong":{"nonce":"658"}}
 {"pong":{"nonce":"659"}}
-{"event":{"seq":"558","game_time_ms":"69200","entity_moved":{"id":"bram","pos":{"x":"28400","y":"70000"}}}}
-{"event":{"seq":"559","game_time_ms":"69200","entity_moved":{"id":"hale","pos":{"x":"21200","y":"70000"}}}}
-{"event":{"seq":"560","game_time_ms":"69300","entity_moved":{"id":"bram","pos":{"x":"28000","y":"70000"}}}}
-{"event":{"seq":"561","game_time_ms":"69300","entity_moved":{"id":"hale","pos":{"x":"20800","y":"70000"}}}}
-{"event":{"seq":"562","game_time_ms":"69400","entity_moved":{"id":"bram","pos":{"x":"27600","y":"70000"}}}}
-{"event":{"seq":"563","game_time_ms":"69400","entity_moved":{"id":"hale","pos":{"x":"20400","y":"70000"}}}}
-{"event":{"seq":"564","game_time_ms":"69500","entity_moved":{"id":"bram","pos":{"x":"27200","y":"70000"}}}}
-{"event":{"seq":"565","game_time_ms":"69500","entity_moved":{"id":"hale","pos":{"x":"20000","y":"70000"}}}}
-{"event":{"seq":"566","game_time_ms":"69600","entity_moved":{"id":"bram","pos":{"x":"26800","y":"70000"}}}}
-{"event":{"seq":"567","game_time_ms":"69600","entity_moved":{"id":"hale","pos":{"x":"19600","y":"70000"}}}}
-{"event":{"seq":"568","game_time_ms":"69700","entity_moved":{"id":"bram","pos":{"x":"26400","y":"70000"}}}}
-{"event":{"seq":"569","game_time_ms":"69700","entity_moved":{"id":"hale","pos":{"x":"19200","y":"70000"}}}}
-{"event":{"seq":"570","game_time_ms":"69800","entity_moved":{"id":"bram","pos":{"x":"26000","y":"70000"}}}}
-{"event":{"seq":"571","game_time_ms":"69800","entity_moved":{"id":"hale","pos":{"x":"19000","y":"70000"}}}}
-{"event":{"seq":"572","game_time_ms":"69900","entity_moved":{"id":"bram","pos":{"x":"25600","y":"70000"}}}}
-{"event":{"seq":"573","game_time_ms":"70000","entity_moved":{"id":"bram","pos":{"x":"25200","y":"70000"}}}}
-{"event":{"seq":"574","game_time_ms":"70100","entity_moved":{"id":"bram","pos":{"x":"25000","y":"70000"}}}}
 {"pong":{"nonce":"660"}}
 {"pong":{"nonce":"661"}}
 {"pong":{"nonce":"662"}}
 {"pong":{"nonce":"663"}}
-{"event":{"seq":"575","game_time_ms":"70200","entity_moved":{"id":"hale","pos":{"x":"18600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-37","accepted":true}}
+{"event":{"seq":"514","game_time_ms":"76700","entity_moved":{"id":"bram","pos":{"x":"41800","y":"70000"}}}}
+{"event":{"seq":"515","game_time_ms":"76700","entity_moved":{"id":"hale","pos":{"x":"33200","y":"70000"}}}}
+{"event":{"seq":"516","game_time_ms":"76800","entity_moved":{"id":"bram","pos":{"x":"41400","y":"70000"}}}}
+{"event":{"seq":"517","game_time_ms":"76800","entity_moved":{"id":"hale","pos":{"x":"32800","y":"70000"}}}}
+{"event":{"seq":"518","game_time_ms":"76900","entity_moved":{"id":"bram","pos":{"x":"41000","y":"70000"}}}}
+{"event":{"seq":"519","game_time_ms":"76900","entity_moved":{"id":"hale","pos":{"x":"32400","y":"70000"}}}}
+{"event":{"seq":"520","game_time_ms":"77000","entity_moved":{"id":"bram","pos":{"x":"40600","y":"70000"}}}}
+{"event":{"seq":"521","game_time_ms":"77000","entity_moved":{"id":"hale","pos":{"x":"32000","y":"70000"}}}}
+{"event":{"seq":"522","game_time_ms":"77100","entity_moved":{"id":"bram","pos":{"x":"40200","y":"70000"}}}}
+{"event":{"seq":"523","game_time_ms":"77100","entity_moved":{"id":"hale","pos":{"x":"31600","y":"70000"}}}}
+{"event":{"seq":"524","game_time_ms":"77200","entity_moved":{"id":"bram","pos":{"x":"39800","y":"70000"}}}}
+{"event":{"seq":"525","game_time_ms":"77200","entity_moved":{"id":"hale","pos":{"x":"31200","y":"70000"}}}}
+{"event":{"seq":"526","game_time_ms":"77300","entity_moved":{"id":"bram","pos":{"x":"39400","y":"70000"}}}}
+{"event":{"seq":"527","game_time_ms":"77300","entity_moved":{"id":"hale","pos":{"x":"31000","y":"70000"}}}}
+{"event":{"seq":"528","game_time_ms":"77400","entity_moved":{"id":"bram","pos":{"x":"39000","y":"70000"}}}}
+{"event":{"seq":"529","game_time_ms":"77500","entity_moved":{"id":"bram","pos":{"x":"38600","y":"70000"}}}}
+{"event":{"seq":"530","game_time_ms":"77600","entity_moved":{"id":"bram","pos":{"x":"38200","y":"70000"}}}}
 {"pong":{"nonce":"664"}}
 {"pong":{"nonce":"665"}}
 {"pong":{"nonce":"666"}}
 {"pong":{"nonce":"667"}}
+{"event":{"seq":"531","game_time_ms":"77700","entity_moved":{"id":"bram","pos":{"x":"37800","y":"70000"}}}}
+{"event":{"seq":"532","game_time_ms":"77700","entity_moved":{"id":"hale","pos":{"x":"30600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-33","accepted":true}}
 {"pong":{"nonce":"668"}}
 {"pong":{"nonce":"669"}}
-{"event":{"seq":"576","game_time_ms":"70300","entity_moved":{"id":"hale","pos":{"x":"18200","y":"70000"}}}}
-{"event":{"seq":"577","game_time_ms":"70400","entity_moved":{"id":"hale","pos":{"x":"17800","y":"70000"}}}}
-{"event":{"seq":"578","game_time_ms":"70500","entity_moved":{"id":"hale","pos":{"x":"17400","y":"70000"}}}}
-{"event":{"seq":"579","game_time_ms":"70600","entity_moved":{"id":"hale","pos":{"x":"17000","y":"70000"}}}}
-{"event":{"seq":"580","game_time_ms":"70700","entity_moved":{"id":"hale","pos":{"x":"16600","y":"70000"}}}}
-{"event":{"seq":"581","game_time_ms":"70800","entity_moved":{"id":"hale","pos":{"x":"16200","y":"70000"}}}}
-{"event":{"seq":"582","game_time_ms":"70900","entity_moved":{"id":"hale","pos":{"x":"16000","y":"70000"}}}}
 {"pong":{"nonce":"670"}}
 {"pong":{"nonce":"671"}}
 {"pong":{"nonce":"672"}}
-{"event":{"seq":"583","game_time_ms":"71300","entity_moved":{"id":"bram","pos":{"x":"24600","y":"70000"}}}}
 {"pong":{"nonce":"673"}}
+{"event":{"seq":"533","game_time_ms":"77800","entity_moved":{"id":"bram","pos":{"x":"37400","y":"70000"}}}}
+{"event":{"seq":"534","game_time_ms":"77800","entity_moved":{"id":"hale","pos":{"x":"30200","y":"70000"}}}}
+{"event":{"seq":"535","game_time_ms":"77900","entity_moved":{"id":"bram","pos":{"x":"37000","y":"70000"}}}}
+{"event":{"seq":"536","game_time_ms":"77900","entity_moved":{"id":"hale","pos":{"x":"29800","y":"70000"}}}}
+{"event":{"seq":"537","game_time_ms":"78000","rules_tick":{}}}
+{"event":{"seq":"538","game_time_ms":"78000","text":"You regenerate 4 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"4"}}}
+{"event":{"seq":"539","game_time_ms":"78000","entity_moved":{"id":"bram","pos":{"x":"36600","y":"70000"}}}}
+{"event":{"seq":"540","game_time_ms":"78000","entity_moved":{"id":"hale","pos":{"x":"29400","y":"70000"}}}}
+{"event":{"seq":"541","game_time_ms":"78100","entity_moved":{"id":"bram","pos":{"x":"36200","y":"70000"}}}}
+{"event":{"seq":"542","game_time_ms":"78100","entity_moved":{"id":"hale","pos":{"x":"29000","y":"70000"}}}}
+{"event":{"seq":"543","game_time_ms":"78200","entity_moved":{"id":"bram","pos":{"x":"35800","y":"70000"}}}}
+{"event":{"seq":"544","game_time_ms":"78200","entity_moved":{"id":"hale","pos":{"x":"28600","y":"70000"}}}}
+{"event":{"seq":"545","game_time_ms":"78300","entity_moved":{"id":"bram","pos":{"x":"35400","y":"70000"}}}}
+{"event":{"seq":"546","game_time_ms":"78300","entity_moved":{"id":"hale","pos":{"x":"28200","y":"70000"}}}}
+{"event":{"seq":"547","game_time_ms":"78400","entity_moved":{"id":"bram","pos":{"x":"35000","y":"70000"}}}}
+{"event":{"seq":"548","game_time_ms":"78400","entity_moved":{"id":"hale","pos":{"x":"28000","y":"70000"}}}}
+{"event":{"seq":"549","game_time_ms":"78500","entity_moved":{"id":"bram","pos":{"x":"34600","y":"70000"}}}}
+{"event":{"seq":"550","game_time_ms":"78600","entity_moved":{"id":"bram","pos":{"x":"34200","y":"70000"}}}}
+{"event":{"seq":"551","game_time_ms":"78700","entity_moved":{"id":"bram","pos":{"x":"34000","y":"70000"}}}}
 {"pong":{"nonce":"674"}}
 {"pong":{"nonce":"675"}}
 {"pong":{"nonce":"676"}}
 {"pong":{"nonce":"677"}}
-{"event":{"seq":"584","game_time_ms":"71400","entity_moved":{"id":"bram","pos":{"x":"24200","y":"70000"}}}}
-{"event":{"seq":"585","game_time_ms":"71400","entity_moved":{"id":"hale","pos":{"x":"15600","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-38","accepted":true}}
+{"event":{"seq":"552","game_time_ms":"78800","entity_moved":{"id":"hale","pos":{"x":"27600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-34","accepted":true}}
 {"pong":{"nonce":"678"}}
 {"pong":{"nonce":"679"}}
 {"pong":{"nonce":"680"}}
 {"pong":{"nonce":"681"}}
 {"pong":{"nonce":"682"}}
 {"pong":{"nonce":"683"}}
-{"event":{"seq":"586","game_time_ms":"71500","entity_moved":{"id":"bram","pos":{"x":"23800","y":"70000"}}}}
-{"event":{"seq":"587","game_time_ms":"71500","entity_moved":{"id":"hale","pos":{"x":"15200","y":"70000"}}}}
-{"event":{"seq":"588","game_time_ms":"71600","entity_moved":{"id":"bram","pos":{"x":"23400","y":"70000"}}}}
-{"event":{"seq":"589","game_time_ms":"71600","entity_moved":{"id":"hale","pos":{"x":"14800","y":"70000"}}}}
-{"event":{"seq":"590","game_time_ms":"71700","entity_moved":{"id":"bram","pos":{"x":"23000","y":"70000"}}}}
-{"event":{"seq":"591","game_time_ms":"71700","entity_moved":{"id":"hale","pos":{"x":"14400","y":"70000"}}}}
-{"event":{"seq":"592","game_time_ms":"71800","entity_moved":{"id":"bram","pos":{"x":"22600","y":"70000"}}}}
-{"event":{"seq":"593","game_time_ms":"71800","entity_moved":{"id":"hale","pos":{"x":"14000","y":"70000"}}}}
-{"event":{"seq":"594","game_time_ms":"71900","entity_moved":{"id":"bram","pos":{"x":"22200","y":"70000"}}}}
-{"event":{"seq":"595","game_time_ms":"71900","entity_moved":{"id":"hale","pos":{"x":"13600","y":"70000"}}}}
-{"event":{"seq":"596","game_time_ms":"72000","rules_tick":{}}}
-{"event":{"seq":"597","game_time_ms":"72000","entity_moved":{"id":"bram","pos":{"x":"21800","y":"70000"}}}}
-{"event":{"seq":"598","game_time_ms":"72000","entity_moved":{"id":"hale","pos":{"x":"13200","y":"70000"}}}}
-{"event":{"seq":"599","game_time_ms":"72100","entity_moved":{"id":"bram","pos":{"x":"21400","y":"70000"}}}}
-{"event":{"seq":"600","game_time_ms":"72100","entity_moved":{"id":"hale","pos":{"x":"13000","y":"70000"}}}}
-{"event":{"seq":"601","game_time_ms":"72200","entity_moved":{"id":"bram","pos":{"x":"21000","y":"70000"}}}}
-{"event":{"seq":"602","game_time_ms":"72300","entity_moved":{"id":"bram","pos":{"x":"20600","y":"70000"}}}}
-{"event":{"seq":"603","game_time_ms":"72400","entity_moved":{"id":"bram","pos":{"x":"20200","y":"70000"}}}}
+{"event":{"seq":"553","game_time_ms":"78900","entity_moved":{"id":"hale","pos":{"x":"27200","y":"70000"}}}}
+{"event":{"seq":"554","game_time_ms":"79000","entity_moved":{"id":"hale","pos":{"x":"26800","y":"70000"}}}}
+{"event":{"seq":"555","game_time_ms":"79100","entity_moved":{"id":"hale","pos":{"x":"26400","y":"70000"}}}}
+{"event":{"seq":"556","game_time_ms":"79200","entity_moved":{"id":"hale","pos":{"x":"26000","y":"70000"}}}}
+{"event":{"seq":"557","game_time_ms":"79300","entity_moved":{"id":"hale","pos":{"x":"25600","y":"70000"}}}}
+{"event":{"seq":"558","game_time_ms":"79400","entity_moved":{"id":"hale","pos":{"x":"25200","y":"70000"}}}}
+{"event":{"seq":"559","game_time_ms":"79500","entity_moved":{"id":"hale","pos":{"x":"25000","y":"70000"}}}}
 {"pong":{"nonce":"684"}}
 {"pong":{"nonce":"685"}}
 {"pong":{"nonce":"686"}}
+{"event":{"seq":"560","game_time_ms":"79900","entity_moved":{"id":"bram","pos":{"x":"33600","y":"70000"}}}}
 {"pong":{"nonce":"687"}}
 {"pong":{"nonce":"688"}}
 {"pong":{"nonce":"689"}}
-{"event":{"seq":"604","game_time_ms":"72500","entity_moved":{"id":"bram","pos":{"x":"19800","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-39","accepted":true}}
 {"pong":{"nonce":"690"}}
 {"pong":{"nonce":"691"}}
+{"event":{"seq":"561","game_time_ms":"80000","entity_moved":{"id":"bram","pos":{"x":"33200","y":"70000"}}}}
+{"event":{"seq":"562","game_time_ms":"80000","entity_moved":{"id":"hale","pos":{"x":"24600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-35","accepted":true}}
 {"pong":{"nonce":"692"}}
 {"pong":{"nonce":"693"}}
 {"pong":{"nonce":"694"}}
 {"pong":{"nonce":"695"}}
-{"event":{"seq":"605","game_time_ms":"72600","entity_moved":{"id":"bram","pos":{"x":"19400","y":"70000"}}}}
-{"event":{"seq":"606","game_time_ms":"72700","entity_moved":{"id":"bram","pos":{"x":"19000","y":"70000"}}}}
-{"event":{"seq":"607","game_time_ms":"72800","entity_moved":{"id":"bram","pos":{"x":"18600","y":"70000"}}}}
-{"event":{"seq":"608","game_time_ms":"72900","entity_moved":{"id":"bram","pos":{"x":"18200","y":"70000"}}}}
-{"event":{"seq":"609","game_time_ms":"73000","entity_moved":{"id":"bram","pos":{"x":"17800","y":"70000"}}}}
-{"event":{"seq":"610","game_time_ms":"73100","entity_moved":{"id":"bram","pos":{"x":"17400","y":"70000"}}}}
-{"event":{"seq":"611","game_time_ms":"73200","entity_moved":{"id":"bram","pos":{"x":"17200","y":"70000"}}}}
 {"pong":{"nonce":"696"}}
 {"pong":{"nonce":"697"}}
+{"event":{"seq":"563","game_time_ms":"80100","entity_moved":{"id":"bram","pos":{"x":"32800","y":"70000"}}}}
+{"event":{"seq":"564","game_time_ms":"80100","entity_moved":{"id":"hale","pos":{"x":"24200","y":"70000"}}}}
+{"event":{"seq":"565","game_time_ms":"80200","entity_moved":{"id":"bram","pos":{"x":"32400","y":"70000"}}}}
+{"event":{"seq":"566","game_time_ms":"80200","entity_moved":{"id":"hale","pos":{"x":"23800","y":"70000"}}}}
+{"event":{"seq":"567","game_time_ms":"80300","entity_moved":{"id":"bram","pos":{"x":"32000","y":"70000"}}}}
+{"event":{"seq":"568","game_time_ms":"80300","entity_moved":{"id":"hale","pos":{"x":"23400","y":"70000"}}}}
+{"event":{"seq":"569","game_time_ms":"80400","entity_moved":{"id":"bram","pos":{"x":"31600","y":"70000"}}}}
+{"event":{"seq":"570","game_time_ms":"80400","entity_moved":{"id":"hale","pos":{"x":"23000","y":"70000"}}}}
+{"event":{"seq":"571","game_time_ms":"80500","entity_moved":{"id":"bram","pos":{"x":"31200","y":"70000"}}}}
+{"event":{"seq":"572","game_time_ms":"80500","entity_moved":{"id":"hale","pos":{"x":"22600","y":"70000"}}}}
+{"event":{"seq":"573","game_time_ms":"80600","entity_moved":{"id":"bram","pos":{"x":"30800","y":"70000"}}}}
+{"event":{"seq":"574","game_time_ms":"80600","entity_moved":{"id":"hale","pos":{"x":"22200","y":"70000"}}}}
+{"event":{"seq":"575","game_time_ms":"80700","entity_moved":{"id":"bram","pos":{"x":"30400","y":"70000"}}}}
+{"event":{"seq":"576","game_time_ms":"80700","entity_moved":{"id":"hale","pos":{"x":"22000","y":"70000"}}}}
+{"event":{"seq":"577","game_time_ms":"80800","entity_moved":{"id":"bram","pos":{"x":"30000","y":"70000"}}}}
+{"event":{"seq":"578","game_time_ms":"80900","entity_moved":{"id":"bram","pos":{"x":"29600","y":"70000"}}}}
+{"event":{"seq":"579","game_time_ms":"81000","entity_moved":{"id":"bram","pos":{"x":"29200","y":"70000"}}}}
 {"pong":{"nonce":"698"}}
 {"pong":{"nonce":"699"}}
-{"event":{"seq":"612","game_time_ms":"73600","entity_moved":{"id":"bram","pos":{"x":"16800","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-40","accepted":true}}
 {"pong":{"nonce":"700"}}
 {"pong":{"nonce":"701"}}
+{"event":{"seq":"580","game_time_ms":"81100","entity_moved":{"id":"bram","pos":{"x":"28800","y":"70000"}}}}
+{"event":{"seq":"581","game_time_ms":"81100","entity_moved":{"id":"hale","pos":{"x":"21600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-36","accepted":true}}
 {"pong":{"nonce":"702"}}
 {"pong":{"nonce":"703"}}
 {"pong":{"nonce":"704"}}
 {"pong":{"nonce":"705"}}
-{"event":{"seq":"613","game_time_ms":"73700","entity_moved":{"id":"bram","pos":{"x":"16400","y":"70000"}}}}
-{"event":{"seq":"614","game_time_ms":"73800","entity_moved":{"id":"bram","pos":{"x":"16000","y":"70000"}}}}
-{"event":{"seq":"615","game_time_ms":"73900","entity_moved":{"id":"bram","pos":{"x":"15600","y":"70000"}}}}
-{"event":{"seq":"616","game_time_ms":"74000","entity_moved":{"id":"bram","pos":{"x":"15200","y":"70000"}}}}
-{"event":{"seq":"617","game_time_ms":"74100","entity_moved":{"id":"bram","pos":{"x":"14800","y":"70000"}}}}
-{"event":{"seq":"618","game_time_ms":"74200","entity_moved":{"id":"bram","pos":{"x":"14400","y":"70000"}}}}
-{"event":{"seq":"619","game_time_ms":"74300","entity_moved":{"id":"bram","pos":{"x":"14200","y":"70000"}}}}
 {"pong":{"nonce":"706"}}
 {"pong":{"nonce":"707"}}
+{"event":{"seq":"582","game_time_ms":"81200","entity_moved":{"id":"bram","pos":{"x":"28400","y":"70000"}}}}
+{"event":{"seq":"583","game_time_ms":"81200","entity_moved":{"id":"hale","pos":{"x":"21200","y":"70000"}}}}
+{"event":{"seq":"584","game_time_ms":"81300","entity_moved":{"id":"bram","pos":{"x":"28000","y":"70000"}}}}
+{"event":{"seq":"585","game_time_ms":"81300","entity_moved":{"id":"hale","pos":{"x":"20800","y":"70000"}}}}
+{"event":{"seq":"586","game_time_ms":"81400","entity_moved":{"id":"bram","pos":{"x":"27600","y":"70000"}}}}
+{"event":{"seq":"587","game_time_ms":"81400","entity_moved":{"id":"hale","pos":{"x":"20400","y":"70000"}}}}
+{"event":{"seq":"588","game_time_ms":"81500","entity_moved":{"id":"bram","pos":{"x":"27200","y":"70000"}}}}
+{"event":{"seq":"589","game_time_ms":"81500","entity_moved":{"id":"hale","pos":{"x":"20000","y":"70000"}}}}
+{"event":{"seq":"590","game_time_ms":"81600","entity_moved":{"id":"bram","pos":{"x":"26800","y":"70000"}}}}
+{"event":{"seq":"591","game_time_ms":"81600","entity_moved":{"id":"hale","pos":{"x":"19600","y":"70000"}}}}
+{"event":{"seq":"592","game_time_ms":"81700","entity_moved":{"id":"bram","pos":{"x":"26400","y":"70000"}}}}
+{"event":{"seq":"593","game_time_ms":"81700","entity_moved":{"id":"hale","pos":{"x":"19200","y":"70000"}}}}
+{"event":{"seq":"594","game_time_ms":"81800","entity_moved":{"id":"bram","pos":{"x":"26000","y":"70000"}}}}
+{"event":{"seq":"595","game_time_ms":"81800","entity_moved":{"id":"hale","pos":{"x":"19000","y":"70000"}}}}
+{"event":{"seq":"596","game_time_ms":"81900","entity_moved":{"id":"bram","pos":{"x":"25600","y":"70000"}}}}
+{"event":{"seq":"597","game_time_ms":"82000","entity_moved":{"id":"bram","pos":{"x":"25200","y":"70000"}}}}
+{"event":{"seq":"598","game_time_ms":"82100","entity_moved":{"id":"bram","pos":{"x":"25000","y":"70000"}}}}
 {"pong":{"nonce":"708"}}
 {"pong":{"nonce":"709"}}
-{"event":{"seq":"620","game_time_ms":"74700","entity_moved":{"id":"bram","pos":{"x":"13800","y":"70000"}}}}
-{"intent_result":{"intent_id":"tui-41","accepted":true}}
 {"pong":{"nonce":"710"}}
 {"pong":{"nonce":"711"}}
+{"event":{"seq":"599","game_time_ms":"82200","entity_moved":{"id":"hale","pos":{"x":"18600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-37","accepted":true}}
 {"pong":{"nonce":"712"}}
 {"pong":{"nonce":"713"}}
 {"pong":{"nonce":"714"}}
 {"pong":{"nonce":"715"}}
-{"event":{"seq":"621","game_time_ms":"74800","entity_moved":{"id":"bram","pos":{"x":"13400","y":"70000"}}}}
-{"event":{"seq":"622","game_time_ms":"74900","entity_moved":{"id":"bram","pos":{"x":"13000","y":"70000"}}}}
-{"event":{"seq":"623","game_time_ms":"75000","entity_moved":{"id":"bram","pos":{"x":"12600","y":"70000"}}}}
-{"event":{"seq":"624","game_time_ms":"75100","entity_moved":{"id":"bram","pos":{"x":"12200","y":"70000"}}}}
-{"event":{"seq":"625","game_time_ms":"75200","entity_moved":{"id":"bram","pos":{"x":"11800","y":"70000"}}}}
-{"event":{"seq":"626","game_time_ms":"75300","entity_moved":{"id":"bram","pos":{"x":"11400","y":"70000"}}}}
-{"event":{"seq":"627","game_time_ms":"75400","entity_moved":{"id":"bram","pos":{"x":"11200","y":"70000"}}}}
 {"pong":{"nonce":"716"}}
 {"pong":{"nonce":"717"}}
+{"event":{"seq":"600","game_time_ms":"82300","entity_moved":{"id":"hale","pos":{"x":"18200","y":"70000"}}}}
+{"event":{"seq":"601","game_time_ms":"82400","entity_moved":{"id":"hale","pos":{"x":"17800","y":"70000"}}}}
+{"event":{"seq":"602","game_time_ms":"82500","entity_moved":{"id":"hale","pos":{"x":"17400","y":"70000"}}}}
+{"event":{"seq":"603","game_time_ms":"82600","entity_moved":{"id":"hale","pos":{"x":"17000","y":"70000"}}}}
+{"event":{"seq":"604","game_time_ms":"82700","entity_moved":{"id":"hale","pos":{"x":"16600","y":"70000"}}}}
+{"event":{"seq":"605","game_time_ms":"82800","entity_moved":{"id":"hale","pos":{"x":"16200","y":"70000"}}}}
+{"event":{"seq":"606","game_time_ms":"82900","entity_moved":{"id":"hale","pos":{"x":"16000","y":"70000"}}}}
 {"pong":{"nonce":"718"}}
 {"pong":{"nonce":"719"}}
-# mark warren_bram_at_gate
 {"pong":{"nonce":"720"}}
+{"event":{"seq":"607","game_time_ms":"83300","entity_moved":{"id":"bram","pos":{"x":"24600","y":"70000"}}}}
 {"pong":{"nonce":"721"}}
-{"intent_result":{"intent_id":"tui-42","accepted":true}}
-{"event":{"seq":"628","game_time_ms":"75900","text":"bram is out of view","entity_left":{"id":"bram"}}}
 {"pong":{"nonce":"722"}}
 {"pong":{"nonce":"723"}}
 {"pong":{"nonce":"724"}}
 {"pong":{"nonce":"725"}}
+{"event":{"seq":"608","game_time_ms":"83400","entity_moved":{"id":"bram","pos":{"x":"24200","y":"70000"}}}}
+{"event":{"seq":"609","game_time_ms":"83400","entity_moved":{"id":"hale","pos":{"x":"15600","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-38","accepted":true}}
 {"pong":{"nonce":"726"}}
 {"pong":{"nonce":"727"}}
 {"pong":{"nonce":"728"}}
 {"pong":{"nonce":"729"}}
 {"pong":{"nonce":"730"}}
 {"pong":{"nonce":"731"}}
-{"intent_result":{"intent_id":"tui-43","accepted":true}}
-{"event":{"seq":"1","game_time_ms":"77600","space_changed":{"space":"Hollow Warren"}}}
-{"snapshot":{"seq":"1","game_time_ms":"77600","tick":"776","space":"Hollow Warren","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"10000","y":"70000"},"hp":"232","max_hp":"232","level":"7"},"stats":{"level":"7","max_hp":"232","regen":"8","armor":"32","strength":"36","weapon_min":"5","weapon_max":"15","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"638","abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"627","xp_next_level":"808","inventory_size":"20","ground":"floor","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"7","max_hp":"232","regen":"8","armor":"32","armor_cut_pct":"25","hit_pct":"75","swing_min":"8","swing_max":"18","delay_ms":"2000","dps_tenths":"65","attributes":[{"name":"strength","base":"36"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"bram","kind":"ENTITY_KIND_CHARACTER","name":"bram","pos":{"x":"10000","y":"70000"},"hp":"160","max_hp":"160","level":"7"},"xp":"638","mana":"148","max_mana":"148"}]}}
-{"zone_map":{"space":"Hollow Warren","name":"Hollow Warren","bounds":{"max_x":"360000","max_y":"140000"},"walls":[{"a":{"x":"30000","y":"72800"},"b":{"x":"30000","y":"73200"}},{"a":{"x":"72000","y":"72800"},"b":{"x":"72000","y":"73200"}},{"a":{"x":"96000","y":"72800"},"b":{"x":"96000","y":"73200"}},{"a":{"x":"142000","y":"72800"},"b":{"x":"142000","y":"73200"}},{"a":{"x":"172000","y":"72800"},"b":{"x":"172000","y":"73200"}},{"a":{"x":"204000","y":"72800"},"b":{"x":"204000","y":"73200"}},{"a":{"x":"262000","y":"72800"},"b":{"x":"262000","y":"73200"}},{"a":{"x":"288000","y":"72800"},"b":{"x":"288000","y":"73200"}},{"a":{"x":"312000","y":"72800"},"b":{"x":"312000","y":"73200"}}],"doors":[{"id":"mouth","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"3000","y":"70000"},"name":"Warren Mouth","leads_to":"thornwick-downs","label":"Warren Mouth — to the Thornwick Downs"},{"id":"delve-gate","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"10000","y":"70000"},"name":"Delve Gate","label":"Delve Gate"}],"view_radius_mm":"20000","instance_presets":[{"id":"venture-warren","name":"Warren Venture Delve","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"delve-gate","idle_ms":"8000","max_lifetime_ms":"3600000","tier":"venture"},{"id":"peril-warren","name":"Warren Peril Delve","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"delve-gate","idle_ms":"8000","max_lifetime_ms":"3600000","tier":"peril","entry_fee":"50"},{"id":"venture-warren-turns","name":"Warren Venture Delve by Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"delve-gate","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"60","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture"}],"markers":[{"id":"mouth","kind":"zone_line","pos":{"x":"3000","y":"70000"},"name":"Warren Mouth"},{"id":"delve-gate","kind":"instance_entrance","pos":{"x":"10000","y":"70000"},"name":"Delve Gate"},{"id":"den-threshold","kind":"scout","pos":{"x":"130000","y":"70000"},"name":"Den Threshold"},{"id":"deep-threshold","kind":"scout","pos":{"x":"250000","y":"70000"},"name":"Deep Threshold"}],"camps":[{"id":"diggers-a","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"30000","y":"35000"}},{"id":"diggers-b","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"28000","y":"100000"}},{"id":"diggers-c","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"62000","y":"70000"}},{"id":"scouts-a","mob":"Tunnel Scout","level":"6","count":"2","pos":{"x":"72000","y":"28000"}},{"id":"scouts-b","mob":"Tunnel Scout","level":"6","count":"2","pos":{"x":"72000","y":"112000"}},{"id":"slingers-a","mob":"Pit Slinger","level":"7","count":"1","pos":{"x":"72000","y":"16000"}},{"id":"slingers-b","mob":"Pit Slinger","level":"7","count":"1","pos":{"x":"96000","y":"90000"}},{"id":"cutthroats-a","mob":"Den Cutthroat","level":"8","count":"1","pos":{"x":"142000","y":"35000"}},{"id":"cutthroats-b","mob":"Den Cutthroat","level":"8","count":"1","pos":{"x":"142000","y":"105000"}},{"id":"shamans-a","mob":"Den Shaman","level":"9","count":"2","pos":{"x":"172000","y":"50000"}},{"id":"shamans-b","mob":"Den Shaman","level":"9","count":"2","pos":{"x":"180000","y":"95000"}},{"id":"brutes-a","mob":"Den Brute","level":"10","count":"1","pos":{"x":"204000","y":"32000"}},{"id":"brutes-b","mob":"Den Brute","level":"10","count":"1","pos":{"x":"214000","y":"106000"}},{"id":"brutes-c","mob":"Den Brute","level":"10","count":"1","pos":{"x":"224000","y":"70000"}},{"id":"stalkers-a","mob":"Deep Stalker","level":"11","count":"1","pos":{"x":"262000","y":"38000"}},{"id":"stalkers-b","mob":"Deep Stalker","level":"11","count":"1","pos":{"x":"262000","y":"102000"}},{"id":"deep-shamans-a","mob":"Deep Shaman","level":"11","count":"2","pos":{"x":"288000","y":"55000"}},{"id":"deep-shamans-b","mob":"Deep Shaman","level":"11","count":"2","pos":{"x":"288000","y":"108000"}},{"id":"wardens-a","mob":"Warren Warden","level":"12","count":"2","pos":{"x":"312000","y":"36000"}},{"id":"wardens-b","mob":"Warren Warden","level":"12","count":"2","pos":{"x":"312000","y":"104000"}},{"id":"chief","mob":"Warren Chief","level":"12","count":"1","pos":{"x":"340000","y":"70000"}}],"areas":[{"id":"mouth","kind":"floor","poly":[{"y":"54000"},{"x":"28000","y":"54000"},{"x":"28000","y":"86000"},{"y":"86000"}]},{"id":"gallery-diggings","kind":"floor","poly":[{"x":"24000","y":"66000"},{"x":"112000","y":"66000"},{"x":"112000","y":"74000"},{"x":"24000","y":"74000"}]},{"id":"neck-to-den","kind":"floor","poly":[{"x":"112000","y":"67500"},{"x":"128000","y":"67500"},{"x":"128000","y":"72500"},{"x":"112000","y":"72500"}]},{"id":"gallery-den","kind":"floor","poly":[{"x":"128000","y":"66000"},{"x":"232000","y":"66000"},{"x":"232000","y":"74000"},{"x":"128000","y":"74000"}]},{"id":"neck-to-deep","kind":"floor","poly":[{"x":"232000","y":"67500"},{"x":"248000","y":"67500"},{"x":"248000","y":"72500"},{"x":"232000","y":"72500"}]},{"id":"gallery-deep","kind":"floor","poly":[{"x":"248000","y":"66000"},{"x":"320000","y":"66000"},{"x":"320000","y":"74000"},{"x":"248000","y":"74000"}]},{"id":"dig-hall","kind":"floor","poly":[{"x":"46000","y":"58000"},{"x":"82000","y":"58000"},{"x":"82000","y":"82000"},{"x":"46000","y":"82000"}]},{"id":"den-hall","kind":"floor","poly":[{"x":"130000","y":"56000"},{"x":"170000","y":"56000"},{"x":"170000","y":"84000"},{"x":"130000","y":"84000"}]},{"id":"brute-hall","kind":"floor","poly":[{"x":"212000","y":"56000"},{"x":"238000","y":"56000"},{"x":"238000","y":"84000"},{"x":"212000","y":"84000"}]},{"id":"chief-chamber","kind":"floor","poly":[{"x":"316000","y":"46000"},{"x":"358000","y":"46000"},{"x":"358000","y":"94000"},{"x":"316000","y":"94000"}]},{"id":"shaft-1n","kind":"floor","poly":[{"x":"26000","y":"50000"},{"x":"34000","y":"50000"},{"x":"34000","y":"66000"},{"x":"26000","y":"66000"}]},{"id":"north-dig","kind":"floor","poly":[{"x":"14000","y":"18000"},{"x":"46000","y":"18000"},{"x":"46000","y":"52000"},{"x":"14000","y":"52000"}]},{"id":"shaft-1s","kind":"floor","poly":[{"x":"26000","y":"74000"},{"x":"34000","y":"74000"},{"x":"34000","y":"90000"},{"x":"26000","y":"90000"}]},{"id":"south-dig","kind":"floor","poly":[{"x":"14000","y":"88000"},{"x":"46000","y":"88000"},{"x":"46000","y":"112000"},{"x":"14000","y":"112000"}]},{"id":"shaft-2n","kind":"floor","poly":[{"x":"68000","y":"38000"},{"x":"76000","y":"38000"},{"x":"76000","y":"60000"},{"x":"68000","y":"60000"}]},{"id":"scout-pit-north","kind":"floor","poly":[{"x":"56000","y":"8000"},{"x":"100000","y":"8000"},{"x":"100000","y":"40000"},{"x":"56000","y":"40000"}]},{"id":"shaft-2s","kind":"floor","poly":[{"x":"68000","y":"80000"},{"x":"76000","y":"80000"},{"x":"76000","y":"100000"},{"x":"68000","y":"100000"}]},{"id":"scout-pit-south","kind":"floor","poly":[{"x":"56000","y":"98000"},{"x":"100000","y":"98000"},{"x":"100000","y":"128000"},{"x":"56000","y":"128000"}]},{"id":"shaft-roost","kind":"floor","poly":[{"x":"92000","y":"74000"},{"x":"100000","y":"74000"},{"x":"100000","y":"84000"},{"x":"92000","y":"84000"}]},{"id":"slinger-roost","kind":"floor","poly":[{"x":"84000","y":"82000"},{"x":"108000","y":"82000"},{"x":"108000","y":"96000"},{"x":"84000","y":"96000"}]},{"id":"cross-1s","kind":"floor","poly":[{"x":"44000","y":"106000"},{"x":"58000","y":"106000"},{"x":"58000","y":"114000"},{"x":"44000","y":"114000"}]},{"id":"shaft-3n","kind":"floor","poly":[{"x":"138000","y":"44000"},{"x":"146000","y":"44000"},{"x":"146000","y":"58000"},{"x":"138000","y":"58000"}]},{"id":"cutthroat-lair-north","kind":"floor","poly":[{"x":"126000","y":"14000"},{"x":"160000","y":"14000"},{"x":"160000","y":"46000"},{"x":"126000","y":"46000"}]},{"id":"shaft-3s","kind":"floor","poly":[{"x":"138000","y":"82000"},{"x":"146000","y":"82000"},{"x":"146000","y":"98000"},{"x":"138000","y":"98000"}]},{"id":"cutthroat-lair-south","kind":"floor","poly":[{"x":"126000","y":"96000"},{"x":"160000","y":"96000"},{"x":"160000","y":"126000"},{"x":"126000","y":"126000"}]},{"id":"shaft-4n","kind":"floor","poly":[{"x":"168000","y":"56000"},{"x":"176000","y":"56000"},{"x":"176000","y":"66000"},{"x":"168000","y":"66000"}]},{"id":"shaman-cave-north","kind":"floor","poly":[{"x":"164000","y":"28000"},{"x":"200000","y":"28000"},{"x":"200000","y":"58000"},{"x":"164000","y":"58000"}]},{"id":"shaft-4s","kind":"floor","poly":[{"x":"168000","y":"74000"},{"x":"176000","y":"74000"},{"x":"176000","y":"84000"},{"x":"168000","y":"84000"}]},{"id":"shaman-hall-south","kind":"floor","poly":[{"x":"164000","y":"74000"},{"x":"232000","y":"74000"},{"x":"232000","y":"120000"},{"x":"164000","y":"120000"}]},{"id":"shaft-5n","kind":"floor","poly":[{"x":"200000","y":"44000"},{"x":"208000","y":"44000"},{"x":"208000","y":"66000"},{"x":"200000","y":"66000"}]},{"id":"brute-pen-north","kind":"floor","poly":[{"x":"196000","y":"12000"},{"x":"240000","y":"12000"},{"x":"240000","y":"46000"},{"x":"196000","y":"46000"}]},{"id":"cross-3n","kind":"floor","poly":[{"x":"156000","y":"34000"},{"x":"168000","y":"34000"},{"x":"168000","y":"42000"},{"x":"156000","y":"42000"}]},{"id":"wing-link-north","kind":"floor","poly":[{"x":"98000","y":"22000"},{"x":"128000","y":"22000"},{"x":"128000","y":"28000"},{"x":"98000","y":"28000"}]},{"id":"shaft-6n","kind":"floor","poly":[{"x":"258000","y":"44000"},{"x":"266000","y":"44000"},{"x":"266000","y":"66000"},{"x":"258000","y":"66000"}]},{"id":"stalker-den-north","kind":"floor","poly":[{"x":"248000","y":"18000"},{"x":"290000","y":"18000"},{"x":"290000","y":"46000"},{"x":"248000","y":"46000"}]},{"id":"shaft-6s","kind":"floor","poly":[{"x":"258000","y":"74000"},{"x":"266000","y":"74000"},{"x":"266000","y":"96000"},{"x":"258000","y":"96000"}]},{"id":"shaft-7n","kind":"floor","poly":[{"x":"284000","y":"58000"},{"x":"292000","y":"58000"},{"x":"292000","y":"67000"},{"x":"284000","y":"67000"}]},{"id":"shaman-alcove-north","kind":"floor","poly":[{"x":"276000","y":"46000"},{"x":"300000","y":"46000"},{"x":"300000","y":"60000"},{"x":"276000","y":"60000"}]},{"id":"shaft-8n","kind":"floor","poly":[{"x":"308000","y":"46000"},{"x":"316000","y":"46000"},{"x":"316000","y":"66000"},{"x":"308000","y":"66000"}]},{"id":"warden-post-north","kind":"floor","poly":[{"x":"300000","y":"22000"},{"x":"326000","y":"22000"},{"x":"326000","y":"48000"},{"x":"300000","y":"48000"}]},{"id":"shaft-8s","kind":"floor","poly":[{"x":"308000","y":"74000"},{"x":"316000","y":"74000"},{"x":"316000","y":"94000"},{"x":"308000","y":"94000"}]},{"id":"shaft-7s","kind":"floor","poly":[{"x":"284000","y":"73000"},{"x":"292000","y":"73000"},{"x":"292000","y":"92000"},{"x":"284000","y":"92000"}]},{"id":"deep-hall-south","kind":"floor","poly":[{"x":"248000","y":"90000"},{"x":"326000","y":"90000"},{"x":"326000","y":"124000"},{"x":"248000","y":"124000"}]}]}}
+{"event":{"seq":"610","game_time_ms":"83500","entity_moved":{"id":"bram","pos":{"x":"23800","y":"70000"}}}}
+{"event":{"seq":"611","game_time_ms":"83500","entity_moved":{"id":"hale","pos":{"x":"15200","y":"70000"}}}}
+{"event":{"seq":"612","game_time_ms":"83600","entity_moved":{"id":"bram","pos":{"x":"23400","y":"70000"}}}}
+{"event":{"seq":"613","game_time_ms":"83600","entity_moved":{"id":"hale","pos":{"x":"14800","y":"70000"}}}}
+{"event":{"seq":"614","game_time_ms":"83700","entity_moved":{"id":"bram","pos":{"x":"23000","y":"70000"}}}}
+{"event":{"seq":"615","game_time_ms":"83700","entity_moved":{"id":"hale","pos":{"x":"14400","y":"70000"}}}}
+{"event":{"seq":"616","game_time_ms":"83800","entity_moved":{"id":"bram","pos":{"x":"22600","y":"70000"}}}}
+{"event":{"seq":"617","game_time_ms":"83800","entity_moved":{"id":"hale","pos":{"x":"14000","y":"70000"}}}}
+{"event":{"seq":"618","game_time_ms":"83900","entity_moved":{"id":"bram","pos":{"x":"22200","y":"70000"}}}}
+{"event":{"seq":"619","game_time_ms":"83900","entity_moved":{"id":"hale","pos":{"x":"13600","y":"70000"}}}}
+{"event":{"seq":"620","game_time_ms":"84000","rules_tick":{}}}
+{"event":{"seq":"621","game_time_ms":"84000","entity_moved":{"id":"bram","pos":{"x":"21800","y":"70000"}}}}
+{"event":{"seq":"622","game_time_ms":"84000","entity_moved":{"id":"hale","pos":{"x":"13200","y":"70000"}}}}
+{"event":{"seq":"623","game_time_ms":"84100","entity_moved":{"id":"bram","pos":{"x":"21400","y":"70000"}}}}
+{"event":{"seq":"624","game_time_ms":"84100","entity_moved":{"id":"hale","pos":{"x":"13000","y":"70000"}}}}
+{"event":{"seq":"625","game_time_ms":"84200","entity_moved":{"id":"bram","pos":{"x":"21000","y":"70000"}}}}
+{"event":{"seq":"626","game_time_ms":"84300","entity_moved":{"id":"bram","pos":{"x":"20600","y":"70000"}}}}
+{"event":{"seq":"627","game_time_ms":"84400","entity_moved":{"id":"bram","pos":{"x":"20200","y":"70000"}}}}
 {"pong":{"nonce":"732"}}
 {"pong":{"nonce":"733"}}
 {"pong":{"nonce":"734"}}
 {"pong":{"nonce":"735"}}
 {"pong":{"nonce":"736"}}
 {"pong":{"nonce":"737"}}
+{"event":{"seq":"628","game_time_ms":"84500","entity_moved":{"id":"bram","pos":{"x":"19800","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-39","accepted":true}}
 {"pong":{"nonce":"738"}}
 {"pong":{"nonce":"739"}}
 {"pong":{"nonce":"740"}}
 {"pong":{"nonce":"741"}}
+{"pong":{"nonce":"742"}}
+{"pong":{"nonce":"743"}}
+{"event":{"seq":"629","game_time_ms":"84600","entity_moved":{"id":"bram","pos":{"x":"19400","y":"70000"}}}}
+{"event":{"seq":"630","game_time_ms":"84700","entity_moved":{"id":"bram","pos":{"x":"19000","y":"70000"}}}}
+{"event":{"seq":"631","game_time_ms":"84800","entity_moved":{"id":"bram","pos":{"x":"18600","y":"70000"}}}}
+{"event":{"seq":"632","game_time_ms":"84900","entity_moved":{"id":"bram","pos":{"x":"18200","y":"70000"}}}}
+{"event":{"seq":"633","game_time_ms":"85000","entity_moved":{"id":"bram","pos":{"x":"17800","y":"70000"}}}}
+{"event":{"seq":"634","game_time_ms":"85100","entity_moved":{"id":"bram","pos":{"x":"17400","y":"70000"}}}}
+{"event":{"seq":"635","game_time_ms":"85200","entity_moved":{"id":"bram","pos":{"x":"17200","y":"70000"}}}}
+{"pong":{"nonce":"744"}}
+{"pong":{"nonce":"745"}}
+{"pong":{"nonce":"746"}}
+{"pong":{"nonce":"747"}}
+{"event":{"seq":"636","game_time_ms":"85600","entity_moved":{"id":"bram","pos":{"x":"16800","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-40","accepted":true}}
+{"pong":{"nonce":"748"}}
+{"pong":{"nonce":"749"}}
+{"pong":{"nonce":"750"}}
+{"pong":{"nonce":"751"}}
+{"pong":{"nonce":"752"}}
+{"pong":{"nonce":"753"}}
+{"event":{"seq":"637","game_time_ms":"85700","entity_moved":{"id":"bram","pos":{"x":"16400","y":"70000"}}}}
+{"event":{"seq":"638","game_time_ms":"85800","entity_moved":{"id":"bram","pos":{"x":"16000","y":"70000"}}}}
+{"event":{"seq":"639","game_time_ms":"85900","entity_moved":{"id":"bram","pos":{"x":"15600","y":"70000"}}}}
+{"event":{"seq":"640","game_time_ms":"86000","entity_moved":{"id":"bram","pos":{"x":"15200","y":"70000"}}}}
+{"event":{"seq":"641","game_time_ms":"86100","entity_moved":{"id":"bram","pos":{"x":"14800","y":"70000"}}}}
+{"event":{"seq":"642","game_time_ms":"86200","entity_moved":{"id":"bram","pos":{"x":"14400","y":"70000"}}}}
+{"event":{"seq":"643","game_time_ms":"86300","entity_moved":{"id":"bram","pos":{"x":"14200","y":"70000"}}}}
+{"pong":{"nonce":"754"}}
+{"pong":{"nonce":"755"}}
+{"pong":{"nonce":"756"}}
+{"pong":{"nonce":"757"}}
+{"event":{"seq":"644","game_time_ms":"86700","entity_moved":{"id":"bram","pos":{"x":"13800","y":"70000"}}}}
+{"intent_result":{"intent_id":"tui-41","accepted":true}}
+{"pong":{"nonce":"758"}}
+{"pong":{"nonce":"759"}}
+{"pong":{"nonce":"760"}}
+{"pong":{"nonce":"761"}}
+{"pong":{"nonce":"762"}}
+{"pong":{"nonce":"763"}}
+{"event":{"seq":"645","game_time_ms":"86800","entity_moved":{"id":"bram","pos":{"x":"13400","y":"70000"}}}}
+{"event":{"seq":"646","game_time_ms":"86900","entity_moved":{"id":"bram","pos":{"x":"13000","y":"70000"}}}}
+{"event":{"seq":"647","game_time_ms":"87000","entity_moved":{"id":"bram","pos":{"x":"12600","y":"70000"}}}}
+{"event":{"seq":"648","game_time_ms":"87100","entity_moved":{"id":"bram","pos":{"x":"12200","y":"70000"}}}}
+{"event":{"seq":"649","game_time_ms":"87200","entity_moved":{"id":"bram","pos":{"x":"11800","y":"70000"}}}}
+{"event":{"seq":"650","game_time_ms":"87300","entity_moved":{"id":"bram","pos":{"x":"11400","y":"70000"}}}}
+{"event":{"seq":"651","game_time_ms":"87400","entity_moved":{"id":"bram","pos":{"x":"11200","y":"70000"}}}}
+{"pong":{"nonce":"764"}}
+{"pong":{"nonce":"765"}}
+{"pong":{"nonce":"766"}}
+{"pong":{"nonce":"767"}}
+# mark warren_bram_at_gate
+{"pong":{"nonce":"768"}}
+{"pong":{"nonce":"769"}}
+{"intent_result":{"intent_id":"tui-42","accepted":true}}
+{"event":{"seq":"652","game_time_ms":"87900","text":"bram is out of view","entity_left":{"id":"bram"}}}
+{"pong":{"nonce":"770"}}
+{"pong":{"nonce":"771"}}
+{"pong":{"nonce":"772"}}
+{"pong":{"nonce":"773"}}
+{"pong":{"nonce":"774"}}
+{"pong":{"nonce":"775"}}
+{"pong":{"nonce":"776"}}
+{"pong":{"nonce":"777"}}
+{"pong":{"nonce":"778"}}
+{"pong":{"nonce":"779"}}
+{"intent_result":{"intent_id":"tui-43","accepted":true}}
+{"event":{"seq":"1","game_time_ms":"89600","space_changed":{"space":"Hollow Warren"}}}
+{"snapshot":{"seq":"1","game_time_ms":"89600","tick":"896","space":"Hollow Warren","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"10000","y":"70000"},"hp":"232","max_hp":"232","level":"7"},"stats":{"level":"7","max_hp":"232","regen":"8","armor":"32","strength":"36","weapon_min":"5","weapon_max":"15","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"630","abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"627","xp_next_level":"808","inventory_size":"20","ground":"floor","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"7","max_hp":"232","regen":"8","armor":"32","armor_cut_pct":"25","hit_pct":"75","swing_min":"8","swing_max":"18","delay_ms":"2000","dps_tenths":"65","attributes":[{"name":"strength","base":"36"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"bram","kind":"ENTITY_KIND_CHARACTER","name":"bram","pos":{"x":"10000","y":"70000"},"hp":"160","max_hp":"160","level":"7"},"xp":"630","mana":"148","max_mana":"148"}]}}
+{"zone_map":{"space":"Hollow Warren","name":"Hollow Warren","bounds":{"max_x":"360000","max_y":"140000"},"walls":[{"a":{"x":"30000","y":"72800"},"b":{"x":"30000","y":"73200"}},{"a":{"x":"72000","y":"72800"},"b":{"x":"72000","y":"73200"}},{"a":{"x":"96000","y":"72800"},"b":{"x":"96000","y":"73200"}},{"a":{"x":"142000","y":"72800"},"b":{"x":"142000","y":"73200"}},{"a":{"x":"172000","y":"72800"},"b":{"x":"172000","y":"73200"}},{"a":{"x":"204000","y":"72800"},"b":{"x":"204000","y":"73200"}},{"a":{"x":"262000","y":"72800"},"b":{"x":"262000","y":"73200"}},{"a":{"x":"288000","y":"72800"},"b":{"x":"288000","y":"73200"}},{"a":{"x":"312000","y":"72800"},"b":{"x":"312000","y":"73200"}}],"doors":[{"id":"mouth","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"3000","y":"70000"},"name":"Warren Mouth","leads_to":"thornwick-downs","label":"Warren Mouth — to the Thornwick Downs"},{"id":"delve-gate","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"10000","y":"70000"},"name":"Delve Gate","label":"Delve Gate"}],"view_radius_mm":"20000","instance_presets":[{"id":"venture-warren","name":"Warren Venture Delve","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"delve-gate","idle_ms":"8000","max_lifetime_ms":"3600000","tier":"venture","party_size":[{"size":"1","mob_pct":"70"},{"size":"2","mob_hp_pct":"100","mob_damage_pct":"150"}]},{"id":"peril-warren","name":"Warren Peril Delve","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"delve-gate","idle_ms":"8000","max_lifetime_ms":"3600000","tier":"peril","entry_fee":"50","party_size":[{"size":"1","mob_pct":"83"},{"size":"2","mob_hp_pct":"150","mob_damage_pct":"150"}]},{"id":"venture-warren-turns","name":"Warren Venture Delve by Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"delve-gate","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"60","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture","party_size":[{"size":"1","mob_pct":"70"},{"size":"2","mob_hp_pct":"100","mob_damage_pct":"150"}]}],"markers":[{"id":"mouth","kind":"zone_line","pos":{"x":"3000","y":"70000"},"name":"Warren Mouth"},{"id":"delve-gate","kind":"instance_entrance","pos":{"x":"10000","y":"70000"},"name":"Delve Gate"},{"id":"den-threshold","kind":"scout","pos":{"x":"130000","y":"70000"},"name":"Den Threshold"},{"id":"deep-threshold","kind":"scout","pos":{"x":"250000","y":"70000"},"name":"Deep Threshold"}],"camps":[{"id":"diggers-a","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"30000","y":"35000"}},{"id":"diggers-b","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"28000","y":"100000"}},{"id":"diggers-c","mob":"Warren Digger","level":"5","count":"1","pos":{"x":"62000","y":"70000"}},{"id":"scouts-a","mob":"Tunnel Scout","level":"6","count":"2","pos":{"x":"72000","y":"28000"}},{"id":"scouts-b","mob":"Tunnel Scout","level":"6","count":"2","pos":{"x":"72000","y":"112000"}},{"id":"slingers-a","mob":"Pit Slinger","level":"7","count":"1","pos":{"x":"72000","y":"16000"}},{"id":"slingers-b","mob":"Pit Slinger","level":"7","count":"1","pos":{"x":"96000","y":"90000"}},{"id":"cutthroats-a","mob":"Den Cutthroat","level":"8","count":"1","pos":{"x":"142000","y":"35000"}},{"id":"cutthroats-b","mob":"Den Cutthroat","level":"8","count":"1","pos":{"x":"142000","y":"105000"}},{"id":"shamans-a","mob":"Den Shaman","level":"9","count":"2","pos":{"x":"172000","y":"50000"}},{"id":"shamans-b","mob":"Den Shaman","level":"9","count":"2","pos":{"x":"180000","y":"95000"}},{"id":"brutes-a","mob":"Den Brute","level":"10","count":"1","pos":{"x":"204000","y":"32000"}},{"id":"brutes-b","mob":"Den Brute","level":"10","count":"1","pos":{"x":"214000","y":"106000"}},{"id":"brutes-c","mob":"Den Brute","level":"10","count":"1","pos":{"x":"224000","y":"70000"}},{"id":"stalkers-a","mob":"Deep Stalker","level":"11","count":"1","pos":{"x":"262000","y":"38000"}},{"id":"stalkers-b","mob":"Deep Stalker","level":"11","count":"1","pos":{"x":"262000","y":"102000"}},{"id":"deep-shamans-a","mob":"Deep Shaman","level":"11","count":"2","pos":{"x":"288000","y":"55000"}},{"id":"deep-shamans-b","mob":"Deep Shaman","level":"11","count":"2","pos":{"x":"288000","y":"108000"}},{"id":"wardens-a","mob":"Warren Warden","level":"12","count":"2","pos":{"x":"312000","y":"36000"}},{"id":"wardens-b","mob":"Warren Warden","level":"12","count":"2","pos":{"x":"312000","y":"104000"}},{"id":"chief","mob":"Warren Chief","level":"12","count":"1","pos":{"x":"340000","y":"70000"}}],"areas":[{"id":"mouth","kind":"floor","poly":[{"y":"54000"},{"x":"28000","y":"54000"},{"x":"28000","y":"86000"},{"y":"86000"}]},{"id":"gallery-diggings","kind":"floor","poly":[{"x":"24000","y":"66000"},{"x":"112000","y":"66000"},{"x":"112000","y":"74000"},{"x":"24000","y":"74000"}]},{"id":"neck-to-den","kind":"floor","poly":[{"x":"112000","y":"67500"},{"x":"128000","y":"67500"},{"x":"128000","y":"72500"},{"x":"112000","y":"72500"}]},{"id":"gallery-den","kind":"floor","poly":[{"x":"128000","y":"66000"},{"x":"232000","y":"66000"},{"x":"232000","y":"74000"},{"x":"128000","y":"74000"}]},{"id":"neck-to-deep","kind":"floor","poly":[{"x":"232000","y":"67500"},{"x":"248000","y":"67500"},{"x":"248000","y":"72500"},{"x":"232000","y":"72500"}]},{"id":"gallery-deep","kind":"floor","poly":[{"x":"248000","y":"66000"},{"x":"320000","y":"66000"},{"x":"320000","y":"74000"},{"x":"248000","y":"74000"}]},{"id":"dig-hall","kind":"floor","poly":[{"x":"46000","y":"58000"},{"x":"82000","y":"58000"},{"x":"82000","y":"82000"},{"x":"46000","y":"82000"}]},{"id":"den-hall","kind":"floor","poly":[{"x":"130000","y":"56000"},{"x":"170000","y":"56000"},{"x":"170000","y":"84000"},{"x":"130000","y":"84000"}]},{"id":"brute-hall","kind":"floor","poly":[{"x":"212000","y":"56000"},{"x":"238000","y":"56000"},{"x":"238000","y":"84000"},{"x":"212000","y":"84000"}]},{"id":"chief-chamber","kind":"floor","poly":[{"x":"316000","y":"46000"},{"x":"358000","y":"46000"},{"x":"358000","y":"94000"},{"x":"316000","y":"94000"}]},{"id":"shaft-1n","kind":"floor","poly":[{"x":"26000","y":"50000"},{"x":"34000","y":"50000"},{"x":"34000","y":"66000"},{"x":"26000","y":"66000"}]},{"id":"north-dig","kind":"floor","poly":[{"x":"14000","y":"18000"},{"x":"46000","y":"18000"},{"x":"46000","y":"52000"},{"x":"14000","y":"52000"}]},{"id":"shaft-1s","kind":"floor","poly":[{"x":"26000","y":"74000"},{"x":"34000","y":"74000"},{"x":"34000","y":"90000"},{"x":"26000","y":"90000"}]},{"id":"south-dig","kind":"floor","poly":[{"x":"14000","y":"88000"},{"x":"46000","y":"88000"},{"x":"46000","y":"112000"},{"x":"14000","y":"112000"}]},{"id":"shaft-2n","kind":"floor","poly":[{"x":"68000","y":"38000"},{"x":"76000","y":"38000"},{"x":"76000","y":"60000"},{"x":"68000","y":"60000"}]},{"id":"scout-pit-north","kind":"floor","poly":[{"x":"56000","y":"8000"},{"x":"100000","y":"8000"},{"x":"100000","y":"40000"},{"x":"56000","y":"40000"}]},{"id":"shaft-2s","kind":"floor","poly":[{"x":"68000","y":"80000"},{"x":"76000","y":"80000"},{"x":"76000","y":"100000"},{"x":"68000","y":"100000"}]},{"id":"scout-pit-south","kind":"floor","poly":[{"x":"56000","y":"98000"},{"x":"100000","y":"98000"},{"x":"100000","y":"128000"},{"x":"56000","y":"128000"}]},{"id":"shaft-roost","kind":"floor","poly":[{"x":"92000","y":"74000"},{"x":"100000","y":"74000"},{"x":"100000","y":"84000"},{"x":"92000","y":"84000"}]},{"id":"slinger-roost","kind":"floor","poly":[{"x":"84000","y":"82000"},{"x":"108000","y":"82000"},{"x":"108000","y":"96000"},{"x":"84000","y":"96000"}]},{"id":"cross-1s","kind":"floor","poly":[{"x":"44000","y":"106000"},{"x":"58000","y":"106000"},{"x":"58000","y":"114000"},{"x":"44000","y":"114000"}]},{"id":"shaft-3n","kind":"floor","poly":[{"x":"138000","y":"44000"},{"x":"146000","y":"44000"},{"x":"146000","y":"58000"},{"x":"138000","y":"58000"}]},{"id":"cutthroat-lair-north","kind":"floor","poly":[{"x":"126000","y":"14000"},{"x":"160000","y":"14000"},{"x":"160000","y":"46000"},{"x":"126000","y":"46000"}]},{"id":"shaft-3s","kind":"floor","poly":[{"x":"138000","y":"82000"},{"x":"146000","y":"82000"},{"x":"146000","y":"98000"},{"x":"138000","y":"98000"}]},{"id":"cutthroat-lair-south","kind":"floor","poly":[{"x":"126000","y":"96000"},{"x":"160000","y":"96000"},{"x":"160000","y":"126000"},{"x":"126000","y":"126000"}]},{"id":"shaft-4n","kind":"floor","poly":[{"x":"168000","y":"56000"},{"x":"176000","y":"56000"},{"x":"176000","y":"66000"},{"x":"168000","y":"66000"}]},{"id":"shaman-cave-north","kind":"floor","poly":[{"x":"164000","y":"28000"},{"x":"200000","y":"28000"},{"x":"200000","y":"58000"},{"x":"164000","y":"58000"}]},{"id":"shaft-4s","kind":"floor","poly":[{"x":"168000","y":"74000"},{"x":"176000","y":"74000"},{"x":"176000","y":"84000"},{"x":"168000","y":"84000"}]},{"id":"shaman-hall-south","kind":"floor","poly":[{"x":"164000","y":"74000"},{"x":"232000","y":"74000"},{"x":"232000","y":"120000"},{"x":"164000","y":"120000"}]},{"id":"shaft-5n","kind":"floor","poly":[{"x":"200000","y":"44000"},{"x":"208000","y":"44000"},{"x":"208000","y":"66000"},{"x":"200000","y":"66000"}]},{"id":"brute-pen-north","kind":"floor","poly":[{"x":"196000","y":"12000"},{"x":"240000","y":"12000"},{"x":"240000","y":"46000"},{"x":"196000","y":"46000"}]},{"id":"cross-3n","kind":"floor","poly":[{"x":"156000","y":"34000"},{"x":"168000","y":"34000"},{"x":"168000","y":"42000"},{"x":"156000","y":"42000"}]},{"id":"wing-link-north","kind":"floor","poly":[{"x":"98000","y":"22000"},{"x":"128000","y":"22000"},{"x":"128000","y":"28000"},{"x":"98000","y":"28000"}]},{"id":"shaft-6n","kind":"floor","poly":[{"x":"258000","y":"44000"},{"x":"266000","y":"44000"},{"x":"266000","y":"66000"},{"x":"258000","y":"66000"}]},{"id":"stalker-den-north","kind":"floor","poly":[{"x":"248000","y":"18000"},{"x":"290000","y":"18000"},{"x":"290000","y":"46000"},{"x":"248000","y":"46000"}]},{"id":"shaft-6s","kind":"floor","poly":[{"x":"258000","y":"74000"},{"x":"266000","y":"74000"},{"x":"266000","y":"96000"},{"x":"258000","y":"96000"}]},{"id":"shaft-7n","kind":"floor","poly":[{"x":"284000","y":"58000"},{"x":"292000","y":"58000"},{"x":"292000","y":"67000"},{"x":"284000","y":"67000"}]},{"id":"shaman-alcove-north","kind":"floor","poly":[{"x":"276000","y":"46000"},{"x":"300000","y":"46000"},{"x":"300000","y":"60000"},{"x":"276000","y":"60000"}]},{"id":"shaft-8n","kind":"floor","poly":[{"x":"308000","y":"46000"},{"x":"316000","y":"46000"},{"x":"316000","y":"66000"},{"x":"308000","y":"66000"}]},{"id":"warden-post-north","kind":"floor","poly":[{"x":"300000","y":"22000"},{"x":"326000","y":"22000"},{"x":"326000","y":"48000"},{"x":"300000","y":"48000"}]},{"id":"shaft-8s","kind":"floor","poly":[{"x":"308000","y":"74000"},{"x":"316000","y":"74000"},{"x":"316000","y":"94000"},{"x":"308000","y":"94000"}]},{"id":"shaft-7s","kind":"floor","poly":[{"x":"284000","y":"73000"},{"x":"292000","y":"73000"},{"x":"292000","y":"92000"},{"x":"284000","y":"92000"}]},{"id":"deep-hall-south","kind":"floor","poly":[{"x":"248000","y":"90000"},{"x":"326000","y":"90000"},{"x":"326000","y":"124000"},{"x":"248000","y":"124000"}]}]}}
+{"pong":{"nonce":"780"}}
+{"pong":{"nonce":"781"}}
+{"pong":{"nonce":"782"}}
+{"pong":{"nonce":"783"}}
+{"pong":{"nonce":"784"}}
+{"pong":{"nonce":"785"}}
+{"pong":{"nonce":"786"}}
+{"pong":{"nonce":"787"}}
+{"pong":{"nonce":"788"}}
+{"pong":{"nonce":"789"}}
 # mark warren_out

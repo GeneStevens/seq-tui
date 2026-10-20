@@ -6,8 +6,8 @@
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Duo Turns                │
-│                         @                        ││ turn-based | inside      │
-│                                                  ││ party up to 2 | normal   │
+│                         @                        ││ 2 players                │
+│                                                  ││ turn-based | inside      │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Round 1, deadline now ──┐
 │                                                  ││ 1 of 2 submitted         │

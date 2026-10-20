@@ -314,6 +314,23 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			return resultMsg{note: "your zone is hidden from who and friends lists"}
 		}
 		return resultMsg{note: "your zone is shown in who and friends lists"}
+	case "status":
+		status := strings.ToLower(name)
+		switch status {
+		case "clear", "none", "off", "":
+			status = ""
+		case "away", "autopilot":
+		default:
+			return bad("usage: /status away, /status autopilot or /status clear (no effect on play)")
+		}
+		res, err := a.sess.Status(ctx, status)
+		if r, no := refused("status", res, err); no {
+			return r
+		}
+		if status == "" {
+			return resultMsg{note: "status cleared"}
+		}
+		return resultMsg{note: "status: " + model.StatusWords(status) + " (no effect on rewards or play)"}
 	case "chat":
 		return resultMsg{after: func(a *App) { a.openSocial(screen.TabChat) }}
 	case "help":
@@ -349,7 +366,7 @@ func lineVerb(cmd string) string {
 		return "unmute"
 	case "invite", "inv":
 		return "invite"
-	case "accept", "decline", "kick", "leave", "who", "friends", "friend", "anon", "chat", "help", "quest", "dismiss":
+	case "accept", "decline", "kick", "leave", "who", "status", "friends", "friend", "anon", "chat", "help", "quest", "dismiss":
 		return cmd
 	}
 	return "?"

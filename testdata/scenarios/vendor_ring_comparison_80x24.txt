@@ -8,9 +8,9 @@
 │  ▲ Cord Pendant Common   12, short 7 │                                       │
 │  ▲ Bone Pendant Common  36, short 31 │                                       │
 │  ▲ Horn Pendant Common  72, short 67 │                                       │
-│  = Carved Orb Common     14, short 9 │                                       │
-│  = Etched Orb Common    42, short 37 │                                       │
-│  = Rune Orb Common      84, short 79 │                                       │
+│  x Carved Orb Common     14, short 9 │                                       │
+│  x Etched Orb Common    42, short 37 │                                       │
+│  x Rune Orb Common      84, short 79 │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
 │ ▲ Tin Ring: Common, Ring; tradable once                                      │
 │ sta +1; costs 12 crowns, short 7 crowns                                      │

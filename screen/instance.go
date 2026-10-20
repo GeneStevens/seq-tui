@@ -130,7 +130,7 @@ func menuLines(m *model.Model, v View, w, h int, st Styler) []string {
 
 // instanceShown says whether the Instance panel has anything to say.
 func instanceShown(m *model.Model) bool {
-	return m.InInstance() || m.Opened != nil || m.Ended != nil
+	return m.InInstance() || m.Opened != nil || m.Ended != nil || m.Refusal != nil
 }
 
 func presetName(m *model.Model, id string) string {
@@ -159,7 +159,7 @@ func sleepWords(ms int64) string {
 
 // instanceInfoLines are the rows of the Instance panel: what the server says
 // the instance is, not what its space is called (D49).
-func instanceInfoLines(m *model.Model) []string {
+func instanceInfoLines(m *model.Model, w int) []string {
 	var rows []string
 	switch {
 	case m.Instance != nil:
@@ -181,22 +181,29 @@ func instanceInfoLines(m *model.Model) []string {
 			}
 			rows = append(rows, "enter at "+p.GetEntrance()+" (E)")
 		}
-	default:
+	case m.Ended != nil:
 		name := presetName(m, m.Ended.Preset) + " ended"
 		if m.Ended.Preset == "" {
 			name = "Instance ended"
 		}
 		rows = []string{name, m.Ended.Reason, "you were handed back"}
+	default: // only a refusal to say
+		rows = []string{"No expedition"}
+	}
+	// The group rules come right after the name, where a short window still
+	// shows them.
+	if g := groupLines(m, w); len(g) > 0 {
+		rows = append(rows[:1], append(g, rows[1:]...)...)
 	}
 	return rows
 }
 
 // instanceRows is how many rows of text the Instance panel has to show.
-func instanceRows(m *model.Model) int { return len(instanceInfoLines(m)) }
+func instanceRows(m *model.Model, w int) int { return len(instanceInfoLines(m, w)) }
 
 func instanceLines(m *model.Model, w, h int, st Styler) []string {
 	var rows []string
-	for i, l := range instanceInfoLines(m) {
+	for i, l := range instanceInfoLines(m, w-1) {
 		l = fit(" "+l, w)
 		if i == 0 {
 			l = st.Bold(l)

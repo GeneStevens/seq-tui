@@ -10,7 +10,7 @@
 {"pong":{"nonce":"106"}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
 {"intent_result":{"intent_id":"tui-1","accepted":true}}
-{"event":{"seq":"1","game_time_ms":"200","text":"Your group's instance is ready: Solo Trial","instance_opened":{"instance":"inst-1","preset":"solo-trial","party_cap":"1"}}}
+{"event":{"seq":"1","game_time_ms":"200","text":"Your group's instance is ready: Solo Trial","instance_opened":{"instance":"inst-1","preset":"solo-trial","party_cap":"1","players":"1","slots":"1"}}}
 {"pong":{"nonce":"107"}}
 {"pong":{"nonce":"108"}}
 {"pong":{"nonce":"109"}}
@@ -23,7 +23,7 @@
 {"pong":{"nonce":"115"}}
 {"intent_result":{"intent_id":"tui-2","accepted":true}}
 {"event":{"seq":"1","game_time_ms":"1300","space_changed":{"space":"Testgrounds (Solo Trial)"}}}
-{"snapshot":{"seq":"1","game_time_ms":"1300","tick":"13","space":"Testgrounds (Solo Trial)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"mob-lone-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"99901","y":"75573"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"solo-trial","party_cap":"1","time_mode":"realtime","difficulty":"normal"}}}
+{"snapshot":{"seq":"1","game_time_ms":"1300","tick":"13","space":"Testgrounds (Solo Trial)","self":{"entity":{"id":"aria","kind":"ENTITY_KIND_CHARACTER","name":"aria","pos":{"x":"100000","y":"90000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"entities":[{"id":"mob-lone-1","kind":"ENTITY_KIND_MOB","name":"Plain Scuttler","pos":{"x":"99901","y":"75573"},"hp":"40","max_hp":"40","level":"1","con":"even"}],"instance":{"preset":"solo-trial","party_cap":"1","time_mode":"realtime","difficulty":"normal","slots":"1","players":"1"}}}
 {"zone_map":{"space":"Testgrounds (Solo Trial)","name":"Testgrounds (Solo Trial)","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North","label":"Gate North"}],"view_radius_mm":"20000","markers":[{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}}]}}
 {"pong":{"nonce":"116"}}
 {"pong":{"nonce":"117"}}

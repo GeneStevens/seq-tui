@@ -24,7 +24,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	left := th - len(rows)
 	inst, round := 0, 0
 	if instanceShown(m) {
-		inst = max(instanceRows(m), 2) + 2
+		inst = max(instanceRows(m, iw-1), 2) + 2
 	}
 	turn := m.TurnBased()
 	if turn {
@@ -154,7 +154,7 @@ func youLines(m *model.Model, v View, w int, st Styler) []string {
 		fit(" Target: "+targetName(m), w),
 		last,
 	}
-	return withAttackers(m, rows, w, st)
+	return withAttackers(m, withStatus(m, rows, w, st), w, st)
 }
 
 // withAttackers adds the line that names what is attacking the character (D75).

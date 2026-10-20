@@ -86,6 +86,7 @@ var helpPages = []helpPage{
 	{"Logs and replay", func(_ *model.Model, _ View, w int) []string { return sections(w, guideLogs) }},
 	{"Every key", func(m *model.Model, v View, w int) []string { return KeyLines(m, v, w) }},
 	{"Chat, parties, who and friends", func(_ *model.Model, _ View, w int) []string { return socialHelp() }},
+	{"Group rules", func(m *model.Model, _ View, w int) []string { return groupRulesPage(m, w) }},
 }
 
 // HelpPages is how many pages the help has.

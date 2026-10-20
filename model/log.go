@@ -43,6 +43,9 @@ func (m *Model) logEvent(e *pb.Event) {
 	if k, t, r, ok := m.describeQuest(e); ok {
 		kind, text, reason = k, t, r
 	}
+	if k, t, r, ok := m.describeGroup(e); ok {
+		kind, text, reason, mob = k, t, r, true // the client's own words name the character
+	}
 	if k, t, r, ok := m.describeCompanion(e); ok {
 		kind, text, reason = k, t, r
 	}

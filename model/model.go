@@ -161,6 +161,14 @@ type Model struct {
 	// in a world zone.
 	Instance *pb.InstanceInfo
 
+	// Status is the character's own optional status (D79): "away", "autopilot"
+	// or "" for none. Refusal is the server's last refusal to open or enter an
+	// expedition, until an instance opens or the character goes in.
+	Status  string
+	Refusal *Refusal
+	stirs   []string // the instance_stirred texts told since it opened
+	own     []string // the lower-case names of the account's other characters this client plays
+
 	// Items are the items the snapshots described (the server sends every item
 	// the character carries, wears, banks, offers or sees on sale), NPCs the
 	// vendors, trainers, binders and bankers in view, and Trade the character's
@@ -321,6 +329,8 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 		if over := len(m.Errors) - errorsCap; over > 0 {
 			m.Errors = slices.Clone(m.Errors[over:])
 		}
+	case *pb.ServerMessage_Status:
+		m.Status = b.Status.GetStatus()
 	case *pb.ServerMessage_Chat, *pb.ServerMessage_Party, *pb.ServerMessage_PartyVitals, *pb.ServerMessage_Notice, *pb.ServerMessage_Who, *pb.ServerMessage_Friends:
 		m.applySocial(msg)
 	case *pb.ServerMessage_Pong:
@@ -329,6 +339,9 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 }
 
 func (m *Model) applyResult(r *pb.IntentResult) {
+	if !r.GetAccepted() && refusalReason(r.GetReason()) {
+		m.Refusal = &Refusal{Reason: r.GetReason(), Text: firstText(r.GetText(), refusalWords(r.GetReason(), ""))} // a door's refusal, in the server's words
+	}
 	for i := range m.Intents {
 		if m.Intents[i].ID == r.GetIntentId() {
 			m.Intents[i].State, m.Intents[i].Reason, m.Intents[i].Unknown = IntentAccepted, "", r.GetResultUnknown()
@@ -358,6 +371,9 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	joining := m.joining
 	m.joining = false
 	m.Space, m.Tick, m.GameTimeMs, m.Instance = s.GetSpace(), s.GetTick(), s.GetGameTimeMs(), s.GetInstance()
+	if m.Instance != nil {
+		m.Refusal = nil // it went in
+	}
 	m.Self = Self{
 		ID: e.GetId(), Name: e.GetName(), Level: e.GetLevel(), HP: e.GetHp(), MaxHP: e.GetMaxHp(), Dead: e.GetDead(),
 		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(),
@@ -491,6 +507,11 @@ func (m *Model) apply(e *pb.Event) {
 		delete(m.Encounters, b.EncounterClosed.GetId())
 	case *pb.Event_InstanceOpenFailed:
 		m.openFailed++
+		m.noteRefusal(e)
+	case *pb.Event_Denied:
+		m.noteRefusal(e)
+	case *pb.Event_InstanceStirred:
+		m.noteStirred(e)
 	case *pb.Event_Reward:
 		w := b.Reward
 		if w.GetKind() == "refund" && m.refunds < m.openFailed {

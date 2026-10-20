@@ -94,6 +94,10 @@ var reasons = map[string]string{
 	"not_participant":  "that drop belongs to a fight you were not in",
 	"already_looted":   "that drop was already taken",
 	"rate_limited":     "too many commands too fast",
+	// the group rules (D79)
+	"encounter_open": "an encounter is under way: a replacement can join between encounters",
+	"slot_account":   "a second character of an account already in cannot take that slot",
+	"no_slot":        "every slot is held: a replacement never adds one",
 }
 
 // Words is the reason code in plain words followed by the code itself, as

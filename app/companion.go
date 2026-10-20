@@ -27,7 +27,12 @@ import (
 
 // SetDuo gives the program a second character to show and drive. The driver
 // itself is run by whoever owns the Duo: the program's main, or a scenario.
-func (a *App) SetDuo(d *client.Duo) { a.duo = d }
+func (a *App) SetDuo(d *client.Duo) {
+	a.duo = d
+	if d != nil && a.sess != nil { // a slot or a reward of the second character is the player's own
+		a.sess.View(func(m *model.Model) { m.SetOwn(d.Character()) })
+	}
+}
 
 // helperKeys are the keys that mean something to a helper.
 func helperKey(k string) bool {

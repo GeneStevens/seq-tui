@@ -11,6 +11,12 @@ type Opened struct {
 	Space    string // the instance's space name
 	Preset   string
 	PartyCap int64
+	// Players, GroupTier and Slots are what the instance was locked with at
+	// open (D79): how many different players, the group tier they reach ("" for
+	// none) and how many characters it holds.
+	Players   int64
+	GroupTier string
+	Slots     int64
 }
 
 // Ended is the last instance that ended and why (instance_ended).
@@ -121,15 +127,15 @@ func (m *Model) applyInstanceEvent(e *pb.Event) {
 	switch b := e.GetBody().(type) {
 	case *pb.Event_InstanceOpened:
 		o := b.InstanceOpened
-		m.Opened = &Opened{Space: o.GetInstance(), Preset: o.GetPreset(), PartyCap: o.GetPartyCap()}
-		m.Ended = nil
+		m.Opened = &Opened{Space: o.GetInstance(), Preset: o.GetPreset(), PartyCap: o.GetPartyCap(), Players: o.GetPlayers(), GroupTier: o.GetGroupTier(), Slots: o.GetSlots()}
+		m.Ended, m.Refusal, m.stirs = nil, nil, nil
 	case *pb.Event_InstanceEnded:
 		o := b.InstanceEnded
 		end := &Ended{Space: o.GetInstance(), Reason: o.GetReason()}
 		if m.Opened != nil && m.Opened.Space == o.GetInstance() {
 			end.Preset, m.Opened = m.Opened.Preset, nil
 		}
-		m.Ended = end
+		m.Ended, m.stirs = end, nil
 		if m.Space == o.GetInstance() {
 			m.Round = nil
 		}

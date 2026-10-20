@@ -105,13 +105,13 @@ func TestTheSheetShowsEveryAttributeTheServerSends(t *testing.T) {
 
 // Every item at Barnaby's stall carries its mark, including the ones that cannot
 // be afforded, and its card says what it would change: a ring is "over an empty
-// ring" (the server's slot is ring1), a pendant over an empty neck, an orb over
-// the empty off hand.
+// ring" (the server's slot is ring1), a pendant over an empty neck; an orb is for
+// a caster (D80), so a warrior's mark is x and its card says who may use it.
 func TestEveryVendorItemHasItsMarkAndComparison(t *testing.T) {
 	_, p := besideBarnaby(t, 5, nil)
 	p.Press("g", "1")
 	s := p.Screen(140, 45)
-	for _, want := range []string{"▲ Tin Ring", "▲ Brass Ring", "▲ Silver Ring", "▲ Cord Pendant", "▲ Horn Pendant", "= Carved Orb", "= Rune Orb", "short 7", "short 79"} {
+	for _, want := range []string{"▲ Tin Ring", "▲ Brass Ring", "▲ Silver Ring", "▲ Cord Pendant", "▲ Horn Pendant", "x Carved Orb", "x Rune Orb", "short 7", "short 79"} {
 		if !strings.Contains(s, want) {
 			t.Errorf("the stall lacks %q (a mark on every row, afforded or not):\n%s", want, s)
 		}
@@ -123,7 +123,7 @@ func TestEveryVendorItemHasItsMarkAndComparison(t *testing.T) {
 	}{
 		{0, "tin-ring", "upgrade over an empty ring: +10 health, +1 stamina"},
 		{3, "cord-pendant", "upgrade over an empty neck: +6 health"},
-		{8, "rune-orb", "sidegrade over an empty off hand:"},
+		{8, "rune-orb", "can't use: wizard, cleric, druid only"}, // D80: orbs are for casters
 	} {
 		for ; at < c.idx; at++ {
 			p.Press("down")
@@ -209,8 +209,7 @@ func TestNearbyIsOneLinePerEntry(t *testing.T) {
 // words where to go.
 func TestTheBoardHelpNamesXAndAScoutReadsInWords(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
-	w.Fixture("thornwick_scout.jsonl")
-	p := w.NewCharacter("ann")
+	p := w.NewCharacter("ann") // no recording: thornwick_scout.jsonl is the scout test's own
 	makeWarrior(p, "Hale")
 	toTheBoard(w, p)
 	p.Press("g", "1")

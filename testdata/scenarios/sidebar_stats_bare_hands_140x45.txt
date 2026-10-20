@@ -5,15 +5,15 @@
 │  ▲ Cudgel Common                           15 │  (nothing)                                     ││ Atk off | none                         │
 │  ▲ Short Sword Common                      24 │                                                │└────────────────────────────────────────┘
 │  ▲ Dirk Common                             22 │                                                │┌─ Your character (C: tab) ──────────────┐
-│  = Ashwood Staff Common                    22 │                                                ││  Gear   Bags  [Stats]                  │
+│  x Ashwood Staff Common                    22 │                                                ││  Gear   Bags  [Stats]                  │
 │  ▲ Flanged Mace Common           48, short 18 │                                                ││ Level 3 Warrior                        │
 │  ▲ Long Sword Common             56, short 26 │                                                ││ Health   164  (regen 4 a tick)         │
 │  ▲ Stiletto Common               52, short 22 │                                                ││ Armour   20  (cuts 17% of a hit)       │
-│  ▲ Yew Staff Common              52, short 22 │                                                ││ Accuracy 0  (75% to hit)               │
+│  x Yew Staff Common              52, short 22 │                                                ││ Accuracy 0  (75% to hit)               │
 │  ▲ Spiked Mace Common           110, short 80 │                                                ││ Fists: 7–13 / N.Ns  (5.0 damage/s)     │
 │> ▲ Broad Sword Common           120, short 90 │                                                ││ Strength  28                           │
 │  ▲ Poniard Common               110, short 80 │                                                ││ Agility   0                            │
-│  ▲ Elder Staff Common           110, short 80 │                                                ││ Stamina   0                            │
+│  x Elder Staff Common           110, short 80 │                                                ││ Stamina   0                            │
 │────────────────────────────────────────────────────────────────────────────────────────────────││ Intellect 0                            │
 │ ▲ Broad Sword: Common, Main hand; tradable once                                                ││ Wisdom    0                            │
 │ damage 7-11 / N.Ns; costs 120 crowns, short 90 crowns                                          ││                                        │

@@ -8,9 +8,9 @@
 │  ▲ Cord Pendant Common            12, short 7 │                                                ││ [Gear]  Bags   Stats                   │
 │  ▲ Bone Pendant Common           36, short 31 │                                                ││ Head      -                            │
 │  ▲ Horn Pendant Common           72, short 67 │                                                ││ Chest     -                            │
-│  = Carved Orb Common              14, short 9 │                                                ││ Legs      -                            │
-│  = Etched Orb Common             42, short 37 │                                                ││ Hands     -                            │
-│  = Rune Orb Common               84, short 79 │                                                ││ Feet      -                            │
+│  x Carved Orb Common              14, short 9 │                                                ││ Legs      -                            │
+│  x Etched Orb Common             42, short 37 │                                                ││ Hands     -                            │
+│  x Rune Orb Common               84, short 79 │                                                ││ Feet      -                            │
 │────────────────────────────────────────────────────────────────────────────────────────────────││ Ring 1    -                            │
 │ ▲ Tin Ring: Common, Ring; tradable once                                                        ││ Ring 2    -                            │
 │ sta +1; costs 12 crowns, short 7 crowns                                                        ││ Neck      -                            │

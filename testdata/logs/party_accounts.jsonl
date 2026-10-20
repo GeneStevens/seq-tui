@@ -4,7 +4,7 @@
 {"pong":{"nonce":"101"}}
 {"event":{"seq":"1","game_time_ms":"200","text":"bob1 comes into view","entity_appeared":{"entity":{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"89500"},"hp":"100","max_hp":"100","level":"1"}}}}
 {"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
-{"social_result":{"request_id":"s43","ok":true}}
+{"social_result":{"request_id":"s49","ok":true}}
 {"pong":{"nonce":"102"}}
 {"pong":{"nonce":"103"}}
 {"notice":{"kind":"party_invite_declined","from":"bob1"}}
@@ -12,7 +12,7 @@
 {"pong":{"nonce":"105"}}
 {"pong":{"nonce":"106"}}
 {"pong":{"nonce":"107"}}
-{"social_result":{"request_id":"s45","ok":true}}
+{"social_result":{"request_id":"s51","ok":true}}
 {"pong":{"nonce":"108"}}
 {"pong":{"nonce":"109"}}
 {"notice":{"kind":"party_joined","from":"bob1"}}
@@ -27,18 +27,18 @@
 {"pong":{"nonce":"115"}}
 {"pong":{"nonce":"116"}}
 # mark party_chat
-{"social_result":{"request_id":"s48","ok":true}}
+{"social_result":{"request_id":"s54","ok":true}}
 {"pong":{"nonce":"117"}}
 {"pong":{"nonce":"118"}}
 {"notice":{"kind":"party_joined","from":"cy1"}}
 {"party":{"id":"party-1","leader":"ann1","members":[{"name":"ann1","online":true,"leader":true,"zone":"Testgrounds","level":1,"hp":100,"max_hp":100},{"name":"bob1","online":true,"zone":"Testgrounds","level":1,"hp":100,"max_hp":100},{"name":"cy1","online":true}]}}
 {"pong":{"nonce":"119"}}
-{"social_result":{"request_id":"s51","ok":true}}
+{"social_result":{"request_id":"s57","ok":true}}
 {"notice":{"kind":"party_kicked","from":"cy1"}}
 {"party":{"id":"party-1","leader":"ann1","members":[{"name":"ann1","online":true,"leader":true,"zone":"Testgrounds","level":1,"hp":100,"max_hp":100},{"name":"bob1","online":true,"zone":"Testgrounds","level":1,"hp":100,"max_hp":100}]}}
 {"pong":{"nonce":"120"}}
 {"pong":{"nonce":"121"}}
-{"social_result":{"request_id":"s52","ok":true}}
+{"social_result":{"request_id":"s58","ok":true}}
 {"party":{}}
 {"pong":{"nonce":"122"}}
 {"pong":{"nonce":"123"}}
