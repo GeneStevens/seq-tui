@@ -16,19 +16,19 @@
 │                    ░                           @ m    c                    #                   │└────────────────────────────────────────┘
 │                    ░                                                       #                   │┌─ Nearby ───────────────────────────────┐
 │                    ░                                                       #                   ││ ! Testgrounds Recruiter     6m N [new] │
-│                    ░                                                       #                   ││     <Quest Giver>                      │
 │                    ░                                                       #                   ││ & Testgrounds Contract Boa… 8m N [new] │
 │                    ░                                                       #                   ││ m Plain Scuttler       2m E 40/40 even │
-│                    ░                                                       #                   ││ Q Testgrounds Captain             8m N │
-│                    ░                                                       #                   ││     <Quest Giver>                      │
+│                    ░                                                       #                   ││ Q Testgrounds Captain <Quest Giv… 8m N │
 │                    ░                                                       #                   ││ H Testgrounds Binder             9m NW │
 │                    ░                                                       #                   ││ B Testgrounds Banker            10m NW │
 │                    ░                                                       #                   ││ $ Testgrounds Vendor            11m NW │
 │                    ░                                                       #                   ││ T Paladin Trainer                12m N │
 │                    ░                                                       #                   ││ T Druid Trainer                  12m N │
-│                    ░                                                       #                   ││ +7 more                                │
+│                    ░                                                       #                   ││ T Wizard Trainer                 12m N │
+│                    ░                                                       #                   ││ T Rogue Trainer                  13m N │
+│                    ░                                                       #                   ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns You start attacking something                                                                                                   │
 │ <   N.Ns Plain Scuttler hits you for 2                                                                                                   │
 │ <   N.Ns Plain Scuttler hits you for 1                                                                                                   │

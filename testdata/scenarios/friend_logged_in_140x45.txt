@@ -11,24 +11,24 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                p                                               ││ & Testgrounds Contract Bo… 88m W [new] │
-│                                                @                                               ││ p bob1                    1m N 100/100 │
-│                                                                                                ││ D Gate North                      1m N │
+│                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
+│                                                p                                               ││ p bob1                    1m N 100/100 │
+│                                                @                                               ││ D Gate North                      1m N │
 │                                                                                                ││ H Eastern Binder                 72m S │
 │                                                                                                ││ T Druid Trainer                  83m W │
 │                                                                                                ││ T Paladin Trainer                84m W │
-│                                                                                                ││ Q Testgrounds Captain            86m W │
-│                                                                                          c     ││     <Quest Giver>                      │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
 │                                                                                                ││ T Wizard Trainer                 86m W │
-│                                                                                                ││ T Rogue Trainer                  88m W │
+│                                                                                          c     ││ T Rogue Trainer                  88m W │
 │                                                                                                ││ H Testgrounds Binder             90m W │
 │                                                                                                ││ T Cleric Trainer                 90m W │
 │                                                                                                ││ B Testgrounds Banker             91m W │
 │                                                                                                ││ T Warrior Trainer                92m W │
-│                                                                                                ││ +2 more                                │
+│                                                                                                ││ $ Testgrounds Vendor             93m W │
+│                                                                                                ││ D Line East                    124m SE │
+│                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns bob1 comes into view                                                                                                            │
 │     N.Ns friend cy1 logged out                                                                                                           │
 │     N.Ns friend cy1 logged in                                                                                                            │

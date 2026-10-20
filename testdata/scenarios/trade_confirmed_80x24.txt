@@ -16,7 +16,7 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade    │
+│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade     │
 │ Esc closes the screen and leaves the trade open.                             │
 │ offer 7 crowns ok                                                            │
 └──────────────────────────────────────────────────────────────────────────────┘

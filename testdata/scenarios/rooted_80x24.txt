@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Plain Scuttler: Rooted 18s                                   │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     N.Ns You begin fighting Plain Scuttler                                   │
 │     N.Ns Plain Scuttler is affected by Root                                  │
 │     N.Ns You are in combat with Plain Scuttler                               │

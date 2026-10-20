@@ -19,17 +19,17 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
-│                                                                                                ││     <Jobs for the Downs>               │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││     <Warrior Trainer>                  │
 │                                                                                                ││ g Tamsin Hale <Watch Greeter>    5m SE │
 │                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>  13m SW │
 │                                                                                                ││ g Town Guard <Thornwick Watch>   22m E │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││ $ Hilda Brasswick <Armourer>     29m W │
-│ talk to Thornwick Contract Board ok                                                            ││ +9 more                                │
+│                                                                                                ││ $ Hilda Brasswick <Armourer>     29m W │
+│                                                                                                ││ B Odalys Penn <Banker>           32m E │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ $ Dunstan Reeve <Weaponsmith>   33m SW │
+│ talk to Thornwick Contract Board ok                                                            ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
 │     0.2s Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │
@@ -37,9 +37,9 @@
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     0.5s Town Guard is out of view                                                                                                       │
 │     4.6s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
+│                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard 0.4s ago | talk to Thornwick Contract Board ok   

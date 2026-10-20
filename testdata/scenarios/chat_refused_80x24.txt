@@ -11,10 +11,10 @@
 │                                                  │└──────────────────────────┘
 │                                              c   │┌─ Nearby ─────────────────┐
 │                                                  ││ ! Testgrou… 85m SW [new] │
-│                                                  ││     <Quest Giver>        │
-│                                                  ││ +15 more                 │
+│                                                  ││ & Testgroun… 88m W [new] │
+│                                                  ││ +14 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
+┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
 │     N.Ns bob1 comes into view               ││ [say] ann1: spam a            │
 │                                             ││ [say] ann1: spam b            │
 │                                             ││ [say] ann1: spam c            │

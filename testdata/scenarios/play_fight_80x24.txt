@@ -14,7 +14,7 @@
 │               ░                           #      ││ M Plain Scuttler  Lv 1   │
 │               ░                           #      ││ HP 23/40 #####---- 2m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │ <   N.Ns Plain Scuttler hits you for 3                                       │
 │    NN.Ns You hit Plain Scuttler for 5                                        │
 │ <  NN.Ns Plain Scuttler hits you for 2                                       │

@@ -1,24 +1,24 @@
-┌─ Inventory and gear ─────────────────────────────────────────────────────────┐
+┌─ Your character ─────────────────────────────────────────────────────────────┐
 │ Crowns 13 | bags 1 of 20 slots | bank 0 | bind point none yet                │
-│ Gear worn                            │ Items carried                         │
-│ > Head      -                        │> ▲ Worn Cap! Common [bound]           │
-│   Chest     -                        │                                       │
-│   Legs      -                        │                                       │
-│   Hands     -                        │                                       │
-│   Feet      -                        │                                       │
-│   Ring 1    -                        │                                       │
-│   Ring 2    -                        │                                       │
-│   Neck      -                        │                                       │
-│   Main hand -                        │                                       │
-│   Off hand  -                        │                                       │
+│ [Gear]  Bags   Stats                                                         │
+│ Gear worn                                                                    │
+│ > Head      -                                                                │
+│   Chest     -                                                                │
+│   Legs      -                                                                │
+│   Hands     -                                                                │
+│   Feet      -                                                                │
+│   Ring 1    -                                                                │
+│   Ring 2    -                                                                │
+│   Neck      -                                                                │
+│   Main hand -                                                                │
+│   Off hand  -                                                                │
+│                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
+│ Nothing is worn there.                                                       │
 │                                                                              │
 │                                                                              │
-│                                                                              │
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.         │
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                   │
-│                                                                              │
-│                                                                              │
+│ Tab next tab · Up / Down choose · Enter takes it off · out of combat only    │
+│ Esc or C closes · N traders · T trade                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 100/100 | Target: none                                                      
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

@@ -1,0 +1,45 @@
+┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | 0 crowns           ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
+│  Thin the Meadow Wolves          Hunt   L1-3  │> Word from Wickett Mi… 0/1 — go to the marker  ││ XP ------------------------- 40 to Lv 2│
+│> Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
+│  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
+│  Word from Barleycross           Scout  L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
+│                                                                                                ││ [Gear]  Bags   Stats                   │
+│                                                                                                ││ Head      -                            │
+│                                                                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
+│                                                                                                ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
+│ Word from Wickett Mill: Scout, go to the marker.                                               ││                                        │
+│ Walk out to Wickett Mill, west of the river, and return to the board with word that the road is││                                        │
+│ clear.                                                                                         ││                                        │
+│ Pays 20 XP and 8 crowns.                                                                       ││                                        │
+│ Not finished yet.                                                                              ││                                        │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │
+│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
+│            /dismiss gives it up for good.                                                                                                │
+│     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
+│ +   N.Ns You take the contract Word from Wickett Mill                                                                                    │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 5m SE | road: faster, 125% | heard N.Ns ago   ? help  q quit

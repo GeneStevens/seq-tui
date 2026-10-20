@@ -17,7 +17,7 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.  │
+│ Tab switches list · Up / Down choose · Enter acts on the item · Esc back     │
 │ bank Buckler ok                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 80/96 | Target: none                                                        

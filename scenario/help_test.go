@@ -39,7 +39,7 @@ func TestTheHelpOpensAndClosesFromEveryView(t *testing.T) {
 		open        []string
 	}{
 		{"the map", "Thornwick — Hawthorn Square, at", nil},
-		{"inventory", "Inventory and gear", []string{"c"}},
+		{"character", "Your character", []string{"c"}},
 		{"traders", "Traders", []string{"n"}},
 		{"slots", "Ability slots", []string{"b"}},
 		{"contracts", "Contracts", []string{"k"}},

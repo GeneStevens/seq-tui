@@ -18,17 +18,17 @@
 │                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
 │                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
 │                            ░                                                       #           ││ ! Testgrounds Recruiter   10m NE [new] │
-│                            ░                                                       #           ││     <Quest Giver>                      │
 │                            ░                                                       #           ││ M Plain Scuttler       2m E 23/40 even │
 │                            ░                                                       #           ││ B Testgrounds Banker              8m N │
 │                            ░                                                       #           ││ H Testgrounds Binder              8m N │
 │                            ░                                                       #           ││ $ Testgrounds Vendor              8m N │
-│                            ░                                                       #           ││ Q Testgrounds Captain           10m NE │
-│                            ░                                                       #           ││     <Quest Giver>                      │
+│                            ░                                                       #           ││ Q Testgrounds Captain <Quest G… 10m NE │
 │                            ░                                                       #           ││ T Cleric Trainer                 12m N │
-│                            ░                                                       #           ││ +8 more                                │
+│                            ░                                                       #           ││ T Rogue Trainer                  12m N │
+│                            ░                                                       #           ││ T Warrior Trainer                12m N │
+│                            ░                                                       #           ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     2.9s You start attacking something                                                                                                   │
 │ <   2.9s Plain Scuttler hits you for 2                                                                                                   │
 │     4.5s You start attacking Plain Scuttler                                                                                              │

@@ -17,7 +17,7 @@
 │ with them.                                                                   │
 │ Pays 21 XP and 8 crowns.                                                     │
 │                                                                              │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back             │
 │ hand in Thin the Meadow Wolves ok                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      

@@ -14,7 +14,7 @@
 │               ░                           #      ││                          │
 │               ░                           #      ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │    42.6s Cracked Shell Fragment was taken                                    │
 │ +  42.6s You pick up Cracked Shell Fragment                                  │
 │    42.6s Tip: tradable once means one trade to another player, then it is    │

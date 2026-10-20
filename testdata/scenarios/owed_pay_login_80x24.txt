@@ -14,7 +14,7 @@
 │                  ░                           #   ││                          │
 │                  ░                           #   ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │ +   N.Ns owed pay waiting from the Scuttler Raid: 30 XP and 15 crowns, paid  │
 │            at your next join                                                 │
 │ +   N.Ns owed pay waiting from a refund for Scuttler Skirmish: 50 crowns,    │

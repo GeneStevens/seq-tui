@@ -1,0 +1,24 @@
+┌─ Your character ─────────────────────────────────────────────────────────────┐
+│ Crowns 5 | bags 1 of 20 slots | bank 0 | bind point none yet                 │
+│ [Gear]  Bags   Stats                                                         │
+│ Gear worn                                                                    │
+│   Head      -                                                                │
+│   Chest     -                                                                │
+│   Legs      -                                                                │
+│   Hands     -                                                                │
+│   Feet      -                                                                │
+│   Ring 1    -                                                                │
+│   Ring 2    -                                                                │
+│   Neck      -                                                                │
+│ > Main hand Short Sword Common  damage 3-6 / N.Ns                            │
+│   Off hand  -                                                                │
+│                                                                              │
+│──────────────────────────────────────────────────────────────────────────────│
+│ Short Sword: Common, Main hand; tradable once                                │
+│ damage 3-6 / N.Ns                                                            │
+│                                                                              │
+│ Tab next tab · Up / Down choose · Enter takes it off · out of combat only    │
+│ Esc or C closes · N traders · T trade                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/164 | Target: none                                                      
+ ONLINE | Hawthorn Square, Thornwick | road: faster, 125% | heard N.Ns ago      

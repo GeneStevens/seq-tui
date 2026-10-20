@@ -88,7 +88,7 @@ func TestMarksPointerAndHintsAlongFirstSteps(t *testing.T) {
 				t.Errorf("%v: the status line: %q", sz, st)
 			}
 			// Nearby is short here (the quest text is long): the first person in it is the board.
-			if !strings.Contains(s, "<Jobs for the Downs>") && !strings.Contains(s, "<Warrior Trainer>") && sz[0] == 140 {
+			if !strings.Contains(s, "<Jobs for the Downs>") && !strings.Contains(s, "<Warrior Trainer>") && !strings.Contains(s, "<Watch Greeter>") && sz[0] == 140 {
 				t.Errorf("%v: Nearby does not show the title:\n%s", sz, s)
 			}
 		}

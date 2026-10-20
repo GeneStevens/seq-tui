@@ -29,13 +29,13 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
-│     N.Ns Mother Elswyth <Cleric Trainer> comes into view                                                                                 │
-│     N.Ns Hilda Brasswick is out of view                                                                                                  │
-│     N.Ns Town Guard <Thornwick Watch> comes into view                                                                                    │
-│     N.Ns Gorran Stoutarm <Warrior Trainer> comes into view                                                                               │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

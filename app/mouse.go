@@ -25,15 +25,25 @@ type mouseState struct {
 	zoom    int  // the map's zoom
 	bigZoom int  // the large map's zoom
 	card    string
-	cursor  *pb.Pos // the large map's keyboard cursor
-	side    screen.Sidebar
+	cursor  *pb.Pos        // the large map's keyboard cursor
+	side    screen.Sidebar // the sidebar beside a service
+	charTab screen.Sidebar // the character view's own tab, scroll and cursors
+}
+
+// activeSide is the tab state the keys and clicks turn: the character view's
+// when it is open, else the sidebar's.
+func (a *App) activeSide() *screen.Sidebar {
+	if a.char {
+		return &a.mouse.charTab
+	}
+	return &a.mouse.side
 }
 
 // mouseView puts the mouse state in the view the screen draws.
 func (a *App) mouseView(v *screen.View) {
 	ms := &a.mouse
 	v.Hits, v.Hover, v.Labels = &ms.hits, ms.hover, ms.alt || ms.labels
-	v.Zoom, v.BigZoom, v.Card, v.Cursor, v.Side = ms.zoom, ms.bigZoom, ms.card, ms.cursor, &ms.side
+	v.Zoom, v.BigZoom, v.Card, v.Cursor, v.Side = ms.zoom, ms.bigZoom, ms.card, ms.cursor, a.activeSide()
 }
 
 // refresh draws the screen once, for the geometry of what is on it: a scenario
@@ -80,7 +90,7 @@ func (a *App) moveCursor(k string) {
 
 // sideShown says a character sidebar is beside the screen that is open.
 func (a *App) sideShown() bool {
-	return (a.traders != nil || a.talk != nil || a.board != nil) && a.inv == nil && a.trade == nil && a.cons == nil &&
+	return (a.traders != nil || a.talk != nil || a.board != nil) && !a.char && a.trade == nil && a.cons == nil &&
 		!a.overview && a.slots == nil && a.role == nil && a.quest == nil && a.menu == nil && a.soc == nil && a.ses == nil && !a.view.Help
 }
 

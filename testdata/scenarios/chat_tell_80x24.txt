@@ -11,10 +11,10 @@
 │                                                  │└──────────────────────────┘
 │                  m                               │┌─ Nearby ─────────────────┐
 │                                                  ││ ! Testgrou… 123m W [new] │
-│                                                  ││     <Quest Giver>        │
-│                                                  ││ +15 more                 │
+│                                                  ││ & Testgrou… 126m W [new] │
+│                                                  ││ +14 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ───────────────────────────┐┌─ Chat (/ types) ──────────────┐
+┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
 │ nothing has happened yet                    ││ [tell] bob1: psst, a word     │
 │                                             ││ [tell] to bob1: on my way     │
 │                                             ││                               │

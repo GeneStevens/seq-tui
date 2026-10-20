@@ -14,7 +14,7 @@
 │                                                  ││ M Shell Rat    4m E 7/20 │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     3.3s Aria targeted Shell Rat                                             │
 │ !   3.4s Aria was refused auto_attack on Shell Rat: that mob is in someone   │
 │            else's fight                                                      │

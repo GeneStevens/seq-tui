@@ -11,14 +11,12 @@
 │#                                                                                               │└────────────────────────────────────────┘
 │#                                                                                               │┌─ Nearby ───────────────────────────────┐
 │#                                                                                               ││ ! Testgrounds Recruiter    53m W [new] │
-│#                                                                                               ││     <Quest Giver>                      │
 │#                                                                                               ││ & Testgrounds Contract Bo… 57m W [new] │
-│#                    c                          @                                   c           ││ M Plain Scuttler      17m W 40/40 even │
-│#                       M Plain Scuttler  Lv 1, even                                            ││ D Gate North                    48m NE │
-│#                                                                                               ││ T Druid Trainer                  54m W │
+│#                                                                                               ││ M Plain Scuttler      17m W 40/40 even │
+│#                    c                          @                                   c           ││ D Gate North                    48m NE │
+│#                       M Plain Scuttler  Lv 1, even                                            ││ T Druid Trainer                  54m W │
 │#                                                                                               ││ H Eastern Binder                55m SE │
-│#                                                                                               ││ Q Testgrounds Captain            55m W │
-│#                                                                                               ││     <Quest Giver>                      │
+│#                                                                                               ││ Q Testgrounds Captain <Quest Gi… 55m W │
 │#                                                                                               ││ T Paladin Trainer                56m W │
 │#                                                                                               ││ T Wizard Trainer                 58m W │
 │#                                                                                               ││ H Testgrounds Binder             59m W │
@@ -26,9 +24,11 @@
 │#                                                                                               ││ B Testgrounds Banker             61m W │
 │#                                                                                               ││ T Cleric Trainer                 61m W │
 │#                                                                                               ││ $ Testgrounds Vendor             63m W │
-│#                                                                                               ││ +2 more                                │
+│#                                                                                               ││ T Warrior Trainer                63m W │
+│#                                                                                               ││ D Line East                     127m E │
+│#                                                                                               ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Trophy Scuttler is out of view                                                                                                  │
 │     N.Ns Plain Scuttler comes into view                                                                                                  │
 │    NN.Ns You target Plain Scuttler                                                                                                       │

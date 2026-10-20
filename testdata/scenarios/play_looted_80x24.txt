@@ -14,7 +14,7 @@
 │               ░                           #      ││                          │
 │               ░                           #      ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │    NN.Ns Cracked Shell Fragment was taken                                    │
 │ +  NN.Ns You pick up Cracked Shell Fragment                                  │
 │    NN.Ns Tip: tradable once means one trade to another player, then it is    │

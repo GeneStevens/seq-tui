@@ -107,7 +107,7 @@ func TestEquipALootedItem(t *testing.T) {
 		}
 	})
 
-	// C: the inventory screen opens on the items carried; Enter wears the one
+	// C: the character view opens on the bags, when they hold anything; Enter wears the one
 	// under the cursor, as the server accepts it.
 	p.Press("c")
 	p.Golden("inventory_looted")
@@ -123,7 +123,7 @@ func TestEquipALootedItem(t *testing.T) {
 	})
 	p.Press("enter")
 	notice(t, p, "wear Worn Cap ok", false)
-	p.Press("tab")
+	p.Press("1") // the Gear tab
 	p.Golden("inventory_worn")
 	p.Press("enter")
 	notice(t, p, "take off Worn Cap ok", false)
@@ -286,7 +286,7 @@ func TestTradeWithABoundItemRefused(t *testing.T) {
 		}
 	})
 	b.Press("esc")
-	b.Press("c", "tab")
+	b.Press("c", "1")
 	b.Golden("inventory_traded")
 }
 

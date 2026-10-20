@@ -19,17 +19,17 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
-│                                                                                                ││     <Jobs for the Downs>               │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Gorran Stoutarm      54m SW [step 2] │
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││     <Warrior Trainer>                  │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ g Tamsin Hale <Watch Greeter>    5m SE │
-│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││ H Isolde Fenn <Binder>          13m SE │
-│ Tin Ring: upgrade over an empty ring1: +10 health, +1 stamina                                  ││ $ Barnaby Tuck <General Goods>  13m SW │
-│                                                                                                ││ g Town Guard <Thornwick Watch>   22m E │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.                              ││ $ Hilda Brasswick <Armourer>     29m W │
-│ The answer is on the status line; every refusal says why.                                      ││ +9 more                                │
+│                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ g Tamsin Hale <Watch Greeter>    5m SE │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ H Isolde Fenn <Binder>          13m SE │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ $ Barnaby Tuck <General Goods>  13m SW │
+│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││ g Town Guard <Thornwick Watch>   22m E │
+│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ $ Hilda Brasswick <Armourer>     29m W │
+│                                                                                                ││ B Odalys Penn <Banker>           32m E │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ $ Dunstan Reeve <Weaponsmith>   33m SW │
+│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
 │     0.2s Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │
@@ -37,9 +37,9 @@
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     0.5s Town Guard is out of view                                                                                                       │
 │     4.6s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
+│                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hawthorn Square, Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard 0.4s ago      ? help

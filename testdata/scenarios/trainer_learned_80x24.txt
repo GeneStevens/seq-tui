@@ -17,7 +17,7 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│ Enter acts. Esc goes back.                                                   │
+│ Enter acts · Esc back                                                        │
 │ train Second Wind ok                                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 142/164 | Target: none                                                      

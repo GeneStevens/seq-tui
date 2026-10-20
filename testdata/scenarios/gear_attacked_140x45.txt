@@ -1,45 +1,45 @@
-┌─ Inventory and gear  ⚠ UNDER ATTACK ───────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
-│ Crowns 0 | bags 0 of 20 slots | bank 0 | bind point none yet                                   ││ aria  Lv 1  XP 0             | 0 crowns│
-│ Gear worn                                     │ Items carried                                  ││ HP 100/100 ########################### │
-│ > Head      -                                 │  (nothing)                                     ││ Target: Plain Scuttler                 │
-│   Chest     -                                 │                                                ││ Auto-attack: off                       │
-│   Legs      -                                 │                                                ││ Attacked by Plain Scuttler             │
-│   Hands     -                                 │                                                │└────────────────────────────────────────┘
-│   Feet      -                                 │                                                │┌─ Quest ────────────────────────────────┐
-│   Ring 1    -                                 │                                                ││ [ ] 1. Scout the Lookout               │
-│   Ring 2    -                                 │                                                ││ Testgrounds Recruiter has work for you:│
-│   Neck      -                                 │                                                ││ G.                                     │
-│   Main hand -                                 │                                                │└────────────────────────────────────────┘
-│   Off hand  -                                 │                                                │┌─ Target ───────────────────────────────┐
-│────────────────────────────────────────────────────────────────────────────────────────────────││ M Plain Scuttler  Lv 1                 │
-│                                                                                                ││ HP 40/40 ###################### 11m E  │
-│                                                                                                ││ even, fighting you                     │
-│                                                                                                │└────────────────────────────────────────┘
-│ Tab: gear / items. Up / Down choose. Enter wears it or takes it off.                           │┌─ Nearby ───────────────────────────────┐
-│ Out of combat only. Esc or C closes. N: traders. T: trade.                                     ││ & Testgrounds Contract Boa… 7m E [new] │
-│                                                                                                ││ ! Testgrounds Recruiter    11m E [new] │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ $ Testgrounds Vendor             1m NE │
-│                                                                                                ││ B Testgrounds Banker              3m E │
-│                                                                                                ││ H Testgrounds Binder              5m E │
-│                                                                                                ││ T Warrior Trainer                 5m N │
-│                                                                                                ││ T Cleric Trainer                 5m NE │
-│                                                                                                ││ T Rogue Trainer                  6m NE │
-│                                                                                                ││ T Wizard Trainer                 8m NE │
-│                                                                                                ││ +7 more                                │
-│                                                                                                ││                                        │
-└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Plain Scuttler targeted aria                                                                                                    │
-│     N.Ns You begin fighting Plain Scuttler                                                                                               │
-│     N.Ns You target Plain Scuttler                                                                                                       │
-│     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
-│     N.Ns You are in combat with Plain Scuttler                                                                                           │
+┌─ Your character  ⚠ UNDER ATTACK ─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Crowns 0 | bags 0 of 20 slots | bank 0 | bind point none yet                                                                             │
+│ [Gear]  Bags   Stats                                                                                                                     │
+│ Gear worn                                                                                                                                │
+│ > Head      -                                                                                                                            │
+│   Chest     -                                                                                                                            │
+│   Legs      -                                                                                                                            │
+│   Hands     -                                                                                                                            │
+│   Feet      -                                                                                                                            │
+│   Ring 1    -                                                                                                                            │
+│   Ring 2    -                                                                                                                            │
+│   Neck      -                                                                                                                            │
+│   Main hand -                                                                                                                            │
+│   Off hand  -                                                                                                                            │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ Nothing is worn there.                                                                                                                   │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│ Tab next tab · Up / Down choose · Enter takes it off · out of combat only                                                                │
+│ Esc or C closes · N traders · T trade                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: Plain Scuttler 40/40, attacking you | In combat                                                                       
  ⚠ Plain Scuttler is attacking you — HP 100/100 — Esc to fight                                                                              

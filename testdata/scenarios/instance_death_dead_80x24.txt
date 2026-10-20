@@ -14,7 +14,7 @@
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │    NN.Ns Your target is gone                                                 │
 │    NN.Ns Your target Plain Scuttler is gone                                  │
 │    NN.Ns Everyone in the fight with Plain Scuttler has fallen                │

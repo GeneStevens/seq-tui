@@ -12,24 +12,24 @@
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 35m S [new] │
 │                                                                                                ││ ! Testgrounds Recruiter    35m S [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ p c1                      1m W 100/100 │
 │                                                                                                ││ T Druid Trainer                  29m S │
 │                                                                                                ││ T Paladin Trainer                30m S │
 │                                                                                                ││ T Wizard Trainer                31m SW │
 │                                                                                                ││ T Rogue Trainer                 32m SW │
 │                                                                                                ││ T Cleric Trainer                33m SW │
-│                                                                                                ││ Q Testgrounds Captain            34m S │
-│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 34m S │
 │                                                                                                ││ T Warrior Trainer               34m SW │
 │                                                                                                ││ H Testgrounds Binder            35m SW │
 │                                                                                                ││ B Testgrounds Banker            36m SW │
 │                                                                                                ││ $ Testgrounds Vendor            37m SW │
-│ Tab: list  Enter: add / take back  C: crowns  Y: confirm  X: cancel trade                      ││ D Gate North                     69m E │
-│ Esc closes the screen and leaves the trade open.                                               ││ H Eastern Binder               113m SE │
-│ offer 7 crowns ok                                                                              ││ D Line East                    182m SE │
+│                                                                                                ││ D Gate North                     69m E │
+│                                                                                                ││ H Eastern Binder               113m SE │
+│ Tab list · Enter add / take back · C crowns · Y confirm · X cancel trade                       ││ D Line East                    182m SE │
+│ Esc closes the screen and leaves the trade open.                                               ││                                        │
+│ offer 7 crowns ok                                                                              ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns c1 asks to trade                                                                                                                │
 │     N.Ns The trade with c1 is open                                                                                                       │
 │     N.Ns C1 offers Worn Cap                                                                                                              │

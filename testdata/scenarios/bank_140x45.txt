@@ -26,10 +26,10 @@
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│ Tab switches list; Up / Down choose; Enter acts on the item. Esc goes back.                    ││                                        │
+│ Tab switches list · Up / Down choose · Enter acts on the item · Esc back                       ││                                        │
 │ bank Buckler ok                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │
 │     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │ +   N.Ns You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                            │

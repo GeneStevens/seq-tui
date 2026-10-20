@@ -17,18 +17,18 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
-│                                                                                          c     ││ p c2                   0m here 100/100 │
-│                                                                                                ││ D Gate North                      1m N │
+│                                                                                                ││ p c2                   0m here 100/100 │
+│                                                                                          c     ││ D Gate North                      1m N │
 │                                                                                                ││ H Eastern Binder                 72m S │
 │                                                                                                ││ T Druid Trainer                  83m W │
 │                                                                                                ││ T Paladin Trainer                84m W │
-│                                                                                                ││ Q Testgrounds Captain            86m W │
-│                                                                                                ││     <Quest Giver>                      │
-│                                                                                                ││ +8 more                                │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
+│                                                                                                ││ T Wizard Trainer                 86m W │
+│                                                                                                ││ T Rogue Trainer                  88m W │
+│                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns c2 comes into view                                                                                                              │
 │ +   N.Ns You pay 50 crowns to enter                                                                                                      │
 │     N.Ns instance opened: Peril Den (up to 2 in it); enter at gate-north with E                                                          │

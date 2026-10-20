@@ -11,25 +11,25 @@
 │  ▲ Tanned Leggings Common                  16 │                                                │└────────────────────────────────────────┘
 │  ▲ Ringed Leggings Common                  48 │                                                │┌─ Nearby ───────────────────────────────┐
 │  ▲ Studded Leggings Common                 96 │                                                ││ & Thornwick Contract Board 29m E [new] │
-│  ▲ Tanned Gloves Common                     8 │                                                ││     <Jobs for the Downs>               │
-│  ▲ Ringed Gloves Common                    24 │                                                ││ $ Hilda Brasswick <Armourer>      2m S │
-│  ▲ Studded Gloves Common                   48 │                                                ││ g Town Guard <Thornwick Watch>   15m N │
-│  ▲ Tanned Boots Common                     10 │                                                ││ $ Dunstan Reeve <Weaponsmith>    22m S │
-│  ▲ Ringed Boots Common                     30 │                                                ││ $ Barnaby Tuck <General Goods>  28m SE │
-│  ▲ Studded Boots Common                    60 │                                                ││ g Tamsin Hale <Watch Greeter>    34m E │
-│  ▲ Oak Buckler Common                      14 │                                                ││ H Isolde Fenn <Binder>          40m SE │
-│  ▲ Iron-Rimmed Shield Common               42 │                                                ││ T Mother Elswyth                 42m S │
-│  ▲ Bossed Shield Common                    84 │                                                ││     <Cleric Trainer>                   │
-│  ▲ Linen Hood Common                        8 │                                                ││ T Gorran Stoutarm                44m S │
-│  ▲ Wool Hood Common                        24 │                                                ││     <Warrior Trainer>                  │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ T Pip Nettle <Rogue Trainer>    47m SE │
-│ ▲ Tanned Cap: Common, Head; tradable once                                                      ││ T Ormond Quill <Wizard Trainer> 55m SE │
-│ armor +2; costs 8 crowns                                                                       ││ B Odalys Penn <Banker>           60m E │
-│ upgrade over an empty head: +2 armour                                                          ││ T Ser Aldric Vane               67m SE │
-│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││     <Paladin Trainer>                  │
-│ The answer is on the status line; every denial says why.                                       ││ +3 more                                │
+│  ▲ Tanned Gloves Common                     8 │                                                ││ $ Hilda Brasswick <Armourer>      2m S │
+│  ▲ Ringed Gloves Common                    24 │                                                ││ g Town Guard <Thornwick Watch>   15m N │
+│  ▲ Studded Gloves Common                   48 │                                                ││ $ Dunstan Reeve <Weaponsmith>    22m S │
+│  ▲ Tanned Boots Common                     10 │                                                ││ $ Barnaby Tuck <General Goods>  28m SE │
+│  ▲ Ringed Boots Common                     30 │                                                ││ g Tamsin Hale <Watch Greeter>    34m E │
+│  ▲ Studded Boots Common                    60 │                                                ││ H Isolde Fenn <Binder>          40m SE │
+│  ▲ Oak Buckler Common                      14 │                                                ││ T Mother Elswyth <Cleric Traine… 42m S │
+│  ▲ Iron-Rimmed Shield Common               42 │                                                ││ T Gorran Stoutarm <Warrior Trai… 44m S │
+│  ▲ Bossed Shield Common                    84 │                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
+│  ▲ Linen Hood Common                        8 │                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
+│  ▲ Wool Hood Common                        24 │                                                ││ B Odalys Penn <Banker>           60m E │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ T Ser Aldric Vane <Paladin Tra… 67m SE │
+│ ▲ Tanned Cap: Common, Head; tradable once                                                      ││ Q Captain Rhosyn Hartley <Watch… 76m E │
+│ armor +2; costs 8 crowns                                                                       ││ T Wynne Greenhollow <Druid Tra… 80m SE │
+│ upgrade over an empty head: +2 armour                                                          ││ D East Gate                      87m E │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     2.4s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
 │            healer's patience.                                                                                                            │
 │                                                                                                                                          │

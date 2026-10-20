@@ -11,10 +11,10 @@
 │                            ░                     │└──────────────────────────┘
 │                            ░                     │┌─ Nearby ─────────────────┐
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                     ││ ! Testgrou… 179m W [new] │
-│                                                  ││     <Quest Giver>        │
-│                                                  ││ +14 more                 │
+│                                                  ││ & Testgrou… 183m W [new] │
+│                                                  ││ +13 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     0.5s You target Plain Scuttler                                           │
 │     0.5s Plain Scuttler (level 1, even) is attacking you                     │
 │     0.5s You are in combat with Plain Scuttler                               │

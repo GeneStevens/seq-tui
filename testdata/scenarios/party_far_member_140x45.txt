@@ -17,18 +17,18 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   123m W [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract B… 126m W [new] │
-│                                  m                                                             ││ m Den Brute          13m SW 40/40 even │
-│                                                                                                ││ D Gate North                     40m W │
+│                                                                                                ││ m Den Brute          13m SW 40/40 even │
+│                                  m                                                             ││ D Gate North                     40m W │
 │                                                                                                ││ H Eastern Binder                 72m S │
 │                                                                                                ││ D Line East                     96m SE │
 │                                                                                                ││ T Druid Trainer                 121m W │
 │                                                                                                ││ T Paladin Trainer               123m W │
-│                                                                                                ││ +8 more                                │
-│                                                                                                ││                                        │
+│                                                                                                ││ Q Testgrounds Captain <Quest G… 124m W │
+│                                                                                                ││ T Wizard Trainer                125m W │
+│                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns ann1 invites you to a party                                                                                                     │
 │                                                                                                                                          │
 │                                                                                                                                          │

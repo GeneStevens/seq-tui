@@ -1,0 +1,45 @@
+┌─ Your character ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Crowns 5 | bags 0 of 20 slots | bank 0 | bind point none yet                                                                             │
+│ [Gear]  Bags   Stats                                                                                                                     │
+│ Gear worn                                                                                                                                │
+│ > Head      Worn Cap Common  armor +2                                                                                                    │
+│   Chest     -                                                                                                                            │
+│   Legs      -                                                                                                                            │
+│   Hands     -                                                                                                                            │
+│   Feet      -                                                                                                                            │
+│   Ring 1    -                                                                                                                            │
+│   Ring 2    -                                                                                                                            │
+│   Neck      -                                                                                                                            │
+│   Main hand Scuttler Blade Rare [bound]  damage 4-9 / 2.0s, str +3                                                                       │
+│   Off hand  -                                                                                                                            │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ Worn Cap: Common, Head; tradable once                                                                                                    │
+│ armor +2                                                                                                                                 │
+│                                                                                                                                          │
+│ Tab next tab · Up / Down choose · Enter takes it off · out of combat only                                                                │
+│ wear Worn Cap ok                                                                                                                         │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 94/100 | Target: none                                                                                                                   
+ ONLINE | Testgrounds | heard 0.4s ago | wear Worn Cap ok                                                                     ? help  q quit

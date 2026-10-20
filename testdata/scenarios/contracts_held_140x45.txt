@@ -19,21 +19,21 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
 │                                                                                                ││ Wolves at Wickett Mill             0/4 │
-│                                                                                                ││ Word from Barleycross               go │
+│                                                                                                ││ Word from Barl… 0/1 — go to the marker │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
-│                                                                                                ││     <Jobs for the Downs>               │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││     <Warrior Trainer>                  │
-│ Up / Down choose. X gives the contract up (anywhere). Hand a finished one in at its board.     ││ g Tamsin Hale <Watch Greeter>    5m SE │
-│ Esc closes.                                                                                    ││ +13 more                               │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    5m SE │
+│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
+│ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ $ Barnaby Tuck <General Goods>  13m SW │
+│ Esc closes                                                                                     ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     N.Ns Town Guard is out of view                                                                                                       │
 │     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │ +   N.Ns You take the contract Wolves at Wickett Mill                                                                                    │

@@ -436,8 +436,8 @@ func TestEconomyScreens(t *testing.T) {
 		wants []string
 	}{
 		{"class_menu", []string{"Class (the server's menu)", "> 6  Druid", "healer + spell", "Starts with, free:", "Thorn Bolt"}},
-		{"inventory_looted", []string{"Inventory and gear", "Gear worn", "Items carried", "Scuttler Blade", "Worn Cap", "Crowns 5"}},
-		{"inventory_worn", []string{"Worn Cap Common", "Main hand", "Scuttler Blade", "tradable once"}},
+		{"character_bags", []string{"Your character", "Items carried", "Scuttler Blade", "Worn Cap", "Crowns 5"}},
+		{"character_gear", []string{"Worn Cap Common", "Main hand", "Scuttler Blade", "tradable once"}},
 		{"vendor", []string{"Testgrounds Vendor", "For sale (Enter buys one)", "Worn Cap", "Padded Vest", "You carry (Enter sells one)"}},
 		{"trainer", []string{"Wizard Trainer", "Glyphshield", "45 crowns", "known"}},
 		{"bank", []string{"In the bank, 1", "Buckler"}},
@@ -516,7 +516,7 @@ func TestScreensUnderAttackFitTheirSize(t *testing.T) {
 	m.Alert = &model.Alert{Mob: "mob-1", Name: "Hedge Brigand", Con: "hard", Level: 4, Danger: true}
 	views := map[string]screen.View{
 		"map":       {},
-		"inventory": {Inventory: &screen.Inventory{}},
+		"inventory": {Char: true},
 		"traders":   {Traders: &screen.Traders{}},
 		"trade":     {Trade: &screen.TradeUI{}},
 		"talk":      {Talk: &screen.Talk{NPC: m.NPCs[0].GetId()}},
@@ -527,7 +527,7 @@ func TestScreensUnderAttackFitTheirSize(t *testing.T) {
 		"help":      {Help: true},
 		"overview":  {Overview: true},
 		"quest":     {Quest: &screen.QuestUI{}},
-		"notice":    {Inventory: &screen.Inventory{}, Notice: "wear Worn Cap denied: You can't do that while you're fighting", NoticeBad: true},
+		"notice":    {Char: true, Notice: "wear Worn Cap denied: You can't do that while you're fighting", NoticeBad: true},
 	}
 	for name, v := range views {
 		v.Conn = screen.ConnOnline
@@ -568,7 +568,7 @@ func TestTheAlarmOnTheMapIsForDanger(t *testing.T) {
 	if s := status(screen.View{Conn: screen.ConnOnline}); strings.Contains(s, "⚠") {
 		t.Errorf("an even mob raises the alarm on the map: %q", s)
 	}
-	if s := status(screen.View{Conn: screen.ConnOnline, Inventory: &screen.Inventory{}}); !strings.Contains(s, "⚠ Plain Scuttler is attacking you") || !strings.Contains(s, "Esc to fight") {
+	if s := status(screen.View{Conn: screen.ConnOnline, Char: true}); !strings.Contains(s, "⚠ Plain Scuttler is attacking you") || !strings.Contains(s, "Esc to fight") {
 		t.Errorf("a menu under attack: %q", s)
 	}
 	m.Alert.Danger, m.Alert.Con = true, "deadly"
@@ -744,5 +744,67 @@ func TestLevelUpBannerAndHandInSummary(t *testing.T) {
 	out := screen.Render(m, screen.View{Conn: screen.ConnOnline, Board: &screen.Board{NPC: m.NPCs[0].GetId()}}, 140, 45, screen.Plain())
 	if !strings.Contains(out, "Handed in the quest step First Steps: 20 XP, 15 crowns, Worn Cap. You reached level 2!") {
 		t.Errorf("no hand-in summary:\n%s", out)
+	}
+}
+
+// The hierarchy (TUI-029): a panel's title is bold in the accent colour, its keys
+// are highlighted over a dim help line, and NO_COLOR keeps bold and dim but no
+// colour at all.
+func TestHierarchyStylesAndNoColor(t *testing.T) {
+	c := caseNamed(t, "vendor")
+	m := replay(t, c)
+	v := screen.View{Conn: screen.ConnOnline, Traders: &screen.Traders{}}
+	ansi := screen.Render(m, v, 100, 30, screen.ANSI())
+	if !strings.Contains(ansi, "\x1b[1;36mTraders\x1b[0m") {
+		t.Errorf("the panel title is not bold in the accent colour:\n%q", ansi)
+	}
+	v.Traders = &screen.Traders{Open: true, NPC: m.NPCs[0].GetId()}
+	ansi = screen.Render(m, v, 100, 30, screen.ANSI())
+	if !strings.Contains(ansi, "\x1b[1m For sale") {
+		t.Errorf("the section header is not bold:\n%q", ansi)
+	}
+	if !strings.Contains(ansi, "\x1b[36mEnter\x1b[0m") || !strings.Contains(ansi, "\x1b[2m") {
+		t.Errorf("a help line does not have its keys highlighted over dim text:\n%q", ansi)
+	}
+	mono := screen.Render(m, v, 100, 30, screen.Mono())
+	if !strings.Contains(mono, "\x1b[1mTraders") && !strings.Contains(mono, "\x1b[1m") {
+		t.Error("NO_COLOR dropped bold too")
+	}
+	for _, code := range sgr.FindAllString(mono, -1) {
+		if code != "\x1b[0m" && code != "\x1b[1m" && code != "\x1b[2m" && code != "\x1b[7m" {
+			t.Errorf("NO_COLOR output has the colour %q", code)
+			break
+		}
+	}
+	if got := sgr.ReplaceAllString(mono, ""); got != screen.Render(m, v, 100, 30, screen.Plain()) {
+		t.Error("the NO_COLOR screen differs from the plain one once styling is removed")
+	}
+}
+
+// What cannot be used is marked x with its reason, and a row greyed for the price
+// keeps its mark bold inside the dim row.
+func TestMarksSurviveGreyingAndNotUsableSaysWhy(t *testing.T) {
+	c := caseNamed(t, "vendor")
+	m := replay(t, c)
+	n := m.NPCs[0]
+	if len(n.GetStock()) < 2 {
+		t.Fatal("the vendor sells too little")
+	}
+	item := n.GetStock()[1].GetItem() // the cursor's row: its card says why
+	m.Self.Crowns = 0
+	other := n.GetStock()[0].GetItem() // greyed, and not under the cursor
+	m.Self.Facts = map[string]*pb.ItemFact{
+		item:  {Item: item, Verdict: "not_usable", Reason: "class", Need: "mage,cleric"},
+		other: {Item: other, Verdict: "upgrade", Slot: "head"},
+	}
+	v := screen.View{Conn: screen.ConnOnline, Traders: &screen.Traders{Open: true, NPC: n.GetId(), Cur: [2]int{1, 0}}}
+	plain := screen.Render(m, v, 140, 45, screen.Plain())
+	for _, want := range []string{"x " + m.ItemName(item), "can't use: mage, cleric only"} {
+		if !strings.Contains(plain, want) {
+			t.Errorf("the screen lacks %q:\n%s", want, plain)
+		}
+	}
+	if ansi := screen.Render(m, v, 140, 45, screen.ANSI()); !strings.Contains(ansi, "\x1b[1m▲\x1b[0m\x1b[2m") {
+		t.Errorf("the mark of a greyed row is dimmed with the rest")
 	}
 }

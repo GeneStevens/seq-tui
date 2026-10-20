@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │            bandits on the near roads, goblins farther out. Go carefully until│
 │            you are seasoned. There is a larger task for those the Watch can  │
 │            trust. Prove yourself first, and come and see me.                 │

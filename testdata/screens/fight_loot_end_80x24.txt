@@ -14,7 +14,7 @@
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │     2.2s Aria stopped attacking                                              │
 │ +   2.3s Aria received Shell Fragment                                        │
 │     2.3s Tip: tradable once means one trade to another player, then it is    │

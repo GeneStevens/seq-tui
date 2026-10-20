@@ -24,22 +24,20 @@ const momentWindowMs = 20_000
 // anyScreen says a screen or menu is open over the map.
 func (v View) anyScreen() bool {
 	return v.Help || v.Sessions != nil || v.Quest != nil || v.Create != nil || v.Social != nil || v.Slots != nil ||
-		v.Inventory != nil || v.Traders != nil || v.Trade != nil || v.Talk != nil || v.Board != nil || v.Role != nil ||
-		v.Contracts != nil || v.Overview || v.Menu != nil
+		v.Traders != nil || v.Trade != nil || v.Talk != nil || v.Board != nil || v.Role != nil ||
+		v.Contracts != nil || v.Overview || v.Menu != nil || v.Char
 }
 
 // serviceOpen says one of the services is open: trade, trainer, bank, inventory,
 // talk, the board or contracts.
 func serviceOpen(v View) bool {
-	return v.Inventory != nil || v.Traders != nil || v.Trade != nil || v.Talk != nil || v.Board != nil || v.Contracts != nil
+	return v.Traders != nil || v.Trade != nil || v.Talk != nil || v.Board != nil || v.Contracts != nil
 }
 
 // servicePanel says the screen is one of the services, which take the map's
 // area and keep the rest of the screen (D75), and gives its title and lines.
 func servicePanel(m *model.Model, v View, w, h int, st Styler) (title string, lines []string, ok bool) {
 	switch {
-	case v.Inventory != nil:
-		title, lines = "Inventory and gear", inventoryScreenLines(m, v.Inventory, w, h, st)
 	case v.Traders != nil:
 		title, lines = "Traders", tradersScreenLines(m, v.Traders, w, h, st)
 	case v.Trade != nil:
@@ -192,38 +190,38 @@ func hintLine(m *model.Model, v View, w int, st Styler) string {
 	var parts []string
 	switch {
 	case m.Self.Dead:
-		parts = append(parts, "R: release your body and wake at your bind point")
+		parts = append(parts, "{R}: release your body and wake at your bind point")
 	case m.Self.Pos == nil:
 	default:
 		if d := nearestDoorHint(m); d != nil {
-			parts = append(parts, "E: "+doorWords(d))
+			parts = append(parts, "{E}: "+doorWords(d))
 		}
 		if n := nearestNPCHint(m); n != nil {
-			parts = append(parts, "G: talk to "+model.NPCLabel(n))
+			parts = append(parts, "{G}: talk to "+model.NPCLabel(n))
 		}
 		if d := nearestDropHint(m); d != nil {
 			switch n := dropsInReach(m); {
 			case n > 1:
-				parts = append(parts, fmt.Sprintf("L: loot all %d drops", n))
+				parts = append(parts, fmt.Sprintf("{L}: loot all %d drops", n))
 			default:
-				parts = append(parts, "L: loot "+m.DropName(d))
+				parts = append(parts, "{L}: loot "+m.DropName(d))
 			}
 		}
 		if mobsInView(m) > 0 {
 			switch {
 			case m.Self.Target != "" && m.Self.AutoAttack:
-				parts = append(parts, "F: stop attacking · Esc: clear the target")
+				parts = append(parts, "{F}: stop attacking · {Esc}: clear the target")
 			case m.Self.Target != "":
-				parts = append(parts, "F: attack · Tab: next target")
+				parts = append(parts, "{F}: attack · {Tab}: next target")
 			default:
-				parts = append(parts, "Tab: target · F: attack")
+				parts = append(parts, "{Tab}: target · {F}: attack")
 			}
 		}
 	}
 	if len(parts) == 0 {
-		parts = []string{"Walk: click or arrows · M: large map · ?: help"}
+		parts = []string{"Walk: click or {arrows} · {M}: large map · {?}: help"}
 	}
-	return st.Dim(fit(" "+strings.Join(parts, "  ·  "), w))
+	return help(" "+strings.Join(parts, "  ·  "), w, st)
 }
 
 // doorWords is what a door does, from the server's label ("East Gate — to the Thornwick Downs").

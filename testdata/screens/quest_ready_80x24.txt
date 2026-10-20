@@ -17,8 +17,8 @@
 │ Pays nothing.                                                                │
 │ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m NE.       │
 │                                                                              │
-│ Tab: offered / held. Up / Down choose. Enter acts. Esc goes back.            │
-│ The answer is on the status line; every refusal says why.                    │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back             │
+│ Up / Down choose. The answer is on the status line; every refusal says why.  │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 215/215 | Target: none                                                      
  ONLINE | → Hand in: Break the Raiding Party, 1m NE | heard 0.4s ago      ? help

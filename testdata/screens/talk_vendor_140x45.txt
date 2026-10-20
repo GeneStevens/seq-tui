@@ -11,25 +11,25 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 29m E [new] │
-│                                                                                                ││     <Jobs for the Downs>               │
 │                                                                                                ││ $ Hilda Brasswick <Armourer>      2m S │
 │                                                                                                ││ g Town Guard <Thornwick Watch>   15m N │
 │                                                                                                ││ $ Dunstan Reeve <Weaponsmith>    22m S │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>  28m SE │
 │                                                                                                ││ g Tamsin Hale <Watch Greeter>    34m E │
 │                                                                                                ││ H Isolde Fenn <Binder>          40m SE │
-│                                                                                                ││ T Mother Elswyth                 42m S │
-│                                                                                                ││     <Cleric Trainer>                   │
-│                                                                                                ││ T Gorran Stoutarm                44m S │
-│                                                                                                ││     <Warrior Trainer>                  │
+│                                                                                                ││ T Mother Elswyth <Cleric Traine… 42m S │
+│                                                                                                ││ T Gorran Stoutarm <Warrior Trai… 44m S │
 │                                                                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
 │                                                                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
 │                                                                                                ││ B Odalys Penn <Banker>           60m E │
-│                                                                                                ││ T Ser Aldric Vane               67m SE │
-│ Number keys or Up / Down choose, Enter does it. Esc closes. G talks again.                     ││     <Paladin Trainer>                  │
-│ talk to Hilda Brasswick ok                                                                     ││ +3 more                                │
+│                                                                                                ││ T Ser Aldric Vane <Paladin Tra… 67m SE │
+│                                                                                                ││ Q Captain Rhosyn Hartley <Watch… 76m E │
+│                                                                                                ││ T Wynne Greenhollow <Druid Tra… 80m SE │
+│                                                                                                ││ D East Gate                      87m E │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││                                        │
+│ talk to Hilda Brasswick ok                                                                     ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     2.4s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
 │            healer's patience.                                                                                                            │
 │                                                                                                                                          │

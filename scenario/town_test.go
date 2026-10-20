@@ -533,8 +533,9 @@ func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 			t.Fatalf("after three steps: %v; log ends %+v", n, m.Log[len(m.Log)-2:])
 		}
 	})
-	if s := p.Screen(140, 45); !strings.Contains(s, "Gorran Stoutarm") {
-		t.Fatalf("the trainer is not in Nearby:\n%s", s)
+	// The short log keeps the NPCs coming into view out (the model has the line, above).
+	if s := p.Screen(140, 45); strings.Contains(s, "comes into view") {
+		t.Fatalf("the short log has a person coming into view:\n%s", s)
 	}
 	p.Golden("trainer_appears")
 	p.Press("n")

@@ -25,11 +25,12 @@ func shopper(t *testing.T) (*app.App, *model.Model) {
 	return app.New(client.NewSession(client.Config{Model: m})), m
 }
 
-func TestInventoryScreenKeys(t *testing.T) {
+func TestCharacterViewKeys(t *testing.T) {
 	a, _ := shopper(t)
 	press(a, "c")
 	s := screenOf(a)
-	for _, want := range []string{"Inventory and gear", "Items carried", ">   Worn Cap", "Scuttler Blade Rare [bound]", "bound on pickup"} {
+	// It opens on the bags, which hold something: the cursor is on the first item.
+	for _, want := range []string{"Your character", "[Bags]", "Items carried", ">   Worn Cap", "Scuttler Blade Rare [bound]", "bound on pickup"} {
 		if want == "bound on pickup" {
 			press(a, "down")
 			s = screenOf(a)
@@ -42,14 +43,23 @@ func TestInventoryScreenKeys(t *testing.T) {
 	if cmd := press(a, "enter"); cmd == nil {
 		t.Error("enter did not send the equip")
 	}
-	// Tab to the gear: nothing is worn there.
+	// Tab turns to Stats, and again to Gear: nothing is worn there.
 	press(a, "tab")
+	press(a, "tab")
+	if s := screenOf(a); !strings.Contains(s, "[Gear]") || !strings.Contains(s, "Gear worn") {
+		t.Errorf("tab twice is not the Gear tab:\n%s", s)
+	}
 	if cmd := press(a, "enter"); cmd != nil || !strings.Contains(screenOf(a), "nothing is worn there") {
 		t.Errorf("take off from an empty slot:\n%s", screenOf(a))
 	}
 	press(a, "esc")
-	if strings.Contains(screenOf(a), "Inventory and gear") {
+	if strings.Contains(screenOf(a), "Your character") {
 		t.Error("esc did not close the screen")
+	}
+	press(a, "c")
+	press(a, "c")
+	if strings.Contains(screenOf(a), "Your character") {
+		t.Error("C did not close the screen")
 	}
 }
 
@@ -106,7 +116,7 @@ func TestTradeWindowKeys(t *testing.T) {
 	m.Trade = &pb.TradeState{With: "bram", Open: true, Mine: &pb.TradeOffer{Items: []string{"worn-cap"}}, Theirs: &pb.TradeOffer{Crowns: 4}, TheirsConfirmed: true}
 	press(a, "t")
 	s := screenOf(a)
-	for _, want := range []string{"Trade with Bram", "Your offer", "Bram's offer", "CONFIRMED", "crowns 4", "Tab: list"} {
+	for _, want := range []string{"Trade with Bram", "Your offer", "Bram's offer", "CONFIRMED", "crowns 4", "Tab list"} {
 		if !strings.Contains(s, want) {
 			t.Errorf("missing %q:\n%s", want, s)
 		}

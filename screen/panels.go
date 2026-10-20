@@ -311,37 +311,55 @@ func nearbyLines(m *model.Model, w, h int, st Styler) []string {
 		if n.target {
 			g = upper(g)
 		}
-		room := w - width(right) - 4
-		name, title := n.name, ""
-		if n.title != "" {
-			if full := name + " <" + n.title + ">"; width(full) <= room {
-				name = full
-			} else {
-				title = "<" + n.title + ">" // the title goes on a line of its own
-			}
-		}
-		need := 1
-		if title != "" {
-			need = 2
-		}
-		if i < len(list)-1 && len(rows)+need >= h {
+		if i < len(list)-1 && len(rows)+1 >= h {
 			rows = append(rows, fit(fmt.Sprintf(" +%d more", len(list)-i), w))
 			break
 		}
-		line := fit(" "+string(g)+" "+fit(name, max(room, 1)), w-width(right)-1) + " " + right
-		line = fit(line, w)
-		if n.target {
-			line = st.Reverse(line)
-		}
-		rows = append(rows, line)
-		if title != "" {
-			rows = append(rows, st.Dim(fit("     "+title, w)))
-		}
+		rows = append(rows, nearbyRow(n, g, right, w, st))
 	}
 	if len(list) == 0 {
 		rows = append(rows, fit(" nothing in view", w))
 	}
 	return pad(rows, w, h)
+}
+
+// nearbyRow is one entry of Nearby on one line: the glyph, the name, an NPC's
+// title beside it in dim, then the distance and what is known of it. The title
+// is cut before the name is, and goes when it would leave the name too little.
+func nearbyRow(n nearby, g rune, right string, w int, st Styler) string {
+	if width(right) > w-8 {
+		right = strings.TrimRight(fit(strings.TrimRight(right, " "), max(w-8, 1)), " ") + " " // a name keeps some room
+	}
+	room := max(w-width(right)-4, 1) // the cells for the name and the title
+	name, title := n.name, ""
+	if n.title != "" {
+		full := "<" + n.title + ">"
+		switch left := room - width(name) - 1; {
+		case left >= width(full):
+			title = full
+		case left >= 5:
+			title = strings.TrimRight(fit(full, left), " ")
+		}
+	}
+	name = strings.TrimRight(fit(name, min(room, width(name))), " ")
+	used := width(name)
+	if title != "" {
+		used += 1 + width(title)
+	}
+	gap := strings.Repeat(" ", max(w-3-used-width(right)-1, 0)+1)
+	line := " " + string(g) + " " + name
+	if title != "" {
+		if n.target {
+			line += " " + title
+		} else {
+			line += " " + st.Dim(title)
+		}
+	}
+	line += gap + right
+	if n.target {
+		return st.Reverse(line)
+	}
+	return line
 }
 
 func pad(rows []string, w, h int) []string {
@@ -426,12 +444,12 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 		case (e.Kind == "combat_hit" || e.Kind == "combat_miss") && e.Target == m.Self.ID:
 			mark, fn = "<", st.Red
 		case e.Kind == "combat_death":
-			mark, fn = "x", st.Yellow
-			if e.Actor == m.Self.ID {
-				fn = func(s string) string { return st.Yellow(st.Bold(s)) }
+			mark, fn = "x", st.Bold
+			if e.Actor != m.Self.ID {
+				fn = func(s string) string { return s }
 			}
 		case e.Kind == "world_event" || e.Kind == "rare_appeared":
-			mark, fn = "*", func(s string) string { return st.Yellow(st.Bold(s)) }
+			mark, fn = "*", st.Bold
 		case e.Kind == "reward":
 			mark, fn = "+", st.Green
 		case e.Kind == "cast_cancelled" || e.Kind == "cast_interrupted":
@@ -444,7 +462,7 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 		case e.Kind == "quest":
 			mark, fn = "+", st.Green
 		case e.Kind == "walk_stopped":
-			mark, fn = "!", st.Yellow
+			mark, fn = "!", st.Bold
 		case e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed":
 			fn = st.Dim
 		}

@@ -11,24 +11,24 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter    79m W [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract Bo… 82m W [new] │
-│                                                @                                               ││ ~ 5 crowns          16m S not lootable │
-│                                                                                                ││ ~ Scuttler Blade ▲  16m S not lootable │
+│                                                                                                ││ ~ 5 crowns          16m S not lootable │
+│                                                @                                               ││ ~ Scuttler Blade ▲  16m S not lootable │
 │                                                                                                ││ ~ Worn Cap ▲        16m S not lootable │
 │                                                                                                ││ p c1                      16m S 94/100 │
 │                                                                                                ││ D Gate North                     24m N │
 │                                                                                                ││ H Eastern Binder                50m SE │
 │                                                                                                ││ T Druid Trainer                  78m W │
 │                                                                                                ││ T Paladin Trainer                80m W │
-│                                                                                                ││ Q Testgrounds Captain            80m W │
-│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 80m W │
 │                                                                                                ││ T Wizard Trainer                 82m W │
-│                                             p  ~                                               ││ T Rogue Trainer                  84m W │
+│                                                                                                ││ T Rogue Trainer                  84m W │
 │                                                                                                ││ H Testgrounds Binder             84m W │
-│                                                                                                ││ +5 more                                │
+│                                             p  ~                                               ││ T Cleric Trainer                 86m W │
+│                                                                                                ││ B Testgrounds Banker             86m W │
+│                                                                                                ││ +3 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    NN.Ns C1 hits Trophy Scuttler for 4                                                                                                   │
 │    NN.Ns Trophy Scuttler hits c1 for 1                                                                                                   │
 │    NN.Ns C1 hits Trophy Scuttler for 4                                                                                                   │

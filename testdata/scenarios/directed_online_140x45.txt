@@ -11,24 +11,24 @@
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   86m SW [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ & Testgrounds Contract B… 89m SW [new] │
-│                                                @                                               ││ p cy1                     3m S 100/100 │
-│                                                                                                ││ D Gate North                      3m S │
-│                                                p                                               ││ p ann1                    4m S 100/100 │
+│                                                                                                ││ p cy1                     3m S 100/100 │
+│                                                @                                               ││ D Gate North                      3m S │
+│                                                                                                ││ p ann1                    4m S 100/100 │
 │                                                p                                               ││ H Eastern Binder                 75m S │
-│                                                                                                ││ T Druid Trainer                  84m W │
+│                                                p                                               ││ T Druid Trainer                  84m W │
 │                                                                                                ││ T Paladin Trainer                86m W │
-│                                                                                                ││ Q Testgrounds Captain           87m SW │
-│                                                                                                ││     <Quest Giver>                      │
+│                                                                                                ││ Q Testgrounds Captain <Quest G… 87m SW │
 │                                                                                                ││ T Wizard Trainer                 87m W │
-│                                                                                          c     ││ T Rogue Trainer                  89m W │
+│                                                                                                ││ T Rogue Trainer                  89m W │
 │                                                                                                ││ H Testgrounds Binder             91m W │
-│                                                                                                ││ T Cleric Trainer                 91m W │
+│                                                                                          c     ││ T Cleric Trainer                 91m W │
 │                                                                                                ││ B Testgrounds Banker             93m W │
-│                                                                                                ││ +3 more                                │
+│                                                                                                ││ T Warrior Trainer                93m W │
+│                                                                                                ││ $ Testgrounds Vendor             95m W │
+│                                                                                                ││ D Line East                    126m SE │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ──────────────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
+┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
 │ nothing has happened yet                                                       ││ [say] cy1: hello both                                  │
 │                                                                                ││ [tell] cy1: psst, a word                               │
 │                                                                                ││                                                        │

@@ -14,7 +14,7 @@
 │               ░                           #      ││ M Plain Scuttler  Lv 1   │
 │               ░                           #      ││ HP 40/40 ######### 4m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
 │            walk. Move again to go on.                                        │
 │     N.Ns You target Plain Scuttler                                           │
 │     N.Ns Plain Scuttler (level 1, even) is attacking you                     │

@@ -83,40 +83,47 @@ func step(cur int, k string, n int) int {
 	return max(min(cur, n-1), 0)
 }
 
-// invKey handles a key on the inventory and gear screen.
-func (a *App) invKey(k string, m *model.Model) Action {
-	v := a.inv
-	stacks := m.Stacks(m.Self.Inventory)
-	n := len(stacks)
-	v.Item = max(min(v.Item, n-1), 0)
+// charKey handles a key on the character view: Tab (or 1 to 3) turns to a tab, the
+// arrows move the cursor, and Enter takes off the gear under it or wears the item.
+func (a *App) charKey(k string, m *model.Model) Action {
+	sb := &a.mouse.charTab
 	switch {
 	case k == "esc" || k == "c" || k == "q":
-		a.inv = nil
+		a.char = false
 	case k == "ctrl+c":
 		return Action{Kind: Quit}
 	case k == "n":
 		return Action{Kind: OpenTraders}
 	case k == "t":
 		return Action{Kind: OpenTrade}
-	case k == "tab" || k == "left" || k == "right":
-		v.Carried = !v.Carried
+	case k == "tab" || k == "right":
+		return Action{Kind: SelectSide, Count: (sb.Tab + 1) % screen.Tabs}
+	case k == "left" || k == "shift+tab":
+		return Action{Kind: SelectSide, Count: (sb.Tab + screen.Tabs - 1) % screen.Tabs}
+	case k == "1" || k == "2" || k == "3":
+		return Action{Kind: SelectSide, Count: int(k[0] - '1')}
+	case k == "pgdown":
+		return Action{Kind: ScrollSide, Count: 4}
+	case k == "pgup":
+		return Action{Kind: ScrollSide, Count: -4}
 	case up(k) || down(k):
-		if v.Carried {
-			v.Item = step(v.Item, k, n)
-		} else {
-			v.Worn = step(v.Worn, k, len(model.GearSlots))
+		if sb.Tab == screen.TabStats {
+			return Action{Kind: ScrollSide, Count: map[bool]int{true: -1, false: 1}[up(k)]}
 		}
-	case enter(k) && v.Carried:
-		if n == 0 {
-			return Action{Note: "you carry nothing to wear"}
-		}
-		inst := stacks[v.Item].Inst
-		return Action{Kind: Equip, ID: inst, Note: m.ItemName(inst)}
+		sb.Cur[sb.Tab] = step(sb.Cur[sb.Tab], k, screen.CharRows(m, sb.Tab))
 	case enter(k):
-		if m.Worn(v.Worn) == "" {
+		inst, gear, slot := screen.CharSelected(m, sb)
+		switch {
+		case sb.Tab == screen.TabStats:
+		case gear && inst == "":
 			return Action{Note: "nothing is worn there"}
+		case gear:
+			return Action{Kind: Unequip, Gear: model.GearSlots[slot], Note: m.ItemName(inst)}
+		case inst == "":
+			return Action{Note: "you carry nothing to wear"}
+		default:
+			return Action{Kind: Equip, ID: inst, Note: m.ItemName(inst)}
 		}
-		return Action{Kind: Unequip, Gear: model.GearSlots[v.Worn], Note: m.ItemName(m.Worn(v.Worn))}
 	}
 	return Action{}
 }

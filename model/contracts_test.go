@@ -323,3 +323,20 @@ func logText(m *model.Model) string {
 	}
 	return b.String()
 }
+
+// The short log leaves out people coming into and going out of view: the model
+// marks those lines quiet, and keeps them for the long view.
+func TestNPCsInAndOutOfViewAreQuietLines(t *testing.T) {
+	m := model.New()
+	event(m, 2000, &pb.Event{Text: "Smith <Smith> comes into view", Body: &pb.Event_NpcAppeared{NpcAppeared: &pb.NpcAppeared{
+		Npc: &pb.NpcInfo{Id: "smith", Name: "Smith", Role: "vendor", Pos: &pb.Pos{X: 9000, Y: 9000}}}}})
+	event(m, 3000, &pb.Event{Text: "Smith is out of view", Body: &pb.Event_NpcLeft{NpcLeft: &pb.NpcLeft{Id: "smith"}}})
+	if len(m.Log) != 2 {
+		t.Fatalf("log: %+v", m.Log)
+	}
+	for _, e := range m.Log {
+		if !e.Quiet {
+			t.Errorf("%s %q is not quiet", e.Kind, e.Text)
+		}
+	}
+}

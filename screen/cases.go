@@ -39,11 +39,11 @@ type Case struct {
 	// empty log draws it before any character is chosen).
 	Slots  *Slots
 	Create *Create
-	// PlanSlots are the slot changes the plan holds; Inventory, Traders and
-	// Trade draw the inventory and gear screen, the traders' screen and the
+	// PlanSlots are the slot changes the plan holds; Char (the sidebar state)
+	// draws the character view, Traders and Trade the traders' screen and the
 	// trade window.
 	PlanSlots map[int]string
-	Inventory *Inventory
+	Char      *Sidebar
 	Traders   *Traders
 	Trade     *TradeUI
 	// TraderName puts the traders' screen's cursor on the trader with that name.
@@ -135,8 +135,8 @@ var Cases = []Case{
 	// gear, the traders, a trade, the Peril menu, effects seen on login, and a
 	// slot changed by the plan.
 	{Name: "class_menu", Log: "class_menu.jsonl", Mark: "class_menu", Create: &Create{Name: "Mira", Class: 5, Classes: true}},
-	{Name: "inventory_looted", Log: "loot_equip.jsonl", Mark: "inventory_looted", Inventory: &Inventory{Carried: true}},
-	{Name: "inventory_worn", Log: "loot_equip.jsonl", Mark: "inventory_worn", Notice: "wear Worn Cap ok", Inventory: &Inventory{}},
+	{Name: "character_bags", Log: "loot_equip.jsonl", Mark: "inventory_looted", Char: &Sidebar{Tab: TabBags}},
+	{Name: "character_gear", Log: "loot_equip.jsonl", Mark: "inventory_worn", Notice: "wear Worn Cap ok", Char: &Sidebar{}},
 	{Name: "vendor", Log: "traders.jsonl", Mark: "vendor", Traders: &Traders{Open: true, Cur: [2]int{1, 0}}, TraderName: "Testgrounds Vendor"},
 	{Name: "trainer", Log: "traders.jsonl", Mark: "trainer", Traders: &Traders{Open: true, Cur: [2]int{2, 0}}, TraderName: "Wizard Trainer"},
 	{Name: "bank", Log: "traders.jsonl", Mark: "bank", Notice: "bank Buckler ok", Traders: &Traders{Open: true}, TraderName: "Testgrounds Banker"},
@@ -261,7 +261,7 @@ func (c Case) Draw(m *model.Model, w, h int) string {
 		v.Menu = &Menu{Sel: c.MenuSel}
 	}
 	v.Slots, v.Create, v.PlanSlots = c.Slots, c.Create, c.PlanSlots
-	v.Inventory, v.Traders, v.Trade = c.Inventory, c.Traders, c.Trade
+	v.Char, v.Side, v.Traders, v.Trade = c.Char != nil, c.Char, c.Traders, c.Trade
 	v.Talk, v.Board, v.Contracts, v.Overview = c.Talk, c.Board, c.Contracts, c.Overview
 	v.Role, v.Duo = c.Role, c.Duo
 	v.Line, v.Social, v.HelpPage = c.Line, c.Social, c.HelpPage

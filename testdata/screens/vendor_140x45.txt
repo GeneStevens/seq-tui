@@ -18,7 +18,6 @@
 │ upgrade over an empty head: +2 armour                                                          │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Testgrounds Contract Bo… 4m SE [new] │
 │                                                                                                ││ ! Testgrounds Recruiter    9m SE [new] │
-│                                                                                                ││     <Quest Giver>                      │
 │                                                                                                ││ B Testgrounds Banker              2m S │
 │                                                                                                ││ T Cleric Trainer                  2m N │
 │                                                                                                ││ H Testgrounds Binder             3m SE │
@@ -26,10 +25,11 @@
 │                                                                                                ││ T Warrior Trainer                3m NW │
 │                                                                                                ││ $ Testgrounds Vendor             3m SW │
 │                                                                                                ││ T Wizard Trainer                 4m NE │
-│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││ +7 more                                │
-│ The answer is on the status line; every denial says why.                                       ││                                        │
+│                                                                                                ││ Q Testgrounds Captain <Quest Giv… 6m E │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││ T Paladin Trainer                 6m E │
+│ The answer is on the status line; every denial says why.                                       ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ nothing has happened yet                                                                                                                 │
 │                                                                                                                                          │
 │                                                                                                                                          │

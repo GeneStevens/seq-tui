@@ -17,18 +17,18 @@
 │                                  ░                                                       #     │┌─ Nearby ───────────────────────────────┐
 │                                  ░                                                       #     ││ & Testgrounds Contract B… 11m NE [new] │
 │                                  ░                                                       #     ││ ! Testgrounds Recruiter   13m NE [new] │
-│                                  ░                                                       #     ││     <Quest Giver>                      │
 │                                  ░                                                       #     ││ $ Testgrounds Vendor              8m N │
 │                                  ░                                                       #     ││ B Testgrounds Banker             9m NE │
 │                                  ░                                                       #     ││ H Testgrounds Binder            10m NE │
 │                                  ░                                                       #     ││ T Warrior Trainer                12m N │
 │                                  ░                                                       #     ││ T Cleric Trainer                 13m N │
-│                                  ░                                                       #     ││ Q Testgrounds Captain           13m NE │
-│                                  ░                                                       #     ││     <Quest Giver>                      │
+│                                  ░                                                       #     ││ Q Testgrounds Captain <Quest G… 13m NE │
 │                                  ░                                                       #     ││ T Rogue Trainer                 13m NE │
-│                                  ░                                                       #     ││ +7 more                                │
+│                                  ░                                                       #     ││ T Wizard Trainer                14m NE │
+│                                  ░                                                       #     ││ m Plain Scuttler      15m E 40/40 even │
+│                                  ░                                                       #     ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ nothing has happened yet                                                                                                                 │
 │                                                                                                                                          │
 │                                                                                                                                          │
