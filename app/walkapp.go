@@ -64,7 +64,9 @@ func (a *App) walkPoll() tea.Cmd {
 	}
 	if out, ok := ws.w.Poll(a.now()); ok {
 		req := walkReq{out: out}
-		ws.sends = append(ws.sends, WalkSend{At: a.now(), WalkOut: out})
+		if a.Clock != nil { // a scenario counts them
+			ws.sends = append(ws.sends, WalkSend{At: a.now(), WalkOut: out})
+		}
 		if a.focus {
 			req.for_ = a.duo.Character()
 			a.duo.SetDirected(true)

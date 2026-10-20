@@ -195,6 +195,7 @@ func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if closed, _ := a.sess.Closed(); closed {
 			if a.sess.LoggedOut() {
 				a.view.Conn = screen.ConnLoggedOut
+				a.closeWalk()
 				return a, tea.Quit
 			}
 			a.view.Conn = screen.ConnReconnecting
