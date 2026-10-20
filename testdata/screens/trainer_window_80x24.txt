@@ -20,5 +20,5 @@
 │ Enter acts · Esc back                                                        │
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘
- HP 138/164 | Target: none                                                      
+ HP 142/164 | Target: none                                                      
  ONLINE | Trainers' Lane, Thornwick | road: faster, 125% | heard 0.4s ago ? help

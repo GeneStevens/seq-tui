@@ -49,18 +49,16 @@
 {"pong":{"nonce":"136"}}
 {"pong":{"nonce":"137"}}
 {"intent_result":{"intent_id":"tui-3","accepted":true}}
-{"pong":{"nonce":"138"}}
 {"event":{"seq":"4","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607500","submitted":["aria"],"participants":"2"}}}
+{"pong":{"nonce":"138"}}
 {"pong":{"nonce":"139"}}
 {"pong":{"nonce":"140"}}
 {"pong":{"nonce":"141"}}
 {"pong":{"nonce":"142"}}
 {"pong":{"nonce":"143"}}
+# mark duo_stance_planned
 {"pong":{"nonce":"144"}}
 {"pong":{"nonce":"145"}}
-# mark duo_stance_planned
-{"pong":{"nonce":"146"}}
-{"pong":{"nonce":"147"}}
 {"event":{"seq":"5","game_time_ms":"100","text":"You target Plain Scuttler","target_changed":{"actor":"aria","target":"mob-pair-1"}}}
 {"event":{"seq":"6","game_time_ms":"100","text":"You start attacking Plain Scuttler","auto_attack_changed":{"actor":"aria","target":"mob-pair-1","on":true}}}
 {"event":{"seq":"7","game_time_ms":"100","entity_moved":{"id":"aria","pos":{"x":"100000","y":"89600"}}}}
@@ -93,11 +91,9 @@
 {"event":{"seq":"34","game_time_ms":"2000","entity_moved":{"id":"mob-pair-1","pos":{"x":"100207","y":"81928"}}}}
 {"event":{"seq":"35","game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"deadline","submitted":["aria"],"deadline_ms":"1735689607500","plays":[{"character":"aria","source":"own_plan"},{"character":"bram","source":"stand_in"}],"participants":"2"}}}
 {"event":{"seq":"36","game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689614500","participants":"2"}}}
-{"pong":{"nonce":"148"}}
+{"pong":{"nonce":"146"}}
 {"event":{"seq":"37","game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689614500","participants":"2"}}}
+{"pong":{"nonce":"147"}}
+{"pong":{"nonce":"148"}}
 {"pong":{"nonce":"149"}}
-{"pong":{"nonce":"150"}}
-{"pong":{"nonce":"151"}}
-{"pong":{"nonce":"152"}}
-{"pong":{"nonce":"153"}}
 # mark duo_stance_ran

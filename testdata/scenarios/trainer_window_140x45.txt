@@ -1,6 +1,6 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │ Gorran Stoutarm <Warrior Trainer>, 1m S away. You have 192 crowns.                             ││ hale  Lv 3 Warrior         | 192 crowns│
-│                                                                                                ││ HP 138/164 ######################----- │
+│                                                                                                ││ HP 142/164 #######################---- │
 │ You are level 3. Enter buys the ability under the cursor.                                      ││ XP ------------------------- 90 to Lv 4│
 │  Taunt                  level 1   known                                                        ││ Atk off | none                         │
 │  Bash                   level 1   known                                                        │└────────────────────────────────────────┘

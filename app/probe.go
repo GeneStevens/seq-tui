@@ -72,16 +72,17 @@ func (a *App) Resize(w, h int) { a.w, a.h = w, h }
 // says what to send, and the mark moves. A scenario's clock is the server's and
 // moves only when the scenario says, so it asks for the frame itself.
 //
-// It reports whether the program had a walk to see to, or something to send.
-func (a *App) Frame() (busy bool) {
+// It reports whether it sent a movement intent, and whether a key is down or a walk
+// is not yet stopped.
+func (a *App) Frame() (sent, active bool) {
 	if !a.walk.w.Active() && a.walk.queued.Load() == 0 {
-		return false
+		return false, false
 	}
 	a.walk.framing = false
 	_ = a.walkPoll()
 	a.walk.framing = false
 	a.sess.View(func(m *model.Model) { a.drawAhead(m)() }) // the draw the renderer would make
-	return true
+	return a.walk.queued.Load() > 0, a.walk.w.Active()
 }
 
 // KeyboardEvents tells the program the terminal reports key releases and
@@ -90,10 +91,6 @@ func (a *App) KeyboardEvents(on bool) { a.walk.w.Releases = on }
 
 // Walking says the walker has told the server to walk and not yet to stop.
 func (a *App) Walking() bool { return a.walk.w.Walking() }
-
-// WalkActive says a movement key is down, or a walk the program began has not
-// been stopped.
-func (a *App) WalkActive() bool { return a.walk.w.Active() }
 
 // WalkSends lists every movement intent (Walk or Stop) the program has sent for
 // held keys, with the time of each.

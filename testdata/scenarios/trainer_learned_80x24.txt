@@ -20,5 +20,5 @@
 │ Enter acts · Esc back                                                        │
 │ train Second Wind ok                                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
- HP 138/164 | Target: none                                                      
+ HP 142/164 | Target: none                                                      
  ONLINE | road: faster, 125% | heard N.Ns ago | train Second Wind ok      ? help

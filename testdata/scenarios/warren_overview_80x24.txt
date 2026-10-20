@@ -16,7 +16,7 @@
 │░ #........#....c.....#####........########..........#..........########      │
 │░ ##########..........#   ##########      #..........############             │
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│
-│ Hollow Warren, 360m by 140m, north up. You: 129m E, 69m N of the SW corner.  │
+│ Hollow Warren, 360m by 140m, north up. You: 128m E, 71m N of the SW corner.  │
 │ The legend is on page 2 of the help (?).                                     │
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘

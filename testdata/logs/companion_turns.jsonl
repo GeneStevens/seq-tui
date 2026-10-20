@@ -33,8 +33,8 @@
 {"pong":{"nonce":"122"}}
 # mark companion_plan
 {"intent_result":{"intent_id":"tui-3","accepted":true}}
-{"event":{"seq":"3","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607400","submitted":["aria"],"participants":"1"}}}
 {"pong":{"nonce":"123"}}
+{"event":{"seq":"3","text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607400","submitted":["aria"],"participants":"1"}}}
 {"pong":{"nonce":"124"}}
 {"pong":{"nonce":"125"}}
 {"pong":{"nonce":"126"}}

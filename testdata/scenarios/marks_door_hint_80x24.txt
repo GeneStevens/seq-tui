@@ -1,13 +1,13 @@
-┌─ Thornwick — East Gate, at 113,44 m, north up ───┐┌─ You ────────────────────┐
-│           ##############  #░                     ││ Hale  Lv 1 Warrior | 15cr│
-│········      B  ########  #░                     ││ HP 130/130 ############# │
-│········         ########  #░                     ││ XP ----------- 40 to Lv 2│
-│·g···················Q·····#░                     ││ Atk off | none           │
-│·········g···············@··░                     │└──────────────────────────┘
-│···H·······················#░                     │┌─ Quest chain (Ctrl+K) ───┐
-│·g······           ######  #░                     ││ First Steps              │
-│········           ######  #░                     ││ Step 4 of 4              │
-│···                ######  #░                     ││ Walk east along          │
+┌─ Thornwick — East Gate, at 115,47 m, north up ───┐┌─ You ────────────────────┐
+│## #####  ##############  #░                      ││ Hale  Lv 1 Warrior | 15cr│
+│          ##############  #░                      ││ HP 130/130 ############# │
+│·······      B  ########  #░                      ││ XP ----------- 40 to Lv 2│
+│·······         ########  #░                      ││ Atk off | none           │
+│g···················Q····@#░                      │└──────────────────────────┘
+│·······················gD··░                      │┌─ Quest chain (Ctrl+K) ───┐
+│··H·······················#░                      ││ First Steps              │
+│·······           ######  #░                      ││ Step 4 of 4              │
+│·······           ######  #░                      ││ Walk east along          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -20,5 +20,5 @@
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- E: go through the East Gate to the Thornwick Downs                             
- ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 0m NE   ? help
+ E: go through the East Gate to the Thornwick Downs  ·  G: talk to Town Guard <…
+ ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 3m SW   ? help

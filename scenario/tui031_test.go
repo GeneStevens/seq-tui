@@ -19,7 +19,7 @@ import (
 
 func walker(t *testing.T) (*scenario.World, *scenario.Player) {
 	t.Helper()
-	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria"), Zone: noSpawns})
+	w := scenario.NewWithWalkTimeout(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria"), Zone: noSpawns}, 0)
 	w.Place("ann", "aria", 20000, 50000)
 	return w, w.Login("ann", "aria")
 }
@@ -221,7 +221,7 @@ func TestTurningAndDiagonals(t *testing.T) {
 // movement intent for each server tick, and the server never limits the
 // session.
 func TestAThirtyMillisecondRepeatForTenSecondsIsNeverRateLimited(t *testing.T) {
-	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria"), Zone: noSpawns})
+	w := scenario.NewWithWalkTimeout(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria"), Zone: noSpawns}, 0)
 	w.Place("ann", "aria", 10000, 80000)
 	p := w.Login("ann", "aria")
 	start := p.Pos()
@@ -295,7 +295,7 @@ func TestThePredictedMarkRunsAheadAndReconciles(t *testing.T) {
 // Prediction never runs through a wall: the mark stops at the edge, the server
 // stops the character there, and the two agree.
 func TestThePredictedMarkStopsAtAWall(t *testing.T) {
-	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria"), Zone: noSpawns})
+	w := scenario.NewWithWalkTimeout(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria"), Zone: noSpawns}, 0)
 	w.Place("ann", "aria", 37000, 50000) // 3 m from the wall at x=40 m
 	p := w.Login("ann", "aria")
 	p.Kitty()

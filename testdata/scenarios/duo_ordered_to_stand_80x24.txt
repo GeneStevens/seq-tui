@@ -3,7 +3,7 @@
 │            """""""""""""""""""  ≈≈≈≈≈≈           ││ HP 198/198 ############# │
 │            """"""""""""""""""   ≈≈≈≈≈≈≈          ││ XP ---------- 145 to Lv 6│
 │            """"""""""""""""""   ≈≈≈≈≈≈≈          ││ Atk ON | Bramble Tusker  │
-│            """"""""""""p@c"""   ≈≈≈≈≈≈           ││ Attacked by Bramble Tusk…│
+│            """"""""""""M@c"""   ≈≈≈≈≈≈           ││ Attacked by Bramble Tusk…│
 │           """""""""""""""""""   ≈≈≈≈≈≈           │└──────────────────────────┘
 │           """""""""""""""""""   ≈≈≈≈≈≈           │┌─ Party, 2nd character ───┐
 │           """"""""""""""""""   ≈≈≈≈≈≈≈           ││ bram  Lv 5               │
@@ -15,7 +15,7 @@
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│ <   N.Ns Bramble Tusker misses you                                           │
+│     N.Ns Bram hits Bramble Tusker for 4                                      │
 │     N.Ns bram cleared the target                                             │
 │     N.Ns You stop attacking                                                  │
 │     N.Ns You hit Bramble Tusker for 13                                       │

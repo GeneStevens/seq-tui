@@ -19,18 +19,18 @@
 │                                                                                                ││ Wolves at Wickett Mill           READY │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract … 4m SW [hand in] │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Tamsin Hale <Watch Gr… 6m S [step 1] │
-│ Wolves at Wickett Mill: Hunt, 4 of 4 killed.                                                   ││ H Isolde Fenn <Binder>          14m SE │
-│ Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,    ││ $ Barnaby Tuck <General Goods>  15m SW │
-│ west of the river.                                                                             ││ B Odalys Penn <Banker>           30m E │
-│ Pays 22 XP and 10 crowns.                                                                      ││ $ Hilda Brasswick <Armourer>     31m W │
-│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 4m SW.                  ││ g Town Guard <Thornwick Watch>   33m E │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ $ Dunstan Reeve <Weaponsmith>   35m SW │
-│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +8 more                                │
+│                                                                                                ││ & Thornwick Contract … 1m NW [hand in] │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ ! Tamsin Hale <Watch G… 4m SE [step 1] │
+│ Wolves at Wickett Mill: Hunt, 4 of 4 killed.                                                   ││ H Isolde Fenn <Binder>          12m SE │
+│ Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,    ││ $ Barnaby Tuck <General Goods>  12m SW │
+│ west of the river.                                                                             ││ g Town Guard <Thornwick Watch>   19m S │
+│ Pays 22 XP and 10 crowns.                                                                      ││ $ Hilda Brasswick <Armourer>     30m W │
+│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 1m NW.                  ││ $ Dunstan Reeve <Weaponsmith>   32m SW │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ B Odalys Penn <Banker>           32m E │
+│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   321.2s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│   341.5s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125% | heard 0.4s ago    ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 4m SE | road: faster, 125% | heard 0.4s ago   ? help  q quit

@@ -1,6 +1,6 @@
-┌─ Thornwick Downs, at 43,130 m, north up ───────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+┌─ Thornwick Downs, at 42,130 m, north up ───────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
 │······D·························································································││ hale  Lv 1 Warrior           | 0 crowns│
-│································································································││ HP 130/130 ########################### │
+│································································································││ HP 128/130 ##########################- │
 │·························································                ·······················││ XP ------------------------- 40 to Lv 2│
 │                                                                            ········            ││ Atk off | Meadow Wolf                  │
 │                                                                            ········            ││ Attacked by Meadow Wolf                │
@@ -12,12 +12,12 @@
 │                                                                            ········   #########│└────────────────────────────────────────┘
 │                                              M @                           ····G···   #########│┌─ Nearby ───────────────────────────────┐
 │                                                                            ········            ││ M Meadow Wolf          2m W 45/45 even │
-│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Wickett Mill      4m NE scout marker │
+│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Wickett Mill      5m NE scout marker │
 │                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ G Barleycross         27m E event goal │
-│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Barleycross       28m E scout marker │
+│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Barleycross       29m E scout marker │
 │                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ D Town Gate                     42m NW │
-│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Millrace Ford    137m E scout marker │
-│                                             ############                                       ││ ; Goblin Lookout   187m E scout marker │
+│                                             ############  ≈≈≈≈≈≈≈≈≈########        ##########  ││ ; Millrace Ford    138m E scout marker │
+│                                             ############                                       ││ ; Goblin Lookout   188m E scout marker │
 │                                                                                                ││ v Raid Edge         193m E event spawn │
 │                                                                                                ││ ; Hollow Warren    346m E scout marker │
 │                                                                                                ││ D Hollow Warren                 358m E │
@@ -35,8 +35,8 @@
 │     N.Ns Meadow Wolf (level 1, even) is attacking you                                                                                    │
 │     N.Ns You are in combat with Meadow Wolf                                                                                              │
 │     N.Ns You start attacking something                                                                                                   │
-│                                                                                                                                          │
-│                                                                                                                                          │
+│ <   N.Ns Meadow Wolf hits you for 1                                                                                                      │
+│ <   N.Ns Meadow Wolf hits you for 4                                                                                                      │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -65,126 +65,118 @@
 {"event":{"seq":"38","game_time_ms":"1600","text":"You start attacking Watch Shieldman","auto_attack_changed":{"actor":"mob-bramble-tuskers-a-1","target":"comp-hale","on":true}}}
 {"event":{"seq":"39","game_time_ms":"1600","entity_moved":{"id":"hale","pos":{"x":"146900","y":"95000"}}}}
 {"event":{"seq":"40","game_time_ms":"1600","text":"Bramble Tusker hits Watch Shieldman for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-bramble-tuskers-a-1","target":"comp-hale","amount":"5"}}}
+{"event":{"seq":"41","game_time_ms":"1700","entity_moved":{"id":"hale","pos":{"x":"147200","y":"95000"}}}}
+{"event":{"seq":"42","game_time_ms":"1800","entity_moved":{"id":"hale","pos":{"x":"147500","y":"95000"}}}}
+{"event":{"seq":"43","game_time_ms":"1900","entity_moved":{"id":"hale","pos":{"x":"147800","y":"95000"}}}}
+{"event":{"seq":"44","game_time_ms":"2000","entity_moved":{"id":"hale","pos":{"x":"148100","y":"95000"}}}}
+{"event":{"seq":"45","game_time_ms":"2100","entity_moved":{"id":"hale","pos":{"x":"148400","y":"95000"}}}}
+{"event":{"seq":"46","game_time_ms":"2200","entity_moved":{"id":"hale","pos":{"x":"148700","y":"95000"}}}}
+{"event":{"seq":"47","game_time_ms":"2300","entity_moved":{"id":"hale","pos":{"x":"149000","y":"95000"}}}}
 {"pong":{"nonce":"119"}}
 {"pong":{"nonce":"120"}}
 {"pong":{"nonce":"121"}}
-{"event":{"seq":"41","game_time_ms":"1700","entity_moved":{"id":"hale","pos":{"x":"147200","y":"95000"}}}}
-{"intent_result":{"intent_id":"tui-4","accepted":true}}
-{"event":{"seq":"42","game_time_ms":"1800","entity_moved":{"id":"hale","pos":{"x":"147500","y":"95000"}}}}
-{"event":{"seq":"43","game_time_ms":"1900","entity_moved":{"id":"hale","pos":{"x":"147800","y":"95000"}}}}
 {"pong":{"nonce":"122"}}
+{"event":{"seq":"48","game_time_ms":"2400","entity_moved":{"id":"hale","pos":{"x":"149300","y":"95000"}}}}
+{"intent_result":{"intent_id":"tui-4","accepted":true}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
-{"event":{"seq":"44","game_time_ms":"2000","entity_moved":{"id":"hale","pos":{"x":"148100","y":"95000"}}}}
-{"intent_result":{"intent_id":"tui-5","accepted":true}}
-{"event":{"seq":"45","game_time_ms":"2100","entity_moved":{"id":"hale","pos":{"x":"148400","y":"95000"}}}}
-{"event":{"seq":"46","game_time_ms":"2200","entity_moved":{"id":"hale","pos":{"x":"148700","y":"95000"}}}}
 {"pong":{"nonce":"125"}}
 {"pong":{"nonce":"126"}}
+{"intent_result":{"intent_id":"tui-5","accepted":true}}
 {"pong":{"nonce":"127"}}
-{"event":{"seq":"47","game_time_ms":"2300","entity_moved":{"id":"hale","pos":{"x":"149000","y":"95000"}}}}
-{"intent_result":{"intent_id":"tui-6","accepted":true}}
 {"pong":{"nonce":"128"}}
 {"pong":{"nonce":"129"}}
+{"event":{"seq":"49","game_time_ms":"3300","entity_moved":{"id":"hale","pos":{"x":"149600","y":"95000"}}}}
+{"intent_result":{"intent_id":"tui-6","accepted":true}}
+{"event":{"seq":"50","game_time_ms":"3400","entity_moved":{"id":"hale","pos":{"x":"149900","y":"95000"}}}}
+{"event":{"seq":"51","game_time_ms":"3500","entity_moved":{"id":"hale","pos":{"x":"150200","y":"95000"}}}}
+{"event":{"seq":"52","game_time_ms":"3500","text":"Watch Shieldman hits Bramble Tusker for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"comp-hale","target":"mob-bramble-tuskers-a-1","amount":"7"}}}
 {"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
-{"intent_result":{"intent_id":"tui-7","accepted":true}}
 {"pong":{"nonce":"132"}}
+{"event":{"seq":"53","game_time_ms":"3600","entity_moved":{"id":"hale","pos":{"x":"150500","y":"95000"}}}}
+{"intent_result":{"intent_id":"tui-7","accepted":true}}
+{"event":{"seq":"54","game_time_ms":"3700","entity_moved":{"id":"hale","pos":{"x":"150800","y":"95000"}}}}
+{"event":{"seq":"55","game_time_ms":"3800","entity_moved":{"id":"hale","pos":{"x":"151100","y":"95000"}}}}
 {"pong":{"nonce":"133"}}
 {"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
-{"event":{"seq":"48","game_time_ms":"2500","entity_moved":{"id":"hale","pos":{"x":"149300","y":"95000"}}}}
+{"event":{"seq":"56","game_time_ms":"3900","entity_moved":{"id":"hale","pos":{"x":"151400","y":"95000"}}}}
 {"intent_result":{"intent_id":"tui-8","accepted":true}}
-{"event":{"seq":"49","game_time_ms":"2600","entity_moved":{"id":"hale","pos":{"x":"149600","y":"95000"}}}}
-{"event":{"seq":"50","game_time_ms":"2700","entity_moved":{"id":"hale","pos":{"x":"149900","y":"95000"}}}}
+{"event":{"seq":"57","game_time_ms":"4000","entity_moved":{"id":"hale","pos":{"x":"151700","y":"95000"}}}}
 {"pong":{"nonce":"136"}}
 {"pong":{"nonce":"137"}}
 {"pong":{"nonce":"138"}}
-{"event":{"seq":"51","game_time_ms":"2800","entity_moved":{"id":"hale","pos":{"x":"150200","y":"95000"}}}}
-{"intent_result":{"intent_id":"tui-9","accepted":true}}
-{"event":{"seq":"52","game_time_ms":"2900","entity_moved":{"id":"hale","pos":{"x":"150500","y":"95000"}}}}
-{"event":{"seq":"53","game_time_ms":"3000","entity_moved":{"id":"hale","pos":{"x":"150800","y":"95000"}}}}
 {"pong":{"nonce":"139"}}
+{"event":{"seq":"58","game_time_ms":"4100","entity_moved":{"id":"hale","pos":{"x":"152000","y":"95000"}}}}
+{"intent_result":{"intent_id":"tui-9","accepted":true}}
 {"pong":{"nonce":"140"}}
 {"pong":{"nonce":"141"}}
-{"event":{"seq":"54","game_time_ms":"3100","entity_moved":{"id":"hale","pos":{"x":"151100","y":"95000"}}}}
-{"intent_result":{"intent_id":"tui-10","accepted":true}}
-{"event":{"seq":"55","game_time_ms":"3200","entity_moved":{"id":"hale","pos":{"x":"151400","y":"95000"}}}}
-{"event":{"seq":"56","game_time_ms":"3300","entity_moved":{"id":"hale","pos":{"x":"151700","y":"95000"}}}}
 {"pong":{"nonce":"142"}}
+{"event":{"seq":"59","game_time_ms":"4200","text":"You start attacking Bramble Tusker","auto_attack_changed":{"actor":"hale","target":"mob-bramble-tuskers-a-1","on":true}}}
+{"event":{"seq":"60","game_time_ms":"4200","text":"You hit Bramble Tusker for 10","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"10"}}}
+{"intent_result":{"intent_id":"tui-10","accepted":true}}
+{"intent_result":{"intent_id":"tui-11","accepted":true}}
 {"pong":{"nonce":"143"}}
 {"pong":{"nonce":"144"}}
-{"event":{"seq":"57","game_time_ms":"3400","entity_moved":{"id":"hale","pos":{"x":"152000","y":"95000"}}}}
-{"intent_result":{"intent_id":"tui-11","accepted":true}}
 {"pong":{"nonce":"145"}}
 {"pong":{"nonce":"146"}}
+# mark companion_assist
 {"pong":{"nonce":"147"}}
 {"pong":{"nonce":"148"}}
-{"event":{"seq":"58","game_time_ms":"3500","text":"Watch Shieldman hits Bramble Tusker for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"comp-hale","target":"mob-bramble-tuskers-a-1","amount":"7"}}}
+{"event":{"seq":"61","game_time_ms":"4300","text":"Your companion is ordered: stop","companion":{"owner":"hale","companion":"comp-hale","reason":"order","text":"stop"}}}
+{"event":{"seq":"62","game_time_ms":"4300","text":"Your target Bramble Tusker is gone","target_cleared":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1","reason":"ordered"}}}
+{"event":{"seq":"63","game_time_ms":"4300","text":"You stop attacking","auto_attack_changed":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1"}}}
+{"event":{"seq":"64","game_time_ms":"4300","target_changed":{"actor":"mob-bramble-tuskers-a-1","target":"hale"}}}
+{"snapshot":{"seq":"64","game_time_ms":"4300","tick":"43","space":"Thornwick Downs","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"152000","y":"95000"},"hp":"198","max_hp":"198","level":"5"},"stats":{"level":"5","max_hp":"198","regen":"6","armor":"26","strength":"32","weapon_min":"5","weapon_max":"13","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"320","target":"mob-bramble-tuskers-a-1","auto_attack":true,"abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"320","xp_next_level":"465","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"assist","summoned":true,"present":true,"id":"comp-hale","order":"stop"},"ground":"forest","speed_pct":"75","effective_speed_mm_s":"3000","in_combat":true,"attackers":["mob-bramble-tuskers-a-1"],"place":"North Greywood","sheet":{"level":"5","max_hp":"198","regen":"6","armor":"26","armor_cut_pct":"21","hit_pct":"75","swing_min":"8","swing_max":"16","delay_ms":"2000","dps_tenths":"60","attributes":[{"name":"strength","base":"32"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-hale","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"151088","y":"94832"},"hp":"153","max_hp":"158","level":"5","owner":"hale"}}],"entities":[{"id":"mob-bramble-tuskers-a-1","kind":"ENTITY_KIND_MOB","name":"Bramble Tusker","pos":{"x":"153118","y":"94726"},"hp":"174","max_hp":"191","level":"5","target":"hale","con":"even"}],"encounters":[{"id":"enc-1","mob":"mob-bramble-tuskers-a-1","owner":"comp-hale"}]}}
 {"intent_result":{"intent_id":"tui-12","accepted":true}}
 {"pong":{"nonce":"149"}}
 {"pong":{"nonce":"150"}}
 {"pong":{"nonce":"151"}}
-{"event":{"seq":"59","game_time_ms":"3600","text":"You start attacking Bramble Tusker","auto_attack_changed":{"actor":"hale","target":"mob-bramble-tuskers-a-1","on":true}}}
-{"event":{"seq":"60","game_time_ms":"3600","text":"You hit Bramble Tusker for 10","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"10"}}}
-{"intent_result":{"intent_id":"tui-13","accepted":true}}
 {"pong":{"nonce":"152"}}
 {"pong":{"nonce":"153"}}
+{"event":{"seq":"65","game_time_ms":"4400","text":"You start attacking something","auto_attack_changed":{"actor":"mob-bramble-tuskers-a-1","target":"hale","on":true}}}
+{"event":{"seq":"66","game_time_ms":"4800","text":"Bramble Tusker misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-bramble-tuskers-a-1","target":"hale"}}}
 {"pong":{"nonce":"154"}}
 {"pong":{"nonce":"155"}}
-# mark companion_assist
+# mark companion_override
 {"pong":{"nonce":"156"}}
 {"pong":{"nonce":"157"}}
-{"event":{"seq":"61","game_time_ms":"3700","text":"Your companion is ordered: stop","companion":{"owner":"hale","companion":"comp-hale","reason":"order","text":"stop"}}}
-{"event":{"seq":"62","game_time_ms":"3700","text":"Your target Bramble Tusker is gone","target_cleared":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1","reason":"ordered"}}}
-{"event":{"seq":"63","game_time_ms":"3700","text":"You stop attacking","auto_attack_changed":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1"}}}
-{"event":{"seq":"64","game_time_ms":"3700","target_changed":{"actor":"mob-bramble-tuskers-a-1","target":"hale"}}}
-{"snapshot":{"seq":"64","game_time_ms":"3700","tick":"37","space":"Thornwick Downs","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"152000","y":"95000"},"hp":"198","max_hp":"198","level":"5"},"stats":{"level":"5","max_hp":"198","regen":"6","armor":"26","strength":"32","weapon_min":"5","weapon_max":"13","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"320","target":"mob-bramble-tuskers-a-1","auto_attack":true,"abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"320","xp_next_level":"465","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"assist","summoned":true,"present":true,"id":"comp-hale","order":"stop"},"ground":"forest","speed_pct":"75","effective_speed_mm_s":"3000","in_combat":true,"attackers":["mob-bramble-tuskers-a-1"],"place":"North Greywood","sheet":{"level":"5","max_hp":"198","regen":"6","armor":"26","armor_cut_pct":"21","hit_pct":"75","swing_min":"8","swing_max":"16","delay_ms":"2000","dps_tenths":"60","attributes":[{"name":"strength","base":"32"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-hale","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"151088","y":"94832"},"hp":"153","max_hp":"158","level":"5","owner":"hale"}}],"entities":[{"id":"mob-bramble-tuskers-a-1","kind":"ENTITY_KIND_MOB","name":"Bramble Tusker","pos":{"x":"153118","y":"94726"},"hp":"174","max_hp":"191","level":"5","target":"hale","con":"even"}],"encounters":[{"id":"enc-1","mob":"mob-bramble-tuskers-a-1","owner":"comp-hale"}]}}
-{"intent_result":{"intent_id":"tui-14","accepted":true}}
+{"event":{"seq":"67","game_time_ms":"6000","rules_tick":{}}}
+{"event":{"seq":"68","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"comp-hale","amount":"5"}}}
+{"event":{"seq":"69","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-bramble-tuskers-a-1","amount":"1"}}}
+{"event":{"seq":"70","game_time_ms":"6200","text":"You hit Bramble Tusker for 11","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"11"}}}
+{"event":{"seq":"71","game_time_ms":"8000","text":"Bramble Tusker hits you for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-bramble-tuskers-a-1","target":"hale","amount":"7"}}}
+{"event":{"seq":"72","game_time_ms":"8200","text":"You hit Bramble Tusker for 13","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"13"}}}
+{"event":{"seq":"73","game_time_ms":"10200","text":"You hit Bramble Tusker for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"8"}}}
+{"event":{"seq":"74","game_time_ms":"11200","text":"Bramble Tusker misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-bramble-tuskers-a-1","target":"hale"}}}
 {"pong":{"nonce":"158"}}
 {"pong":{"nonce":"159"}}
 {"pong":{"nonce":"160"}}
+{"event":{"seq":"75","game_time_ms":"11400","text":"Your companion is ordered: attack","companion":{"owner":"hale","companion":"comp-hale","reason":"order","text":"attack"}}}
+{"event":{"seq":"76","game_time_ms":"11400","target_changed":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1"}}}
+{"event":{"seq":"77","game_time_ms":"11400","text":"Watch Shieldman uses Taunt on Bramble Tusker","ability_used":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1","ability":"warrior-taunt","slot":1}}}
+{"snapshot":{"seq":"77","game_time_ms":"11400","tick":"114","space":"Thornwick Downs","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"152000","y":"95000"},"hp":"191","max_hp":"198","level":"5"},"stats":{"level":"5","max_hp":"198","regen":"6","armor":"26","strength":"32","weapon_min":"5","weapon_max":"13","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"320","target":"mob-bramble-tuskers-a-1","auto_attack":true,"abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"320","xp_next_level":"465","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"assist","summoned":true,"present":true,"id":"comp-hale","order":"attack"},"ground":"forest","speed_pct":"75","effective_speed_mm_s":"3000","in_combat":true,"attackers":["mob-bramble-tuskers-a-1"],"place":"North Greywood","sheet":{"level":"5","max_hp":"198","regen":"6","armor":"26","armor_cut_pct":"21","hit_pct":"75","swing_min":"8","swing_max":"16","delay_ms":"2000","dps_tenths":"60","attributes":[{"name":"strength","base":"32"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-hale","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"151088","y":"94832"},"hp":"158","max_hp":"158","level":"5","owner":"hale"},"target":"mob-bramble-tuskers-a-1"}],"entities":[{"id":"mob-bramble-tuskers-a-1","kind":"ENTITY_KIND_MOB","name":"Bramble Tusker","pos":{"x":"153118","y":"94726"},"hp":"143","max_hp":"191","level":"5","target":"hale","con":"even"}],"encounters":[{"id":"enc-1","mob":"mob-bramble-tuskers-a-1","owner":"comp-hale"}]}}
+{"intent_result":{"intent_id":"tui-13","accepted":true}}
 {"pong":{"nonce":"161"}}
 {"pong":{"nonce":"162"}}
-{"event":{"seq":"65","game_time_ms":"3800","text":"You start attacking something","auto_attack_changed":{"actor":"mob-bramble-tuskers-a-1","target":"hale","on":true}}}
 {"pong":{"nonce":"163"}}
 {"pong":{"nonce":"164"}}
-# mark companion_override
 {"pong":{"nonce":"165"}}
+{"event":{"seq":"78","game_time_ms":"11500","text":"Your companion is ordered: clear","companion":{"owner":"hale","companion":"comp-hale","reason":"order","text":"clear"}}}
+{"event":{"seq":"79","game_time_ms":"11500","text":"You start attacking Bramble Tusker","auto_attack_changed":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1","on":true}}}
+{"event":{"seq":"80","game_time_ms":"11500","target_changed":{"actor":"mob-bramble-tuskers-a-1","target":"comp-hale"}}}
+{"event":{"seq":"81","game_time_ms":"11500","text":"Watch Shieldman hits Bramble Tusker for 6","combat":{"kind":"COMBAT_KIND_HIT","attacker":"comp-hale","target":"mob-bramble-tuskers-a-1","amount":"6"}}}
+{"snapshot":{"seq":"81","game_time_ms":"11500","tick":"115","space":"Thornwick Downs","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"152000","y":"95000"},"hp":"191","max_hp":"198","level":"5"},"stats":{"level":"5","max_hp":"198","regen":"6","armor":"26","strength":"32","weapon_min":"5","weapon_max":"13","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"320","target":"mob-bramble-tuskers-a-1","auto_attack":true,"abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"320","xp_next_level":"465","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"assist","summoned":true,"present":true,"id":"comp-hale"},"ground":"forest","speed_pct":"75","effective_speed_mm_s":"3000","in_combat":true,"attackers":["mob-bramble-tuskers-a-1"],"place":"North Greywood","sheet":{"level":"5","max_hp":"198","regen":"6","armor":"26","armor_cut_pct":"21","hit_pct":"75","swing_min":"8","swing_max":"16","delay_ms":"2000","dps_tenths":"60","attributes":[{"name":"strength","base":"32"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-hale","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"151088","y":"94832"},"hp":"158","max_hp":"158","level":"5","owner":"hale"},"target":"mob-bramble-tuskers-a-1","auto_attack":true}],"entities":[{"id":"mob-bramble-tuskers-a-1","kind":"ENTITY_KIND_MOB","name":"Bramble Tusker","pos":{"x":"153118","y":"94726"},"hp":"137","max_hp":"191","level":"5","target":"comp-hale","con":"even"}],"encounters":[{"id":"enc-1","mob":"mob-bramble-tuskers-a-1","owner":"comp-hale"}]}}
+{"intent_result":{"intent_id":"tui-14","accepted":true}}
 {"pong":{"nonce":"166"}}
-{"event":{"seq":"66","game_time_ms":"4800","text":"Bramble Tusker misses you","combat":{"kind":"COMBAT_KIND_MISS","attacker":"mob-bramble-tuskers-a-1","target":"hale"}}}
-{"event":{"seq":"67","game_time_ms":"5600","text":"You hit Bramble Tusker for 11","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"11"}}}
-{"event":{"seq":"68","game_time_ms":"6000","rules_tick":{}}}
-{"event":{"seq":"69","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"comp-hale","amount":"5"}}}
-{"event":{"seq":"70","game_time_ms":"6000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-bramble-tuskers-a-1","amount":"1"}}}
-{"event":{"seq":"71","game_time_ms":"7600","text":"You hit Bramble Tusker for 13","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"13"}}}
-{"event":{"seq":"72","game_time_ms":"8000","text":"Bramble Tusker hits you for 7","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-bramble-tuskers-a-1","target":"hale","amount":"7"}}}
-{"event":{"seq":"73","game_time_ms":"9600","text":"You hit Bramble Tusker for 8","combat":{"kind":"COMBAT_KIND_HIT","attacker":"hale","target":"mob-bramble-tuskers-a-1","amount":"8"}}}
 {"pong":{"nonce":"167"}}
 {"pong":{"nonce":"168"}}
 {"pong":{"nonce":"169"}}
-{"event":{"seq":"74","game_time_ms":"10800","text":"Your companion is ordered: attack","companion":{"owner":"hale","companion":"comp-hale","reason":"order","text":"attack"}}}
-{"event":{"seq":"75","game_time_ms":"10800","target_changed":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1"}}}
-{"event":{"seq":"76","game_time_ms":"10800","text":"Watch Shieldman uses Taunt on Bramble Tusker","ability_used":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1","ability":"warrior-taunt","slot":1}}}
-{"snapshot":{"seq":"76","game_time_ms":"10800","tick":"108","space":"Thornwick Downs","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"152000","y":"95000"},"hp":"191","max_hp":"198","level":"5"},"stats":{"level":"5","max_hp":"198","regen":"6","armor":"26","strength":"32","weapon_min":"5","weapon_max":"13","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"320","target":"mob-bramble-tuskers-a-1","auto_attack":true,"abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"320","xp_next_level":"465","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"assist","summoned":true,"present":true,"id":"comp-hale","order":"attack"},"ground":"forest","speed_pct":"75","effective_speed_mm_s":"3000","in_combat":true,"attackers":["mob-bramble-tuskers-a-1"],"place":"North Greywood","sheet":{"level":"5","max_hp":"198","regen":"6","armor":"26","armor_cut_pct":"21","hit_pct":"75","swing_min":"8","swing_max":"16","delay_ms":"2000","dps_tenths":"60","attributes":[{"name":"strength","base":"32"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-hale","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"151088","y":"94832"},"hp":"158","max_hp":"158","level":"5","owner":"hale"},"target":"mob-bramble-tuskers-a-1"}],"entities":[{"id":"mob-bramble-tuskers-a-1","kind":"ENTITY_KIND_MOB","name":"Bramble Tusker","pos":{"x":"153118","y":"94726"},"hp":"143","max_hp":"191","level":"5","target":"hale","con":"even"}],"encounters":[{"id":"enc-1","mob":"mob-bramble-tuskers-a-1","owner":"comp-hale"}]}}
-{"intent_result":{"intent_id":"tui-15","accepted":true}}
 {"pong":{"nonce":"170"}}
+{"event":{"seq":"82","game_time_ms":"11600","text":"You start attacking Watch Shieldman","auto_attack_changed":{"actor":"mob-bramble-tuskers-a-1","target":"comp-hale","on":true}}}
+{"event":{"seq":"83","game_time_ms":"12000","rules_tick":{}}}
+{"event":{"seq":"84","game_time_ms":"12000","text":"You regenerate 6 health","combat":{"kind":"COMBAT_KIND_HEAL","target":"hale","amount":"6"}}}
+{"event":{"seq":"85","game_time_ms":"12000","combat":{"kind":"COMBAT_KIND_HEAL","target":"mob-bramble-tuskers-a-1","amount":"1"}}}
+{"event":{"seq":"86","game_time_ms":"12200","text":"You miss Bramble Tusker","combat":{"kind":"COMBAT_KIND_MISS","attacker":"hale","target":"mob-bramble-tuskers-a-1"}}}
 {"pong":{"nonce":"171"}}
-{"pong":{"nonce":"172"}}
-{"pong":{"nonce":"173"}}
-{"pong":{"nonce":"174"}}
-{"event":{"seq":"77","game_time_ms":"10900","text":"Your companion is ordered: clear","companion":{"owner":"hale","companion":"comp-hale","reason":"order","text":"clear"}}}
-{"event":{"seq":"78","game_time_ms":"10900","text":"You start attacking Bramble Tusker","auto_attack_changed":{"actor":"comp-hale","target":"mob-bramble-tuskers-a-1","on":true}}}
-{"event":{"seq":"79","game_time_ms":"10900","target_changed":{"actor":"mob-bramble-tuskers-a-1","target":"comp-hale"}}}
-{"event":{"seq":"80","game_time_ms":"10900","text":"Watch Shieldman hits Bramble Tusker for 6","combat":{"kind":"COMBAT_KIND_HIT","attacker":"comp-hale","target":"mob-bramble-tuskers-a-1","amount":"6"}}}
-{"snapshot":{"seq":"80","game_time_ms":"10900","tick":"109","space":"Thornwick Downs","self":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"152000","y":"95000"},"hp":"191","max_hp":"198","level":"5"},"stats":{"level":"5","max_hp":"198","regen":"6","armor":"26","strength":"32","weapon_min":"5","weapon_max":"13","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"xp":"320","target":"mob-bramble-tuskers-a-1","auto_attack":true,"abilities":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces an enemy to turn on you, even from across the room. Use it to pull a mob off a friend who is taking the beating."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"A shield-first blow that stuns the enemy briefly and breaks off any spell it is casting. Use it when a caster starts to cast."}],"slots":[{"slot":1,"ability":"warrior-taunt"},{"slot":2,"ability":"warrior-bash"}],"gcd_ms":"1500","class":"warrior","xp_level_start":"320","xp_next_level":"465","inventory_size":"20","companion":{"stage":"2","unlocked":true,"role":"tank","stance":"assist","summoned":true,"present":true,"id":"comp-hale"},"ground":"forest","speed_pct":"75","effective_speed_mm_s":"3000","in_combat":true,"attackers":["mob-bramble-tuskers-a-1"],"place":"North Greywood","sheet":{"level":"5","max_hp":"198","regen":"6","armor":"26","armor_cut_pct":"21","hit_pct":"75","swing_min":"8","swing_max":"16","delay_ms":"2000","dps_tenths":"60","attributes":[{"name":"strength","base":"32"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}},"group":[{"entity":{"id":"comp-hale","kind":"ENTITY_KIND_CHARACTER","name":"Watch Shieldman","pos":{"x":"151088","y":"94832"},"hp":"158","max_hp":"158","level":"5","owner":"hale"},"target":"mob-bramble-tuskers-a-1","auto_attack":true}],"entities":[{"id":"mob-bramble-tuskers-a-1","kind":"ENTITY_KIND_MOB","name":"Bramble Tusker","pos":{"x":"153118","y":"94726"},"hp":"137","max_hp":"191","level":"5","target":"comp-hale","con":"even"}],"encounters":[{"id":"enc-1","mob":"mob-bramble-tuskers-a-1","owner":"comp-hale"}]}}
-{"intent_result":{"intent_id":"tui-16","accepted":true}}
-{"pong":{"nonce":"175"}}
-{"pong":{"nonce":"176"}}
-{"pong":{"nonce":"177"}}
-{"pong":{"nonce":"178"}}
-{"pong":{"nonce":"179"}}
-{"event":{"seq":"81","game_time_ms":"11000","text":"You start attacking Watch Shieldman","auto_attack_changed":{"actor":"mob-bramble-tuskers-a-1","target":"comp-hale","on":true}}}
-{"event":{"seq":"82","game_time_ms":"11200","text":"Bramble Tusker hits Watch Shieldman for 5","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-bramble-tuskers-a-1","target":"comp-hale","amount":"5"}}}
-{"event":{"seq":"83","game_time_ms":"11600","text":"You miss Bramble Tusker","combat":{"kind":"COMBAT_KIND_MISS","attacker":"hale","target":"mob-bramble-tuskers-a-1"}}}
-{"pong":{"nonce":"180"}}

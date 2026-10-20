@@ -15,10 +15,10 @@
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│     N.Ns Your target Bramble Tusker is gone                                  │
 │     N.Ns You stop attacking                                                  │
 │     N.Ns Bramble Tusker targeted hale                                        │
 │     N.Ns You start attacking something                                       │
+│ <   N.Ns Bramble Tusker misses you                                           │
 └──────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                      
  ONLINE | forest: slowed to 75% | heard N.Ns ago | companion order: stop ok     

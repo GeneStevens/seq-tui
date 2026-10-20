@@ -29,7 +29,6 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns You start attacking Watch Shieldman                                                                                             │
 │     N.Ns Bramble Tusker hits Watch Shieldman for 5                                                                                       │
 │     N.Ns Watch Shieldman hits Bramble Tusker for 7                                                                                       │
 │     N.Ns You start attacking Bramble Tusker                                                                                              │
@@ -40,6 +39,7 @@
 │     N.Ns You stop attacking                                                                                                              │
 │     N.Ns Bramble Tusker targeted hale                                                                                                    │
 │     N.Ns You start attacking something                                                                                                   │
+│ <   N.Ns Bramble Tusker misses you                                                                                                       │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | companion order: stop ok                 ? help  q quit

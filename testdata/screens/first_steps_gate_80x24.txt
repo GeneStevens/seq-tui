@@ -1,12 +1,12 @@
-┌─ Thornwick — Hawthorn Square, at 55,51 m, nort… ─┐┌─ You ────────────────────┐
+┌─ Thornwick — Hawthorn Square, at 56,52 m, nort… ─┐┌─ You ────────────────────┐
 │░#  #######····######  ###### #####  ###### ######││ Hale  Lv 1 Warrior | 15cr│
 │░#  #######····######  ###### #####  #############││ HP 130/130 ############# │
-│░#  #######····######                #############││ XP ----------- 40 to Lv 2│
+│░#  #######····######    g           #############││ XP ----------- 40 to Lv 2│
 │░#  #######··$·######·············      B  #######││ Atk off | none           │
-│░#  #######····      ···g@········         #######│└──────────────────────────┘
+│░#  #######····      ····@········         #######│└──────────────────────────┘
 │░#  #######··············&·g···················Q··│┌─ Quest chain (Ctrl+K) ───┐
-│░#  #######························East Gate 58m ►││ First Steps              │
-│░#  #######····      ··$·····H····················││ Step 4 of 4              │
+│░#  #######························East Gate 57m ►││ First Steps              │
+│░#  #######····      ·g$·····H····················││ Step 4 of 4              │
 │░#  #######··$·      ·············           #####││ Walk east along          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
-│ +  38.1s First Steps: step 3 done. Next: Walk east along Gatehouse Way to the│
+│ +  52.6s First Steps: step 3 done. Next: Walk east along Gatehouse Way to the│
 │            East Gate and press E at the gate to go out to the Thornwick      │
 │            Downs.                                                            │
-│ +  38.1s You take the contract Boars in the Barley                           │
+│ +  52.6s You take the contract Boars in the Barley                           │
 └──────────────────────────────────────────────────────────────────────────────┘
  G: talk to Thornwick Contract Board <Jobs for the Downs>                       
- ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 59m E   ? help
+ ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 58m E   ? help

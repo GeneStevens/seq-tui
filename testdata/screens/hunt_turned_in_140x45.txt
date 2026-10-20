@@ -16,23 +16,23 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board 4m SW [new] │
-│                                                                                                ││ ! Tamsin Hale <Watch Gr… 6m S [step 1] │
-│                                                                                                ││ H Isolde Fenn <Binder>          14m SE │
-│                                                                                                ││ $ Barnaby Tuck <General Goods>  15m SW │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ B Odalys Penn <Banker>           30m E │
-│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ $ Hilda Brasswick <Armourer>     31m W │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ g Town Guard <Thornwick Watch>   33m E │
-│ Pays 21 XP and 8 crowns.                                                                       ││ $ Dunstan Reeve <Weaponsmith>   35m SW │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer>  37m S │
-│                                                                                                ││ T Pip Nettle <Rogue Trainer>     38m S │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ T Ser Aldric Vane <Paladin Tra… 42m SE │
-│ hand in Thin the Meadow Wolves ok                                                              ││ +5 more                                │
+│                                                                                                ││ & Thornwick Contract Board 1m NW [new] │
+│                                                                                                ││ ! Tamsin Hale <Watch G… 4m SE [step 1] │
+│                                                                                                ││ H Isolde Fenn <Binder>          12m SE │
+│                                                                                                ││ $ Barnaby Tuck <General Goods>  12m SW │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ g Town Guard <Thornwick Watch>   19m S │
+│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ $ Hilda Brasswick <Armourer>     30m W │
+│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ $ Dunstan Reeve <Weaponsmith>   32m SW │
+│ Pays 21 XP and 8 crowns.                                                                       ││ B Odalys Penn <Banker>           32m E │
+│                                                                                                ││ T Ormond Quill <Wizard Trainer>  34m S │
+│                                                                                                ││ T Pip Nettle <Rogue Trainer>     35m S │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ T Ser Aldric Vane <Paladin Tra… 41m SE │
+│ hand in Thin the Meadow Wolves ok                                                              ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   321.2s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│   341.5s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ + 321.3s You hand in Wolves at Wickett Mill: 22 experience, 10 crowns                                                                    │
+│ + 341.6s You hand in Wolves at Wickett Mill: 22 experience, 10 crowns                                                                    │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125% | heard 0.4s ago | hand in Thin the Meadow Wolves ok     ? help
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 4m SE | road: faster, 125% | heard 0.4s ago | hand in Thin the Meadow Wolves ok    ? help

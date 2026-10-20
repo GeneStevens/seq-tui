@@ -91,16 +91,43 @@ type World struct {
 	// whole.
 	stepped bool
 	stepAt  time.Time
+	// longWalk: the zones give a heading walk a long timeout (WalkTimeoutMs), so
+	// a key held for seconds needs no keep-alive between looks.
+	longWalk bool
 }
+
+// WalkTimeoutMs is the timeout the zones of a scenario give a heading walk: long,
+// so that a step held for seconds is one look at the clock, not one for each
+// keep-alive. A scenario of the keep-alive itself asks for the server's own (500
+// ms) with NewWithWalkTimeout.
+const WalkTimeoutMs = 20_000
 
 // New starts a server for the scenario t and holds the scenario to MaxScenario.
 func New(t *testing.T, o testserver.Options) *World {
+	t.Helper()
+	return NewWithWalkTimeout(t, o, WalkTimeoutMs)
+}
+
+// NewWithWalkTimeout is New with the zones' heading-walk timeout set to ms (0: the
+// server's own, 500 ms, unless the zone sets one).
+func NewWithWalkTimeout(t *testing.T, o testserver.Options, ms int) *World {
 	t.Helper()
 	if len(o.Packs) == 0 && usesWorld(o.Zones) {
 		o.Packs = []string{WorldPacks(t)}
 	}
 	o.Manual = true
-	return newOn(t, testserver.Start(t, o))
+	zone := o.Zone
+	o.Zone = func(space string, z *core.Zone) {
+		if zone != nil {
+			zone(space, z)
+		}
+		if ms > 0 && z.WalkTimeoutMs == 0 {
+			z.WalkTimeoutMs = ms
+		}
+	}
+	w := newOn(t, testserver.Start(t, o))
+	w.longWalk = ms > 0
+	return w
 }
 
 func newOn(t *testing.T, srv *testserver.Server) *World {
@@ -207,25 +234,31 @@ func (w *World) Advance(d time.Duration) {
 			// does in real time; the server's walk lasts 500 ms.
 			step = min(d, 3*Tick)
 		}
-		w.barrier() // every player's intents are in before the clock moves
-		w.Srv.Advance(step)
-		for _, p := range w.players {
-			p.Sync()
-		}
+		w.advance(step)
 		d -= step
+	}
+}
+
+// advance moves the clock by d in one look: every player's intents are in before
+// it moves, and every player has taken in what it sent when it returns.
+func (w *World) advance(d time.Duration) {
+	w.T.Helper()
+	w.barrier()
+	w.Srv.Advance(d)
+	for _, p := range w.players {
+		p.Sync()
 	}
 }
 
 // walking says some player's program has a movement key down, or a walk it has
 // not yet stopped.
 func (w *World) walking() bool {
-	any := false
 	for _, p := range w.players {
-		if p.prog != nil {
-			p.probe(func(a *app.App) { any = any || a.WalkActive() })
+		if p.prog != nil && p.walkActive {
+			return true
 		}
 	}
-	return any
+	return false
 }
 
 // Settle returns when every player has taken in what the server sent so far,
@@ -253,19 +286,21 @@ type Player struct {
 	w         *World
 	stepCarry int64 // how far the last Step overshot 3 m
 	stepCoast int   // the ticks the character walked on after the key came up
-	Account   string
-	Character string
-	Sess      *client.Session
-	prog      *tea.Program
-	in        *io.PipeWriter
-	done      chan struct{}
-	keys      int
-	rec       *record.Writer
-	log       *sessionlog.Log
-	creating  bool // the program opened on the creation screen
-	second    string
-	duo       *client.Duo // the account's second character on a stance, if the player has one
-	duoAgent  bool        // the second character logs in with an agent credential (its turn-based plans are stand-ins)
+	// walkActive: at its last frame the program had a key down or a walk to stop.
+	walkActive bool
+	Account    string
+	Character  string
+	Sess       *client.Session
+	prog       *tea.Program
+	in         *io.PipeWriter
+	done       chan struct{}
+	keys       int
+	rec        *record.Writer
+	log        *sessionlog.Log
+	creating   bool // the program opened on the creation screen
+	second     string
+	duo        *client.Duo // the account's second character on a stance, if the player has one
+	duoAgent   bool        // the second character logs in with an agent credential (its turn-based plans are stand-ins)
 }
 
 // Login starts a TUI for the account's character: it logs in with a session
@@ -384,6 +419,7 @@ func (p *Player) start() {
 	a.LogLabel = "<the scenario's log directory>"
 	pr, pw := io.Pipe()
 	p.in, p.keys, p.done = pw, 0, make(chan struct{})
+	p.walkActive = false
 	p.prog = tea.NewProgram(a, tea.WithInput(pr), tea.WithOutput(io.Discard), tea.WithoutRenderer(), tea.WithoutSignalHandler(),
 		tea.WithWindowSize(80, 24), tea.WithEnvironment([]string{"TERM=xterm-256color"}))
 	go func() {
@@ -492,6 +528,21 @@ func (p *Player) KeyEvent(key string, event int) {
 	p.Sync()
 }
 
+// Hold puts a movement key down as a terminal that reports releases sends it; Let
+// comes back up with it. The clock does not move.
+func (p *Player) Hold(key string) {
+	p.w.T.Helper()
+	p.Kitty()
+	p.KeyEvent(key, KeyDown)
+}
+
+// Let lets the key Hold put down come up again.
+func (p *Player) Let(key string) {
+	p.w.T.Helper()
+	p.KeyEvent(key, KeyRelease)
+	p.Legacy()
+}
+
 // Step walks one step of 3 m the way a player taps a key on a terminal that
 // reports releases: the key goes down, the clock runs until the character has
 // moved 3 m, the key comes up and the walk has stopped. It fails if the
@@ -522,12 +573,27 @@ func (p *Player) TryStepBy(key string, mm int64) bool {
 	})
 	target := mm - p.stepCarry
 	p.KeyEvent(key, KeyDown)
+	first, stuck, last := true, 0, int64(-1)
 	for range 80 {
-		rem := target - p.dist(from) - int64(p.stepCoast)*perTick
+		got := p.dist(from)
+		rem := target - got - int64(p.stepCoast)*perTick
 		if rem < perTick/2 {
 			break
 		}
-		p.w.Advance(time.Duration(min((rem+perTick/2)/perTick, 3)) * Tick)
+		// A character that does not move (a wall, a fight that keeps stopping it) is
+		// let go of after a few looks.
+		if stuck = map[bool]int{true: stuck + 1, false: 0}[got == last]; stuck >= 3 {
+			break
+		}
+		last = got
+		n := (rem + perTick/2) / perTick
+		if p.w.longWalk && first {
+			// The walk is long enough to need no keep-alive: the whole step in one look.
+			first = false
+			p.w.advance(time.Duration(min(n, 80)) * Tick)
+			continue
+		}
+		p.w.Advance(time.Duration(min(n, 3)) * Tick)
 	}
 	atRelease := p.dist(from)
 	p.KeyEvent(key, KeyRelease)
@@ -615,14 +681,10 @@ func (p *Player) probe(f func(*app.App)) {
 func (p *Player) Sync() {
 	t := p.w.T
 	t.Helper()
-	p.idle()
-	if p.prog != nil {
-		// A frame tick at the new time: a held key is kept alive or let go.
-		busy := false
-		p.probe(func(a *app.App) { busy = a.Frame() })
-		if busy {
-			p.idle()
-		}
+	// A frame tick at the new time, once the program has handled its keys: a held
+	// key is kept alive or let go.
+	if p.idleFrame(p.prog != nil) {
+		p.idle()
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -696,15 +758,24 @@ func (p *Player) DuoPlan() ([]string, uint64) { return p.duo.Plan() }
 // server sent. The program's commands wait for their results, and under the
 // Manual clock only the scenario moves it: while the program waits on an intent
 // of its own, idle gives the server one tick (see tick).
-func (p *Player) idle() {
+func (p *Player) idle() { p.idleFrame(false) }
+
+// idleFrame is idle that, once the program is idle, also gives it a frame tick
+// (see app.Frame) and says whether that sent a movement intent.
+func (p *Player) idleFrame(frame bool) (sent bool) {
 	t := p.w.T
 	t.Helper()
 	deadline := time.Now().Add(5 * time.Second)
 	for {
 		ok, commanding := false, false
-		p.probe(func(a *app.App) { ok, commanding = a.Idle(p.keys), a.Commanding() })
+		p.probe(func(a *app.App) {
+			ok, commanding = a.Idle(p.keys), a.Commanding()
+			if ok && frame {
+				sent, p.walkActive = a.Frame()
+			}
+		})
 		if ok {
-			return
+			return sent
 		}
 		// Only a command of the program's own moves the clock: an intent the
 		// scenario sent itself waits for its own advance.

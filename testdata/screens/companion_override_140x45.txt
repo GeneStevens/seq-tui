@@ -29,17 +29,17 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.6s You start attacking Watch Shieldman                                                                                             │
 │     1.6s Bramble Tusker hits Watch Shieldman for 5                                                                                       │
 │     3.5s Watch Shieldman hits Bramble Tusker for 7                                                                                       │
-│     3.6s You start attacking Bramble Tusker                                                                                              │
-│ !   3.6s Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
-│     3.6s You hit Bramble Tusker for 10                                                                                                   │
-│     3.7s Your companion is ordered: stop                                                                                                 │
-│     3.7s Your target Bramble Tusker is gone                                                                                              │
-│     3.7s You stop attacking                                                                                                              │
-│     3.7s Bramble Tusker targeted hale                                                                                                    │
-│     3.8s You start attacking something                                                                                                   │
+│     4.2s You start attacking Bramble Tusker                                                                                              │
+│ !   4.2s Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
+│     4.2s You hit Bramble Tusker for 10                                                                                                   │
+│     4.3s Your companion is ordered: stop                                                                                                 │
+│     4.3s Your target Bramble Tusker is gone                                                                                              │
+│     4.3s You stop attacking                                                                                                              │
+│     4.3s Bramble Tusker targeted hale                                                                                                    │
+│     4.4s You start attacking something                                                                                                   │
+│ <   4.8s Bramble Tusker misses you                                                                                                       │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | companion order: stop ok                 ? help  q quit
