@@ -4,12 +4,14 @@ import (
 	"context"
 	"regexp"
 	"strings"
+	"time"
 
 	tea "charm.land/bubbletea/v2"
 
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
+
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
-	"github.com/GeneStevens/seq-tui/roster"
 	"github.com/GeneStevens/seq-tui/screen"
 )
 
@@ -20,55 +22,37 @@ type picked struct {
 	err error
 }
 
+// className is a class id as a name for the table: the server lists the id
+// ("warrior"), and the class definitions come only with a snapshot.
+func className(id string) string {
+	if id == "" {
+		return ""
+	}
+	return strings.ToUpper(id[:1]) + id[1:]
+}
+
 // NewPicker returns the program's model for a session that is connected and has
-// not chosen a character, with characters to choose from (the roster's): it
-// opens on the picker, the last played first and chosen. An empty roster has
-// nothing to pick; use NewCreator.
-func NewPicker(sess *client.Session, ros *roster.Roster, path string) *App {
+// not chosen a character, with the account's characters as the server listed
+// them (newest played first): it opens on the picker with the newest played
+// chosen. An empty list has nothing to pick; use NewCreator.
+func NewPicker(sess *client.Session, chars []*pb.CharacterEntry) *App {
 	a := New(sess)
-	a.roster, a.rosterPath = ros, path
 	p := &screen.Picker{}
-	for _, e := range ros.List() {
-		p.Rows = append(p.Rows, screen.PickerRow{ID: e.ID, Name: e.Name, Class: e.Class, Level: e.Level, Zone: e.Zone, Played: e.Played})
+	for _, c := range chars {
+		row := screen.PickerRow{ID: c.GetCharacter(), Name: c.GetName(), Class: className(c.GetClass()), Level: int64(c.GetLevel()), Zone: c.GetZone(), Online: c.GetOnline()}
+		if ms := c.GetLastPlayedMs(); ms > 0 {
+			row.Played = time.UnixMilli(ms)
+		}
+		p.Rows = append(p.Rows, row)
+	}
+	// The server sorts them, but the choice does not depend on it.
+	for i, r := range p.Rows {
+		if r.Played.After(p.Rows[p.Sel].Played) {
+			p.Sel = i
+		}
 	}
 	a.picker = p
 	return a
-}
-
-// SetRoster gives the app the roster it notes the characters it plays in, and
-// the file it keeps it in (a roster is only written once a character is
-// playing).
-func (a *App) SetRoster(r *roster.Roster, path string) { a.roster, a.rosterPath = r, path }
-
-// NoteRoster records the character now playing (its class, level and zone as
-// the model has them) in the roster file; it does nothing before a character is
-// chosen or without a roster.
-func (a *App) NoteRoster() {
-	if a.roster == nil || a.rosterPath == "" {
-		return
-	}
-	var e roster.Entry
-	a.sess.View(func(m *model.Model) {
-		if !m.Ready() || m.Self.ID == "" {
-			return
-		}
-		class := m.Self.Class
-		if c := m.Class(class); c != nil {
-			class = c.GetName()
-		}
-		zone := m.Space
-		if m.Map != nil && m.Map.GetName() != "" {
-			zone = m.Map.GetName()
-		}
-		e = roster.Entry{ID: m.Self.ID, Name: m.Self.Name, Class: class, Level: m.Self.Level, Zone: zone, Played: a.now()}
-	})
-	if e.ID == "" {
-		return
-	}
-	a.roster.Note(e)
-	if err := a.roster.Save(a.rosterPath); err != nil {
-		a.view.Notice, a.view.NoticeBad = "could not save the character list: "+err.Error(), true
-	}
 }
 
 // pickerKey handles a key on the picker.
@@ -128,39 +112,23 @@ func (a *App) pickCmd(id string) tea.Cmd {
 var refusalMessage = regexp.MustCompile(`message:"([^"]*)"`)
 
 // pickedMsg takes the answer to a pick: the picker closes on success; on a
-// refusal it says why, and drops a character the server does not know (the
-// world was reset under the list).
+// refusal it says why. A character that is online on another connection is
+// refused by the server (character_in_use) and stays on the list.
 func (a *App) pickedMsg(msg picked) {
 	a.inflight--
 	p := a.picker
 	if msg.err == nil {
 		a.picker = nil
 		a.view.Notice, a.view.NoticeBad = "", false
-		a.NoteRoster()
 		return
 	}
 	if p == nil {
 		return
 	}
 	p.Busy = false
-	text, code := msg.err.Error(), ""
+	text := msg.err.Error()
 	if m := refusalMessage.FindStringSubmatch(text); m != nil {
-		code = m[1]
-		text = model.Words(code)
+		text = model.Words(m[1])
 	}
 	p.Err = text
-	if a.roster != nil && (code == "not_permitted" || strings.Contains(code, "unknown")) {
-		a.roster.Forget(msg.id)
-		if a.rosterPath != "" {
-			_ = a.roster.Save(a.rosterPath)
-		}
-		for i, r := range p.Rows {
-			if r.ID == msg.id {
-				p.Rows = append(p.Rows[:i], p.Rows[i+1:]...)
-				p.Sel = min(p.Sel, len(p.Rows))
-				p.Err = "that character is not in this world (it may have been reset); it is off the list"
-				break
-			}
-		}
-	}
 }
