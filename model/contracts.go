@@ -1,6 +1,7 @@
 package model
 
 import (
+	"cmp"
 	"fmt"
 	"slices"
 	"sort"
@@ -492,4 +493,30 @@ func (m *Model) describeContracts(e *pb.Event) (kind, text, reason string, ok bo
 		}
 	}
 	return "", "", "", false
+}
+
+// OpensAt is the level a board offer opens at when the character is below it
+// (D86), else 0: the offer can be taken now.
+func (m *Model) OpensAt(o *pb.ContractOffer) int64 {
+	if o.GetMinLevel() > m.Self.Level && m.Self.Level > 0 {
+		return o.GetMinLevel()
+	}
+	return 0
+}
+
+// BoardOffers are a board's offers in the order the screen lists them: the ones
+// the character can take now first, the ones that open later after them, each
+// group in the server's order. The cursor and the keys use the same order.
+func (m *Model) BoardOffers(n *pb.NpcInfo) []*pb.ContractOffer {
+	offers := slices.Clone(n.GetOffers())
+	slices.SortStableFunc(offers, func(a, b *pb.ContractOffer) int {
+		return cmp.Compare(min(m.OpensAt(a), 1), min(m.OpensAt(b), 1))
+	})
+	return offers
+}
+
+// OpensAtWords is the server's reason for an offer that is not open yet, in the
+// words the server uses for a contract_level refusal.
+func OpensAtWords(level int64) string {
+	return fmt.Sprintf("This contract opens at level %d.", level)
 }

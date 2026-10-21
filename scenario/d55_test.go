@@ -202,8 +202,9 @@ func TestOwedPayArrivesAtTheNextJoin(t *testing.T) {
 	p.Eventually("owed pay in the log", func(m *model.Model) bool { return hasLog(m, "reward", "owed pay arrived with the join") })
 	p.Model(func(m *model.Model) {
 		// Half of the 120 XP and 60 crowns: the raid was lost, and an account's pay
-		// owed to an absent character is the XP and crowns only.
-		if m.Self.Crowns != 30 || !hasLog(m, "reward", "owed pay arrived with the join: 60 XP and 30 crowns") {
+		// owed to an absent character is the XP and crowns only. The character is
+		// at the level cap (SEQ-094), which earns no XP, so the pay is the crowns.
+		if m.Self.Crowns != 30 || !hasLog(m, "reward", "owed pay arrived with the join: 30 crowns") {
 			t.Fatalf("crowns %d; the log: %v", m.Self.Crowns, m.Log)
 		}
 	})

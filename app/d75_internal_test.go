@@ -117,3 +117,28 @@ func TestTheBellRingsOnceForEachAttack(t *testing.T) {
 		}
 	}
 }
+
+// TUI-038: Enter on an offer that opens later says why, once; the next Enter
+// asks the server anyway, which stays the authority.
+func TestEnterOnALockedOfferExplainsThenAsks(t *testing.T) {
+	m := model.New()
+	pos := &pb.Pos{X: 10000}
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "Z", Seq: 1, GameTimeMs: 1000,
+		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me", Name: "Me", Level: 3, Pos: pos, Hp: 50, MaxHp: 50}},
+		Npcs: []*pb.NpcInfo{{Id: "board", Name: "Notice Board", Role: "contract_board", ReachMm: 5000, Pos: pos,
+			Offers: []*pb.ContractOffer{{Id: "far", Name: "Far Hunt", MinLevel: 6}, {Id: "near", Name: "Near Hunt", MinLevel: 1}}}}}}})
+	a := New(client.NewSession(client.Config{Model: m}))
+	a.board = &screen.Board{NPC: "board"}
+	// The takeable one is first, whatever the server's order.
+	if act := a.boardKey("enter", m); act.Kind != ContractAccept || act.ID != "near" {
+		t.Fatalf("the first offer is not the takeable one: %+v", act)
+	}
+	a.boardKey("down", m)
+	act := a.boardKey("enter", m)
+	if act.Kind == ContractAccept || !strings.Contains(act.Note, "This contract opens at level 6.") {
+		t.Fatalf("a locked offer was sent or not explained: %+v", act)
+	}
+	if act := a.boardKey("enter", m); act.Kind != ContractAccept || act.ID != "far" {
+		t.Fatalf("the second Enter does not ask the server: %+v", act)
+	}
+}

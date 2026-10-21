@@ -26,6 +26,9 @@ type Board struct {
 	NPC  string
 	Pane int
 	Cur  [2]int
+	// Insist is the offer an Enter has already been answered for with its reason
+	// (D86): the next Enter on it sends the take anyway, since the server decides.
+	Insist string
 }
 
 // ContractsUI is the Contracts panel as a screen, when it is open.
@@ -143,9 +146,14 @@ func markerWords(m *model.Model, c *pb.ContractInfo) string {
 	return fmt.Sprintf("%s is %s %s", name, metres(dist(p.GetX(), p.GetY(), sp.GetX(), sp.GetY())), bearing(p.GetX()-sp.GetX(), p.GetY()-sp.GetY()))
 }
 
-func offerRow(o *pb.ContractOffer, w int) string {
+func offerRow(m *model.Model, o *pb.ContractOffer, w int) string {
 	lv := levels(o.GetMinLevel(), o.GetMaxLevel())
 	rest := fmt.Sprintf(" %-6s %s", kindWord(o.GetKind()), lv)
+	if at := m.OpensAt(o); at > 0 {
+		// Not takeable yet (D86): dim, and the words say when it opens.
+		rest = fmt.Sprintf(" opens at level %d", at)
+		return greyed + fit(fit(o.GetName(), max(w-width(rest), 4))+rest, w)
+	}
 	return fit(fit(o.GetName(), max(w-width(rest), 4))+rest, w)
 }
 
@@ -170,8 +178,9 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 	rw := w - 1 - lw
 	left := []string{st.Bold(fit(" On offer now (Enter takes it)", lw))}
 	var texts []string
-	for _, o := range n.GetOffers() {
-		texts = append(texts, offerRow(o, max(lw-4, 1)))
+	offers := m.BoardOffers(n)
+	for _, o := range offers {
+		texts = append(texts, offerRow(m, o, max(lw-4, 1)))
 	}
 	if len(texts) == 0 {
 		left = append(left, fit("  (nothing for your level)", lw))
@@ -195,9 +204,12 @@ func boardLines(m *model.Model, v View, b *Board, w, h int, st Styler) []string 
 	rows = append(rows, strings.Repeat("─", w))
 	// The detail of the one under the cursor.
 	switch {
-	case b.Pane == 0 && b.Cur[0] < len(n.GetOffers()):
-		o := n.GetOffers()[b.Cur[0]]
+	case b.Pane == 0 && b.Cur[0] < len(offers):
+		o := offers[b.Cur[0]]
 		add(fmt.Sprintf(" %s: %s, %s, for %s.", o.GetName(), kindWord(o.GetKind()), levels(o.GetMinLevel(), o.GetMaxLevel()), needWords(o.GetKind(), o.GetNeed())))
+		if at := m.OpensAt(o); at > 0 {
+			add(" " + model.OpensAtWords(at))
+		}
 		rows = append(rows, wrapped(o.GetDescription(), w, " ")...)
 		add(" Pays " + m.RewardWords(o.GetReward()) + ".")
 		if l := rewardFact(m, o.GetReward()); l != "" {

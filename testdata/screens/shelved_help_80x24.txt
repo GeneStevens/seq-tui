@@ -18,7 +18,7 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-│ Page 5 of 9  ? next page  Left, Right turn  Esc closes                       │
+│ Page 5 of 10  ? next page  Left, Right turn  Esc closes                      │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 215/215 | Target: none                                                      
  ONLINE | Watch House Yard, Thornwick | heard 0.4s ago            ? help  q quit

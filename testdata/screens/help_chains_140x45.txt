@@ -39,7 +39,7 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-│ Page 2 of 9  ? next page  Left, Right turn  Esc closes                                                                                   │
+│ Page 2 of 10  ? next page  Left, Right turn  Esc closes                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                                                                                       
  ONLINE | outskirts | heard 0.4s ago                                                                                          ? help  q quit

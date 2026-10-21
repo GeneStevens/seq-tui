@@ -56,6 +56,11 @@ func className(m *model.Model, id string) string {
 // much is left.
 func xpLine(m *model.Model, w int) string {
 	s := m.Self
+	if s.AtCap {
+		// Full, and labelled: there is no next level to count down to (SEQ-094).
+		left, right := " XP ", fmt.Sprintf(" %d max", s.XP)
+		return fit(left+bar(1, 1, max(w-width(left)-width(right), 0))+right, w)
+	}
 	if s.XPNext <= 0 {
 		return fit(fmt.Sprintf(" XP %d (top level)", s.XP), w)
 	}
@@ -112,7 +117,7 @@ func castShort(reason string) string {
 // and class, hit points, mana (for those that have it), XP, and the cast.
 func kitLines(m *model.Model, v View, w int, st Styler) []string {
 	s := m.Self
-	head := fmt.Sprintf(" %s  Lv %d %s", s.Name, s.Level, className(m, s.Class))
+	head := fmt.Sprintf(" %s  %s %s", s.Name, levelWord(s), className(m, s.Class))
 	hp := fmt.Sprintf(" HP %d/%d ", s.HP, s.MaxHP)
 	hpLine := fit(hp+bar(s.HP, s.MaxHP, max(w-width(hp)-1, 0)), w)
 	if s.Dead {
@@ -434,4 +439,13 @@ func withCrowns(head string, crowns int64, w int) string {
 	}
 	c := fmt.Sprintf("| %dcr", crowns)
 	return fit(head, max(w-width(c)-1, 1)) + " " + c
+}
+
+// levelWord is the level as the You panel says it: "Lv 5", and at the level cap
+// "Lv 12 (max)", where no more experience is earned (SEQ-094).
+func levelWord(s model.Self) string {
+	if s.AtCap {
+		return fmt.Sprintf("Lv %d (max)", s.Level)
+	}
+	return fmt.Sprintf("Lv %d", s.Level)
 }

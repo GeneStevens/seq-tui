@@ -1,8 +1,8 @@
  EVENT  Harvest Raid: 2 got through.                                                                                                        
 ┌─ Thornwick Downs — Thornwick Gate, at 6,150 m, north up ───────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│                                         ░                                                      ││ hale  Lv 12 Warrior         | 30 crowns│
+│                                         ░                                                      ││ hale  Lv 12 (max) Warrior   | 30 crowns│
 │                                         ░                                                      ││ HP 317/317 ########################### │
-│                                         ░                                                      ││ XP ####------------------- 255 to Lv 13│
+│                                         ░                                                      ││ XP ########################### 1772 max│
 │                                         ░                                                      ││ Atk off Ret ON | none                  │
 │                                         ░                                                      │└────────────────────────────────────────┘
 │                                         ░               """""""""""""""""""""""""""""""""""""""│┌─ Target ───────────────────────────────┐
@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    NN.Ns Your target Raiding Goblin is gone                                                                                              │
 │    NN.Ns You stop attacking                                                                                                              │
 │    NN.Ns Raiding Goblin dropped Rowan Focus [Fine]                                                                                       │
 │    NN.Ns Raiding Goblin dropped 4 crowns                                                                                                 │
 │    NN.Ns Raiding Goblin is dead: the fight is over                                                                                       │
 │    NN.Ns You are out of combat                                                                                                           │
-│ +  NN.Ns You gain 1 experience                                                                                                           │
 │    NN.Ns Raiding Goblin is out of view                                                                                                   │
 │ !  NN.Ns You have no target                                                                                                              │
 │    NN.Ns entered Thornwick                                                                                                               │
 │   NNN.Ns entered Thornwick Downs                                                                                                         │
-│ + NNN.Ns owed pay arrived with the join: 60 XP and 30 crowns                                                                             │
+│ + NNN.Ns owed pay arrived with the join: 30 crowns                                                                                       │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                                                                               
  ONLINE | Thornwick Gate, Thornwick Downs | road: faster, 125% | heard N.Ns ago | use door ok                                 ? help  q quit

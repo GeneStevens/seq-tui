@@ -18,7 +18,7 @@
 │   World events and scouting have their own marks. The scout points (;) are   │
 │   gold, as your own scout marker (%) is. A world event's raiders appear at a │
 │   purple v and head for a purple ◆. Hover over any of them for its name, or  │
-│ Page 2 of 9  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
+│ Page 2 of 10  Up, Down scroll  ? next page  Left, Right turn  Esc closes     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           
  ONLINE | outskirts | heard 0.4s ago                              ? help  q quit
