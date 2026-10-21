@@ -34,6 +34,7 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
+	"github.com/GeneStevens/seq-tui/roster"
 	"github.com/GeneStevens/seq-tui/sessionlog"
 	"github.com/GeneStevens/seq/agentkit"
 	"github.com/GeneStevens/seq/core"
@@ -299,7 +300,8 @@ type Player struct {
 	keys       int
 	rec        *record.Writer
 	log        *sessionlog.Log
-	creating   bool // the program opened on the creation screen
+	creating   bool   // the program opened on the creation screen
+	rosterPath string // the picker's list: the program opened on the picker
 	second     string
 	duo        *client.Duo // the account's second character on a stance, if the player has one
 	duoAgent   bool        // the second character logs in with an agent credential (its turn-based plans are stand-ins)
@@ -363,6 +365,22 @@ func (w *World) NewCharacter(account string) *Player {
 	return p
 }
 
+// Pick starts a TUI for the account with no character chosen and a roster to
+// choose from, as `seq-tui` does without -character: it connects and opens on
+// the picker, which lists the roster kept in the file at rosterPath. Press the
+// keys that choose a character; Created says which one is playing. With
+// nothing in the roster it opens on the creation screen instead.
+func (w *World) Pick(account, rosterPath string) *Player {
+	w.T.Helper()
+	p := &Player{w: w, Account: account, creating: true, rosterPath: rosterPath}
+	if len(w.players) == 0 {
+		p.rec = w.rec
+	}
+	w.players = append(w.players, p)
+	p.start()
+	return p
+}
+
 // Created waits for the character the creation screen made to be playing, and
 // names the player after it: the character's id.
 func (p *Player) Created() {
@@ -402,7 +420,19 @@ func (p *Player) start() {
 		t.Fatalf("%s: login: %v", p.Character, err)
 	}
 	a := app.New(p.Sess)
-	if p.creating {
+	if p.rosterPath != "" {
+		r, err := roster.Load(p.rosterPath)
+		if err != nil {
+			t.Fatalf("%s: the roster: %v", p.Account, err)
+		}
+		switch {
+		case len(r.Entries) > 0:
+			a = app.NewPicker(p.Sess, r, p.rosterPath)
+		default: // nothing to pick from: straight to making one
+			a = app.NewCreator(p.Sess)
+			a.SetRoster(r, p.rosterPath)
+		}
+	} else if p.creating {
 		a = app.NewCreator(p.Sess)
 	}
 	if p.second != "" {

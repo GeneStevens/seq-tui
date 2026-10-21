@@ -29,13 +29,32 @@ ssh -T git@github.com            # should greet you by name
 
 `make play` downloads the module itself (`go mod download`) before it asks Go where it is. If the download fails it retries once with that same setup applied for the run only, and if that fails too it prints the go error and the three lines above and stops; it never carries on with an empty path. It also checks that docker is running.
 
+## Playing
+
 ```
-make play                      # a local seq server on PostgreSQL (docker), and the TUI on it
-SEQ_SESSION_TOKEN=seq_st_... go run ./cmd/seq-tui -insecure -url wss://127.0.0.1:8443/seq/v1 -character me-1 [-record log.jsonl]
+make play                # Thornwick, on a world that is kept between runs; asks which character to play
+make play-testgrounds    # the engine's test zone (me-1), on a database thrown away on quitting: for tests and quick checks
+make play-reset          # wipe the kept world, after asking
+```
+
+**`make play`** (`scripts/play.sh`) starts a local seq server on PostgreSQL in docker (OrbStack's), builds the pinned `seqd`, and runs the TUI on it; quitting stops both and **keeps the world**. The server serves `seq-world`'s packs, so a new character starts in **Thornwick** (the start zone of the thornwick pack; the script stops if the server says otherwise). It needs docker and the private-module access above.
+
+- **The picker.** With no `-character`, the TUI opens a **Choose a character** screen: one row for each character you have played (name, class, level, zone, last played), the last one played first and chosen, and **Create a new character** after them. Up / Down (or W / S, 1-9) choose, Enter plays, **N** makes a new one, Esc on the creation screen goes back, Ctrl+C quits. With no characters yet it goes straight to the creation screen (a name and a class; the server puts you in Thornwick). `SEQ_NEW=1 make play` (`-new`) skips the picker for the creation screen; `SEQ_CHARACTER=ID make play` (`-character ID`) plays that character directly.
+- **Where the list comes from.** The protocol has no request for an account's characters, so the TUI keeps its own list: `seq-data/roster.json` in this checkout (`-roster FILE`; with `seq-tui` run by hand, `seq-tui/roster.json` in your data dir). A character is added when it is made or played, and its level and zone are refreshed when you quit. A character made some other way does not appear until you play it with `-character`; a listed character the server no longer has (after a reset) is dropped when you pick it.
+- **Where the world lives.** In the docker volume `seq-tui-world_pgdata` (project `seq-tui-world`, PostgreSQL on 127.0.0.1:55433), plus the roster above. Quitting runs `docker compose down`, which keeps the volume. `seqd` applies the database migrations still pending each time it starts, so a kept world is brought up to the pinned server's schema before you play. Back it up with `docker exec seq-tui-world-postgres-1 pg_dump -U seq seq > seq-backup.sql` while `make play` is running (restore with `psql` the same way), and copy `seq-data/roster.json` beside it. `docker volume ls` shows the volume.
+- **Reset.** `make play-reset` shows what it will delete and wipes the volume and the roster only if you type `yes`. Characters, items and progress are gone; the next `make play` starts a new world.
+- **Zehen.** The old `make play` database was a throwaway (tmpfs), so a character made before this change, Zehen included, is gone; make a new one.
+- **Testgrounds.** `make play-testgrounds` (or `SEQ_TESTGROUNDS=1 make play`) is the old setup: the same server with new characters starting in Testgrounds (the engine's test zone, with its builder names), the development characters `me-1` and `me-2`, `me-1` played with no picker, and a database that goes with the container (docker project `seq-tui-play`, port 55432, its list in `tmp/`). From Testgrounds you can walk to the zone line in the east (`D` on the map; `Nearby` lists it) and press **E** there to cross, and **E** again at the other side to come back.
+- **Settings.** `SEQ_ADDR` (the server's address), `SEQ_PG_PORT`, `SEQ_PLAY_PROJECT` (the docker project, so the volume), `SEQ_WORLD_PACKS=DIR` (serve a `seq-world` checkout's packs instead of the pinned one), `SEQ_PLAY_DRY=1` (print what would run and stop). The development account's two extra characters (`player-1`, `player-2`, made by `seqd -dev-account`, in Testgrounds) are not on the picker.
+
+Without the scripts:
+
+```
+SEQ_SESSION_TOKEN=seq_st_... go run ./cmd/seq-tui -insecure -url wss://127.0.0.1:8443/seq/v1 [-character ID | -new] [-record log.jsonl]
 go run ./cmd/seq-tui -replay testdata/logs/fight_loot.jsonl [-size 140x45 | -text]
 ```
 
-`-new` opens on the character creation screen instead of a character (`SEQ_NEW=1 make play`). `-insecure` accepts the development server's in-memory certificate and works for loopback addresses only. `make play` is `scripts/play.sh`: it starts the throwaway PostgreSQL from seq's `deploy/docker-compose.yml`, builds the pinned `seqd`, starts it with a development account, runs the TUI, and stops both when you quit. It needs docker (OrbStack's) and the private-module access above. The server has both placeholder zones, so from the test zone you can walk to the zone line in the east (`D` on the map; `Nearby` lists it) and press **E** there to cross, and **E** again at the other side to come back.
+`-insecure` accepts the development server's in-memory certificate and works for loopback addresses only.
 
 ## Playing together (M9, D58)
 

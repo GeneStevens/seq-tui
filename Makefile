@@ -1,4 +1,4 @@
-.PHONY: verify golden fixtures play
+.PHONY: verify golden fixtures play play-testgrounds play-reset
 
 # verify is the repo's gate (seq-design D15): gofmt check, vet, test. Under 60 s.
 # The scenarios read seq-world's packs from the module cache, which no import
@@ -29,7 +29,18 @@ golden:
 	go run ./cmd/mkscreens
 	SEQ_GOLDEN=1 go test ./scenario -count=1
 
-# play starts a local seq server (PostgreSQL through docker, OrbStack's) and the
-# TUI on it; see scripts/play.sh for what it needs. Quitting stops both.
+# play starts a local seq server (PostgreSQL through docker, OrbStack's) that
+# serves Thornwick and keeps its data between runs, and the TUI on it, which asks
+# which character to play; see scripts/play.sh for what it needs and the README
+# for where the data lives. Quitting stops both and keeps the world.
 play:
 	scripts/play.sh
+
+# play-testgrounds is the setup for tests and quick checks: Testgrounds (the
+# engine's test zone), me-1, and a database thrown away on quitting.
+play-testgrounds:
+	SEQ_TESTGROUNDS=1 scripts/play.sh
+
+# play-reset wipes the kept world (characters, items, progress) after asking.
+play-reset:
+	scripts/play-reset.sh

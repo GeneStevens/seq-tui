@@ -62,8 +62,10 @@ type View struct {
 	// Slots is the slot screen and Create the character creation screen, nil
 	// when closed. GameNow is the game time the cooldowns and the cast bar read
 	// (0: the last time the server said).
-	Slots   *Slots
-	Create  *Create
+	Slots  *Slots
+	Create *Create
+	// Picker is the character picker, nil when closed.
+	Picker  *Picker
 	GameNow int64
 
 	// PlanSlots are the slot changes the plan being built holds (a turn-based
@@ -171,6 +173,8 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		rows = append(rows, box(title, w, th+lh, sessionsScreenLines(v.Sessions, w-2, th+lh-2, st), st)...)
 	case v.Quest != nil:
 		takeover("Quest chain", func(w, h int) []string { return questScreenLines(m, v.Quest, w, h, st) })
+	case v.Picker != nil:
+		rows = append(rows, box("Choose a character", w, th+lh, pickerLines(v.Picker, v.Now, w-2, th+lh-2, st), st)...)
 	case v.Create != nil:
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Social != nil:
