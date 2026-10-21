@@ -161,6 +161,17 @@ func (s *Session) Connect(ctx context.Context) error {
 	return nil
 }
 
+// ListCharacters asks the server for the account's characters (id, name, class,
+// level, zone, last played, online), the one played most recently first. It
+// works after Connect, before a character is chosen.
+func (s *Session) ListCharacters(ctx context.Context) ([]*pb.CharacterEntry, error) {
+	a := s.agentOrNil()
+	if a == nil {
+		return nil, errors.New("not connected")
+	}
+	return a.ListCharacters(ctx)
+}
+
 // MySessions lists the account's own sessions from the server's session log
 // (D64); the server answers for the account of the credential only. A refusal
 // is an error carrying its reason.

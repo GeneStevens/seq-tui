@@ -12,6 +12,7 @@ type PickerRow struct {
 	Level           int64
 	Zone            string
 	Played          time.Time
+	Online          bool // a connection plays it now: picking it is refused
 }
 
 // Picker is the character picker, when it is open (a session with no character
@@ -57,9 +58,18 @@ func ago(t, now time.Time) string {
 	return fmt.Sprintf("%d days ago", int(d.Hours()/24))
 }
 
+// lastPlayed is the last column: "online" for a character a connection plays
+// now (picking it is refused), else when it was last played.
+func lastPlayed(r PickerRow, now time.Time) string {
+	if r.Online {
+		return "online (in use)"
+	}
+	return ago(r.Played, now)
+}
+
 var pickerKeys = [][2]string{
 	{"Up, Down", "choose a character (the last one you played is chosen to begin with); 1-9 jump to one"},
-	{"Enter", "play the chosen character, or make a new one"},
+	{"Enter", "play the chosen character, or make a new one (an online one is in use: the server refuses it)"},
 	{"N", "make a new character"},
 	{"Ctrl+L", "the sessions view"},
 	{"Ctrl+C", "quit"},
@@ -85,7 +95,7 @@ func pickerLines(p *Picker, now time.Time, w, h int, st Styler) []string {
 		if class == "" {
 			class = "-"
 		}
-		line := fit(fmt.Sprintf(" %s%-16s %-9s %5d  %-16s %s", mark, fit(r.Name, 16), fit(class, 9), r.Level, fit(zone, 16), ago(r.Played, now)), w)
+		line := fit(fmt.Sprintf(" %s%-16s %-9s %5d  %-16s %s", mark, fit(r.Name, 16), fit(class, 9), r.Level, fit(zone, 16), lastPlayed(r, now)), w)
 		if i == p.Sel {
 			line = st.Reverse(line)
 		}

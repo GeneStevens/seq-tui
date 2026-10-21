@@ -1,25 +1,31 @@
 package scenario_test
 
 import (
-	"os"
-	"path/filepath"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/GeneStevens/seq-tui/model"
-	"github.com/GeneStevens/seq-tui/roster"
 	"github.com/GeneStevens/seq-tui/scenario"
 	"github.com/GeneStevens/seq/testserver"
 )
 
-// TUI-036: the character picker, on the Thornwick server.
+// TUI-036, TUI-037: the character picker, on the Thornwick server. It lists
+// the account's characters as the server has them.
+
+// outsideAccount is an account with two characters that were made some other
+// way than through this program (the server has them already): Hale in the
+// Downs, Brin in Thornwick.
+func outsideAccount() []testserver.Account {
+	return []testserver.Account{{Name: "ann", Home: scenario.Thornwick,
+		Classed: map[string]string{"hale": "warrior", "brin": "warrior"},
+		Names:   map[string]string{"hale": "Hale", "brin": "Brin"}}}
+}
 
 func TestPickerEmptyAccountMakesACharacterInThornwickAndListsIt(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
-	path := filepath.Join(t.TempDir(), "roster.json")
 
-	p := w.Pick("ann", path)
+	p := w.Pick("ann")
 	if s := p.Screen(80, 24); !strings.Contains(s, "Make a character") {
 		t.Fatalf("an empty account does not open on creation:\n%s", s)
 	}
@@ -29,66 +35,58 @@ func TestPickerEmptyAccountMakesACharacterInThornwickAndListsIt(t *testing.T) {
 			t.Errorf("a new character starts in %q, not Thornwick", m.Map.GetName())
 		}
 	})
-	r, err := roster.Load(path)
-	if err != nil || len(r.Entries) != 1 {
-		t.Fatalf("roster after creating: %+v, %v", r, err)
-	}
-	if e := r.Entries[0]; e.Name != "Hale" || e.Class != "Warrior" || e.Level != 1 || e.Zone != "Thornwick" || e.ID == "" {
-		t.Errorf("entry = %+v", e)
+	p.LogOut()
+
+	q := w.Pick("ann") // the server now lists it
+	s := q.Screen(80, 24)
+	for _, want := range []string{"Choose a character", "> Hale", "Warrior", "Thornwick"} {
+		if !strings.Contains(s, want) {
+			t.Errorf("the picker lacks %q:\n%s", want, s)
+		}
 	}
 }
 
-func TestPickerListsPreselectsAndPlays(t *testing.T) {
-	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
-	path := filepath.Join(t.TempDir(), "roster.json")
-	for i, name := range []string{"Hale", "Brin"} {
-		p := w.Pick("ann", path)
-		if i > 0 {
-			p.Press("n") // the picker lists Hale; N makes another
-		}
-		makeWarrior(p, name)
-		p.LogOut()
-	}
-	// Brin was played last; Hale first. The roster says when, in its own file.
-	r, err := roster.Load(path)
-	if err != nil || len(r.Entries) != 2 {
-		t.Fatalf("roster: %+v, %v", r, err)
-	}
-	ids := map[string]string{}
-	for i, e := range r.Entries {
-		ids[e.Name] = e.ID
-		r.Entries[i].Played = time.Date(2026, 10, 20, 9, 0, 0, 0, time.UTC)
-		if e.Name == "Hale" {
-			r.Entries[i].Played = time.Date(2026, 10, 19, 9, 0, 0, 0, time.UTC)
-			r.Entries[i].Level = 3
-		}
-	}
-	if err := r.Save(path); err != nil {
-		t.Fatal(err)
-	}
+// Characters the server has but this program never made are listed, and the
+// one played last is chosen.
+func TestPickerListsTheAccountsCharactersAndPreselectsTheNewest(t *testing.T) {
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: outsideAccount()})
 
-	p := w.Pick("ann", path)
+	p := w.Pick("ann")
 	s := p.Screen(80, 24)
 	for _, want := range []string{"Choose a character", "Name", "Class", "Level", "Zone", "Last played", "Hale", "Brin", "Warrior", "Thornwick", "Create a new character", "Up, Down", "Enter", "Ctrl+C"} {
 		if !strings.Contains(s, want) {
 			t.Errorf("the picker lacks %q:\n%s", want, s)
 		}
 	}
-	if !strings.Contains(s, "> Brin") || strings.Contains(s, "> Hale") {
-		t.Errorf("the last played (Brin) is not the one chosen:\n%s", s)
+	if strings.Contains(s, "ann-") || strings.Contains(s, "roster") {
+		t.Errorf("the picker shows something that is not the account's list:\n%s", s)
 	}
-	if strings.Index(s, "Brin") > strings.Index(s, "Hale") {
+	// Play Hale; the server notes when, so Hale is the newest played next time.
+	for _, name := range []string{"Brin", "Hale"} {
+		choose(t, p, name)
+		p.Press("enter")
+		p.Created()
+		p.Model(func(m *model.Model) {
+			if m.Self.Name != name {
+				t.Errorf("playing %q, want %s", m.Self.Name, name)
+			}
+		})
+		p.LogOut()
+		time.Sleep(5 * time.Millisecond)
+		p = w.Pick("ann")
+	}
+	s = p.Screen(80, 24)
+	if !strings.Contains(s, "> Hale") || strings.Contains(s, "> Brin") {
+		t.Errorf("the last played (Hale) is not the one chosen:\n%s", s)
+	}
+	if strings.Index(s, "Hale") > strings.Index(s, "Brin") {
 		t.Errorf("not sorted last played first:\n%s", s)
-	}
-	p.Press("down")
-	if s := p.Screen(80, 24); !strings.Contains(s, "> Hale") {
-		t.Errorf("Down does not move to Hale:\n%s", s)
 	}
 	p.Press("enter")
 	p.Created()
 	p.Model(func(m *model.Model) {
-		if m.Self.Name != "Hale" || m.Self.ID != ids["Hale"] {
-			t.Errorf("playing %q (%s), want Hale", m.Self.Name, m.Self.ID)
+		if m.Self.Name != "Hale" {
+			t.Errorf("playing %q, want Hale", m.Self.Name)
 		}
 	})
 	if s := p.Screen(80, 24); strings.Contains(s, "Choose a character") {
@@ -97,14 +95,10 @@ func TestPickerListsPreselectsAndPlays(t *testing.T) {
 }
 
 func TestPickerCreateRowAndBack(t *testing.T) {
-	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
-	path := filepath.Join(t.TempDir(), "roster.json")
-	first := w.Pick("ann", path)
-	makeWarrior(first, "Hale")
-	first.LogOut()
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: outsideAccount()})
 
-	p := w.Pick("ann", path)
-	p.Press("down") // the create row
+	p := w.Pick("ann")
+	p.Press("down", "down") // past both characters: the create row
 	if s := p.Screen(80, 24); !strings.Contains(s, "> + Create a new character") {
 		t.Fatalf("the cursor is not on the create row:\n%s", s)
 	}
@@ -125,35 +119,62 @@ func TestPickerCreateRowAndBack(t *testing.T) {
 			t.Errorf("made %q in %q", m.Self.Name, m.Map.GetName())
 		}
 	})
-	if r, _ := roster.Load(path); len(r.Entries) != 2 {
-		t.Errorf("roster after the second: %+v", r)
+	p.LogOut()
+	if s := w.Pick("ann").Screen(80, 24); !strings.Contains(s, "Mira") || !strings.Contains(s, "Hale") {
+		t.Errorf("the server's list lacks the new character:\n%s", s)
 	}
 }
 
-func TestPickerDropsACharacterTheServerForgot(t *testing.T) {
-	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: townAccount()})
-	path := filepath.Join(t.TempDir(), "roster.json")
-	r := &roster.Roster{}
-	r.Note(roster.Entry{ID: "ann-ghost", Name: "Ghost", Class: "Warrior", Level: 9, Zone: "Thornwick", Played: time.Now()})
-	if err := r.Save(path); err != nil {
-		t.Fatal(err)
+// A character a connection is playing is listed as online, and picking it is
+// refused by the server with a reason; the picker stays open and the row stays.
+func TestPickerShowsOnlineCharacterAndRefusesIt(t *testing.T) {
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: outsideAccount()})
+	w.Login("ann", "hale")
+
+	p := w.Pick("ann")
+	s := p.Screen(80, 24)
+	var hale string
+	for _, l := range strings.Split(s, "\n") {
+		if strings.Contains(l, "Hale") {
+			hale = l
+		}
 	}
-	p := w.Pick("ann", path)
-	if s := p.Screen(80, 24); !strings.Contains(s, "Ghost") {
-		t.Fatalf("no Ghost:\n%s", s)
+	if !strings.Contains(hale, "online") {
+		t.Fatalf("Hale is not shown online (%q):\n%s", hale, s)
 	}
+	if strings.Contains(s, "Brin") && strings.Contains(lineWith(s, "Brin"), "online") {
+		t.Errorf("Brin is shown online:\n%s", s)
+	}
+	choose(t, p, "Hale")
 	p.Press("enter")
-	var s string
+	var s2 string
 	for end := time.Now().Add(5 * time.Second); time.Now().Before(end); time.Sleep(20 * time.Millisecond) {
-		if s = p.Screen(80, 24); !strings.Contains(s, "Logging in") {
+		if s2 = p.Screen(80, 24); !strings.Contains(s2, "Logging in") {
 			break
 		}
 	}
-	if strings.Contains(s, "> Ghost") || !strings.Contains(s, "! ") {
-		t.Errorf("the missing character is not dropped with a reason:\n%s", s)
+	if !strings.Contains(s2, "! ") || !strings.Contains(s2, "character_in_use") || !strings.Contains(s2, "> Hale") {
+		t.Errorf("picking an online character is not refused with a reason, or the row left the list:\n%s", s2)
 	}
-	b, _ := os.ReadFile(path)
-	if strings.Contains(string(b), "Ghost") {
-		t.Errorf("Ghost is still in the roster file: %s", b)
+}
+
+func lineWith(s, sub string) string {
+	for _, l := range strings.Split(s, "\n") {
+		if strings.Contains(l, sub) {
+			return l
+		}
 	}
+	return ""
+}
+
+// choose moves the cursor onto the named character.
+func choose(t *testing.T, p *scenario.Player, name string) {
+	t.Helper()
+	for i := 0; i < 5; i++ {
+		if strings.Contains(p.Screen(80, 24), "> "+name) {
+			return
+		}
+		p.Press("down")
+	}
+	t.Fatalf("no row for %s:\n%s", name, p.Screen(80, 24))
 }

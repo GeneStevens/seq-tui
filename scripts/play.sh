@@ -12,9 +12,10 @@
 # certificate is made in memory, the token is for a development account.
 #
 # Where the world lives (default mode): the docker volume
-# <SEQ_PLAY_PROJECT>_pgdata (SEQ_PLAY_PROJECT defaults to seq-tui-world), and the
-# TUI's list of characters in seq-data/roster.json. Quitting stops the containers
-# and keeps both. make play-reset (scripts/play-reset.sh) wipes both.
+# <SEQ_PLAY_PROJECT>_pgdata (SEQ_PLAY_PROJECT defaults to seq-tui-world); the
+# characters are the server's (the TUI's picker asks it for the account's list).
+# Quitting stops the containers and keeps the volume. make play-reset
+# (scripts/play-reset.sh) wipes it.
 #
 #   SEQ_TESTGROUNDS=1   the Testgrounds setup (same as make play-testgrounds)
 #   SEQ_PG_PORT=55433   host port of the database (55432 in the Testgrounds setup)
@@ -88,8 +89,11 @@ export SEQ_PG_PORT="$port" SEQ_PG_MOUNT="$mount"
 # zone of the packs it serves (Thornwick, from seq-world's thornwick pack).
 set -- -listen "$addr" -packs "$packs" -dev-account "$account"
 if [ -n "$startspace" ]; then set -- "$@" -start-space "$startspace"; fi
+# The kept Thornwick world holds only the characters made in it: no Testgrounds
+# testers (player-1, player-2) on the account. Testgrounds mode needs them.
+if [ "$mode" = world ]; then set -- "$@" -dev-testers=false; fi
 
-tui_args="-insecure -url wss://$addr/seq/v1 -roster $roster"
+tui_args="-insecure -url wss://$addr/seq/v1"
 if [ "${SEQ_NEW:-}" = 1 ]; then
 	tui_args="$tui_args -new"
 elif [ -n "${SEQ_CHARACTER:-}" ]; then
@@ -102,7 +106,6 @@ if [ "${SEQ_PLAY_DRY:-}" = 1 ]; then
 	echo "mode: $mode"
 	echo "docker project: $project ($mount database on 127.0.0.1:$port)"
 	echo "packs: $packs"
-	echo "roster: $roster"
 	echo "seqd $*"
 	echo "seq-tui $tui_args"
 	exit 0
@@ -120,7 +123,7 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 if [ "$mode" = world ]; then
-	echo "the world is kept in the docker volume ${project}_pgdata and $roster (make play-reset wipes it)"
+	echo "the world is kept in the docker volume ${project}_pgdata (make play-reset wipes it)"
 fi
 echo "starting PostgreSQL on 127.0.0.1:$port ..."
 docker compose -p "$project" -f "$seqdir/deploy/docker-compose.yml" up -d --wait >/dev/null

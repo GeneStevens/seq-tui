@@ -202,6 +202,44 @@ func TestPlayServesThornwickAndNewCharactersStartThere(t *testing.T) {
 	}
 }
 
+// The kept world's account lists no characters before one is made (no
+// Testgrounds testers), and then exactly the one made; the Testgrounds setup
+// keeps its testers (me-1, me-2), which its script plays.
+func TestPlayWorldHoldsNoDevTesters(t *testing.T) {
+	list := func(sess *client.Session) []string {
+		ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+		defer cancel()
+		chars, err := sess.ListCharacters(ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var ids []string
+		for _, c := range chars {
+			ids = append(ids, c.GetCharacter())
+		}
+		return ids
+	}
+	rep := dryRun(t)
+	if !strings.Contains(rep["seqd"], "-dev-testers=false") {
+		t.Fatalf("make play keeps the dev testers: %s", rep["seqd"])
+	}
+	sess := start(t, strings.Fields(rep["seqd"]), "").session(t)
+	if got := list(sess); len(got) != 0 {
+		t.Errorf("the kept world's account starts with %v", got)
+	}
+	id, _ := makeAndPlay(t, sess, "Hale")
+	if got := list(sess); len(got) != 1 || got[0] != id {
+		t.Errorf("after making %s the account lists %v", id, got)
+	}
+	rep = dryRun(t, "SEQ_TESTGROUNDS=1")
+	if strings.Contains(rep["seqd"], "-dev-testers") {
+		t.Errorf("Testgrounds drops its testers: %s", rep["seqd"])
+	}
+	if got := list(start(t, strings.Fields(rep["seqd"]), "").session(t)); len(got) != 2 {
+		t.Errorf("the Testgrounds account lists %v, want me-1 and me-2", got)
+	}
+}
+
 func TestPlayTestgroundsIsBehindItsFlag(t *testing.T) {
 	for _, env := range [][]string{{"SEQ_TESTGROUNDS=1"}} {
 		rep := dryRun(t, env...)
@@ -238,7 +276,7 @@ func TestPlayPicksNoCharacterUnlessAskedTo(t *testing.T) {
 // opt-in: SEQ_PLAY_DOCKER_TEST=1): a character made on the kept database is
 // there after the server and the container are stopped and started again, a
 // play-reset that is not confirmed wipes nothing, and a confirmed one wipes the
-// volume and the character list. It uses its own docker project and port, never
+// volume, characters and all. It uses its own docker project and port, never
 // the ones make play does.
 func TestPlayWorldPersistsAndResets(t *testing.T) {
 	if os.Getenv("SEQ_PLAY_DOCKER_TEST") != "1" {
@@ -265,14 +303,9 @@ func TestPlayWorldPersistsAndResets(t *testing.T) {
 			t.Fatalf("docker compose %v: %v\n%s", args, err, o)
 		}
 	}
-	rosterFile := filepath.Join(t.TempDir(), "roster.json")
-	if err := os.WriteFile(rosterFile, []byte(`{"characters":[]}`), 0o644); err != nil {
-		t.Fatal(err)
-	}
 	reset := func(answer string) (string, error) {
 		return run("sh", answer+"\n", "scripts/play-reset.sh")
 	}
-	env = append(env, "SEQ_ROSTER="+rosterFile)
 	t.Cleanup(func() { _, _ = reset("yes") })
 
 	flags := strings.Fields(dryRun(t)["seqd"])
@@ -302,18 +335,12 @@ func TestPlayWorldPersistsAndResets(t *testing.T) {
 	if o, err := reset("no"); err == nil {
 		t.Errorf("play-reset went ahead without a yes:\n%s", o)
 	}
-	if _, err := os.Stat(rosterFile); err != nil {
-		t.Errorf("an unconfirmed play-reset removed the character list")
-	}
 	if o, err := run("docker", "", "volume", "inspect", project+"_pgdata"); err != nil {
 		t.Errorf("an unconfirmed play-reset removed the volume:\n%s", o)
 	}
 
 	if o, err := reset("yes"); err != nil {
 		t.Fatalf("play-reset: %v\n%s", err, o)
-	}
-	if _, err := os.Stat(rosterFile); err == nil {
-		t.Errorf("play-reset left the character list")
 	}
 	if o, err := run("docker", "", "volume", "inspect", project+"_pgdata"); err == nil {
 		t.Errorf("play-reset left the volume:\n%s", o)

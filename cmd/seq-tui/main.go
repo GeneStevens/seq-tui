@@ -22,7 +22,6 @@ import (
 	"fmt"
 	"net/url"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -33,7 +32,6 @@ import (
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
-	"github.com/GeneStevens/seq-tui/roster"
 	"github.com/GeneStevens/seq-tui/screen"
 	"github.com/GeneStevens/seq-tui/sessionlog"
 )
@@ -47,8 +45,7 @@ func main() {
 
 func run() error {
 	addr := flag.String("url", "wss://127.0.0.1:8443/seq/v1", "the server's gateway")
-	char := flag.String("character", "", "the character to play (its id); without it, and without -new, a picker lists the characters this program has played on this machine")
-	rosterPath := flag.String("roster", "", "the list of characters the picker offers (default: seq-tui/roster.json in your data dir); a character is added to it when it is made or played")
+	char := flag.String("character", "", "the character to play (its id); without it, and without -new, a picker lists the account's characters, as the server has them")
 	create := flag.Bool("new", false, "make a new character (a name and one of the six classes) and play it")
 	insecure := flag.Bool("insecure", false, "development only: accept a self-signed certificate (loopback addresses only)")
 	duo := flag.String("duo", "", "the account's second character to play by a stance beside this one (P brings it in; H, Y, U, J, Z command it by its stance; X directs it from this session); SEQ_DUO_AGENT_SECRET, if set, is an agent credential for it, so that in a turn-based instance its plans go as stand-ins")
@@ -103,11 +100,6 @@ func run() error {
 		cfg.Record = record.NewWriter(f)
 	}
 	cfg.Session = client.NewSessionID()
-	roster, rosterFile, err := loadRoster(*rosterPath, root)
-	if err != nil {
-		return err
-	}
-	pick := *char == "" && !*create && len(roster.Entries) > 0
 	who := *char
 	if *create || *char == "" {
 		who = "" // not known until it is made or picked
@@ -126,23 +118,31 @@ func run() error {
 	defer cancel()
 	prog := func(s *client.Session) *app.App { return app.New(s) }
 	login := sess.Login
-	switch {
-	case pick:
-		prog = func(s *client.Session) *app.App { return app.NewPicker(s, roster, rosterFile) }
+	if *create || *char == "" { // no character named: connect, then pick or make one
 		login = sess.Connect
-	case *create || *char == "": // no character to play, and none to pick: make one
-		prog, login = app.NewCreator, sess.Connect
 	}
 	if err := login(ctx); err != nil {
 		return err
 	}
 	defer sess.Close()
+	switch {
+	case *create:
+		prog = app.NewCreator
+	case *char == "":
+		// The account's characters are the server's to say: the picker lists
+		// them, and an account with none goes straight to making one.
+		chars, err := sess.ListCharacters(ctx)
+		if err != nil {
+			return fmt.Errorf("listing the account's characters: %w", err)
+		}
+		if len(chars) > 0 {
+			prog = func(s *client.Session) *app.App { return app.NewPicker(s, chars) }
+		} else {
+			prog = app.NewCreator
+		}
+	}
 	a := prog(sess)
 	a.SetLogs(root, slog)
-	if !pick {
-		a.SetRoster(roster, rosterFile)
-	}
-	defer a.NoteRoster() // the level and zone it ended at
 	a.Bell = *bell
 	a.NoMouse = *noMouse
 	if *duo != "" && !*create && *char != "" {
@@ -158,23 +158,6 @@ func run() error {
 	}
 	_, err = tea.NewProgram(a).Run()
 	return err
-}
-
-// loadRoster reads the roster at path, or at roster.json beside the sessions
-// directory when path is empty (root is that directory; when there is none, the
-// roster is not kept).
-func loadRoster(path, root string) (*roster.Roster, string, error) {
-	if path == "" && root != "" {
-		path = filepath.Join(filepath.Dir(root), "roster.json")
-	}
-	if path == "" {
-		return &roster.Roster{}, "", nil
-	}
-	r, err := roster.Load(path)
-	if err != nil {
-		return nil, "", fmt.Errorf("the character list %s: %w (remove it to start a new one)", path, err)
-	}
-	return r, path, nil
 }
 
 func runReplay(path string, text bool, size string) error {

@@ -1,6 +1,6 @@
 #!/bin/sh
 # Sourced by play.sh and play-reset.sh: which setup this is, and the names it
-# uses. Sets mode, project, mount, port, account, startspace and roster.
+# uses. Sets mode, project, mount, port, account, and startspace.
 if [ "${SEQ_TESTGROUNDS:-}" = 1 ]; then
 	mode=testgrounds
 	project="${SEQ_PLAY_PROJECT:-seq-tui-play}" # the throwaway database (tmpfs)
@@ -16,6 +16,3 @@ else
 	account=player
 	startspace="" # seqd's own: the start zone of the packs (Thornwick)
 fi
-roster="${SEQ_ROSTER:-$PWD/seq-data/roster.json}"
-# the Testgrounds characters are thrown away with the database; their list is too
-if [ "$mode" = testgrounds ]; then roster="${SEQ_ROSTER:-$PWD/tmp/testgrounds-roster.json}"; fi
