@@ -43,6 +43,10 @@ func (a *App) createKey(k string, m *model.Model) Action {
 		c.Classes = !c.Classes
 		return Action{}
 	case "esc":
+		if !c.Classes && c.Name == "" && a.back != nil {
+			a.picker, a.back, a.create = a.back, nil, nil // back to the characters
+			return Action{}
+		}
 		c.Classes = false
 		return Action{}
 	}

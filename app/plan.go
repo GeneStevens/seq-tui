@@ -43,6 +43,7 @@ const (
 	SetSlot    // put the ability ID in Slot ("" empties it)
 	OpenSlots  // the slot screen
 	CreateCharacter
+	PickCharacter // choose the character ID on the picker
 	OpenInventory // the inventory and gear screen
 	OpenTraders   // the screen for the traders in view
 	OpenTrade     // the trade window
