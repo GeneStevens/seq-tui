@@ -102,6 +102,8 @@ type Self struct {
 	// Class, and the XP the level began at and ends at (XPNext 0: the cap).
 	Class           string
 	XPStart, XPNext int64
+	// AtCap is set at the level cap (SEQ-094): no more XP, so no bar to the next level.
+	AtCap bool
 	// The combat model (SEQ-038): mana, the global cooldown, what the
 	// character knows, what is in each slot and when each ability is ready,
 	// the cast in progress and the effects on it. LastCastEnd is the last cast

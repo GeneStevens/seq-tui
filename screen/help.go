@@ -93,6 +93,7 @@ var helpPages = []helpPage{
 	{"Every key", func(m *model.Model, v View, w int, _ Styler) []string { return keyLines(m, v, w) }},
 	{"Chat, parties, who and friends", func(_ *model.Model, _ View, w int, _ Styler) []string { return socialHelp() }},
 	{"Group rules", func(m *model.Model, _ View, w int, _ Styler) []string { return groupRulesPage(m, w) }},
+	{"Grouping and experience", func(_ *model.Model, _ View, w int, _ Styler) []string { return sections(w, guideGroup) }},
 }
 
 // HelpPages is how many pages the help has.
@@ -199,6 +200,17 @@ var guideChains = []section{
 	}, []string{
 		"With no target, an attack or an ability goes to whatever is attacking you, the nearest first; the status line names the one picked. If nothing is attacking you it is refused: Tab to a target first.",
 		"A fight stops your walk: attacking, using an ability on an enemy, or something attacking you. The log says \"Your walk stopped\"; hold a move key to go on. To back off: F turns auto-attack off, Esc clears the target, then walk away.",
+	}},
+}
+
+var guideGroup = []section{
+	{"Grouping and experience", [][2]string{
+		{"Grouping", "with players of other accounts shares the experience, with a bonus"},
+		{"A kill pays", "at most what a creature 3 levels above you would"},
+		{"Contracts", "open at most 3 levels above you; the board dims the rest and says when they open"},
+		{"Level 12", "the cap: no more experience, but crowns and items still come"},
+	}, []string{
+		"When a kill is cut by that limit the log says so, dimmed: \"(capped: paid as a level 5 creature)\". It is information, not a fault. The 3 levels is the game's setting, not read from the server; the You panel shows Lv 12 (max) at the cap.",
 	}},
 }
 

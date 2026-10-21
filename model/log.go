@@ -3,9 +3,14 @@ package model
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
+
+// CappedMark opens the part of an experience line that says the kill cap cut it
+// (D86): "You gain 22 experience (capped: paid as a level 2 creature)".
+const CappedMark = "(capped: paid as a level "
 
 func itoa(n uint64) string { return strconv.FormatUint(n, 10) }
 
@@ -22,6 +27,10 @@ type LogEntry struct {
 	// Quiet marks routine lines (regeneration, movement, ticks, and the moments
 	// the screen shows in their own place): the short view of the log hides them.
 	Quiet bool
+	// Capped marks an experience line the kill cap cut (D86): the server's text
+	// ends in "(capped: paid as a level N creature)", and the screen mutes that
+	// part, as information rather than a fault.
+	Capped bool
 }
 
 func (m *Model) logEvent(e *pb.Event) {
@@ -107,7 +116,14 @@ func (m *Model) logEvent(e *pb.Event) {
 			return // one line lists everything a loot-all took (D78)
 		}
 	}
-	m.addLog(LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target, Quiet: quiet})
+	capped := false
+	if w := e.GetReward(); w != nil && w.GetKind() == "xp" && w.GetPaidAsLevel() > 0 {
+		capped = true
+		if !strings.Contains(text, CappedMark) {
+			text += fmt.Sprintf(" %s%d creature)", CappedMark, w.GetPaidAsLevel()) // the server's words are missing
+		}
+	}
+	m.addLog(LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target, Quiet: quiet, Capped: capped})
 }
 
 // label is what an entity is called in the log: its name if the model has seen

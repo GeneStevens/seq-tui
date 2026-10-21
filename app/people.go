@@ -104,7 +104,7 @@ func (a *App) boardKey(k string, m *model.Model) Action {
 	n := m.NPC(b.NPC)
 	var offers []*pb.ContractOffer
 	if n != nil {
-		offers = n.GetOffers()
+		offers = m.BoardOffers(n)
 	}
 	held := m.Self.Contracts
 	b.Cur[0], b.Cur[1] = max(min(b.Cur[0], len(offers)-1), 0), max(min(b.Cur[1], len(held)-1), 0)
@@ -116,6 +116,7 @@ func (a *App) boardKey(k string, m *model.Model) Action {
 	case k == "tab" || k == "left" || k == "right":
 		b.Pane = 1 - b.Pane
 	case up(k) || down(k):
+		b.Insist = ""
 		if b.Pane == 0 {
 			b.Cur[0] = step(b.Cur[0], k, len(offers))
 		} else {
@@ -132,6 +133,12 @@ func (a *App) boardKey(k string, m *model.Model) Action {
 			return Action{Note: "the board has nothing for you now"}
 		}
 		o := offers[b.Cur[0]]
+		if at := m.OpensAt(o); at > 0 && b.Insist != o.GetId() {
+			// Not open to this character yet: say why instead of sending a take
+			// that must fail. Enter again sends it, as the server is the authority.
+			b.Insist = o.GetId()
+			return Action{Note: model.OpensAtWords(at) + " Enter again to ask anyway."}
+		}
 		return Action{Kind: ContractAccept, NPC: b.NPC, ID: o.GetId(), Note: o.GetName()}
 	case enter(k):
 		if len(held) == 0 {

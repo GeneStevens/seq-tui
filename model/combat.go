@@ -158,7 +158,7 @@ func dist(a, b *pb.Pos) int64 {
 
 // setKit takes the combat part of a snapshot's self.
 func (s *Self) setKit(self *pb.SelfState, now int64) {
-	s.Class, s.XPStart, s.XPNext = self.GetClass(), self.GetXpLevelStart(), self.GetXpNextLevel()
+	s.Class, s.XPStart, s.XPNext, s.AtCap = self.GetClass(), self.GetXpLevelStart(), self.GetXpNextLevel(), self.GetAtCap()
 	s.Mana, s.MaxMana, s.GCDUntilMs, s.GCDMs = self.GetMana(), self.GetMaxMana(), self.GetGcdUntilMs(), self.GetGcdMs()
 	s.Abilities = slices.Clone(self.GetAbilities())
 	s.Slots = [Slots]SlotState{}

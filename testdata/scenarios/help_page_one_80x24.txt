@@ -18,7 +18,7 @@
 │   gate, say) takes you across; E at the far side brings you back. A door     │
 │   that cannot be used says why in the line under the log, and Nearby marks   │
 │   it (shut).                                                                 │
-│ Page 1 of 9  Up, Down scroll  ? next page  Left, Right turn  Esc closes      │
+│ Page 1 of 10  Up, Down scroll  ? next page  Left, Right turn  Esc closes     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
  ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125%    

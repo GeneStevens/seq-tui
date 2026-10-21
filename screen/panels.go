@@ -141,7 +141,7 @@ func youLines(m *model.Model, v View, w int, st Styler) []string {
 	if name == "" {
 		name = "(no character)"
 	}
-	head := fmt.Sprintf(" %s  Lv %d  XP %d", name, s.Level, s.XP)
+	head := fmt.Sprintf(" %s  %s  XP %d", name, levelWord(s), s.XP)
 	hp := fmt.Sprintf(" HP %d/%d ", s.HP, s.MaxHP)
 	hpLine := fit(hp+bar(s.HP, s.MaxHP, max(w-width(hp)-1, 0)), w)
 	if s.Dead {
@@ -493,12 +493,23 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 			fn = st.Dim
 		}
 		prefix := fmt.Sprintf(" %s %5.1fs ", mark, float64(e.GameTimeMs)/1000)
+		muted := false // inside the capped part of an experience line (D86)
 		for i, ln := range wrap(clean(e.Text), max(w-width(prefix), 8)) {
 			p := prefix
 			if i > 0 {
 				p = strings.Repeat(" ", width(prefix)+2)
 			}
-			all = append(all, styled{p + ln, fn})
+			lfn := fn
+			if e.Capped {
+				if at := strings.Index(ln, "(capped"); at >= 0 && !muted {
+					muted = true
+					head, tail := fn, st.Dim
+					lfn = func(s string) string { return mutedFrom(s, len([]rune(p))+len([]rune(ln[:at])), head, tail) }
+				} else if muted {
+					lfn = st.Dim
+				}
+			}
+			all = append(all, styled{p + ln, lfn})
 		}
 	}
 	if len(all) > h {
@@ -561,4 +572,14 @@ func targetName(m *model.Model) string {
 		return m.Group[id].Entity.GetName()
 	}
 	return id
+}
+
+// mutedFrom draws s in head up to the cell at, and the rest in tail: the capped
+// part of an experience line is information, so it is dim, not green.
+func mutedFrom(s string, at int, head, tail func(string) string) string {
+	r := []rune(s)
+	if at >= len(r) {
+		return head(s)
+	}
+	return head(string(r[:at])) + tail(string(r[at:]))
 }
