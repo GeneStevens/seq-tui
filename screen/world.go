@@ -398,7 +398,9 @@ func overviewLines(m *model.Model, v View, w, h int, st Styler) []string {
 	add(fmt.Sprintf(" %s, %dm by %dm, north up. You: %dm E, %dm N of the SW corner.", m.Map.GetName(),
 		(b.GetMaxX()-b.GetMinX())/1000, (b.GetMaxY()-b.GetMinY())/1000, (sp.GetX()-b.GetMinX())/1000, (sp.GetY()-b.GetMinY())/1000))
 	for _, l := range legend {
-		add(" " + l)
+		// Already styled and fitted to w-2: fit would print its escapes as "?".
+		l = " " + l
+		rows = append(rows, l+strings.Repeat(" ", max(w-visibleWidth(l), 0)))
 	}
 	add(" Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes")
 	return pad(rows, w, h)
