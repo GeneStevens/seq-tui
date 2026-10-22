@@ -10,6 +10,7 @@
 package sessionlog
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -75,9 +76,15 @@ type Log struct {
 	meta Meta
 	now  func() time.Time
 
-	// Rec receives the session's messages (client.Config.Log).
+	// Rec receives the session's messages (client.Config.Log). The file is
+	// buffered: Flush it (Close does) to be sure it holds everything.
 	Rec *record.Writer
+	cap *capWriter // nil when the recording has no size cap
 }
+
+// Stopped reports whether the recording has stopped at its size cap: the file
+// then ends with a line that says so, and nothing more is written to it.
+func (l *Log) Stopped() bool { return l.cap != nil && l.cap.stopped() }
 
 // DefaultDir is where sessions are kept: XDG's data home on Linux, Application
 // Support on macOS.
@@ -158,17 +165,22 @@ func Open(root string, o Options) (*Log, error) {
 	if err != nil {
 		return nil, err
 	}
-	w := &scrubWriter{w: f, secret: o.Credential}
+	// Lines go cap, then scrub, then a buffer, then the file: the cap and the
+	// scrub see each line whole, and the file is written in blocks.
+	bw := bufio.NewWriterSize(f, 64<<10)
+	w := &scrubWriter{w: bw, secret: o.Credential}
 	capBytes := cmpCap(o.SessionBytes, DefaultSessionBytes)
 	var out io.Writer = w
+	var cw *capWriter
 	if o.SessionBytes >= 0 {
-		out = &capWriter{w: w, left: capBytes}
+		cw = &capWriter{w: w, left: capBytes}
+		out = cw
 	}
 	if _, err := fmt.Fprintf(out, "# seq session %s\n", unsafeName.ReplaceAllString(meta.Session, "_")); err != nil {
 		f.Close()
 		return nil, err
 	}
-	l := &Log{dir: dir, f: f, meta: meta, now: now, Rec: record.NewWriter(out)}
+	l := &Log{dir: dir, f: f, meta: meta, now: now, Rec: record.NewFlushingWriter(out, bw.Flush), cap: cw}
 	if err := l.write(); err != nil {
 		f.Close()
 		return nil, err
@@ -223,7 +235,10 @@ func (l *Log) Close() error {
 	l.mu.Lock()
 	l.meta.End = l.now()
 	l.mu.Unlock()
-	err := l.write()
+	err := l.Rec.Flush()
+	if werr := l.write(); err == nil {
+		err = werr
+	}
 	if cerr := l.f.Close(); err == nil {
 		err = cerr
 	}
@@ -263,6 +278,12 @@ type capWriter struct {
 	w    io.Writer
 	left int64
 	done bool
+}
+
+func (c *capWriter) stopped() bool {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	return c.done
 }
 
 func (c *capWriter) Write(p []byte) (int, error) {

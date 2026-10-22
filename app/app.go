@@ -60,6 +60,7 @@ type App struct {
 	replay   *replay            // a recording drawn in place of the screen, nil when none
 	mouse    mouseState         // the pointer, the zoom, the card and the sidebar (D77, D78)
 	log      *sessionlog.Log    // this session's own log, nil when recording is off
+	stopTold bool               // the recording's stop has been put in the event log
 	logRoot  string             // the directory of the player's session logs
 	inviteN  int                // the invitation the prompt is for, and when it came
 	inviteAt time.Time

@@ -84,8 +84,14 @@ func TestTheCredentialIsScrubbedFromWhatIsWritten(t *testing.T) {
 func TestASessionStopsAtItsSizeCap(t *testing.T) {
 	root := filepath.Join(t.TempDir(), "sessions")
 	l := open(t, root, "s", sessionlog.Options{SessionBytes: 400})
+	if l.Stopped() {
+		t.Fatal("stopped before anything was written")
+	}
 	for range 50 {
 		_ = l.Rec.Write(msg("a line that takes some room"))
+	}
+	if !l.Stopped() {
+		t.Error("the log does not say the cap stopped it") // the UI tells the player from this
 	}
 	_ = l.Close()
 	b, _ := os.ReadFile(sessionlog.List(root)[0].RecordPath())
@@ -139,4 +145,17 @@ func TestFindTakesAFileADirectoryOrAnID(t *testing.T) {
 	if _, err := sessionlog.Find(root, "nope"); err == nil {
 		t.Error("Find found a session that is not there")
 	}
+}
+
+func TestTheRecordingIsInTheFileOnceFlushed(t *testing.T) {
+	root := filepath.Join(t.TempDir(), "sessions")
+	l := open(t, root, "s", sessionlog.Options{})
+	_ = l.Rec.Write(msg("hello"))
+	if err := l.Rec.Flush(); err != nil {
+		t.Fatal(err)
+	}
+	if b, _ := os.ReadFile(sessionlog.List(root)[0].RecordPath()); !strings.Contains(string(b), "hello") {
+		t.Errorf("flushed, and the file lacks the line: %q", b)
+	}
+	_ = l.Close()
 }

@@ -58,6 +58,8 @@ type Session struct {
 	sent    map[string]agentkit.Sent
 	out     bool // logout sent
 	nping   uint64
+
+	rec recorder
 }
 
 // NewSessionID makes a play-session id (D64).
@@ -75,7 +77,11 @@ func NewSession(cfg Config) *Session {
 	if cfg.Model == nil {
 		cfg.Model = model.New()
 	}
-	return &Session{cfg: cfg, m: cfg.Model, changed: make(chan struct{}), sent: map[string]agentkit.Sent{}}
+	s := &Session{cfg: cfg, m: cfg.Model, changed: make(chan struct{}), sent: map[string]agentkit.Sent{}}
+	if cfg.Record != nil || cfg.Log != nil {
+		s.rec.start(cfg.Record, cfg.Log)
+	}
+	return s
 }
 
 // SessionID is the id of this play session.
@@ -106,12 +112,7 @@ func (s *Session) onMessage(_ []byte, msg *pb.ServerMessage) {
 	if msg == nil {
 		s.m.Errors = append(s.m.Errors, &pb.Error{Code: pb.ErrorCode_ERROR_CODE_BAD_MESSAGE, Message: "the server sent something that is not a protocol message"})
 	} else {
-		if s.cfg.Record != nil {
-			_ = s.cfg.Record.Write(msg)
-		}
-		if s.cfg.Log != nil {
-			_ = s.cfg.Log.Write(msg)
-		}
+		s.rec.submit(msg) // never blocks: the writing is the recorder's, off this lock
 		s.m.Apply(msg)
 	}
 	s.wake()
@@ -346,6 +347,10 @@ func (s *Session) Close() {
 	if c := s.client(); c != nil {
 		c.Close()
 	}
+	s.mu.Lock()
+	s.rec.stop()
+	s.mu.Unlock()
+	s.rec.wait(recorderWait)
 }
 
 // Closed reports whether the connection has ended, and why.
