@@ -312,6 +312,7 @@ func TestDropResumeAndResend(t *testing.T) {
 		}
 	})
 	// the session was recorded, across both connections, and replays to the same model
+	s.Close() // the recording is written off the session lock; a clean exit has it all
 	msgs, err := record.Read(&buf)
 	if err != nil {
 		t.Fatal(err)

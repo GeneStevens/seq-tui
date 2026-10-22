@@ -16,29 +16,63 @@ import (
 
 // Writer appends messages to a log.
 type Writer struct {
-	mu sync.Mutex
-	w  io.Writer
+	mu    sync.Mutex
+	w     io.Writer
+	flush func() error
 }
 
 // NewWriter returns a Writer on w.
 func NewWriter(w io.Writer) *Writer { return &Writer{w: w} }
 
-// Write appends one message as one line.
-func (r *Writer) Write(m *pb.ServerMessage) error {
+// NewFlushingWriter returns a Writer on w, which buffers; flush writes out what
+// it holds, and Flush calls it. Whoever writes through it flushes it, at the
+// latest when the log ends.
+func NewFlushingWriter(w io.Writer, flush func() error) *Writer {
+	return &Writer{w: w, flush: flush}
+}
+
+// Flush writes out what the Writer's destination holds; a plain Writer has
+// nothing.
+func (r *Writer) Flush() error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+	if r.flush == nil {
+		return nil
+	}
+	return r.flush()
+}
+
+// Encode is a message as one log line, newline included. It is what a log holds,
+// so a message going to several logs is encoded once and written with WriteLine.
+func Encode(m *pb.ServerMessage) ([]byte, error) {
 	b, err := protojson.MarshalOptions{UseProtoNames: true}.Marshal(m)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	// protojson's whitespace is deliberately unstable; the line is compacted so
 	// a log is stable to review.
 	var buf bytes.Buffer
 	if err := compact(&buf, b); err != nil {
-		return err
+		return nil, err
 	}
 	buf.WriteByte('\n')
+	return buf.Bytes(), nil
+}
+
+// Write appends one message as one line.
+func (r *Writer) Write(m *pb.ServerMessage) error {
+	line, err := Encode(m)
+	if err != nil {
+		return err
+	}
+	return r.WriteLine(line)
+}
+
+// WriteLine appends a line made by Encode.
+func (r *Writer) WriteLine(line []byte) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
-	_, err = r.w.Write(buf.Bytes())
+	_, err := r.w.Write(line)
 	return err
 }
 

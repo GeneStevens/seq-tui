@@ -453,64 +453,30 @@ func rareTag(e *pb.EntityState) string {
 	return ""
 }
 
+// logRow is one wrapped, styled line of the log panel.
+type logRow struct {
+	text string
+	fn   func(string) string
+}
+
+// logLines is the log panel's rows. It walks the log from the newest entry back
+// and stops once h rows are in hand, so only the entries that show are wrapped
+// and styled.
 func logLines(m *model.Model, v View, w, h int, st Styler) []string {
-	type styled struct {
-		text string
-		fn   func(string) string
-	}
-	var all []styled
-	for _, e := range m.Log {
+	var blocks [][]logRow // newest entry first
+	have := 0
+	for i := len(m.Log) - 1; i >= 0 && have < h; i-- {
+		e := &m.Log[i]
 		if !v.Verbose && e.Hidden() {
 			continue
 		}
-		mark, fn := " ", func(s string) string { return s }
-		switch {
-		case e.Refused():
-			mark, fn = "!", func(s string) string { return st.Red(st.Bold(s)) }
-		case (e.Kind == "combat_hit" || e.Kind == "combat_miss") && e.Target == m.Self.ID:
-			mark, fn = "<", st.Red
-		case e.Kind == "combat_death":
-			mark, fn = "x", st.Bold
-			if e.Actor != m.Self.ID {
-				fn = func(s string) string { return s }
-			}
-		case e.Kind == "world_event" || e.Kind == "rare_appeared":
-			mark, fn = "*", st.Bold
-		case e.Kind == "reward":
-			mark, fn = "+", st.Green
-		case e.Kind == "cast_cancelled" || e.Kind == "cast_interrupted":
-			mark, fn = "!", func(s string) string { return st.Red(st.Bold(s)) }
-			if e.Actor != m.Self.ID {
-				mark, fn = " ", st.Dim
-			}
-		case e.Kind == "level_up":
-			mark, fn = "+", func(s string) string { return st.Green(st.Bold(s)) }
-		case e.Kind == "quest":
-			mark, fn = "+", st.Green
-		case e.Kind == "walk_stopped":
-			mark, fn = "!", st.Bold
-		case e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed":
-			fn = st.Dim
-		}
-		prefix := fmt.Sprintf(" %s %5.1fs ", mark, float64(e.GameTimeMs)/1000)
-		muted := false // inside the capped part of an experience line (D86)
-		for i, ln := range wrap(clean(e.Text), max(w-width(prefix), 8)) {
-			p := prefix
-			if i > 0 {
-				p = strings.Repeat(" ", width(prefix)+2)
-			}
-			lfn := fn
-			if e.Capped {
-				if at := strings.Index(ln, "(capped"); at >= 0 && !muted {
-					muted = true
-					head, tail := fn, st.Dim
-					lfn = func(s string) string { return mutedFrom(s, len([]rune(p))+len([]rune(ln[:at])), head, tail) }
-				} else if muted {
-					lfn = st.Dim
-				}
-			}
-			all = append(all, styled{p + ln, lfn})
-		}
+		rows := logEntryRows(m, e, w, st)
+		blocks = append(blocks, rows)
+		have += len(rows)
+	}
+	all := make([]logRow, 0, have)
+	for i := len(blocks) - 1; i >= 0; i-- {
+		all = append(all, blocks[i]...)
 	}
 	if len(all) > h {
 		all = all[len(all)-h:]
@@ -523,6 +489,60 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 		rows = append(rows, fit(" nothing has happened yet", w))
 	}
 	return pad(rows, w, h)
+}
+
+// logEntryRows is one log entry, wrapped to w cells and styled.
+func logEntryRows(m *model.Model, e *model.LogEntry, w int, st Styler) []logRow {
+	mark, fn := " ", func(s string) string { return s }
+	switch {
+	case e.Refused():
+		mark, fn = "!", func(s string) string { return st.Red(st.Bold(s)) }
+	case (e.Kind == "combat_hit" || e.Kind == "combat_miss") && e.Target == m.Self.ID:
+		mark, fn = "<", st.Red
+	case e.Kind == "combat_death":
+		mark, fn = "x", st.Bold
+		if e.Actor != m.Self.ID {
+			fn = func(s string) string { return s }
+		}
+	case e.Kind == "world_event" || e.Kind == "rare_appeared":
+		mark, fn = "*", st.Bold
+	case e.Kind == "reward":
+		mark, fn = "+", st.Green
+	case e.Kind == "cast_cancelled" || e.Kind == "cast_interrupted":
+		mark, fn = "!", func(s string) string { return st.Red(st.Bold(s)) }
+		if e.Actor != m.Self.ID {
+			mark, fn = " ", st.Dim
+		}
+	case e.Kind == "level_up":
+		mark, fn = "+", func(s string) string { return st.Green(st.Bold(s)) }
+	case e.Kind == "quest":
+		mark, fn = "+", st.Green
+	case e.Kind == "walk_stopped":
+		mark, fn = "!", st.Bold
+	case e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed":
+		fn = st.Dim
+	}
+	prefix := fmt.Sprintf(" %s %5.1fs ", mark, float64(e.GameTimeMs)/1000)
+	muted := false // inside the capped part of an experience line (D86)
+	var out []logRow
+	for i, ln := range wrap(clean(e.Text), max(w-width(prefix), 8)) {
+		p := prefix
+		if i > 0 {
+			p = strings.Repeat(" ", width(prefix)+2)
+		}
+		lfn := fn
+		if e.Capped {
+			if at := strings.Index(ln, "(capped"); at >= 0 && !muted {
+				muted = true
+				head, tail := fn, st.Dim
+				lfn = func(s string) string { return mutedFrom(s, len([]rune(p))+len([]rune(ln[:at])), head, tail) }
+			} else if muted {
+				lfn = st.Dim
+			}
+		}
+		out = append(out, logRow{p + ln, lfn})
+	}
+	return out
 }
 
 // wrap breaks s into lines of at most n cells at spaces; continuation lines

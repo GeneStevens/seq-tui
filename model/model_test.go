@@ -143,7 +143,9 @@ func TestLogIsBounded(t *testing.T) {
 	for _, msg := range msgs {
 		m.Apply(msg)
 	}
-	if len(m.Log) != 3 || m.Log[0].Seq != 22 || m.Log[1].Seq != 23 || m.Log[2].Kind != "tip" {
+	// The bound is applied in batches (trimLog): up to three caps of lines
+	// between passes, the newest always kept, in order.
+	if n := len(m.Log); n < 3 || n > 8 || m.Log[n-3].Seq != 22 || m.Log[n-2].Seq != 23 || m.Log[n-1].Kind != "tip" {
 		t.Errorf("log %+v", m.Log)
 	}
 	if len(m.Intents) != 2 {

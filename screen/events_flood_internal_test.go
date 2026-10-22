@@ -50,7 +50,7 @@ func TestTheDeathStaysInEventsAfterAFloodOfQuietEvents(t *testing.T) {
 			shown++
 		}
 	}
-	if shown != 4 || quiet > model.DefaultLogCap {
+	if shown != 4 || quiet >= 3*model.DefaultLogCap {
 		t.Errorf("the log holds %d visible and %d quiet lines", shown, quiet)
 	}
 	all := strings.Join(logLines(m, View{Verbose: true}, 70, 12, Plain()), "\n")
@@ -68,7 +68,10 @@ func TestTheDeathStaysInEventsAfterAFloodOfQuietEvents(t *testing.T) {
 			shown++
 		}
 	}
-	if shown != model.DefaultLogCap {
-		t.Errorf("a full log keeps %d visible lines, want %d", shown, model.DefaultLogCap)
+	if shown < model.DefaultLogCap || shown >= 3*model.DefaultLogCap { // trimmed in batches
+		t.Errorf("a full log keeps %d visible lines, want %d to %d", shown, model.DefaultLogCap, 3*model.DefaultLogCap-1)
+	}
+	if last := m.Log[len(m.Log)-2]; last.Kind != "combat_hit" || last.Seq == 0 {
+		t.Errorf("the newest visible line is not kept: %+v", last)
 	}
 }

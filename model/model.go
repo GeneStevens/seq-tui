@@ -16,6 +16,7 @@ const (
 	DefaultLogCap     = 200
 	DefaultIntentsCap = 32
 	errorsCap         = 16
+	faultsCap         = 16
 )
 
 // IntentState is where an intent stands.
@@ -216,7 +217,8 @@ type Model struct {
 	Errors []*pb.Error
 
 	// Duplicates counts events dropped as already applied; Faults lists gaps in
-	// the stream numbers. A healthy session has neither (D39).
+	// the stream numbers (the newest faultsCap are kept). A healthy session has
+	// neither (D39).
 	Duplicates int
 	Faults     []string
 
@@ -279,7 +281,8 @@ func New() *Model { return NewBounded(DefaultLogCap, DefaultIntentsCap) }
 
 // NewBounded returns an empty model with the given event log and intent list bounds.
 func NewBounded(logCap, intentCap int) *Model {
-	return &Model{logCap: max(logCap, 1), intentCap: max(intentCap, 1), Group: map[string]*Member{}, names: map[string]string{},
+	logCap = max(logCap, 1)
+	return &Model{Log: make([]LogEntry, 0, logSlack*logCap), logCap: logCap, intentCap: max(intentCap, 1), Group: map[string]*Member{}, names: map[string]string{},
 		Items: map[string]*pb.ItemInfo{}, Lessons: map[string]*pb.AbilityInfo{}, Entities: map[string]*pb.EntityState{}, Drops: map[string]*pb.LootDropState{}, Encounters: map[string]*pb.EncounterState{}}
 }
 
@@ -350,9 +353,7 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 		m.applyResult(b.IntentResult)
 	case *pb.ServerMessage_Error:
 		m.Errors = append(m.Errors, b.Error)
-		if over := len(m.Errors) - errorsCap; over > 0 {
-			m.Errors = slices.Clone(m.Errors[over:])
-		}
+		m.Errors = capTail(m.Errors, errorsCap)
 	case *pb.ServerMessage_Status:
 		m.Status = b.Status.GetStatus()
 	case *pb.ServerMessage_Chat, *pb.ServerMessage_Party, *pb.ServerMessage_PartyVitals, *pb.ServerMessage_Notice, *pb.ServerMessage_Who, *pb.ServerMessage_Friends:
@@ -485,6 +486,7 @@ func (m *Model) applyEvent(e *pb.Event) {
 		return
 	case n != m.last+1:
 		m.Faults = append(m.Faults, "event "+itoa(n)+" after "+itoa(m.last))
+		m.Faults = capTail(m.Faults, faultsCap)
 	}
 	m.last = n
 	m.apply(e)

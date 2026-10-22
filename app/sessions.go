@@ -61,6 +61,10 @@ func (a *App) noteLog(m *model.Model) {
 	if a.log == nil {
 		return
 	}
+	if !a.stopTold && a.log.Stopped() {
+		a.stopTold = true
+		m.Notice("This session's recording reached its size cap and has stopped; play goes on, but nothing more is recorded.")
+	}
 	if m.Self.ID != "" {
 		a.log.SetCharacter(m.Self.ID)
 	}

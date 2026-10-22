@@ -240,18 +240,25 @@ func (e LogEntry) Hidden() bool {
 	return e.Quiet || e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed" || e.Kind == "unknown"
 }
 
-// trimLog bounds the log: at most logCap lines the panel shows and at most
-// logCap routine ones, each oldest first. They are counted apart so a flood of
-// routine lines (movement, regeneration, ticks) can never push out the lines
-// that matter, a death say, however long the player waits. The order, which is
-// the time, is kept, so verbose mode reads both merged.
+// trimLog bounds the log: the panel shows at most logCap lines and the routine
+// ones at most logCap more, each oldest first. They are counted apart so a
+// flood of routine lines (movement, regeneration, ticks) can never push out the
+// lines that matter, a death say, however long the player waits. The order,
+// which is the time, is kept, so verbose mode reads both merged.
+//
+// The bound is applied in batches: the log may grow to logSlack times the cap
+// before one in-place pass cuts each kind back to logCap, so a steady stream of
+// lines allocates nothing and copies nothing between passes (a pass is
+// amortised over the logCap lines it takes to come round again). Between passes
+// the log holds between logCap and logSlack*logCap lines of a kind; the screen
+// shows the newest ones either way.
 func (m *Model) trimLog() {
-	if len(m.Log) <= m.logCap {
+	if len(m.Log) < logSlack*m.logCap {
 		return
 	}
 	quiet := 0
-	for _, e := range m.Log {
-		if e.Hidden() {
+	for i := range m.Log {
+		if m.Log[i].Hidden() {
 			quiet++
 		}
 	}
@@ -260,7 +267,7 @@ func (m *Model) trimLog() {
 	if dropQuiet == 0 && dropShown == 0 {
 		return
 	}
-	out := make([]LogEntry, 0, len(m.Log)-dropQuiet-dropShown)
+	out := m.Log[:0]
 	for _, e := range m.Log {
 		switch {
 		case e.Hidden() && dropQuiet > 0:
@@ -271,5 +278,24 @@ func (m *Model) trimLog() {
 			out = append(out, e)
 		}
 	}
+	clear(m.Log[len(out):]) // the cut tail must not keep its strings alive
 	m.Log = out
+}
+
+// logSlack is how many caps' worth of lines the log may hold before a pass.
+const logSlack = 3
+
+// capTail keeps the newest n elements of s, in place.
+func capTail[T any](s []T, n int) []T {
+	if over := len(s) - n; over > 0 {
+		s = append(s[:0], s[over:]...)
+		clear(s[n:cap(s)][:over])
+	}
+	return s
+}
+
+// Notice puts a one-line message of the client's own in the log (a recording
+// that stopped, say). Call it with the model locked.
+func (m *Model) Notice(text string) {
+	m.addLog(LogEntry{GameTimeMs: m.GameTimeMs, Kind: "notice", Text: text})
 }
