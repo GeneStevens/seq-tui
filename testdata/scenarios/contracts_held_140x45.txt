@@ -6,12 +6,12 @@
 │   Pays 22 XP and 10 crowns                                                                     ││ Auto-retaliate: ON  (Ctrl+R)           │
 │   Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,  │└────────────────────────────────────────┘
 │   west of the river.                                                                           │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│  Word from Barleycross (Scout)                                                                 ││ First Steps                            │
-│   go to the marker                                                                             ││ Step 2 of 4                            │
-│   the marker is in another place                                                               ││ Speak to your class trainer on         │
-│   Pays 12 XP and 5 crowns                                                                      ││ Trainers' Lane, by the north wall      │
-│   Walk out to Barleycross, along the road west of the river, and return to the board with news ││ (warriors at the west end, druids at   │
-│   of the village.                                                                              ││ the east), for your first lesson.      │
+│  Tusks for the Miller (Gather)                                                                 ││ First Steps                            │
+│   0 of 3 carried                                                                               ││ Step 2 of 4                            │
+│   Pays 18 XP, 8 crowns and Tin Ring ▲                                                          ││ Speak to your class trainer on         │
+│   Bring back 3 boar tusks from the boars in the barley fields. The miller at Wickett Mill      ││ Trainers' Lane, by the north wall      │
+│   trades in them.                                                                              ││ (warriors at the west end, druids at   │
+│                                                                                                ││ the east), for your first lesson.      │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -20,7 +20,7 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
 │                                                                                                ││ Wolves at Wickett Mill             0/4 │
-│                                                                                                ││ Word from Barl… 0/1 — go to the marker │
+│                                                                                                ││ Tusks for the Miller               0/3 │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
@@ -37,9 +37,9 @@
 │     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │ +   N.Ns You take the contract Wolves at Wickett Mill                                                                                    │
-│ +   N.Ns You take the contract Word from Barleycross                                                                                     │
 │ +   N.Ns You take the contract Tusks for the Miller                                                                                      │
+│ +   N.Ns You take the contract Pelts for the Tanners                                                                                     │
 │ !   N.Ns You're carrying as many contracts as you can                                                                                    │
-│ +   N.Ns You give up the contract Tusks for the Miller                                                                                   │
+│ +   N.Ns You give up the contract Pelts for the Tanners                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hawthorn Square, Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard N.Ns ago      ? help

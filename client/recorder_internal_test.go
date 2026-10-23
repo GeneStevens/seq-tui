@@ -91,3 +91,28 @@ func TestAFullQueueNeverBlocksTheSession(t *testing.T) {
 		t.Errorf("a recording with a drop line does not read: %v", err)
 	}
 }
+
+// A frame is one message and so one change: the screen is told once, with every
+// event of the frame already in the model, where messages of old told it once
+// for each (D89).
+func TestAFrameWakesTheScreenOnceWithAllItsEvents(t *testing.T) {
+	s := NewSession(Config{Model: model.New()})
+	s.onMessage(nil, &pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Seq: 4, Space: "z", Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me", Pos: &pb.Pos{}}}}}})
+	before := s.Changed()
+	s.onMessage(nil, &pb.ServerMessage{Body: &pb.ServerMessage_TickFrame{TickFrame: &pb.TickFrame{BaseSeq: 5, Events: []*pb.Event{event(0).GetEvent(), event(0).GetEvent(), event(0).GetEvent()}}}})
+	select {
+	case <-before:
+	default:
+		t.Fatal("the frame did not wake the screen")
+	}
+	select {
+	case <-s.Changed():
+		t.Error("the frame woke the screen more than once")
+	default:
+	}
+	s.View(func(m *model.Model) {
+		if m.Last() != 7 {
+			t.Errorf("the model is at event %d when the screen is woken, want 7", m.Last())
+		}
+	})
+}

@@ -123,15 +123,31 @@ type grid struct {
 	cw, ch     int
 	pcol, prow int64 // the player's cell in the global grid
 	cells      [][]cell
+	flat       []cell // what the rows of cells are cut from
 }
 
 func newGrid(sc scale, cw, ch int, self *pb.Pos) *grid {
 	g := &grid{sc: sc, cw: cw, ch: ch, pcol: roundDiv(self.GetX(), sc.col), prow: roundDiv(self.GetY(), sc.row)}
+	g.flat = make([]cell, cw*ch)
 	g.cells = make([][]cell, ch)
 	for i := range g.cells {
-		g.cells[i] = make([]cell, cw)
+		g.cells[i] = g.flat[i*cw : (i+1)*cw : (i+1)*cw]
 	}
 	return g
+}
+
+// gridFor is a blank grid for the map about to be drawn: the one the map before
+// it was drawn on when the window is the same size (the grid is the same memory
+// from one frame to the next), else a new one (T5).
+func gridFor(h *Hits, sc scale, cw, ch int, self *pb.Pos) *grid {
+	if h != nil && h.spare != nil && h.spare.cw == cw && h.spare.ch == ch {
+		g := h.spare
+		h.spare = nil
+		g.sc, g.pcol, g.prow = sc, roundDiv(self.GetX(), sc.col), roundDiv(self.GetY(), sc.row)
+		clear(g.flat)
+		return g
+	}
+	return newGrid(sc, cw, ch, self)
 }
 
 // cellOf maps a world position to window coordinates; north is up.
@@ -240,7 +256,7 @@ func npcMark(m *model.Model, n *pb.NpcInfo) (rune, cellKind) {
 // picture is centred on the character and the scale never changes, so a zone
 // larger than the panel is seen a window at a time.
 func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
-	g := newGrid(newScale(zoomed(m.Map.GetViewRadiusMm(), v.Zoom), ch), cw, ch, m.Self.Pos)
+	g := gridFor(v.Hits, newScale(zoomed(m.Map.GetViewRadiusMm(), v.Zoom), ch), cw, ch, m.Self.Pos)
 	paintWorld(g, m, v, false)
 	g.pointToObjective(m)
 	g.put(int64(cw/2), int64(ch/2), glyphSelf, kSelf)
@@ -279,7 +295,7 @@ func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 		// Zoomed in, the map is centred on the character and each cell spans less.
 		col, centre = max(col>>uint(z), 1), m.Self.Pos
 	}
-	g := newGrid(scale{col: col, row: 2 * col}, cw, ch, centre)
+	g := gridFor(v.Hits, scale{col: col, row: 2 * col}, cw, ch, centre)
 	paintWorld(g, m, v, true)
 	c, r := g.cellOf(m.Self.Pos)
 	g.put(c, r, glyphSelf, kSelf)
@@ -350,38 +366,18 @@ func groundGlyph(k model.AreaKind) rune {
 // ford, bridge, road or hedge is not lost to the open ground round it.
 var groundShown = []model.AreaKind{model.Building, model.Rock, model.Bridge, model.Ford, model.Water, model.Road, model.Forest, model.Floor}
 
-// paintGround puts the zone's ground on the grid. Each cell samples nine points
-// across it, so a feature narrower than a cell still shows. In a dungeon (a
-// zone with floor, where floor is the only walkable ground) the floor is drawn,
-// the rock that touches it is drawn as a wall, and the rest stays blank.
-func paintGround(g *grid, t *model.Terrain) {
-	key := groundKey{t, g.sc, g.pcol, g.prow, g.cw, g.ch}
-	groundMu.Lock()
-	rows, ok := groundMemo[key]
-	groundMu.Unlock()
-	if !ok {
-		scratch := &grid{sc: g.sc, cw: g.cw, ch: g.ch, pcol: g.pcol, prow: g.prow, cells: make([][]cell, g.ch)}
-		for i := range scratch.cells {
-			scratch.cells[i] = make([]cell, g.cw)
-		}
-		rasterGround(scratch, t)
-		rows = scratch.cells
-		groundMu.Lock()
-		if len(groundMemo) >= 16 {
-			clear(groundMemo)
-		}
-		groundMemo[key] = rows
-		groundMu.Unlock()
-	}
-	for r := range rows {
-		copy(g.cells[r], rows[r])
-	}
+// paintStatic puts what does not move on the grid: the ground, the bounds and
+// the walls. They are the same for the same zone map, scale and cell the
+// character stands in, so the layer is made once for each and copied (T5).
+func paintStatic(g *grid, m *model.Model) {
+	copy(g.flat, staticLayer(g, m.Ground(), m.Map))
 }
 
 // The program draws the same ground again and again while the character stands
-// still, so the last few rasters are kept, by terrain, scale and place.
+// still, so the last few layers are kept, by zone map, scale and place.
 type groundKey struct {
 	t          *model.Terrain
+	zm         *pb.ZoneMap
 	sc         scale
 	pcol, prow int64
 	cw, ch     int
@@ -389,9 +385,40 @@ type groundKey struct {
 
 var (
 	groundMu   sync.Mutex
-	groundMemo = map[groundKey][][]cell{}
+	groundMemo = map[groundKey][]cell{}
 )
 
+// staticLayer is the layer for g's place and scale: the ground, and with a zone
+// map the bounds and walls over it. Its cells are shared: callers copy them.
+func staticLayer(g *grid, t *model.Terrain, zm *pb.ZoneMap) []cell {
+	key := groundKey{t, zm, g.sc, g.pcol, g.prow, g.cw, g.ch}
+	groundMu.Lock()
+	cells, ok := groundMemo[key]
+	groundMu.Unlock()
+	if ok {
+		return cells
+	}
+	scratch := newGrid(g.sc, g.cw, g.ch, &pb.Pos{})
+	scratch.pcol, scratch.prow = g.pcol, g.prow
+	if t != nil {
+		rasterGround(scratch, t)
+	}
+	if zm != nil {
+		paintLines(scratch, zm)
+	}
+	groundMu.Lock()
+	if len(groundMemo) >= 16 {
+		clear(groundMemo)
+	}
+	groundMemo[key] = scratch.flat
+	groundMu.Unlock()
+	return scratch.flat
+}
+
+// rasterGround puts the zone's ground on the grid. Each cell samples nine points
+// across it, so a feature narrower than a cell still shows. In a dungeon (a
+// zone with floor, where floor is the only walkable ground) the floor is drawn,
+// the rock that touches it is drawn as a wall, and the rest stays blank.
 func rasterGround(g *grid, t *model.Terrain) {
 	dungeon := t.HasFloor()
 	// Only the areas that reach the view are asked about the cells in it: a
@@ -463,14 +490,9 @@ func touches(floor [][]bool, c, r int) bool {
 	return false
 }
 
-// paintWorld puts everything the map shows on the grid except the character:
-// the bounds, walls, doors, the NPCs seen (remembered ones too), camps, the
-// markers of held scout contracts, drops, the plan, and what is in view.
-func paintWorld(g *grid, m *model.Model, v View, overview bool) {
-	if t := m.Ground(); t != nil {
-		paintGround(g, t)
-	}
-	if b := m.Map.GetBounds(); b != nil {
+// paintLines draws the zone's bounds and walls.
+func paintLines(g *grid, zm *pb.ZoneMap) {
+	if b := zm.GetBounds(); b != nil {
 		corners := []*pb.Pos{{X: b.GetMinX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMinY()}, {X: b.GetMaxX(), Y: b.GetMaxY()}, {X: b.GetMinX(), Y: b.GetMaxY()}}
 		if b.GetMinX() != b.GetMaxX() || b.GetMinY() != b.GetMaxY() {
 			for i := range corners {
@@ -478,9 +500,16 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 			}
 		}
 	}
-	for _, w := range m.Map.GetWalls() {
+	for _, w := range zm.GetWalls() {
 		g.line(w.GetA(), w.GetB(), glyphWall, kWall)
 	}
+}
+
+// paintWorld puts everything the map shows on the grid except the character:
+// the bounds, walls, doors, the NPCs seen (remembered ones too), camps, the
+// markers of held scout contracts, drops, the plan, and what is in view.
+func paintWorld(g *grid, m *model.Model, v View, overview bool) {
+	paintStatic(g, m)
 	for _, camp := range m.Camps() {
 		c, r := g.cellOf(camp.GetPos())
 		g.put(c, r, glyphCamp, kCamp)
@@ -561,17 +590,32 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 	}
 }
 
-// styled turns the grid into lines, with the colour of each kind of thing.
+// styled turns the grid into lines, with the colour of each kind of thing. A
+// run of cells of one kind is styled once, not a cell at a time.
 func (g *grid) styled(st Styler) []string {
 	rows := make([]string, len(g.cells))
+	var b strings.Builder
 	for r := range g.cells {
-		var b strings.Builder
-		for _, c := range g.cells[r] {
-			s := string(c.r)
-			if c.k == kEmpty {
-				s = " "
+		b.Reset()
+		cells := g.cells[r]
+		for c := 0; c < len(cells); {
+			k, a := cells[c].k, cells[c].a
+			end := c + 1
+			for end < len(cells) && cells[end].k == k && (k != kGround || cells[end].a == a) {
+				end++
 			}
-			b.WriteString(cellStyle(c.k, c.a, st)(s))
+			if k == kEmpty {
+				for ; c < end; c++ {
+					b.WriteByte(' ')
+				}
+				continue
+			}
+			var run strings.Builder
+			run.Grow(end - c)
+			for ; c < end; c++ {
+				run.WriteRune(cells[c].r)
+			}
+			b.WriteString(cellStyle(k, a, st)(run.String()))
 		}
 		rows[r] = b.String()
 	}

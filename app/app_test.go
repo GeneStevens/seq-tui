@@ -124,6 +124,7 @@ func TestTurnBasedKeysBuildAPlanInsteadOfActing(t *testing.T) {
 	sess.View(func(m *model.Model) {
 		m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: &pb.Event{Seq: m.Last() + 1, Body: &pb.Event_RoundStarted{RoundStarted: &pb.RoundStarted{Round: m.Round.Number + 1, DeadlineMs: 1}}}}})
 	})
+	a.Update(tea.WindowSizeMsg{Width: 140, Height: 45}) // the program is told of a change by a message; any stands in
 	if s := screenOf(a); !strings.Contains(s, "Round 2") || !strings.Contains(s, "Plan: empty, not sent") {
 		t.Errorf("the plan survived a new round:\n%s", s)
 	}

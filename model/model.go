@@ -230,6 +230,13 @@ type Model struct {
 	HandIn  *Moment
 	// levelTold: a level_up event came and the snapshot after it need not say so again.
 	levelTold bool
+	// evSeq is the stream number of the event being applied: the event's own, or
+	// the one a tick frame gives it (an event in a frame carries none).
+	evSeq uint64
+	// inFrame: the events of a tick frame are being applied (see frame.go).
+	inFrame bool
+	// companionMana is the last mana a companion that went away had, by id.
+	companionMana map[string][2]int64
 	// tipped: the tip on "tradable once" was logged. run is the loot-all in progress.
 	tipped bool
 	run    *lootRun
@@ -343,10 +350,9 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 			}
 		}
 	case *pb.ServerMessage_DoorStates:
-		m.Doors = map[string]*pb.DoorState{}
-		for _, d := range b.DoorStates.GetDoors() {
-			m.Doors[d.GetId()] = d
-		}
+		m.applyDoors(b.DoorStates)
+	case *pb.ServerMessage_TickFrame:
+		m.applyFrame(b.TickFrame)
 	case *pb.ServerMessage_Event:
 		m.applyEvent(b.Event)
 	case *pb.ServerMessage_IntentResult:
@@ -421,33 +427,24 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	m.SelfMoves++
-	m.Group, m.Entities = map[string]*Member{}, map[string]*pb.EntityState{}
+	m.Entities = map[string]*pb.EntityState{}
 	m.remember(e)
 	// Everything in view carries its effects (D50): a fresh snapshot, a login in
 	// the middle of a fight, tells what lies on each of them.
 	m.TargetEffects = map[string][]Effect{}
-	noteEffects := func(en *pb.EntityState) {
-		if fx := effectsFrom(en.GetEffects(), s.GetGameTimeMs()); len(fx) > 0 && en.GetId() != m.Self.ID {
-			m.TargetEffects[en.GetId()] = fx
-		}
-	}
 	for _, it := range s.GetItems() {
 		m.Items[it.GetId()] = it
 	}
 	m.NPCs, m.Trade = s.GetNpcs(), s.GetTrade()
-	m.noteContracts(s)
+	m.noteContracts(s.GetSelf().GetContracts(), s.GetNpcs())
 	for _, n := range m.NPCs {
 		m.noteNPC(n)
 	}
 	m.Drops, m.Encounters = map[string]*pb.LootDropState{}, map[string]*pb.EncounterState{}
-	for _, g := range s.GetGroup() {
-		m.remember(g.GetEntity())
-		noteEffects(g.GetEntity())
-		m.Group[g.GetEntity().GetId()] = &Member{Entity: cloneEntity(g.GetEntity()), Target: g.GetTarget(), AutoAttack: g.GetAutoAttack(), XP: g.GetXp(), Mana: g.GetMana(), MaxMana: g.GetMaxMana()}
-	}
+	m.setGroup(s.GetGroup(), s.GetGameTimeMs())
 	for _, en := range s.GetEntities() {
 		m.remember(en)
-		noteEffects(en)
+		m.noteEffects(en, s.GetGameTimeMs())
 		m.Entities[en.GetId()] = cloneEntity(en)
 	}
 	for _, d := range s.GetDrops() {
@@ -472,14 +469,17 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	m.levelPending, m.levelTold = false, false
 }
 
-func (m *Model) applyEvent(e *pb.Event) {
+func (m *Model) applyEvent(e *pb.Event) { m.applyEventAt(e, e.GetSeq()) }
+
+// applyEventAt applies e as event n of the stream.
+func (m *Model) applyEventAt(e *pb.Event, n uint64) {
+	m.evSeq = n
 	if _, ok := e.GetBody().(*pb.Event_SpaceChanged); ok {
 		// A crossing is announced outside the numbering of either stream
 		// (seq 0), before the new space's snapshot (D40).
 		m.apply(e)
 		return
 	}
-	n := e.GetSeq()
 	switch {
 	case n <= m.last:
 		m.Duplicates++ // a resume repeats nothing (D39); if it does, once is enough
@@ -511,6 +511,8 @@ func (m *Model) apply(e *pb.Event) {
 		case en.GetId() == m.Self.ID:
 		case m.Group[en.GetId()] != nil:
 			m.Group[en.GetId()].Entity = cloneEntity(en)
+		case m.inFrame && en.GetOwner() == m.Self.ID && m.Self.ID != "":
+			m.companionJoins(en)
 		default:
 			m.Entities[en.GetId()] = cloneEntity(en)
 		}
@@ -528,7 +530,11 @@ func (m *Model) apply(e *pb.Event) {
 			}
 		}
 	case *pb.Event_EntityLeft:
-		delete(m.Entities, b.EntityLeft.GetId())
+		id := b.EntityLeft.GetId()
+		delete(m.Entities, id)
+		if g := m.Group[id]; m.inFrame && g != nil && g.Entity.GetOwner() == m.Self.ID && m.Self.ID != "" {
+			m.companionLeaves(id, g)
+		}
 	case *pb.Event_NpcAppeared:
 		m.npcAppeared(b.NpcAppeared.GetNpc())
 	case *pb.Event_NpcMoved:

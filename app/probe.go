@@ -106,3 +106,7 @@ func (a *App) Drawn() (x, y int64) {
 	})
 	return
 }
+
+// Draws is how many times the screen has been drawn: a scenario or a test
+// counts what a message costs (T4).
+func (a *App) Draws() int { return a.paint.draws }

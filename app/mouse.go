@@ -46,10 +46,15 @@ func (a *App) mouseView(v *screen.View) {
 	v.Zoom, v.BigZoom, v.Card, v.Cursor, v.Side = ms.zoom, ms.bigZoom, ms.card, ms.cursor, a.activeSide()
 }
 
-// refresh draws the screen once, for the geometry of what is on it: a scenario
-// has no renderer, and a click must be read against the screen as it is now.
+// refresh makes sure the geometry of what is on the screen is as the screen is
+// now, for a click to be read against it. The last drawing recorded it, so it
+// draws again only when something has changed since (or the last drawing was
+// for another size): a click, a wheel turn and a cursor key do not each cost a
+// full render (T4).
 func (a *App) refresh() {
-	_ = a.render(a.w, a.h, 0, screen.Plain())
+	if p := &a.paint; p.hitsStale || p.hitsW != a.w || p.hitsH != a.h {
+		_ = a.render(a.w, a.h, 0, screen.Plain())
+	}
 }
 
 // zoomMap zooms whichever map is shown by steps.

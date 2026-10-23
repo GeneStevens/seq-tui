@@ -33,6 +33,9 @@ type App struct {
 	watch    <-chan struct{}
 	lastTick time.Time
 	lastN    uint64
+	// paint is what the program keeps so that it draws once for what changed,
+	// not once for each message it is sent (D89, T4): see Update and View.
+	paint    paintState
 	retrying bool
 	pings    int
 	menu     *screen.Menu   // the instance menu, nil when closed
@@ -161,7 +164,53 @@ func (a *App) observe() {
 	})
 }
 
+// paintState says whether the screen must be drawn again, and what was last
+// drawn. A message changes the screen unless it is the pointer coming to rest
+// on the cell it was already on, so only that kind is let through without a
+// repaint (a motion is sent for every cell the pointer crosses, and a terminal
+// sends many for each).
+type paintState struct {
+	dirty     bool // something changed since the last View
+	shown     tea.View
+	haveShown bool
+	// hitsStale: what the map's last drawing recorded of where things are is
+	// older than the last message, or was made for another size.
+	hitsStale bool
+	hitsW     int
+	hitsH     int
+	draws     int // how many times the screen has been drawn, by View or for a click
+}
+
+// Update handles a message. Whatever it is, the next View draws the screen
+// again, unless the message cannot have changed it.
 func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	if a.restsOnTheSameCell(msg) {
+		return a.update(msg)
+	}
+	a.paint.dirty = true
+	if _, ok := msg.(tea.MouseMsg); ok {
+		// A click is read against the screen the player sees, which is the last
+		// one drawn: its geometry goes stale once the click is handled.
+		defer func() { a.paint.hitsStale = true }()
+		return a.update(msg)
+	}
+	a.paint.hitsStale = true
+	return a.update(msg)
+}
+
+// restsOnTheSameCell says msg is a pointer motion that leaves the hovered cell
+// and the Alt key as they were: nothing on the screen depends on it (T4).
+func (a *App) restsOnTheSameCell(msg tea.Msg) bool {
+	mv, ok := msg.(tea.MouseMotionMsg)
+	if !ok || a.replay != nil {
+		return ok
+	}
+	h := a.mouse.hover
+	mo := mv.Mouse()
+	return h != nil && h.X == mo.X && h.Y == mo.Y && a.mouse.alt == mo.Mod.Contains(tea.ModAlt)
+}
+
+func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
 		a.w, a.h = msg.Width, msg.Height
@@ -679,10 +728,16 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 		}
 		out = screen.Render(m, v, w, h, st)
 	})
+	a.paint.hitsStale, a.paint.hitsW, a.paint.hitsH = false, w, h
+	a.paint.draws++
 	return out
 }
 
 func (a *App) View() tea.View {
+	if !a.paint.dirty && a.paint.haveShown {
+		return a.paint.shown // nothing has changed since it was drawn
+	}
+	a.paint.dirty = false
 	// A scenario's clock is the server's and moves between messages; the program's
 	// own draws (this one is made after every message) leave the walking mark
 	// alone, and the scenario draws when it looks.
@@ -699,6 +754,7 @@ func (a *App) View() tea.View {
 	// keys are gone when the window loses it.
 	tv.KeyboardEnhancements = tea.KeyboardEnhancements{ReportEventTypes: true}
 	tv.ReportFocus = true
+	a.paint.shown, a.paint.haveShown = tv, true
 	return tv
 }
 

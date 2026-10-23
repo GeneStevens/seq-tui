@@ -6,11 +6,11 @@
 │  Pelts for the Tanners           Gather L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
 │  Word from Barleycross           Scout  L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
-│                                                                                                ││ [Gear]  Bags   Stats                   │
-│                                                                                                ││ Head      -                            │
-│                                                                                                ││ Chest     -                            │
-│                                                                                                ││ Legs      -                            │
-│                                                                                                ││ Hands     -                            │
+│  Cutpurses on the Barleycr… opens at level 2  │                                                ││ [Gear]  Bags   Stats                   │
+│  Clear the Roadside Bandits opens at level 4  │                                                ││ Head      -                            │
+│  The Greywood Pack          opens at level 4  │                                                ││ Chest     -                            │
+│  Tusks for the Carver       opens at level 4  │                                                ││ Legs      -                            │
+│  Report from Millrace Ford  opens at level 4  │                                                ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
 │                                                                                                ││ Ring 1    -                            │
 │                                                                                                ││ Ring 2    -                            │

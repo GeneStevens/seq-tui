@@ -190,12 +190,12 @@ func (m *Model) mergeLoot(e *pb.Event, name string) bool {
 				continue
 			}
 			add(r)
-			m.Log[i].Text, m.Log[i].Seq = r.text(), e.GetSeq()
-			r.seq = e.GetSeq()
+			m.Log[i].Text, m.Log[i].Seq = r.text(), m.evSeq
+			r.seq = m.evSeq
 			return true
 		}
 	}
-	r := &lootRun{seq: e.GetSeq(), atMs: e.GetGameTimeMs(), counts: map[string]int{}}
+	r := &lootRun{seq: m.evSeq, atMs: e.GetGameTimeMs(), counts: map[string]int{}}
 	add(r)
 	m.run = r
 	return false

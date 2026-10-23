@@ -107,7 +107,7 @@ func (m *Model) mobNotes(e *pb.Event) {
 	t.init()
 	at := e.GetGameTimeMs()
 	note := func(kind, text string) {
-		m.addLog(LogEntry{Seq: e.GetSeq(), GameTimeMs: at, Kind: kind, Text: text})
+		m.addLog(LogEntry{Seq: m.evSeq, GameTimeMs: at, Kind: kind, Text: text})
 	}
 	switch b := e.GetBody().(type) {
 	case *pb.Event_EntityMoved:

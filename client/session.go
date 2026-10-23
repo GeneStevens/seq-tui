@@ -16,6 +16,7 @@ import (
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
 	"github.com/GeneStevens/seq/agentkit"
+	"github.com/GeneStevens/seq/protocol"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
@@ -41,6 +42,18 @@ type Config struct {
 	Agent string
 	// Model is the model to feed; nil makes a new one.
 	Model *model.Model
+	// NoFrames asks the server for one message for each event, as before
+	// SEQ-119, in place of one frame for each tick with the self view sent as
+	// deltas (D89). A recording made either way replays.
+	NoFrames bool
+}
+
+// features are what hello asks for.
+func (c Config) features() []string {
+	if c.NoFrames {
+		return []string{} // asks for nothing (nil would take the toolkit's default)
+	}
+	return []string{protocol.FeatureTickFrames}
 }
 
 // Session is one play session: the agent toolkit's connection (D41) with the
@@ -107,12 +120,23 @@ func (s *Session) Changed() <-chan struct{} {
 // in order, before the toolkit acts on it. It records the message and folds it
 // into the model.
 func (s *Session) onMessage(_ []byte, msg *pb.ServerMessage) {
+	var line []byte
+	if msg.GetTickFrame() != nil && s.rec.recording() {
+		// The toolkit numbers the events of a frame in place once this returns, so
+		// the line is made now, here and not under the lock or on the recorder's
+		// goroutine, which would read the message while it is written to.
+		line, _ = record.Encode(msg)
+	}
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if msg == nil {
 		s.m.Errors = append(s.m.Errors, &pb.Error{Code: pb.ErrorCode_ERROR_CODE_BAD_MESSAGE, Message: "the server sent something that is not a protocol message"})
 	} else {
-		s.rec.submit(msg) // never blocks: the writing is the recorder's, off this lock
+		if line != nil {
+			s.rec.submitLine(line)
+		} else {
+			s.rec.submit(msg) // never blocks: the writing is the recorder's, off this lock
+		}
 		s.m.Apply(msg)
 	}
 	s.wake()
@@ -133,7 +157,7 @@ func (s *Session) watch(c *agentkit.Client) {
 func (s *Session) Login(ctx context.Context) error {
 	a, _, err := agentkit.Login(ctx, agentkit.Config{
 		URL: s.cfg.URL, TLS: s.cfg.TLS, Credential: s.cfg.Credential, Character: s.cfg.Character,
-		Session: s.cfg.Session, OnMessage: s.onMessage,
+		Session: s.cfg.Session, OnMessage: s.onMessage, Features: s.cfg.features(),
 	})
 	if err != nil {
 		return err
@@ -150,7 +174,7 @@ func (s *Session) Login(ctx context.Context) error {
 func (s *Session) Connect(ctx context.Context) error {
 	a, err := agentkit.Connect(ctx, agentkit.Config{
 		URL: s.cfg.URL, TLS: s.cfg.TLS, Credential: s.cfg.Credential, Character: s.cfg.Character,
-		Session: s.cfg.Session, OnMessage: s.onMessage,
+		Session: s.cfg.Session, OnMessage: s.onMessage, Features: s.cfg.features(),
 	})
 	if err != nil {
 		return err
