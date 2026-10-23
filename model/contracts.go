@@ -73,15 +73,15 @@ func (m *Model) ContractName(id string) string {
 // noteContracts remembers the names of the contracts a snapshot offered or held,
 // so a log line can name one that is gone by then. A held contract carries its
 // own name, text and reward wherever the character is (D52).
-func (m *Model) noteContracts(s *pb.Snapshot) {
+func (m *Model) noteContracts(held []*pb.ContractInfo, npcs []*pb.NpcInfo) {
 	if m.contractNames == nil {
 		m.contractNames = map[string]string{}
 	}
-	for _, c := range s.GetSelf().GetContracts() {
+	for _, c := range held {
 		m.contractNames[c.GetId()] = c.GetName()
 	}
-	m.noteQuestHeld(s.GetSelf().GetContracts())
-	for _, n := range s.GetNpcs() {
+	m.noteQuestHeld(held)
+	for _, n := range npcs {
 		for _, o := range n.GetOffers() {
 			m.contractNames[o.GetId()] = o.GetName()
 		}

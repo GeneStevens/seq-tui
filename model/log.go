@@ -123,7 +123,7 @@ func (m *Model) logEvent(e *pb.Event) {
 			text += fmt.Sprintf(" %s%d creature)", CappedMark, w.GetPaidAsLevel()) // the server's words are missing
 		}
 	}
-	m.addLog(LogEntry{Seq: e.GetSeq(), GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target, Quiet: quiet, Capped: capped})
+	m.addLog(LogEntry{Seq: m.evSeq, GameTimeMs: e.GetGameTimeMs(), Kind: kind, Text: text, Reason: reason, Actor: actor, Target: target, Quiet: quiet, Capped: capped})
 }
 
 // label is what an entity is called in the log: its name if the model has seen

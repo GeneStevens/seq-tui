@@ -97,7 +97,7 @@ func (m *Model) noteWalkStop(e *pb.Event) {
 		return
 	}
 	m.Self.HasDestination, m.Self.Destination, m.lastSelfMoveMs = false, nil, 0
-	m.addLog(LogEntry{Kind: "walk_stopped", GameTimeMs: e.GetGameTimeMs(), Seq: e.GetSeq(),
+	m.addLog(LogEntry{Kind: "walk_stopped", GameTimeMs: e.GetGameTimeMs(), Seq: m.evSeq,
 		Text: "Your walk stopped: " + why + "; a fight stops a walk. Move again to go on."})
 }
 

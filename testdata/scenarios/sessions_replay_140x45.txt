@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                                    
- REPLAY | Testgrounds | nothing heard yet | tui-ann-1: message 33 of 33  Left, Right step  Home, End  Esc back                ? help  q quit
+ REPLAY | Testgrounds | nothing heard yet | tui-ann-1: message 29 of 29  Left, Right step  Home, End  Esc back                ? help  q quit

@@ -15,8 +15,8 @@
 │ You: none   |   Warren Chief: chief-pack-cry 17s                             │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+│   NNN.Ns Bram hits Warren Chief for 108                                      │
 │   NNN.Ns You hit Warren Chief for 108                                        │
-│   NNN.Ns Bram hits Warren Chief for 117                                      │
 │   NNN.Ns Warren Chief began attacking hale                                   │
 │ < NNN.Ns Warren Chief hits you for 9                                         │
 └──────────────────────────────────────────────────────────────────────────────┘

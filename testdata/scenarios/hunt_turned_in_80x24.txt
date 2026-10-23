@@ -6,10 +6,10 @@
 │  Pelts for the Tanners  Gather L1-3  │                                       │
 │  Tusks for the Miller   Gather L1-3  │                                       │
 │  Word from Barleycross  Scout  L1-3  │                                       │
-│                                                                              │
-│                                                                              │
-│                                                                              │
-│                                                                              │
+│  Cutpurses on the… opens at level 2  │                                       │
+│  Clear the Roadsi… opens at level 4  │                                       │
+│  The Greywood Pack opens at level 4  │                                       │
+│  Tusks for the Ca… opens at level 4  │                                       │
 │                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
 │                                                                              │

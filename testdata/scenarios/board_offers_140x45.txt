@@ -5,11 +5,11 @@
 │  Word from Wickett Mill          Scout  L1-3  │                                                ││ Atk off | none                         │
 │  Wolves at Wickett Mill          Hunt   L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Your character (C: tab) ──────────────┐
-│                                                                                                ││ [Gear]  Bags   Stats                   │
-│                                                                                                ││ Head      -                            │
-│                                                                                                ││ Chest     -                            │
-│                                                                                                ││ Legs      -                            │
+│  Cutpurses on the Barleycr… opens at level 2  │                                                │┌─ Your character (C: tab) ──────────────┐
+│  Clear the Roadside Bandits opens at level 4  │                                                ││ [Gear]  Bags   Stats                   │
+│  The Greywood Pack          opens at level 4  │                                                ││ Head      -                            │
+│  Tusks for the Carver       opens at level 4  │                                                ││ Chest     -                            │
+│  Report from Millrace Ford  opens at level 4  │                                                ││ Legs      -                            │
 │                                                                                                ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
 │                                                                                                ││ Ring 1    -                            │

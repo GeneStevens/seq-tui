@@ -158,13 +158,15 @@ func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
 	p.Golden("board_taken")
 
 	// Two more, and the fourth is refused with its reason.
-	p.Press("down", "enter", "down", "enter")
+	// (Contracts of later levels are listed below the open ones now: Enter on the
+	// row the cursor stays on takes the next, where a Down would step onto one.)
+	p.Press("enter", "enter")
 	p.Model(func(m *model.Model) {
 		if len(m.Self.Contracts) != 3 {
 			t.Fatalf("three contracts held, have %d", len(m.Self.Contracts))
 		}
 	})
-	p.Press("down", "enter")
+	p.Press("up", "enter")
 	notice(t, p, "as many contracts as you can", true)
 	// Tab to the contracts held; X gives the third up.
 	p.Press("tab", "down", "down", "x")

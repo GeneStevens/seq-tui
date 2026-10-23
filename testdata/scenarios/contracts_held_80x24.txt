@@ -6,12 +6,12 @@
 │   Pays 22 XP and 10 crowns                                                   │
 │   Kill 4 wolves in the Thornwick Downs. They have been circling the millpond │
 │   at Wickett Mill, west of the river.                                        │
-│  Word from Barleycross (Scout)                                               │
-│   go to the marker                                                           │
-│   the marker is in another place                                             │
-│   Pays 12 XP and 5 crowns                                                    │
-│   Walk out to Barleycross, along the road west of the river, and return to   │
-│   the board with news of the village.                                        │
+│  Tusks for the Miller (Gather)                                               │
+│   0 of 3 carried                                                             │
+│   Pays 18 XP, 8 crowns and Tin Ring ▲                                        │
+│   Bring back 3 boar tusks from the boars in the barley fields. The miller at │
+│   Wickett Mill trades in them.                                               │
+│                                                                              │
 │                                                                              │
 │                                                                              │
 │                                                                              │
