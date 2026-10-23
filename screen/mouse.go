@@ -37,10 +37,15 @@ type Hits struct {
 	Tabs []Tab
 	g    *grid
 	org  Pt // where the next map is drawn
+	// spare is the grid of the drawing before, for the next to draw on (T5).
+	spare *grid
 }
 
 // begin readies the record for a drawing.
 func (h *Hits) begin() {
+	if h.g != nil {
+		h.spare = h.g
+	}
 	h.Map, h.Side, h.Tabs, h.g = Rect{}, Rect{}, h.Tabs[:0], nil
 }
 
@@ -274,9 +279,17 @@ func (g *grid) labelRoom(used map[[2]int64]bool, c, r int64, w int) bool {
 // Alt is held (or the toggle is on), the label by the pointer, the keyboard
 // cursor and the info card of what was clicked.
 func paintOverlays(g *grid, m *model.Model, v View) {
-	ts := things(g, m)
-	used := map[[2]int64]bool{}
+	// What can be pointed at is listed only for what needs it: the labels and the
+	// label by the pointer. A frame with neither draws no list (T5).
+	var ts []thing
+	if v.Labels || (v.Hits != nil && v.Hover != nil) {
+		ts = things(g, m)
+	}
+	var used map[[2]int64]bool
 	place := func(t thing, text string) bool {
+		if used == nil {
+			used = map[[2]int64]bool{}
+		}
 		text = " " + text + " "
 		w := width(text)
 		// Beside the thing, right then left; failing that (a long label by a thing
