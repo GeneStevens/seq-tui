@@ -14,11 +14,11 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │ +   N.Ns Eyes on the Goblins: 1 of 1                                         │
 │                                                                              │
 │                                                                              │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · ?: help                                 
+ Walk: click or arrows · M: large map · C: chat · ?: help                       
  ONLINE | → Hand in: Eyes on the Goblins (Thornwick), 222m W | heard N.Ns ago   

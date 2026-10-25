@@ -14,7 +14,7 @@
 │                                                                                                ││ ! Testgrounds Recruiter   86m SW [new] │
 │                                                                                                ││ & Testgrounds Contract B… 89m SW [new] │
 │                                                @                                               ││ p cy1                     3m S 100/100 │
-│                                                                                                ││ D Gate North               3m S (shut) │
+│                                          “hello both”                                          ││ D Gate North               3m S (shut) │
 │                                                p                                               ││ p ann1                    4m S 100/100 │
 │                                                p                                               ││ ◆ Tester's Fa… 73m S raiders head here │
 │                                                                                                ││ H Eastern Binder                 75m S │
@@ -28,18 +28,18 @@
 │                                                                                                ││ T Cleric Trainer                 91m W │
 │                                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
-│ nothing has happened yet                                                       ││ [say] cy1: hello both                                  │
-│                                                                                ││ [tell] cy1: psst, a word                               │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-└────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •2  Party ──────────────────────────────────────────────────────────────────── [tell] cy1: psst, a word ─┐
+│ nothing has happened yet                                                                                                                 │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Gate North is shut: no expedition is open beyond it. Start one first.                                                                      
- ONLINE | directing ann2 | Testgrounds | heard N.Ns ago                                                                       ? help  q quit
+ ONLINE | directing ann2 | ✉ 1 | Testgrounds | heard N.Ns ago                                                                 ? help  q quit

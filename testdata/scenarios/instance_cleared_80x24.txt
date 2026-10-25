@@ -14,7 +14,7 @@
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │    NN.Ns Tip: tradable once means one trade to another player, then it is    │
 │            bound to them.                                                    │
 │    NN.Ns instance ended, cleared: every mob dead and the loot taken          │

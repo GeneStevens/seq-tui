@@ -211,6 +211,10 @@ type Model struct {
 
 	// Log is the bounded, ordered event log, oldest first.
 	Log []LogEntry
+	// LogN counts the lines the log has taken that the short view shows, from the
+	// start of the session: the Events tab's unread count reads it.
+	LogN   int
+	logLen int
 	// Intents are the most recent intents, oldest first.
 	Intents []IntentStatus
 	// Errors are the protocol errors received, most recent last.
@@ -376,6 +380,7 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 	case *pb.ServerMessage_Pong:
 		// nothing to show
 	}
+	m.watchFight()
 }
 
 func (m *Model) applyResult(r *pb.IntentResult) {

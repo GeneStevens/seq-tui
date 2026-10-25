@@ -1,0 +1,45 @@
+┌─ Testgrounds, at 11,57 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                ░                                                               ││ ann1  Lv 1  XP 0             | 0 crowns│
+│                                ░                                                               ││ HP 100/100 ########################### │
+│                                ░                                                               ││ Target: none                           │
+│                                ░                                                               ││ Auto-attack: off                       │
+│                                ░                                                               ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                ░                                                       #       │└────────────────────────────────────────┘
+│                                ░                                                       #       │┌─ Quest ────────────────────────────────┐
+│                                ░                                                       #       ││ [ ] 1. Scout the Lookout               │
+│                                ░                                                       #       ││ Testgrounds Recruiter has work for you:│
+│                                ░                                                       #       ││ G.                                     │
+│                                ░                                                       #       │└────────────────────────────────────────┘
+│                                ░                T  T T  T  T  T                        #       │┌─ Target ───────────────────────────────┐
+│                                ░  “hey ann1 over here, come…”                          #       ││ no target (Tab to choose)              │
+│                                ░               p$  B H  &  Q                           #       ││                                        │
+│                                ░               @                                       #       ││                                        │
+│                                ░                              !                        #       │└────────────────────────────────────────┘
+│                                ░                                                       #       │┌─ Nearby ───────────────────────────────┐
+│                                ░                                                       #       ││ & Testgrounds Contract Boa… 7m E [new] │
+│                                ░                                                       #       ││ ! Testgrounds Recruiter    11m E [new] │
+│                                ░                                  c                    #       ││ $ Testgrounds Vendor             1m NE │
+│                                ░                                                       #       ││ p bob1                    1m N 100/100 │
+│                                ░                                                       #       ││ B Testgrounds Banker              3m E │
+│                                ░                                                       #       ││ H Testgrounds Binder              5m E │
+│                                ░                                                       #       ││ T Warrior Trainer                 5m N │
+│                                ░                                                       #       ││ T Cleric Trainer                 5m NE │
+│                                ░                                                       #       ││ T Rogue Trainer                  6m NE │
+│                                ░                                                       #       ││ T Wizard Trainer                 8m NE │
+│                                ░                                                       #       ││ +10 more                               │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •2  Party ─────────────────────────────────────────────────────────────────── [tell] to bob1: on my way ─┐
+│     N.Ns bob1 comes into view                                                                                                            │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Testgrounds Vendor                                                                                                              
+ ✉ bob1: group for the Warren?                                                                                                      r reply 

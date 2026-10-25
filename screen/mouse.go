@@ -35,8 +35,12 @@ type Hits struct {
 	Map  Rect // the map's inside; W is 0 when the map was not drawn
 	Side Rect // the sidebar's body, W is 0 when there is none
 	Tabs []Tab
-	g    *grid
-	org  Pt // where the next map is drawn
+	// Panel is the tabs of the bottom panel, Drawer the chat drawer's block (W is 0
+	// when it is not drawn).
+	Panel  []Tab
+	Drawer Rect
+	g      *grid
+	org    Pt // where the next map is drawn
 	// spare is the grid of the drawing before, for the next to draw on (T5).
 	spare *grid
 }
@@ -47,6 +51,7 @@ func (h *Hits) begin() {
 		h.spare = h.g
 	}
 	h.Map, h.Side, h.Tabs, h.g = Rect{}, Rect{}, h.Tabs[:0], nil
+	h.Panel, h.Drawer = h.Panel[:0], Rect{}
 }
 
 // at says where the map or screen about to be drawn starts.
@@ -253,6 +258,7 @@ const (
 	kLabel cellKind = iota + 100
 	kCard
 	kCursor
+	kBubble // a speech bubble: open ground only, under labels
 )
 
 // text writes s into the grid from (c, r), as the kind k.
@@ -329,6 +335,9 @@ func paintOverlays(g *grid, m *model.Model, v View) {
 				}
 			}
 		}
+	}
+	if len(v.Bubbles) > 0 {
+		paintBubbles(g, m, v.Bubbles, used)
 	}
 	if v.Cursor != nil {
 		c, r := g.cellOf(v.Cursor)

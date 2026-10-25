@@ -14,7 +14,7 @@
 │                                                  ││ M Shell Rat    4m E 7/20 │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │ !   3.3s that mob is in someone else's fight (encounter_owned)               │
 │ !   3.4s Aria was refused auto_attack on Shell Rat: that mob is in someone   │
 │            else's fight                                                      │

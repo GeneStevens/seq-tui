@@ -28,7 +28,7 @@
 │ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    24.5s Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
 │            else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.                       │
 │ +  24.5s First Steps: step 2 done: 15 crowns. Next: Take a contract from the Thornwick Contract Board, here in Hawthorn Square. Jobs pay │

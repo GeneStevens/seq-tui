@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │   NNN.Ns You are out of combat                                               │
 │ + NNN.Ns You gain 2 experience                                               │
 │ + NNN.Ns Wolves at Wickett Mill: 4 of 4                                      │

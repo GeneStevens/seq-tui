@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │ +  NN.Ns First Steps: step 3 done. Next: Walk east along Gatehouse Way to the│
 │            East Gate and press E at the gate to go out to the Thornwick      │
 │            Downs.                                                            │

@@ -28,7 +28,7 @@
 │                                                                                                ││ J stop    Z drop the order             │
 │                                                                                                ││ X direct it: its screen, your keys     │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns bram comes into view                                                                                                            │
 │     N.Ns instance opened: Duo Turns (up to 2 in it); enter at gate-north with E                                                          │
 │     N.Ns entered Testgrounds (Duo Turns)                                                                                                 │

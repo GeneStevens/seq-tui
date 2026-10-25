@@ -1,0 +1,45 @@
+┌─ Testgrounds, at 20,57 m, north up ────────────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│                   ░                                                                            ││ ann1  Lv 1  XP 0             | 0 crowns│
+│                   ░                                                                            ││ HP 100/100 ########################### │
+│                   ░                                                                            ││ Target: Plain Scuttler                 │
+│                   ░                                                                            ││ Auto-attack: ON                        │
+│                   ░                                                                            ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                   ░                                                       #                    ││ Attacked by Plain Scuttler             │
+│                   ░                                                       #                    │└────────────────────────────────────────┘
+│                   ░                                                       #                    │┌─ Quest ────────────────────────────────┐
+│                   ░                                                       #                    ││ [ ] 1. Scout the Lookout               │
+│                   ░                                                       #                    ││ Testgrounds Recruiter has work for you:│
+│                   ░                                                       #                    ││ G.                                     │
+│                   ░                T  T T  T  T  T                        #                    │└────────────────────────────────────────┘
+│                   ░       “watch out ann1”                                #                    │┌─ Target ───────────────────────────────┐
+│                   ░               p$  B H  &  Q                           #                    ││ M Plain Scuttler  Lv 1                 │
+│                   ░                            @            M             #                    ││ HP 40/40 ###################### 10m E  │
+│                   ░                              !                        #                    ││ even, fighting you                     │
+│                   ░                                                       #                    │└────────────────────────────────────────┘
+│                   ░                                                       #                    │┌─ Nearby ───────────────────────────────┐
+│                   ░                                                       #                    ││ ! Testgrounds Recruiter    2m SE [new] │
+│                   ░                                  c                    #                    ││ & Testgrounds Contract Boa… 3m W [new] │
+│                   ░                                                       #                    ││ Q Testgrounds Captain <Quest Gi… 1m NW │
+│                   ░                                                       #                    ││ H Testgrounds Binder              5m W │
+│                   ░                                                       #                    ││ T Paladin Trainer                 5m N │
+│                   ░                                                       #                    ││ T Druid Trainer                   5m N │
+│                   ░                                                       #                    ││ T Wizard Trainer                 5m NW │
+│                   ░                                                       #                    ││ T Rogue Trainer                  6m NW │
+│                   ░                                                       #                    ││ B Testgrounds Banker              7m W │
+│                   ░                                                       #                    ││ +12 more                               │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •2  Party ───────────────────────────────────────────────────────────────────── [tell] bob1: behind you ─┐
+│     N.Ns bob1 comes into view                                                                                                            │
+│     N.Ns Plain Scuttler comes into view                                                                                                  │
+│     N.Ns Plain Scuttler targeted ann1                                                                                                    │
+│     N.Ns You begin fighting Plain Scuttler                                                                                               │
+│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                                  │
+│     N.Ns You target Plain Scuttler                                                                                                       │
+│     N.Ns You start attacking Plain Scuttler                                                                                              │
+│     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
+│     N.Ns You are in combat with Plain Scuttler                                                                                           │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Testgrounds Captain <Quest Giver>  ·  F: stop attacking · Esc: clear the target                                                 
+ ONLINE | ✉ 2 | Testgrounds | heard N.Ns ago | in a fight the panel shows Events; Chat comes back when it ends                ? help  q quit

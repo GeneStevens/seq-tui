@@ -29,7 +29,7 @@
 │ Esc closes. Traded items are bound afterwards; Rare and Named never trade.                     ││ ; Hollow Lookout    82m S scout marker │
 │ The answer is on the status line; every denial says why.                                       ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │     N.Ns c2 comes into view                                                                                                              │
 │                                                                                                                                          │

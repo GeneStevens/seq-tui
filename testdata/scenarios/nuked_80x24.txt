@@ -14,11 +14,11 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │    NN.Ns Plain Scuttler is dead: the fight is over                           │
 │    NN.Ns You are out of combat                                               │
 │ +  NN.Ns You gain 20 experience                                              │
 │    NN.Ns Plain Scuttler is out of view                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · ?: help                                 
+ Walk: click or arrows · M: large map · C: chat · ?: help                       
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok      ? help  q quit

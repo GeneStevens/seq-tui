@@ -29,7 +29,7 @@
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ T Pip Nettle <Rogue Trainer>     35m S │
 │ hand in Thin the Meadow Wolves ok                                                              ││ +7 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │   285.5s Meadow Wolf dropped Wolf Pelt                                                                                                   │
 │   285.5s Meadow Wolf dropped 1 crown                                                                                                     │
 │   285.5s Meadow Wolf is dead: the fight is over                                                                                          │

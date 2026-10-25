@@ -14,7 +14,7 @@
 │                                                  ││ & Testgroun… 88m W [new] │
 │                                                  ││ +17 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │ !   N.Ns Gate North is shut: no expedition is open beyond it. Start one      │
 │            first.                                                            │
 │                                                                              │

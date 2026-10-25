@@ -35,7 +35,7 @@ func (a *App) lineKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 	case "f1":
 		a.view.Help, a.view.HelpPage, a.view.HelpScroll = true, 0, 0 // ? is a letter here
 	case "enter":
-		text := strings.TrimSpace(l.Text)
+		text := lineWire(l)
 		a.line = nil
 		if text == "" || text == "/" {
 			return a, nil
@@ -49,6 +49,8 @@ func (a *App) lineKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 		}
 	case "ctrl+u":
 		l.Text = ""
+	case "tab":
+		a.lineTab()
 	default:
 		if t := msg.Key().Text; t != "" && len([]rune(l.Text)) < maxLine {
 			l.Text += t

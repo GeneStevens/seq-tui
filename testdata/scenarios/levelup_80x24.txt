@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │ +   N.Ns You gain 60 experience                                              │
 │ +   N.Ns You reached level 2! Health 80 → 88, mana 150 → 173. Intellect +2,  │
 │            Wisdom +1                                                         │

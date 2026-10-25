@@ -29,7 +29,7 @@
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │
 │ take Wolves at Wickett Mill ok                                                                 ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
 │     N.Ns Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │

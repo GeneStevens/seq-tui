@@ -108,6 +108,16 @@ type View struct {
 	Line   *Line
 	Social *SocialUI
 
+	// Chat (D101): Panel is the tab of the bottom panel the player chose and Read
+	// how far each tab has been read (Render moves it for the tab it draws); Drawer
+	// the chat drawer, nil when closed; Toast the line on the status line for a
+	// tell or a mention, nil when there is none; Bubbles the speech bubbles still up.
+	Panel   int
+	Read    *Marks
+	Drawer  *DrawerUI
+	Toast   *Toast
+	Bubbles []Bubble
+
 	// Sessions is the sessions view (D64), nil when closed. Quest is the quest
 	// chain screen (D62), nil when closed.
 	Sessions *SessionsUI
@@ -188,6 +198,9 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	case v.Create != nil:
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Social != nil:
+		if v.Social.Tab == TabChat {
+			v.Read.Viewed(m, PanelChat)
+		}
 		takeover("Social: "+tabNames[v.Social.Tab], func(w, h int) []string { return socialScreenLines(m, v.Social, w, h, st) })
 	case v.Slots != nil:
 		takeover("Ability slots", func(w, h int) []string { return slotScreenLines(m, v, w, h, st) })
@@ -233,6 +246,9 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 			}
 			v.Hits.at(1, len(rows)+1)
 			mp := box(mapTitle(m), mapW, th, mapPanel(m, v, mapW-2, th-2, st), st)
+			if v.Drawer != nil {
+				mp = withDrawer(mp, m, v, mapW, h, len(rows), st)
+			}
 			right := rightColumn(m, v, rw, th, st)
 			for i := range mp {
 				rows = append(rows, mp[i]+right[i])
@@ -242,17 +258,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 			}
 		}
 		evh := lh
-		if chatShown(m, v) {
-			// Chat takes the right part of the log's row once anything has been said.
-			cw := min(max(w*5/12, 30), 60)
-			ev := box(fmt.Sprintf("Events (%s)", logMode(v)), w-cw, evh, logLines(m, v, w-cw-2, evh-2, st), st)
-			ch := box("Chat (/ types)", cw, evh, chatLines(m, cw-2, evh-2, st), st)
-			for i := range ev {
-				rows = append(rows, ev[i]+ch[i])
-			}
-		} else {
-			rows = append(rows, box(fmt.Sprintf("Events (%s)", logMode(v)), w, evh, logLines(m, v, w-2, evh-2, st), st)...)
-		}
+		rows = append(rows, bottomPanel(m, v, w, evh, len(rows), st)...)
 		if !v.anyScreen() {
 			rows = append(rows, hintLine(m, v, w, st))
 		}
@@ -377,6 +383,9 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 		}
 		return st.Reverse(st.Red(st.Bold(fit(line, w))))
 	}
+	if v.Toast != nil && !m.UnderAttack() && v.Notice == "" && v.Read.Mail(m) > 0 { // looking at the chat dismisses it
+		return toastRow(v.Toast, w, st)
+	}
 	if p := m.Self.Place; p != "" {
 		space = p + ", " + space
 	}
@@ -392,11 +401,16 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	if v.Directing != "" {
 		conn += " | directing " + v.Directing
 	}
+	// The tells and mentions not yet read stay as a count after the toast fades.
+	lead := conn
+	if n := v.Read.Mail(m); n > 0 {
+		lead += fmt.Sprintf(" | ✉ %d", n)
+	}
 	quest := ""
 	if q := m.Quest(); q != nil {
 		quest = fmt.Sprintf("%s %d/%d", q.GetName(), q.GetStep(), q.GetSteps())
 	}
-	for _, parts := range [][]string{{conn, space, quest, objective, ground, heard, note}, {conn, quest, objective, ground, heard, note}, {conn, quest, objective, ground, note}, {conn, quest, objective, note}, {conn, objective, ground, note}, {conn, quest, ground, heard, note}, {conn, ground, heard, note}, {conn, ground, note}, {conn, heard, note}, {conn, note}, {note}} {
+	for _, parts := range [][]string{{lead, space, quest, objective, ground, heard, note}, {lead, quest, objective, ground, heard, note}, {lead, quest, objective, ground, note}, {lead, quest, objective, note}, {lead, objective, ground, note}, {lead, quest, ground, heard, note}, {lead, ground, heard, note}, {lead, ground, note}, {lead, heard, note}, {conn, note}, {note}} {
 		var kept []string
 		for _, p := range parts {
 			if p != "" {

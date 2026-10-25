@@ -13,7 +13,7 @@
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
 │                                                p                                               ││ & Testgrounds Contract Bo… 88m W [new] │
-│                                                @                                               ││ p bob1                    1m N 100/100 │
+│                                                @“spam d”                                       ││ p bob1                    1m N 100/100 │
 │                                                                                                ││ D Gate North                      1m N │
 │                                                                                                ││ ◆ Tester's Fa… 69m S raiders head here │
 │                                                                                                ││ H Eastern Binder                 72m S │
@@ -28,18 +28,18 @@
 │                                                                                                ││ B Testgrounds Banker             91m W │
 │                                                                                                ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
-│     N.Ns bob1 comes into view                                                  ││ [say] ann1: hello there                                │
-│                                                                                ││ [say] ann1: spam a                                     │
-│                                                                                ││ [say] ann1: spam b                                     │
-│                                                                                ││ [say] ann1: spam c                                     │
-│                                                                                ││ [say] ann1: spam d                                     │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-└────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ───────────────────────────────────────────────────────────────────────────── [say] ann1: spam d ─┐
+│     N.Ns bob1 comes into view                                                                                                            │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North                                                                                                                        
  ONLINE | Testgrounds | heard N.Ns ago | ! say: you are talking too fast: wait a moment (rate_limited)                        ? help  q quit

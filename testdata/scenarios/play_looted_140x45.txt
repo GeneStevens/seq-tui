@@ -28,7 +28,7 @@
 │                            ░                                                       #           ││ T Wizard Trainer                 12m N │
 │                            ░                                                       #           ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ x  NN.Ns You killed Plain Scuttler                                                                                                       │
 │    NN.Ns Your target Plain Scuttler is gone                                                                                              │
 │    NN.Ns You stop attacking                                                                                                              │
@@ -41,5 +41,5 @@
 │ +  NN.Ns You pick up Cracked Shell Fragment                                                                                              │
 │    NN.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · ?: help                                                                                             
+ Walk: click or arrows · M: large map · C: chat · ?: help                                                                                   
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                                                                              ? help  q quit

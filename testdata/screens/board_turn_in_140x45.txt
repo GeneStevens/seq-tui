@@ -29,7 +29,7 @@
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ $ Dunstan Reeve <Weaponsmith>   32m SW │
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │   285.5s You stop attacking                                                                                                              │
 │   285.5s Meadow Wolf dropped Wolf Pelt                                                                                                   │
 │   285.5s Meadow Wolf dropped 1 crown                                                                                                     │

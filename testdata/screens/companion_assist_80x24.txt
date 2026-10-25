@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     4.2s You start attacking Bramble Tusker                                  │
 │ !   4.2s Your walk stopped: you began attacking; a fight stops a walk. Move  │
 │            again to go on.                                                   │

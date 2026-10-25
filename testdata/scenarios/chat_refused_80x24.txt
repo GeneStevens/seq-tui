@@ -6,7 +6,7 @@
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                         D                        ││ no target (Tab to choose)│
-│                         @                        ││                          │
+│                         @“spam d”                ││                          │
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
 │                                              c   │┌─ Nearby ─────────────────┐
@@ -14,11 +14,11 @@
 │                                                  ││ & Testgroun… 88m W [new] │
 │                                                  ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
-│     N.Ns bob1 comes into view               ││ [say] ann1: spam a            │
-│                                             ││ [say] ann1: spam b            │
-│                                             ││ [say] ann1: spam c            │
-│                                             ││ [say] ann1: spam d            │
-└─────────────────────────────────────────────┘└───────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ───────────────── [say] ann1: spam d ─┐
+│     N.Ns bob1 comes into view                                                │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | ! say: you are talking too fast: wait a moment (rate_limited)   ? help

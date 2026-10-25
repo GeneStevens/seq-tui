@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     4.3s You stop attacking                                                  │
 │     4.3s Bramble Tusker targeted hale                                        │
 │     4.4s You start attacking something                                       │

@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │            you are seasoned. There is a larger task for those the Watch can  │
 │            trust. Prove yourself first, and come and see me.                 │
 │ !   N.Ns You haven't earned a companion yet                                  │

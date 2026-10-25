@@ -14,7 +14,7 @@
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     0.2s c2 comes into view                                                  │
 │ +   0.3s You pay 50 crowns to enter                                          │
 │     0.3s instance opened: Peril Den (up to 2 in it); enter at gate-north with│

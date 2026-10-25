@@ -14,7 +14,7 @@
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │    NN.Ns Your target Plain Scuttler is gone                                  │
 │    NN.Ns You stop attacking                                                  │
 │    NN.Ns Everyone in the fight with Plain Scuttler has fallen                │

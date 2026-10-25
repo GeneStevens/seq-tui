@@ -630,6 +630,8 @@ func cellStyle(k cellKind, area model.AreaKind, st Styler) func(string) string {
 		return groundStyle(area, st)
 	case kPlace, kCard, kSelf:
 		return st.Bold
+	case kBubble:
+		return func(x string) string { return st.Chat.Say(st.Bold(x)) }
 	case kLabel:
 		return st.Reverse
 	case kCursor:

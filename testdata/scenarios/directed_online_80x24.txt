@@ -5,7 +5,7 @@
 │                                                  ││ Atk off | Retaliate ON   │
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
-│                                                  ││ no target (Tab to choose)│
+│                   “hello both”                   ││ no target (Tab to choose)│
 │                         @                        ││                          │
 │                         p                        ││                          │
 │                                                  │└──────────────────────────┘
@@ -14,11 +14,11 @@
 │                                                  ││ & Testgrou… 89m SW [new] │
 │                                                  ││ +19 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
-│ nothing has happened yet                    ││ [say] cy1: hello both         │
-│                                             ││ [tell] cy1: psst, a word      │
-│                                             ││                               │
-│                                             ││                               │
-└─────────────────────────────────────────────┘└───────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •2  Party ──────── [tell] cy1: psst, a word ─┐
+│ nothing has happened yet                                                     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
  Gate North is shut: no expedition is open beyond it. Start one first.          
- ONLINE | directing ann2 | Testgrounds | heard N.Ns ago           ? help  q quit
+ ONLINE | directing ann2 | ✉ 1 | Testgrounds | heard N.Ns ago     ? help  q quit

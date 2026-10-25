@@ -29,7 +29,7 @@
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ T Pip Nettle <Rogue Trainer>    65m SW │
 │ talk to Captain Rhosyn Hartley ok                                                              ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
 │            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
 │            Watch can trust. Prove yourself first, and come and see me.                                                                   │

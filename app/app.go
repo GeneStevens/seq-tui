@@ -90,6 +90,7 @@ type App struct {
 	// in place of the directory (a scenario's is a temporary one).
 	LogLabel string
 
+	chat     chatState  // chat on the screen: the drawer, the toast, the bubbles (D101)
 	walk     *walkState // hold-to-walk: the keys down, the intents, the predicted mark
 	keys     int        // key presses handled, and commands sent and answered: what a scenario waits on
 	inflight int
@@ -143,6 +144,7 @@ func (a *App) now() time.Time {
 
 func (a *App) Init() tea.Cmd {
 	a.watch = a.sess.Changed()
+	a.sess.View(func(m *model.Model) { a.chat.seen, a.chat.init = m.Social.ChatN, true })
 	a.observe()
 	return tea.Batch(a.waitChange(), tea.Tick(redraw, func(time.Time) tea.Msg { return redrawMsg{} }))
 }
@@ -241,6 +243,7 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		cmds = append(cmds, a.walkTick())
 		a.sess.View(a.watchInvite)
 		a.sess.View(a.watchBanner)
+		a.sess.View(a.watchChat)
 		a.sess.View(func(m *model.Model) {
 			a.walkedAway(m)
 			if a.ring(m) {
@@ -401,8 +404,10 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.tradeKey(k, m)
 		case a.menu != nil:
 			act = a.menuKey(k, m)
+		case a.drawer() && a.drawerKey(k, &act):
 		case k == "esc" && a.mouse.card != "":
 			act = Action{Kind: CloseCard}
+
 		case m.Social.Invite != nil && (k == "y" || k == "n"):
 			act = Action{Kind: SocialDo, ID: map[bool]string{true: "accept", false: "decline"}[k == "y"], Note: m.Social.Invite.From}
 		case k == "x":
@@ -479,6 +484,8 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 		a.quest = &screen.QuestUI{}
 	case OpenLine:
 		a.line = &screen.Line{Text: "/"}
+	case ToggleDrawer, PanelTab, SelectPanel, ReplyLine:
+		a.chatDo(act)
 	case OpenSessions:
 		return a, a.openSessions()
 	case SessionsDo:
@@ -712,6 +719,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	v.Char, v.Traders, v.Trade = a.char, a.traders, a.trade
 	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
 	v.Line, v.Social, v.Sessions, v.Quest = a.line, a.soc, a.ses, a.quest
+	a.chatView(&v)
 	a.mouseView(&v)
 	a.checkFocus()
 	if a.focus {

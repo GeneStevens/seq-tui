@@ -2,7 +2,7 @@
 │ Legend                                                                       │
 │   You       @ you  % scout marker  + plan end  ◄ objective                   │
 │   People    p player  T trainer  $ vendor  B banker  H binder  g guard       │
-│             Q quest person  & board  D door                                  │
+│             Q quest person  & board  D door  “ said, for 4 s                 │
 │   Quest     ! new  ? hand in  ? in progress  m quest mob  D next door        │
 │   Events    ; scout point  v raiders appear  ◆ raiders head for              │
 │   Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp     │

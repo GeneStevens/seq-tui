@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: Second Wind 12s   |   Plain Scuttler: none                              │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     N.Ns You miss Plain Scuttler                                             │
 │     N.Ns You use Second Wind                                                 │
 │     N.Ns You are affected by Second Wind                                     │

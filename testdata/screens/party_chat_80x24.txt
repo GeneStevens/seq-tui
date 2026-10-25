@@ -14,11 +14,11 @@
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
-│     0.2s bob1 comes into view               ││ [party] bob1: ready when you  │
-│     0.0s bob1 declined your party invitation││   are                         │
-│     0.0s bob1 joined the party              ││                               │
-│                                             ││                               │
-└─────────────────────────────────────────────┘└───────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •1  Party •1 ─ [party] bob1: ready when yo… ─┐
+│     0.2s bob1 comes into view                                                │
+│     0.0s bob1 declined your party invitation                                 │
+│     0.0s bob1 joined the party                                               │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit
