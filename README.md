@@ -241,6 +241,7 @@ p.Press("e")
 p.Eventually("the instance", inside) // what the server does outside the clock (a handoff)
 p.Model(func(m *model.Model) { ... })
 p.Golden("round_plan")           // the screen at both sizes against testdata/scenarios, and a mark in the recording
+p.GoldenWithout("round_plan", "comes into view") // the same, with log lines holding the text set quiet first: a mob's arrival line is in the log of one run and not the next
 ```
 
 The class scenarios (`scenario/combat_test.go`) create their characters with keys on the creation screen (`w.NewCharacter`, `p.Type`) or log in a class character the test server makes (`Account.Classed`), and use `Options.Zone` to adjust the test server's copy of the zone data where a flow needs it (for instance, the level a class learns Root at, so a level 1 Wizard can root a mob; a mob's hit points or XP). They are: create a Wizard, slot abilities with the slot screen, root a scuttler and nuke it, see the mana drop and come back; a cast cancelled by moving and one interrupted by damage; a Warrior taunts, uses Second Wind, bashes and kills; a level-up (a level no longer grants abilities: the trainer sells them); a turn-based round with a cast in the plan; the creation screen's refusals; creating a character from the server's class menu; changing a slot between rounds; logging in mid-fight to see a rooted mob.
