@@ -253,6 +253,13 @@ func (e LogEntry) Hidden() bool {
 // the log holds between logCap and logSlack*logCap lines of a kind; the screen
 // shows the newest ones either way.
 func (m *Model) trimLog() {
+	for i := m.logLen; i < len(m.Log); i++ {
+		if !m.Log[i].Hidden() {
+			m.LogN++
+		}
+	}
+	m.logLen = len(m.Log)
+	defer func() { m.logLen = len(m.Log) }()
 	if len(m.Log) < logSlack*m.logCap {
 		return
 	}

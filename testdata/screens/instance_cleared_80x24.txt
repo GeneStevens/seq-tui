@@ -14,7 +14,7 @@
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │    81.5s Tip: tradable once means one trade to another player, then it is    │
 │            bound to them.                                                    │
 │    81.5s instance ended, cleared: every mob dead and the loot taken          │

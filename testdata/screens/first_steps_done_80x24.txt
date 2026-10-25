@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │            Downs.                                                            │
 │ +  52.6s You take the contract Boars in the Barley                           │
 │ +  77.5s Quest complete: First Steps: 20 experience                          │

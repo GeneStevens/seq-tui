@@ -14,11 +14,11 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
-│            Cap, 9 crowns                    ││ [party] bram: the delve gate  │
-│    NN.Ns Tip: tradable once means one trade ││   is right here               │
-│            to another player, then it is    ││ [say] hale: I will take the   │
-│            bound to them.                   ││   front                       │
-└─────────────────────────────────────────────┘└───────────────────────────────┘
- Walk: click or arrows · M: large map · ?: help                                 
+┌─ [Events: short · v: all]  Chat •1  Party •1 ─ [say] hale: I will take the… ─┐
+│    NN.Ns 9 crowns was taken                                                  │
+│ +  NN.Ns You took Digger's Claw, Digger's Cap, 9 crowns                      │
+│    NN.Ns Tip: tradable once means one trade to another player, then it is    │
+│            bound to them.                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ Walk: click or arrows · M: large map · C: chat · ?: help                       
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

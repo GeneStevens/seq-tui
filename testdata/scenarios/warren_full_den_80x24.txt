@@ -14,11 +14,11 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │   NNN.Ns Den Brute is out of view                                            │
 │   NNN.Ns Den Fang was taken                                                  │
 │   NNN.Ns 12 crowns was taken                                                 │
 │ + NNN.Ns You took Den Fang, 12 crowns                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · ?: help                                 
+ Walk: click or arrows · M: large map · C: chat · ?: help                       
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

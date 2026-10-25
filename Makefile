@@ -28,6 +28,7 @@ fixtures:
 golden:
 	go run ./cmd/mkscreens
 	SEQ_GOLDEN=1 go test ./scenario -count=1
+	SEQ_GOLDEN=1 go test ./screen -run TestChatGoldens -count=1
 
 # play starts a local seq server (PostgreSQL through docker, OrbStack's) that
 # serves Thornwick and keeps its data between runs, and the TUI on it, which asks

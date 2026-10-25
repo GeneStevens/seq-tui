@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"testing"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
@@ -140,3 +141,66 @@ func TestPartyVitalsChangeOnlyTheFieldsTheyCarry(t *testing.T) {
 	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_PartyVitals{PartyVitals: &pb.PartyVitals{Name: "zed", Hp: &hp}}})
 	New().Apply(&pb.ServerMessage{Body: &pb.ServerMessage_PartyVitals{PartyVitals: &pb.PartyVitals{Name: "zed", Hp: &hp}}})
 }
+
+// D101: every line is numbered, a mention is found when it arrives, and the other
+// side of the latest tell is kept either way.
+func TestChatLinesAreNumberedAndFlaggedForMentionsAndTells(t *testing.T) {
+	m := New()
+	m.Self.Name = "Ann"
+	m.Apply(chat("say", "bob", "", "hello ANN, well met"))
+	m.Apply(chat("say", "ann", "", "ann says hi"))
+	m.Apply(chat("tell", "ann", "cy", "psst"))
+	m.Apply(chat("tell", "bob", "ann", "back"))
+	m.Apply(chat("say", "bob", "", "Anna?"))
+	var seqs []int
+	var mentions []bool
+	for _, l := range m.Social.Chat {
+		seqs, mentions = append(seqs, l.Seq), append(mentions, l.Mention)
+	}
+	if want := []int{1, 2, 3, 4, 5}; !equalInts(seqs, want) || m.Social.ChatN != 5 {
+		t.Errorf("numbers %v, ChatN %d", seqs, m.Social.ChatN)
+	}
+	if want := []bool{true, false, false, false, false}; fmt.Sprint(mentions) != fmt.Sprint(want) {
+		t.Errorf("mentions %v: own lines and 'Anna' are not mentions", mentions)
+	}
+	if m.Social.LastTell != "bob" || m.Social.TellPeer != "bob" {
+		t.Errorf("last tell %q peer %q", m.Social.LastTell, m.Social.TellPeer)
+	}
+	m.Apply(chat("tell", "ann", "cy", "psst"))
+	if m.Social.LastTell != "bob" || m.Social.TellPeer != "cy" {
+		t.Errorf("after telling cy: last tell %q peer %q", m.Social.LastTell, m.Social.TellPeer)
+	}
+	if all, party, tell := m.ChatSince(2); all != 2 || party != 0 || tell != 1 {
+		t.Errorf("since 2: %d %d %d (own lines are not counted)", all, party, tell)
+	}
+}
+
+func TestCatchUpWordsWhatCameInAFight(t *testing.T) {
+	for _, c := range []struct {
+		all, party, tell int
+		want             string
+	}{
+		{0, 0, 0, ""},
+		{3, 0, 0, "While fighting: 3 chat"},
+		{4, 2, 0, "While fighting: 4 chat (2 party)"},
+		{4, 0, 1, "While fighting: 4 chat (1 tells)"},
+		{6, 2, 3, "While fighting: 6 chat (2 party, 3 tells)"},
+	} {
+		if got := CatchUp(c.all, c.party, c.tell); got != c.want {
+			t.Errorf("CatchUp(%d, %d, %d) = %q", c.all, c.party, c.tell, got)
+		}
+	}
+}
+
+func TestTheLogCountsTheLinesTheShortViewShows(t *testing.T) {
+	m := New()
+	m.Notice("one")
+	m.Notice("two")
+	m.Log = append(m.Log, LogEntry{Kind: "entity_moved", Text: "quiet"})
+	m.trimLog()
+	if m.LogN != 2 {
+		t.Errorf("LogN %d: the routine line is not counted", m.LogN)
+	}
+}
+
+func equalInts(a, b []int) bool { return fmt.Sprint(a) == fmt.Sprint(b) }

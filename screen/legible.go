@@ -94,7 +94,8 @@ func alarmText(m *model.Model, v View) string {
 	names := m.AttackerNames()
 	a := m.Alert
 	danger := a != nil && a.Danger && (len(m.Self.Attackers) == 0 || containsID(m.Self.Attackers, a.Mob))
-	if !danger && !v.anyScreen() {
+	over := v.anyScreen() || v.Drawer != nil // the drawer covers the map, as a screen does
+	if !danger && !over {
 		return ""
 	}
 	if len(names) == 0 && a != nil {
@@ -113,7 +114,7 @@ func alarmText(m *model.Model, v View) string {
 		}
 	}
 	text += fmt.Sprintf(" — HP %d/%d", m.Self.HP, m.Self.MaxHP)
-	if v.anyScreen() {
+	if over {
 		return text + " — Esc to fight"
 	}
 	return text + " — F to fight"
@@ -226,7 +227,7 @@ func hintLine(m *model.Model, v View, w int, st Styler) string {
 		}
 	}
 	if len(parts) == 0 {
-		parts = []string{"Walk: click or {arrows} · {M}: large map · {?}: help"}
+		parts = []string{"Walk: click or {arrows} · {M}: large map · {C}: chat · {?}: help"}
 	}
 	return help(" "+strings.Join(parts, "  ·  "), w, st)
 }

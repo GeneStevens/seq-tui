@@ -28,7 +28,7 @@
 │ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     9.6s Plain Scuttler is affected by Frost Bolt                                                                                        │
 │    10.2s You begin casting Frost Bolt on Plain Scuttler                                                                                  │
 │    12.2s You use Frost Bolt on Plain Scuttler                                                                                            │
@@ -41,5 +41,5 @@
 │ +  12.2s You gain 20 experience                                                                                                          │
 │    12.2s Plain Scuttler is out of view                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · ?: help                                                                                             
+ Walk: click or arrows · M: large map · C: chat · ?: help                                                                                   
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok                                                                  ? help  q quit

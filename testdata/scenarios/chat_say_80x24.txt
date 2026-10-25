@@ -6,7 +6,7 @@
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                         D                        ││ no target (Tab to choose)│
-│                         @                        ││                          │
+│                         @“hello there”           ││                          │
 │                                                  ││                          │
 │                                                  │└──────────────────────────┘
 │                                              c   │┌─ Nearby ─────────────────┐
@@ -14,11 +14,11 @@
 │                                                  ││ & Testgroun… 88m W [new] │
 │                                                  ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
-│ nothing has happened yet                    ││ [say] ann1: hello there       │
-│                                             ││                               │
-│                                             ││                               │
-│                                             ││                               │
-└─────────────────────────────────────────────┘└───────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •1  Party ───────── [say] ann1: hello there ─┐
+│ nothing has happened yet                                                     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

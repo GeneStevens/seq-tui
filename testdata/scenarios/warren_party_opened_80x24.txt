@@ -2,7 +2,7 @@
 │                   #░#####................#       ││ hale  Lv 7 Warrior  | 0cr│
 │                   #░...............##############││ HP 232/232 ############# │
 │                   #░...............#   #.........││ XP ---------- 181 to Lv 8│
-│                   #░...............#####.........││ Atk off Ret ON | none    │
+│                   #░....“I will take the front”..││ Atk off Ret ON | none    │
 │                   #░D...@........#.............c.│└──────────────────────────┘
 │                   #░.............................│┌─ Instance ───────────────┐
 │                   #░...............#####.........││ Warren Venture Delve     │
@@ -14,11 +14,11 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
-│     N.Ns bram joined the party              ││ [party] bram: the delve gate  │
-│     N.Ns instance opened for your party:    ││   is right here               │
-│            Warren Venture Delve (up to 3 in ││ [say] hale: I will take the   │
-│            it); enter at delve-gate with E  ││   front                       │
-└─────────────────────────────────────────────┘└───────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •1  Party •1 ─ [say] hale: I will take the… ─┐
+│     N.Ns bram comes into view                                                │
+│     N.Ns bram joined the party                                               │
+│     N.Ns instance opened for your party: Warren Venture Delve (up to 3 in    │
+│            it); enter at delve-gate with E                                   │
+└──────────────────────────────────────────────────────────────────────────────┘
  E: enter Delve Gate                                                            
  ONLINE | Hollow Warren | heard N.Ns ago                          ? help  q quit

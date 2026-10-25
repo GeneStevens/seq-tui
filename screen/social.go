@@ -15,7 +15,12 @@ import (
 
 // Line is the command line, open while the player types a chat line or a
 // command; nil when closed.
-type Line struct{ Text string }
+type Line struct {
+	Text string
+	// Channel is what plain text is sent as (say, party or tell, to Target) and
+	// Prompt says so; text that starts with a slash is a command, whatever it is.
+	Channel, Target string
+}
 
 // The tabs of the Social screen.
 const (
@@ -39,65 +44,6 @@ type SocialUI struct {
 
 // NextTab moves to the next tab.
 func (s *SocialUI) NextTab() { s.Tab, s.Sel = (s.Tab+1)%tabs, 0 }
-
-// chatShown says the chat panel is on the main screen: once anything has been
-// said, and while a line is being typed.
-func chatShown(m *model.Model, v View) bool {
-	return len(m.Social.Chat) > 0 || v.Line != nil
-}
-
-func channelPaint(st Styler, channel string) func(string) string {
-	switch channel {
-	case "party":
-		return st.Cyan
-	case "tell":
-		return st.Yellow
-	}
-	return func(s string) string { return s }
-}
-
-// chatTag is the channel in words, so colour only repeats it.
-func chatTag(l model.ChatLine) string {
-	switch l.Channel {
-	case "party":
-		return "[party] " + l.From + ":"
-	case "tell":
-		if l.Mine {
-			return "[tell] to " + l.To + ":"
-		}
-		return "[tell] " + l.From + ":"
-	}
-	return "[say] " + l.From + ":"
-}
-
-// chatRowsOf wraps the chat into rows of w cells, oldest first, each with the
-// style of its channel.
-func chatRowsOf(m *model.Model, w int, st Styler) []string {
-	var rows []string
-	for _, l := range m.Social.Chat {
-		text := chatTag(l) + " " + clean(l.Text)
-		for i, ln := range wrap(text, max(w-1, 8)) {
-			p := " "
-			if i > 0 {
-				p = "   "
-			}
-			rows = append(rows, channelPaint(st, l.Channel)(fit(p+ln, w)))
-		}
-	}
-	return rows
-}
-
-// chatLines are the rows of the Chat panel: the newest lines that fit.
-func chatLines(m *model.Model, w, h int, st Styler) []string {
-	rows := chatRowsOf(m, w, st)
-	if len(rows) > h {
-		rows = rows[len(rows)-h:]
-	}
-	if len(rows) == 0 {
-		rows = append(rows, st.Dim(fit(" nobody has said anything", w)))
-	}
-	return pad(rows, w, h)
-}
 
 // partyPanel is the Party panel: the party's other members with their health,
 // mana, level and zone. It is nil outside a party.
@@ -201,13 +147,18 @@ func cutBanner(v View, w int, st Styler) []string {
 	return serverBanner("DISCONNECTED", v.Cut+" The client keeps trying to reconnect; Q quits.", w, st)
 }
 
-// lineRow is the command line, drawn in the place of the status line.
+// lineRow is the command line, drawn in the place of the status line: the
+// channel it will send on, the text and the keys.
 func lineRow(l *Line, w int, st Styler) string {
-	hint := "Enter send  Esc cancel"
-	text := " > " + l.Text + "_"
+	hint := "Enter send  Tab channel  Esc cancel"
+	prompt := " " + l.Prompt()
+	text := prompt + l.Text + "_"
 	r := []rune(clean(text))
 	if room := w - width(hint) - 2; len(r) > room && room > 4 {
-		text = "…" + string(r[len(r)-room+1:])
+		text = prompt + "…" + string(r[len(r)-(room-width(prompt)):])
+		if width(text) > room {
+			text = "…" + string(r[len(r)-room+1:])
+		}
 	}
 	if width(text)+1+width(hint) <= w {
 		return st.Reverse(fit(fit(text, w-width(hint)-1)+" "+hint, w))
@@ -321,13 +272,34 @@ func friendRows(m *model.Model, ui *SocialUI, w, h int, st Styler) []string {
 // socialHelp are the lines of the second page of the key help: playing together.
 func socialHelp() []string {
 	rows := []string{
-		"Command line     /  opens it (the slash is in it). Enter sends, Esc cancels",
-		"                 Plain text is said to the characters within 40 m of you",
+		"Command line     /  opens it with the slash (a command, [cmd] >). Backspace on",
+		"                 the slash, or Tab, makes it a chat line: [say] > sends to the",
+		"                 characters within 40 m of you. Tab goes on to [party] > (when",
+		"                 you are in a party) and [tell NAME] > (the last tell, either way)",
+		"                 Enter sends, Esc cancels. R answers the last tell (when alive)",
 		"Chat             /say TEXT   /p TEXT: the party   /tell NAME TEXT",
 		"                 /r TEXT: answer the last tell   /mute NAME   /unmute NAME",
 		"                 /mute alone lists who you muted. 200 characters a line;",
 		"                 the server limits how fast you talk",
-		"                 say is white, party cyan, tell yellow, and each is tagged",
+		"Bubbles          what a character in view says (say only) shows by it for",
+		"                 about 4 seconds, cut at 24 characters; the log has the line",
+		"Panel            the bottom panel has tabs: Events, Chat, Party. [ and ] turn",
+		"                 them; clicking a tab does too. A badge (Chat •3) counts what you",
+		"                 have not seen, and clears when you look. While another tab is",
+		"                 shown the newest chat line runs along the top border",
+		"Toast            a tell, or a line with your name in it, shows on the status line",
+		"                 for a few seconds (✉ Mira: group?  r reply); the count stays",
+		"                 there (✉ 2) until you look at Chat",
+		"Drawer           Shift+C lifts the chat over the map, half the screen: Up / Down,",
+		"                 PgUp / PgDn, the wheel, End scroll; Tab: all, say, party, tell;",
+		"                 Esc drops it. It drops by itself when something starts attacking",
+		"                 you, and opened mid-fight it says so",
+		"In a fight       the panel shows Events and chat is only its badge and the border",
+		"                 line; when the fight ends Events says \"While fighting: 4 chat (2 party)\"",
+		"Colours          say is plain, party cyan, tell yellow, a server or GM line bold",
+		"                 yellow. Names: yours green and bold, another player blue, an NPC",
+		"                 magenta. A line with your name in it starts with » and is bold.",
+		"                 Every line is tagged, so NO_COLOR loses nothing (yours is underlined)",
 		"Scrollback       /chat: Up / Down, PgUp / PgDn, End; Tab: Who, Friends",
 		"Party            /invite NAME   /accept   /decline   /leave   /party",
 		"                 /kick NAME (the leader). An invitation shows at the top:",

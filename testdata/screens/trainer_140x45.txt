@@ -29,7 +29,7 @@
 │ Enter acts · Esc back                                                                          ││ Q Testgrounds Captain <Quest Giv… 6m E │
 │ The answer is on the status line; every denial says why.                                       ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.2s You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │
 │     0.2s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │ +   0.3s You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                            │

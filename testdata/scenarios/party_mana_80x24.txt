@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     N.Ns You start attacking Bramble Tusker                                  │
 │     N.Ns Bramble Tusker (level 5, even) is attacking you                     │
 │     N.Ns You are in combat with Bramble Tusker                               │

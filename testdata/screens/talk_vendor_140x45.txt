@@ -29,7 +29,7 @@
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ D East Gate                      87m E │
 │ talk to Hilda Brasswick ok                                                                     ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     1.8s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
 │            healer's patience.                                                                                                            │
 │                                                                                                                                          │

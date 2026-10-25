@@ -14,7 +14,7 @@
 │               ░                           #      ││ M Plain Scuttler  Lv 1   │
 │               ░                           #      ││ HP 23/40 #####---- 2m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │ <   9.1s Plain Scuttler hits you for 3                                       │
 │    10.3s You hit Plain Scuttler for 5                                        │
 │ <  12.1s Plain Scuttler hits you for 2                                       │

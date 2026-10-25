@@ -28,7 +28,7 @@
 │ 5 -                                6 -                               7 -                               8 -                               │
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
 │    NN.Ns Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│

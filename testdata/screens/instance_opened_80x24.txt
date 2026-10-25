@@ -14,7 +14,7 @@
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     0.2s instance opened: Solo Trial (up to 1 in it); enter at gate-north    │
 │            with E                                                            │
 │                                                                              │

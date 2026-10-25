@@ -1,0 +1,24 @@
+┌─ Z, at 10,10 m, north up ────────────────────────┐┌─ You ────────────────────┐
+│    ░                                         ░   ││ Aria  Lv 3  XP 0    | 0cr│
+│    ░                                         ░   ││ HP 30/30 ############### │
+│    ░                                         ░   ││ Target: none             │
+┌─ Chat: all ──────────────────────────────────────┐│ Atk off | Retaliate off  │
+│ [all] say party tell   Tab filters               │└──────────────────────────┘
+│ [say] Mira: well met, traveller, the road is long│┌─ Target ─────────────────┐
+│ [party] Mira: ready when you are                 ││ no target (Tab to choose)│
+│ [tell] Mira: group for the Warren?               ││                          │
+│»[say] Gorran Stoutarm: Aria, come back when you  ││                          │
+│    are stronger                                  │└──────────────────────────┘
+│ [say] Aria: on my way                            │┌─ Nearby ─────────────────┐
+│                                                  ││ p Mira       4m NE 20/20 │
+│                                                  ││ T Gorran Stoutarm  5m NW │
+│ Up / Down, PgUp / PgDn, wheel scroll · End: newe…││ m Gray Wolf   6m W 20/20 │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ────────────── [say] Aria: on my way ─┐
+│ nothing has happened yet                                                     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ Tab: target · F: attack                                                        
+ ONLINE | Z | heard 0.4s ago                                      ? help  q quit

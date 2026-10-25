@@ -14,11 +14,11 @@
 │                                                  ││ & Testgrou… 126m W [new] │
 │                                                  ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ───────────────────┐┌─ Chat (/ types) ──────────────┐
-│ nothing has happened yet                    ││ [tell] bob1: psst, a word     │
-│                                             ││ [tell] to bob1: on my way     │
-│                                             ││                               │
-│                                             ││                               │
-└─────────────────────────────────────────────┘└───────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •1  Party ─────── [tell] to bob1: on my way ─┐
+│ nothing has happened yet                                                     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                        
- ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit
+ ✉ bob1: psst, a word                                                   r reply 

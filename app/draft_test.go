@@ -53,11 +53,14 @@ func TestPlanKeysBuildASequenceOfSteps(t *testing.T) {
 		}
 	}
 	press("x")
-	press("r")
-	if d.Steps[3].Kind != app.Stop || d.Steps[4].Kind != app.Release {
+	// R is a plan step only for a dead character; alive it answers the last tell.
+	if a, _ := press("r"); len(d.Steps) != 4 || a.Note == "" {
+		t.Errorf("r for a living character: %+v, %d steps", a, len(d.Steps))
+	}
+	if d.Steps[3].Kind != app.Stop {
 		t.Errorf("%+v", d.Steps[3:])
 	}
-	if got := len(d.Agent()); got != 5 {
+	if got := len(d.Agent()); got != 4 {
 		t.Errorf("%d toolkit steps", got)
 	}
 	lines := d.Lines(m)

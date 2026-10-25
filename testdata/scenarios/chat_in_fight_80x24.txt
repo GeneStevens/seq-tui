@@ -1,0 +1,24 @@
+┌─ Testgrounds, at 20,57 m, north up ──────────────┐┌─ You: in combat ─────────┐
+│           ░                                      ││ ann1  Lv 1  XP 0    | 0cr│
+│           ░                                      ││ HP 100/100 ############# │
+│           ░                           #          ││ Target: Plain Scuttler   │
+│           ░                           #          ││ Atk ON | Retaliate ON    │
+│           ░                           #          ││ Attacked by Plain Scuttl…│
+│           ░       T TT TTT            #          │└──────────────────────────┘
+│           ░       “watch out ann1”    #          │┌─ Quest ──────────────────┐
+│           ░       p BH &@!     M      #          ││ [ ] 1. Scout the Lookout │
+│           ░                           #          ││ Testgrounds Recruiter has│
+│           ░                 c         #          ││ work for you: G.         │
+│           ░                           #          │└──────────────────────────┘
+│           ░                           #          │┌─ Target ─────────────────┐
+│           ░                           #          ││ M Plain Scuttler  Lv 1   │
+│           ░                           #          ││ HP 40/40 ######## 10m E  │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ [Events: short · v: all]  Chat •2  Party ───────── [tell] bob1: behind you ─┐
+│     N.Ns You target Plain Scuttler                                           │
+│     N.Ns You start attacking Plain Scuttler                                  │
+│     N.Ns Plain Scuttler (level 1, even) is attacking you                     │
+│     N.Ns You are in combat with Plain Scuttler                               │
+└──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Testgrounds Captain <Quest Giver>  ·  F: stop attacking · Esc: clea…
+ ONLINE | ✉ 2 | in a fight the panel shows Events; Chat comes back when it ends 

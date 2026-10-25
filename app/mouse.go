@@ -168,6 +168,10 @@ func (a *App) onMouse(msg tea.MouseMsg) (tea.Model, tea.Cmd) {
 		ms.hover = &screen.Pt{X: mo.X, Y: mo.Y}
 		a.refresh()
 		switch {
+		case a.chat.drawer != nil && ms.hits.Drawer.W > 0 && ms.hits.Drawer.In(mo.X, mo.Y):
+			// The wheel over the drawer scrolls the chat back and forward.
+			a.chat.drawer.Scroll = max(a.chat.drawer.Scroll+map[tea.MouseButton]int{tea.MouseWheelUp: 3, tea.MouseWheelDown: -3}[mo.Button], 0)
+			return a, nil
 		case ms.hits.Side.In(mo.X, mo.Y):
 			return a.do(Action{Kind: ScrollSide, Count: map[tea.MouseButton]int{tea.MouseWheelUp: -1, tea.MouseWheelDown: 1}[mo.Button]})
 		case mo.Button == tea.MouseWheelUp:
@@ -193,6 +197,14 @@ func (a *App) onMouse(msg tea.MouseMsg) (tea.Model, tea.Cmd) {
 func (a *App) click(x, y int) (tea.Model, tea.Cmd) {
 	a.refresh()
 	h := &a.mouse.hits
+	for _, t := range h.Panel {
+		if t.Rect.In(x, y) {
+			return a.do(Action{Kind: SelectPanel, Count: t.Tab})
+		}
+	}
+	if a.chat.drawer != nil && h.Drawer.W > 0 && h.Drawer.In(x, y) {
+		return a, nil // the drawer is over the map: a click on it walks nowhere
+	}
 	for _, t := range h.Tabs {
 		if t.Rect.In(x, y) {
 			return a.do(Action{Kind: SelectSide, Count: t.Tab})

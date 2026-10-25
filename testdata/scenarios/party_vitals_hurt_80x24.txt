@@ -14,7 +14,7 @@
 │           ░                           #          ││ work for you: G.         │
 │           ░                           #          │└──────────────────────────┘
 └──────────────────────────────────────────────────┘                            
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     N.Ns Plain Scuttler began attacking ann1                                 │
 │     N.Ns Plain Scuttler misses ann1                                          │
 │     N.Ns Ann1 hits Plain Scuttler for 6                                      │

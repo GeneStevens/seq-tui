@@ -1,0 +1,24 @@
+┌─ Z, at 10,10 m, north up ────────────────────────┐┌─ You ────────────────────┐
+│    ░                                         ░   ││ Aria  Lv 3  XP 0    | 0cr│
+│    ░                                         ░   ││ HP 30/30 ############### │
+│    ░                                         ░   ││ Target: none             │
+│    ░                                         ░   ││ Atk off | Retaliate off  │
+│    ░                                         ░   │└──────────────────────────┘
+│    ░                                         ░   │┌─ Target ─────────────────┐
+│    ░                  T                      ░   ││ no target (Tab to choose)│
+│    ░                    @  p                 ░   ││                          │
+│    ░                m                        ░   ││                          │
+│    ░                                         ░   │└──────────────────────────┘
+│    ░                                         ░   │┌─ Nearby ─────────────────┐
+│    ░                                         ░   ││ p Mira       4m NE 20/20 │
+│    ░                                         ░   ││ T Gorran Stoutarm  5m NW │
+│    ░                                         ░   ││ m Gray Wolf   6m W 20/20 │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ [Events: short · v: all]  Chat •4  Party •1 ──────── [say] Aria: on my way ─┐
+│ nothing has happened yet                                                     │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ Tab: target · F: attack                                                        
+ ✉ Mira: group for the Warren?                                          r reply 

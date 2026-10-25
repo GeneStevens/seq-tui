@@ -14,7 +14,7 @@
 │                  ░                           #   ││                          │
 │                  ░                           #   ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │    10.1s You are out of combat                                               │
 │    11.0s Plain Scuttler reset to 40 hp                                       │
 │    30.2s You release your body and will return in 5 seconds                  │

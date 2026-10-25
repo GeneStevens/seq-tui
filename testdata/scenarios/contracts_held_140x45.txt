@@ -29,7 +29,7 @@
 │ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ H Isolde Fenn <Binder>          13m SE │
 │ Esc closes                                                                                     ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │

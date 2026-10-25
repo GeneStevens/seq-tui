@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"slices"
 	"strings"
+	"unicode"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 	"google.golang.org/protobuf/proto"
@@ -23,6 +24,12 @@ type ChatLine struct {
 	Text     string
 	AtMs     int64
 	Mine     bool
+	// Seq numbers the lines the session has seen, from 1: it keeps counting past
+	// the scrollback's cap, so a mark "read up to Seq n" outlives the lines cut.
+	Seq int
+	// Mention says the line, said by someone else, has the character's own name in
+	// it (a whole word, in any case).
+	Mention bool
 }
 
 // Invite is a party invitation the character has been sent and not answered.
@@ -55,6 +62,16 @@ type Social struct {
 	// it has not.
 	MutedText string
 	invites   int
+	// ChatN is how many lines of chat the session has seen (the Seq of the
+	// newest). TellPeer is the other side of the latest tell, either way.
+	ChatN    int
+	TellPeer string
+
+	// fighting and fightFrom note the chat that came during a fight, for the line
+	// that catches the player up when it ends (D101 §5): the fight began when
+	// ChatN was fightFrom.
+	fighting  bool
+	fightFrom int
 }
 
 // Known is what is known of another character from the who list.
@@ -74,8 +91,14 @@ func (m *Model) applySocial(msg *pb.ServerMessage) {
 	case *pb.ServerMessage_Chat:
 		c := b.Chat
 		l := ChatLine{Channel: c.GetChannel(), From: c.GetFrom(), To: c.GetTo(), Text: c.GetText(), AtMs: c.GetAtMs(), Mine: Key(c.GetFrom()) == Key(m.Self.Name) && m.Self.Name != ""}
-		if l.Channel == "tell" && !l.Mine {
-			s.LastTell = l.From
+		s.ChatN++
+		l.Seq = s.ChatN
+		l.Mention = !l.Mine && Mentions(l.Text, m.Self.Name)
+		if l.Channel == "tell" {
+			s.TellPeer = l.To
+			if !l.Mine {
+				s.LastTell, s.TellPeer = l.From, l.From
+			}
 		}
 		s.Chat = append(s.Chat, l)
 		if over := len(s.Chat) - ChatCap; over > 0 {
@@ -340,4 +363,146 @@ func (m *Model) KnownCharacters() []Known {
 	}
 	slices.SortFunc(out, func(a, b Known) int { return strings.Compare(Key(a.Name), Key(b.Name)) })
 	return out
+}
+
+// Mentions says text has name in it as a whole word, in any case: "Mira," and
+// "hi mira!" do, "Miranda" does not. An empty name is mentioned nowhere.
+func Mentions(text, name string) bool {
+	name = strings.TrimSpace(name)
+	if name == "" {
+		return false
+	}
+	t, n := []rune(strings.ToLower(text)), []rune(strings.ToLower(name))
+	word := func(r rune) bool { return unicode.IsLetter(r) || unicode.IsDigit(r) || r == '_' || r == '\'' }
+	for i := 0; i+len(n) <= len(t); i++ {
+		if string(t[i:i+len(n)]) != string(n) {
+			continue
+		}
+		if (i == 0 || !word(t[i-1])) && (i+len(n) == len(t) || !word(t[i+len(n)])) {
+			return true
+		}
+	}
+	return false
+}
+
+// ChatSince counts the lines of chat others said after Seq n, in all, by party
+// and by tell.
+func (m *Model) ChatSince(n int) (all, party, tell int) {
+	for _, l := range m.Social.Chat {
+		if l.Seq <= n || l.Mine {
+			continue
+		}
+		all++
+		switch l.Channel {
+		case "party":
+			party++
+		case "tell":
+			tell++
+		}
+	}
+	return all, party, tell
+}
+
+// watchFight notes a fight beginning and ending (D101 §5). When it ends with chat
+// having come, one line in the log says how much, so the player who looked only at
+// the fight is caught up. The model is locked by the caller.
+func (m *Model) watchFight() {
+	s := &m.Social
+	switch under := m.UnderAttack(); {
+	case under && !s.fighting:
+		s.fighting, s.fightFrom = true, s.ChatN
+	case !under && s.fighting:
+		s.fighting = false
+		if line := CatchUp(m.ChatSince(s.fightFrom)); line != "" {
+			m.addLog(LogEntry{GameTimeMs: m.GameTimeMs, Kind: "chat_catchup", Text: line})
+		}
+	}
+}
+
+// CatchUp is the line that says how much chat came during a fight: "" when none.
+func CatchUp(all, party, tell int) string {
+	if all == 0 {
+		return ""
+	}
+	var parts []string
+	if party > 0 {
+		parts = append(parts, fmt.Sprintf("%d party", party))
+	}
+	if tell > 0 {
+		parts = append(parts, fmt.Sprintf("%d tells", tell))
+	}
+	line := fmt.Sprintf("While fighting: %d chat", all)
+	if len(parts) > 0 {
+		line += " (" + strings.Join(parts, ", ") + ")"
+	}
+	return line
+}
+
+// NameKind is what a name in the chat is, as far as the client can tell (D101 §8).
+type NameKind int
+
+const (
+	NameOther  NameKind = iota // not known
+	NameSelf                   // the character's own
+	NamePlayer                 // a character in the party, in view, or on the who list
+	NameNPC                    // a person of the world in view or met
+)
+
+// KindOfName says what name is: the character itself, a player the client has
+// seen (in the party, in view, or on the who list), an NPC, or none of them.
+func (m *Model) KindOfName(name string) NameKind {
+	k := Key(name)
+	switch {
+	case k == "":
+		return NameOther
+	case k == Key(m.Self.Name) && m.Self.Name != "":
+		return NameSelf
+	}
+	for _, pm := range m.PartyMembers() {
+		if Key(pm.GetName()) == k {
+			return NamePlayer
+		}
+	}
+	for _, g := range m.Group {
+		if g.Entity != nil && Key(g.Entity.GetName()) == k {
+			return NamePlayer
+		}
+	}
+	for _, e := range m.Entities {
+		if e.GetKind() == pb.EntityKind_ENTITY_KIND_CHARACTER && Key(e.GetName()) == k {
+			return NamePlayer
+		}
+	}
+	if _, ok := m.Social.Known[k]; ok {
+		return NamePlayer
+	}
+	for _, n := range m.NPCs {
+		if Key(n.GetName()) == k {
+			return NameNPC
+		}
+	}
+	return NameOther
+}
+
+// PosOfName is where the character called name is, if the client can see it: the
+// character itself, a group member or another character in view. nil if not.
+func (m *Model) PosOfName(name string) *pb.Pos {
+	k := Key(name)
+	switch {
+	case k == "":
+		return nil
+	case k == Key(m.Self.Name) && m.Self.Name != "":
+		return m.Self.Pos
+	}
+	for _, g := range m.Group {
+		if g.Entity != nil && Key(g.Entity.GetName()) == k {
+			return g.Entity.GetPos()
+		}
+	}
+	for _, e := range m.Entities {
+		if e.GetKind() == pb.EntityKind_ENTITY_KIND_CHARACTER && Key(e.GetName()) == k {
+			return e.GetPos()
+		}
+	}
+	return nil
 }

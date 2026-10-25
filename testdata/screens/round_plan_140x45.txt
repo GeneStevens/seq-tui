@@ -28,7 +28,7 @@
 │                                                                                                ││ m Plain Scuttler      14m S 40/40 even │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s instance opened: Quick Turns (up to 1 in it); enter at gate-north with E                                                        │
 │     0.0s entered Testgrounds (Quick Turns)                                                                                               │
 │     0.0s round 1 is open: game time waits for plans (0 of 1 submitted: none yet)                                                         │

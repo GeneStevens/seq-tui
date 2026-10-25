@@ -14,7 +14,7 @@
 │                                                  ││ & Testgrou… 183m W [new] │
 │                                                  ││ +17 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     N.Ns You start attacking Plain Scuttler                                  │
 │     N.Ns Plain Scuttler (level 1, even) is attacking you                     │
 │     N.Ns You are in combat with Plain Scuttler                               │

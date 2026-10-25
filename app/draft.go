@@ -271,6 +271,9 @@ func TurnKey(key string, m *model.Model, d *Draft) Action {
 	case "x":
 		return step(Action{Kind: Stop})
 	case "r":
+		if a := releaseOrReply(m); a.Kind != Release {
+			return a // a living character answers the last tell
+		}
 		return step(Action{Kind: Release})
 	case "backspace":
 		return Action{Kind: PlanUndo}

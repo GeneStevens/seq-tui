@@ -29,7 +29,7 @@
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ B Odalys Penn <Banker>           32m E │
 │ talk to Thornwick Contract Board ok                                                            ││ +8 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
 │     0.2s Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │

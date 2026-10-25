@@ -29,7 +29,7 @@
 │ Esc closes the screen and leaves the trade open.                                               ││ D Line East                    183m SE │
 │ ! offer Scuttler Blade denied: that item is bound and cannot be traded (bound)                 ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.1s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │     0.2s c2 comes into view                                                                                                              │
 │     0.3s You ask c2 to trade                                                                                                             │

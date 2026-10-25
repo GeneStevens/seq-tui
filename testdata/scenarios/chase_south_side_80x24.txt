@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none   |   Meadow Wolf: none                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     N.Ns You are in combat with Meadow Wolf                                  │
 │     N.Ns You hit Meadow Wolf for 10                                          │
 │     N.Ns Meadow Wolf began attacking hale                                    │

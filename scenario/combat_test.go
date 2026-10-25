@@ -264,7 +264,7 @@ func TestWarriorTauntsHealsAndKills(t *testing.T) {
 		t.Errorf("a regeneration tick is in the short log:\n%s", s)
 	}
 	p.Press("v")
-	if s := p.Screen(140, 45); !strings.Contains(s, "Events (all") {
+	if s := p.Screen(140, 45); !strings.Contains(s, "[Events: all") {
 		t.Errorf("V does not show the long view:\n%s", s)
 	}
 	p.Press("v")

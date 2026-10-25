@@ -28,18 +28,18 @@
 │                                                                                                ││ T Wizard Trainer                 86m W │
 │                                                                                                ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ──────────────────────────────────────────────────────┐┌─ Chat (/ types) ───────────────────────────────────────┐
-│     N.Ns bob1 comes into view                                                  ││ [party] bob1: ready when you are                       │
-│     N.Ns bob1 declined your party invitation                                   ││                                                        │
-│     N.Ns bob1 joined the party                                                 ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-│                                                                                ││                                                        │
-└────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat •1  Party •1 ───────────────────────────────────────────────────────── [party] bob1: ready when you are ─┐
+│     N.Ns bob1 comes into view                                                                                                            │
+│     N.Ns bob1 declined your party invitation                                                                                             │
+│     N.Ns bob1 joined the party                                                                                                           │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Gate North is shut: no expedition is open beyond it. Start one first.                                                                      
  ONLINE | Testgrounds | heard N.Ns ago | invited bob1                                                                         ? help  q quit

@@ -29,7 +29,7 @@
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │   NNN.Ns You stop attacking                                                                                                              │
 │   NNN.Ns Meadow Wolf dropped Wolf Pelt                                                                                                   │
 │   NNN.Ns Meadow Wolf dropped 1 crown                                                                                                     │

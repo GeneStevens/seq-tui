@@ -96,6 +96,10 @@ const (
 	MoveCursor      // move the large map's cursor a cell: Note is the key
 	AutoRetaliate   // turn auto-retaliate On (D85)
 	WalkKey         // a movement key went down: Note is the key (hold-to-walk)
+	ToggleDrawer    // lift the chat over the map, or drop it (D101)
+	PanelTab        // the bottom panel's next (Count 1) or previous (-1) tab
+	SelectPanel     // the bottom panel's tab Count
+	ReplyLine       // open the command line to answer the last tell
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -160,7 +164,7 @@ func Plan(key string, m *model.Model) Action {
 		}
 		return Action{Note: "no door on this map"}
 	case "r":
-		return Action{Kind: Release} // the server denies it unless the character is dead
+		return releaseOrReply(m)
 	case "g":
 		return talkAction(m)
 	case "k":
@@ -205,6 +209,12 @@ func common(key string) Action {
 		return Action{Kind: OpenTrade}
 	case "/":
 		return Action{Kind: OpenLine}
+	case "C":
+		return Action{Kind: ToggleDrawer}
+	case "[":
+		return Action{Kind: PanelTab, Count: -1}
+	case "]":
+		return Action{Kind: PanelTab, Count: 1}
 	case "ctrl+l":
 		return Action{Kind: OpenSessions}
 	}
@@ -315,4 +325,16 @@ func nearestDoorTo(m *model.Model, from *pb.Pos) string {
 		}
 	}
 	return best
+}
+
+// releaseOrReply is R: it gives up a dead character's body (the server denies it
+// otherwise), and for a living one answers the last tell (D101 §6).
+func releaseOrReply(m *model.Model) Action {
+	switch {
+	case m.Self.Dead:
+		return Action{Kind: Release}
+	case m.Social.LastTell == "":
+		return Action{Note: "nobody has told you anything to reply to"}
+	}
+	return Action{Kind: ReplyLine, ID: m.Social.LastTell}
 }

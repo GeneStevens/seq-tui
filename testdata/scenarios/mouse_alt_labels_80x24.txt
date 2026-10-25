@@ -14,7 +14,7 @@
 │ #                                                ││ & Testgroun… 57m W [new] │
 │ #                                                ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     N.Ns Plain Scuttler comes into view                                      │
 │    NN.Ns You target Plain Scuttler                                           │
 │    NN.Ns You start attacking Plain Scuttler                                  │

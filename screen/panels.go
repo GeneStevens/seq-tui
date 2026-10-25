@@ -498,7 +498,7 @@ func logEntryRows(m *model.Model, e *model.LogEntry, w int, st Styler) []logRow 
 	case e.Refused():
 		mark, fn = "!", func(s string) string { return st.Red(st.Bold(s)) }
 	case e.Kind == "announcement":
-		mark, fn = "#", func(s string) string { return st.Yellow(st.Bold(s)) }
+		mark, fn = "#", func(s string) string { return st.Chat.Server(s) }
 	case (e.Kind == "combat_hit" || e.Kind == "combat_miss") && e.Target == m.Self.ID:
 		mark, fn = "<", st.Red
 	case e.Kind == "combat_death":

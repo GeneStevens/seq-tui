@@ -29,7 +29,7 @@
 │ Esc closes the screen and leaves the trade open.                                               ││ ; Hollow Lookout    82m S scout marker │
 │ ! That item is bound to you and can't be traded                                                ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │     N.Ns c2 comes into view                                                                                                              │
 │     N.Ns You ask c2 to trade                                                                                                             │

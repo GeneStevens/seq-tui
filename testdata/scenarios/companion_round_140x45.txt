@@ -28,7 +28,7 @@
 │                                                                                                ││ Y attack my target    U come here      │
 │                                                                                                ││ J stop    Z drop the order             │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Watch Shieldman targeted Plain Scuttler                                                                                         │
 │     N.Ns Watch Shieldman uses Taunt on Plain Scuttler                                                                                    │
 │     N.Ns Watch Shieldman begins fighting Plain Scuttler                                                                                  │

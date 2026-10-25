@@ -29,7 +29,7 @@
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││                                        │
 │ talk to Thornwick Contract Board ok                                                            ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
 │     N.Ns Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │

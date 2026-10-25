@@ -28,7 +28,7 @@
 │                                                                                                ││ H Testgrounds Binder             90m W │
 │                                                                                                ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │    76.1s Plain Scuttler is out of view                                                                                                   │
 │    78.0s round 39 ran (everyone had a plan; 1 of 1 submitted): you played your own plan                                                  │
 │    78.0s round 40 is open: game time waits for plans (0 of 1 submitted: none yet)                                                        │

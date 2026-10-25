@@ -14,7 +14,7 @@
 │                                                  ││ Plan: empty, not sent    │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ Events (short · v: all) ────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │     N.Ns round 3 is open: game time waits for plans (0 of 1 submitted: none  │
 │            yet)                                                              │
 │                                                                              │
