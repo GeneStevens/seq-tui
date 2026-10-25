@@ -1,0 +1,45 @@
+┌─ Testgrounds, at 119,20 m, north up ───────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                                                                                ││ hale  Lv 1  XP 0             | 7 crowns│
+│                                                                                                ││ HP 100/100 ########################### │
+│                                                                                                ││ Target: none                           │
+│                                                                                                ││ Auto-attack: off                       │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Quest ────────────────────────────────┐
+│                                                                                                ││ [ ] 1. Scout the Lookout               │
+│                                                                                                ││ Testgrounds Recruiter has work for you:│
+│                                                                                                ││ G.                                     │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ no target (Tab to choose)              │
+│                                                                                                ││                                        │
+│                     ◆                          @H                                         v    ││                                        │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ ! Testgrounds Recruiter   103m W [new] │
+│                                                                                                ││ & Testgrounds Contract B… 108m W [new] │
+│                                                                                                ││ H Eastern Binder                  1m E │
+│                                                                                                ││ ◆ Tester's Fa… 19m W raiders head here │
+│                                                                                                ││ v Brigands' Holl… 31m E raiders gather │
+│                                                                                                ││ D Gate North              73m N (shut) │
+│                                                                                                ││ D Line East               77m E (shut) │
+│                                                                                                ││ ; Hollow Lookout    85m W scout marker │
+│                                                                                                ││ ; Windswept Overlo… 89m W scout marker │
+│                                                                                                ││ T Druid Trainer                106m NW │
+│                                                                                                ││ +9 more                                │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ +   N.Ns Quest chain offered: The Old Relic. First: Watch from the Hollow Lookout. It is optional; /dismiss gives it up for good.        │
+│ +   N.Ns The Old Relic: step 1 done. Next: Bring 2 old relics to the Testgrounds Captain.                                                │
+│    NN.Ns Placeholder Warden is out of view                                                                                               │
+│    NN.Ns Testgrounds Captain says: Keep the ground quiet. There may be a larger task for you, later.                                     │
+│ +  NN.Ns The Old Relic: step 2 done: 7 crowns. Next: Tell the Eastern Binder it is done.                                                 │
+│ +  NN.Ns Quest item removed from your bags: 2 Old Relic.                                                                                 │
+│    NN.Ns Plain Scuttler is out of view                                                                                                   │
+│    NN.Ns Placeholder Warden is out of view                                                                                               │
+│    NN.Ns Eastern Binder says:                                                                                                            │
+│ +  NN.Ns Quest complete: The Old Relic                                                                                                   │
+│ +  NN.Ns Quest item removed from your bags: 1 Old Relic.                                                                                 │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Eastern Binder                                                                                                                  
+ ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

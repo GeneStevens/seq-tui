@@ -196,6 +196,9 @@ var guideChains = []section{
 	}, []string{
 		"A new character is offered First Steps in Thornwick: talk to the Watch greeter in Hawthorn Square, talk to your class trainer, take a contract from the board, then go out through the east gate. It pays a small reward at the end.",
 		"It is optional. Nothing walks you anywhere and nothing reminds you; the Quest chain panel shows the step you are on, and the log tells you when one is done. A dismissed chain is never offered again.",
+		"Other chains ask for more than a talk: bring items to someone (\"Held: 2 of 3\" counts what your bags hold now), collect them, defeat a number of creatures (\"Kills: 2 of 5\"), or watch a place for a time (\"Watching… 12 of 20 s\"). A watch starts over when you leave the spot or a fight starts; the screen says so. The server tells the kills and the watch seconds when the step changes, not as they rise.",
+		"A step can be in another zone: the quest screen names the zone and the door to take, and how far away it is. A person who holds a chain you cannot take yet lists it in the conversation as [locked] with the reason (\"needs level 8\", \"finish ... first\").",
+		"A quest's own item is tagged [quest] (and gold) in the bags. It cannot be sold, banked or traded, and it leaves your bags when its quest is handed in, finished or given up; the log says so.",
 	}},
 	{"Fighting", [][2]string{
 		{"Tab", "choose the next target"},

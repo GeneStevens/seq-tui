@@ -1,14 +1,14 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
-│                          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░                        │
-│                          ░#####··  The Cottages### #░                        │
-│                          ░###The Smithy########### #░                        │
-│                          ░##Cross Street#####B######░                        │
-│                          ░#####$·  ··&@···    ##Q###░                        │
-│                          ░#####·······g···g·······D·░                        │
-│                          ░#####$·  ·$··H··     #####░                        │
-│                          ░#####·Hawthorn Walk  #####░                        │
-│                          ░#··!··T···T··T···T··T····#░                        │
-│                          ░Clerics' Hall#Druids' Hall░                        │
+│                                                                              │
+│                            ░░░░░░░░░░░░░░░░░░░░░░                            │
+│                            ░ The Smithy## ##### ░                            │
+│                            ░Cross Street# ######░                            │
+│                            ░ ###$###·@···  B#Q##░                            │
+│                            ░ ###····$&g··g·····D░                            │
+│                            ░ ###$·Paladins' Hall░                            │
+│                            ░ ###Hawthorn Walk###░                            │
+│                            ░ #!##T##T#T##T##T#··░                            │
+│                            ░░░░░░░░░░░░░░░░░░░░░░                            │
 │ Thornwick, 120m by 90m, north up. You: 56m E, 51m N of the SW corner.        │
 │ You       @ you  % scout marker  + plan end  ◄ objective                     │
 │ People    p player  T trainer  $ vendor  B banker  H binder  g guard         │

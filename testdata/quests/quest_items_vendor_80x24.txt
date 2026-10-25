@@ -1,0 +1,24 @@
+┌─ Traders ────────────────────────────────────────────────────────────────────┐
+│ Tilda <Provisioner>, 1m N away. You have 0 crowns.                           │
+│                                                                              │
+│ For sale (Enter buys one)            │ You carry (Enter sells one)           │
+│  (nothing)                           │>   charm bead ×2      [quest] no sale │
+│                                      │    Tin Ring                    pays 3 │
+│──────────────────────────────────────────────────────────────────────────────│
+│ charm bead: Common, no gear slot; quest item: not sold, traded or banked; go…│
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc b…│
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
+ ONLINE | thornwick-downs | Beads for Barnaby 3/4 | heard 0.4s ago        ? help

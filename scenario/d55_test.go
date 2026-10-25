@@ -54,7 +54,7 @@ func TestDuoOnAStanceStandsInEachRound(t *testing.T) {
 			t.Fatalf("round %+v, bram planned %v for round %d", m.Round, planned, round)
 		}
 	})
-	p.Golden("duo_stance_planned")
+	p.GoldenWithout("duo_stance_planned", arrival, "entered Testgrounds")
 
 	// The deadline passes: Aria played her own plan, Bram his stand-in.
 	w.Advance(7 * time.Second)

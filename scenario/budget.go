@@ -15,8 +15,11 @@ import (
 // this mirrors its rule minimally, on the host's load average alone: the CPU
 // spin it also reads under-reads a busy macOS host, and the load tracked it.
 //
-// On a quiet host the limit is exactly the one asked for, so a real slowdown
-// fails. On a contended host (load per CPU of Contended or more) a run over its
+// The limit grows with the load (TUI-045, ISSUES T8): a run may take limit times
+// (1 + load per CPU), so a moderately busy host (the suite took 15-18 s at a
+// load of 3.7 on 10 CPUs, limit 15 s, with no test failing) is not failed for
+// the host's sake, while on a quiet host the limit is the one asked for and a
+// real slowdown fails. On a contended host (load per CPU of Contended or more) a run over its
 // limit is a logged warning with the load measured, and only fails past
 // Ceiling: a gate that fails on the host's load says nothing about the code.
 const (
@@ -31,6 +34,14 @@ const (
 	CeilingPerShare = 3.0
 )
 
+// Allowed is the longest a run with limit may take on a host with load per CPU
+// load without a word: the limit, stretched by the load. A run past it is a
+// failure on a host below Contended, and past it on a contended one a warning
+// up to Ceiling.
+func Allowed(limit time.Duration, load float64) time.Duration {
+	return time.Duration(float64(limit) * (1 + max(load, 0)))
+}
+
 // Ceiling is the longest a run with limit may take on a host with load per CPU
 // load before it fails though contended.
 func Ceiling(limit time.Duration, load float64) time.Duration {
@@ -40,7 +51,7 @@ func Ceiling(limit time.Duration, load float64) time.Duration {
 // Judge is the verdict on a run that took took against limit on a host with load
 // per CPU load: whether it fails, and whether it is a warning only.
 func Judge(took, limit time.Duration, load float64) (fail, warn bool) {
-	if took <= limit {
+	if took <= Allowed(limit, load) {
 		return false, false
 	}
 	if load >= Contended && took <= Ceiling(limit, load) {
@@ -70,12 +81,11 @@ func LoadPerCPU() float64 {
 // or only a warning is due (returned as warning, for the caller to log), else
 // the failure.
 func Verdict(what string, took, limit time.Duration, load float64) (failure, warning string) {
-	msg := TooSlow(what, took, limit)
-	if msg == "" {
-		return "", ""
-	}
 	fail, warn := Judge(took, limit, load)
+	msg := TooSlow(what, took, limit)
 	switch {
+	case msg == "":
+		return "", ""
 	case warn:
 		return "", fmt.Sprintf("WARNING: %s, over its budget on a host with load %.1f per CPU, so this is not a failure (it fails past %v)", msg, load, Ceiling(limit, load).Round(time.Millisecond))
 	case fail:

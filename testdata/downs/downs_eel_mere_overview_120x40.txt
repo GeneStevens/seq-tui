@@ -1,0 +1,40 @@
+┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                 │
+│                                   ░        Eel Mere Reeds≈;≈≈≈≈≈·····              ░                                 │
+│                                   ░             ; "≈≈≈≈c@≈≈≈≈≈≈≈≈≈≈ ·              ░                                 │
+│                                   ░   Eelmere Stilt House≈≈≈≈≈≈≈≈≈                 ░                                 │
+│                                   ░          Eelmere≈≈ Eel Mere                    ░                                 │
+│                                   ░               ··≈≈≈                            ░                                 │
+│                                   ░                ·≈≈≈                            ░                                 │
+│                                   ░        Marlbridge Road                         ░                                 │
+│                                   ░                ··≈≈≈                           ░                                 │
+│                                   ░                 ·≈≈≈                           ░                                 │
+│                                   ░            Fordwatch                           ░                                 │
+│                                   ░                 ;≈≈≈                           ░                                 │
+│                                   ░                  ≈≈≈                           ░                                 │
+│                                   ░D                  ≈≈······Far Road········  D  ░                                 │
+│                                   ░       ·    The Millrace                   ^^^^^░                                 │
+│                                   ░       ·        """≈≈                      ^^^^^░                                 │
+│                                   ░       ··     """""≈≈                           ░                                 │
+│                                   ░    Drove Road"""""≈≈                           ░                                 │
+│                                   ░         North Greywood                         ░                                 │
+│                                   ░         ··  """""≈≈≈                           ░                                 │
+│                                   ░         ··  """""≈≈≈                           ░                                 │
+│                                   ░          Highfold Footbridge                   ░                                 │
+│                                   ░          ·    c   ≈≈      ^;^^                 ░                                 │
+│                                   ░           ;  ··The Hoarstones^                 ░                                 │
+│                                   ░         # Q  ·Hill Track^·;                    ░                                 │
+│                                   ░       Highfold   The Hoarstones                ░                                 │
+│                                   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                 │
+│ Thornwick Downs, 420m by 450m, north up. You: 190m E, 412m N of the SW corner.                                       │
+│ You       @ you  % scout marker  + plan end  ◄ objective                                                             │
+│ People    p player  T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  D door                │
+│           “ said, for 4 s  » chat names you                                                                          │
+│ Quest     ! new  ? hand in  ? in progress  m quest mob  D next door                                                  │
+│ Events    ; scout point  v raiders appear  ◆ raiders head for                                                        │
+│ Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp                                               │
+│ Ground    # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road  . floor  ░ zone edge                      │
+│ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                                                              
+ ONLINE | thornwick-downs | A Boat for the Ferryman 3/5 | heard 0.4s ago                                  ? help  q quit

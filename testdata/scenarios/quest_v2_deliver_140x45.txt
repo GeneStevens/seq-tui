@@ -1,0 +1,45 @@
+┌─ Testgrounds, at 20,56 m, north up ────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                    ░                                                                           ││ hale  Lv 1  XP 0             | 0 crowns│
+│                    ░                                                                           ││ HP 100/100 ########################### │
+│                    ░                                                                           ││ Target: none                           │
+│                    ░                                                                           ││ Auto-attack: off                       │
+│                    ░                                                       #                   ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                    ░                                                       #                   │└────────────────────────────────────────┘
+│                    ░                                                       #                   │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│                    ░                                                       #                   ││ The Old Relic                          │
+│                    ░                                                       #                   ││ Step 2 of 3                            │
+│                    ░                                                       #                   ││ Bring 2 old relics to the Testgrounds  │
+│                    ░                T  T T  T  T  T                        #                   ││ Captain.                               │
+│                    ░                                                       #                   ││ Held: 2 of 2 Old Relic                 │
+│                    ░                $  B H  &  Q                           #                   │└────────────────────────────────────────┘
+│                    ░                                                       #                   │┌─ Quest ────────────────────────────────┐
+│                    ░                           @  !                        #                   ││ [ ] 1. Scout the Lookout               │
+│                    ░                                                       #                   ││ Testgrounds Recruiter has work for you:│
+│                    ░                                                       #                   ││ G.                                     │
+│                    ░                                                       #                   │└────────────────────────────────────────┘
+│                    ░                                 mc                    #                   │┌─ Target ───────────────────────────────┐
+│                    ░                                                       #                   ││ no target (Tab to choose)              │
+│                    ░                                                       #                   ││                                        │
+│                    ░                                                       #                   ││                                        │
+│                    ░                                                       #                   │└────────────────────────────────────────┘
+│                    ░                                                       #                   │┌─ Nearby ───────────────────────────────┐
+│                    ░                                                       #                   ││ ! Testgrounds Recruiter     2m E [new] │
+│                    ░                                                       #                   ││ & Testgrounds Contract Bo… 3m NW [new] │
+│                    ░                                                       #                   ││ Q Testgrounds Captain <Quest Giv… 2m N │
+│                    ░                                                       #                   ││ +17 more                               │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ +   N.Ns Quest chain offered: The Old Relic. First: Watch from the Hollow Lookout. It is optional; /dismiss gives it up for good.        │
+│ +   N.Ns The Old Relic: step 1 done. Next: Bring 2 old relics to the Testgrounds Captain.                                                │
+│    NN.Ns Placeholder Warden is out of view                                                                                               │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Testgrounds Captain <Quest Giver>  ·  Tab: target · F: attack                                                                   
+ ONLINE | Testgrounds | The Old Relic 2/3 | heard N.Ns ago                                                                    ? help  q quit

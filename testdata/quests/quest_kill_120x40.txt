@@ -1,0 +1,40 @@
+┌─ Quest chain ────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Wolves at the Fold, step 2 of 3                                                                                      │
+│                                                                                                                      │
+│ Now:                                                                                                                 │
+│   Drive off the hill wolves near Highfold.                                                                           │
+│   Kills: 2 of 5                                                                                                      │
+│   (place: Highfold)                                                                                                  │
+│                                                                                                                      │
+│ It is optional: nothing waits for it and nothing reminds you.                                                        │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│ X dismisses it for good (after a question)   Esc closes                                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                                                              
+ ONLINE | thornwick-downs | Wolves at the Fold 2/3 | heard 0.4s ago                                       ? help  q quit

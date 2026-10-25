@@ -178,6 +178,9 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 				return Action{Note: "A sells the stack under the cursor in the list you carry (Tab switches)"}
 			}
 			sk := stacks[t.Cur[1]]
+			if why := m.QuestItemRefusal(sk.Inst); why != "" {
+				return Action{Note: why}
+			}
 			return Action{Kind: Sell, NPC: n.GetId(), ID: sk.Inst, Count: sk.Count, Note: m.ItemName(sk.Inst)}
 		}
 		return a.listKey(k, t, true, len(n.GetStock()), len(stacks), func(pane, i int) Action {
@@ -186,6 +189,9 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 				return Action{Kind: Buy, NPC: n.GetId(), ID: s.GetItem(), Count: 1, Note: m.ItemName(s.GetItem())}
 			}
 			inst := stacks[i].Inst
+			if why := m.QuestItemRefusal(inst); why != "" {
+				return Action{Note: why}
+			}
 			return Action{Kind: Sell, NPC: n.GetId(), ID: inst, Note: m.ItemName(inst)}
 		})
 	case "banker":
@@ -193,6 +199,9 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 		return a.listKey(k, t, true, len(held), len(banked), func(pane, i int) Action {
 			if pane == 0 {
 				inst := held[i].Inst
+				if why := m.QuestItemRefusal(inst); why != "" {
+					return Action{Note: why}
+				}
 				return Action{Kind: BankDeposit, NPC: n.GetId(), ID: inst, Note: m.ItemName(inst)}
 			}
 			inst := banked[i].Inst
@@ -317,6 +326,9 @@ func (a *App) tradeKey(k string, m *model.Model) Action {
 			return Action{Note: "you carry nothing to offer"}
 		}
 		inst := carried[t.Item].Inst
+		if why := m.QuestItemRefusal(inst); why != "" {
+			return Action{Note: why}
+		}
 		return Action{Kind: TradeAdd, ID: inst, Note: m.ItemName(inst)}
 	}
 	return Action{}

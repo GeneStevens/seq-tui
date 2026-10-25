@@ -274,6 +274,7 @@ type Model struct {
 	// A client that predicts its own walk reads both.
 	SelfMoves    uint64
 	SelfSpeedMmS int64
+	watchReset   *watchNote // a watch step that went back (v2)
 	questOffered map[string]bool
 	questSteps   map[string]questSeen
 	questOrder   []string
@@ -440,6 +441,10 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		Sheet: self.GetSheet(), Facts: factsByItem(self.GetFacts()), BagSlots: self.GetBagSlots(),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
+	if old.ID == m.Self.ID {
+		m.noteQuestChange(old.Quest, m.Self.Quest)
+		m.noteQuestItemsGone(old.Inventory, s.GetGameTimeMs())
+	}
 	m.SelfMoves++
 	m.Entities = map[string]*pb.EntityState{}
 	m.remember(e)

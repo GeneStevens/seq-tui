@@ -61,6 +61,8 @@ func (m *Model) applyDelta(d *pb.SelfDelta) {
 	switch p := d.GetPart().(type) {
 	case *pb.SelfDelta_Inventory:
 		v := p.Inventory
+		before := s.Inventory
+		defer func() { m.noteQuestItemsGone(before, m.GameTimeMs) }()
 		s.Inventory, s.Equipped, s.Bank = slices.Clone(v.GetInventory()), slices.Clone(v.GetEquipped()), slices.Clone(v.GetBank())
 		s.InventorySize, s.BagSlots, s.BindZone = v.GetInventorySize(), v.GetBagSlots(), v.GetBindZone()
 	case *pb.SelfDelta_Money:
@@ -68,6 +70,7 @@ func (m *Model) applyDelta(d *pb.SelfDelta) {
 	case *pb.SelfDelta_Stats:
 		m.applyStats(p.Stats.GetState())
 	case *pb.SelfDelta_Quest:
+		m.noteQuestChange(s.Quest, p.Quest.GetQuest())
 		s.Quest = p.Quest.GetQuest()
 	case *pb.SelfDelta_Companion:
 		s.Companion = cloneCompanion(p.Companion.GetCompanion())

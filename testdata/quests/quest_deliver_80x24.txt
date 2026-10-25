@@ -1,0 +1,24 @@
+┌─ Quest chain ────────────────────────────────────────────────────────────────┐
+│ Beads for Barnaby, step 3 of 4                                               │
+│                                                                              │
+│ Now:                                                                         │
+│   Bring 3 charm beads to Barnaby Tuck.                                       │
+│   Held: 2 of 3 charm bead                                                    │
+│   (npc: Barnaby Tuck)                                                        │
+│   This step pays 40 XP.                                                      │
+│                                                                              │
+│ It is optional: nothing waits for it and nothing reminds you.                │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ X dismisses it for good (after a question)   Esc closes                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
+ ONLINE | thornwick-downs | Beads for Barnaby 3/4 | heard 0.4s ago        ? help

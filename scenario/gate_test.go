@@ -23,13 +23,14 @@ func TestSpeedGates(t *testing.T) {
 			t.Errorf("%v against %v: %q", tc.took, tc.limit, msg)
 		}
 	}
-	if scenario.MaxScenario != 2*time.Second || scenario.MaxSuite != 15*time.Second {
-		t.Error("the gates are D49's: 2 s a scenario, 15 s the suite")
+	if scenario.MaxScenario != 2*time.Second || scenario.MaxSuite != 25*time.Second {
+		t.Error("the gates are D49's 2 s a scenario, and 25 s the suite: about twice its time on an idle host (T8)")
 	}
 }
 
-// A contended host warns instead of failing, up to a ceiling; a quiet host
-// fails at the plain limit, so a real slowdown is caught (TUI-032).
+// The limit grows with the load, a contended host warns instead of failing up
+// to a ceiling, and a quiet host fails at the plain limit, so a real slowdown is
+// caught (TUI-032, T8 in TUI-045).
 func TestAContendedHostWarnsAndAQuietOneFails(t *testing.T) {
 	const lim = scenario.MaxSuite
 	for _, tc := range []struct {
@@ -40,10 +41,14 @@ func TestAContendedHostWarnsAndAQuietOneFails(t *testing.T) {
 	}{
 		{"within the limit", lim, 0.2, false, false},
 		{"within the limit, contended", lim, 9, false, false},
-		{"quiet host, 1.5x", lim * 3 / 2, 0.2, true, false},
-		{"quiet host, an injected sleep", lim + 10*time.Second, 0.3, true, false},
-		{"lightly shared host", lim * 2, 0.4, true, false},
-		{"contended host, 22 s", 22 * time.Second, 0.9, false, true},
+		{"idle host, twice the idle time", lim, 0, false, false},
+		{"idle host, 1.5x the limit", lim * 3 / 2, 0.05, true, false},
+		{"quiet host, an injected sleep", lim + 10*time.Second, 0.1, true, false},
+		{"T8: 18 s at a load of 0.37 per CPU, old limit 15 s", 18 * time.Second, 0.37, false, false},
+		{"moderately busy host, stretched limit", lim * 13 / 10, 0.37, false, false},
+		{"moderately busy host, twice the limit", lim * 2, 0.4, true, false},
+		{"contended host, 1.8x is within the stretched limit", lim * 18 / 10, 0.9, false, false},
+		{"contended host, 2.5x", lim * 5 / 2, 0.9, false, true},
 		{"contended host, 5x", lim * 5, 0.9, false, true},
 		{"contended host, past the ceiling", lim*5 + time.Second, 0.9, true, false},
 		{"heavy load widens the ceiling", lim * 20, 8, false, true},
@@ -54,10 +59,13 @@ func TestAContendedHostWarnsAndAQuietOneFails(t *testing.T) {
 			t.Errorf("%s: fail=%v warn=%v, want %v %v", tc.name, fail, warn, tc.fail, tc.warn)
 		}
 	}
-	if f, w := scenario.Verdict("x", 22*time.Second, scenario.MaxSuite, 0.9); f != "" || w == "" {
-		t.Errorf("a contended 22 s: failure %q warning %q", f, w)
+	if f, w := scenario.Verdict("x", 2*lim, lim, 0.9); f != "" || w == "" {
+		t.Errorf("a contended double: failure %q warning %q", f, w)
 	}
-	if f, w := scenario.Verdict("x", 22*time.Second, scenario.MaxSuite, 0.3); f == "" || w != "" {
-		t.Errorf("a quiet 22 s: failure %q warning %q", f, w)
+	if f, w := scenario.Verdict("x", 2*lim, lim, 0.3); f == "" || w != "" {
+		t.Errorf("a quiet double: failure %q warning %q", f, w)
+	}
+	if f, w := scenario.Verdict("x", lim+time.Second, lim, 0.3); f != "" || w != "" {
+		t.Errorf("a slightly slow run on a busy host: failure %q warning %q", f, w)
 	}
 }

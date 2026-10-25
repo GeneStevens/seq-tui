@@ -92,6 +92,7 @@ func talkLines(m *model.Model, v View, t *Talk, w, h int, st Styler) []string {
 		}
 		rows = append(rows, line)
 	}
+	rows = append(rows, offerLines(n, w, st)...)
 	if len(rows) > h-2 {
 		rows = rows[:h-2]
 	}
@@ -101,6 +102,25 @@ func talkLines(m *model.Model, v View, t *Talk, w, h int, st Styler) []string {
 	rows = append(rows, help(" {1}-{9} or {Up} / {Down} choose · {Enter} does it · {Esc} closes · {G} talks again", w, st))
 	rows = append(rows, help(" The answer is on the status line; every refusal says why.", w, st))
 	return pad(rows[:min(len(rows), h)], w, h)
+}
+
+// offerLines are the quest chains the person holds for the character (quests
+// v2): an open one says talking to them offers it, a locked one why not yet. A
+// locked mark is a word as well as a dim line.
+func offerLines(n *pb.NpcInfo, w int, st Styler) []string {
+	offers := model.QuestOffers(n)
+	if len(offers) == 0 {
+		return nil
+	}
+	rows := []string{"", fit(" Quests they hold for you:", w)}
+	for _, o := range offers {
+		if why := model.OfferLocked(o); why != "" {
+			rows = append(rows, st.Dim(fit(fmt.Sprintf("   [locked] %s: %s", o.GetName(), why), w)))
+		} else {
+			rows = append(rows, st.Yellow(fit(fmt.Sprintf("   [new] %s: G talks to them again to take it", o.GetName()), w)))
+		}
+	}
+	return rows
 }
 
 // levels says the levels a contract is for: "L1-3", "L6+".

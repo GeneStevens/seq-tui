@@ -1,0 +1,24 @@
+┌─ Testgrounds, at 119,20 m, north up ─────────────┐┌─ You ────────────────────┐
+│                                                  ││ hale  Lv 1  XP 0    | 7cr│
+│                                                  ││ HP 100/100 ############# │
+│                                                  ││ Target: none             │
+│                                                  ││ Atk off | Retaliate ON   │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Quest ──────────────────┐
+│                                                  ││ [ ] 1. Scout the Lookout │
+│            ◆            @H                    v  ││ Testgrounds Recruiter has│
+│                                                  ││ work for you: G.         │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Target ─────────────────┐
+│                                                  ││ no target (Tab to choose)│
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
+│    NN.Ns Placeholder Warden is out of view                                   │
+│    NN.Ns Eastern Binder says:                                                │
+│ +  NN.Ns Quest complete: The Old Relic                                       │
+│ +  NN.Ns Quest item removed from your bags: 1 Old Relic.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Eastern Binder                                                      
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit
