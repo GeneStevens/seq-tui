@@ -117,7 +117,7 @@ func offerLines(n *pb.NpcInfo, w int, st Styler) []string {
 		if why := model.OfferLocked(o); why != "" {
 			rows = append(rows, st.Dim(fit(fmt.Sprintf("   [locked] %s: %s", o.GetName(), why), w)))
 		} else {
-			rows = append(rows, st.Yellow(fit(fmt.Sprintf("   [new] %s: talk to them to take it", o.GetName()), w)))
+			rows = append(rows, st.Yellow(fit(fmt.Sprintf("   [new] %s: G talks to them again to take it", o.GetName()), w)))
 		}
 	}
 	return rows

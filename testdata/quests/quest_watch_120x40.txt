@@ -1,0 +1,40 @@
+┌─ Quest chain ────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ The Shepherds' Watch, step 2 of 4                                                                                    │
+│                                                                                                                      │
+│ Now:                                                                                                                 │
+│   Watch the shore from the green.                                                                                    │
+│   Watching… 12 of 20 s                                                                                               │
+│   (place: Highfold)                                                                                                  │
+│                                                                                                                      │
+│ It is optional: nothing waits for it and nothing reminds you.                                                        │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│ X dismisses it for good (after a question)   Esc closes                                                              │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                                                              
+ ONLINE | thornwick-downs | The Shepherds' Watch 2/4 | heard 0.4s ago                                     ? help  q quit

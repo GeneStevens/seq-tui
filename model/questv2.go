@@ -33,7 +33,7 @@ func (m *Model) QuestProgressLine(q *pb.QuestInfo) string {
 	if q.GetNeed() <= 0 {
 		return ""
 	}
-	of := fmt.Sprintf("%d of %d", q.GetProgress(), q.GetNeed())
+	of := fmt.Sprintf("%d of %d", m.stepProgress(q), q.GetNeed())
 	item := m.questItemName(q.GetItem())
 	switch q.GetKind() {
 	case "deliver":
@@ -46,6 +46,23 @@ func (m *Model) QuestProgressLine(q *pb.QuestInfo) string {
 		return fmt.Sprintf("Watching… %d of %d s", q.GetProgress(), q.GetNeed())
 	}
 	return ""
+}
+
+// stepProgress is how far the step is. The server tells a quest's progress with
+// the quest, when a step or the chain changes, not as a count rises; what the
+// bags hold the character knows itself, so a deliver or collect step counts the
+// item in the bags now. Kills and the watch are the server's last word.
+func (m *Model) stepProgress(q *pb.QuestInfo) int64 {
+	if (q.GetKind() == "deliver" || q.GetKind() == "collect") && q.GetItem() != "" {
+		held := int64(0)
+		for _, inst := range m.Self.Inventory {
+			if ItemID(inst) == q.GetItem() {
+				held++
+			}
+		}
+		return min(held, q.GetNeed())
+	}
+	return q.GetProgress()
 }
 
 // questItemName is an item's name, or "items" for a step that names none.
@@ -99,7 +116,7 @@ func (m *Model) QuestDoor(q *pb.QuestInfo) (string, *pb.Pos) {
 			return k.GetName(), p
 		}
 	}
-	return "a door", p
+	return "door", p
 }
 
 // WatchHint is the plain note under a watch step that has gone back to the

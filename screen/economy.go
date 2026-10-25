@@ -135,6 +135,12 @@ func itemRowN(m *model.Model, inst string, count, w int) string {
 	if it == nil {
 		return fit(name, w)
 	}
+	short := func() string { // no room for the tier: the name matters most, and for a quest item its tag
+		if it.GetQuestItem() && w > len(model.QuestTag)+6 {
+			return fit(name, w-len(model.QuestTag)-1) + " " + model.QuestTag
+		}
+		return fit(name, w)
+	}
 	mark := ""
 	if m.Bound(inst) {
 		mark = " [bound]"
@@ -143,8 +149,8 @@ func itemRowN(m *model.Model, inst string, count, w int) string {
 		mark = " " + model.QuestTag // never colour alone: the tag says it
 	}
 	left := fmt.Sprintf("%s %s%s", name, tierWord(it.GetTier()), mark)
-	if width(left) > w { // no room for the tier: the name matters most
-		return fit(name, w)
+	if width(left) > w {
+		return short()
 	}
 	if m.NotUsable(inst) {
 		if why := m.FactWords(inst); why != "" && width(left)+2+width(why) <= w {

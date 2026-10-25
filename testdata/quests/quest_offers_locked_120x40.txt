@@ -1,0 +1,40 @@
+┌─ Talking ────────────────────────────────────────────────────────────────────────┐┌─ You ────────────────────────────┐
+│ Maud Fenner <Highfold Reeve>, 1m N of you                                        ││ Hale  Lv 8  XP 0       | 0 crowns│
+│                                                                                  ││ HP 130/130 ##################### │
+│ “The wolves are bold this year.”                                                 ││ Target: none                     │
+│                                                                                  ││ Atk off | Retaliate off          │
+│ They have nothing more to offer.                                                 │└──────────────────────────────────┘
+│                                                                                  │┌─ Quest chain (Ctrl+K) ───────────┐
+│ Quests they hold for you:                                                        ││ Wolves at the Fold               │
+│   [new] A New Fold: G talks to them again to take it                             ││ Step 2 of 3                      │
+│   [locked] The Lost Beads: needs level 12                                        ││ Drive off the hill wolves near   │
+│   [locked] Wolves at the Fold: finish The Lost Beads first                       ││ Highfold.                        │
+│                                                                                  ││ Kills: 2 of 5                    │
+│                                                                                  │└──────────────────────────────────┘
+│                                                                                  │┌─ Target ─────────────────────────┐
+│                                                                                  ││ no target (Tab to choose)        │
+│                                                                                  ││                                  │
+│                                                                                  ││                                  │
+│                                                                                  │└──────────────────────────────────┘
+│                                                                                  │┌─ Nearby ─────────────────────────┐
+│                                                                                  ││ Q Maud Fenner <Highfold Re… 1m N │
+│                                                                                  ││ Q Maud Fenner <Highfold Re… 4m S │
+│                                                                                  ││ ; Highfold     6m N scout marker │
+│                                                                                  ││ ; The Hoars… 146m E scout marker │
+│                                                                                  ││ ; Highlow    158m E scout marker │
+│                                                                                  ││ D Town Gate              204m NW │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again             ││ ; Fordwatch  231m N scout marker │
+│ The answer is on the status line; every refusal says why.                        ││ +4 more                          │
+└──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────┐
+│ +   1.0s On the quest chain Wolves at the Fold, step 2 of 3: Drive off the hill wolves near Highfold. It is optional;│
+│            /dismiss gives it up for good.                                                                            │
+│     2.0s Maud Fenner says: The wolves are bold this year.                                                            │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | thornwick-downs | Wolves at the Fold 2/3 | heard 0.4s ago                                       ? help  q quit

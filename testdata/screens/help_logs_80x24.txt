@@ -10,14 +10,14 @@
 │   It is optional. Nothing walks you anywhere and nothing reminds you; the    │
 │   Quest chain panel shows the step you are on, and the log tells you when    │
 │   one is done. A dismissed chain is never offered again.                     │
-│                                                                              │
-│ Fighting                                                                     │
-│   Tab               choose the next target                                   │
-│   Esc               clear the target                                         │
-│   F, Space          auto-attack on or off                                    │
-│   Ctrl+R            auto-retaliate on or off (on, you fight back when        │
-│                     attacked, even with no input)                            │
-│   1-8               use the ability in that slot on your target              │
+│   Other chains ask for more than a talk: bring items to someone ("Held: 2 of │
+│   3" counts what your bags hold now), collect them, defeat a number of       │
+│   creatures ("Kills: 2 of 5"), or watch a place for a time ("Watching… 12 of │
+│   20 s"). A watch starts over when you leave the spot or a fight starts; the │
+│   screen says so. The server tells the kills and the watch seconds when the  │
+│   step changes, not as they rise.                                            │
+│   A step can be in another zone: the quest screen names the zone and the     │
+│   door to take, and how far away it is. A person who holds a chain you       │
 │ Page 4 of 10  Up, Down scroll  ? next page  Left, Right turn  Esc closes     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           

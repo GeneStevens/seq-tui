@@ -83,7 +83,7 @@ func whereLines(m *model.Model, q *pb.QuestInfo, w int, ind string, detail bool)
 		out = append(out, ind+"This step is in another zone: "+q.GetZoneName()+".")
 		if name, pos := m.QuestDoor(q); pos != nil {
 			sp := m.Self.Pos
-			out = append(out, fmt.Sprintf(ind+"Take %s: %s %s of you.", name, metres(dist(pos.GetX(), pos.GetY(), sp.GetX(), sp.GetY())), bearing(pos.GetX()-sp.GetX(), pos.GetY()-sp.GetY())))
+			out = append(out, fmt.Sprintf(ind+"Take the %s: %s %s of you.", name, metres(dist(pos.GetX(), pos.GetY(), sp.GetX(), sp.GetY())), bearing(pos.GetX()-sp.GetX(), pos.GetY()-sp.GetY())))
 		} else {
 			out = append(out, ind+"Find the way there from here; the map marks doors.")
 		}

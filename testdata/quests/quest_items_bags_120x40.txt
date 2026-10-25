@@ -1,0 +1,40 @@
+┌─ Your character ─────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Crowns 0 | bags 2 of 0 slots | bank 0 | bind point none yet                                                          │
+│  Gear  [Bags]  Stats                                                                                                 │
+│ Items carried                                                                                                        │
+│ >   charm bead ×2 Common [quest]                                                                                     │
+│     Tin Ring                                                                                                         │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────│
+│ charm bead: Common, no gear slot; quest item: not sold, traded or banked; goes when its quest ends                   │
+│                                                                                                                      │
+│                                                                                                                      │
+│ Tab next tab · Up / Down choose · Enter wears it · out of combat only                                                │
+│ Esc or C closes · N traders · T trade                                                                                │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                                                              
+ ONLINE | thornwick-downs | Beads for Barnaby 3/4 | heard 0.4s ago                                        ? help  q quit

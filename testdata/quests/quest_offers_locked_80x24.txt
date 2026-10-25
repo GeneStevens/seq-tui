@@ -1,0 +1,24 @@
+┌─ Talking ────────────────────────────────────────────────────────────────────┐
+│ Maud Fenner <Highfold Reeve>, 1m N of you                                    │
+│                                                                              │
+│ “The wolves are bold this year.”                                             │
+│                                                                              │
+│ They have nothing more to offer.                                             │
+│                                                                              │
+│ Quests they hold for you:                                                    │
+│   [new] A New Fold: G talks to them again to take it                         │
+│   [locked] The Lost Beads: needs level 12                                    │
+│   [locked] Wolves at the Fold: finish The Lost Beads first                   │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again         │
+│ The answer is on the status line; every refusal says why.                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
+ ONLINE | thornwick-downs | Wolves at the Fold 2/3 | heard 0.4s ago       ? help

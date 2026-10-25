@@ -1,0 +1,24 @@
+┌─ Testgrounds, at 20,56 m, north up ──────────────┐┌─ You ────────────────────┐
+│           ░                                      ││ hale  Lv 1  XP 0    | 0cr│
+│           ░                                      ││ HP 100/100 ############# │
+│           ░                           #          ││ Target: none             │
+│           ░                           #          ││ Atk off | Retaliate ON   │
+│           ░                           #          │└──────────────────────────┘
+│           ░       T TT TTT            #          │┌─ Quest chain (Ctrl+K) ───┐
+│           ░                           #          ││ The Old Relic            │
+│           ░       $ BH &@!            #          ││ Step 2 of 3              │
+│           ░                           #          ││ Bring 2 old relics to    │
+│           ░                mc         #          ││ the Testgrounds Captain. │
+│           ░                           #          ││ Held: 2 of 2 Old Relic   │
+│           ░                           #          │└──────────────────────────┘
+│           ░                           #          │┌─ Quest ──────────────────┐
+│           ░                           #          ││ [ ] 1. Scout the Lookout │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
+│            Lookout. It is optional; /dismiss gives it up for good.           │
+│ +   N.Ns The Old Relic: step 1 done. Next: Bring 2 old relics to the         │
+│            Testgrounds Captain.                                              │
+│    NN.Ns Placeholder Warden is out of view                                   │
+└──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Testgrounds Captain <Quest Giver>  ·  Tab: target · F: attack       
+ ONLINE | Testgrounds | The Old Relic 2/3 | heard N.Ns ago        ? help  q quit

@@ -289,7 +289,11 @@ func zoomed(radius int64, zoom int) int64 {
 func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	b := m.Map.GetBounds()
 	w, h := b.GetMaxX()-b.GetMinX(), b.GetMaxY()-b.GetMinY()
-	col := max((w+int64(cw)-1)/int64(max(cw, 1)), (h+2*int64(ch)-1)/(2*int64(max(ch, 1))), 1)
+	// The bounds span an even number of cells either side of the character's
+	// centre cell: the zone's edges are drawn on cells, so a zone as tall as the
+	// panel (the 450 m Downs at 80 x 24) would otherwise lose its south edge.
+	cols, rows := int64(max((cw-1)/2*2, 1)), int64(max((ch-1)/2*2, 1))
+	col := max((w+cols-1)/cols, (h+2*rows-1)/(2*rows), 1)
 	centre := &pb.Pos{X: (b.GetMinX() + b.GetMaxX()) / 2, Y: (b.GetMinY() + b.GetMaxY()) / 2}
 	if z := min(max(v.BigZoom, 0), MaxZoom); z > 0 {
 		// Zoomed in, the map is centred on the character and each cell spans less.
@@ -311,17 +315,26 @@ func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 // moved a row up or down to find room. The smaller places are written first.
 func paintPlaces(g *grid, m *model.Model) {
 	places := m.PlaceLabels()
+	b := m.Map.GetBounds()
+	_, top := g.cellOf(&pb.Pos{X: b.GetMinX(), Y: b.GetMaxY()})
+	_, bottom := g.cellOf(&pb.Pos{X: b.GetMinX(), Y: b.GetMinY()})
 	sort.SliceStable(places, func(i, j int) bool { return places[i].Size < places[j].Size })
 	for _, p := range places {
 		c, r := g.cellOf(p.Pos)
 		c0 := c - int64(width(p.Name)/2)
 		for _, dr := range []int64{0, -1, 1, -2, 2} {
-			if g.roomFor(c0, r+dr, width(p.Name)) {
+			if r+dr > top && r+dr < bottom && g.roomFor(c0, r+dr, width(p.Name)) && !g.nameAt(c0-1, r+dr) && !g.nameAt(c0+int64(width(p.Name)), r+dr) {
 				g.text(c0, r+dr, p.Name, kPlace)
 				break
 			}
 		}
 	}
+}
+
+// nameAt says the cell holds a letter of a place's name: the next name keeps a
+// cell clear of it.
+func (g *grid) nameAt(c, r int64) bool {
+	return r >= 0 && r < int64(g.ch) && c >= 0 && c < int64(g.cw) && g.cells[r][c].k == kPlace
 }
 
 // roomFor says w cells from (c, r) are inside the grid and show no more than

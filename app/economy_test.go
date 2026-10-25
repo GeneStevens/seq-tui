@@ -162,3 +162,26 @@ func TestLootKeyDoesNotSendADropYouMayNotTake(t *testing.T) {
 		t.Errorf("a drop that may be taken: %+v", a)
 	}
 }
+
+// A quest item is never offered for sale, to the bank or in a trade: the key sends
+// nothing and the status line says it is a quest item (quests v2).
+func TestQuestItemsAreNotSoldBankedOrTraded(t *testing.T) {
+	a, m := shopper(t)
+	m.Items["charm-bead"] = &pb.ItemInfo{Id: "charm-bead", Name: "charm bead", Tier: "common", QuestItem: true}
+	m.Self.Inventory = []string{"charm-bead", "worn-cap"}
+	press(a, "n")
+	press(a, "enter") // the vendor
+	press(a, "tab")   // the bags: the quest item is first
+	for _, key := range []string{"enter", "a"} {
+		if cmd := press(a, key); cmd != nil {
+			t.Errorf("%s sold a quest item", key)
+		}
+		if s := screenOf(a); !strings.Contains(s, "charm bead is a quest item") {
+			t.Errorf("%s: the status line does not say why:\n%s", key, s)
+		}
+	}
+	press(a, "down") // the cap sells as ever
+	if cmd := press(a, "enter"); cmd == nil {
+		t.Error("an ordinary item was refused")
+	}
+}
