@@ -81,6 +81,8 @@ func statsWords(s *pb.Stats) string {
 // bound on pickup, the rest can be traded exactly once and are bound after it.
 func bindingWords(m *model.Model, inst string) string {
 	switch it := m.Item(inst); {
+	case it.GetQuestItem():
+		return "quest item: not sold, traded or banked; goes when its quest ends"
 	case model.Traded(inst):
 		return "bound: traded once"
 	case it != nil && it.GetBindOnPickup():
@@ -136,6 +138,9 @@ func itemRowN(m *model.Model, inst string, count, w int) string {
 	mark := ""
 	if m.Bound(inst) {
 		mark = " [bound]"
+	}
+	if m.IsQuestItem(inst) {
+		mark = " " + model.QuestTag // never colour alone: the tag says it
 	}
 	left := fmt.Sprintf("%s %s%s", name, tierWord(it.GetTier()), mark)
 	if width(left) > w { // no room for the tier: the name matters most
@@ -427,8 +432,12 @@ func vendorLines(m *model.Model, n *pb.NpcInfo, t *Traders, w, h int, st Styler)
 		if it := m.Item(sk.Inst); it != nil {
 			price = fmt.Sprintf("pays %d", it.GetSellPrice())
 		}
+		quest := m.IsQuestItem(sk.Inst)
+		if quest {
+			price = "no sale"
+		}
 		room := max(rw-4-width(price), 8)
-		texts = append(texts, fmt.Sprintf("%-*s %s", room, strings.TrimRight(itemRowM(m, sk.Inst, sk.Count, room), " "), price))
+		texts = append(texts, greyIf(quest, fmt.Sprintf("%-*s %s", room, strings.TrimRight(itemRowM(m, sk.Inst, sk.Count, room), " "), price)))
 	}
 	if len(texts) == 0 {
 		yours = append(yours, fit("  (nothing)", rw))
@@ -476,7 +485,7 @@ func bankLines(m *model.Model, t *Traders, w, h int, st Styler) []string {
 	left := []string{st.Bold(fit(" You carry (Enter banks one)", lw))}
 	var texts []string
 	for _, sk := range m.Stacks(m.Self.Inventory) {
-		texts = append(texts, itemRowM(m, sk.Inst, sk.Count, max(lw-4, 1)))
+		texts = append(texts, greyIf(m.IsQuestItem(sk.Inst), itemRowM(m, sk.Inst, sk.Count, max(lw-4, 1))))
 	}
 	if len(texts) == 0 {
 		left = append(left, fit("  (nothing)", lw))
@@ -597,7 +606,7 @@ func tradeScreenLines(m *model.Model, tu *TradeUI, w, h int, st Styler) []string
 	rows = append(rows, st.Bold(fit(fmt.Sprintf(" You carry, %s (Enter puts the item in the offer)", inCrowns(m)), w)))
 	var texts []string
 	for _, sk := range m.Stacks(m.Self.Inventory) {
-		texts = append(texts, itemRowM(m, sk.Inst, sk.Count, max(w-4, 1)))
+		texts = append(texts, greyIf(m.IsQuestItem(sk.Inst), itemRowM(m, sk.Inst, sk.Count, max(w-4, 1))))
 	}
 	if len(texts) == 0 {
 		add("  (nothing)")

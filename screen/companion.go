@@ -68,7 +68,7 @@ type panel struct {
 func helperPanels(m *model.Model, v View, iw int, st Styler) []panel {
 	var out []panel
 	if q := m.Quest(); q != nil {
-		out = append(out, panel{"Quest chain (Ctrl+K)", chainLines(q, iw, st)})
+		out = append(out, panel{"Quest chain (Ctrl+K)", chainLines(m, q, iw, st)})
 	}
 	both := companionShown(m) && v.Duo != nil
 	if companionShown(m) {
@@ -298,9 +298,9 @@ func roleLines(m *model.Model, r *Role, w, h int, st Styler) []string {
 
 // chainLines are the quest chain the character is on and its current step
 // (D62): what it is called, how far it has got and what the step says.
-func chainLines(q *pb.QuestInfo, w int, st Styler) []string {
+func chainLines(m *model.Model, q *pb.QuestInfo, w int, st Styler) []string {
 	rows := []string{st.Bold(fit(" "+q.GetName(), w)), fit(fmt.Sprintf(" Step %d of %d", q.GetStep(), q.GetSteps()), w)}
-	for _, l := range wrapIndent(" "+q.GetText(), w-1, " ") {
+	for _, l := range stepLines(m, q, w-1, " ", false, st) {
 		rows = append(rows, fit(l, w))
 	}
 	return rows

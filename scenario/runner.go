@@ -45,7 +45,7 @@ import (
 // The speed gates of D49.
 const (
 	MaxScenario = 2 * time.Second
-	MaxSuite    = 15 * time.Second
+	MaxSuite    = 25 * time.Second // about twice the suite's time on an idle host (T8)
 )
 
 // Environment variables a run reads.

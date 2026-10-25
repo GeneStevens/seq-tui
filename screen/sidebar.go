@@ -142,6 +142,8 @@ func bagLines(m *model.Model, w int, title string, cur int, st Styler) []string 
 		switch {
 		case i == cur:
 			line = st.Reverse(line)
+		case m.IsQuestItem(sk.Inst):
+			line = st.Yellow(line) // the quest's gold, and the [quest] tag says it without colour
 		case m.NotUsable(sk.Inst):
 			line = st.Dim(line)
 		}
