@@ -12,7 +12,7 @@
 │»[ooc] Bram: anyone for the Warren, Aria?         │┌─ Nearby ─────────────────┐
 │ [say] Hale: welcome Mira and Gorran              ││ p Mira       4m NE 20/20 │
 │ [say] Aria: thanks Hale                          ││ T Gorran Stoutarm  5m NW │
-│ Up / Down, PgUp / PgDn, wheel scroll · End: newe…││ m Gray Wolf   6m W 20/20 │
+│ PgUp / PgDn, wheel scroll · End: newest · arrows…││ m Gray Wolf   6m W 20/20 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────── [say] Aria: thanks Hale ─┐
 │ nothing has happened yet                                                     │

@@ -134,10 +134,10 @@ func TestTheKeysOpenTheDrawerSwitchTabsAndReply(t *testing.T) {
 	if !a.drawer() {
 		t.Fatal("Shift+C did not open the drawer")
 	}
-	for _, k := range []string{"up", "pgup"} {
+	for _, k := range []string{"up", "down", "pgup"} {
 		a.key(k)
 	}
-	if a.chat.drawer.Scroll != 6 {
+	if a.chat.drawer.Scroll != 5 { // the arrows are the character's, not the drawer's
 		t.Errorf("scroll %d", a.chat.drawer.Scroll)
 	}
 	a.key("tab")
@@ -426,7 +426,7 @@ func TestAReportLinePromptsForTheReasonAndTabLeavesItBe(t *testing.T) {
 func TestOOCLeavesTheTabCycleWhileItIsOff(t *testing.T) {
 	a, m, _ := chatApp()
 	hear(a, m, "tell", "Mira", "Aria", "hi")
-	a.sess.View(func(m *model.Model) { m.SetOOCOff(true) })
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ChatSettings{ChatSettings: &pb.ChatSettings{Character: "Aria", OocOn: false}}})
 	a.line = &screen.Line{Channel: screen.ChanSay}
 	a.lineTab()
 	if a.line.Channel != screen.ChanTell {
@@ -436,3 +436,69 @@ func TestOOCLeavesTheTabCycleWhileItIsOff(t *testing.T) {
 
 // card puts the server's answer on the open card, as the program does when it comes.
 func (a *App) card(name string, c screen.CharCard) { a.setCard(name, &c) }
+
+func TestTheDrawerTakesOnlyItsOwnKeys(t *testing.T) {
+	a, _, _ := chatApp()
+	a.key("C")
+	for k, taken := range map[string]bool{"up": false, "down": false, "left": false, "right": false, "w": false, "f": false,
+		"pgup": true, "pgdown": true, "end": true, "tab": true, "esc": true} {
+		var act Action
+		if got := a.drawerKey(k, &act); got != taken {
+			t.Errorf("drawer took %q: %v, want %v", k, got, taken)
+		}
+		if !a.drawer() { // Esc dropped it
+			a.key("C")
+		}
+	}
+}
+
+func TestChatIsReadWhenAnUpdateFollowsADrawingThatShowedIt(t *testing.T) {
+	a, m, _ := chatApp()
+	a.w, a.h = 80, 24
+	hear(a, m, "say", "Mira", "", "hello")
+	hear(a, m, "tell", "Mira", "Aria", "psst")
+	unread := func() int {
+		var n int
+		a.sess.View(func(m *model.Model) { _, n, _ = a.chat.marks.Unread(m) })
+		return n
+	}
+	a.view.Panel = screen.PanelEvents
+	a.render(80, 24, 0, screen.Plain())
+	a.Update(tea.WindowSizeMsg{Width: 80, Height: 24})
+	if unread() != 2 {
+		t.Fatalf("a drawing of the Events tab read chat: %d unread", unread())
+	}
+	a.view.Panel = screen.PanelChat
+	a.render(80, 24, 0, screen.Plain())
+	if unread() != 2 {
+		t.Fatalf("a drawing alone read chat: %d unread", unread())
+	}
+	hear(a, m, "say", "Mira", "", "and later") // arrives after the drawing: not seen
+	a.Update(tea.WindowSizeMsg{Width: 80, Height: 24})
+	if unread() != 1 {
+		t.Errorf("the update after the drawing: %d unread, want 1 (the line after the drawing)", unread())
+	}
+}
+
+func TestOOCIsKnownFromTheSettingsAtLoginAndTheyReplaceWhatWasKnown(t *testing.T) {
+	a, m, _ := chatApp()
+	settings := func(on bool) {
+		m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ChatSettings{ChatSettings: &pb.ChatSettings{Character: "Aria", OocOn: on}}})
+	}
+	cycle := func() string {
+		a.line = &screen.Line{Channel: screen.ChanSay}
+		hear(a, m, "tell", "Mira", "Aria", "hi")
+		a.lineTab()
+		return a.line.Channel
+	}
+	settings(false)
+	if got := cycle(); got != screen.ChanTell {
+		t.Errorf("ooc off at login: Tab went to %q", got)
+	}
+	settings(true)
+	a.line = &screen.Line{Channel: screen.ChanParty}
+	a.lineTab()
+	if a.line.Channel != screen.ChanOOC {
+		t.Errorf("ooc on: Tab went to %q", a.line.Channel)
+	}
+}

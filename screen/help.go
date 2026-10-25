@@ -51,7 +51,7 @@ var Bindings = []Binding{
 	{Keys: []string{"t"}, Show: "T", What: "trade with a character in reach", Group: "People and things"},
 	{Keys: []string{"i"}, Show: "I", What: "this zone's instance menu (Enter opens one)", Group: "People and things"},
 	{Keys: []string{"/"}, Show: "/", What: "the command line: chat, parties, /quest, /dismiss (Backspace on the slash, or Tab, makes it a chat line)", Group: "Screens"},
-	{Keys: []string{"C"}, Show: "Shift+C", What: "the chat drawer over the map: Up / Down, PgUp / PgDn, the wheel and End scroll, Tab filters (all, say, party, tell, ooc), Esc drops it", Group: "Screens"},
+	{Keys: []string{"C"}, Show: "Shift+C", What: "the chat drawer over the map: PgUp / PgDn, the wheel and End scroll (the arrows still walk), Tab filters (all, say, party, tell, ooc), Esc drops it", Group: "Screens"},
 	{Keys: []string{"N"}, Show: "Shift+N", What: "select a name in the Chat tab or the drawer: Tab steps, Enter opens its card (tell, invite, ignore, report), Esc lets go", Group: "Screens"},
 	{Keys: []string{"[", "]"}, Show: "[ and ]", What: "the bottom panel's tab: Events, Chat, Party (clicking a tab does too)", Group: "Screens"},
 	{Keys: []string{"ctrl+l"}, Show: "Ctrl+L", What: "your session logs: replay, read, export", Group: "Screens"},

@@ -21,4 +21,4 @@
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                        
- REPLAY | tui-ann-1: message 29 of 29  Left, Right step  Home, End  Esc back    
+ REPLAY | tui-ann-1: message 30 of 30  Left, Right step  Home, End  Esc back    

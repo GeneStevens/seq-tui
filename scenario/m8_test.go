@@ -241,7 +241,7 @@ func TestDirectedPlanInATurnBasedRound(t *testing.T) {
 	if s := p.Screen(140, 45); !strings.Contains(s, "bram's plan (3/16): not sent yet") {
 		t.Fatalf("the Round panel does not show bram's plan:\n%s", s)
 	}
-	p.Golden("directed_plan")
+	p.GoldenWithout("directed_plan", arrival)
 	p.Press("enter")
 	notice(t, p, "plan accepted", false)
 	p.Model(func(m *model.Model) {
@@ -265,7 +265,7 @@ func TestDirectedPlanInATurnBasedRound(t *testing.T) {
 			t.Fatalf("round %+v: bram's directed plan did not count as his own", r)
 		}
 	})
-	p.Golden("directed_plan_ran")
+	p.GoldenWithout("directed_plan_ran", arrival)
 }
 
 func itoa(n int64) string { return strconv.FormatInt(n, 10) }

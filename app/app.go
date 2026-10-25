@@ -188,6 +188,7 @@ type paintState struct {
 // Update handles a message. Whatever it is, the next View draws the screen
 // again, unless the message cannot have changed it.
 func (a *App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	a.chat.marks.Merge(a.mouse.hits.Seen) // what the last drawing showed is read
 	if a.restsOnTheSameCell(msg) {
 		return a.update(msg)
 	}

@@ -375,7 +375,7 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 		m.announce(b.Announcement)
 	case *pb.ServerMessage_Status:
 		m.Status = b.Status.GetStatus()
-	case *pb.ServerMessage_Chat, *pb.ServerMessage_Party, *pb.ServerMessage_PartyVitals, *pb.ServerMessage_Notice, *pb.ServerMessage_Who, *pb.ServerMessage_Friends:
+	case *pb.ServerMessage_Chat, *pb.ServerMessage_ChatSettings, *pb.ServerMessage_Party, *pb.ServerMessage_PartyVitals, *pb.ServerMessage_Notice, *pb.ServerMessage_Who, *pb.ServerMessage_Friends:
 		m.applySocial(msg)
 	case *pb.ServerMessage_Pong:
 		// nothing to show

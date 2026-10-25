@@ -1062,11 +1062,36 @@ func maskAges(s string) string {
 // Golden compares the screen with the golden files testdata/scenarios/NAME_WxH.txt
 // (one for each size), and with EnvGolden=1 writes them. It also marks the
 // recording, so the render tests can replay the log to the same point.
-func (p *Player) Golden(name string) {
+func (p *Player) Golden(name string) { p.w.T.Helper(); p.GoldenWithout(name) }
+
+// GoldenWithout is Golden for a screen that must not depend on arrival lines
+// (T7). A mob "comes into view" in the log of one run and not in the next, by a
+// race in the server that no wait settles (when the line is not coming, nothing
+// says so), and the line pushes an older one out of the short Events panel. These
+// goldens are about the round, the plan and the panels, so each log line with one of
+// the texts is set quiet, which the short view leaves out, just before every
+// capture: the same screen whether the line came or not.
+func (p *Player) GoldenWithout(name string, texts ...string) {
 	t := p.w.T
 	t.Helper()
 	p.Mark(name)
 	for _, sz := range Sizes {
+		if len(texts) > 0 {
+			p.Sync()
+			quiet := func(m *model.Model) {
+				for i := range m.Log {
+					for _, s := range texts {
+						if strings.Contains(m.Log[i].Text, s) {
+							m.Log[i].Quiet = true
+						}
+					}
+				}
+			}
+			p.Model(quiet)
+			if p.duo != nil && p.duo.Session() != nil { // the screen may show the second character
+				p.Duo(quiet)
+			}
+		}
 		got := maskAges(p.Screen(sz[0], sz[1])) + "\n"
 		file := filepath.Join(root(), "testdata", "scenarios", fmt.Sprintf("%s_%dx%d.txt", name, sz[0], sz[1]))
 		if os.Getenv(EnvGolden) == "1" {

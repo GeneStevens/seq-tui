@@ -109,7 +109,7 @@ type Social struct {
 	// it has not.
 	MutedText string
 	// OOCOff says the character switched the ooc channel off (D101 §7): the
-	// client knows it from its own /ooc off, or the server's refusal of a line.
+	// server tells it at login and on every change (SEQ-156); until then it is on.
 	OOCOff bool
 	// ReportAck counts the server's acknowledgements of a /report seen.
 	ReportAck int
@@ -140,6 +140,12 @@ func Key(name string) string { return strings.ToLower(strings.TrimSpace(name)) }
 func (m *Model) applySocial(msg *pb.ServerMessage) {
 	s := &m.Social
 	switch b := msg.GetBody().(type) {
+	case *pb.ServerMessage_ChatSettings:
+		// The whole of the settings, for the character the session plays (the name may
+		// not be known yet when they come, straight after the welcome).
+		if n := b.ChatSettings.GetCharacter(); m.Self.Name == "" || n == "" || Key(n) == Key(m.Self.Name) {
+			s.OOCOff = !b.ChatSettings.GetOocOn()
+		}
 	case *pb.ServerMessage_Chat:
 		c := b.Chat
 		l := ChatLine{Channel: c.GetChannel(), From: c.GetFrom(), To: c.GetTo(), Text: c.GetText(), AtMs: c.GetAtMs(), Mine: Key(c.GetFrom()) == Key(m.Self.Name) && m.Self.Name != "",
@@ -281,9 +287,6 @@ func (m *Model) applyNotice(n *pb.SocialNotice) {
 	m.Log = append(m.Log, LogEntry{Kind: "notice_" + n.GetKind(), Text: text})
 	m.trimLog()
 }
-
-// SetOOCOff notes the ooc switch as the client last knew it.
-func (m *Model) SetOOCOff(off bool) { m.Social.OOCOff = off }
 
 // ClearInvite drops the invitation: it was answered, or it ran out.
 func (m *Model) ClearInvite() { m.Social.Invite = nil }

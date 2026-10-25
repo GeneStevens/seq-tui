@@ -267,3 +267,26 @@ func TestTheServersReportAcknowledgementIsCountedAndLogged(t *testing.T) {
 		}
 	}
 }
+
+func TestChatSettingsReplaceWhatTheClientKnowsOfOOC(t *testing.T) {
+	settings := func(m *Model, who string, on bool) {
+		m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ChatSettings{ChatSettings: &pb.ChatSettings{Character: who, OocOn: on}}})
+	}
+	m := New()
+	if m.Social.OOCOff {
+		t.Fatal("ooc starts off")
+	}
+	settings(m, "Aria", false) // at login, before the snapshot names the character
+	if !m.Social.OOCOff {
+		t.Error("ooc off at login is not known")
+	}
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "Z", Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me", Name: "Aria"}}}}})
+	settings(m, "ARIA", true)
+	if m.Social.OOCOff {
+		t.Error("a change to on is not known")
+	}
+	settings(m, "Bram", false) // another character's: not this session's
+	if m.Social.OOCOff {
+		t.Error("another character's settings were taken")
+	}
+}

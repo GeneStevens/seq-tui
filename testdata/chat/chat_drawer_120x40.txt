@@ -23,7 +23,7 @@
 │                                                                                  ││                                  │
 │                                                                                  ││                                  │
 │                                                                                  ││                                  │
-│ Up / Down, PgUp / PgDn, wheel scroll · End: newest · / types · Esc closes        ││                                  │
+│ PgUp / PgDn, wheel scroll · End: newest · arrows still walk · / types · Esc clos…││                                  │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ────────────────────────────────────────────────────── [say] Aria: on my way ─┐
 │ nothing has happened yet                                                                                             │
