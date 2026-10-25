@@ -1,0 +1,40 @@
+┌─ Z, at 10,10 m, north up ────────────────────────────────────────────────────────┐┌─ You ────────────────────────────┐
+│   ░                                                                          ░   ││ Aria  Lv 3  XP 0       | 0 crowns│
+│   ░                                                                          ░   ││ HP 30/30 ####################### │
+│   ░                                                                          ░   ││ Target: none                     │
+│   ░                                                                          ░   ││ Atk off | Retaliate off          │
+│   ░                                                                          ░   │└──────────────────────────────────┘
+│   ░                                                                          ░   │┌─ Target ─────────────────────────┐
+┌─ Chat: all ──────────────────────────────────────────────────────────────────────┐│ no target (Tab to choose)        │
+│ [all] say party tell ooc   Tab filters                                           ││                                  │
+│ [say] Mira: well met, traveller, the road is long                                ││                                  │
+│ [party] Mira: ready when you are                                                 │└──────────────────────────────────┘
+│ [tell] Mira: group for the Warren?                                               │┌─ Nearby ─────────────────────────┐
+│»[say] Gorran Stoutarm: Aria, come back when you are stronger                     ││ p Mira               4m NE 20/20 │
+│ [say] Aria: on my way                                                            ││ T Gorran Stoutarm <Warrio… 5m NW │
+│»[ooc] Bram: anyone for the Warren, Aria?                                         ││ m Gray Wolf           6m W 20/20 │
+│ [say] Hale: welcome Mira and Gorran                                              ││                                  │
+│ [say] Aria: thanks Hale                                                          ││                                  │
+│                                                                                  ││                                  │
+│                                                                                  ││                                  │
+│                                                                                  ││                                  │
+│                                                                                  ││                                  │
+│                                                                                  ││                                  │
+│                                                                                  ││                                  │
+│                                                                                  ││                                  │
+│                                                                                  ││                                  │
+│ Up / Down, PgUp / PgDn, wheel scroll · End: newest · / types · Esc closes        ││                                  │
+└──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────── [say] Aria: thanks Hale ─┐
+│ nothing has happened yet                                                                                             │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ Tab: target · F: attack                                                                                                
+ ONLINE | Z | heard 0.4s ago                                                                              ? help  q quit

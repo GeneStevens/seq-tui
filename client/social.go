@@ -77,3 +77,30 @@ func (s *Session) Friends(ctx context.Context, action, name string) (*pb.FriendL
 	}
 	return s.client().FriendList(res.GetRequestId()), res, nil
 }
+
+// OOC speaks on the server-wide out-of-character channel (D101).
+func (s *Session) OOC(ctx context.Context, text string) (*pb.SocialResult, error) {
+	return s.Social(ctx, agentkit.ChatOOC(text))
+}
+
+// SetOOC switches hearing and speaking on the ooc channel on or off; the server
+// keeps it with the character.
+func (s *Session) SetOOC(ctx context.Context, on bool) (*pb.SocialResult, error) {
+	return s.Social(ctx, agentkit.SetOOC(on))
+}
+
+// Whois asks for one character's public card. The reply is nil for a name no
+// character has (the result then says why).
+func (s *Session) Whois(ctx context.Context, name string) (*pb.WhoisReply, *pb.SocialResult, error) {
+	res, err := s.Social(ctx, agentkit.WhoisOf(name))
+	if err != nil || !res.GetOk() {
+		return nil, res, err
+	}
+	return s.client().WhoisReply(res.GetRequestId()), res, nil
+}
+
+// Report files a report of a character with the game masters; the server's words
+// about it come as a notice.
+func (s *Session) Report(ctx context.Context, name, reason string) (*pb.SocialResult, error) {
+	return s.Social(ctx, agentkit.ReportOf(name, reason))
+}

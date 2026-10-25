@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
@@ -204,3 +205,65 @@ func TestTheLogCountsTheLinesTheShortViewShows(t *testing.T) {
 }
 
 func equalInts(a, b []int) bool { return fmt.Sprint(a) == fmt.Sprint(b) }
+
+func structuredLine(channel, from string, parts ...*pb.ChatPart) *pb.ServerMessage {
+	return &pb.ServerMessage{Body: &pb.ServerMessage_Chat{Chat: &pb.ChatMessage{Channel: channel, From: from, Text: "x",
+		Speaker: &pb.CharacterRef{Id: "s", Name: from, Kind: "gm"}, Parts: parts}}}
+}
+
+func TestStructuredChatKeepsItsPartsAndMentionsComeFromThem(t *testing.T) {
+	ref := func(id, name, kind string) *pb.ChatPart {
+		return &pb.ChatPart{Body: &pb.ChatPart_Character{Character: &pb.CharacterRef{Id: id, Name: name, Kind: kind}}}
+	}
+	txt := func(s string) *pb.ChatPart { return &pb.ChatPart{Body: &pb.ChatPart_Text{Text: s}} }
+	item := &pb.ChatPart{Body: &pb.ChatPart_Item{Item: &pb.ItemRef{Id: "sw", Name: "sword"}}}
+	for _, c := range []struct {
+		name    string
+		channel string
+		parts   []*pb.ChatPart
+		want    []ChatPart
+		mention bool
+	}{
+		{"a reference to you", "say", []*pb.ChatPart{txt("hi "), ref("me", "Aria", "player")}, []ChatPart{{Text: "hi "}, {Text: "Aria", ID: "me", Kind: "player"}}, true},
+		{"your name by name only, in any case", "ooc", []*pb.ChatPart{ref("", "aria", "")}, []ChatPart{{Text: "aria", Kind: "player"}}, true},
+		{"someone else", "say", []*pb.ChatPart{ref("mira", "Mira", "npc"), item, {}}, []ChatPart{{Text: "Mira", ID: "mira", Kind: "npc"}, {Text: "sword", ID: "sw", Kind: "item"}}, false},
+		{"text that only looks like your name is not a reference", "say", []*pb.ChatPart{txt("Aria")}, []ChatPart{{Text: "Aria"}}, false},
+	} {
+		m := New()
+		m.Self.ID, m.Self.Name = "me", "Aria"
+		m.Apply(structuredLine(c.channel, "Hale", c.parts...))
+		l := m.Social.Chat[0]
+		if !l.Structured() || l.SpeakerKind != "gm" || l.Mention != c.mention || len(l.Parts) != len(c.want) {
+			t.Errorf("%s: %+v", c.name, l)
+			continue
+		}
+		for i, p := range l.Parts {
+			if p != c.want[i] {
+				t.Errorf("%s: part %d is %+v, want %+v", c.name, i, p, c.want[i])
+			}
+		}
+	}
+}
+
+func TestAnOldServersLineHasNoPartsAndKeepsTheTextMention(t *testing.T) {
+	m := New()
+	m.Self.ID, m.Self.Name = "me", "Aria"
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Chat{Chat: &pb.ChatMessage{Channel: "ooc", From: "Bram", Text: "hi aria!"}}})
+	l := m.Social.Chat[0]
+	if l.Structured() || !l.Mention || l.String() != "[ooc] Bram: hi aria!" {
+		t.Errorf("%+v / %q", l, l.String())
+	}
+}
+
+func TestTheServersReportAcknowledgementIsCountedAndLogged(t *testing.T) {
+	m := New()
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Notice{Notice: &pb.SocialNotice{Kind: "report_filed", Text: "Your report about Bram has been filed (report 1)."}}})
+	if m.Social.ReportAck != 1 || m.Log[len(m.Log)-1].Text != "Your report about Bram has been filed (report 1)." {
+		t.Errorf("ack %d log %+v", m.Social.ReportAck, m.Log)
+	}
+	for reason, want := range map[string]string{"ooc_off": "ooc is switched off: /ooc on turns it back on"} {
+		if got := SocialReason(reason); !strings.Contains(got, want) {
+			t.Errorf("%s: %q", reason, got)
+		}
+	}
+}

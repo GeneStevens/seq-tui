@@ -3,7 +3,7 @@
 │    ░                                         ░   ││ HP 30/30 ############### │
 │    ░                                         ░   ││ Target: none             │
 ┌─ Chat: say  ⚠ UNDER ATTACK ──────────────────────┐│ Atk off | Retaliate off  │
-│ all [say] party tell   Tab filters               ││ Attacked by Gray Wolf    │
+│ all [say] party tell ooc   Tab filters           ││ Attacked by Gray Wolf    │
 │ ⚠ UNDER ATTACK: F fights back. This closes when …│└──────────────────────────┘
 │ [say] Mira: well met, traveller, the road is long│┌─ Target ─────────────────┐
 │»[say] Gorran Stoutarm: Aria, come back when you  ││ no target (Tab to choose)│

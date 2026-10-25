@@ -202,6 +202,23 @@ func (a *App) click(x, y int) (tea.Model, tea.Cmd) {
 			return a.do(Action{Kind: SelectPanel, Count: t.Tab})
 		}
 	}
+	if h.Card.W > 0 {
+		// The character's card holds the clicks: an action, or nothing.
+		for _, t := range h.CardActs {
+			if t.Rect.In(x, y) {
+				return a.do(Action{Kind: PersonDo, Count: t.Tab})
+			}
+		}
+		if !h.Card.In(x, y) {
+			return a.do(Action{Kind: PersonClose})
+		}
+		return a, nil
+	}
+	for _, n := range h.Names {
+		if n.Rect.In(x, y) {
+			return a.do(Action{Kind: OpenPerson, Note: n.Name})
+		}
+	}
 	if a.chat.drawer != nil && h.Drawer.W > 0 && h.Drawer.In(x, y) {
 		return a, nil // the drawer is over the map: a click on it walks nowhere
 	}

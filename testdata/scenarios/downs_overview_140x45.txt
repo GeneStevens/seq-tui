@@ -34,7 +34,7 @@
 │                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
 │ Thornwick Downs, 420m by 300m, north up. You: 185m E, 174m N of the SW corner.                                                           │
 │ You       @ you  % scout marker  + plan end  ◄ objective                                                                                 │
-│ People    p player  T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  D door  “ said, for 4 s                   │
+│ People    p player  T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  D door  “ said, for 4 s  » chat names you │
 │ Quest     ! new  ? hand in  ? in progress  m quest mob  D next door                                                                      │
 │ Events    ; scout point  v raiders appear  ◆ raiders head for                                                                            │
 │ Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp                                                                   │

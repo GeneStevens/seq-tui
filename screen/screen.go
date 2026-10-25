@@ -112,8 +112,12 @@ type View struct {
 	// how far each tab has been read (Render moves it for the tab it draws); Drawer
 	// the chat drawer, nil when closed; Toast the line on the status line for a
 	// tell or a mention, nil when there is none; Bubbles the speech bubbles still up.
+	// NameSel is the name the keyboard has selected, counted over the names drawn
+	// (nil for none); Person the card of a character, nil when closed (D101 §9).
 	Panel   int
 	Read    *Marks
+	NameSel *int
+	Person  *CharCard
 	Drawer  *DrawerUI
 	Toast   *Toast
 	Bubbles []Bubble
@@ -232,6 +236,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 			// Services are panels in the map's area (D75): the You, Target and
 			// Nearby panels stay beside them, and the log below.
 			mp := boxA(title, mapW, th, lines, st, alarmed(m))
+			mp = withPerson(mp, m, v, mapW, len(rows), st)
 			right := rightColumn(m, v, rw, th, st)
 			if sidebarOpen(v) {
 				right = sidebarColumn(m, v, rw, th, mapW, len(rows), st)
@@ -249,6 +254,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 			if v.Drawer != nil {
 				mp = withDrawer(mp, m, v, mapW, h, len(rows), st)
 			}
+			mp = withPerson(mp, m, v, mapW, len(rows), st)
 			right := rightColumn(m, v, rw, th, st)
 			for i := range mp {
 				rows = append(rows, mp[i]+right[i])

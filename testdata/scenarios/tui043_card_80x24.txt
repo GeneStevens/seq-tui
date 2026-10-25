@@ -1,0 +1,24 @@
+┌─ Character: bob1 ────────────────────────────────┐┌─ You ────────────────────┐
+│ bob1                                             ││ ann1  Lv 1  XP 0    | 0cr│
+│ Level 1 warrior                                  ││ HP 100/100 ############# │
+│ online, in Testgrounds                           ││ Target: none             │
+│                                                  ││ Atk off | Retaliate ON   │
+│ T Tell   I Invite   N Ignore   R Report          │└──────────────────────────┘
+│                                                  │┌─ Quest ──────────────────┐
+│ Esc closes                                       ││ [ ] 1. Scout the Lookout │
+└──────────────────────────────────────────────────┘│ Testgrounds Recruiter has│
+│                 ░                   m       #    ││ work for you: G.         │
+│                 ░                 c         #    │└──────────────────────────┘
+│                 ░                           #    │┌─ Target ─────────────────┐
+│                 ░                           #    ││ no target (Tab to choose)│
+│                 ░                           #    ││                          │
+│                 ░                           #    ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events  [Chat]  Party ──────────────────────────────────────────────────────┐
+│ [ooc] bob1: anyone for the Warren?                                           │
+│ [ooc] bob1: third line                                                       │
+│»[say] bob1: hello ann1, well met                                             │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Testgrounds Vendor  ·  Tab: target · F: attack                      
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

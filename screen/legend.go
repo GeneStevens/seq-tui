@@ -34,7 +34,7 @@ var legendGroups = []legendGroup{
 		{glyphCharacter, kCharacter, "", "player"}, {glyphTrainer, kDoor, "", "trainer"}, {glyphTrader, kDoor, "", "vendor"},
 		{glyphBanker, kDoor, "", "banker"}, {glyphBinder, kDoor, "", "binder"}, {glyphGuard, kDoor, "", "guard"},
 		{glyphTalker, kDoor, "", "quest person"}, {glyphBoard, kDoor, "", "board"}, {glyphDoor, kDoor, "", "door"},
-		{'“', kBubble, "", "said, for 4 s"},
+		{'“', kBubble, "", "said, for 4 s"}, {'»', kBubble, "", "chat names you"},
 	}},
 	{"Quest", []legendItem{
 		{glyphOffer, kMarkGold, "", "new"}, {glyphAsk, kMarkGold, "", "hand in"}, {glyphAsk, kMarkGrey, "", "in progress"},

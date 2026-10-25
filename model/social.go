@@ -30,6 +30,53 @@ type ChatLine struct {
 	// Mention says the line, said by someone else, has the character's own name in
 	// it (a whole word, in any case).
 	Mention bool
+	// Speaker and Parts are the line's structure (D101 §8), empty from a server
+	// that does not send it: who spoke, and the text again as ordered spans.
+	SpeakerID, SpeakerKind string
+	Parts                  []ChatPart
+}
+
+// The kinds a character reference has (D101 §8), and the kind of a span that is
+// not one.
+const (
+	KindPlayer = "player"
+	KindNPC    = "npc"
+	KindGM     = "gm"
+	KindServer = "server"
+	KindItem   = "item" // an item link: later, the server does not send it yet
+)
+
+// ChatPart is one span of a line of chat: plain text (Kind ""), a character
+// reference (Kind player, npc, gm or server) or an item (Kind item). Text is
+// what is written, the name for a reference.
+type ChatPart struct {
+	Text, ID, Kind string
+}
+
+// Structured says the server sent the line's parts.
+func (l ChatLine) Structured() bool { return len(l.Parts) > 0 }
+
+// IsRef says the part is a character.
+func (p ChatPart) IsRef() bool {
+	return p.Kind == KindPlayer || p.Kind == KindNPC || p.Kind == KindGM || p.Kind == KindServer
+}
+
+// partsOf reads the parts of a line, leaving out a span it does not know.
+func partsOf(ps []*pb.ChatPart) []ChatPart {
+	var out []ChatPart
+	for _, p := range ps {
+		switch b := p.GetBody().(type) {
+		case *pb.ChatPart_Text:
+			if b.Text != "" {
+				out = append(out, ChatPart{Text: b.Text})
+			}
+		case *pb.ChatPart_Character:
+			out = append(out, ChatPart{Text: b.Character.GetName(), ID: b.Character.GetId(), Kind: firstText(b.Character.GetKind(), KindPlayer)})
+		case *pb.ChatPart_Item:
+			out = append(out, ChatPart{Text: b.Item.GetName(), ID: b.Item.GetId(), Kind: KindItem})
+		}
+	}
+	return out
 }
 
 // Invite is a party invitation the character has been sent and not answered.
@@ -61,6 +108,11 @@ type Social struct {
 	// MutedText is what the server last told the character of its mute, "" when
 	// it has not.
 	MutedText string
+	// OOCOff says the character switched the ooc channel off (D101 §7): the
+	// client knows it from its own /ooc off, or the server's refusal of a line.
+	OOCOff bool
+	// ReportAck counts the server's acknowledgements of a /report seen.
+	ReportAck int
 	invites   int
 	// ChatN is how many lines of chat the session has seen (the Seq of the
 	// newest). TellPeer is the other side of the latest tell, either way.
@@ -90,10 +142,11 @@ func (m *Model) applySocial(msg *pb.ServerMessage) {
 	switch b := msg.GetBody().(type) {
 	case *pb.ServerMessage_Chat:
 		c := b.Chat
-		l := ChatLine{Channel: c.GetChannel(), From: c.GetFrom(), To: c.GetTo(), Text: c.GetText(), AtMs: c.GetAtMs(), Mine: Key(c.GetFrom()) == Key(m.Self.Name) && m.Self.Name != ""}
+		l := ChatLine{Channel: c.GetChannel(), From: c.GetFrom(), To: c.GetTo(), Text: c.GetText(), AtMs: c.GetAtMs(), Mine: Key(c.GetFrom()) == Key(m.Self.Name) && m.Self.Name != "",
+			SpeakerID: c.GetSpeaker().GetId(), SpeakerKind: c.GetSpeaker().GetKind(), Parts: partsOf(c.GetParts())}
 		s.ChatN++
 		l.Seq = s.ChatN
-		l.Mention = !l.Mine && Mentions(l.Text, m.Self.Name)
+		l.Mention = !l.Mine && m.mentionsMe(l)
 		if l.Channel == "tell" {
 			s.TellPeer = l.To
 			if !l.Mine {
@@ -123,6 +176,20 @@ func (m *Model) applySocial(msg *pb.ServerMessage) {
 	case *pb.ServerMessage_Friends:
 		s.Friends, s.HasFriends = b.Friends.GetFriends(), true
 	}
+}
+
+// mentionsMe says the line has the character in it: a reference to it in the
+// parts the server sent, else its name as a whole word in the text.
+func (m *Model) mentionsMe(l ChatLine) bool {
+	if !l.Structured() {
+		return Mentions(l.Text, m.Self.Name)
+	}
+	for _, p := range l.Parts {
+		if p.IsRef() && ((p.ID != "" && p.ID == m.Self.ID) || (m.Self.Name != "" && Key(p.Text) == Key(m.Self.Name))) {
+			return true
+		}
+	}
+	return false
 }
 
 // withVitals is the party with one member's changed fields applied (D60): only
@@ -195,6 +262,9 @@ func (m *Model) applyNotice(n *pb.SocialNotice) {
 		// the next line the character tries to say.
 		text = firstText(text, "A game master has muted you. Nobody can hear what you say until the mute is lifted.")
 		s.MutedText = text
+	case "report_filed":
+		s.ReportAck++
+		text = firstText(text, "your report was filed with the game masters")
 	default:
 		if text == "" {
 			text = n.GetKind() + " " + from
@@ -211,6 +281,9 @@ func (m *Model) applyNotice(n *pb.SocialNotice) {
 	m.Log = append(m.Log, LogEntry{Kind: "notice_" + n.GetKind(), Text: text})
 	m.trimLog()
 }
+
+// SetOOCOff notes the ooc switch as the client last knew it.
+func (m *Model) SetOOCOff(off bool) { m.Social.OOCOff = off }
 
 // ClearInvite drops the invitation: it was answered, or it ran out.
 func (m *Model) ClearInvite() { m.Social.Invite = nil }
@@ -268,6 +341,8 @@ func (l ChatLine) String() string {
 	switch l.Channel {
 	case "party":
 		return fmt.Sprintf("[party] %s: %s", l.From, l.Text)
+	case "ooc":
+		return fmt.Sprintf("[ooc] %s: %s", l.From, l.Text)
 	case "tell":
 		if l.Mine {
 			return fmt.Sprintf("[tell] to %s: %s", l.To, l.Text)
@@ -324,6 +399,8 @@ func socialWords(r string) string {
 		return "the server does not know that command"
 	case "muted":
 		return "a game master has muted you"
+	case "ooc_off":
+		return "ooc is switched off: /ooc on turns it back on"
 	case "unavailable":
 		return "not available now"
 	}

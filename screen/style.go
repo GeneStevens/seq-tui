@@ -30,16 +30,19 @@ type Styler struct {
 // ChatPalette is what chat is drawn with: a style for each channel and for each
 // kind of name.
 type ChatPalette struct {
-	Say, Party, Tell, Server func(string) string // the channels
-	Me, Player, NPC, Neutral func(string) string // the names
-	Mention                  func(string) string // a line that names the character
+	Say, Party, Tell, OOC, Server func(string) string // the channels
+	Me, Player, NPC, GM, Neutral  func(string) string // the names (a GM is styled as the server's lines)
+	Mention                       func(string) string // a line that names the character
+	// Item is the slot for an item link, by tier when item links arrive (D101 §8):
+	// the server sends none yet, so nothing is drawn in it.
+	Item func(string) string
 }
 
 func ident(s string) string { return s }
 
 // plainChat is the chat palette that adds nothing.
 func plainChat() ChatPalette {
-	return ChatPalette{Say: ident, Party: ident, Tell: ident, Server: ident, Me: ident, Player: ident, NPC: ident, Neutral: ident, Mention: ident}
+	return ChatPalette{Say: ident, Party: ident, Tell: ident, OOC: ident, Server: ident, Me: ident, Player: ident, NPC: ident, GM: ident, Neutral: ident, Mention: ident, Item: ident}
 }
 
 // Plain is the Styler that adds nothing: golden screens and replays use it.
@@ -64,9 +67,9 @@ func ANSI() Styler {
 	return Styler{Bold: sgr("1"), Dim: sgr("2"), Reverse: sgr("7"), Red: sgr("31"), Green: sgr("32"), Yellow: sgr("33"), Cyan: sgr("36"), Blue: sgr("34"),
 		Accent: sgr("1;36"), Key: sgr("36"), Magenta: sgr("35"), Alert: sgr("1;97;41"),
 		Chat: ChatPalette{
-			Say: ident, Party: sgr("36"), Tell: sgr("33"), Server: sgr("1;33"),
-			Me: sgr("1;32"), Player: sgr("94"), NPC: sgr("35"), Neutral: ident,
-			Mention: sgr("1"),
+			Say: ident, Party: sgr("36"), Tell: sgr("33"), OOC: sgr("90"), Server: sgr("1;33"),
+			Me: sgr("1;32"), Player: sgr("94"), NPC: sgr("35"), GM: sgr("1;33"), Neutral: ident,
+			Mention: sgr("1"), Item: ident,
 		}}
 }
 
@@ -80,7 +83,7 @@ func Mono() Styler {
 	// Without colour the channels are told by their tags; the server's lines are
 	// bold and the character's own name underlined.
 	st.Chat = plainChat()
-	st.Chat.Server, st.Chat.Me, st.Chat.Mention = sgr("1"), sgr("1;4"), sgr("1")
+	st.Chat.Server, st.Chat.GM, st.Chat.Me, st.Chat.Mention = sgr("1"), sgr("1"), sgr("1;4"), sgr("1")
 	return st
 }
 
