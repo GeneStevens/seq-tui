@@ -39,8 +39,16 @@ type Hits struct {
 	// when it is not drawn).
 	Panel  []Tab
 	Drawer Rect
-	g      *grid
-	org    Pt // where the next map is drawn
+	// Names are the names in the chat as drawn, top to bottom (D101 §9): a click
+	// on one opens that character's card, and the keyboard steps through them.
+	// Card is the character card's block and CardActs where its actions were
+	// drawn (Tab is the action's number); W is 0 when there is no card.
+	Names    []NameHit
+	Card     Rect
+	CardActs []Tab
+	nameN    int
+	g        *grid
+	org      Pt // where the next map is drawn
 	// spare is the grid of the drawing before, for the next to draw on (T5).
 	spare *grid
 }
@@ -52,6 +60,7 @@ func (h *Hits) begin() {
 	}
 	h.Map, h.Side, h.Tabs, h.g = Rect{}, Rect{}, h.Tabs[:0], nil
 	h.Panel, h.Drawer = h.Panel[:0], Rect{}
+	h.Names, h.Card, h.CardActs, h.nameN = h.Names[:0], Rect{}, h.CardActs[:0], 0
 }
 
 // at says where the map or screen about to be drawn starts.

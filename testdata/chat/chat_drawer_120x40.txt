@@ -6,7 +6,7 @@
 │   ░                                                                          ░   │└──────────────────────────────────┘
 │   ░                                                                          ░   │┌─ Target ─────────────────────────┐
 ┌─ Chat: all ──────────────────────────────────────────────────────────────────────┐│ no target (Tab to choose)        │
-│ [all] say party tell   Tab filters                                               ││                                  │
+│ [all] say party tell ooc   Tab filters                                           ││                                  │
 │ [say] Mira: well met, traveller, the road is long                                ││                                  │
 │ [party] Mira: ready when you are                                                 │└──────────────────────────────────┘
 │ [tell] Mira: group for the Warren?                                               │┌─ Nearby ─────────────────────────┐

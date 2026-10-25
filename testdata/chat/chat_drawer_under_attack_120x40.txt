@@ -6,7 +6,7 @@
 │   ░                                                                          ░   ││ Attacked by Gray Wolf            │
 │   ░                                                                          ░   │└──────────────────────────────────┘
 ┌─ Chat: say  ⚠ UNDER ATTACK ──────────────────────────────────────────────────────┐┌─ Target ─────────────────────────┐
-│ all [say] party tell   Tab filters                                               ││ no target (Tab to choose)        │
+│ all [say] party tell ooc   Tab filters                                           ││ no target (Tab to choose)        │
 │ ⚠ UNDER ATTACK: F fights back. This closes when a new attack starts              ││                                  │
 │ [say] Mira: well met, traveller, the road is long                                ││                                  │
 │»[say] Gorran Stoutarm: Aria, come back when you are stronger                     │└──────────────────────────────────┘

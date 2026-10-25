@@ -1,0 +1,45 @@
+┌─ Character: bob1 ──────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ bob1                                                                                           ││ ann1  Lv 1  XP 0             | 0 crowns│
+│ Level 1 warrior                                                                                ││ HP 100/100 ########################### │
+│ online, in Testgrounds                                                                         ││ Target: none                           │
+│                                                                                                ││ Auto-attack: off                       │
+│ T Tell   I Invite   N Ignore   R Report                                                        ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                                                                                │└────────────────────────────────────────┘
+│ Esc closes                                                                                     │┌─ Quest ────────────────────────────────┐
+└────────────────────────────────────────────────────────────────────────────────────────────────┘│ [ ] 1. Scout the Lookout               │
+│                                ░                                                       #       ││ Testgrounds Recruiter has work for you:│
+│                                ░                                                       #       ││ G.                                     │
+│                                ░                                                       #       │└────────────────────────────────────────┘
+│                                ░                T  T T  T  T  T                        #       │┌─ Target ───────────────────────────────┐
+│                                ░    “hello ann1, well met”                             #       ││ no target (Tab to choose)              │
+│                                ░               p$  B H  &  Q                           #       ││                                        │
+│                                ░               @                                       #       ││                                        │
+│                                ░                              !                        #       │└────────────────────────────────────────┘
+│                                ░                                       m               #       │┌─ Nearby ───────────────────────────────┐
+│                                ░                                                       #       ││ & Testgrounds Contract Boa… 7m E [new] │
+│                                ░                                                       #       ││ ! Testgrounds Recruiter    11m E [new] │
+│                                ░                                  c                    #       ││ $ Testgrounds Vendor             1m NE │
+│                                ░                                                       #       ││ p bob1                    1m N 100/100 │
+│                                ░                                                       #       ││ B Testgrounds Banker              3m E │
+│                                ░                                                       #       ││ H Testgrounds Binder              5m E │
+│                                ░                                                       #       ││ T Warrior Trainer                 5m N │
+│                                ░                                                       #       ││ T Cleric Trainer                 5m NE │
+│                                ░                                                       #       ││ T Rogue Trainer                  6m NE │
+│                                ░                                                       #       ││ T Wizard Trainer                 8m NE │
+│                                ░                                                       #       ││ +11 more                               │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ Events  [Chat]  Party ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ [ooc] bob1: anyone for the Warren?                                                                                                       │
+│ [ooc] bob1: third line                                                                                                                   │
+│»[say] bob1: hello ann1, well met                                                                                                         │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Testgrounds Vendor  ·  Tab: target · F: attack                                                                                  
+ ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

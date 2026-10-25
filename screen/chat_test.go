@@ -105,25 +105,32 @@ func TestLiveBubblesDropTheExpiredAndKeepTheNewestPerSpeaker(t *testing.T) {
 	}
 }
 
-func TestNextChannelCyclesSayPartyTellAndSkipsWhatIsNotThere(t *testing.T) {
+func TestNextChannelCyclesSayPartyOOCTellAndSkipsWhatIsNotThere(t *testing.T) {
 	for _, c := range []struct {
 		cur   string
 		party bool
+		ooc   bool
 		peer  string
 		want  string
 	}{
-		{"say", true, "Mira", "party"},
-		{"party", true, "Mira", "tell"},
-		{"tell", true, "Mira", "say"},
-		{"say", false, "Mira", "tell"},
-		{"say", true, "", "party"},
-		{"party", true, "", "say"},
-		{"say", false, "", "say"},
-		{"", true, "", "party"},
-		{"tell", false, "Mira", "say"},
+		{"say", true, true, "Mira", "party"},
+		{"party", true, true, "Mira", "ooc"},
+		{"ooc", true, true, "Mira", "tell"},
+		{"tell", true, true, "Mira", "say"},
+		{"say", false, true, "Mira", "ooc"},
+		{"say", false, false, "Mira", "tell"},
+		{"party", true, false, "Mira", "tell"},
+		{"say", true, true, "", "party"},
+		{"party", true, true, "", "ooc"},
+		{"ooc", true, true, "", "say"},
+		{"ooc", false, true, "", "say"},
+		{"say", false, false, "", "say"},
+		{"", true, true, "", "party"},
+		{"tell", false, true, "Mira", "say"},
+		{"report", true, true, "Mira", "party"},
 	} {
-		if got := screen.NextChannel(c.cur, c.party, c.peer); got != c.want {
-			t.Errorf("NextChannel(%q, party %v, peer %q) = %q, want %q", c.cur, c.party, c.peer, got, c.want)
+		if got := screen.NextChannel(c.cur, c.party, c.ooc, c.peer); got != c.want {
+			t.Errorf("NextChannel(%q, party %v, ooc %v, peer %q) = %q, want %q", c.cur, c.party, c.ooc, c.peer, got, c.want)
 		}
 	}
 }
@@ -136,6 +143,8 @@ func TestThePromptNamesTheChannel(t *testing.T) {
 		{screen.Line{}, "[say] > "},
 		{screen.Line{Text: "hello"}, "[say] > "},
 		{screen.Line{Channel: "party"}, "[party] > "},
+		{screen.Line{Channel: "ooc"}, "[ooc] > "},
+		{screen.Line{Channel: "report", Target: "Mira"}, "[report Mira: why] > "},
 		{screen.Line{Channel: "tell", Target: "Mira"}, "[tell Mira] > "},
 		{screen.Line{Channel: "tell"}, "[say] > "},
 		{screen.Line{Text: "/", Channel: "party"}, "[cmd] > "},
@@ -475,6 +484,26 @@ func TestChatGoldens(t *testing.T) {
 			v.Bubbles = []screen.Bubble{{Name: "Mira", Text: m.Social.Chat[0].Text, Until: until}, {Name: "Aria", Text: "on my way", Until: until}}
 		}},
 		{"chat_fight", func(m *model.Model, v *screen.View) { combat(m, true); v.Panel = screen.PanelChat }},
+		{"chat_names", func(m *model.Model, v *screen.View) {
+			structured(m)
+			v.Panel = screen.PanelChat
+		}},
+		{"chat_names_drawer", func(m *model.Model, v *screen.View) {
+			structured(m)
+			v.Drawer = &screen.DrawerUI{}
+		}},
+		{"chat_card", func(m *model.Model, v *screen.View) {
+			structured(m)
+			v.Panel = screen.PanelChat
+			v.Person = &screen.CharCard{Name: "Bram", State: screen.CardFound, Kind: "player", Class: "warrior", Level: 4, Zone: "Thornwick", Online: true}
+		}},
+		{"chat_card_unknown", func(m *model.Model, v *screen.View) {
+			structured(m)
+			v.Person = &screen.CharCard{Name: "Nobody", State: screen.CardUnknown}
+		}},
+		{"chat_prompt_ooc", func(m *model.Model, v *screen.View) {
+			v.Line = &screen.Line{Channel: "ooc", Text: "anyone for the Warren?"}
+		}},
 		{"chat_prompt", func(m *model.Model, v *screen.View) {
 			v.Line = &screen.Line{Channel: "tell", Target: "Mira", Text: "see you there"}
 		}},
@@ -506,4 +535,12 @@ func TestChatGoldens(t *testing.T) {
 			}
 		}
 	}
+}
+
+// structured adds what a current server sends: an OOC line, a game master's line
+// and a line with character references in it.
+func structured(m *model.Model) {
+	hear(m, "ooc", "Bram", "player", "", "anyone for the Warren, Aria?", txt("anyone for the Warren, "), who("me", "Aria", "player"), txt("?"))
+	hear(m, "say", "Hale", "gm", "", "welcome Mira and Gorran", txt("welcome "), who("mira", "Mira", "player"), txt(" and "), who("gorran", "Gorran", "npc"))
+	hear(m, "say", "Aria", "player", "", "thanks Hale", txt("thanks "), who("hale", "Hale", "gm"))
 }

@@ -3,7 +3,7 @@
 │    ░                                         ░   ││ HP 30/30 ############### │
 │    ░                                         ░   ││ Target: none             │
 ┌─ Chat: all ──────────────────────────────────────┐│ Atk off | Retaliate off  │
-│ [all] say party tell   Tab filters               │└──────────────────────────┘
+│ [all] say party tell ooc   Tab filters           │└──────────────────────────┘
 │ [say] Mira: well met, traveller, the road is long│┌─ Target ─────────────────┐
 │ [party] Mira: ready when you are                 ││ no target (Tab to choose)│
 │ [tell] Mira: group for the Warren?               ││                          │

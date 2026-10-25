@@ -1,0 +1,24 @@
+┌─ Testgrounds, at 11,57 m, north up ──────────────┐┌─ You ────────────────────┐
+│                 ░                                ││ ann1  Lv 1  XP 0    | 0cr│
+│                 ░                                ││ HP 100/100 ############# │
+│                 ░                           #    ││ Target: none             │
+│                 ░                           #    ││ Atk off | Retaliate ON   │
+│                 ░                           #    │└──────────────────────────┘
+│                 ░       T TT TTT            #    │┌─ Quest ──────────────────┐
+│                 ░                           #    ││ [ ] 1. Scout the Lookout │
+│                 ░       @ BH &Q!            #    ││ Testgrounds Recruiter has│
+│                 ░                   m       #    ││ work for you: G.         │
+│                 ░                 c         #    │└──────────────────────────┘
+│                 ░                           #    │┌─ Target ─────────────────┐
+│                 ░                           #    ││ no target (Tab to choose)│
+│                 ░                           #    ││                          │
+│                 ░                           #    ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Events •1  [Chat]  Party ───────────────────────────────────────────────────┐
+│ [ooc] bob1: anyone for the Warren?                                           │
+│ [ooc] bob1: third line                                                       │
+│»[say] bob1: hello ann1, well met                                             │
+│ [tell] to bob1: on my way                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Testgrounds Vendor  ·  Tab: target · F: attack                      
+ ONLINE | Your report about bob1 has been filed (report 1). A game master will …

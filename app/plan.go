@@ -100,6 +100,10 @@ const (
 	PanelTab        // the bottom panel's next (Count 1) or previous (-1) tab
 	SelectPanel     // the bottom panel's tab Count
 	ReplyLine       // open the command line to answer the last tell
+	OpenPerson      // open the card of the character Note (a click or Enter on a name in the chat)
+	NameStep        // select the next (Count 1) or previous (-1) name in the chat; Count 0 leaves the selection
+	PersonDo        // carry out action Count of the open character card
+	PersonClose     // close the character card
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -211,6 +215,8 @@ func common(key string) Action {
 		return Action{Kind: OpenLine}
 	case "C":
 		return Action{Kind: ToggleDrawer}
+	case "N":
+		return Action{Kind: NameStep, Count: 1} // select a name in the chat (D101 §9)
 	case "[":
 		return Action{Kind: PanelTab, Count: -1}
 	case "]":

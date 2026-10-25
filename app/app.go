@@ -368,6 +368,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = Action{Kind: ToggleHelp} // the help opens over every view
 		case a.replay != nil:
 			act = a.replayKey(k)
+		case a.chat.card != nil:
+			act = a.personKey(k)
 		case a.ses != nil:
 			act = a.sessionsKey(k)
 		case a.picker != nil:
@@ -404,6 +406,7 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.tradeKey(k, m)
 		case a.menu != nil:
 			act = a.menuKey(k, m)
+		case a.nameKey(k, &act):
 		case a.drawer() && a.drawerKey(k, &act):
 		case k == "esc" && a.mouse.card != "":
 			act = Action{Kind: CloseCard}
@@ -484,8 +487,8 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 		a.quest = &screen.QuestUI{}
 	case OpenLine:
 		a.line = &screen.Line{Text: "/"}
-	case ToggleDrawer, PanelTab, SelectPanel, ReplyLine:
-		a.chatDo(act)
+	case ToggleDrawer, PanelTab, SelectPanel, ReplyLine, NameStep, OpenPerson, PersonDo, PersonClose:
+		return a.chatDo(act)
 	case OpenSessions:
 		return a, a.openSessions()
 	case SessionsDo:

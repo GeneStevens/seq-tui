@@ -122,10 +122,11 @@ const (
 	FilterSay
 	FilterParty
 	FilterTell
+	FilterOOC
 	Filters
 )
 
-var filterNames = [Filters]string{"all", "say", "party", "tell"}
+var filterNames = [Filters]string{"all", "say", "party", "tell", "ooc"}
 
 // FilterName is the name of a drawer filter.
 func FilterName(f int) string { return filterNames[min(max(f, 0), Filters-1)] }
@@ -139,6 +140,8 @@ func FilterMatch(f int, l model.ChatLine) bool {
 		return l.Channel == "party"
 	case FilterTell:
 		return l.Channel == "tell"
+	case FilterOOC:
+		return l.Channel == "ooc"
 	}
 	return true
 }
@@ -264,8 +267,17 @@ func drawSegs(segs []seg) string {
 	return b.String()
 }
 
+// cseg is a run of chat: a seg that may be a link, the name of the character a
+// click on it opens (D101 §9).
+type cseg struct {
+	seg
+	link string
+}
+
+func plainSeg(s string) cseg { return cseg{seg: seg{s, ident}} }
+
 // styledWord is a word made of runs of different styles.
-type styledWord []seg
+type styledWord []cseg
 
 func (w styledWord) width() int {
 	n := 0
@@ -275,6 +287,61 @@ func (w styledWord) width() int {
 	return n
 }
 
+// chatRow is a row of chat as its runs, drawn when it is known where it lands.
+type chatRow struct{ segs []cseg }
+
+// NameHit is where a name in the chat was drawn, and the character a click on it
+// opens.
+type NameHit struct {
+	Rect Rect
+	Name string
+}
+
+// namePlace says where a block of chat rows is on the screen, to note the names
+// in it and to highlight the one the keyboard has selected. A nil one notes none.
+type namePlace struct {
+	h    *Hits
+	sel  *int // the selected name, counted over the names drawn; nil for none
+	x, y int  // the screen cell of the block's first row
+}
+
+// namesIn returns the place for a block drawn at (x, y), or nil when the screen
+// is not noting hits.
+func namesIn(v View, x, y int) *namePlace {
+	if v.Hits == nil {
+		return nil
+	}
+	return &namePlace{h: v.Hits, sel: v.NameSel, x: x, y: y}
+}
+
+// paint draws the rows. Row i is on the screen row p.y+i+first.
+func (p *namePlace) paint(rows []chatRow, first int, st Styler) []string {
+	out := make([]string, 0, len(rows))
+	for i, r := range rows {
+		x := 0
+		if p != nil {
+			x = p.x
+		}
+		var b strings.Builder
+		for _, s := range r.segs {
+			fn := s.fn
+			if s.link != "" && p != nil {
+				n := p.h.nameN
+				p.h.nameN++
+				p.h.Names = append(p.h.Names, NameHit{Rect{x, p.y + first + i, width(s.s), 1}, s.link})
+				if p.sel != nil && *p.sel == n {
+					inner := fn
+					fn = func(t string) string { return inner(st.Reverse(t)) }
+				}
+			}
+			b.WriteString(fn(s.s))
+			x += width(s.s)
+		}
+		out = append(out, b.String())
+	}
+	return out
+}
+
 // channelStyle is the style of a channel's lines.
 func channelStyle(st Styler, channel string) func(string) string {
 	switch channel {
@@ -282,8 +349,19 @@ func channelStyle(st Styler, channel string) func(string) string {
 		return st.Chat.Party
 	case "tell":
 		return st.Chat.Tell
+	case "ooc":
+		return st.Chat.OOC
 	}
 	return st.Chat.Say
+}
+
+// lineStyle is the style of a line's tag and text: its channel's, or the server's
+// when a game master or the server spoke it.
+func lineStyle(st Styler, l model.ChatLine) func(string) string {
+	if l.SpeakerKind == model.KindGM || l.SpeakerKind == model.KindServer {
+		return st.Chat.Server
+	}
+	return channelStyle(st, l.Channel)
 }
 
 // nameStyle is the style of a name by what it is (D101 §8).
@@ -299,6 +377,39 @@ func nameStyle(m *model.Model, st Styler, name string) func(string) string {
 	return st.Chat.Neutral
 }
 
+// KindStyle is the style of a name by the kind the server gave it (D101 §8): the
+// character's own name in its own colour whatever the kind, a game master as the
+// server's lines, a player and an NPC each theirs.
+func kindStyle(st Styler, kind string, self bool) func(string) string {
+	switch {
+	case self:
+		return st.Chat.Me
+	case kind == model.KindGM || kind == model.KindServer:
+		return st.Chat.GM
+	case kind == model.KindNPC:
+		return st.Chat.NPC
+	case kind == model.KindPlayer:
+		return st.Chat.Player
+	}
+	return st.Chat.Neutral
+}
+
+// isSelf says a name, or an id, is the character's own.
+func isSelf(m *model.Model, name, id string) bool {
+	return (id != "" && id == m.Self.ID) || (m.Self.Name != "" && model.Key(name) == model.Key(m.Self.Name))
+}
+
+// refStyle is the style and the link of a character reference in a structured
+// line: the character's own name opens nothing, nor does the server.
+func refStyle(m *model.Model, st Styler, name, id, kind string) (fn func(string) string, link string) {
+	self := isSelf(m, name, id)
+	fn = kindStyle(st, kind, self)
+	if !self && kind != model.KindServer {
+		link = name
+	}
+	return fn, link
+}
+
 // chatHead is the tag of a line, its speaker's name (or the one told) and what
 // follows the name: "[tell] to ", "Mira", ":". The tag says the channel in words,
 // so colour only repeats it.
@@ -306,6 +417,8 @@ func chatHead(l model.ChatLine) (tag, name, colon string) {
 	switch l.Channel {
 	case "party":
 		return "[party] ", l.From, ":"
+	case "ooc":
+		return "[ooc] ", l.From, ":"
 	case "tell":
 		if l.Mine {
 			return "[tell] to ", l.To, ":"
@@ -321,21 +434,87 @@ func chatTag(l model.ChatLine) string {
 	return tag + name + colon
 }
 
+// wordBuilder collects runs into words, a word ending at a space: a name and the
+// comma after it are one word.
+type wordBuilder struct {
+	words []styledWord
+	cur   styledWord
+}
+
+func (b *wordBuilder) end() {
+	if len(b.cur) > 0 {
+		b.words = append(b.words, b.cur)
+		b.cur = nil
+	}
+}
+
+func (b *wordBuilder) add(s string, fn func(string) string, link string) {
+	if s != "" {
+		b.cur = append(b.cur, cseg{seg{s, fn}, link})
+	}
+}
+
+// text adds plain text, split into words at its spaces.
+func (b *wordBuilder) text(s string, fn func(string) string) {
+	var run []rune
+	for _, r := range clean(s) {
+		if unicode.IsSpace(r) {
+			b.add(string(run), fn, "")
+			run = run[:0]
+			b.end()
+			continue
+		}
+		run = append(run, r)
+	}
+	b.add(string(run), fn, "")
+}
+
 // chatWords are the words of a line of chat, styled: the tag in the channel's
 // colour, the name by what it is, the character's own name in its own colour
-// wherever the text has it.
+// wherever the text has it. A line with parts (D101 §8) is built from them, each
+// character reference in the colour of its kind and a link; without parts (an
+// old server) the text is read as TUI-042 did, and has no links.
 func chatWords(m *model.Model, l model.ChatLine, st Styler) []styledWord {
-	base := channelStyle(st, l.Channel)
+	base := lineStyle(st, l)
 	tag, name, colon := chatHead(l)
-	var words []styledWord
+	var b wordBuilder
 	for _, t := range strings.Fields(tag) {
-		words = append(words, styledWord{{t, base}})
+		b.add(t, base, "")
+		b.end()
 	}
-	words = append(words, styledWord{{clean(name), nameStyle(m, st, name)}, {colon, base}})
+	if l.Structured() {
+		kind, id := l.SpeakerKind, l.SpeakerID
+		if name != l.From { // the one a tell of mine went to: the speaker's kind is mine
+			kind, id = model.KindPlayer, ""
+			if m.KindOfName(name) == model.NameNPC {
+				kind = model.KindNPC
+			}
+		}
+		fn, link := refStyle(m, st, clean(name), id, kind)
+		b.add(clean(name), fn, link)
+		b.add(colon, base, "")
+		b.end()
+		for _, p := range l.Parts {
+			switch {
+			case p.IsRef():
+				fn, link := refStyle(m, st, p.Text, p.ID, p.Kind)
+				b.add(clean(p.Text), fn, link)
+			case p.Kind == model.KindItem:
+				b.add(clean(p.Text), st.Chat.Item, "")
+			default:
+				b.text(p.Text, base)
+			}
+		}
+		b.end()
+		return b.words
+	}
+	b.add(clean(name), nameStyle(m, st, name), "")
+	b.add(colon, base, "")
+	b.end()
 	for _, t := range strings.Fields(clean(l.Text)) {
-		words = append(words, textWord(t, m.Self.Name, base, st))
+		b.words = append(b.words, textWord(t, m.Self.Name, base, st))
 	}
-	return words
+	return b.words
 }
 
 // textWord is a word of the text; its letters in the character's own colour if
@@ -351,34 +530,36 @@ func textWord(t, self string, base func(string) string, st Styler) styledWord {
 		hi--
 	}
 	if self == "" || lo == hi || model.Key(string(r[lo:hi])) != model.Key(self) {
-		return styledWord{{t, base}}
+		return styledWord{plainSegFn(t, base)}
 	}
 	var w styledWord
 	for _, p := range []seg{{string(r[:lo]), base}, {string(r[lo:hi]), st.Chat.Me}, {string(r[hi:]), base}} {
 		if p.s != "" {
-			w = append(w, p)
+			w = append(w, cseg{seg: p})
 		}
 	}
 	return w
 }
 
+func plainSegFn(s string, fn func(string) string) cseg { return cseg{seg: seg{s, fn}} }
+
 // chatLineRows is one line of chat as rows w cells wide, each with its styles. A
 // line that names the character starts its first row with », in bold, so it is
 // found without colour.
-func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []string {
+func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []chatRow {
 	avail := max(w-1, 8)
-	var rows []string
-	var cur []seg
+	var rows []chatRow
+	var cur []cseg
 	curW := 0
 	flush := func() {
 		lead := " "
-		fn := func(s string) string { return s }
+		fn := ident
 		if len(rows) == 0 && l.Mention {
 			lead, fn = "»", st.Chat.Mention
 		} else if len(rows) > 0 {
 			lead = "    "
 		}
-		segs := append([]seg{{lead, fn}}, cur...)
+		segs := append([]cseg{plainSegFn(lead, fn)}, cur...)
 		if l.Mention {
 			for i := range segs {
 				inner := segs[i].fn
@@ -386,8 +567,8 @@ func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []string {
 			}
 		}
 		used := width(lead) + curW
-		segs = append(segs, seg{strings.Repeat(" ", max(w-used, 0)), func(s string) string { return s }})
-		rows = append(rows, drawSegs(segs))
+		segs = append(segs, plainSeg(strings.Repeat(" ", max(w-used, 0))))
+		rows = append(rows, chatRow{segs})
 		cur, curW = nil, 0
 	}
 	room := func() int {
@@ -409,10 +590,10 @@ func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []string {
 				rs := []rune(s.s)
 				take := min(left, len(rs))
 				if take > 0 {
-					head = append(head, seg{string(rs[:take]), s.fn})
+					head = append(head, cseg{seg{string(rs[:take]), s.fn}, s.link})
 				}
 				if take < len(rs) {
-					tail = append(tail, seg{string(rs[take:]), s.fn})
+					tail = append(tail, cseg{seg{string(rs[take:]), s.fn}, s.link})
 				}
 				left -= take
 			}
@@ -424,7 +605,7 @@ func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []string {
 			flush()
 		}
 		if curW > 0 {
-			cur, curW = append(cur, seg{" ", func(s string) string { return s }}), curW+1
+			cur, curW = append(cur, plainSeg(" ")), curW+1
 		}
 		cur, curW = append(cur, word...), curW+ww
 	}
@@ -437,8 +618,8 @@ func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []string {
 // chatRows wraps the chat the filter keeps into rows of w cells, oldest first. It
 // walks from the newest line back and stops once need rows are in hand, so only
 // the lines that show are wrapped and styled.
-func chatRows(m *model.Model, w, need int, keep func(model.ChatLine) bool, st Styler) []string {
-	var blocks [][]string // newest line first
+func chatRows(m *model.Model, w, need int, keep func(model.ChatLine) bool, st Styler) []chatRow {
+	var blocks [][]chatRow // newest line first
 	have := 0
 	for i := len(m.Social.Chat) - 1; i >= 0 && have < need; i-- {
 		l := m.Social.Chat[i]
@@ -449,30 +630,32 @@ func chatRows(m *model.Model, w, need int, keep func(model.ChatLine) bool, st St
 		blocks = append(blocks, rows)
 		have += len(rows)
 	}
-	out := make([]string, 0, have)
+	out := make([]chatRow, 0, have)
 	for i := len(blocks) - 1; i >= 0; i-- {
 		out = append(out, blocks[i]...)
 	}
 	return out
 }
 
-// chatRowsOf is all the chat as rows, for the Social screen.
+// chatRowsOf is all the chat as rows, for the Social screen (which has no links).
 func chatRowsOf(m *model.Model, w int, st Styler) []string {
-	return chatRows(m, w, 1<<30, func(model.ChatLine) bool { return true }, st)
+	return (*namePlace)(nil).paint(chatRows(m, w, 1<<30, func(model.ChatLine) bool { return true }, st), 0, st)
 }
 
 func partyOnly(l model.ChatLine) bool { return l.Channel == "party" }
 
 // chatTabLines are the rows of the Chat and Party tabs: the newest lines that fit.
-func chatTabLines(m *model.Model, w, h int, keep func(model.ChatLine) bool, empty string, st Styler) []string {
+// np says where they are drawn, for the names in them.
+func chatTabLines(m *model.Model, w, h int, keep func(model.ChatLine) bool, empty string, st Styler, np *namePlace) []string {
 	rows := chatRows(m, w, h, keep, st)
 	if len(rows) > h {
 		rows = rows[len(rows)-h:]
 	}
-	if len(rows) == 0 {
-		rows = append(rows, st.Dim(fit(" "+empty, w)))
+	out := np.paint(rows, 0, st)
+	if len(out) == 0 {
+		out = append(out, st.Dim(fit(" "+empty, w)))
 	}
-	return pad(rows, w, h)
+	return pad(out, w, h)
 }
 
 // newestChat is the newest line of chat, for the ticker.
@@ -543,11 +726,15 @@ func bottomPanel(m *model.Model, v View, w, h, y int, st Styler) []string {
 	tab := panelTab(m, v)
 	v.Read.Viewed(m, tab)
 	var body []string
+	np := namesIn(v, 1, y+1)
+	if v.Drawer != nil {
+		np = nil // the drawer is over the map with the same lines: its names are the ones to click
+	}
 	switch tab {
 	case PanelChat:
-		body = chatTabLines(m, w-2, h-2, func(model.ChatLine) bool { return true }, "nobody has said anything: / types, C lifts the chat over the map", st)
+		body = chatTabLines(m, w-2, h-2, func(model.ChatLine) bool { return true }, "nobody has said anything: / types, C lifts the chat over the map", st, np)
 	case PanelParty:
-		body = chatTabLines(m, w-2, h-2, partyOnly, "no party chat: /p types to the party", st)
+		body = chatTabLines(m, w-2, h-2, partyOnly, "no party chat: /p types to the party", st, np)
 	default:
 		body = logLines(m, v, w-2, h-2, st)
 	}
@@ -565,7 +752,7 @@ func bottomPanel(m *model.Model, v View, w, h, y int, st Styler) []string {
 
 // drawerLines are the rows inside the chat drawer: the filters, a warning while
 // something attacks, the chat from the newest back by the scroll, and a hint.
-func drawerLines(m *model.Model, v View, d *DrawerUI, w, h int, st Styler) []string {
+func drawerLines(m *model.Model, v View, d *DrawerUI, w, h, x, y int, st Styler) []string {
 	var tabs []string
 	for i, n := range filterNames {
 		if i == d.Filter {
@@ -583,7 +770,7 @@ func drawerLines(m *model.Model, v View, d *DrawerUI, w, h int, st Styler) []str
 	d.Scroll = max(min(d.Scroll, len(all)-body), 0)
 	end := len(all) - d.Scroll
 	start := max(end-body, 0)
-	shown := all[start:end]
+	shown := namesIn(v, x, y).paint(all[start:end], len(rows), st)
 	if len(shown) == 0 {
 		shown = []string{st.Dim(fit(" nothing said here", w))}
 	}
@@ -610,26 +797,30 @@ func withDrawer(mp []string, m *model.Model, v View, w, h, top int, st Styler) [
 	}
 	d := v.Drawer
 	v.Read.Viewed(m, PanelChat) // the drawer shows the chat: it is read
-	box := boxA("Chat: "+FilterName(d.Filter), w, dh, drawerLines(m, v, d, w-2, dh-2, st), st, m.UnderAttack())
+	at := top + len(mp) - dh
+	box := boxA("Chat: "+FilterName(d.Filter), w, dh, drawerLines(m, v, d, w-2, dh-2, 1, at+1, st), st, m.UnderAttack())
 	if v.Hits != nil {
-		v.Hits.Drawer = Rect{0, top + len(mp) - dh, w, dh}
+		v.Hits.Drawer = Rect{0, at, w, dh}
 	}
 	return append(append([]string(nil), mp[:len(mp)-dh]...), box...)
 }
 
 // A Line's channel: what plain text typed in the command line is sent as.
 const (
-	ChanSay   = "say"
-	ChanParty = "party"
-	ChanTell  = "tell"
+	ChanSay    = "say"
+	ChanParty  = "party"
+	ChanOOC    = "ooc"
+	ChanTell   = "tell"
+	ChanReport = "report" // the reason for a report of Target, typed after Report on a character's card
 )
 
 // NextChannel is the channel after cur for Tab on the command line (D101 §6): say,
-// party, the character told last, and round again. A channel that cannot be used
-// (no party, nobody told) is passed over; say is always there.
-func NextChannel(cur string, inParty bool, peer string) string {
-	order := []string{ChanSay, ChanParty, ChanTell}
-	ok := map[string]bool{ChanSay: true, ChanParty: inParty, ChanTell: peer != ""}
+// party, ooc, the character told last, and round again. A channel that cannot be
+// used (no party, ooc switched off, nobody told) is passed over; say is always
+// there.
+func NextChannel(cur string, inParty, ooc bool, peer string) string {
+	order := []string{ChanSay, ChanParty, ChanOOC, ChanTell}
+	ok := map[string]bool{ChanSay: true, ChanParty: inParty, ChanOOC: ooc, ChanTell: peer != ""}
 	at := 0
 	for i, c := range order {
 		if c == cur {
@@ -652,6 +843,10 @@ func (l *Line) Prompt() string {
 		return "[cmd] > "
 	case l.Channel == ChanParty:
 		return "[party] > "
+	case l.Channel == ChanOOC:
+		return "[ooc] > "
+	case l.Channel == ChanReport:
+		return "[report " + clean(l.Target) + ": why] > "
 	case l.Channel == ChanTell && l.Target != "":
 		return "[tell " + clean(l.Target) + "] > "
 	}

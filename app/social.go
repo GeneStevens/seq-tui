@@ -220,6 +220,9 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			a.sess.View(func(m *model.Model) { why = firstNonEmpty(m.Social.MutedText, why) })
 			return bad(what + ": " + why), true
 		case !res.GetOk():
+			if res.GetReason() == "ooc_off" {
+				a.sess.View(func(m *model.Model) { m.SetOOCOff(true) })
+			}
 			return bad(what + ": " + model.SocialReason(res.GetReason())), true
 		}
 		return resultMsg{}, false
@@ -238,6 +241,50 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			return r
 		}
 		return resultMsg{}
+	case "ooc", "oocsay":
+		on := strings.ToLower(arg)
+		switch {
+		case arg == "":
+			return bad("usage: /ooc TEXT says it to everyone online; /ooc off stops you hearing and speaking on it, /ooc on turns it back on")
+		case verb == "ooc" && (on == "on" || on == "off"):
+			res, err := a.sess.SetOOC(ctx, on == "on")
+			if r, no := refused("ooc "+on, res, err); no {
+				return r
+			}
+			a.sess.View(func(m *model.Model) { m.SetOOCOff(on == "off") })
+			if on == "off" {
+				return resultMsg{note: "ooc is off: you will not hear it and cannot speak on it (/ooc on turns it back on)"}
+			}
+			return resultMsg{note: "ooc is on: you hear it, and what you say on it goes to everyone who has it on"}
+		}
+		res, err := a.sess.OOC(ctx, arg)
+		if r, no := refused("ooc", res, err); no {
+			return r
+		}
+		return resultMsg{}
+	case "report":
+		if name == "" || rest == "" {
+			return bad("usage: /report NAME what happened (it goes to the game masters with the latest chat)")
+		}
+		var before int
+		a.sess.View(func(m *model.Model) { before = m.Social.ReportAck })
+		res, err := a.sess.Report(ctx, name, rest)
+		if r, no := refused("report "+name, res, err); no {
+			return r
+		}
+		return resultMsg{note: a.reportAck(ctx, before)}
+	case "whois", "whoisask":
+		if name == "" {
+			return bad("usage: /whois NAME")
+		}
+		card := a.whoisCard(ctx, name)
+		if verb == "whoisask" {
+			return resultMsg{after: func(a *App) { a.setCard(name, card) }}
+		}
+		return resultMsg{after: func(a *App) {
+			a.chat.sel = nil
+			a.chat.card = card
+		}}
 	case "tell", "reply":
 		to, text := name, rest
 		if verb == "reply" {
@@ -271,7 +318,7 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			return r
 		}
 		if verb == "mute" {
-			return resultMsg{note: "muted " + name + ": their say and tell are hidden from you"}
+			return resultMsg{note: "muted " + name + ": their say, party, tell and ooc lines are hidden from you"}
 		}
 		return resultMsg{note: "unmuted " + name}
 	case "invite", "kick", "accept", "decline":
@@ -394,6 +441,10 @@ func lineVerb(cmd string) string {
 		return "tell"
 	case "r", "reply":
 		return "reply"
+	case "ooc":
+		return "ooc"
+	case "oocsay", "report", "whois":
+		return cmd
 	case "mute", "ignore":
 		return "mute"
 	case "unmute", "unignore":
@@ -442,4 +493,52 @@ func whoFilter(arg string) (zone, class string, lo, hi uint32, err error) {
 		}
 	}
 	return zone, class, lo, hi, nil
+}
+
+// setCard puts the server's answer on the card of name, if that card is still the
+// one open.
+func (a *App) setCard(name string, c *screen.CharCard) {
+	if a.chat.card != nil && model.Key(a.chat.card.Name) == model.Key(name) {
+		a.chat.card = c
+	}
+}
+
+// reportAck is what the status line says of a report: the server's own
+// acknowledgement, which follows its result, waited for a moment.
+func (a *App) reportAck(ctx context.Context, before int) string {
+	for range 20 {
+		text := ""
+		a.sess.View(func(m *model.Model) {
+			if m.Social.ReportAck > before {
+				for i := len(m.Log) - 1; i >= 0 && text == ""; i-- {
+					if m.Log[i].Kind == "notice_report_filed" {
+						text = m.Log[i].Text
+					}
+				}
+			}
+		})
+		if text != "" {
+			return text
+		}
+		select {
+		case <-ctx.Done():
+		case <-time.After(25 * time.Millisecond):
+		}
+	}
+	return "report sent to the game masters"
+}
+
+// whoisCard asks the server who name is and makes the card of its answer.
+func (a *App) whoisCard(ctx context.Context, name string) *screen.CharCard {
+	reply, res, err := a.sess.Whois(ctx, name)
+	switch {
+	case err != nil:
+		return &screen.CharCard{Name: name, State: screen.CardFailed, Err: err.Error()}
+	case !res.GetOk() && res.GetReason() == "no_such_character", res.GetOk() && reply == nil:
+		return &screen.CharCard{Name: name, State: screen.CardUnknown}
+	case !res.GetOk():
+		return &screen.CharCard{Name: name, State: screen.CardFailed, Err: model.SocialReason(res.GetReason())}
+	}
+	return &screen.CharCard{Name: firstNonEmpty(reply.GetName(), name), State: screen.CardFound, Kind: reply.GetKind(), Class: reply.GetClassId(),
+		Level: reply.GetLevel(), Zone: reply.GetZone(), Online: reply.GetOnline(), Status: reply.GetStatus()}
 }
