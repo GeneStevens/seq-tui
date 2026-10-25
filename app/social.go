@@ -137,6 +137,33 @@ func (a *App) openSocial(tab int) {
 	a.soc.Scroll = 0
 }
 
+// bannerLasts is how long a server announcement stays at the top of the screen
+// if no key is pressed.
+const bannerLasts = 10 * time.Second
+
+// watchBanner notes when a server announcement first came and drops one that has
+// been up long enough. The model is locked by the caller.
+func (a *App) watchBanner(m *model.Model) {
+	b := m.Banner
+	switch {
+	case b == nil:
+		a.bannerN = 0
+	case b.N != a.bannerN:
+		a.bannerN, a.bannerAt = b.N, a.now()
+	case a.now().Sub(a.bannerAt) > bannerLasts:
+		m.ClearBanner()
+	}
+}
+
+func firstNonEmpty(ss ...string) string {
+	for _, s := range ss {
+		if s != "" {
+			return s
+		}
+	}
+	return ""
+}
+
 // watchInvite notes when an invitation first came and drops one that has waited
 // out its time. The model is locked by the caller.
 func (a *App) watchInvite(m *model.Model) {
@@ -185,6 +212,11 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 		switch {
 		case err != nil:
 			return bad(what + ": " + err.Error()), true
+		case !res.GetOk() && res.GetReason() == "muted":
+			// The server's own words for the mute came as a notice with the refusal.
+			why := model.SocialReason("muted")
+			a.sess.View(func(m *model.Model) { why = firstNonEmpty(m.Social.MutedText, why) })
+			return bad(what + ": " + why), true
 		case !res.GetOk():
 			return bad(what + ": " + model.SocialReason(res.GetReason())), true
 		}

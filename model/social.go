@@ -51,7 +51,10 @@ type Social struct {
 	// order; HasFriends says one has been.
 	Friends    []*pb.FriendEntry
 	HasFriends bool
-	invites    int
+	// MutedText is what the server last told the character of its mute, "" when
+	// it has not.
+	MutedText string
+	invites   int
 }
 
 // Known is what is known of another character from the who list.
@@ -164,6 +167,11 @@ func (m *Model) applyNotice(n *pb.SocialNotice) {
 				s.Friends[i] = &pb.FriendEntry{Name: f.GetName()}
 			}
 		}
+	case "muted":
+		// A game master's mute (D100): the server's text, kept for the refusal of
+		// the next line the character tries to say.
+		text = firstText(text, "A game master has muted you. Nobody can hear what you say until the mute is lifted.")
+		s.MutedText = text
 	default:
 		if text == "" {
 			text = n.GetKind() + " " + from
@@ -291,6 +299,8 @@ func socialWords(r string) string {
 		return "too many on that list"
 	case "unknown_action":
 		return "the server does not know that command"
+	case "muted":
+		return "a game master has muted you"
 	case "unavailable":
 		return "not available now"
 	}

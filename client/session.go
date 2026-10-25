@@ -142,6 +142,10 @@ func (s *Session) onMessage(_ []byte, msg *pb.ServerMessage) {
 	s.wake()
 }
 
+// Hear takes msg as if the server had sent it: the seam for a test of a message
+// the test server cannot be made to send (a game master's announcement).
+func (s *Session) Hear(msg *pb.ServerMessage) { s.onMessage(nil, msg) }
+
 // watch wakes the waiters when c's connection ends.
 func (s *Session) watch(c *agentkit.Client) {
 	go func() {

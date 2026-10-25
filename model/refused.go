@@ -15,8 +15,10 @@ func (m *Model) noteRefused(text string) {
 }
 
 // Refused says the log entry is a refusal the player is shown in red: a refused
-// intent, or a denial event.
-func (e LogEntry) Refused() bool { return e.Kind == "refused" || e.Kind == "denied" }
+// intent, a denial event, or the server's word that a game master muted the character.
+func (e LogEntry) Refused() bool {
+	return e.Kind == "refused" || e.Kind == "denied" || e.Kind == "notice_muted"
+}
 
 // repeatsRefusal says e is a refusal with the words of one logged within the last
 // refusedWithinMs.
