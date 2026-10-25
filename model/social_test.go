@@ -2,6 +2,7 @@ package model
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
