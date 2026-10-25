@@ -215,6 +215,12 @@ type Model struct {
 	Intents []IntentStatus
 	// Errors are the protocol errors received, most recent last.
 	Errors []*pb.Error
+	// Banner is the server announcement on show (D100); Cut the server's own
+	// words for a connection it ended or a login it refused (suspend, ban, kick),
+	// "" when there is none.
+	Banner        *Banner
+	Cut           string
+	announcements int
 
 	// Duplicates counts events dropped as already applied; Faults lists gaps in
 	// the stream numbers (the newest faultsCap are kept). A healthy session has
@@ -360,6 +366,9 @@ func (m *Model) Apply(msg *pb.ServerMessage) {
 	case *pb.ServerMessage_Error:
 		m.Errors = append(m.Errors, b.Error)
 		m.Errors = capTail(m.Errors, errorsCap)
+		m.noteCut(b.Error)
+	case *pb.ServerMessage_Announcement:
+		m.announce(b.Announcement)
 	case *pb.ServerMessage_Status:
 		m.Status = b.Status.GetStatus()
 	case *pb.ServerMessage_Chat, *pb.ServerMessage_Party, *pb.ServerMessage_PartyVitals, *pb.ServerMessage_Notice, *pb.ServerMessage_Who, *pb.ServerMessage_Friends:

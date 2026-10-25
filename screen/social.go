@@ -165,6 +165,42 @@ func inviteBanner(m *model.Model, w int, st Styler) string {
 	return st.Reverse(st.Bold(fit(fmt.Sprintf(" PARTY INVITE  %s invites you to a party.  Y accept  N decline", inv.From), w)))
 }
 
+// bannerRows is the most rows a server message takes at the top of the screen.
+const bannerRows = 3
+
+// serverBanner is a server message as banner rows, led by tag: wrapped to w and
+// cut at bannerRows (the log keeps an announcement whole), in bold reverse so it
+// cannot be missed.
+func serverBanner(tag, text string, w int, st Styler) []string {
+	lines := wrap(clean(tag+"  "+text), max(w-2, 8))
+	if len(lines) > bannerRows {
+		lines = lines[:bannerRows]
+		lines[bannerRows-1] = strings.TrimRight(lines[bannerRows-1], " ") + "…"
+	}
+	out := make([]string, 0, len(lines))
+	for _, l := range lines {
+		out = append(out, st.Reverse(st.Bold(fit(" "+l, w))))
+	}
+	return out
+}
+
+// announceBanner is the server announcement on show (D100), nil when there is none.
+func announceBanner(m *model.Model, w int, st Styler) []string {
+	if m.Banner == nil {
+		return nil
+	}
+	return serverBanner("SERVER", m.Banner.Text, w, st)
+}
+
+// cutBanner is the server's own words for a connection it ended or a login it
+// refused, while the client is off the server; nil otherwise.
+func cutBanner(v View, w int, st Styler) []string {
+	if v.Cut == "" || v.Conn != ConnReconnecting {
+		return nil
+	}
+	return serverBanner("DISCONNECTED", v.Cut+" The client keeps trying to reconnect; Q quits.", w, st)
+}
+
 // lineRow is the command line, drawn in the place of the status line.
 func lineRow(l *Line, w int, st Styler) string {
 	hint := "Enter send  Esc cancel"

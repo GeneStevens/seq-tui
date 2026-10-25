@@ -44,6 +44,10 @@ type View struct {
 	Verbose              bool // log routine movement and rules ticks too
 	roomy                bool // the You panel may take a row of its own for auto-retaliate (set by the column)
 	Conn                 Conn
+	// Cut is the server's own text for a connection it ended or a login it
+	// refused (a suspension, a ban, a kick): shown plainly while the client is
+	// off the server.
+	Cut string
 	// Since is how long ago the server last said anything (an event, a result,
 	// a pong); HasTick is false before any.
 	Since   time.Duration
@@ -138,6 +142,12 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	var rows []string
 	if b := eventBanner(m, v, w, st); b != "" {
 		rows, th = append(rows, b), th-1
+	}
+	if b := cutBanner(v, w, st); len(b) > 0 {
+		rows, th = append(rows, b...), th-len(b)
+	}
+	if b := announceBanner(m, w, st); len(b) > 0 {
+		rows, th = append(rows, b...), th-len(b)
 	}
 	if b := inviteBanner(m, w, st); b != "" {
 		rows, th = append(rows, b), th-1

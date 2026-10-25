@@ -128,6 +128,10 @@ var guidePlaying = []section{
 	}, []string{
 		"A contract board offers hunts, gathering and scouting. Hand a finished one in at any contract board in town, not only the one that posted it. Nothing here is required and nothing waits for you: play in any order.",
 	}},
+	{"Messages from the server", nil, []string{
+		"A server announcement shows in bold at the top of the screen for a few seconds, or until your next key, and stays in Events as a line that begins \"Server:\".",
+		"A game master's own words reach you the same way: a mute shows in Events, in red, and again when you try to speak; a suspension, a ban or a kick shows at the top while the client is off the server.",
+	}},
 	{"When something is refused", nil, []string{
 		"The server's reason shows in red with a ! in Events, and the status line goes red with it until your next key. Pressing E at a shut door still asks the server; the reason is its answer.",
 	}},

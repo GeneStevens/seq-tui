@@ -65,7 +65,9 @@ type App struct {
 	log      *sessionlog.Log    // this session's own log, nil when recording is off
 	stopTold bool               // the recording's stop has been put in the event log
 	logRoot  string             // the directory of the player's session logs
-	inviteN  int                // the invitation the prompt is for, and when it came
+	bannerN  int                // the announcement the banner is for, and when it came
+	bannerAt time.Time
+	inviteN  int // the invitation the prompt is for, and when it came
 	inviteAt time.Time
 	gameAt   time.Time // when the model's game time last moved
 	gameMs   int64
@@ -238,6 +240,7 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		cmds := []tea.Cmd{a.waitChange()}
 		cmds = append(cmds, a.walkTick())
 		a.sess.View(a.watchInvite)
+		a.sess.View(a.watchBanner)
 		a.sess.View(func(m *model.Model) {
 			a.walkedAway(m)
 			if a.ring(m) {
@@ -251,6 +254,7 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return a, tea.Quit
 			}
 			a.view.Conn = screen.ConnReconnecting
+			a.sess.View(func(m *model.Model) { a.view.Cut = m.Cut })
 			if !a.retrying {
 				a.retrying = true
 				cmds = append(cmds, a.reconnect(0))
@@ -260,9 +264,16 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case reconnected:
 		if msg.err != nil {
 			a.view.Conn, a.view.Notice, a.view.NoticeBad = screen.ConnReconnecting, "reconnect failed: "+msg.err.Error(), true
+			a.sess.View(func(m *model.Model) {
+				if a.view.Cut = m.Cut; m.Cut != "" {
+					a.view.Notice = m.Cut // the server's words, not the toolkit's
+				}
+			})
 			return a, a.reconnect(retryEvery)
 		}
 		a.retrying, a.view.Conn, a.view.Notice, a.view.NoticeBad = false, screen.ConnOnline, "reconnected", false
+		a.view.Cut = ""
+		a.sess.View(func(m *model.Model) { m.ClearCut() })
 	case sessionsLoaded, logLoaded:
 		a.sessionsMsg(msg)
 	case Probe:
@@ -344,6 +355,7 @@ func (a *App) sync(m *model.Model) {
 func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	var act Action
 	a.checkFocus()
+	a.sess.View(func(m *model.Model) { m.ClearBanner() }) // a key dismisses a server announcement
 	a.focusSess().View(func(m *model.Model) {
 		a.sync(m)
 		switch {
