@@ -30,7 +30,7 @@ func PanelName(tab int) string { return panelNames[min(max(tab, 0), PanelTabs-1)
 
 // Marks are how far the player has read each tab: the log lines the short view
 // showed (Events) and the chat lines (Chat, and Party for the party's) up to those
-// numbers. What is past a mark is unread. Render moves them for the tab it draws.
+// numbers. What is past a mark is unread. The program moves them (Hits.Seen) for the tab the last drawing showed; Render does not.
 type Marks struct{ Events, Chat, Party int }
 
 // Unread counts what is past the marks. A nil Marks has read nothing.
@@ -71,6 +71,20 @@ func (mk *Marks) Viewed(m *model.Model, tab int) {
 		mk.Chat, mk.Party = m.Social.ChatN, m.Social.ChatN
 	case PanelParty:
 		mk.Party = m.Social.ChatN
+	}
+}
+
+// Merge takes from o how far it has read, where that is past the marks.
+func (mk *Marks) Merge(o Marks) {
+	mk.Events, mk.Chat, mk.Party = max(mk.Events, o.Events), max(mk.Chat, o.Chat), max(mk.Party, o.Party)
+}
+
+// viewed notes that tab is on the screen being drawn: it is read on the copy of the
+// marks the drawing uses, and Hits.Seen holds how far, for the program to apply.
+func (v View) viewed(m *model.Model, tab int) {
+	v.Read.Viewed(m, tab)
+	if v.Hits != nil {
+		v.Hits.Seen.Viewed(m, tab)
 	}
 }
 
@@ -720,11 +734,10 @@ func panelTop(m *model.Model, v View, w, y int, tab int, st Styler) string {
 }
 
 // bottomPanel is the tabbed panel at the bottom of the screen: h rows of w cells.
-// y is the row it starts on. Drawing it is what reads its tab, so Render moves
-// the marks.
+// y is the row it starts on. Drawing it notes its tab as seen (Hits.Seen).
 func bottomPanel(m *model.Model, v View, w, h, y int, st Styler) []string {
 	tab := panelTab(m, v)
-	v.Read.Viewed(m, tab)
+	v.viewed(m, tab)
 	var body []string
 	np := namesIn(v, 1, y+1)
 	if v.Drawer != nil {
@@ -775,7 +788,7 @@ func drawerLines(m *model.Model, v View, d *DrawerUI, w, h, x, y int, st Styler)
 		shown = []string{st.Dim(fit(" nothing said here", w))}
 	}
 	rows = append(rows, pad(shown, w, body)...)
-	hint := " Up / Down, PgUp / PgDn, wheel scroll · End: newest · / types · Esc closes"
+	hint := " PgUp / PgDn, wheel scroll · End: newest · arrows still walk · / types · Esc closes"
 	if d.Scroll > 0 {
 		hint = fmt.Sprintf(" scrolled back %d rows: End goes to the newest", d.Scroll)
 	}
@@ -796,7 +809,7 @@ func withDrawer(mp []string, m *model.Model, v View, w, h, top int, st Styler) [
 		return mp
 	}
 	d := v.Drawer
-	v.Read.Viewed(m, PanelChat) // the drawer shows the chat: it is read
+	v.viewed(m, PanelChat) // the drawer shows the chat: it is read
 	at := top + len(mp) - dh
 	box := boxA("Chat: "+FilterName(d.Filter), w, dh, drawerLines(m, v, d, w-2, dh-2, 1, at+1, st), st, m.UnderAttack())
 	if v.Hits != nil {

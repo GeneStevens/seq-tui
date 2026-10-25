@@ -47,10 +47,21 @@ func TestOOCNameLinksTheCardTellAndReport(t *testing.T) {
 		t.Errorf("the ooc line is not in the Chat tab as a tagged line, or is a bubble:\n%s", s)
 	}
 
-	// The off switch: ann neither hears nor speaks until she turns it on.
+	// The off switch: ann neither hears nor speaks until she turns it on. The client
+	// knows the setting from the server's chat settings, at login (on) and on each change.
+	oocOff := func() (off bool) {
+		ann.Model(func(m *model.Model) { off = m.Social.OOCOff })
+		return off
+	}
+	if oocOff() {
+		t.Error("ooc is known off straight after login")
+	}
 	command(ann, "ooc off")
 	w.Settle()
 	notice(t, ann, "ooc is off", false)
+	if !oocOff() {
+		t.Error("the client does not know ooc is off after the switch")
+	}
 	command(bob, "ooc second line")
 	w.Settle()
 	if heard(ann, "[ooc] bob1: second line") {
@@ -62,6 +73,9 @@ func TestOOCNameLinksTheCardTellAndReport(t *testing.T) {
 	command(ann, "ooc on")
 	w.Settle()
 	notice(t, ann, "ooc is on", false)
+	if oocOff() {
+		t.Error("the client still thinks ooc is off after /ooc on")
+	}
 	w.Advance(12 * time.Second) // ooc has its own small allowance: one line back each 10 seconds
 	command(bob, "ooc third line")
 	w.Settle()

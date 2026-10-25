@@ -70,6 +70,10 @@ func notice(t *testing.T, p *scenario.Player, want string, bad bool) {
 	}
 }
 
+// arrival is the log text of a mob or a character coming into view, which the turn-based
+// goldens leave out (T7): see Player.GoldenWithout.
+const arrival = "comes into view"
+
 // Log in, walk, fight a scuttler with Tab and F, and take its drop with L.
 func TestLoginMoveFightLoot(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: one("ann", "aria")})
@@ -399,18 +403,18 @@ func TestDuoGatheringRound(t *testing.T) {
 			}
 		})
 	}
-	a.Golden("duo_gathered")
+	a.GoldenWithout("duo_gathered", arrival)
 
 	// Aria sends a plan: one of two. She edits it and sends it again: the last wins.
 	a.Press("up", "enter")
 	notice(t, a, "plan accepted", false)
-	a.Golden("duo_one_of_two")
+	a.GoldenWithout("duo_one_of_two", arrival)
 	a.Press("backspace", "right", "enter")
 	notice(t, a, "plan accepted", false)
 	// Bram, logging in fresh, is told who has submitted: the round again, with Aria in.
 	b.Fresh()
 	b.Eventually("the round told again", func(m *model.Model) bool { return openRound(m) && len(m.Round.Submitted) == 1 })
-	b.Golden("duo_bram_told")
+	b.GoldenWithout("duo_bram_told", arrival)
 	b.Press("enter")
 	w.Advance(100 * time.Millisecond)
 	for _, p := range []*scenario.Player{a, b} {
@@ -422,7 +426,7 @@ func TestDuoGatheringRound(t *testing.T) {
 			}
 		})
 	}
-	a.Golden("duo_two_of_two")
+	a.GoldenWithout("duo_two_of_two", arrival)
 	if c, _ := w.Srv.Character("aria"); c.Entity.Pos.X != gateX+3000 {
 		t.Fatalf("aria's last plan was up then right: she stands at %v", c.Entity.Pos)
 	}

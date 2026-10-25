@@ -47,8 +47,11 @@ type Hits struct {
 	Card     Rect
 	CardActs []Tab
 	nameN    int
-	g        *grid
-	org      Pt // where the next map is drawn
+	// Seen is how far the drawing read each chat tab it showed (the screen, the
+	// bottom panel, the drawer); zero for what it did not show. Marks.Merge applies it.
+	Seen Marks
+	g    *grid
+	org  Pt // where the next map is drawn
 	// spare is the grid of the drawing before, for the next to draw on (T5).
 	spare *grid
 }
@@ -61,6 +64,7 @@ func (h *Hits) begin() {
 	h.Map, h.Side, h.Tabs, h.g = Rect{}, Rect{}, h.Tabs[:0], nil
 	h.Panel, h.Drawer = h.Panel[:0], Rect{}
 	h.Names, h.Card, h.CardActs, h.nameN = h.Names[:0], Rect{}, h.CardActs[:0], 0
+	h.Seen = Marks{}
 }
 
 // at says where the map or screen about to be drawn starts.

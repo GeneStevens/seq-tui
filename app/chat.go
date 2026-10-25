@@ -248,17 +248,14 @@ func (a *App) personDo(act int) (tea.Model, tea.Cmd) {
 }
 
 // drawerKey handles a key while the drawer is open and no screen is over it: it
-// scrolls, filters and closes, and says whether it took the key. Movement and the
-// fight keys go on to play, so the drawer never stops the character's hands.
+// scrolls (PgUp, PgDn, End), filters and closes, and says whether it took the key.
+// The arrows, the movement and the fight keys go on to play, so the drawer never
+// stops the character's hands.
 func (a *App) drawerKey(k string, act *Action) bool {
 	d := a.chat.drawer
 	switch k {
 	case "esc", "C":
 		a.chat.drawer = nil
-	case "up":
-		d.Scroll++
-	case "down":
-		d.Scroll = max(d.Scroll-1, 0)
 	case "pgup":
 		d.Scroll += 5
 	case "pgdown":

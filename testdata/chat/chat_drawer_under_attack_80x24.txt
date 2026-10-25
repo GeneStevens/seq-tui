@@ -12,7 +12,7 @@
 │                                                  ││                          │
 │                                                  ││                          │
 │                                                  ││                          │
-│ Up / Down, PgUp / PgDn, wheel scroll · End: newe…││                          │
+│ PgUp / PgDn, wheel scroll · End: newest · arrows…││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ────────────── [say] Aria: on my way ─┐
 │     1.1s an event this client does not know                                  │

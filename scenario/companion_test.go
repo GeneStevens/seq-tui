@@ -373,7 +373,7 @@ func TestTurnBasedRoundWithACompanionStep(t *testing.T) {
 	// One stance and one order for it: a second is not added.
 	p.Press("h")
 	notice(t, p, "one companion stance and one companion order", true)
-	p.Golden("companion_plan")
+	p.GoldenWithout("companion_plan", arrival)
 	p.Press("enter")
 	notice(t, p, "plan accepted, counts even if you disconnect", false)
 	w.Advance(100 * time.Millisecond)
@@ -390,7 +390,7 @@ func TestTurnBasedRoundWithACompanionStep(t *testing.T) {
 			t.Fatalf("after the round: %v", c)
 		}
 	})
-	p.Golden("companion_round")
+	p.GoldenWithout("companion_round", arrival)
 }
 
 // A second character of the account plays by a stance beside the first (D42):

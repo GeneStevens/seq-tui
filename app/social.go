@@ -220,9 +220,6 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			a.sess.View(func(m *model.Model) { why = firstNonEmpty(m.Social.MutedText, why) })
 			return bad(what + ": " + why), true
 		case !res.GetOk():
-			if res.GetReason() == "ooc_off" {
-				a.sess.View(func(m *model.Model) { m.SetOOCOff(true) })
-			}
 			return bad(what + ": " + model.SocialReason(res.GetReason())), true
 		}
 		return resultMsg{}, false
@@ -245,13 +242,18 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 		on := strings.ToLower(arg)
 		switch {
 		case arg == "":
-			return bad("usage: /ooc TEXT says it to everyone online; /ooc off stops you hearing and speaking on it, /ooc on turns it back on")
+			state := "on"
+			a.sess.View(func(m *model.Model) {
+				if m.Social.OOCOff {
+					state = "off"
+				}
+			})
+			return resultMsg{note: "ooc is " + state + ". /ooc TEXT says it to everyone online; /ooc off stops you hearing and speaking on it, /ooc on turns it back on"}
 		case verb == "ooc" && (on == "on" || on == "off"):
 			res, err := a.sess.SetOOC(ctx, on == "on")
 			if r, no := refused("ooc "+on, res, err); no {
 				return r
 			}
-			a.sess.View(func(m *model.Model) { m.SetOOCOff(on == "off") })
 			if on == "off" {
 				return resultMsg{note: "ooc is off: you will not hear it and cannot speak on it (/ooc on turns it back on)"}
 			}

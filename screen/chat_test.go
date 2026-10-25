@@ -302,10 +302,12 @@ func TestATellOrAMentionIsAToastAndThenACount(t *testing.T) {
 		t.Errorf("after the toast the count stays on the status line: %q", last)
 	}
 	v.Panel = screen.PanelChat
+	v.Hits = &screen.Hits{}
 	last = rowsOf(screen.Render(m, v, 80, 24, screen.Plain()))[23]
 	if strings.Contains(last, "✉") {
 		t.Errorf("the count stays after the Chat tab was shown: %q", last)
 	}
+	v.Read.Merge(v.Hits.Seen) // the program applies what the drawing showed
 	// An attack takes the line; the toast waits.
 	combat(m, true)
 	v.Toast = screen.ToastFor(m.Social.Chat[2])
@@ -543,4 +545,47 @@ func structured(m *model.Model) {
 	hear(m, "ooc", "Bram", "player", "", "anyone for the Warren, Aria?", txt("anyone for the Warren, "), who("me", "Aria", "player"), txt("?"))
 	hear(m, "say", "Hale", "gm", "", "welcome Mira and Gorran", txt("welcome "), who("mira", "Mira", "player"), txt(" and "), who("gorran", "Gorran", "npc"))
 	hear(m, "say", "Aria", "player", "", "thanks Hale", txt("thanks "), who("hale", "Hale", "gm"))
+}
+
+// A drawing never moves the marks: it only notes in Hits.Seen what it showed, and the
+// program applies that (Marks.Merge). A render that nobody looks at reads nothing.
+func TestDrawingNeverMovesTheMarksButNotesWhatItShowed(t *testing.T) {
+	for _, tc := range []struct {
+		name  string
+		setup func(v *screen.View)
+		chat  bool
+	}{
+		{"events tab", func(v *screen.View) { v.Panel = screen.PanelEvents }, false},
+		{"chat tab", func(v *screen.View) { v.Panel = screen.PanelChat }, true},
+		{"drawer", func(v *screen.View) { v.Drawer = &screen.DrawerUI{} }, true},
+		{"social chat screen", func(v *screen.View) { v.Social = &screen.SocialUI{Tab: screen.TabChat} }, true},
+	} {
+		for _, size := range [][2]int{{80, 24}, {120, 40}} {
+			m := chatWorld()
+			talk(m)
+			v := view()
+			v.Hits = &screen.Hits{}
+			tc.setup(&v)
+			screen.Render(m, v, size[0], size[1], screen.Plain())
+			if *v.Read != (screen.Marks{}) {
+				t.Errorf("%s %v: a drawing moved the marks: %+v", tc.name, size, *v.Read)
+			}
+			if got := v.Hits.Seen.Chat == m.Social.ChatN; got != tc.chat {
+				t.Errorf("%s %v: chat seen %v, want %v (%+v)", tc.name, size, got, tc.chat, v.Hits.Seen)
+			}
+			v.Read.Merge(v.Hits.Seen)
+			if _, chat, _ := v.Read.Unread(m); (chat == 0) != tc.chat {
+				t.Errorf("%s %v: after the merge %d chat lines unread", tc.name, size, chat)
+			}
+		}
+	}
+	// A render with no Hits (a test, a snapshot) reads nothing at all.
+	m := chatWorld()
+	talk(m)
+	v := view()
+	v.Panel = screen.PanelChat
+	screen.Render(m, v, 80, 24, screen.Plain())
+	if *v.Read != (screen.Marks{}) {
+		t.Errorf("a render without hits moved the marks: %+v", *v.Read)
+	}
 }

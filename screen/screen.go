@@ -150,6 +150,13 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	if v.Hits != nil {
 		v.Hits.begin()
 	}
+	if v.Read != nil {
+		// Drawing never moves the player's marks (a render for a test, or off screen,
+		// reads nothing): the tab drawn is noted in Hits.Seen, for the program to
+		// apply, and shown read on this copy.
+		own := *v.Read
+		v.Read = &own
+	}
 	rw := min(max(w*3/10, 28), 44)
 	lh := min(6+(h-MinHeight)/3, 14)
 	th := h - lh - 1 // rows above the log
@@ -203,7 +210,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Social != nil:
 		if v.Social.Tab == TabChat {
-			v.Read.Viewed(m, PanelChat)
+			v.viewed(m, PanelChat)
 		}
 		takeover("Social: "+tabNames[v.Social.Tab], func(w, h int) []string { return socialScreenLines(m, v.Social, w, h, st) })
 	case v.Slots != nil:
