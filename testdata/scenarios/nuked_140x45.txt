@@ -41,5 +41,5 @@
 │ +  NN.Ns You gain 20 experience                                                                                                          │
 │    NN.Ns Plain Scuttler is out of view                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · C: chat · ?: help                                                                                   
+ Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok                                                                  ? help  q quit

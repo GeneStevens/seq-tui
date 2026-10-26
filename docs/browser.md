@@ -34,7 +34,16 @@ Both need Go and Node. `make web` prints each file's size. At the time of writin
   function-key binding that is not listed fails. Ctrl+W, Ctrl+T and Ctrl+N cannot
   be taken from a browser: no binding may use them (the same test).
 - Asks before the tab is closed or reloaded while the game runs (`beforeunload`).
-- On macOS, Option is Alt (`macOptionIsMeta`), and a click does not move xterm's cursor.
+- On macOS, Option is Alt (`macOptionIsMeta`), and a click does not move xterm's
+  cursor. **Option-click walks** (D109) and a plain click never does: xterm.js is
+  told `macOptionClickForcesSelection: false` so that Option-click reaches the
+  game, as a mouse report with the Alt bit, and does not select text. xterm.js
+  forces a selection with Shift only off macOS (on a Mac that is Option), so the
+  page makes Shift force it on every platform (`keepShiftSelecting` in
+  `web/app.js`, which sets xterm.js's internal `shouldForceSelection`; if that
+  internal is ever gone the page logs a warning and a Mac's Shift-click goes to
+  the game, whose fallback is then to copy with the browser's own tools).
+  Without Option, click then **W**.
 - Says so under 80 × 24 (the program shows its own too small note as well).
 - Draws box and block characters with xterm's `customGlyphs` (the WebGL renderer;
   without WebGL the DOM renderer is used and they come from the font), in a bundled
@@ -190,3 +199,18 @@ from `seqHarness` and `seqLastView` (`cmd/seq-tui-web/harness_js.go`, tag
 
 A resize that arrives before the program has started (while it loads) is applied
 when it starts: the terminal's size is sent once as the hook is installed.
+
+## Which terminals deliver Option-click (D109)
+
+The game walks on Option-click (Alt-click) only. The program reads the Alt bit of
+the SGR mouse report; the question is whether the terminal sends it.
+
+| Terminal | Option-click reaches the game | How it was checked |
+| --- | --- | --- |
+| This page (xterm.js, 6.0) | yes, with `macOptionClickForcesSelection: false`; Alt on Windows and Linux | the option settings and the Alt bit are tested (`make web-check`); xterm.js's own encoder was not driven (no browser may be started) |
+| macOS Terminal.app | not checked; Option-click is likely kept for cursor placement | not checked, no GUI application may be launched |
+| iTerm2 | not checked; turn off "Option+click moves cursor" (Settings > General > Selection) | not checked |
+| A Linux terminal | not checked; kitty, alacritty, wezterm, gnome-terminal and konsole report Alt with the mouse as far as their documentation goes | not checked |
+
+Where Option-click does not arrive, click the thing (or the ground) and press **W**:
+it walks to what was clicked, else the target, else the spot clicked.

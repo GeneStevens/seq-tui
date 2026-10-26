@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                                                                                  
+ Too far: 8 m. Option-click the target to close in · F: stop attacking                                                                      
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | second character in play                 ? help  q quit

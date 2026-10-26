@@ -30,10 +30,11 @@ var Groups = []string{"Moving", "Fighting", "People and things", "Screens", "Lea
 // Bindings is every key of the main view. Screens that open from it list their
 // own keys on their last line.
 var Bindings = []Binding{
-	{Keys: []string{"up", "down", "left", "right", "w", "a", "s", "d"}, Show: "Arrows, W A S D", What: "tap for one 3 m step, hold to walk that way and let go to stop (Esc stops a click-walk)", Group: "Moving"},
+	{Keys: []string{"up", "down", "left", "right", "w", "a", "s", "d"}, Show: "Arrows, W A S D", What: "tap for one 3 m step, hold to walk that way and let go to stop (Esc stops an Option-click walk)", Group: "Moving"},
 	{Keys: []string{"e", "enter"}, Show: "E, Enter", What: "go through the nearest door (stand at it)", Group: "Moving"},
-	{Keys: []string{"m"}, Show: "M", What: "the large map: click a spot to walk there (arrows and Enter do too)", Group: "Moving"},
+	{Keys: []string{"m"}, Show: "M", What: "the large map: Option-click a spot to walk there (arrows and Enter do too)", Group: "Moving"},
 	{Keys: []string{"+", "=", "-", "_"}, Show: "+ / -", What: "zoom the map in and out (the scroll wheel does too)", Group: "Moving"},
+	{Keys: []string{"W"}, Show: "Shift+W", What: "walk to the mob, person or drop last clicked, else your target, else the spot last clicked (what Option-click does, for a terminal that sends none)", Group: "Moving"},
 	{Keys: []string{"ctrl+a"}, Show: "Ctrl+A", What: "name everything on the map, on or off (holding Alt over the map does too)", Group: "Moving"},
 	{Keys: []string{"tab"}, Show: "Tab", What: "choose the next target", Group: "Fighting"},
 	{Keys: []string{"esc"}, Show: "Esc", What: "clear the target", Group: "Fighting"},
@@ -115,9 +116,9 @@ const keyColW = 18
 var guidePlaying = []section{
 	{"Moving and doors", [][2]string{
 		{"Arrows, W A S D", "tap for one 3 m step; hold to walk that way, let go to stop"},
-		{"Esc", "stop a walk begun by a click"},
+		{"Esc", "stop a walk begun by an Option-click"},
 		{"E, Enter", "go through the nearest door (stand at it)"},
-		{"M", "the large map: click a spot to walk there"},
+		{"M", "the large map: Option-click a spot to walk there"},
 	}, []string{
 		"A terminal that reports key releases (Kitty, Ghostty, WezTerm, recent iTerm2) stops you the moment you let go. Any other steps once on a single press and walks while the key repeats, stopping about a tenth of a second after the repeats stop. Two keys held at once walk a diagonal where your terminal reports them.",
 		"Your own mark runs ahead of the server's word so a key shows at once, and it never walks through a wall; the server settles where you are. The status line says how fast you go on the ground you stand on.",
@@ -149,7 +150,7 @@ func mapPage(m *model.Model, _ View, w int, st Styler) []string {
 	out = append(out, "", "Marks and pointers")
 	for _, p := range []string{
 		"Gold is the quest's alone. A gold ! is somebody with something new for you; a gold ? is a hand-in that is ready, a grey ? a quest in progress. A board that has something to take or hand in is gold. Mobs that count for a contract you hold are gold, and the next door on your way is a gold D. Shape says it as well as colour.",
-		"World events and scouting have their own marks. The scout points (;) are gold, as your own scout marker (%) is. A world event's raiders appear at a purple v and head for a purple ◆. Hover over any of them for its name, or click to walk there; Nearby lists the named ones.",
+		"World events and scouting have their own marks. The scout points (;) are gold, as your own scout marker (%) is. A world event's raiders appear at a purple v and head for a purple ◆. Hover over any of them for its name, or Option-click to walk there; Nearby lists the named ones.",
 		"When your objective is off the map an arrow at the edge points to it, with its name and distance (◄ Gorran 23m); the status line names it too. Nearby lists what matters to your quest first, tagged [step 2] or [2/3].",
 		"The zone edge is the ░ line: walking ends there. Beside it, a zone line is a door (D).",
 		"The line under the log changes with what you stand next to: the door, the person, the drop, the mobs in view.",
@@ -168,16 +169,19 @@ func mapPage(m *model.Model, _ View, w int, st Styler) []string {
 
 var guideMouse = []section{
 	{"The mouse", [][2]string{
-		{"Click ground", "walk there; the server plans the route, inside this zone"},
-		{"Click mob, person", "select it and open its card; click again (or F to attack, G to talk) to act"},
-		{"Click loot", "pick up everything within reach"},
-		{"Click a marker", "walk to it (a scout point, a world event's mark)"},
+		{"Option-click ground", "walk there; the server plans the route, inside this zone (a plain click never moves you)"},
+		{"Option-click mob", "walk up to it, following it, and start attacking (Esc cancels)"},
+		{"Option-click person, loot", "walk up and talk, or pick it up"},
+		{"Option-click marker", "walk to it (a scout point, a world event's mark)"},
+		{"Click mob, person", "select it and open its card (a click one cell off counts); click again (or F to attack, G to talk) to act"},
+		{"Click loot", "pick up everything within reach; farther away it says how far"},
+		{"W", "walk to the selected target, or to the last spot clicked: for a terminal that sends no Option-click"},
 		{"Hover", "its name beside the pointer: a mob, person, door, marker, or you"},
 		{"Alt, Ctrl+A", "name everything on the map (Ctrl+A if your terminal sends no Alt with the mouse)"},
 		{"Wheel, + -", "zoom the map"},
 		{"Right-click, Esc", "let go of the selection"},
 	}, []string{
-		"A first click never attacks. M opens the large map: click a spot to walk there, or move the cursor with the arrows and press Enter. Shift+click is never used: terminals keep it for selecting text. Every mouse action has a key; the game is fully playable without a mouse.",
+		"A plain click never moves you and a first click never attacks. Option (Alt) is the walking click: it is the same in the terminal and in the browser. If your terminal keeps Option-click for itself, click, then press W. M opens the large map: Option-click a spot to walk there, or move the cursor with the arrows and press Enter. Shift+click is never used: terminals keep it for selecting text. Every mouse action has a key; the game is fully playable without a mouse. docs/browser.md lists which terminals send Option-click.",
 	}},
 	{"The character sidebar", [][2]string{
 		{"C", "the next tab (in a narrow window, holds the sidebar open as a drawer; C or Esc puts it away)"},

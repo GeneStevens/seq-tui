@@ -104,6 +104,8 @@ const (
 	NameStep        // select the next (Count 1) or previous (-1) name in the chat; Count 0 leaves the selection
 	PersonDo        // carry out action Count of the open character card
 	PersonClose     // close the character card
+	Approach        // walk up to the thing ID (a PickKind in Count) at X, Y, and act on it (D109)
+	WalkTo          // walk to the thing last clicked, the target or the spot last clicked (D109)
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -130,6 +132,8 @@ type Action struct {
 	Ver   int
 	// For is the character the action is for when it is not the player's own (D56).
 	For string
+	// Quiet: a good answer is not put on the status line (an approach's steps).
+	Quiet bool
 }
 
 // Plan decides what a key does against the model. It is pure.
@@ -175,6 +179,8 @@ func Plan(key string, m *model.Model) Action {
 		return Action{Kind: OpenContracts}
 	case "m":
 		return Action{Kind: OpenOverview}
+	case "W":
+		return Action{Kind: WalkTo}
 	}
 	if n := slotKey(key); n > 0 {
 		return Action{Kind: UseAbility, Slot: n, Note: slotLabel(m, n)}

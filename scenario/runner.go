@@ -1197,6 +1197,13 @@ func (p *Player) Click(x, y int) {
 	p.mouseEvent(0, x, y, false)
 }
 
+// AltClick is a left click with Alt (Option) held: the click that walks (D109).
+func (p *Player) AltClick(x, y int) {
+	p.w.T.Helper()
+	p.mouseEvent(mouseAlt, x, y, true)
+	p.mouseEvent(mouseAlt, x, y, false)
+}
+
 // RightClick is a click of the right button.
 func (p *Player) RightClick(x, y int) {
 	p.w.T.Helper()

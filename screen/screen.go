@@ -378,6 +378,9 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 		space = "no space"
 	}
 	note := v.Notice
+	if d, far := AttackTooFar(m); far && strings.HasPrefix(note, "attack ok") {
+		note = FarWords(d) // the engine accepts a far attack and waits: say so
+	}
 	if note != "" && v.NoticeBad {
 		note = "! " + note
 	}

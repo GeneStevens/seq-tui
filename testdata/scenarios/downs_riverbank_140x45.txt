@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · C: chat · ?: help                                                                                   
+ Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Thornwick Downs | heard N.Ns ago                                                                                    ? help  q quit

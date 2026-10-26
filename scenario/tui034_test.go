@@ -96,7 +96,7 @@ func TestAMarkerHasAHoverAndAClickWalksThere(t *testing.T) {
 	if s := p.Screen(140, 45); !strings.Contains(s, "You: aria, level 1, at 84,50 m") {
 		t.Errorf("hovering yourself:\n%s", s)
 	}
-	p.Click(x, y)
+	p.AltClick(x, y)
 	notice(t, p, "move ok", false)
 	w.Advance(3 * time.Second)
 	p.Model(func(m *model.Model) {

@@ -26,6 +26,20 @@ function plainReason(msg) {
   return msg;
 }
 
+// keepShiftSelecting makes Shift-click select text on every platform. xterm.js
+// forces a selection with Shift only off macOS (on a Mac it is Option, which the
+// game needs for walking), so a Mac's Shift-click would go to the game as a mouse
+// report and copying would be lost. It uses an internal, so it is guarded: if the
+// internal is gone, Shift-click behaves as the xterm.js build does.
+function keepShiftSelecting(term) {
+  try {
+    const sel = term._core._selectionService;
+    sel.shouldForceSelection = (e) => e.shiftKey;
+  } catch (err) {
+    console.warn("Shift-click may not select text on this xterm.js:", err);
+  }
+}
+
 let running = false;
 window.addEventListener("beforeunload", (e) => {
   if (!running) return;
@@ -50,6 +64,9 @@ async function start(settings) {
     cursorBlink: false,
     customGlyphs: true,       // box and block characters drawn by xterm, edge to edge
     macOptionIsMeta: isMac,   // Option is Alt, as the game's Alt keys expect
+    // Option-click is the game's walking click (the terminal's too): it must reach
+    // the program, with the Alt bit in the mouse report, and not select text.
+    macOptionClickForcesSelection: false,
     altClickMovesCursor: false,
     allowProposedApi: true,
     theme: { background: "#000000", foreground: "#d0d0d0" },
@@ -66,6 +83,7 @@ async function start(settings) {
   }
   fit.fit();
   term.focus();
+  keepShiftSelecting(term);
 
   term.attachCustomKeyEventHandler((e) => {
     if (e.type === "keydown" && intercepted.has(keyName(e))) e.preventDefault();

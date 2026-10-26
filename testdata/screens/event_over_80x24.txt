@@ -20,5 +20,5 @@
 │   140.0s Tip: tradable once means one trade to another player, then it is    │
 │            bound to them.                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                      
- ONLINE | Thornwick Downs | heard 0.4s ago | attack ok            ? help  q quit
+ Too far: 9 m. Option-click the target to close in · F: stop attacking          
+ ONLINE | heard 0.4s ago | Too far: 9 m. Option-click the target to close in    

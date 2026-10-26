@@ -1,9 +1,9 @@
 ┌─ Help: Moving, doors, people ────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ Moving and doors                                                                                                                         │
 │   Arrows, W A S D   tap for one 3 m step; hold to walk that way, let go to stop                                                          │
-│   Esc               stop a walk begun by a click                                                                                         │
+│   Esc               stop a walk begun by an Option-click                                                                                 │
 │   E, Enter          go through the nearest door (stand at it)                                                                            │
-│   M                 the large map: click a spot to walk there                                                                            │
+│   M                 the large map: Option-click a spot to walk there                                                                     │
 │                                                                                                                                          │
 │   A terminal that reports key releases (Kitty, Ghostty, WezTerm, recent iTerm2) stops you the moment you let go. Any other steps once on │
 │   a single press and walks while the key repeats, stopping about a tenth of a second after the repeats stop. Two keys held at once walk  │

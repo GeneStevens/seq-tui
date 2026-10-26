@@ -20,5 +20,5 @@
 │     N.Ns Meadow Wolf (level 1, even) is attacking you                        │
 │     N.Ns You are in combat with Meadow Wolf                                  │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                      
+ Too far: 5 m. Option-click the target to close in · F: stop attacking          
  ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

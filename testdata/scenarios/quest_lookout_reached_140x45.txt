@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · C: chat · ?: help                                                                                   
+ Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Thornwick Downs | → Hand in: Eyes on the Goblins (Thornwick), 222m W | heard N.Ns ago                               ? help  q quit

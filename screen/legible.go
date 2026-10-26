@@ -213,7 +213,9 @@ func hintLine(m *model.Model, v View, w int, st Styler) string {
 			}
 		}
 		if mobsInView(m) > 0 {
-			switch {
+			switch d, far := AttackTooFar(m); {
+			case far:
+				parts = append(parts, FarWords(d)+" · {F}: stop attacking")
 			case m.Self.Target != "" && m.Self.AutoAttack:
 				parts = append(parts, "{F}: stop attacking · {Esc}: clear the target")
 			case m.Self.Target != "":
@@ -227,7 +229,7 @@ func hintLine(m *model.Model, v View, w int, st Styler) string {
 		}
 	}
 	if len(parts) == 0 {
-		parts = []string{"Walk: click or {arrows} · {M}: large map · {C}: chat · {?}: help"}
+		parts = []string{"Walk: Option-click or {arrows} · {M}: large map · {C}: chat · {?}: help"}
 	}
 	return help(" "+strings.Join(parts, "  ·  "), w, st)
 }

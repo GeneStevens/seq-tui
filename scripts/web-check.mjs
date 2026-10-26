@@ -22,6 +22,19 @@ const mode = args.find((a) => a.startsWith("--mode="))?.slice(7);
 if (!mode) { // one wasm run per mode, each in its own process
   const { spawnSync } = await import("node:child_process");
   let bad = 0;
+  // The page's xterm.js options for Option-click (D109): the headless terminal has
+  // no mouse of its own to click, so the settings that let Option-click through
+  // (and keep Shift-click selecting) are checked in the page's source.
+  const page = readFileSync(path.join(root, "web", "app.js"), "utf8");
+  for (const [what, re] of [
+    ["macOptionClickForcesSelection: false (Option-click reaches the game)", /macOptionClickForcesSelection:\s*false/],
+    ["altClickMovesCursor: false", /altClickMovesCursor:\s*false/],
+    ["Shift forces a selection on a Mac too", /shouldForceSelection\s*=\s*\(e\)\s*=>\s*e\.shiftKey/],
+  ]) {
+    const ok = re.test(page);
+    console.log(`  ${ok ? "ok  " : "FAIL"} page options: ${what}`);
+    bad += ok ? 0 : 1;
+  }
   for (const m of ["picker", "game"]) {
     const r = spawnSync(process.execPath, [fileURLToPath(import.meta.url), ...args, "--mode=" + m], { stdio: "inherit" });
     bad += r.status === 0 ? 0 : 1;
@@ -80,6 +93,21 @@ if (mode === "picker") {
 } else {
   for (const k of ["\x1b[C", "\x1b[C", "\x1b[B", "\t"]) { globalThis.seqInput(k); await settle(); }
   compare("after a few keys");
+  // An SGR mouse report with the Alt bit (8) reaches the program as Alt: holding
+  // Alt over the map labels everything on it, so the frame changes; the same
+  // report without it does not. The page's xterm.js does the click-to-SGR step
+  // (not modelled by the headless terminal), so the reports are written here.
+  const frame = () => globalThis.seqLastView;
+  globalThis.seqInput("\x1b[<35;60;12M"); await settle(); // motion, no button
+  const plain = frame();
+  globalThis.seqInput("\x1b[<35;61;12M"); await settle();
+  globalThis.seqInput("\x1b[<43;61;12M"); await settle(); // the same, with Alt
+  const alt = frame();
+  const count = (f) => strip(f).split("Cleric Trainer").length - 1; // Nearby lists it; Alt adds its label on the map
+  const altOk = count(alt) > count(plain);
+  console.log(`  ${altOk ? "ok  " : "FAIL"} ${mode}: an SGR report with the Alt bit reaches the program as Alt (labels drawn)`);
+  if (!altOk) failed++;
+  compare("after an Alt mouse report");
   term.resize(100, 30);
   globalThis.seqTerm.cols = 100; globalThis.seqTerm.rows = 30;
   globalThis.seqResize(100, 30); await settle(); compare("after a resize to 100x30");

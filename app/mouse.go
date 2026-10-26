@@ -1,8 +1,6 @@
 package app
 
 import (
-	"fmt"
-
 	tea "charm.land/bubbletea/v2"
 
 	"github.com/GeneStevens/seq-tui/model"
@@ -25,6 +23,9 @@ type mouseState struct {
 	zoom    int  // the map's zoom
 	bigZoom int  // the large map's zoom
 	card    string
+	sel     *selection     // the mob, person or drop last clicked: W walks to it (D109)
+	spot    *pb.Pos        // the ground last clicked: W walks there when nothing is selected
+	hinted  bool           // the "Option-click to walk" hint has been shown this session
 	cursor  *pb.Pos        // the large map's keyboard cursor
 	side    screen.Sidebar // the sidebar beside a service
 	charTab screen.Sidebar // the character view's own tab, scroll and cursors
@@ -233,23 +234,28 @@ func (a *App) click(x, y int) (tea.Model, tea.Cmd) {
 		if !ok {
 			return
 		}
-		act = a.clickAction(m, pick)
+		act = a.clickAction(m, pick, a.mouse.alt)
 	})
 	return a.do(act)
 }
 
-// clickAction is what a click on a pick means (D77). Clicking the ground walks
-// there; the first click on a mob or an NPC selects it and opens its card; a
-// second click on it acts (a first click never attacks); a click on loot takes
-// everything within reach.
-func (a *App) clickAction(m *model.Model, p screen.Pick) Action {
-	act := a.pickAction(m, p)
+// clickAction is what a click on a pick means (D77, D109). A plain click never
+// moves the character: the first click on a mob or an NPC selects it and opens
+// its card, a second click on it acts (a first click never attacks), a click on
+// loot takes everything within reach, a click on the ground lets go. Option-click
+// walks: to the spot, or up to the thing and on to act on it.
+func (a *App) clickAction(m *model.Model, p screen.Pick, alt bool) Action {
+	act := a.pickAction(m, p, alt)
 	if !m.TurnBased() {
 		return act
 	}
 	// In a turn-based instance a bare intent is refused (D30): the click adds a step
 	// to the plan, as the key would.
 	switch act.Kind {
+	case Approach:
+		act = Action{Kind: Move, X: act.X, Y: act.Y} // a plan walks to the place: it cannot follow
+		step := act
+		return Action{Kind: PlanAdd, Step: &step}
 	case Loot:
 		act.ID = p.ID // a plan's loot step names its drop
 		fallthrough
@@ -260,42 +266,82 @@ func (a *App) clickAction(m *model.Model, p screen.Pick) Action {
 	return act
 }
 
-func (a *App) pickAction(m *model.Model, p screen.Pick) Action {
+// pickAction is what a click on p means: alt is Option (Alt) held. A plain click
+// never moves the character (D109); Option-click is the only mouse action that
+// does.
+func (a *App) pickAction(m *model.Model, p screen.Pick, alt bool) Action {
 	ms := &a.mouse
+	approachIt := func() Action {
+		return Action{Kind: Approach, ID: p.ID, Count: int(p.Kind), Note: p.Name, X: p.Pos.GetX(), Y: p.Pos.GetY()}
+	}
 	switch p.Kind {
 	case screen.PickSelf:
 		return Action{} // you are already here
 	case screen.PickMob:
-		if ms.card == p.ID {
+		ms.sel = &selection{id: p.ID, kind: p.Kind, name: p.Name}
+		selected := ms.card == p.ID
+		ms.card = p.ID
+		if alt {
+			return approachIt()
+		}
+		switch {
+		case selected && attackingIt(m, p.ID):
+			if d, far := screen.AttackTooFar(m); far {
+				return Action{Note: screen.FarWords(d)}
+			}
+			return Action{Note: "Already attacking " + p.Name + " (F stops)"}
+		case selected:
 			return Action{Kind: Attack, On: true, Note: "attack " + p.Name}
 		}
-		ms.card = p.ID
 		if m.Self.Target == p.ID {
 			return Action{}
 		}
 		return Action{Kind: Target, ID: p.ID}
 	case screen.PickNPC:
-		if ms.card != p.ID {
+		ms.sel = &selection{id: p.ID, kind: p.Kind, name: p.Name}
+		n := m.NPC(p.ID)
+		inReach := n != nil && m.InReach(n)
+		switch {
+		case alt && !inReach:
 			ms.card = p.ID
+			return approachIt()
+		case ms.card != p.ID && !alt:
+			ms.card = p.ID
+			if !inReach {
+				return Action{Note: tooFar(m, p.Pos)}
+			}
 			return Action{}
-		}
-		if n := m.NPC(p.ID); n != nil && !m.InReach(n) {
-			return Action{Kind: Move, X: p.Pos.GetX(), Y: p.Pos.GetY(), Note: "walk up to " + p.Name}
+		case !inReach:
+			return Action{Note: tooFar(m, p.Pos)}
 		}
 		ms.card = "" // the conversation takes the card's place
 		return Action{Kind: Talk, NPC: p.ID, Note: p.Name}
 	case screen.PickDrop:
 		ms.card = ""
+		ms.sel = &selection{id: p.ID, kind: p.Kind, name: p.Name}
 		d := m.Drops[p.ID]
 		switch {
 		case !d.GetCanLoot():
 			return Action{Note: p.Name + " is not yours to take"}
-		case d2(d.GetPos(), m.Self.Pos) > 5000*5000:
-			return Action{Kind: Move, X: p.Pos.GetX(), Y: p.Pos.GetY(), Note: fmt.Sprintf("walk to %s; click again to loot", p.Name)}
+		case d2(d.GetPos(), m.Self.Pos) > dropReachMm*dropReachMm:
+			if alt {
+				return approachIt()
+			}
+			return Action{Note: tooFar(m, d.GetPos())}
 		}
 		return Action{Kind: Loot}
 	}
-	ms.card = ""
-	ms.cursor = nil
-	return Action{Kind: Move, X: p.Pos.GetX(), Y: p.Pos.GetY()}
+	ms.card, ms.cursor, ms.sel = "", nil, nil
+	if alt {
+		ms.spot = nil
+		return Action{Kind: Move, X: p.Pos.GetX(), Y: p.Pos.GetY()}
+	}
+	// A plain click on the ground, a door or a marker only lets go of the selection.
+	a.approach = nil
+	ms.spot = p.Pos
+	if !ms.hinted {
+		ms.hinted = true
+		return Action{Note: "Option-click to walk here (or click, then W)"}
+	}
+	return Action{}
 }

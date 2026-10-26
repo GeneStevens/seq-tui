@@ -20,5 +20,5 @@
 │    NN.Ns Tip: tradable once means one trade to another player, then it is    │
 │            bound to them.                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · C: chat · ?: help                       
+ Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                  ? help  q quit

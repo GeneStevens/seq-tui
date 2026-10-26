@@ -334,7 +334,7 @@ func TestEscEndsAClickWalk(t *testing.T) {
 	p.Resize(140, 45)
 	from := p.Pos()
 	x, y := at(t, p, &pb.Pos{X: from[0] - 10000, Y: from[1]})
-	p.Click(x, y)
+	p.AltClick(x, y)
 	w.Advance(5 * tick)
 	mid := p.Pos()
 	if mid[0] >= from[0] {
