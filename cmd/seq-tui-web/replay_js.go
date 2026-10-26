@@ -18,6 +18,9 @@ import (
 func init() { replay = playReplay }
 
 func playReplay(l app.Launch) (bool, error) {
+	if js.Global().Get("seqHarness").Type() == js.TypeString {
+		return harness(l) // the display check (harness_js.go)
+	}
 	text := js.Global().Get("seqReplay")
 	if text.Type() != js.TypeString {
 		return false, nil

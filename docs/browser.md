@@ -170,3 +170,23 @@ Troubleshooting:
   global `seqReplay`, which only the test build reads (`replay_js.go`, tag
   `webtest`, built by `make web-smoke`); the wasm that `make web` serves has no
   such hook, and `make web-nohook` fails if a wasm has the string.
+
+## Why `convertEol` is set
+
+There is no TTY in the browser, so Bubble Tea turns on its newline mapping
+(`mapNl`, third_party/bubbletea/tea.go) and its renderer assumes that a line feed
+also returns the cursor to column 0. xterm.js moves only down on a line feed
+unless `convertEol` is on, so without it every later relative column move lands
+too far right: the selected picker row is redrawn mid-screen, the picker is not
+cleared, and lines overlap. `web/app.js` sets `convertEol: true`.
+
+`make web-check` (part of `make verify`) guards it: it feeds the wasm's output
+into a headless xterm.js (`scripts/vendor/xterm-headless.js`, 6.0.0) at 120 × 40
+and compares the terminal's rows with the frame the program meant to draw (the
+picker, after Down twice, Ctrl+L, the replayed game, after keys, after a resize to
+100 × 30). It also runs with `convertEol` off, which must fail. The frame comes
+from `seqHarness` and `seqLastView` (`cmd/seq-tui-web/harness_js.go`, tag
+`webtest`); `make web-nohook` fails if the served wasm has them.
+
+A resize that arrives before the program has started (while it loads) is applied
+when it starts: the terminal's size is sent once as the hook is installed.

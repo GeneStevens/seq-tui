@@ -124,15 +124,20 @@ func feedInput(w *io.PipeWriter) {
 }
 
 // watchResize turns the page's size reports into the window size the program
-// is told of. The send is made off the page's call, which must not block.
+// is told of. The send is made off the page's call, which must not block. A
+// resize that came before this hook existed (while the page was loading the
+// program) was dropped, so the terminal's size now is sent once at the start.
 func watchResize(p *tea.Program) {
+	send := func(w, h int) { go p.Send(tea.WindowSizeMsg{Width: w, Height: h}) }
 	js.Global().Set("seqResize", js.FuncOf(func(_ js.Value, args []js.Value) any {
 		if len(args) >= 2 {
-			w, h := args[0].Int(), args[1].Int()
-			go p.Send(tea.WindowSizeMsg{Width: w, Height: h})
+			send(args[0].Int(), args[1].Int())
 		}
 		return nil
 	}))
+	if term := js.Global().Get("seqTerm"); !term.IsUndefined() {
+		send(term.Get("cols").Int(), term.Get("rows").Int())
+	}
 }
 
 // termWriter draws on the terminal by xterm.js's write, as bytes so that a
