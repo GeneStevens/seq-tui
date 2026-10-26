@@ -4,10 +4,10 @@
 │      ░···········································││ XP ----------- 40 to Lv 2│
 │      ░                             ····          ││ Atk off Ret ON | none    │
 │      ░     """""""""    @          ··;·""""""""""│└──────────────────────────┘
-│      ░                   ;         ····#####     │┌─ Target ─────────────────┐
-│      ░                 ##### ≈≈≈≈  ··◆######     ││ no target (Tab to choose)│
-│      ░                 ##### ≈≈≈####  #####      ││                          │
-│      ░                 ##### ≈≈≈####  #####      ││                          │
+│      ░                   ;         ····#####     │┌─ Quest chain (Ctrl+K) ───┐
+│      ░                 ##### ≈≈≈≈  ··◆######     ││ First Steps              │
+│      ░                 ##### ≈≈≈####  #####      ││ Step 1 of 4              │
+│      ░                 ##### ≈≈≈####  #####      ││ Speak to Tamsin Hale,    │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │ +  NN.Ns Word from Wickett Mill: 1 of 1                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
  Walk: click or arrows · M: large map · C: chat · ?: help                       
- ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 39m W | heard N.Ns ago 
+ ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W  ? help  q quit

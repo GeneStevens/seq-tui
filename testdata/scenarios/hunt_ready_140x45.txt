@@ -4,24 +4,24 @@
 │                                                                                                ││ XP #####-------------------- 32 to Lv 2│
 │                                                                                                ││ Atk off Ret ON | none                  │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│                                                                                                ││ First Steps                            │
+│                                                                                                ││ Step 1 of 4                            │
+│                                                                                                ││ Speak to Tamsin Hale, the Watch        │
+│                                                                                                ││ Greeter, here in Hawthorn Square.      │
+│                                                                                                ││ This step is in another zone:          │
+│                                                @                                               ││   Thornwick.                           │
+│                                                 *                                              ││ Take the Town Gate: 64m NW of you.     │
+│                                                                                          c     │└────────────────────────────────────────┘
+│                                                  c                                             │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Contracts (K) ────────────────────────┐
-│                                                @                                               ││ Wolves at Wickett Mill           READY │
-│                                                 *                                              │└────────────────────────────────────────┘
-│                                                                                          c     │┌─ Nearby ───────────────────────────────┐
-│                                                  c                                             ││ D Town Gate         64m NW [next door] │
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ D Town Gate         64m NW [next door] │
 │                                                                                                ││ * 2 crowns                        2m S │
-│                                                                                                ││ * Wolf Pelt                       2m S │
-│                                                                                                ││ * 1 crowns                        2m S │
-│                                                                                                ││ * Wolf Pelt                       2m S │
-│                                                                                                ││ ; Wickett Mill      35m N scout marker │
-│                                                                                                ││ ◆ Barleycross 41m NE raiders head here │
-│                                                                                                ││ ; Barleycross      47m NE scout marker │
-│                                                                                                ││ +5 more                                │
+│                                                                                                ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │
@@ -42,4 +42,4 @@
 │   NNN.Ns Meadow Wolf is out of view                                                                                                      │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot all 4 drops                                                                                                                        
- ONLINE | Thornwick Downs | → Hand in: Wolves at Wickett Mill (Thornwick), 64m NW | heard N.Ns ago | no target in view        ? help  q quit
+ ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 64m NW | heard N.Ns ago | no target in view      ? help  q quit
