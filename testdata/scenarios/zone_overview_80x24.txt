@@ -21,4 +21,4 @@
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 39m W | heard N.Ns ago 
+ ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W  ? help  q quit

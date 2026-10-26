@@ -39,8 +39,24 @@ var questSteps = map[string]*pb.QuestInfo{
 		Text: "Gather 4 charm beads from the Eel Mere shore."},
 	"watch": {Id: "watch", Name: "The Shepherds' Watch", Step: 2, Steps: 4, Kind: "watch", Need: 20, Progress: 12, Unit: "seconds",
 		Text: "Watch the shore from the green.", TargetKind: "place", Target: "highfold", TargetName: "Highfold", TargetPos: &pb.Pos{X: 100000, Y: 50000}},
+	// A chain of the Downs alone, seen from Thornwick (D107): its step is done in
+	// another zone, and the way there is the Thornwick door toward it.
+	"downs": {Id: "highfold-watch", Name: "The Shepherds' Watch", Step: 1, Steps: 4, Kind: "talk_to", Zone: "thornwick-downs", ZoneName: "Thornwick Downs",
+		Text: "Speak to Maud Fenner, the Highfold Reeve.", TargetKind: "zone", Target: "thornwick-downs", TargetName: "Thornwick Downs", TargetPos: &pb.Pos{X: 118000, Y: 130000}},
 	"zone": {Id: "ferry", Name: "A Boat for the Ferryman", Step: 4, Steps: 5, Kind: "talk_to", Zone: "thornwick", ZoneName: "Thornwick",
 		Text: "Take the news to Captain Hartley.", TargetKind: "zone", Target: "thornwick", TargetName: "Thornwick", TargetPos: &pb.Pos{X: 6000, Y: 225000}},
+}
+
+// thornwickWorld is a corner of Thornwick with the Downs gate east of the
+// character, and the chain it is on.
+func thornwickWorld(q *pb.QuestInfo) *model.Model {
+	m := model.New()
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ZoneMap{ZoneMap: &pb.ZoneMap{Space: "thornwick", Name: "Thornwick", ViewRadiusMm: 40000,
+		Bounds: &pb.Rect{MinX: 0, MinY: 0, MaxX: 240000, MaxY: 260000},
+		Doors:  []*pb.Door{{Id: "downs-gate", Kind: pb.DoorKind_DOOR_KIND_ZONE_LINE, Name: "Downs Gate", Pos: &pb.Pos{X: 118000, Y: 130000}, LeadsTo: "thornwick-downs", Label: "Downs Gate — to the Downs"}}}}})
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "thornwick", Seq: 1, GameTimeMs: 1000,
+		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me", Name: "Hale", Level: 8, Pos: &pb.Pos{X: 100000, Y: 130000}, Hp: 130, MaxHp: 130}, Quest: q}}}})
+	return m
 }
 
 func TestQuestV2Goldens(t *testing.T) {
@@ -61,6 +77,8 @@ func TestQuestV2Goldens(t *testing.T) {
 			snapQuest(m, cut)
 		}, []string{"Watching… 0 of 20 s", "started over at 12 s", "you left the spot"}},
 		{"quest_zone", "zone", func(m *model.Model, v *screen.View) { v.Quest = &screen.QuestUI{} }, []string{"This step is in another zone: Thornwick.", "Take the Town Gate: 204m NW of you"}},
+		{"quest_downs_from_thornwick", "downs", func(m *model.Model, v *screen.View) { v.Quest = &screen.QuestUI{} }, []string{"This step is in another zone: Thornwick Downs.", "Take the Downs Gate: 18m E of you"}},
+		{"quest_panel_downs_from_thornwick", "downs", func(m *model.Model, v *screen.View) {}, []string{"in another zone:"}},
 		{"quest_panel_watch", "watch", func(m *model.Model, v *screen.View) {}, []string{"Watching… 12 of 20 s"}},
 		{"quest_panel_zone", "zone", func(m *model.Model, v *screen.View) {}, []string{"in another zone:"}},
 		{"quest_offers_locked", "kill", func(m *model.Model, v *screen.View) {
@@ -84,7 +102,11 @@ func TestQuestV2Goldens(t *testing.T) {
 	}
 	for _, c := range cases {
 		for _, sz := range [][2]int{{80, 24}, {120, 40}} {
-			m := questWorld(questSteps[c.q])
+			world := questWorld
+			if c.q == "downs" { // seen from Thornwick
+				world = thornwickWorld
+			}
+			m := world(questSteps[c.q])
 			v := view()
 			c.set(m, &v)
 			got := screen.Render(m, v, sz[0], sz[1], screen.Plain()) + "\n"

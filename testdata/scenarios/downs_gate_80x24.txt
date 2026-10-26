@@ -4,10 +4,10 @@
 │                      ░     """"""""""""""""""""""││ XP ----------- 40 to Lv 2│
 │                      ░···························││ Atk off Ret ON | none    │
 │                      ░··@························│└──────────────────────────┘
-│                      ░···························│┌─ Target ─────────────────┐
-│                      ░                           ││ no target (Tab to choose)│
-│                      ░     """""""""             ││                          │
-│                      ░     ▼ Wolves at Wicke… 68m││                          │
+│                      ░···························│┌─ Quest chain (Ctrl+K) ───┐
+│                      ░                           ││ First Steps              │
+│                      ░     """""""""             ││ Step 1 of 4              │
+│                      ░                   ;       ││ Speak to Tamsin Hale,    │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │    NN.Ns entered Thornwick Downs                                             │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
- ONLINE | → Wolves at Wickett Mill, 68m SE | road: faster, 125% | use door ok   
+ ONLINE | First Steps 1/4 | road: faster, 125% | heard N.Ns ago | use door ok   

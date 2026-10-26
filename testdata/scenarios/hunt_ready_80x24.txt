@@ -4,10 +4,10 @@
 │     ░                                            ││ XP ##--------- 32 to Lv 2│
 │     ░                                            ││ Atk off Ret ON | none    │
 │     ░                   @               c        │└──────────────────────────┘
-│     ░                   c                        │┌─ Target ─────────────────┐
-│     ░                                            ││ no target (Tab to choose)│
-│     ░                                            ││                          │
-│     ░                                            ││                          │
+│     ░                   c                        │┌─ Quest chain (Ctrl+K) ───┐
+│     ░                                            ││ First Steps              │
+│     ░                                            ││ Step 1 of 4              │
+│     ░                                            ││ Speak to Tamsin Hale,    │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │   NNN.Ns Meadow Wolf is out of view                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
  L: loot all 4 drops                                                            
- ONLINE | heard N.Ns ago | no target in view                      ? help  q quit
+ ONLINE | → Go to Thornwick (Thornwick), 64m NW | no target in view       ? help

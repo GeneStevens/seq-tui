@@ -128,4 +128,7 @@ a reload loads the new wasm.
 - `web/`: `index.html`, `app.js`, the vendored xterm.js and fonts (`web/vendor`), `wasm_exec.js`
   from the Go in use (`$(go env GOROOT)/lib/wasm/`; copy it again with a new Go), and `keys.json`.
 - `scripts/web-smoke.mjs` runs the wasm under Node on a recorded log: the first
-  screen at 80 × 24, a resize, and `q` to quit.
+  screen at 80 × 24, a resize, and `q` to quit. The log comes in through the page
+  global `seqReplay`, which only the test build reads (`replay_js.go`, tag
+  `webtest`, built by `make web-smoke`); the wasm that `make web` serves has no
+  such hook, and `make web-nohook` fails if a wasm has the string.

@@ -42,4 +42,4 @@
 │ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                                                  
- ONLINE | Thornwick Downs | → Hand in: Word from Wickett Mill (Thornwick), 39m W | heard N.Ns ago                             ? help  q quit
+ ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W | heard N.Ns ago                           ? help  q quit
