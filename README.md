@@ -56,6 +56,17 @@ go run ./cmd/seq-tui -replay testdata/logs/fight_loot.jsonl [-size 140x45 | -tex
 
 `-insecure` accepts the development server's in-memory certificate and works for loopback addresses only.
 
+## Play in the browser
+
+The same program also runs in a web browser (seq-design D106): compiled to WebAssembly and drawn by xterm.js, talking to the server over the same WebSocket.
+
+```
+make web          # web/dist: the page, seq-tui.wasm (about 3 MB downloaded with brotli), each file also as .gz and .br
+make web-smoke    # builds the wasm and runs it under Node: first screen at 80x24, a resize, q to quit (part of make verify)
+```
+
+Serve `web/dist` on the same origin as seqd (a Caddy proxy for `/seq/v1`, no server change), open the page and paste a session token; `docs/browser.md` has a sample Caddyfile, local development with an mkcert certificate, and what the page does. Not in the browser build: duo mode and session logs. Bubble Tea v2.1.0 has no js build, so `third_party/bubbletea` is a copy with one added file (`tty_js.go`); `docs/upstream-bubbletea-js.md` has the patch and the text for an upstream pull request.
+
 ## Playing together (M9, D58)
 
 Chat, parties, who and friends are the server's *social* requests, not intents (`client.Session.Social` and its wrappers on the toolkit's connection): each is answered by one result, with the refusal's reason when it is refused, and the status line says it in words. The model keeps what the server tells (`model.Social`: the chat scrollback of 500 lines, the party, the invitation waiting, the characters the who list named, the friends list); chat is not an event, so a resume does not replay it.
@@ -264,7 +275,7 @@ Speed gates (D49), enforced in the test code: each scenario under 2 s, the whole
 make verify
 ```
 
-Runs a `gofmt` check, `go mod download github.com/GeneStevens/seq-world`, `go vet ./...` and `go test ./...` (which includes the scenarios), then prints the elapsed time. It must stay well under 60 seconds.
+Runs a `gofmt` check, `go mod download github.com/GeneStevens/seq-world`, `go vet ./...` and `go test ./...` (which includes the scenarios), then `make web-smoke` (the browser build compiles and runs under Node), then prints the elapsed time. It must stay well under 60 seconds.
 
 The download is a step of its own because the scenarios load seq-world's packs from the module cache (`go list -m -f '{{.Dir}}'`), and nothing in the code imports that module, so `go build` and `go vet` never fetch it. On a fresh machine, or after the pin moves, the first `make verify` needs access to the private `github.com/GeneStevens/*` modules (`GOPRIVATE` and the ssh rewrite, as above); a missing module fails the step with the module's name instead of failing every scenario with `seq-world is not in the module cache`.
 

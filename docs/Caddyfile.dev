@@ -1,0 +1,15 @@
+# Local development: see docs/browser.md. Run from the repository root.
+{
+	auto_https disable_redirects
+}
+localhost:8443 {
+	tls tmp/localhost.pem tmp/localhost-key.pem
+	handle /seq/v1* {
+		reverse_proxy https://localhost:9443
+	}
+	handle {
+		root * web/dist
+		file_server
+		header /*.wasm Content-Type application/wasm
+	}
+}

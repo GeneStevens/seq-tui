@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEQ</title>
+<link rel="stylesheet" href="vendor/xterm.css">
+<style>
+  @font-face { font-family: "DejaVu Sans Mono"; font-weight: 400; src: url("vendor/fonts/DejaVuSansMono.ttf") format("truetype"); }
+  @font-face { font-family: "DejaVu Sans Mono"; font-weight: 700; src: url("vendor/fonts/DejaVuSansMono-Bold.ttf") format("truetype"); }
+  html, body { height: 100%; margin: 0; background: #000; color: #ccc; font: 14px/1.4 system-ui, sans-serif; }
+  #terminal { position: absolute; inset: 0; padding: 4px; box-sizing: border-box; }
+  #login, #loading, #small, #ended { position: absolute; z-index: 10; }
+  #login { inset: 0; display: flex; align-items: center; justify-content: center; background: #000; }
+  #login form { width: min(28em, 90vw); }
+  #login h1 { font: 700 1.6em "DejaVu Sans Mono", monospace; margin: 0 0 .6em; }
+  #login label { display: block; margin: .8em 0 .2em; }
+  #login input[type=text], #login input[type=password] { width: 100%; box-sizing: border-box; padding: .4em; font: 14px "DejaVu Sans Mono", monospace; background: #111; color: #eee; border: 1px solid #555; }
+  #login button { margin-top: 1em; padding: .5em 1.2em; font-size: 1em; }
+  #login p.note { color: #999; font-size: .9em; }
+  #loading { left: 0; right: 0; bottom: 0; padding: .5em 1em; background: #222; color: #ddd; display: none; }
+  #loading .bar { display: inline-block; width: 8em; height: .5em; margin-left: .6em; background: #444; vertical-align: middle; overflow: hidden; }
+  #loading .bar::after { content: ""; display: block; width: 30%; height: 100%; background: #6cf; animation: slide 1s linear infinite; }
+  @keyframes slide { from { margin-left: -30%; } to { margin-left: 100%; } }
+  #small { top: 0; left: 0; right: 0; padding: .4em 1em; background: #a60; color: #fff; display: none; }
+  #ended { inset: 0; display: none; align-items: center; justify-content: center; flex-direction: column; background: rgba(0,0,0,.8); }
+  #ended pre { white-space: pre-wrap; max-width: 40em; }
+</style>
+</head>
+<body>
+<div id="terminal"></div>
+
+<div id="login">
+  <form id="loginform">
+    <h1>SEQ</h1>
+    <label for="token">Session token</label>
+    <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="seq_st_..." required>
+    <label for="character">Character id <small>(optional: leave empty to pick one)</small></label>
+    <input id="character" type="text" autocomplete="off" spellcheck="false">
+    <label><input id="newchar" type="checkbox"> Make a new character</label>
+    <button type="submit">Play</button>
+    <p class="note">The token is kept in this tab's session storage and is gone when the tab closes. Sessions are not recorded in the browser, and duo mode is not available here.</p>
+  </form>
+</div>
+<div id="loading">Loading SEQ <span class="bar"></span></div>
+<div id="small">The terminal is too small: SEQ needs at least 80 columns by 24 rows. Make the window bigger.</div>
+<div id="ended"><pre id="endedmsg"></pre><button id="again">Back to the login</button></div>
+
+<script src="vendor/xterm.js"></script>
+<script src="vendor/addon-fit.js"></script>
+<script src="vendor/addon-webgl.js"></script>
+<script src="wasm_exec.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

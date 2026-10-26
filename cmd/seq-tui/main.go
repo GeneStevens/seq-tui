@@ -16,7 +16,6 @@
 package main
 
 import (
-	"context"
 	"crypto/tls"
 	"flag"
 	"fmt"
@@ -24,9 +23,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
-
-	tea "charm.land/bubbletea/v2"
 
 	"github.com/GeneStevens/seq-tui/app"
 	"github.com/GeneStevens/seq-tui/client"
@@ -113,51 +109,8 @@ func run() error {
 		defer slog.Close()
 		cfg.Log = slog.Rec
 	}
-	sess := client.NewSession(cfg)
-	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
-	defer cancel()
-	prog := func(s *client.Session) *app.App { return app.New(s) }
-	login := sess.Login
-	if *create || *char == "" { // no character named: connect, then pick or make one
-		login = sess.Connect
-	}
-	if err := login(ctx); err != nil {
-		return err
-	}
-	defer sess.Close()
-	switch {
-	case *create:
-		prog = app.NewCreator
-	case *char == "":
-		// The account's characters are the server's to say: the picker lists
-		// them, and an account with none goes straight to making one.
-		chars, err := sess.ListCharacters(ctx)
-		if err != nil {
-			return fmt.Errorf("listing the account's characters: %w", err)
-		}
-		if len(chars) > 0 {
-			prog = func(s *client.Session) *app.App { return app.NewPicker(s, chars) }
-		} else {
-			prog = app.NewCreator
-		}
-	}
-	a := prog(sess)
-	a.SetLogs(root, slog)
-	a.Bell = *bell
-	a.NoMouse = *noMouse
-	if *duo != "" && !*create && *char != "" {
-		dc := cfg
-		dc.Character, dc.Record, dc.Log = *duo, nil, nil
-		dc.Agent = os.Getenv("SEQ_DUO_AGENT_SECRET") // an agent credential for it: its turn-based plans are then stand-ins
-		d := client.NewDuo(dc, *char)
-		defer d.Close()
-		a.SetDuo(d)
-		dctx, stop := context.WithCancel(context.Background())
-		defer stop()
-		go d.Run(dctx)
-	}
-	_, err = tea.NewProgram(a).Run()
-	return err
+	return app.Launch{Cfg: cfg, Create: *create, LogRoot: root, Log: slog, Bell: *bell, NoMouse: *noMouse,
+		Duo: *duo, DuoAgent: os.Getenv("SEQ_DUO_AGENT_SECRET")}.Run()
 }
 
 func runReplay(path string, text bool, size string) error {

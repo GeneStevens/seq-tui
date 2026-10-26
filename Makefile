@@ -1,4 +1,4 @@
-.PHONY: verify golden fixtures play play-testgrounds play-reset
+.PHONY: verify golden fixtures play play-testgrounds play-reset web web-smoke
 
 # verify is the repo's gate (seq-design D15): gofmt check, vet, test. Under 60 s.
 # The scenarios read seq-world's packs from the module cache, which no import
@@ -11,6 +11,7 @@ verify:
 	go mod download github.com/GeneStevens/seq-world || exit 1; \
 	go vet ./... || exit 1; \
 	go test ./... || exit 1; \
+	$(MAKE) --no-print-directory web-smoke || exit 1; \
 	echo "make verify: OK in $$(( $$(date +%s) - start )) s"
 
 # fixtures regenerates the recorded logs under testdata/logs: the hand-built ones
@@ -45,3 +46,26 @@ play-testgrounds:
 # play-reset wipes the kept world (characters, items, progress) after asking.
 play-reset:
 	scripts/play-reset.sh
+
+# web builds the browser version (seq-design D106; docs/browser.md): the program
+# as WebAssembly (GOOS=js, on the bubbletea copy in third_party) and the page that
+# draws it with xterm.js, in web/dist, each file also as .gz and .br. Its sizes
+# are printed. Needs node (for the compression and the smoke test).
+WEBDIST := web/dist
+web:
+	rm -rf $(WEBDIST) && mkdir -p $(WEBDIST)
+	GOOS=js GOARCH=wasm go build -trimpath -ldflags='-s -w' -o $(WEBDIST)/seq-tui.wasm ./cmd/seq-tui-web
+	cp web/index.html web/app.js web/keys.json web/wasm_exec.js $(WEBDIST)/
+	cp -R web/vendor $(WEBDIST)/vendor
+	node scripts/web-compress.mjs $(WEBDIST)
+
+# web-smoke builds the wasm (a fresh one, outside web/dist) and runs it in node
+# with piped input and output: the first screen at 80x24, a resize, a key to quit.
+# It also holds the browser build to compiling, which go build ./... does not (it
+# builds for this system). Skipped, with a note, where node is not installed.
+web-smoke:
+	@mkdir -p $(CURDIR)/tmp/websmoke
+	GOOS=js GOARCH=wasm go build -trimpath -ldflags='-s -w' -o tmp/websmoke/seq-tui.wasm ./cmd/seq-tui-web
+	@if command -v node >/dev/null; then \
+		cp web/wasm_exec.js tmp/websmoke/ && node scripts/web-smoke.mjs tmp/websmoke; \
+	else echo "web-smoke: node not found, the wasm builds but was not run"; fi

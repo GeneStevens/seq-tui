@@ -1,0 +1,4 @@
+{
+  "intercept": ["ctrl+a", "ctrl+k", "ctrl+l", "ctrl+r", "ctrl+u", "f1"],
+  "unreachable": ["ctrl+n", "ctrl+t", "ctrl+w"]
+}
