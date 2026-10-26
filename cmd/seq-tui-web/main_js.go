@@ -12,8 +12,10 @@
 //     xterm.js reports typed (its onData); it never blocks;
 //   - seqResize(cols, rows): called by the page when the terminal's size changes;
 //   - seqExited(message): called when the program ends, with the error or "";
-//   - seqReplay: optionally, the text of a recorded log, played with no server
-//     (the Node smoke test uses it).
+//
+// A test build (-tags webtest, make web-smoke) also reads seqReplay, the text of
+// a recorded log, and plays it with no server (replay_js.go); the build that is
+// served has no such hook.
 //
 // The settings come in go.env, as the page sets them: SEQ_SESSION_TOKEN (the
 // pasted token), SEQ_URL (default wss://<the page's host>/seq/v1), SEQ_CHARACTER
@@ -25,7 +27,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strings"
 	"syscall/js"
 
 	tea "charm.land/bubbletea/v2"
@@ -33,9 +34,11 @@ import (
 
 	"github.com/GeneStevens/seq-tui/app"
 	"github.com/GeneStevens/seq-tui/client"
-	"github.com/GeneStevens/seq-tui/model"
-	"github.com/GeneStevens/seq-tui/record"
 )
+
+// replay is set only by the webtest build (replay_js.go): it plays a recorded
+// log when the page gives one, and says whether it did.
+var replay func(l app.Launch) (bool, error)
 
 func main() {
 	err := run()
@@ -69,18 +72,10 @@ func run() error {
 		tea.WithoutSignalHandler(),
 	}
 	l := app.Launch{Program: opts, Started: watchResize}
-	if replay := js.Global().Get("seqReplay"); replay.Type() == js.TypeString {
-		msgs, err := record.Read(strings.NewReader(replay.String()))
-		if err != nil {
+	if replay != nil {
+		if done, err := replay(l); done {
 			return err
 		}
-		m := model.New()
-		for _, msg := range msgs {
-			m.Apply(msg)
-		}
-		l.Cfg.Character = "replay" // not picked from a server
-		l.Session = client.NewSession(client.Config{Model: m})
-		return l.Run()
 	}
 	token := os.Getenv("SEQ_SESSION_TOKEN")
 	if token == "" {

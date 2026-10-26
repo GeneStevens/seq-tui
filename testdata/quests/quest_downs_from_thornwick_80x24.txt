@@ -1,0 +1,24 @@
+┌─ Quest chain ────────────────────────────────────────────────────────────────┐
+│ The Shepherds' Watch, step 1 of 4                                            │
+│                                                                              │
+│ Now:                                                                         │
+│   Speak to Maud Fenner, the Highfold Reeve.                                  │
+│   This step is in another zone: Thornwick Downs.                             │
+│   Take the Downs Gate: 18m E of you.                                         │
+│                                                                              │
+│ It is optional: nothing waits for it and nothing reminds you.                │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ X dismisses it for good (after a question)   Esc closes                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 130/130 | Target: none                                                      
+ ONLINE | thornwick | The Shepherds' Watch 1/4 | heard 0.4s ago   ? help  q quit

@@ -1,4 +1,4 @@
-.PHONY: verify golden fixtures play play-testgrounds play-reset web web-smoke
+.PHONY: verify golden fixtures play play-testgrounds play-reset web web-smoke web-nohook
 
 # verify is the repo's gate (seq-design D15): gofmt check, vet, test. Under 60 s.
 # The scenarios read seq-world's packs from the module cache, which no import
@@ -57,15 +57,28 @@ web:
 	GOOS=js GOARCH=wasm go build -trimpath -ldflags='-s -w' -o $(WEBDIST)/seq-tui.wasm ./cmd/seq-tui-web
 	cp web/index.html web/app.js web/keys.json web/wasm_exec.js $(WEBDIST)/
 	cp -R web/vendor $(WEBDIST)/vendor
+	@$(MAKE) --no-print-directory web-nohook WASM=$(WEBDIST)/seq-tui.wasm
 	node scripts/web-compress.mjs $(WEBDIST)
 
-# web-smoke builds the wasm (a fresh one, outside web/dist) and runs it in node
+# web-nohook fails if the wasm named by WASM (default: a fresh production build,
+# in tmp/websmoke) has the seqReplay test hook, which only the webtest build has.
+WASM ?=
+web-nohook:
+	@w="$(WASM)"; \
+	if [ -z "$$w" ]; then mkdir -p $(CURDIR)/tmp/websmoke; w=tmp/websmoke/seq-tui-prod.wasm; \
+		GOOS=js GOARCH=wasm go build -trimpath -ldflags='-s -w' -o $$w ./cmd/seq-tui-web || exit 1; fi; \
+	if grep -aq seqReplay "$$w"; then echo "web-nohook: $$w has the seqReplay test hook; it belongs behind -tags webtest"; exit 1; fi; \
+	echo "web-nohook: $$w has no seqReplay hook"
+
+# web-smoke builds the wasm (a fresh one, outside web/dist, with the webtest tag
+# for the recorded-log hook that the served build lacks) and runs it in node
 # with piped input and output: the first screen at 80x24, a resize, a key to quit.
 # It also holds the browser build to compiling, which go build ./... does not (it
 # builds for this system). Skipped, with a note, where node is not installed.
 web-smoke:
 	@mkdir -p $(CURDIR)/tmp/websmoke
-	GOOS=js GOARCH=wasm go build -trimpath -ldflags='-s -w' -o tmp/websmoke/seq-tui.wasm ./cmd/seq-tui-web
+	GOOS=js GOARCH=wasm go build -tags webtest -trimpath -ldflags='-s -w' -o tmp/websmoke/seq-tui.wasm ./cmd/seq-tui-web
+	@$(MAKE) --no-print-directory web-nohook
 	@if command -v node >/dev/null; then \
 		cp web/wasm_exec.js tmp/websmoke/ && node scripts/web-smoke.mjs tmp/websmoke; \
 	else echo "web-smoke: node not found, the wasm builds but was not run"; fi
