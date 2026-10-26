@@ -1,4 +1,4 @@
-.PHONY: verify golden fixtures play play-testgrounds play-reset web web-smoke web-nohook
+.PHONY: verify golden fixtures play play-testgrounds play-reset web web-smoke web-check web-wasm-test web-nohook
 
 # verify is the repo's gate (seq-design D15): gofmt check, vet, test. Under 60 s.
 # The scenarios read seq-world's packs from the module cache, which no import
@@ -12,6 +12,7 @@ verify:
 	go vet ./... || exit 1; \
 	go test ./... || exit 1; \
 	$(MAKE) --no-print-directory web-smoke || exit 1; \
+	$(MAKE) --no-print-directory web-check || exit 1; \
 	echo "make verify: OK in $$(( $$(date +%s) - start )) s"
 
 # fixtures regenerates the recorded logs under testdata/logs: the hand-built ones
@@ -67,17 +68,33 @@ web-nohook:
 	@w="$(WASM)"; \
 	if [ -z "$$w" ]; then mkdir -p $(CURDIR)/tmp/websmoke; w=tmp/websmoke/seq-tui-prod.wasm; \
 		GOOS=js GOARCH=wasm go build -trimpath -ldflags='-s -w' -o $$w ./cmd/seq-tui-web || exit 1; fi; \
-	if grep -aq seqReplay "$$w"; then echo "web-nohook: $$w has the seqReplay test hook; it belongs behind -tags webtest"; exit 1; fi; \
-	echo "web-nohook: $$w has no seqReplay hook"
+	for h in seqReplay seqHarness seqLastView; do \
+		if grep -aq $$h "$$w"; then echo "web-nohook: $$w has the $$h test hook; it belongs behind -tags webtest"; exit 1; fi; done; \
+	echo "web-nohook: $$w has no test hooks"
+
+# web-wasm-test builds the wasm with the webtest tag, outside web/dist.
+web-wasm-test:
+	@mkdir -p $(CURDIR)/tmp/websmoke
+	GOOS=js GOARCH=wasm go build -tags webtest -trimpath -ldflags='-s -w' -o tmp/websmoke/seq-tui.wasm ./cmd/seq-tui-web
+
+# web-check feeds the wasm's output into a headless xterm.js (120x40, as the page
+# sets it up, with convertEol) and compares its rows with the frame the program
+# meant to draw: the picker, a screen change, the game, keys, a resize. It also
+# runs with convertEol off, which must fail: that is the drift web/app.js prevents.
+web-check: web-wasm-test
+	@if command -v node >/dev/null; then \
+		cp web/wasm_exec.js tmp/websmoke/ && \
+		node scripts/web-check.mjs tmp/websmoke && \
+		node scripts/web-check.mjs tmp/websmoke --convert-eol=off --expect-fail >/dev/null && \
+		echo "web-check: rows match with convertEol, and differ without it"; \
+	else echo "web-check: node not found, not run"; fi
 
 # web-smoke builds the wasm (a fresh one, outside web/dist, with the webtest tag
 # for the recorded-log hook that the served build lacks) and runs it in node
 # with piped input and output: the first screen at 80x24, a resize, a key to quit.
 # It also holds the browser build to compiling, which go build ./... does not (it
 # builds for this system). Skipped, with a note, where node is not installed.
-web-smoke:
-	@mkdir -p $(CURDIR)/tmp/websmoke
-	GOOS=js GOARCH=wasm go build -tags webtest -trimpath -ldflags='-s -w' -o tmp/websmoke/seq-tui.wasm ./cmd/seq-tui-web
+web-smoke: web-wasm-test
 	@$(MAKE) --no-print-directory web-nohook
 	@if command -v node >/dev/null; then \
 		cp web/wasm_exec.js tmp/websmoke/ && node scripts/web-smoke.mjs tmp/websmoke; \

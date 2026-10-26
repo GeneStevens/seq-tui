@@ -43,6 +43,10 @@ async function start(settings) {
     fontFamily: '"DejaVu Sans Mono", monospace',
     fontSize: 15,
     scrollback: 0,
+    // The wasm has no TTY, so bubbletea maps "\n" to "\r\n" itself (mapNl) and
+    // its renderer assumes a line feed returns to column 0. xterm.js moves only
+    // down on "\n" unless convertEol is on, which drifts every later column move.
+    convertEol: true,
     cursorBlink: false,
     customGlyphs: true,       // box and block characters drawn by xterm, edge to edge
     macOptionIsMeta: isMac,   // Option is Alt, as the game's Alt keys expect
