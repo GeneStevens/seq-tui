@@ -1,9 +1,7 @@
-charm.land/bubbletea/v2 v2.1.0 h1:A9fj9h5LFrvQhQHFNggp8K8rvY6CUfgn9dMbb6p2HIw=
-charm.land/bubbletea/v2 v2.1.0/go.mod h1:xWHeyxIX9/wiFU2kgPW04ojOZyTzrWf+8lGjUCaftiU=
 ergo.services/ergo v1.999.330 h1:9reLfSUoaAmg1ITcdTGGhJ9UXawQW+xR9yeqHbjsddE=
 ergo.services/ergo v1.999.330/go.mod h1:2WcCdXUIZvCfy9Kkac3Sx6V/tB23Mx3yK6xz77hRfbM=
-github.com/GeneStevens/seq v0.0.0-20261025221513-3852de12573f h1:qEACJeX49rpkj5AYrsIxk2jVP95JQ3TmoDlowOXHtV4=
-github.com/GeneStevens/seq v0.0.0-20261025221513-3852de12573f/go.mod h1:p4i0wU1T4qyfvjkfpMeGtGnEJvb2ZU2US3UDNZ3bvlE=
+github.com/GeneStevens/seq v0.0.0-20261026061204-78b4815f78ae h1:a43IQwaXvmUj9ZzCX7DjcViRFyYdS6IGrveh2L7+x2I=
+github.com/GeneStevens/seq v0.0.0-20261026061204-78b4815f78ae/go.mod h1:p4i0wU1T4qyfvjkfpMeGtGnEJvb2ZU2US3UDNZ3bvlE=
 github.com/GeneStevens/seq-world v0.0.0-20261020151850-9b75692b6539 h1:UbnA/XDipdFaJFpk5gaefqb/dTpBk48XdBs7UsZQ0XM=
 github.com/GeneStevens/seq-world v0.0.0-20261020151850-9b75692b6539/go.mod h1:b6ORP5gLOxrErMBeOQtfR2dOOsukRX8HRiAE1MLTbXw=
 github.com/aymanbagabas/go-udiff v0.2.0 h1:TK0fH4MteXUDspT88n8CKzvK0X9O2xu9yQjWpi6yML8=
