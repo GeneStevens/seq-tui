@@ -18,6 +18,14 @@ function keyName(e) {
   return "";
 }
 
+// plainReason puts the server's refusal of a character in words.
+function plainReason(msg) {
+  if (/SELECT_REFUSED|not_permitted/.test(msg)) {
+    return "That character isn't on this account; leave Character id empty to pick one.";
+  }
+  return msg;
+}
+
 let running = false;
 window.addEventListener("beforeunload", (e) => {
   if (!running) return;
@@ -70,7 +78,13 @@ async function start(settings) {
   window.seqExited = (msg) => {
     running = false;
     term.dispose();
-    $("endedmsg").textContent = msg ? "SEQ stopped: " + msg : "Thanks for playing.";
+    if (msg) {
+      sessionStorage.removeItem("seq.character"); // a refused id is not offered again
+    } else if (sessionStorage.getItem("seq.character.tried")) {
+      sessionStorage.setItem("seq.character", sessionStorage.getItem("seq.character.tried"));
+    }
+    sessionStorage.removeItem("seq.character.tried");
+    $("endedmsg").textContent = msg ? "SEQ stopped: " + plainReason(msg) : "Thanks for playing.";
     $("ended").style.display = "flex";
   };
 
@@ -104,6 +118,8 @@ async function instantiate(go) {
 
 $("again").addEventListener("click", () => location.reload());
 $("token").value = sessionStorage.getItem("seq.token") || "";
+// Only an id that worked is offered again (seq.character is set when a run ends
+// without an error); the field is empty otherwise.
 $("character").value = sessionStorage.getItem("seq.character") || "";
 $("loginform").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -114,7 +130,9 @@ $("loginform").addEventListener("submit", async (e) => {
     url: new URLSearchParams(location.search).get("url") || "", // development: another server
   };
   sessionStorage.setItem("seq.token", settings.token);
-  sessionStorage.setItem("seq.character", settings.character);
+  sessionStorage.removeItem("seq.character");
+  if (settings.character) sessionStorage.setItem("seq.character.tried", settings.character);
+  else sessionStorage.removeItem("seq.character.tried");
   start(settings);
 });
 

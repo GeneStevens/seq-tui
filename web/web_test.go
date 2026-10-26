@@ -1,6 +1,7 @@
 package web_test
 
 import (
+	"os"
 	"regexp"
 	"slices"
 	"testing"
@@ -53,6 +54,31 @@ func TestInterceptListIsWellFormed(t *testing.T) {
 	for _, want := range []string{"ctrl+l", "ctrl+k", "ctrl+r", "ctrl+u", "ctrl+a", "f1"} {
 		if !slices.Contains(keys.Intercept, want) {
 			t.Errorf("%q must be intercepted", want)
+		}
+	}
+}
+
+// The login page offers no character id of its own: the field is empty (a
+// placeholder is fine), and app.js sets it only from what sessionStorage kept.
+func TestCharacterFieldStartsEmpty(t *testing.T) {
+	html, err := os.ReadFile("index.html")
+	if err != nil {
+		t.Fatal(err)
+	}
+	input := regexp.MustCompile(`<input[^>]*id="character"[^>]*>`).Find(html)
+	if input == nil {
+		t.Fatal("no character field in index.html")
+	}
+	if regexp.MustCompile(`\svalue=`).Match(input) {
+		t.Errorf("the character field has a value: %s", input)
+	}
+	js, err := os.ReadFile("app.js")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, m := range regexp.MustCompile(`\$\("character"\)\.value\s*=\s*([^;]*);`).FindAllSubmatch(js, -1) {
+		if !regexp.MustCompile(`^sessionStorage\.getItem\("seq\.character"\) \|\| ""$`).Match(m[1]) {
+			t.Errorf("app.js sets the character field from something else: %s", m[0])
 		}
 	}
 }
