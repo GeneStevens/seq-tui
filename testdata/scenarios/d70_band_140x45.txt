@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                                                                                  
+ Too far: 6 m. Option-click the target to close in · F: stop attacking                                                                      
  ONLINE | Thornwick Downs | heard N.Ns ago | target ok                                                                        ? help  q quit

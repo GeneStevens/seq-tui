@@ -41,5 +41,5 @@
 │ <  NN.Ns Bramble Tusker misses you                                                                                                       │
 │    NN.Ns You hit Bramble Tusker for 13                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                                                                                  
+ Too far: 3 m. Option-click the target to close in · F: stop attacking                                                                      
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago                                            ? help  q quit

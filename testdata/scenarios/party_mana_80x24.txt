@@ -20,5 +20,5 @@
 │     N.Ns You are in combat with Bramble Tusker                               │
 │     N.Ns bram comes into view                                                │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target                                      
+ Too far: 8 m. Option-click the target to close in · F: stop attacking          
  ONLINE | forest: slowed to 75% | heard N.Ns ago | second character in play     

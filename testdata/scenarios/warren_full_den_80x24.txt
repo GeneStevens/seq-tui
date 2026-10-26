@@ -20,5 +20,5 @@
 │   NNN.Ns 12 crowns was taken                                                 │
 │ + NNN.Ns You took Den Fang, 12 crowns                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · C: chat · ?: help                       
+ Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

@@ -18,7 +18,7 @@
 │ Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp       │
 │ Ground    # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road    │
 │           . floor  ░ zone edge                                               │
-│ Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or E…│
+│ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all ·…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
  ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

@@ -20,5 +20,5 @@
 │    NN.Ns entered Thornwick Downs                                             │
 │ +  NN.Ns Word from Wickett Mill: 1 of 1                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · C: chat · ?: help                       
+ Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W  ? help  q quit

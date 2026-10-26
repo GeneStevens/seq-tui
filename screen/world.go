@@ -434,7 +434,7 @@ func overviewLines(m *model.Model, v View, w, h int, st Styler) []string {
 		l = " " + l
 		rows = append(rows, l+strings.Repeat(" ", max(w-visibleWidth(l), 0)))
 	}
-	add(" Click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes")
+	add(" Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes")
 	return pad(rows, w, h)
 }
 

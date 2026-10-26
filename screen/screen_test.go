@@ -696,7 +696,7 @@ func TestKeyHintsFollowWhatIsNear(t *testing.T) {
 		{"dead", base(func(s *pb.Snapshot) { s.Self.Entity.Dead = true }), "R: release"},
 		{"nothing", base(func(s *pb.Snapshot) {
 			s.Self.Entity.Pos = &pb.Pos{X: 10000, Y: 40000}
-		}), "Walk: click or arrows"},
+		}), "Walk: Option-click or arrows"},
 	} {
 		if got := hint(tc.m); !strings.Contains(got, tc.want) {
 			t.Errorf("%s: the hint line says %q, want %q", tc.name, got, tc.want)

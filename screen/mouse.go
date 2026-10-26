@@ -86,14 +86,14 @@ func (h *Hits) setGrid(g *grid) {
 type PickKind int
 
 const (
-	PickGround PickKind = iota // open ground: a click walks there
+	PickGround PickKind = iota // open ground: an Option-click walks there
 	PickMob
 	PickNPC
 	PickDrop
 	PickDoor
 	PickPlayer
 	PickSelf   // the character's own mark: hover only
-	PickMarker // a named place of the zone map (a scout point, a world event's spawn or goal): a click walks there
+	PickMarker // a named place of the zone map (a scout point, a world event's spawn or goal): an Option-click walks there
 )
 
 // Pick is what the pointer is over on the map: a thing, or the ground at Pos.
@@ -109,7 +109,7 @@ type thing struct {
 	c, r  int64
 	pick  Pick
 	label string // by the pointer: name and title
-	dead  bool   // a corpse: it is not selected, a click walks over it
+	dead  bool   // a corpse: it is not selected, a click goes through it
 }
 
 // things lists what the map shows that can be pointed at, in the order of
@@ -233,14 +233,38 @@ func thingAt(ts []thing, c, r int64) (thing, bool) {
 	return thing{}, false
 }
 
+// nearMiss is the mob or person within one cell of (c, r), the nearest of them
+// when there are several (the first in priority order on a tie): a click that
+// just misses a moving mob still counts as a click on it.
+func nearMiss(ts []thing, c, r int64) (thing, bool) {
+	best, bestD, found := thing{}, int64(0), false
+	for _, t := range ts {
+		if t.dead || (t.pick.Kind != PickMob && t.pick.Kind != PickNPC) {
+			continue
+		}
+		dc, dr := t.c-c, t.r-r
+		if dc < -1 || dc > 1 || dr < -1 || dr > 1 {
+			continue
+		}
+		if d := dc*dc + dr*dr; !found || d < bestD {
+			best, bestD, found = t, d, true
+		}
+	}
+	return best, found
+}
+
 // PickAt says what is under the screen cell (x, y): a mob, person, NPC, drop or
-// door, else the ground there. ok is false when the cell is not on the map.
+// door, else a mob or NPC within one cell of it, else the ground there. ok is false when the cell is not on the map.
 func (h *Hits) PickAt(m *model.Model, x, y int) (Pick, bool) {
 	if h == nil || h.g == nil || !h.Map.In(x, y) {
 		return Pick{}, false
 	}
 	c, r := int64(x-h.Map.X), int64(y-h.Map.Y)
-	if t, ok := thingAt(things(h.g, m), c, r); ok {
+	ts := things(h.g, m)
+	if t, ok := thingAt(ts, c, r); ok {
+		return t.pick, true
+	}
+	if t, ok := nearMiss(ts, c, r); ok {
 		return t.pick, true
 	}
 	return Pick{Kind: PickGround, Pos: h.g.worldOf(c, r)}, true
@@ -420,8 +444,11 @@ func CardLines(m *model.Model, id string) []string {
 		}
 		hp := fmt.Sprintf("HP %d/%d, %s", e.GetHp(), e.GetMaxHp(), away(e.GetPos()))
 		act := "Click again or F: attack"
-		if e.GetDead() {
+		switch {
+		case e.GetDead():
 			hp, act = "Dead, "+away(e.GetPos()), ""
+		case m.Self.AutoAttack && m.Self.Target == id:
+			act = "Attacking · F: stop"
 		}
 		out := []string{e.GetName(), lvl, hp}
 		if act != "" {
@@ -444,7 +471,7 @@ func CardLines(m *model.Model, id string) []string {
 		if m.InReach(n) {
 			out = append(out, "Click again or G: talk")
 		} else {
-			out = append(out, "Click again to walk up to them")
+			out = append(out, "Option-click to walk up to them")
 		}
 		return out
 	}

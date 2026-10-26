@@ -69,7 +69,7 @@ func TestMouseWalkSelectAttackHoverAndZoom(t *testing.T) {
 	p.Model(func(m *model.Model) { from = m.Self.Pos })
 	dest = &pb.Pos{X: from.GetX() - 10000, Y: from.GetY()}
 	x, y := at(t, p, dest)
-	p.Click(x, y)
+	p.AltClick(x, y) // only Option-click walks (D109)
 	notice(t, p, "move ok", false)
 	for range 12 {
 		w.Advance(time.Second)
@@ -228,7 +228,7 @@ func TestMouseNPCAndTheLargeMap(t *testing.T) {
 	p.Model(func(m *model.Model) { from = m.Self.Pos })
 	dest := &pb.Pos{X: from.GetX() - 9000, Y: from.GetY()}
 	x, y = at(t, p, dest)
-	p.Click(x, y)
+	p.AltClick(x, y)
 	notice(t, p, "move ok", false)
 	for range 6 {
 		w.Advance(time.Second)

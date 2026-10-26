@@ -20,5 +20,5 @@
 │    26.7s entered Thornwick Downs                                             │
 │ +  42.2s Word from Wickett Mill: 1 of 1                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · C: chat · ?: help                       
+ Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 42m W | move ok  ? help

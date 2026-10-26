@@ -41,5 +41,5 @@
 │    NN.Ns Trophy Scuttler is dead: the fight is over                                                                                      │
 │    NN.Ns Trophy Scuttler is out of view                                                                                                  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: click or arrows · M: large map · C: chat · ?: help                                                                                   
+ Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Testgrounds | heard N.Ns ago | not lootable: the drops in view are not yours to take                                ? help  q quit

@@ -62,6 +62,7 @@ type App struct {
 	quest    *screen.QuestUI    // the quest chain screen, nil when closed
 	replay   *replay            // a recording drawn in place of the screen, nil when none
 	mouse    mouseState         // the pointer, the zoom, the card and the sidebar (D77, D78)
+	approach *approach          // the thing an Option-click is closing in on (D109), nil when none
 	log      *sessionlog.Log    // this session's own log, nil when recording is off
 	stopTold bool               // the recording's stop has been put in the event log
 	logRoot  string             // the directory of the player's session logs
@@ -224,7 +225,7 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if a.pings++; a.pings%pingEvery == 0 {
 			cmds = append(cmds, a.ping)
 		}
-		cmds = append(cmds, a.walkTick())
+		cmds = append(cmds, a.walkTick(), a.approachTick())
 		return a, tea.Batch(cmds...)
 	case frameMsg:
 		return a, a.walkFrame()
@@ -409,6 +410,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.menuKey(k, m)
 		case a.nameKey(k, &act):
 		case a.drawer() && a.drawerKey(k, &act):
+		case k == "esc" && a.approach != nil:
+			act = Action{Kind: Stop} // Esc ends an approach first
 		case k == "esc" && a.mouse.card != "":
 			act = Action{Kind: CloseCard}
 
@@ -425,6 +428,9 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		default:
 			act = Plan(k, m)
 		}
+		if act.Kind == WalkTo {
+			act = a.walkToAction(m)
+		}
 	})
 	return a.do(act)
 }
@@ -433,7 +439,24 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 // sends the intent, and the server decides whether it is allowed.
 func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 	a.view.Notice, a.view.NoticeBad = "", false
+	if ap := a.approach; ap != nil {
+		switch act.Kind {
+		case Move, WalkKey, Stop, Release, Logout, OpenInstance, UseDoor, Quit, Talk, Loot:
+			a.approach = nil // a key or a click that goes elsewhere ends the approach
+		case Target:
+			if act.ID != ap.id {
+				a.approach = nil
+			}
+		}
+	}
+	if act.Kind == Approach && a.focus {
+		act = Action{Kind: Move, X: act.X, Y: act.Y} // the second character is walked, not followed
+	}
 	switch act.Kind {
+	case Approach:
+		var cmd tea.Cmd
+		a.sess.View(func(m *model.Model) { cmd = a.startApproach(m, act) })
+		return a, cmd
 	case Quit:
 		a.closeWalk()
 		return a, tea.Quit
