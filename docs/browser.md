@@ -56,9 +56,9 @@ under one name, with no server change. A Caddyfile that does it:
 play.example.org {
 	encode                       # for what is not precompressed
 	handle /seq/v1* {
-		reverse_proxy 127.0.0.1:8443 {
+		reverse_proxy https://127.0.0.1:8443 {
+			header_up Host {hostport}   # Caddy rewrites Host for an https upstream; seqd compares Origin with Host
 			transport http {
-				tls
 				tls_server_name seqd.internal   # or tls_insecure_skip_verify if seqd keeps its in-memory certificate
 			}
 		}
@@ -73,27 +73,45 @@ play.example.org {
 }
 ```
 
-Caddy keeps the `Host` header when it proxies and handles WebSocket upgrades
+For an `https://` upstream Caddy rewrites `Host` to the upstream's address, so
+`header_up Host {hostport}` puts the public name back (`{hostport}`, not `{host}`:
+seqd's `Origin` check compares the port too). Caddy handles WebSocket upgrades
 without more settings. If seqd runs behind the proxy on plain HTTP the
-`transport` block goes away; seqd serves TLS (`-listen`, `-cert`, `-key`), so it
+`transport` block and the `header_up` go away; seqd serves TLS (`-listen`, `-cert`, `-key`), so it
 is left in here. `application/wasm` matters: `WebAssembly.instantiateStreaming`
 needs it (the page falls back to a slower load without).
 
 ## Local development
 
-A browser needs a trusted certificate for `wss://`. With [mkcert](https://github.com/FiloSottile/mkcert):
+A browser needs a trusted certificate for `wss://`. Once:
 
 ```sh
-mkcert -install
-mkcert -cert-file tmp/localhost.pem -key-file tmp/localhost-key.pem localhost 127.0.0.1
-
-# 1. seqd on a private port, with that certificate
-seqd -listen 127.0.0.1:9443 -cert tmp/localhost.pem -key tmp/localhost-key.pem -dev-account me   # prints a session token
-
-# 2. the page and the proxy, on https://localhost:8443
-make web
-caddy run --config docs/Caddyfile.dev
+brew install mkcert caddy nss
+mkcert -install        # trusts mkcert's CA; without it Chrome shows ERR_CERT_AUTHORITY_INVALID
 ```
+
+Restart Chrome after `mkcert -install`. Then, from the seq-tui repository root:
+
+```sh
+mkdir -p tmp
+mkcert -cert-file tmp/localhost.pem -key-file tmp/localhost-key.pem localhost 127.0.0.1
+make web
+caddy run --config docs/Caddyfile.dev --adapter caddyfile   # the page and the proxy, on https://localhost:8443
+```
+
+(`--adapter caddyfile` is needed because the file is not named `Caddyfile`.) In
+another terminal, from the **seq** repository, start seqd on a private port with
+the same certificate (absolute paths) and the packs:
+
+```sh
+go run ./cmd/seqd -listen 127.0.0.1:9443 \
+  -cert /abs/path/to/seq-tui/tmp/localhost.pem -key /abs/path/to/seq-tui/tmp/localhost-key.pem \
+  -packs ../seq-world/packs -dev-account me      # prints a session token
+```
+
+The dev account's characters are `me-1` and `me-2`. Open `https://localhost:8443/`,
+paste the token and leave Character id empty to pick one (or type `me-1`).
+`make web` again after a change; a reload loads the new wasm.
 
 `docs/Caddyfile.dev` serves `web/dist` on `https://localhost:8443` and proxies `/seq/v1` to seqd:
 
@@ -104,7 +122,12 @@ caddy run --config docs/Caddyfile.dev
 localhost:8443 {
 	tls tmp/localhost.pem tmp/localhost-key.pem
 	handle /seq/v1* {
-		reverse_proxy https://localhost:9443
+		reverse_proxy https://127.0.0.1:9443 {
+			header_up Host {hostport}
+			transport http {
+				tls_server_name localhost
+			}
+		}
 	}
 	handle {
 		root * web/dist
@@ -114,8 +137,23 @@ localhost:8443 {
 }
 ```
 
-Open `https://localhost:8443/` and paste the token. `make web` again after a change;
-a reload loads the new wasm.
+`127.0.0.1` rather than `localhost` keeps the upstream off `::1`, where seqd is not
+listening; `tls_server_name localhost` is the name on the certificate.
+
+Check the proxy and the Origin check before opening the browser; this prints `101`:
+
+```sh
+curl -sk -o /dev/null -w '%{http_code}\n' https://localhost:8443/seq/v1 \
+  -H 'Connection: Upgrade' -H 'Upgrade: websocket' -H 'Sec-WebSocket-Version: 13' \
+  -H 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==' -H 'Origin: https://localhost:8443'
+```
+
+Troubleshooting:
+
+- **ERR_CERT_AUTHORITY_INVALID**: the certificate is not trusted. Run `mkcert -install`, make the certificate again, restart Chrome.
+- **403 "origin not authorized"** (the curl prints 403): `Host` does not match `Origin`. Check the Caddyfile has `header_up Host {hostport}` (with the port) and that you open the page as `https://localhost:8443`.
+- **502 or a connection refused**: seqd is not running on `127.0.0.1:9443`, or the proxy points at `localhost` (which may resolve to `::1`).
+- **"SEQ stopped: That character isn't on this account"** (`not_permitted` from the server): wrong character id. Leave Character id empty to pick one, or use `me-1` / `me-2`.
 
 ## How it is put together
 

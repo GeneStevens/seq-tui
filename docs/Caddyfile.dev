@@ -5,7 +5,12 @@
 localhost:8443 {
 	tls tmp/localhost.pem tmp/localhost-key.pem
 	handle /seq/v1* {
-		reverse_proxy https://localhost:9443
+		reverse_proxy https://127.0.0.1:9443 {
+			header_up Host {hostport}
+			transport http {
+				tls_server_name localhost
+			}
+		}
 	}
 	handle {
 		root * web/dist
