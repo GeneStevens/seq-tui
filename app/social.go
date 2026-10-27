@@ -271,6 +271,12 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 		var before int
 		a.sess.View(func(m *model.Model) { before = m.Social.ReportAck })
 		res, err := a.sess.Report(ctx, name, rest)
+		if err == nil && !res.GetOk() && res.GetReason() == "rate_limited" {
+			// Over a report limit: the server's own sentence, plainly (it also sits in the log as a notice).
+			why := ""
+			a.sess.View(func(m *model.Model) { why = m.Social.ReportLimitText })
+			return bad(firstNonEmpty(why, "report "+name+": you have filed too many reports for now; try again later (rate_limited)"))
+		}
 		if r, no := refused("report "+name, res, err); no {
 			return r
 		}

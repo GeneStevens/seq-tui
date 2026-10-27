@@ -111,6 +111,8 @@ type Social struct {
 	// OOCOff says the character switched the ooc channel off (D101 §7): the
 	// server tells it at login and on every change (SEQ-156); until then it is on.
 	OOCOff bool
+	// ReportLimitText is the server's last words on a report refused for an account limit.
+	ReportLimitText string
 	// ReportAck counts the server's acknowledgements of a /report seen.
 	ReportAck int
 	invites   int
@@ -268,6 +270,10 @@ func (m *Model) applyNotice(n *pb.SocialNotice) {
 		// the next line the character tries to say.
 		text = firstText(text, "A game master has muted you. Nobody can hear what you say until the mute is lifted.")
 		s.MutedText = text
+	case "report_limit":
+		// The server's own words for a refused report (D112); kept for the refusal of /report.
+		text = firstText(text, "You've filed several reports recently. A GM will review them.")
+		s.ReportLimitText = text
 	case "report_filed":
 		s.ReportAck++
 		text = firstText(text, "your report was filed with the game masters")

@@ -20,5 +20,5 @@
 │ + NNN.Ns Wolves at Wickett Mill: 4 of 4                                      │
 │   NNN.Ns Meadow Wolf is out of view                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
- L: loot all 4 drops                                                            
+ L: loot all 3 drops                                                            
  ONLINE | → Go to Thornwick (Thornwick), 64m NW | no target in view       ? help

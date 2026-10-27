@@ -29,10 +29,10 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ x  NN.Ns You killed Raiding Goblin                                                                                                       │
 │    NN.Ns Your target Raiding Goblin is gone                                                                                              │
 │    NN.Ns You stop attacking                                                                                                              │
-│    NN.Ns Raiding Goblin dropped Rowan Focus [Fine]                                                                                       │
-│    NN.Ns Raiding Goblin dropped 4 crowns                                                                                                 │
+│    NN.Ns Raiding Goblin dropped 7 crowns                                                                                                 │
 │    NN.Ns Raiding Goblin is dead: the fight is over                                                                                       │
 │    NN.Ns You are out of combat                                                                                                           │
 │    NN.Ns Raiding Goblin is out of view                                                                                                   │

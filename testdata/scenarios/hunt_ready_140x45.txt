@@ -20,8 +20,8 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ D Town Gate         64m NW [next door] │
-│                                                                                                ││ * 2 crowns                        2m S │
-│                                                                                                ││ +11 more                               │
+│                                                                                                ││ * 1 crowns                        2m S │
+│                                                                                                ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │
@@ -29,11 +29,11 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│   NNN.Ns You hit Meadow Wolf for 10                                                                                                      │
 │   NNN.Ns You hit Meadow Wolf for 6                                                                                                       │
 │ x NNN.Ns You killed Meadow Wolf                                                                                                          │
 │   NNN.Ns Your target Meadow Wolf is gone                                                                                                 │
 │   NNN.Ns You stop attacking                                                                                                              │
-│   NNN.Ns Meadow Wolf dropped Wolf Pelt                                                                                                   │
 │   NNN.Ns Meadow Wolf dropped 1 crown                                                                                                     │
 │   NNN.Ns Meadow Wolf is dead: the fight is over                                                                                          │
 │   NNN.Ns You are out of combat                                                                                                           │
@@ -41,5 +41,5 @@
 │ + NNN.Ns Wolves at Wickett Mill: 4 of 4                                                                                                  │
 │   NNN.Ns Meadow Wolf is out of view                                                                                                      │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- L: loot all 4 drops                                                                                                                        
+ L: loot all 3 drops                                                                                                                        
  ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 64m NW | heard N.Ns ago | no target in view      ? help  q quit
