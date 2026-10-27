@@ -30,8 +30,8 @@
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│   NNN.Ns Your target Meadow Wolf is gone                                                                                                 │
 │   NNN.Ns You stop attacking                                                                                                              │
-│   NNN.Ns Meadow Wolf dropped Wolf Pelt                                                                                                   │
 │   NNN.Ns Meadow Wolf dropped 1 crown                                                                                                     │
 │   NNN.Ns Meadow Wolf is dead: the fight is over                                                                                          │
 │   NNN.Ns You are out of combat                                                                                                           │

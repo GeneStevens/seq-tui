@@ -125,3 +125,42 @@ func TestOOCNameLinksTheCardTellAndReport(t *testing.T) {
 	})
 	ann.Golden("tui043_reported")
 }
+
+// SEQ-182: a second report of one character is added to the open one, and the server says so; a
+// reporter over the hourly limit is refused, and the line says why in plain words.
+func TestReportAppendedAndRefusedAreShownPlainly(t *testing.T) {
+	names := []string{"b1", "b2", "b3", "b4", "b5", "b6"}
+	accts := []testserver.Account{{Name: "ann", Characters: []string{"ann1"}}}
+	for _, n := range names {
+		accts = append(accts, testserver.Account{Name: n, Characters: []string{n}})
+	}
+	w := scenario.New(t, testserver.Options{Zones: []string{testserver.Testgrounds}, Accounts: accts})
+	w.Srv.GM()
+	w.Place("ann", "ann1", 11500, 57500)
+	for _, n := range names {
+		w.Place(n, n, 11500, 58500)
+	}
+	ann := w.Login("ann", "ann1")
+	for _, n := range names {
+		w.Login(n, n)
+	}
+	lastLog := func() (s string) {
+		ann.Model(func(m *model.Model) { s = m.Log[len(m.Log)-1].Text })
+		return s
+	}
+	command(ann, "report b1 spamming")
+	w.Settle()
+	command(ann, "report b1 and again")
+	w.Settle()
+	if got := lastLog(); !strings.Contains(got, "You have already reported b1") || !strings.Contains(got, "what you wrote has been added") {
+		t.Errorf("the append is not shown in the server's words: %q", got)
+	}
+	notice(t, ann, "You have already reported b1", false)
+	for _, n := range names[1:5] {
+		command(ann, "report "+n+" spamming")
+		w.Settle()
+	}
+	command(ann, "report b6 spamming")
+	w.Settle()
+	notice(t, ann, "you have filed too many reports", true)
+}

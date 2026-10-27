@@ -290,3 +290,12 @@ func TestChatSettingsReplaceWhatTheClientKnowsOfOOC(t *testing.T) {
 		t.Error("another character's settings were taken")
 	}
 }
+
+func TestTheServersReportLimitWordsAreKeptAndLogged(t *testing.T) {
+	m := New()
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Notice{Notice: &pb.SocialNotice{Kind: "report_limit", Text: "You've filed several reports recently. A GM will review them."}}})
+	if m.Social.ReportLimitText != "You've filed several reports recently. A GM will review them." || m.Social.ReportAck != 0 ||
+		m.Log[len(m.Log)-1].Kind != "notice_report_limit" || m.Log[len(m.Log)-1].Text != m.Social.ReportLimitText {
+		t.Errorf("limit %q ack %d log %+v", m.Social.ReportLimitText, m.Social.ReportAck, m.Log)
+	}
+}
