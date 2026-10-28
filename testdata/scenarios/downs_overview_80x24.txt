@@ -1,15 +1,15 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                                                                              │
-│                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
-│                            ░"""c""""Goblin Hut"" ░                           │
-│                            ░  c ""cc≈    ""c "c" ░                           │
-│                            ░    c""";@  c#  c   ^░                           │
-│                            D·;·;··c·=c·;v·^·····;░                           │
-│                            ░ c#◆ ccc≈≈ ^c#  c   ^░                           │
-│                            ░   c  c"Goblin Hutc  ░                           │
-│                            ░"""c  ""≈    c   ^   ░                           │
-│                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
-│ Thornwick Downs, 420m by 300m, north up. You: 185m E, 174m N of the SW corne…│
+│                                ░░░░░;c░;cc░░░░░                              │
+│                                ░   ;≈≈≈≈≈c    ░                              │
+│                                ░""c#·≈   c""" ░                              │
+│                                ░ cc";;c c"c c ░                              │
+│                                D·◆·c;;@;·^···;░                              │
+│                                ░ cc"cc  c"c c ░                              │
+│                                ░"c·;v≈  c""^  ░                              │
+│                                ░ c·;c≈cc;cc   ░                              │
+│                                ░░░░░c░░░░░░░░░░                              │
+│ Thornwick Downs, 420m by 450m, north up. You: 185m E, 249m N of the SW corne…│
 │ You       @ you  % scout marker  + plan end  ◄ objective                     │
 │ People    p player  T trainer  $ vendor  B banker  H binder  g guard         │
 │           Q quest person  & board  D door  “ said, for 4 s  » chat names you │

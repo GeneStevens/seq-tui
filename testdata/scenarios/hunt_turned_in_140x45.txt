@@ -1,16 +1,16 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Jobs for the Downs> | you hold 0 of 3 contracts | 10 crowns          ││ Hale  Lv 1 Warrior          | 10 crowns│
-│ Handed in the contract Wolves at Wickett Mill: 22 XP, 10 crowns                                ││ HP 130/130 ########################### │
-│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ XP ##################------- 10 to Lv 2│
-│> Thin the Meadow Wolves          Hunt   L1-3  │  (none)                                        ││ Atk off | none                         │
-│  Pelts for the Tanners           Gather L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 0 of 3 contracts | 14 crowns          ││ Hale  Lv 1 Warrior          | 14 crowns│
+│ Handed in the contract Wolves at Wickett Mill: 31 XP, 14 crowns                                ││ HP 130/130 ########################### │
+│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ XP #########################- 1 to Lv 2│
+│> Boars in the Barley             Hunt   L1-3  │  (none)                                        ││ Atk off | none                         │
+│  Word from Wickett Mill          Scout  L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
-│  Word from Barleycross           Scout  L1-3  │                                                │┌─ Your character (C: tab) ──────────────┐
-│  Cutpurses on the Barleycr… opens at level 2  │                                                ││ [Gear]  Bags   Stats                   │
-│  Clear the Roadside Bandits opens at level 4  │                                                ││ Head      -                            │
-│  The Greywood Pack          opens at level 4  │                                                ││ Chest     -                            │
-│  Tusks for the Carver       opens at level 4  │                                                ││ Legs      -                            │
-│  Report from Millrace Ford  opens at level 4  │                                                ││ Hands     -                            │
+│  Cutpurses on the Barleycr… opens at level 2  │                                                │┌─ Your character (C: tab) ──────────────┐
+│  Clear the Roadside Bandits opens at level 4  │                                                ││ [Gear]  Bags   Stats                   │
+│  The Greywood Pack          opens at level 4  │                                                ││ Head      -                            │
+│  Tusks for the Carver       opens at level 4  │                                                ││ Chest     -                            │
+│  Report from Millrace Ford  opens at level 4  │                                                ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
 │                                                                                                ││ Ring 1    -                            │
 │                                                                                                ││ Ring 2    -                            │
@@ -40,6 +40,6 @@
 │   NNN.Ns entered Thornwick                                                                                                               │
 │   NNN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ + NNN.Ns You hand in Wolves at Wickett Mill: 22 experience, 10 crowns                                                                    │
+│ + NNN.Ns You hand in Wolves at Wickett Mill: 31 experience, 14 crowns                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 5m S | road: faster, 125% | heard N.Ns ago | hand in Wolves at Wickett Mill ok     ? help
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125% | heard N.Ns ago | hand in Wolves at Wickett Mill ok     ? help

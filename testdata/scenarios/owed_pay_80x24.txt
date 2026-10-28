@@ -1,5 +1,5 @@
  EVENT  Harvest Raid: 2 got through.                                            
-┌─ Thornwick Downs — Thornwick Gate, at 6,150 m,… ─┐┌─ You ────────────────────┐
+┌─ Thornwick Downs — Thornwick Gate, at 6,225 m,… ─┐┌─ You ────────────────────┐
 │                       ░                          ││ hale  Lv 12 (max)… | 30cr│
 │                       ░                          ││ HP 317/317 ############# │
 │                       ░     """""""""""""""""""  ││ XP ############# 1772 max│

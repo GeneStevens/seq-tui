@@ -73,7 +73,7 @@ func TestDuoOnAStanceStandsInEachRound(t *testing.T) {
 // at the next snapshot.
 func TestTheServersSpeedInAForestAndOnTheRoad(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: warrior(scenario.Downs), Zone: noSpawns})
-	w.Place("ann", "hale", 140000, 70000) // in Greywood
+	w.Place("ann", "hale", 140000, 145000) // in Greywood
 	p := w.Login("ann", "hale")
 	var pct int64
 	p.Model(func(m *model.Model) {
@@ -90,7 +90,7 @@ func TestTheServersSpeedInAForestAndOnTheRoad(t *testing.T) {
 
 	// Out of the wood the server has not spoken again: the line names the open
 	// ground and claims no speed.
-	walkVia(t, w, p, [2]int64{112000, 70000})
+	walkVia(t, w, p, [2]int64{112000, 145000})
 	if got := status(p); strings.Contains(got, "slowed") || strings.Contains(got, "faster") {
 		t.Fatalf("out of the forest the status line still says %q", got)
 	}
@@ -164,15 +164,15 @@ func TestOwedPayArrivesAtTheNextJoin(t *testing.T) {
 			for i := range z.Markers { // the raid comes down to the town gate, where the character stands
 				switch z.Markers[i].ID {
 				case "raid-edge":
-					z.Markers[i].Pos = core.Pos{X: 60000, Y: 150000}
+					z.Markers[i].Pos = core.Pos{X: 60000, Y: 225000}
 				case "barleycross":
-					z.Markers[i].Pos = core.Pos{X: 12000, Y: 150000}
+					z.Markers[i].Pos = core.Pos{X: 12000, Y: 225000}
 				}
 			}
 		},
 	})
 	w.Fixture("owed_pay.jsonl")
-	w.Place("ann", "hale", 34000, 150000)
+	w.Place("ann", "hale", 34000, 225000)
 	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
@@ -218,8 +218,8 @@ func TestCompanionAndPartyManaAreShown(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs,
 		Classed: map[string]string{"hale": "warrior", "bram": "cleric"}}}})
 	w.Fixture("companion_mana.jsonl")
-	w.Place("ann", "hale", 146000, 95000)
-	w.Place("ann", "bram", 144000, 95000)
+	w.Place("ann", "hale", 146000, 170000)
+	w.Place("ann", "bram", 144000, 170000)
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.Give("bram", levelUpAs("cleric", 5, nil))
 	w.Srv.GiveCompanion("hale", companionRecord("healer", "follow"))
@@ -264,7 +264,7 @@ func TestCompanionAndPartyManaAreShown(t *testing.T) {
 // the zone overview names them in its legend.
 func TestAllTheZonesMarkersAreOnTheMap(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: warrior(scenario.Downs), Zone: noSpawns})
-	w.Place("ann", "hale", 60000, 135000) // between the town gate and Barleycross
+	w.Place("ann", "hale", 60000, 210000) // between the town gate and Barleycross
 	p := w.Login("ann", "hale")
 	p.Eventually("the zone map", func(m *model.Model) bool { return m.Map != nil && m.Map.GetSpace() == m.Space })
 	p.Model(func(m *model.Model) {
@@ -278,7 +278,10 @@ func TestAllTheZonesMarkersAreOnTheMap(t *testing.T) {
 	})
 	// The spots are named as the pack names them (D56), not by their ids.
 	near := p.Screen(140, 45)
-	for _, name := range []string{"Barleycross", "Raid Edge", "Wickett Mill", "Goblin Lookout"} {
+	// (Nearby lists the nearest dozen of the Downs' many places now; the farther
+	// Goblin Lookout is named by the overview below, and Brigands' Rise, which
+	// the overview's crowded labels leave out, is left to the markers' kinds above.)
+	for _, name := range []string{"Barleycross", "Wickett Mill"} {
 		if !strings.Contains(near, name) {
 			t.Errorf("the screen does not name %q:\n%s", name, near)
 		}
@@ -290,6 +293,9 @@ func TestAllTheZonesMarkersAreOnTheMap(t *testing.T) {
 	}
 	p.Press("m")
 	s := p.Screen(140, 45)
+	if !strings.Contains(s, "Goblin Lookout") {
+		t.Errorf("the overview does not name the Goblin Lookout:\n%s", s)
+	}
 	for _, glyph := range []string{";", "v", "G"} {
 		// The overview draws the markers; the legend names them (it has the glyph
 		// too, so the picture must hold at least one more).

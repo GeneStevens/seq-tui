@@ -1,15 +1,15 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | 0 crowns           ││ Hale  Lv 1 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
-│  Thin the Meadow Wolves          Hunt   L1-3  │> Word from Wickett Mi… 0/1 — go to the marker  ││ XP ------------------------- 40 to Lv 2│
-│> Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
+│  Boars in the Barley             Hunt   L1-3  │> Word from Wickett Mi… 0/1 — go to the marker  ││ XP ------------------------- 40 to Lv 2│
+│> Wolves at Wickett Mill          Hunt   L1-3  │                                                ││ Atk off | none                         │
 │  Tusks for the Miller            Gather L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
-│  Word from Barleycross           Scout  L1-3  │                                                │└────────────────────────────────────────┘
-│  Cutpurses on the Barleycr… opens at level 2  │                                                │┌─ Your character (C: tab) ──────────────┐
-│  Clear the Roadside Bandits opens at level 4  │                                                ││ [Gear]  Bags   Stats                   │
-│  The Greywood Pack          opens at level 4  │                                                ││ Head      -                            │
-│  Tusks for the Carver       opens at level 4  │                                                ││ Chest     -                            │
-│  Report from Millrace Ford  opens at level 4  │                                                ││ Legs      -                            │
+│  Cutpurses on the Barleycr… opens at level 2  │                                                │└────────────────────────────────────────┘
+│  Clear the Roadside Bandits opens at level 4  │                                                │┌─ Your character (C: tab) ──────────────┐
+│  The Greywood Pack          opens at level 4  │                                                ││ [Gear]  Bags   Stats                   │
+│  Tusks for the Carver       opens at level 4  │                                                ││ Head      -                            │
+│  Report from Millrace Ford  opens at level 4  │                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
 │                                                                                                ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
 │                                                                                                ││ Ring 1    -                            │

@@ -1,27 +1,27 @@
-┌─ Thornwick Downs, at 43,98 m, north up ────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│▲ Town Gate 63m                             ############                                        ││ Hale  Lv 1 Warrior           | 0 crowns│
-│                                                                                                ││ HP 128/130 ##########################- │
-│                                                                                                ││ XP #####-------------------- 32 to Lv 2│
-│                                                                                                ││ Atk off Ret ON | none                  │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│                                                                                                ││ First Steps                            │
-│                                                                                                ││ Step 1 of 4                            │
-│                                                                                                ││ Speak to Tamsin Hale, the Watch        │
-│                                                                                                ││ Greeter, here in Hawthorn Square.      │
-│                                                                                                ││ This step is in another zone:          │
-│                                                @                                               ││   Thornwick.                           │
-│                                                 *                                              ││ Take the Town Gate: 64m NW of you.     │
-│                                                                                          c     │└────────────────────────────────────────┘
-│                                                  c                                             │┌─ Target ───────────────────────────────┐
-│                                                                                                ││ no target (Tab to choose)              │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ D Town Gate         64m NW [next door] │
-│                                                                                                ││ * 1 crowns                        2m S │
-│                                                                                                ││ +10 more                               │
+┌─ Thornwick Downs, at 42,173 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│▲ Town Gate 62m                              ############                   ··········          ││ Hale  Lv 1 Warrior           | 0 crowns│
+│                                                                            ··········          ││ HP 130/130 ########################### │
+│                                                                            ··········          ││ XP #####-------------------- 32 to Lv 2│
+│                                                                            ··········          ││ Atk off Ret ON | none                  │
+│                                                                            ·········           │└────────────────────────────────────────┘
+│                                                                           ··········           │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│                                                                           ··········           ││ First Steps                            │
+│                                                                           ··········           ││ Step 1 of 4                            │
+│                                                                           ··········           ││ Speak to Tamsin Hale, the Watch        │
+│                                                                           ··········           ││ Greeter, here in Hawthorn Square.      │
+│                                                                           ···········          ││ This step is in another zone:          │
+│                                                @                          ············         ││   Thornwick.                           │
+│                                                 *                          ············        ││ Take the Town Gate: 63m NW of you.     │
+│                                                                             ············  c    │└────────────────────────────────────────┘
+│                                                   c                          ············      │┌─ Target ───────────────────────────────┐
+│                                                                               ············     ││ no target (Tab to choose)              │
+│                                                                                ············    ││                                        │
+│                                                                                 ············   ││                                        │
+│                                                                                  ············  │└────────────────────────────────────────┘
+│                                                                                   ············ │┌─ Nearby ───────────────────────────────┐
+│                                                                                    ············││ D Town Gate         63m NW [next door] │
+│                                                                                     ···········││ * 1 crowns                       2m SE │
+│                                                                                      ··········││ +28 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │
@@ -42,4 +42,4 @@
 │   NNN.Ns Meadow Wolf is out of view                                                                                                      │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot all 3 drops                                                                                                                        
- ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 64m NW | heard N.Ns ago | no target in view      ? help  q quit
+ ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 63m NW | heard N.Ns ago | no target in view      ? help  q quit

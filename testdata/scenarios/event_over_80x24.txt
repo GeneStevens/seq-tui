@@ -1,24 +1,24 @@
  EVENT OVER  Harvest Raid won: The raid is broken. The harvest at Barleycross i…
 ┌─ Thornwick Downs, at 110,131 m, north up ────────┐┌─ You ────────────────────┐
-│·································c··············==││ hale  Lv 8 Warrior | 60cr│
-│··     ·········································==││ HP 36/249 ##------------ │
-│        ·;· """"""""                             ≈││ XP ######----- 82 to Lv 9│
-│        ··· ###                                  ≈││ Atk ON Ret ON | Roadside…│
-│        ·◆· ###          @       """"""""        ≈│└──────────────────────────┘
-│##≈≈≈###   ####                  """"""""""      ≈│┌─ Target ─────────────────┐
-│##≈≈≈###   ####         M       """""""""""""    ≈││ M Roadside Cutpurse  Lv 3│
-│                                """"c"""""""""   ≈││ HP 120/120 ####### 9m S  │
+│            ·····             """"""""""""""""   ≈││ hale  Lv 8 Warrior | 60cr│
+│          c  ·····            """"""""""""""""  ≈≈││ HP 220/249 ###########-- │
+│              ····           """""""""""""""""  ≈≈││ XP #######---- 70 to Lv 9│
+│               ····          """"""""c""""""""  ≈≈││ Atk off Ret ON | none    │
+│               ····      @   """""""""""""""""  ≈≈│└──────────────────────────┘
+│"              ····          """^^^^^"^^^^^"""" ≈≈│┌─ Target ─────────────────┐
+│"              ·····         """^""c""c""c^"""" ≈≈││ no target (Tab to choose)│
+│""              ····          ""^""c""""""^"""" ≈≈││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
-│ 1 Taunt ready       2 Bash range       3 -                4 -                │
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
 │ 5 -                 6 -                7 -                8 -                │
-│ You: none   |   Roadside Cutpurse: none                                      │
+│ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│   NNN.Ns Raiding Goblin is out of view                                       │
+│            Garland                                                           │
 │   NNN.Ns Raiding Goblin is out of view                                       │
 │   NNN.Ns Tip: tradable once means one trade to another player, then it is    │
 │            bound to them.                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
- Too far: 9 m. Option-click the target to close in · F: stop attacking          
- ONLINE | heard N.Ns ago | Too far: 9 m. Option-click the target to close in    
+ L: loot all 9 drops                                                            
+ ONLINE | Thornwick Downs | heard N.Ns ago | attack ok            ? help  q quit

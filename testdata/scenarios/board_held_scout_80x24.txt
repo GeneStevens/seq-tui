@@ -1,15 +1,15 @@
 ┌─ Contract board — C: your character ─────────────────────────────────────────┐
 │ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | …│
 │ On offer now (Enter takes it)        │ You hold (Enter hands in, X gives up) │
-│  Thin the Meadow Wolves Hunt   L1-3  │> Word from W… 0/1 — go to the marker  │
-│> Pelts for the Tanners  Gather L1-3  │                                       │
+│  Boars in the Barley    Hunt   L1-3  │> Word from W… 0/1 — go to the marker  │
+│> Wolves at Wickett Mill Hunt   L1-3  │                                       │
 │  Tusks for the Miller   Gather L1-3  │                                       │
-│  Word from Barleycross  Scout  L1-3  │                                       │
 │  Cutpurses on the… opens at level 2  │                                       │
 │  Clear the Roadsi… opens at level 4  │                                       │
 │  The Greywood Pack opens at level 4  │                                       │
 │  Tusks for the Ca… opens at level 4  │                                       │
 │  Report from Mill… opens at level 4  │                                       │
+│                                                                              │
 │                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
 │ Word from Wickett Mill: Scout, go to the marker.                             │

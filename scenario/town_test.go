@@ -149,6 +149,7 @@ func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
 	}
 	p.Press("enter")
 	notice(t, p, "take Wolves at Wickett Mill ok", false)
+	w.Advance(time.Second) // the server records the take on its next tick
 	p.Model(func(m *model.Model) {
 		c := m.Contract("hunt-mill-wolves")
 		if c == nil || c.GetKind() != "hunt" || c.GetHave() != 0 || c.GetNeed() != 4 || !hasLog(m, "reward", "You take the contract Wolves at Wickett Mill") {
@@ -159,8 +160,12 @@ func TestThornwickTalkToTheBoardAndTakeAHunt(t *testing.T) {
 
 	// Two more, and the fourth is refused with its reason.
 	// (Contracts of later levels are listed below the open ones now: Enter on the
-	// row the cursor stays on takes the next, where a Down would step onto one.)
-	p.Press("enter", "enter")
+	// row the cursor stays on takes the next; when that row is one of those, Up
+	// steps back onto an open one.)
+	p.Press("enter")
+	w.Advance(time.Second)
+	p.Press("up", "enter")
+	w.Advance(time.Second)
 	p.Model(func(m *model.Model) {
 		if len(m.Self.Contracts) != 3 {
 			t.Fatalf("three contracts held, have %d", len(m.Self.Contracts))
@@ -219,6 +224,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 		p.Press("down")
 	}
 	p.Press("enter", "esc", "esc")
+	w.Advance(time.Second)
 	p.Model(func(m *model.Model) {
 		if m.Contract("hunt-mill-wolves") == nil {
 			t.Fatalf("the hunt was not taken: %v", m.Self.Contracts)
@@ -238,10 +244,10 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	})
 	p.Golden("downs_gate")
 
-	// Across the fields to the wolves at (45, 94): they notice a character 8 m off.
-	walkVia(t, w, p, [2]int64{30000, 150000}, [2]int64{30000, 104000}, [2]int64{45000, 104000})
+	// Across the fields to the wolves at (45, 169), east of the mill: they notice a character 8 m off.
+	walkVia(t, w, p, [2]int64{34000, 225000}, [2]int64{34000, 180000}, [2]int64{45000, 180000})
 	p.Golden("downs_camp")
-	walkVia(t, w, p, [2]int64{45000, 98000})
+	walkVia(t, w, p, [2]int64{45000, 174000})
 	fightUntil(t, w, p, func(m *model.Model) bool { c := m.Contract("hunt-mill-wolves"); return c != nil && c.GetReady() }, 25)
 	p.Model(func(m *model.Model) {
 		if c := m.Contract("hunt-mill-wolves"); c == nil || c.GetHave() != 4 || !hasLog(m, "reward", "Wolves at Wickett Mill: 4 of 4") {
@@ -251,7 +257,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	p.Golden("hunt_ready")
 
 	// Home: back to the door, through it, and across the square to the board.
-	walkVia(t, w, p, [2]int64{30000, 104000}, [2]int64{30000, 150000}, [2]int64{8000, 150000})
+	walkVia(t, w, p, [2]int64{34000, 180000}, [2]int64{34000, 225000}, [2]int64{8000, 225000})
 	p.Press("e")
 	notice(t, p, "use door ok", false)
 	p.Eventually("Thornwick", inSpace("Thornwick"))
@@ -269,7 +275,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	notice(t, p, "hand in Wolves at Wickett Mill ok", false)
 	for _, sz := range [][2]int{{140, 45}, {80, 24}} {
 		// The board panel shows what the hand-in paid (D76).
-		if s := p.Screen(sz[0], sz[1]); !strings.Contains(s, "Handed in the contract Wolves at Wickett Mill: 22 XP, 10 crowns") {
+		if s := p.Screen(sz[0], sz[1]); !strings.Contains(s, "Handed in the contract Wolves at Wickett Mill: 31 XP, 14 crowns") {
 			t.Errorf("%v: no hand-in summary in the board panel:\n%s", sz, s)
 		}
 	}
@@ -366,6 +372,7 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 	}
 	p.Press("enter")
 	notice(t, p, "take Word from Wickett Mill ok", false)
+	w.Advance(time.Second)
 	p.Press("esc", "esc")
 
 	walkVia(t, w, p, [2]int64{114000, 45000})
@@ -383,8 +390,10 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 			t.Fatalf("the Downs' map has markers %v; the contract's spot is %v", k, m.Marker(m.Contract("scout-wickett-mill")))
 		}
 	})
-	if s := p.Screen(140, 45); !strings.Contains(s, "scout marker") || !strings.Contains(s, "%") {
-		t.Fatalf("the marker is not on the map or in Nearby:\n%s", s)
+	// (Nearby lists the nearest few of the Downs' many places and people now, so the
+	// marker's own row is no longer in view here; the map shows it.)
+	if s := p.Screen(140, 45); !strings.Contains(s, "%") {
+		t.Fatalf("the marker is not on the map:\n%s", s)
 	}
 	p.Golden("scout_marker_in_view")
 
@@ -476,13 +485,13 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 		Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}},
 		Zone: func(space string, z *core.Zone) {
 			if space == scenario.Downs { // one place for it to appear, 10 m from the character
-				z.Rares[0].Points = []core.Pos{{X: 215000, Y: 70000}}
+				z.Rares[0].Points = []core.Pos{{X: 215000, Y: 145000}}
 				z.Rares[0].MinMs, z.Rares[0].MaxMs = 10_000, 10_000 // it comes at 10 s
 			}
 		},
 	})
 	w.Fixture("thornwick_rare.jsonl")
-	w.Place("ann", "hale", 205000, 70000)
+	w.Place("ann", "hale", 205000, 145000)
 	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
@@ -563,7 +572,7 @@ func TestThornwickDieInTheDownsAndWakeInThornwick(t *testing.T) {
 	w.Fixture("thornwick_respawn.jsonl")
 	z, _ := content.Zone(scenario.Thornwick)
 	bind := z.NPC("binder").Pos
-	w.Place("ann", "hale", 20000, 150000)
+	w.Place("ann", "hale", 20000, 225000)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cs.Dead, cs.HP = true, 0
 		cs.BindZone, cs.BindPos = z.Name, &bind
