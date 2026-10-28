@@ -14,16 +14,16 @@
 │  ▲ Broad Sword Common           120, short 90 │                                                ││ Feet      -                            │
 │  ▲ Poniard Common               110, short 80 │                                                ││ Ring 1    -                            │
 │  x Elder Staff Common           110, short 80 │                                                ││ Ring 2    -                            │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ Neck      -                            │
-│ ▲ Cudgel: Common, Main hand; tradable once                                                     ││ Main hand -                            │
-│ damage 2-5 / N.Ns; costs 15 crowns                                                             ││ Off hand  -                            │
+│  x Tempered Mace Fine          200, short 170 │                                                ││ Neck      -                            │
+│  x Tempered Sword Fine         260, short 230 │                                                ││ Main hand -                            │
+│  x Tempered Stiletto Fine      300, short 270 │                                                ││ Off hand  -                            │
+│  x Tempered Staff Fine         320, short 290 │                                                ││                                        │
+│  x Heavy Mace Fine             480, short 450 │                                                ││                                        │
+│  x Heavy Sword Fine            560, short 530 │                                                ││                                        │
+│────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
+│ ▲ Cudgel: Common, Main hand; tradable once                                                     ││                                        │
+│ damage 2-5 / N.Ns; costs 15 crowns                                                             ││                                        │
 │ upgrade over an empty main hand: +0.4 damage/s                                                 ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
@@ -31,8 +31,8 @@
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Dunstan Reeve says: Blades, maces and staves. A good edge earns its keep. Come back at level five and I will have something     │
-│            heavier for you.                                                                                                              │
-│                                                                                                                                          │
+│            heavier for you. The tempered work takes iron I do not have to spare. The price on the slate is chalked, rubbed out and       │
+│            chalked higher.                                                                                                               │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

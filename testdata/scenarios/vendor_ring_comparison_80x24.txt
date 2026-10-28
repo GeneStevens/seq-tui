@@ -11,12 +11,12 @@
 │  x Carved Orb Common     14, short 9 │                                       │
 │  x Etched Orb Common    42, short 37 │                                       │
 │  x Rune Orb Common      84, short 79 │                                       │
+│    Barley Loaf Common              2 │                                       │
+│    Smoked Eel Common      8, short 3 │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
 │ ▲ Tin Ring: Common, Ring; tradable once                                      │
 │ sta +1; costs 12 crowns, short 7 crowns                                      │
 │ upgrade over an empty ring: +10 health, +1 stamina                           │
-│                                                                              │
-│                                                                              │
 │ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc b…│
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘

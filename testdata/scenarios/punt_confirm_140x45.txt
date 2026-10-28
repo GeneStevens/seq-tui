@@ -1,0 +1,45 @@
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Nell Rush <Boat-Keeper>, 1m SW away. You have 25 crowns.                                       ││ hale  Lv 1 Warrior          | 25 crowns│
+│                                                                                                ││ HP 65/130 ##############-------------- │
+│ You are level 1. Enter on a route asks to sail; Enter or Y pays the fee.                       ││ XP ------------------------- 40 to Lv 2│
+│> The East Landing                                                                  10 crowns   ││ Atk off | none                         │
+│ Sail to The East Landing for 10 crowns? Enter or Y pays, Esc stays ashore.                     ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Your character (C: tab) ──────────────┐
+│                                                                                                ││ [Gear]  Bags   Stats                   │
+│                                                                                                ││ Head      -                            │
+│                                                                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
+│                                                                                                ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Up / Down choose a route · Enter asks to sail, then Enter or Y pays · Esc back                 ││                                        │
+│ The answer is on the status line; every denial says why.                                       ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ nothing has happened yet                                                                                                                 │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Eelmere, Thornwick Downs | heard N.Ns ago                                                                           ? help  q quit

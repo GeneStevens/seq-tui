@@ -14,14 +14,14 @@
 │                      :::::::::::::::::::::::                                                   ││ Q Wulfric Dunn <Sergeant of Fo… 31m NW │
 │                           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                       ││ ; Fordwatch        33m NW scout marker │
 │                           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                       ││ Q Ned Sallow <Watchman>          34m W │
-│                           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                       ││ ; The Ford Shrine   35m W scout marker │
+│                           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                       ││ H The Ford Shrine <Wayside Shri… 35m W │
+│                           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ ; The Ford Shrine   35m W scout marker │
 │                           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ ; Brigands' Road … 56m SW scout marker │
 │                           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ ; Goblin Lookout   56m SE scout marker │
-│                           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ ; Barleycross      121m W scout marker │
+│                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ $ Nell's Punt <Drawn up on the … 62m N │
+│                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ ; Barleycross      121m W scout marker │
 │                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ ◆ Barleycross 123m W raiders head here │
-│                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ Q Tobias Hatch <Headman of Bar… 130m W │
-│                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                      ││ ; Wickett Mill     146m W scout marker │
-│··························===================··········                                         ││ +16 more                               │
+│··························===================··········                                         ││ +18 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │

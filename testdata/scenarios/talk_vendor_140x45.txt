@@ -3,12 +3,12 @@
 │                                                                                                ││ HP 130/164 #####################------ │
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row.”             ││ XP ------------------------- 90 to Lv 4│
 │ “Armour is cheaper than a healer's patience.”                                                  ││ Atk off | none                         │
-│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
-│ What they can do for you:                                                                      │└────────────────────────────────────────┘
-│ > 1  Buy                                                                                       │┌─ Your character (C: tab) ──────────────┐
-│   2  Sell                                                                                      ││ [Gear]  Bags   Stats                   │
-│                                                                                                ││ Head      -                            │
-│                                                                                                ││ Chest     -                            │
+│ “The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse. ││ Auto-retaliate: ON  (Ctrl+R)           │
+│ Pay or wait.”                                                                                  │└────────────────────────────────────────┘
+│                                                                                                │┌─ Your character (C: tab) ──────────────┐
+│ What they can do for you:                                                                      ││ [Gear]  Bags   Stats                   │
+│ > 1  Buy                                                                                       ││ Head      -                            │
+│   2  Sell                                                                                      ││ Chest     -                            │
 │                                                                                                ││ Legs      -                            │
 │                                                                                                ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
@@ -31,7 +31,7 @@
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
-│            healer's patience.                                                                                                            │
+│            healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse. Pay or wait. │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

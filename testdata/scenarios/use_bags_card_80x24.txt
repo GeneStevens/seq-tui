@@ -1,0 +1,24 @@
+┌─ Your character ─────────────────────────────────────────────────────────────┐
+│ Crowns 0 | bags 3 of 20 slots | bank 0 of 40 | bind point none yet           │
+│  Gear  [Bags]  Stats                                                         │
+│ Items carried                                                                │
+│ >   Small Hearth Draught Common                                              │
+│     Hearth Draught Common                                                    │
+│     Smoked Eel Common                                                        │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│──────────────────────────────────────────────────────────────────────────────│
+│ Small Hearth Draught: Common, no gear slot; tradable once                    │
+│ a vendor pays 3 crowns                                                       │
+│ Use: heals 40 hit points; cooldown 60 s                                      │
+│ Tab next tab · Up / Down choose · Enter wears it · U uses it · H heals       │
+│ Esc or C closes · N traders · T trade                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 65/130 | Target: none                                                       
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125%    

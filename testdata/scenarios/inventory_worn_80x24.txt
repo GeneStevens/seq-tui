@@ -1,5 +1,5 @@
 ┌─ Your character ─────────────────────────────────────────────────────────────┐
-│ Crowns 5 | bags 0 of 20 slots | bank 0 | bind point none yet                 │
+│ Crowns 5 | bags 0 of 20 slots | bank 0 of 40 | bind point none yet           │
 │ [Gear]  Bags   Stats                                                         │
 │ Gear worn                                                                    │
 │ > Head      Worn Cap Common  armor +2                                        │

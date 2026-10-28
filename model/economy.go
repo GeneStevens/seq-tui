@@ -197,6 +197,9 @@ func (m *Model) describeEconomy(e *pb.Event) (kind, text, reason string, ok bool
 				return "reward", fmt.Sprintf("%s took %s out of the bank", who, item), "", true
 			}
 			return "reward", fmt.Sprintf("%s put %s in the bank", who, item), "", true
+		case "use", "bank_expand", "travel":
+			t, _ := m.describeUse(w)
+			return "reward", t, "", true
 		case "trade":
 			return "reward", fmt.Sprintf("the trade between %s and %s is saved", m.label(w.GetRecipient()), m.label(w.GetSource())), "", true
 		}

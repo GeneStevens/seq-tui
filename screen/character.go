@@ -55,7 +55,7 @@ func CharRows(m *model.Model, tab int) int {
 func charLines(m *model.Model, v View, w, h int, st Styler) []string {
 	sb := charSide(v)
 	s := m.Self
-	rows := []string{fit(fmt.Sprintf(" Crowns %d | bags %d of %d slots | bank %d | bind point %s", s.Crowns, m.BagSlotsUsed(), s.InventorySize, len(s.Bank), bindWords(m)), w)}
+	rows := []string{fit(fmt.Sprintf(" Crowns %d | bags %d of %d slots | bank %s | bind point %s", s.Crowns, m.BagSlotsUsed(), s.InventorySize, bankWords(m), bindWords(m)), w)}
 	head, at := tabHeader(sb.Tab)
 	rows = append(rows, st.Bold(fit(head, w)))
 	if v.Hits != nil {
@@ -109,10 +109,18 @@ func charLines(m *model.Model, v View, w, h int, st Styler) []string {
 	case TabGear:
 		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} choose · {Enter} takes it off · out of combat only", w, st))
 	case TabBags:
-		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} choose · {Enter} wears it · out of combat only", w, st))
+		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} choose · {Enter} wears it · {U} uses it · {H} heals", w, st))
 	default:
 		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} scroll", w, st))
 	}
 	rows = append(rows, help(" {Esc} or {C} closes · {N} traders · {T} trade", w, st))
 	return pad(rows[:min(len(rows), h)], w, h)
+}
+
+// bankWords is the bank's fill: "3", or "3 of 20" once the server says the size.
+func bankWords(m *model.Model) string {
+	if m.Self.BankSize <= 0 {
+		return fmt.Sprint(len(m.Self.Bank))
+	}
+	return fmt.Sprintf("%d of %d", len(m.Self.Bank), m.Self.BankSize)
 }

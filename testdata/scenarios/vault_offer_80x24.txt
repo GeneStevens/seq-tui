@@ -1,0 +1,24 @@
+┌─ Traders — C: your character ────────────────────────────────────────────────┐
+│ Odalys Penn <Banker>, 2m N away. You have 120 crowns.                        │
+│                                                                              │
+│ Vault space: tier 1 of 3 adds 20 slots for 100 crowns. B buys it.            │
+│ You carry (Enter banks one)          │ In the bank, 0 of 40 (Enter takes one)│
+│  (nothing)                           │  (empty)                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Tab switches list · Enter acts on the item · B buy the next bank slots · Esc…│
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 65/130 | Target: none                                                       
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 30m W | heard N.Ns ago ? help

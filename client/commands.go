@@ -368,3 +368,19 @@ func (s *Session) Picked(ctx context.Context) string {
 	})
 	return name
 }
+
+// UseItem uses a consumable from the bags (D115).
+func (s *Session) UseItem(ctx context.Context, item string) (string, error) {
+	return s.intent(ctx, "use_item", agentkit.UseItem(item))
+}
+
+// BankExpand buys the next tier of bank slots at a banker; tier is the one
+// the client means (from 1), which the server checks.
+func (s *Session) BankExpand(ctx context.Context, npc string, tier int) (string, error) {
+	return s.intent(ctx, "bank_expand", agentkit.BankExpand(npc, tier))
+}
+
+// Travel buys passage on a route of a ferry.
+func (s *Session) Travel(ctx context.Context, npc, route string) (string, error) {
+	return s.intent(ctx, "travel", agentkit.Travel(npc, route))
+}

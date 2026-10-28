@@ -17,11 +17,11 @@
 │                         ░                                                                      ││ ; Barleycross       51m E scout marker │
 │                         ░                                                                      ││ ◆ Barleycross  53m E raiders head here │
 │                         ░               """"""""""""""""""""""                                 ││ ; Brigands' Road … 125m E scout marker │
-│                         ░               """"""""""""""""""""""                                 ││ ; The Ford Shrine  135m E scout marker │
-│                         ░                                                                      ││ Q Ned Sallow <Watchman>         135m E │
-│                         ░                                                   ;                  ││ Q Wulfric Dunn <Sergeant of Fo… 142m E │
-│                         ░                                                  Q                   ││ ; Fordwatch        145m E scout marker │
-│                         ░                                                                      ││ +16 more                               │
+│                         ░               """"""""""""""""""""""                                 ││ H The Ford Shrine <Wayside Shr… 135m E │
+│                         ░                                                                      ││ ; The Ford Shrine  135m E scout marker │
+│                         ░                                                   ;                  ││ Q Ned Sallow <Watchman>         135m E │
+│                         ░                                                  Q                   ││ Q Wulfric Dunn <Sergeant of Fo… 142m E │
+│                         ░                                                                      ││ +18 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │

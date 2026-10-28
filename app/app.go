@@ -691,7 +691,7 @@ func (a *App) send(act Action) tea.Cmd {
 			what, id, err = a.people(ctx, act)
 		case CompanionSummon, CompanionDismiss, CompanionStance, CompanionRole, CompanionOrder:
 			what, id, err = a.companion(ctx, act)
-		case Equip, Unequip, Buy, Sell, SellJunk, Train, Bind, BankDeposit, BankWithdraw, TradeOpen, TradeAdd, TradeCrowns, TradeRemove, TradeConfirm, TradeCancel:
+		case Equip, Unequip, UseItem, BankExpand, Travel, Buy, Sell, SellJunk, Train, Bind, BankDeposit, BankWithdraw, TradeOpen, TradeAdd, TradeCrowns, TradeRemove, TradeConfirm, TradeCancel:
 			what, id, err = a.economy(ctx, act)
 		case Logout:
 			if a.duo != nil && a.duo.Active() {
