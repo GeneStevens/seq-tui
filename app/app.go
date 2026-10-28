@@ -95,6 +95,9 @@ type App struct {
 	walk     *walkState // hold-to-walk: the keys down, the intents, the predicted mark
 	keys     int        // key presses handled, and commands sent and answered: what a scenario waits on
 	inflight int
+	// travelNote is the ferry acknowledgement on the status line, held until the
+	// walked-away close that the trip causes has passed over it.
+	travelNote string
 }
 
 // New returns the program's model for a session that has logged in.
@@ -128,6 +131,9 @@ type (
 		quiet       bool
 		after       func(*App)
 		clearInvite bool
+		// travel: the note acknowledges a ferry trip. A trader the trip leaves out
+		// of reach closes without replacing it.
+		travel bool
 	}
 	reconnected struct{ err error }
 	// created answers a character creation: err is nil when the character was
@@ -301,6 +307,10 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return a, nil
 		}
 		a.view.Notice, a.view.NoticeBad = msg.note, msg.bad
+		a.travelNote = ""
+		if msg.travel {
+			a.travelNote = msg.note
+		}
 		if msg.clearInvite {
 			a.sess.View(func(m *model.Model) { m.ClearInvite() })
 		}
@@ -729,7 +739,7 @@ func (a *App) send(act Action) tea.Cmd {
 				return resultMsg{note: what + " ok: the server picked " + name + " as your target"}
 			}
 		}
-		return resultMsg{note: what + " ok" + extra}
+		return resultMsg{note: what + " ok" + extra, travel: act.Kind == Travel}
 	}
 }
 
@@ -913,6 +923,10 @@ func (a *App) walkedAway(m *model.Model) {
 	case a.board != nil && far(a.board.NPC):
 		what, npc, a.board = "board", a.board.NPC, nil
 	default:
+		return
+	}
+	if a.travelNote != "" && a.view.Notice == a.travelNote {
+		a.travelNote = "" // the trip moved the character: the status line tells of the trip, not of the close
 		return
 	}
 	a.view.Notice, a.view.NoticeBad = fmt.Sprintf("You walked away from %s, so the %s closed", m.NPCName(npc), what), false

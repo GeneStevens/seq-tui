@@ -94,6 +94,19 @@ func (l *lockedBuf) Write(p []byte) (int, error) {
 	defer l.mu.Unlock()
 	return l.b.Write(p)
 }
+
+// waitFor polls until the log holds want, for up to 10 s: seqd's stdout and stderr
+// are copied by two goroutines, so a line on one can land before an earlier line
+// on the other.
+func (l *lockedBuf) waitFor(want string) bool {
+	for end := time.Now().Add(10 * time.Second); time.Now().Before(end); time.Sleep(10 * time.Millisecond) {
+		if strings.Contains(l.String(), want) {
+			return true
+		}
+	}
+	return strings.Contains(l.String(), want)
+}
+
 func (l *lockedBuf) String() string { l.mu.Lock(); defer l.mu.Unlock(); return l.b.String() }
 
 var tokenLine = regexp.MustCompile(`development token for \w+: (\S+)`)
@@ -193,7 +206,7 @@ func TestPlayServesThornwickAndNewCharactersStartThere(t *testing.T) {
 		t.Errorf("make play overrides the packs' start zone: %s", rep["seqd"])
 	}
 	s := start(t, flags, "")
-	if !strings.Contains(s.log.String(), `"start_space":"thornwick"`) {
+	if !s.log.waitFor(`"start_space":"thornwick"`) {
 		t.Errorf("the server does not start new characters in Thornwick:\n%s", s.log)
 	}
 	sess := s.session(t)
