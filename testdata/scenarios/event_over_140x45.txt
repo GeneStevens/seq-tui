@@ -1,45 +1,45 @@
  EVENT OVER  Harvest Raid won: The raid is broken. The harvest at Barleycross is safe.                                                      
 ┌─ Thornwick Downs, at 110,131 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│······································································c·························││ hale  Lv 8 Warrior          | 60 crowns│
-│································································································││ HP 36/249 ####------------------------ │
-│································································································││ XP ##############----------- 82 to Lv 9│
-│ ·······························································································││ Atk ON Ret ON | Roadside Cutpurse      │
-│ ·······                       ·············································                    │└────────────────────────────────────────┘
-│ ·······                                                                                        │┌─ Target ───────────────────────────────┐
-│ ·······                                                                                        ││ M Roadside Cutpurse  Lv 3              │
-│ ···;···   """"""""""""""""""""""                                                               ││ HP 120/120 ##################### 9m S  │
-│ ·······   #########                                                                            ││ trivial, not in a fight                │
-│ ·······   #########                                                                            │└────────────────────────────────────────┘
-│ ·······   #########                                                                            │┌─ Nearby ───────────────────────────────┐
-│ ···◆···   #########                            @                     """"""""""                ││ M Roadside Cutpu… 9m S 120/120 trivial │
-│ ·······                                                             """""""""""""""""""""      ││ ◆ Barleycross  40m W raiders head here │
-│         #########                                                   """""""""""""""""""""""""  ││ ; Barleycross       41m W scout marker │
-│         #########                                                   """""""""""""""""""""""""""││ ; Wickett Mill      65m W scout marker │
-│         #########                                                  """"""""""""""""""""""""""""││ ; Millrace Ford    77m NE scout marker │
-│         #########                            M                     """"""""""""""""""""""""""""││ D Town Gate                     106m W │
-│         #########                                                  """"""""""""""""""""""""""""││ ; Goblin Lookout   120m E scout marker │
-│                                                                   """""""""""""""""""""""""""""││ v Raid Edge      126m E raiders gather │
-│                                                                   """"""""""""c""""""""""""""""││ ; Hollow Warren    279m E scout marker │
-│                                                                  """"""""""""""""""""""""""""""││ D Hollow Warren          291m E (shut) │
-│                                                                  """"""""""""""""""""""""""""""││                                        │
+│            ···········                                      """""""""""""""""""""""""""""""""""││ hale  Lv 8 Warrior          | 60 crowns│
+│             ···········                                     """""""""""""""""""""""""""""""""""││ HP 220/249 #######################---- │
+│      c       ···········                                   """"""""""""""""""""""""""""""""""""││ XP ################--------- 70 to Lv 9│
+│               ···········                                  """"""""""""""""""""""""""""""""""""││ Atk off Ret ON | none                  │
+│                ···········                                 """"""""""""""""""""""""""""""""""""│└────────────────────────────────────────┘
+│                 ···········                                """"""""""""""""""""""""""""""""""""│┌─ Target ───────────────────────────────┐
+│                  ··········                                """"""""""""""""""""""""""""""""""""││ no target (Tab to choose)              │
+│                   ··········                              """""""""""""""""""""""""""""""""""""││                                        │
+│                   ··········                              """""""""""""""""""""""""""""""""""""││                                        │
+│                   ··········                              """"""""""""""""""""""c""""""""""""""│└────────────────────────────────────────┘
+│                    ·········                              """""""""""""""""""""""""""""""""""""│┌─ Nearby ───────────────────────────────┐
+│                    ··········                  @          """""""""""""""""""""""""""""""""""""││ ! Wulfric Dunn <Sergeant… 140m N [new] │
+│                    ··········                   *         """""""""""""""""""""""""""""""""""""││ * 5 crowns                        2m S │
+│                    ··········                              """"""""""""""""""""""""""""""""""""││ * Goblin Charm Bead               2m S │
+│                     ··········                             """"""^^^^^^^^^^^^^^"""^^^^^^^^^^^^^││ * 6 crowns                        2m S │
+│                     ··········                             """"""^^^^^^^^^^^^^^"""^^^^^^^^^^^^^││ * 7 crowns                        2m S │
+│                     ··········                             """"""^^^^"""""""""""""""""""""""^^^││ * 4 crowns                        2m S │
+│                      ·········                             """"""^^^^""""c""""""""""""""""""^^^││ * Goblin Charm Bead               2m S │
+│                      ··········                            """"""^^^^"""""""""""""c"""""""c"^^^││ * 7 crowns                        2m S │
+│                      ··········                            """"""^^^^"""""""""""""""""""""""^^^││ * 4 crowns                        2m S │
+│                      ··········                            """"""^^^^"""""""""""""""""""""""^^^││ * Goblin Charm Bead               2m S │
+│                       ··········                        ;  """""""";""""""""c""""""""""""""""""││ +26 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1 Taunt ready                      2 Bash range                      3 -                               4 -                               │
+│ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │
 │ 5 -                                6 -                               7 -                               8 -                               │
-│ You: none   |   Roadside Cutpurse: none                                                                                                  │
+│ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   NNN.Ns The fight with Raiding Goblin ends with the event                                                                               │
+│   NNN.Ns Your target Raiding Goblin is gone                                                                                              │
+│   NNN.Ns You stop attacking                                                                                                              │
+│   NNN.Ns Raiding Goblin dropped Goblin Charm Bead                                                                                        │
+│   NNN.Ns Raiding Goblin dropped 4 crowns                                                                                                 │
+│   NNN.Ns Raiding Goblin is dead: the fight is over                                                                                       │
 │ * NNN.Ns The raid is broken. The harvest at Barleycross is safe.                                                                         │
 │   NNN.Ns You are out of combat                                                                                                           │
+│ + NNN.Ns You gain 2 experience                                                                                                           │
 │ + NNN.Ns You are paid for Harvest Raid: 120 experience, 60 crowns, Harvest Garland                                                       │
-│   NNN.Ns Raiding Goblin is out of view                                                                                                   │
-│   NNN.Ns Raiding Goblin is out of view                                                                                                   │
-│   NNN.Ns Raiding Goblin is out of view                                                                                                   │
-│   NNN.Ns Raiding Goblin is out of view                                                                                                   │
-│   NNN.Ns Raiding Goblin is out of view                                                                                                   │
 │   NNN.Ns Raiding Goblin is out of view                                                                                                   │
 │   NNN.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Too far: 9 m. Option-click the target to close in · F: stop attacking                                                                      
- ONLINE | Thornwick Downs | heard N.Ns ago | Too far: 9 m. Option-click the target to close in                                ? help  q quit
+ L: loot all 9 drops                                                                                                                        
+ ONLINE | Thornwick Downs | heard N.Ns ago | attack ok                                                                        ? help  q quit

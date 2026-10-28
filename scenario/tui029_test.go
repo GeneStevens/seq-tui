@@ -4,6 +4,7 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/scenario"
@@ -222,6 +223,7 @@ func TestTheBoardHelpNamesXAndAScoutReadsInWords(t *testing.T) {
 	}
 	p.Press("enter")
 	notice(t, p, "take Word from Wickett Mill ok", false)
+	w.Advance(time.Second) // the server records the take on its next tick
 	p.Press("tab")
 	s = p.Screen(140, 45)
 	if !strings.Contains(s, "0/1 — go to the marker") {

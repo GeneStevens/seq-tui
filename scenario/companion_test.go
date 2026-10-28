@@ -74,6 +74,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 	notice(t, p, "You haven't earned a companion yet", true)
 	p.Press("2", "enter")
 	notice(t, p, "take Eyes on the Goblins ok", false)
+	w.Advance(time.Second) // the server records the take on its next tick
 	p.Press("esc", "esc")
 	p.Model(func(m *model.Model) {
 		c := m.Contract("companion-goblin-lookout")
@@ -90,7 +91,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 func TestCompanionQuestScoutTheLookout(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("companion_lookout.jsonl")
-	w.Place("ann", "hale", 216000, 140000)
+	w.Place("ann", "hale", 216000, 215000)
 	w.Srv.Give("hale", levelUp(6, func(cs *core.CharacterSave) {
 		cs.Contracts = []core.ContractState{{ID: "companion-goblin-lookout", Kind: "scout", Zone: "thornwick-downs", Match: "goblin-lookout", Need: 1, Name: "Eyes on the Goblins"}}
 	}))
@@ -205,7 +206,7 @@ func advanceUntil(t *testing.T, w *scenario.World, p *scenario.Player, what stri
 func TestCompanionAssistsThenIsOverridden(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: downsAccount()})
 	w.Fixture("companion_fight.jsonl")
-	w.Place("ann", "hale", 146000, 95000) // beside the Bramble Tuskers' camp, out of their notice
+	w.Place("ann", "hale", 146000, 170000) // beside the Bramble Tuskers' camp, out of their notice
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.GiveCompanion("hale", companionRecord("tank", ""))
 	p := w.Login("ann", "hale")
@@ -399,8 +400,8 @@ func TestSecondCharacterOnGuard(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs,
 		Classed: map[string]string{"hale": "warrior", "bram": "cleric"}}}})
 	w.Fixture("duo_guard.jsonl")
-	w.Place("ann", "hale", 146000, 95000)
-	w.Place("ann", "bram", 144000, 95000)
+	w.Place("ann", "hale", 146000, 170000)
+	w.Place("ann", "bram", 144000, 170000)
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.Give("bram", levelUpAs("cleric", 5, nil))
 	p := w.LoginWithDuo("ann", "hale", "bram")

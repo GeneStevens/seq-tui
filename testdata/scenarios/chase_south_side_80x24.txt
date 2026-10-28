@@ -1,13 +1,13 @@
-┌─ Thornwick Downs, at 43,130 m, north up ─────────┐┌─ You: in combat ─────────┐
+┌─ Thornwick Downs, at 43,205 m, north up ─────────┐┌─ You: in combat ─────────┐
 │     ░············································││ hale  Lv 1 Warrior  | 0cr│
-│     ░                             ····           ││ HP 130/130 ############# │
+│     ░                             ····         ··││ HP 130/130 ############# │
 │     ░     """""""""               ··;·"""""""""" ││ XP ----------- 40 to Lv 2│
 │     ░                   ;         ····#####      ││ Atk ON Ret ON | Meadow W…│
-│     ░                 M#@## ≈≈≈≈  ··◆######      ││ Attacked by Meadow Wolf  │
-│     ░                 ##### ≈≈≈####  #####       │└──────────────────────────┘
-│     ░                 ##### ≈≈≈####  #####       │┌─ Target ─────────────────┐
-│     ░                                            ││ M Meadow Wolf  Lv 1      │
-│     ░                                            ││ HP 26/45 #####---- 3m W  │
+│     ░                 M#@## ≈≈≈≈Q ··◆######      ││ Attacked by Meadow Wolf  │
+│     ░                 ##### ≈≈≈####··#####       │└──────────────────────────┘
+│     ░                 ##### ≈≈≈####··#####       │┌─ Target ─────────────────┐
+│     ░                             ····           ││ M Meadow Wolf  Lv 1      │
+│     ░                             ····           ││ HP 26/45 #####---- 3m W  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt ready       2 Bash range       3 -                4 -                │
@@ -20,5 +20,5 @@
 │     N.Ns Meadow Wolf began attacking hale                                    │
 │     N.Ns You hit Meadow Wolf for 9                                           │
 └──────────────────────────────────────────────────────────────────────────────┘
- Too far: 3 m. Option-click the target to close in · F: stop attacking          
+ G: talk to Hew Wickett <Miller>  ·  Too far: 3 m. Option-click the target to c…
  ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

@@ -1,4 +1,4 @@
-┌─ Thornwick Downs — North Greywood, at 146,98 m… ─┐┌─ You: in combat ─────────┐
+┌─ Thornwick Downs — North Greywood, at 146,173 … ─┐┌─ You: in combat ─────────┐
 │                """""c""""""""""    ≈≈≈≈≈≈        ││ hale  Lv 5 Warrior  | 0cr│
 │                """"""""""""""""""  ≈≈≈≈≈≈        ││ HP 198/198 ############# │
 │               """""""""""""""""""  ≈≈≈≈≈≈        ││ XP ---------- 145 to Lv 6│

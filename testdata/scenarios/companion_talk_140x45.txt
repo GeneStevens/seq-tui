@@ -12,14 +12,14 @@
 │   2  Take a contract                                                                           ││ Legs      -                            │
 │   3  Turn in a contract                                                                        ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
-│                                                                                                ││ Ring 1    -                            │
-│                                                                                                ││ Ring 2    -                            │
-│                                                                                                ││ Neck      -                            │
-│                                                                                                ││ Main hand -                            │
-│                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│ Quests they hold for you:                                                                      ││ Ring 1    -                            │
+│   [locked] Marlbridge Iron: needs level 7                                                      ││ Ring 2    -                            │
+│   [locked] The Deserter: needs level 9                                                         ││ Neck      -                            │
+│   [locked] Beads for the Captain: needs level 9                                                ││ Main hand -                            │
+│   [locked] Too Good a Price: needs level 9                                                     ││ Off hand  -                            │
+│   [locked] Night Boats: needs level 10                                                         ││                                        │
+│   [locked] Figures and the Warrant: needs level 11                                             ││                                        │
+│   [locked] The Source: needs level 12                                                          ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

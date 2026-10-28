@@ -1,38 +1,38 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                        ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                       │
-│                        ░                         "         ≈≈≈                                                   ░                       │
-│                        ░    """"""             """"""""""" ≈≈≈                                                   ░                       │
-│                        ░   """""""            """""""""""" ≈≈≈                                   ""              ░                       │
-│                        ░ South Copse     c  """""""""""""" ≈≈≈≈                                 """""""""        ░                       │
-│                        ░   """"""""         """""""""""""" ≈≈≈≈                  """"           """""""""        ░                       │
-│                        ░   """"""      South Farmstead"""" ≈≈≈≈                """""""""""  East Goblin Copse    ░                       │
-│                        ░                   South Greywood""≈≈≈                """""""c""""      """"""""         ░                       │
-│                        ░                   """""""c""""""""≈≈≈            South Goblin Copse      """"""         ░                       │
-│                        ░          c        """"""""""""c""≈≈≈≈                 """"""""""           c            ░                       │
-│                        ░                 c """""""""""""""≈≈≈≈            c           """                        ░                       │
-│                        ░                    """"""""""""""≈≈≈                          Goblin Hut                ░                       │
-│                        ░                    """"""""""""""≈≈≈≈  c       Goblin Hut         c                     ░                       │
-│                        ░                        """"""    ::;::                   ^^                    ^^^^^^^^^░                       │
-│                        ░    Thornwick Road           cMillrace Ford          Goblin Rocks                ^^^^^^^^░                       │
-│                        ░Barley Hedgerow              Millrace Bridge             ^^^^                     ^^^^^^^░                       │
-│                        ░D·········Barley Hedgerow··c·······====··c·······v·······Far Road·················;·D    ░                       │
-│                        ░  """""      ·;""""" Brigands' Road≈≈≈  ······^·;··········                       ^^^^^^^░                       │
-│                        ░        @;   ·◆###         """""   ≈≈≈≈Goblin Lookout                            ^^^^^^^^░                       │
-│                        ░    Barleycross Hall  c   """""""  ≈≈≈≈       ^^                                ^^^^^^^^^░                       │
-│                        ░        Barleycross Barn  ""c"""""" ≈≈≈         Goblin Hut                               ░                       │
-│                        ░       Mill Pond          """"""""" ≈≈≈            c              c                      ░                       │
-│                        ░         c      c        """""""c"" ≈≈≈                   """  ###  c      c             ░                       │
-│                        ░                         """"""""" ≈≈≈≈                ""Goblin Stockade                 ░                       │
-│                        ░              c       North Greywood≈≈≈            North Goblin Copse                    ░                       │
-│                        ░                         """"""""" ≈≈≈                 """"""""""      ^^                ░                       │
-│                        ░                         """"c"""" ≈≈≈                  """"""""  Goblin Rocks           ░                       │
-│                        ░   """""""               """"""""""≈≈≈                                ^^^^               ░                       │
-│                        ░  """""""""  c           """"""""""≈≈≈               c                                   ░                       │
-│                        ░ Home Copse              """"""""""≈≈≈                                                   ░                       │
-│                        ░   """""""               """"""""  ≈≈≈                                                   ░                       │
-│                        ░       "                      "    ≈≈≈≈                                                  ░                       │
-│                        ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                       │
-│ Thornwick Downs, 420m by 300m, north up. You: 42m E, 135m N of the SW corner.                                                            │
+│                                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                      │
+│                                       ░       Eelmere Boat Shedc≈≈≈≈;≈≈≈··c·····                  ░                                      │
+│                                       ░              ####";Eel Mere Reeds≈≈≈≈ ·c·                 ░                                      │
+│                                       ░               #; "≈≈≈≈Eel Mere Shore≈≈  c                 ░                                      │
+│                                       ░      Eelmere Stilt House≈≈≈≈≈≈≈≈≈≈≈≈                      ░                                      │
+│                                       ░            Eel Mere Reeds                                 ░                                      │
+│                                       ░                "" ··  ≈≈≈                                 ░                                      │
+│                                       ░  """""       """""··" ≈≈≈                                 ░                                      │
+│                                       ░ """"""    cMarlbridge Road                     """"""     ░                                      │
+│                                       ░  """"" South Farmstead≈≈≈           """""East Goblin Copse░                                      │
+│                                       ░           Fordwatch Stockade      """"""c""    """""      ░                                      │
+│                                       ░             """"c""c··≈≈     South Goblin Copse  c        ░                                      │
+│                                       ░      c    c ""Ford Shrine       c      Goblin Hut         ░                                      │
+│                                       ░             """"""##;"≈≈ c   Goblin Hut    c#             ░                                      │
+│                                       ░Thornwick Road """"#;Q:;::       Goblin Rocks        ^^^^^^░                                      │
+│                                       ░    Barley Hedgerowc   ≈Goblin Lookout^^^             ^^^^^░                                      │
+│                                       ░DBarleycross Lanec·····===·c········Far Road··········;·D  ░                                      │
+│                                       ░     @  Q◆##      ";   ≈≈≈    ^^;                     ^^^^^░                                      │
+│                                       ░   Mill Pond  c  ""c"" ≈≈≈    Goblin Hut             ^^^^^^░                                      │
+│                                       ░Barleycross Hall "The Millrace    c##       c              ░                                      │
+│                                       ░     c   ·c      """"c"≈≈≈            """ ## c   c         ░                                      │
+│                                       ░          ··Eldbury Ring≈≈          Goblin Stockade        ░                                      │
+│                                       ░         c ··   """c"""≈≈     North Goblin Copse^          ░                                      │
+│                                       ░  """"Drove Road"^c""^"≈≈              ""Goblin Rocks      ░                                      │
+│                                       ░ """""" c  ··   ;;ccv^"≈≈          c                       ░                                      │
+│                                       ░ """"""     ··  "^^;c^"≈≈≈                                 ░                                      │
+│                                       ░   """      ··   c ""  ≈≈≈         c                       ░                                      │
+│                                       ░           Eldbury Ring≈≈≈   c    ^;^                      ░                                      │
+│                                       ░             ; ##      ≈≈≈The Hoarstones  c                ░                                      │
+│                                       ░             Q  # ··Hill Trackc··c;   c                    ░                                      │
+│                                       ░        c Highfold    The Hoarstones                       ░                                      │
+│                                       ░                   c    The Hoarstones                     ░                                      │
+│                                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                      │
+│ Thornwick Downs, 420m by 450m, north up. You: 42m E, 210m N of the SW corner.                                                            │
 │ You       @ you  % scout marker  + plan end  ◄ objective                                                                                 │
 │ People    p player  T trainer  $ vendor  B banker  H binder  g guard  Q quest person  & board  D door  “ said, for 4 s  » chat names you │
 │ Quest     ! new  ? hand in  ? in progress  m quest mob  D next door                                                                      │

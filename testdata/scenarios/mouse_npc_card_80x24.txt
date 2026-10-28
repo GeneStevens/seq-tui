@@ -3,7 +3,7 @@
 │  #######··$·│ Tamsin Hale <Watch Greeter>       │││ HP 130/130 ############# │
 │  #######····│ Offers: keeps watch over the town │││ XP ----------- 40 to Lv 2│
 │  #######····│ Has something new for you         │││ Atk off Ret ON | none    │
-│  #######····│ 2m N                              ││└──────────────────────────┘
+│  #######··Q·│ 2m N                              ││└──────────────────────────┘
 │  #######····│ Click again or G: talk            ││┌─ Quest chain (Ctrl+K) ───┐
 │  #######··$·└───────────────────────────────────┘││ First Steps              │
 │  #######····      ·············           ###### ││ Step 1 of 4              │

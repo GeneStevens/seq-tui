@@ -1,15 +1,15 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | 0 crowns           ││ Hale  Lv 1 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
-│> Thin the Meadow Wolves          Hunt   L1-3  │> Wolves at Wickett Mill                 READY  ││ XP #####-------------------- 32 to Lv 2│
-│  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
+│> Boars in the Barley             Hunt   L1-3  │> Wolves at Wickett Mill                 READY  ││ XP #####-------------------- 32 to Lv 2│
+│  Word from Wickett Mill          Scout  L1-3  │                                                ││ Atk off | none                         │
 │  Tusks for the Miller            Gather L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
-│  Word from Barleycross           Scout  L1-3  │                                                │└────────────────────────────────────────┘
-│  Cutpurses on the Barleycr… opens at level 2  │                                                │┌─ Your character (C: tab) ──────────────┐
-│  Clear the Roadside Bandits opens at level 4  │                                                ││ [Gear]  Bags   Stats                   │
-│  The Greywood Pack          opens at level 4  │                                                ││ Head      -                            │
-│  Tusks for the Carver       opens at level 4  │                                                ││ Chest     -                            │
-│  Report from Millrace Ford  opens at level 4  │                                                ││ Legs      -                            │
+│  Cutpurses on the Barleycr… opens at level 2  │                                                │└────────────────────────────────────────┘
+│  Clear the Roadside Bandits opens at level 4  │                                                │┌─ Your character (C: tab) ──────────────┐
+│  The Greywood Pack          opens at level 4  │                                                ││ [Gear]  Bags   Stats                   │
+│  Tusks for the Carver       opens at level 4  │                                                ││ Head      -                            │
+│  Report from Millrace Ford  opens at level 4  │                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
 │                                                                                                ││ Hands     -                            │
 │                                                                                                ││ Feet      -                            │
 │                                                                                                ││ Ring 1    -                            │
@@ -24,8 +24,8 @@
 │ Wolves at Wickett Mill: Hunt, 4 of 4 killed.                                                   ││                                        │
 │ Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,    ││                                        │
 │ west of the river.                                                                             ││                                        │
-│ Pays 22 XP and 10 crowns.                                                                      ││                                        │
-│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 3m SW.                  ││                                        │
+│ Pays 31 XP and 14 crowns.                                                                      ││                                        │
+│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 4m SW.                  ││                                        │
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
@@ -42,4 +42,4 @@
 │   NNN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 5m S | road: faster, 125% | heard N.Ns ago    ? help  q quit
+ ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125% | heard N.Ns ago    ? help  q quit

@@ -23,7 +23,7 @@
 │────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
 │ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││                                        │
 │ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││                                        │
-│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││                                        │
+│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                                          ││                                        │
 │ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││                                        │
 │                                                                                                ││                                        │
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │

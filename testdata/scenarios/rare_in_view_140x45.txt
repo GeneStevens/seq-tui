@@ -1,4 +1,4 @@
-┌─ Thornwick Downs, at 205,70 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Thornwick Downs, at 205,145 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ hale  Lv 12 (max) Warrior    | 0 crowns│
 │        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ HP 143/317 ############--------------- │
 │        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ XP ########################### 1772 max│
@@ -11,17 +11,17 @@
 │      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           │└────────────────────────────────────────┘
 │      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           │┌─ Nearby ───────────────────────────────┐
 │      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                            @     R                                         ││ R Old Grimt… 5m E 300/300 trivial RARE │
-│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ ; Goblin Lookout    74m N scout marker │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ v Raid Edge       85m N raiders gather │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ ; Millrace Ford    112m N scout marker │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ◆ Barleycro… 148m NW raiders head here │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Barleycross     151m NW scout marker │
-│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Wickett Mill     172m W scout marker │
-│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Hollow Warren   200m NE scout marker │
-│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ D Hollow Warren          211m E (shut) │
-│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ D Town Gate                     214m W │
-│   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││                                        │
-│   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││                                        │
+│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ v Brigands' Rise 69m SW raiders gather │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ ; Goblin Lookout    74m N scout marker │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ ; Eldbury          77m SW scout marker │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Eldbury Inner R… 84m SW scout marker │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Highlow          85m SE scout marker │
+│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Brigands' Road … 90m NW scout marker │
+│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Eldbury Edge      93m W scout marker │
+│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ ; Millrace Ford    112m N scout marker │
+│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ ; The Hoarstones   115m S scout marker │
+│   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ Q Ned Sallow <Watchman>        122m NW │
+│   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ +17 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt ready                      2 Bash range                      3 -                               4 -                               │
