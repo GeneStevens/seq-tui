@@ -3,7 +3,7 @@
 │                                                       ░                                        ││ HP 100/100 ########################### │
 │                                                       ░                                        ││ Target: none                           │
 │                                                       ░                                        ││ Auto-attack: off                       │
-│                                                       ░                                        ││ Auto-retaliate: off  (Ctrl+R)          │
+│                                                       ░                                        ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                       ░                                        │└────────────────────────────────────────┘
 │                                                       ░                                        │┌─ Target ───────────────────────────────┐
 │                                                       ░                                        ││ no target (Tab to choose)              │
@@ -14,29 +14,29 @@
 │                                                       ░                                        ││ ! Testgrounds Recruiter   179m W [new] │
 │                                                       ░                                        ││ & Testgrounds Contract B… 183m W [new] │
 │                                                @      ░                                        ││ D Line East                    0m here │
+│                                                       ░                                        ││ v Brigands' Holl… 46m W raiders gather │
 │                                                       ░                                        ││ H Eastern Binder                 76m W │
+│                                                       ░                                        ││ ◆ Tester's Fa… 96m W raiders head here │
 │                                                       ░                                        ││ D Gate North                   124m NW │
-│                                                       ░                                        ││ T Druid Trainer                 181m W │
-│                                                       ░                                        ││ Q Testgrounds Captain <Quest G… 181m W │
-│                                                       ░                                        ││ T Paladin Trainer               183m W │
-│                                                       ░                                        ││ T Wizard Trainer                184m W │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                        ││ H Testgrounds Binder            185m W │
+│                                                       ░                                        ││ ; Hollow Lookout   160m W scout marker │
+│                                                       ░                                        ││ ; Windswept Overl… 165m W scout marker │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                        ││ T Druid Trainer                 181m W │
+│                                                                                                ││ Q Testgrounds Captain <Quest G… 181m W │
+│                                                                                                ││ T Paladin Trainer               183m W │
+│                                                                                                ││ T Wizard Trainer                184m W │
+│                                                                                                ││ H Testgrounds Binder            185m W │
 │                                                                                                ││ T Rogue Trainer                 186m W │
-│                                                                                                ││ B Testgrounds Banker            187m W │
-│                                                                                                ││ T Cleric Trainer                188m W │
-│                                                                                                ││ $ Testgrounds Vendor            189m W │
-│                                                                                                ││ T Warrior Trainer               190m W │
-│                                                                                                ││                                        │
+│                                                                                                ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.4s entered Outskirts                                                                                                               │
 │     0.5s Plain Scuttler targeted aria                                                                                                    │
 │     0.5s You begin fighting Plain Scuttler                                                                                               │
 │     0.5s You target Plain Scuttler                                                                                                       │
+│     0.5s You start attacking Plain Scuttler                                                                                              │
 │     0.5s Plain Scuttler (level 1, even) is attacking you                                                                                 │
 │     0.5s You are in combat with Plain Scuttler                                                                                           │
 │     0.6s entered Testgrounds                                                                                                             │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -1,37 +1,37 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick <Armourer>, 3m S of you                                                        ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Armourer>, 2m S of you                                                        ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row.”             ││ XP ------------------------- 90 to Lv 4│
 │ “Armour is cheaper than a healer's patience.”                                                  ││ Atk off | none                         │
-│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
-│ What they can do for you:                                                                      │└────────────────────────────────────────┘
-│ > 1  Buy                                                                                       │┌─ Target ───────────────────────────────┐
-│   2  Sell                                                                                      ││ no target (Tab to choose)              │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│ “The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse. ││ Auto-retaliate: ON  (Ctrl+R)           │
+│ Pay or wait.”                                                                                  │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│ What they can do for you:                                                                      ││ no target (Tab to choose)              │
+│ > 1  Buy                                                                                       ││                                        │
+│   2  Sell                                                                                      ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 29m E [new] │
-│                                                                                                ││ $ Hilda Brasswick <Armourer>      3m S │
-│                                                                                                ││ g Town Guard <Thornwick Watch>   15m N │
-│                                                                                                ││ $ Dunstan Reeve <Weaponsmith>    23m S │
-│                                                                                                ││ $ Barnaby Tuck <General Goods>  29m SE │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>    34m E │
+│                                                                                                ││ ! Tamsin Hale <Watch Gree… 34m E [new] │
+│                                                                                                ││ $ Hilda Brasswick <Armourer>      2m S │
+│                                                                                                ││ Q Hobb Tanner <Master of the Hi… 12m S │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   16m N │
+│                                                                                                ││ $ Dunstan Reeve <Weaponsmith>    22m S │
+│                                                                                                ││ Q Ambrose Fenwick <Master of th… 24m E │
+│                                                                                                ││ $ Barnaby Tuck <General Goods>  28m SE │
 │                                                                                                ││ H Isolde Fenn <Binder>          40m SE │
-│                                                                                                ││ T Mother Elswyth <Cleric Traine… 43m S │
+│                                                                                                ││ T Mother Elswyth <Cleric Traine… 42m S │
 │                                                                                                ││ T Gorran Stoutarm <Warrior Trai… 44m S │
+│                                                                                                ││ $ Corwen Pell <Wool Guild Mist… 46m SE │
 │                                                                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer> 56m SE │
-│                                                                                                ││ B Odalys Penn <Banker>           60m E │
-│                                                                                                ││ T Ser Aldric Vane <Paladin Tra… 67m SE │
-│                                                                                                ││ Q Captain Rhosyn Hartley <Watch… 76m E │
-│                                                                                                ││ T Wynne Greenhollow <Druid Tra… 80m SE │
-│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ D East Gate                      87m E │
-│ talk to Hilda Brasswick ok                                                                     ││                                        │
+│                                                                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
+│                                                                                                ││ Q Godric Ashdown <Reeve>         55m E │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ $ Jory Fennick <Marlbridge Cart… 56m E │
+│ talk to Hilda Brasswick ok                                                                     ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.8s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
-│            healer's patience.                                                                                                            │
+│     1.6s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
+│            healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse. Pay or wait. │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -2,7 +2,7 @@
 │               ░                           #      ││ aria  Lv 1  XP 20   | 0cr│
 │               ░                           #      ││ HP 100/100 ############# │
 │               ░                           #      ││ Target: none             │
-│               ░       T TT TTT            #      ││ Atk off | Retaliate off  │
+│               ░       T TT TTT            #      ││ Atk off | Retaliate ON   │
 │               ░                           #      │└──────────────────────────┘
 │               ░       $ BH &Q!            #      │┌─ Quest ──────────────────┐
 │               ░                           #      ││ [ ] 1. Scout the Lookout │
@@ -15,9 +15,9 @@
 │               ░                           #      ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│    42.4s Cracked Shell Fragment was taken                                    │
-│ +  42.4s You pick up Cracked Shell Fragment                                  │
-│    42.4s Tip: tradable once means one trade to another player, then it is    │
+│    42.3s Cracked Shell Fragment was taken                                    │
+│ +  42.3s You pick up Cracked Shell Fragment                                  │
+│    42.3s Tip: tradable once means one trade to another player, then it is    │
 │            bound to them.                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                

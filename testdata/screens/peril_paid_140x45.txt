@@ -3,7 +3,7 @@
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
-│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│┌─ Instance ─────────────────────────────┐
 │                                                                                                ││ Peril Den                              │
@@ -21,12 +21,12 @@
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
 │                                                                                          c     ││ p c2                   0m here 100/100 │
 │                                                                                                ││ D Gate North                      1m N │
+│                                                                                                ││ ◆ Tester's Fa… 69m S raiders head here │
 │                                                                                                ││ H Eastern Binder                 72m S │
 │                                                                                                ││ T Druid Trainer                  83m W │
 │                                                                                                ││ T Paladin Trainer                84m W │
-│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
-│                                                                                                ││ T Wizard Trainer                 86m W │
-│                                                                                                ││ +7 more                                │
+│                                                                                                ││ v Brigands' Hol… 85m SE raiders gather │
+│                                                                                                ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s c2 comes into view                                                                                                              │

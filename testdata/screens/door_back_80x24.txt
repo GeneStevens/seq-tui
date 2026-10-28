@@ -2,7 +2,7 @@
 │                            ░                     ││ aria  Lv 1  XP 0    | 0cr│
 │                            ░                     ││ HP 100/100 ############# │
 │                            ░                     ││ Target: none             │
-│                            ░                     ││ Atk off | Retaliate off  │
+│                            ░                     ││ Atk off | Retaliate ON   │
 │                            ░                     │└──────────────────────────┘
 │                            ░                     │┌─ Target ─────────────────┐
 │                            ░                     ││ no target (Tab to choose)│
@@ -12,10 +12,10 @@
 │                            ░                     │┌─ Nearby ─────────────────┐
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                     ││ ! Testgrou… 179m W [new] │
 │                                                  ││ & Testgrou… 183m W [new] │
-│                                                  ││ +13 more                 │
+│                                                  ││ +17 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     0.5s You target Plain Scuttler                                           │
+│     0.5s You start attacking Plain Scuttler                                  │
 │     0.5s Plain Scuttler (level 1, even) is attacking you                     │
 │     0.5s You are in combat with Plain Scuttler                               │
 │     0.6s entered Testgrounds                                                 │

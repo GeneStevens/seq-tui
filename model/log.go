@@ -220,6 +220,12 @@ func describe(e *pb.Event, label, ability func(string) string) (kind, text, reas
 	case *pb.Event_Respawned:
 		r := b.Respawned
 		return "respawned", fmt.Sprintf("%s respawned at (%d, %d) with %d hp", label(r.GetActor()), r.GetPos().GetX(), r.GetPos().GetY(), r.GetHp()), ""
+	case *pb.Event_Traveled:
+		t := b.Traveled
+		if t.GetPlace() != "" {
+			return "traveled", fmt.Sprintf("%s travelled to %s", label(t.GetActor()), t.GetPlace()), ""
+		}
+		return "traveled", label(t.GetActor()) + " travelled", ""
 	case *pb.Event_MobReset:
 		return "mob_reset", fmt.Sprintf("%s reset to %d hp", label(b.MobReset.GetId()), b.MobReset.GetHp()), ""
 	}

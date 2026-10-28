@@ -2,9 +2,9 @@
 │ Testgrounds Banker, 2m S away. You have 37 crowns.                                             ││ zedd  Lv 3 Wizard           | 37 crowns│
 │                                                                                                ││ HP 80/96 ########################----- │
 │ Vault space: this banker sells none.                                                           ││ MP 150/196 ####################------- │
-│ You carry (Enter banks one)                   │ In the bank, 1 (Enter takes one)               ││ XP ------------------------- 90 to Lv 4│
+│ You carry (Enter banks one)                   │ In the bank, 1 of 40 (Enter takes one)         ││ XP ------------------------- 90 to Lv 4│
 │  (nothing)                                    │> ▲ Buckler Common                              ││ Atk off | none                         │
-│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Quest ────────────────────────────────┐
 │                                                                                                ││ [ ] 1. Scout the Lookout               │
@@ -27,7 +27,7 @@
 │                                                                                                ││ $ Testgrounds Vendor             3m SW │
 │                                                                                                ││ T Wizard Trainer                 4m NE │
 │ Tab switches list · Enter acts on the item · B buy the next bank slots · Esc back              ││ Q Testgrounds Captain <Quest Giv… 6m E │
-│ bank Buckler ok                                                                                ││ +6 more                                │
+│ bank Buckler ok                                                                                ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.2s You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │

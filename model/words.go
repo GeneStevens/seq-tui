@@ -26,6 +26,7 @@ var reasons = map[string]string{
 	"out_of_reach":           "you are too far from the door; walk to it first",
 	"door_unavailable":       "the door leads nowhere right now",
 	"space_unavailable":      "the place behind the door is not available right now",
+	"ferry_down":             "the ferry can't cross right now",
 	// turn-based play
 	"plan_required":      "this instance is turn-based: build a plan and submit it with Enter",
 	"round_closed":       "that round has already run; plan for the next round",

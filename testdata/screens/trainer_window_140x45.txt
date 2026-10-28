@@ -1,9 +1,9 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Gorran Stoutarm <Warrior Trainer>, 1m S away. You have 192 crowns.                             ││ hale  Lv 3 Warrior         | 192 crowns│
-│                                                                                                ││ HP 142/164 #######################---- │
+│ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 192 crowns.                          ││ hale  Lv 3 Warrior         | 192 crowns│
+│                                                                                                ││ HP 138/164 ######################----- │
 │ You are level 3. Enter buys the ability under the cursor.                                      ││ XP ------------------------- 90 to Lv 4│
 │  Taunt                  level 1   known                                                        ││ Atk off | none                         │
-│  Bash                   level 1   known                                                        ││ Auto-retaliate: off  (Ctrl+R)          │
+│  Bash                   level 1   known                                                        ││ Auto-retaliate: ON  (Ctrl+R)           │
 │> Second Wind            level 3   45 crowns                                                    │└────────────────────────────────────────┘
 │  Bulwark Stance         level 5   75 crowns                                                    │┌─ Target ───────────────────────────────┐
 │  Cleave                 level 7   105 crowns                                                   ││ no target (Tab to choose)              │
@@ -12,29 +12,29 @@
 │────────────────────────────────────────────────────────────────────────────────────────────────│└────────────────────────────────────────┘
 │ Second Wind: For a short while, a share of the damage you deal comes back to you as health. Use│┌─ Nearby ───────────────────────────────┐
 │ it in the thick of a long fight.                                                               ││ & Thornwick Contract Boa… 52m NE [new] │
-│                                                                                                ││ T Gorran Stoutarm <Warrior Train… 1m S │
+│                                                                                                ││ ! Tamsin Hale <Watch Gre… 54m NE [new] │
+│                                                                                                ││ T Gorran Stoutarm <Warrior Tr… 0m here │
 │                                                                                                ││ T Mother Elswyth <Cleric Traine… 16m E │
 │                                                                                                ││ $ Dunstan Reeve <Weaponsmith>   23m NE │
-│                                                                                                ││ g Town Guard <Thornwick Watch>   30m E │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   24m E │
 │                                                                                                ││ T Pip Nettle <Rogue Trainer>     32m E │
-│                                                                                                ││ $ Hilda Brasswick <Armourer>     41m N │
-│                                                                                                ││ $ Barnaby Tuck <General Goods>  41m NE │
+│                                                                                                ││ Q Hobb Tanner <Master of the Hi… 32m N │
+│                                                                                                ││ $ Barnaby Tuck <General Goods>  42m NE │
+│                                                                                                ││ $ Hilda Brasswick <Armourer>     42m N │
 │                                                                                                ││ T Ormond Quill <Wizard Trainer>  48m E │
-│                                                                                                ││ H Isolde Fenn <Binder>          53m NE │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>   54m NE │
-│                                                                                                ││ g Town Guard <Thornwick Watch>   54m N │
-│                                                                                                ││ T Ser Aldric Vane <Paladin Trai… 64m E │
-│                                                                                                ││ T Wynne Greenhollow <Druid Trai… 80m E │
-│                                                                                                ││ B Odalys Penn <Banker>          84m NE │
-│ Enter acts · Esc back                                                                          ││ Q Captain Rhosyn Hartley <Watch… 95m E │
-│ The answer is on the status line; every denial says why.                                       ││ D East Gate                     102m E │
+│                                                                                                ││ Q Ambrose Fenwick <Master of t… 52m NE │
+│                                                                                                ││ H Isolde Fenn <Binder>          54m NE │
+│                                                                                                ││ $ Corwen Pell <Wool Guild Mistr… 56m E │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   57m N │
+│ Enter acts · Esc back                                                                          ││ T Ser Aldric Vane <Paladin Trai… 64m E │
+│ The answer is on the status line; every denial says why.                                       ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.8s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
-│            healer's patience.                                                                                                            │
-│ +   1.9s You buy Tanned Cap from Hilda Brasswick for 8 crowns                                                                            │
-│     1.9s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-│    21.0s Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
+│     1.6s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
+│            healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse. Pay or wait. │
+│ +   1.7s You buy Tanned Cap from Hilda Brasswick for 8 crowns                                                                            │
+│     1.7s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│    14.4s Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
 │            else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.                       │
 │                                                                                                                                          │
 │                                                                                                                                          │

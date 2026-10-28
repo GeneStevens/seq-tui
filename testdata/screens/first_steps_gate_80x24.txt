@@ -1,13 +1,13 @@
-┌─ Thornwick — Hawthorn Square, at 56,52 m, nort… ─┐┌─ You ────────────────────┐
-│░#  #######····######  ###### #####  ###### ######││ Hale  Lv 1 Warrior | 15cr│
-│░#  #######····######  ###### #####  #############││ HP 130/130 ############# │
-│░#  #######····######    g           #############││ XP ----------- 40 to Lv 2│
-│░#  #######··$·######·············      B  #######││ Atk off Ret off | none   │
-│░#  #######····      ····@········         #######│└──────────────────────────┘
-│░#  #######··············&·g···················Q··│┌─ Quest chain (Ctrl+K) ───┐
-│░#  #######························East Gate 57m ►││ First Steps              │
-│░#  #######····      ·g$·····H····················││ Step 4 of 4              │
-│░#  #######··$·      ·············           #####││ Walk east along          │
+┌─ Thornwick — Hawthorn Square, at 57,51 m, nort… ─┐┌─ You ────────────────────┐
+│#  #######····######  ###### #####  ##############││ Hale  Lv 1 Warrior | 15cr│
+│#  #######····######                ##############││ HP 130/130 ############# │
+│#  #######··$·######·············    $ B  ########││ XP ----------- 40 to Lv 2│
+│#  #######····      ··Q··········   Q     ########││ Atk off Ret ON | none    │
+│#  #######·············g&@g···················Q···│└──────────────────────────┘
+│#  #######··Q······················East Gate 57m ►│┌─ Quest chain (Ctrl+K) ───┐
+│#  #######····      ··$·····H·····················││ First Steps              │
+│#  #######··$·      ··········$··           ######││ Step 4 of 4              │
+│#  #######····      ·············           ######││ Walk east along          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│ +  52.6s First Steps: step 3 done. Next: Walk east along Gatehouse Way to the│
+│ +  37.5s First Steps: step 3 done. Next: Walk east along Gatehouse Way to the│
 │            East Gate and press E at the gate to go out to the Thornwick      │
 │            Downs.                                                            │
-│ +  52.6s You take the contract Boars in the Barley                           │
+│ +  37.5s You take the contract Boars in the Barley                           │
 └──────────────────────────────────────────────────────────────────────────────┘
  G: talk to Thornwick Contract Board <Jobs for the Downs>                       
- ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 58m E   ? help
+ ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 57m E   ? help

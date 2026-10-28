@@ -4,7 +4,7 @@
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ MP 150/196 ####################------- │
 │    Cracked Shell Fragment Common            1 │  (nothing)                                     ││ XP ------------------------- 90 to Lv 4│
 │> ▲ Worn Cap Common                          8 │                                                ││ Atk off | none                         │
-│  ▲ Padded Vest Common                      20 │                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│  ▲ Padded Vest Common                      20 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │  ▲ Padded Leggings Common                  16 │                                                │└────────────────────────────────────────┘
 │  ▲ Padded Gloves Common                     8 │                                                │┌─ Quest ────────────────────────────────┐
 │  ▲ Stout Boots Common                      10 │                                                ││ [ ] 1. Scout the Lookout               │
@@ -27,7 +27,7 @@
 │                                                                                                ││ $ Testgrounds Vendor             3m SW │
 │                                                                                                ││ T Wizard Trainer                 4m NE │
 │ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││ Q Testgrounds Captain <Quest Giv… 6m E │
-│ The answer is on the status line; every denial says why.                                       ││ +6 more                                │
+│ The answer is on the status line; every denial says why.                                       ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ nothing has happened yet                                                                                                                 │

@@ -2,7 +2,7 @@
 │ Testgrounds Banker, 2m S away. You have 37 crowns.                           │
 │                                                                              │
 │ Vault space: this banker sells none.                                         │
-│ You carry (Enter banks one)          │ In the bank, 1 (Enter takes one)      │
+│ You carry (Enter banks one)          │ In the bank, 1 of 40 (Enter takes one)│
 │  (nothing)                           │> ▲ Buckler Common                     │
 │                                                                              │
 │                                                                              │

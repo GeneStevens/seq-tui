@@ -3,7 +3,7 @@
 │                            ░                                                       #           ││ HP 100/100 ########################### │
 │                            ░                                                       #           ││ Target: none                           │
 │                            ░                                                       #           ││ Auto-attack: off                       │
-│                            ░                                                       #           ││ Auto-retaliate: off  (Ctrl+R)          │
+│                            ░                                                       #           ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                            ░                                                       #           │└────────────────────────────────────────┘
 │                            ░                T  T T  T  T  T                        #           │┌─ Quest ────────────────────────────────┐
 │                            ░                                                       #           ││ [ ] 1. Scout the Lookout               │
@@ -25,21 +25,21 @@
 │                            ░                                                       #           ││ T Cleric Trainer                 12m N │
 │                            ░                                                       #           ││ T Rogue Trainer                  12m N │
 │                            ░                                                       #           ││ T Warrior Trainer                12m N │
-│                            ░                                                       #           ││ T Wizard Trainer                 13m N │
-│                            ░                                                       #           ││ +5 more                                │
+│                            ░                                                       #           ││ T Wizard Trainer                 12m N │
+│                            ░                                                       #           ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ x  22.3s You killed Plain Scuttler                                                                                                       │
-│    22.3s Your target Plain Scuttler is gone                                                                                              │
-│    22.3s You stop attacking                                                                                                              │
-│    22.3s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
-│    22.3s Plain Scuttler is dead: the fight is over                                                                                       │
-│    22.3s You are out of combat                                                                                                           │
-│ +  22.3s You gain 20 experience                                                                                                          │
-│    22.3s Plain Scuttler is out of view                                                                                                   │
-│    42.4s Cracked Shell Fragment was taken                                                                                                │
-│ +  42.4s You pick up Cracked Shell Fragment                                                                                              │
-│    42.4s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│ x  20.7s You killed Plain Scuttler                                                                                                       │
+│    20.7s Your target Plain Scuttler is gone                                                                                              │
+│    20.7s You stop attacking                                                                                                              │
+│    20.7s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
+│    20.7s Plain Scuttler is dead: the fight is over                                                                                       │
+│    20.7s You are out of combat                                                                                                           │
+│ +  20.7s You gain 20 experience                                                                                                          │
+│    20.7s Plain Scuttler is out of view                                                                                                   │
+│    42.3s Cracked Shell Fragment was taken                                                                                                │
+│ +  42.3s You pick up Cracked Shell Fragment                                                                                              │
+│    42.3s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                                                                              ? help  q quit

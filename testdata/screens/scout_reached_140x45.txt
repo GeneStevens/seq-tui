@@ -1,27 +1,27 @@
-┌─ Thornwick Downs, at 45,136 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Thornwick Downs, at 42,210 m, north up ───────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │································································································││ Hale  Lv 1 Warrior           | 0 crowns│
 │································································································││ HP 130/130 ########################### │
 │································································································││ XP ------------------------- 40 to Lv 2│
-│···D····························································································││ Atk off Ret off | none                 │
+│······D·························································································││ Atk off Ret ON | none                  │
 │································································································│└────────────────────────────────────────┘
-│······················································                ··························│┌─ Target ───────────────────────────────┐
-│                                                                         ········              ·││ no target (Tab to choose)              │
-│                                                                         ········               ││                                        │
-│                                                                         ········               ││                                        │
-│            """"""""""""""""""""""                                       ········   """"""""""""│└────────────────────────────────────────┘
-│            """"""""""""""""""""""                                       ····;···   """"""""""""│┌─ Contracts (K) ────────────────────────┐
-│                                                @                        ········   #########   ││ Word from Wickett Mill           READY │
-│                                                ;                        ········   #########   │└────────────────────────────────────────┘
-│                                                                         ········   #########   │┌─ Nearby ───────────────────────────────┐
-│                                                                         ····◆···   #########   ││ D Town Gate          42m W [next door] │
-│                                                                         ········               ││ ; Wickett Mill       3m S scout marker │
-│                                          ############  ≈≈≈≈≈≈≈≈≈########        ##########     ││ ; Barleycross       24m E scout marker │
-│                                          ############  ≈≈≈≈≈≈≈≈≈########        ##########     ││ ◆ Barleycross  25m E raiders head here │
-│                                          ############  ≈≈≈≈≈≈≈≈≈########        ##########     ││ ; Millrace Ford    133m E scout marker │
-│                                          ############  ≈≈≈≈≈≈≈≈≈########        ##########     ││ ; Goblin Lookout   184m E scout marker │
-│                                          ############  ≈≈≈≈≈≈≈≈≈########        ##########     ││ v Raid Edge      190m E raiders gather │
-│                                          ############                                          ││ ; Hollow Warren    343m E scout marker │
-│                                                                                                ││ D Hollow Warren                 355m E │
+│·················································                           ····················│┌─ Quest chain (Ctrl+K) ─────────────────┐
+│                                                                            ········            ││ First Steps                            │
+│                                                                            ········            ││ Step 1 of 4                            │
+│                                                                            ········            ││ Speak to Tamsin Hale, the Watch        │
+│               """"""""""""""""""""""                                       ········   """""""""││ Greeter, here in Hawthorn Square.      │
+│               """"""""""""""""""""""                                       ····;···   """""""""││ This step is in another zone:          │
+│                                                @                           ········   #########││   Thornwick.                           │
+│                                                   ;                        ········   #########││ Take the Town Gate: 39m W of you.      │
+│                                                  Q                         ········   #########│└────────────────────────────────────────┘
+│                                                                       Q    ····◆···   #########│┌─ Target ───────────────────────────────┐
+│                                             ############  ≈≈≈≈≈≈≈≈≈≈       ········##########  ││ no target (Tab to choose)              │
+│                                             ############  ≈≈≈≈≈≈≈≈≈########········##########  ││                                        │
+│                                             ############  ≈≈≈≈≈≈≈≈≈########········##########  ││                                        │
+│                                             ############  ≈≈≈≈≈≈≈≈≈########········##########  │└────────────────────────────────────────┘
+│                                             ############  ≈≈≈≈≈≈≈≈≈########········##########  │┌─ Nearby ───────────────────────────────┐
+│                                             ############  ≈≈≈≈≈≈≈≈≈########········##########  ││ D Town Gate          39m W [next door] │
+│                                             ############                   ··········          ││ ; Wickett Mill      3m SE scout marker │
+│                                                                            ··········          ││ +27 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │
@@ -31,15 +31,15 @@
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
 │            /dismiss gives it up for good.                                                                                                │
-│     2.7s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│     2.3s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   2.8s You take the contract Word from Wickett Mill                                                                                    │
-│    26.7s entered Thornwick Downs                                                                                                         │
-│ +  42.2s Word from Wickett Mill: 1 of 1                                                                                                  │
+│ +   2.5s You take the contract Word from Wickett Mill                                                                                    │
+│    20.7s entered Thornwick Downs                                                                                                         │
+│ +  32.6s Word from Wickett Mill: 1 of 1                                                                                                  │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
- ONLINE | Thornwick Downs | → Hand in: Word from Wickett Mill (Thornwick), 42m W | heard 0.4s ago | move ok                   ? help  q quit
+ G: talk to Hew Wickett <Miller>                                                                                                            
+ ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W | heard 0.4s ago | move ok                 ? help  q quit

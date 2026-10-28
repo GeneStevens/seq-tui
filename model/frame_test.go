@@ -73,15 +73,21 @@ func digest(m *model.Model) []any {
 // A frame is the messages of old, in one: the model it makes is the model of the
 // stream of messages, over every kind of recorded session.
 func TestFramesApplyAsTheStreamOfMessages(t *testing.T) {
+	reframed := false
 	for _, name := range []string{"fight_loot.jsonl", "companion_reconnect.jsonl", "drop_resume.jsonl", "party_warren.jsonl", "levelup.jsonl", "loot_equip.jsonl"} {
 		msgs := load(t, name)
 		f := framed(msgs)
-		if len(f) >= len(msgs) {
-			t.Errorf("%s: %d messages made %d: nothing was framed", name, len(msgs), len(f))
+		// SEQ-193's recordings are partly framed by the server already, so a
+		// log may have little left to frame; some log must still be framed.
+		if len(f) < len(msgs) {
+			reframed = true
 		}
 		if got, want := digest(apply(f)), digest(apply(msgs)); !reflect.DeepEqual(got, want) {
 			t.Errorf("%s: frames and messages give different models:\n got %v\nwant %v", name, got, want)
 		}
+	}
+	if !reframed {
+		t.Error("no log had events to frame")
 	}
 }
 

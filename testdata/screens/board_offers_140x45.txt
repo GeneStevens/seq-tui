@@ -3,13 +3,13 @@
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
 │> Boars in the Barley             Hunt   L1-3  │  (none)                                        ││ XP ------------------------- 40 to Lv 2│
 │  Word from Wickett Mill          Scout  L1-3  │                                                ││ Atk off | none                         │
-│  Wolves at Wickett Mill          Hunt   L1-3  │                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│  Wolves at Wickett Mill          Hunt   L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│                                                                                                ││ First Steps                            │
-│                                                                                                ││ Step 2 of 4                            │
-│                                                                                                ││ Speak to your class trainer on         │
-│                                                                                                ││ Trainers' Lane, by the north wall      │
+│  Cutpurses on the Barleycr… opens at level 2  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│  Clear the Roadside Bandits opens at level 4  │                                                ││ First Steps                            │
+│  The Greywood Pack          opens at level 4  │                                                ││ Step 2 of 4                            │
+│  Tusks for the Carver       opens at level 4  │                                                ││ Speak to your class trainer on         │
+│  Report from Millrace Ford  opens at level 4  │                                                ││ Trainers' Lane, by the north wall      │
 │                                                                                                ││ (warriors at the west end, druids at   │
 │                                                                                                ││ the east), for your first lesson.      │
 │                                                                                                │└────────────────────────────────────────┘
@@ -19,15 +19,15 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board  2m S [new] │
+│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
 │────────────────────────────────────────────────────────────────────────────────────────────────││ ! Gorran Stoutarm      54m SW [step 2] │
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ g Tamsin Hale <Watch Greeter>    6m SE │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ $ Barnaby Tuck <General Goods>  13m SW │
-│ Pays 21 XP, 10 crowns and Tin Ring ▲.                                                          ││ H Isolde Fenn <Binder>          14m SE │
-│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ g Town Guard <Thornwick Watch>   23m E │
-│                                                                                                ││ $ Hilda Brasswick <Armourer>     29m W │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ B Odalys Penn <Banker>           32m E │
-│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +8 more                                │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ g Tamsin Hale <Watch Greeter>    5m SE │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ Q Ambrose Fenwick <Master of th… 6m NW │
+│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                                          ││ H Isolde Fenn <Binder>          13m SE │
+│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ $ Barnaby Tuck <General Goods>  13m SW │
+│                                                                                                ││ $ Corwen Pell <Wool Guild Mist… 19m SE │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ g Town Guard <Thornwick Watch>   22m E │
+│ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +13 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
@@ -37,7 +37,7 @@
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     2.8s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│     2.4s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │

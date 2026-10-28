@@ -1,8 +1,8 @@
-┌─ Thornwick Downs — Thornwick Gate, at 6,150 m,… ─┐┌─ You ────────────────────┐
+┌─ Thornwick Downs — Thornwick Gate, at 6,225 m,… ─┐┌─ You ────────────────────┐
 │                      ░                           ││ Hale  Lv 1 Warrior | 15cr│
-│                      ░     """"""""""""""""""""""││ HP 130/130 ############# │
+│                      ░                           ││ HP 130/130 ############# │
 │                      ░     """"""""""""""""""""""││ XP #####------ 20 to Lv 2│
-│                      ░···························││ Atk off Ret off | none   │
+│                      ░···························││ Atk off Ret ON | none    │
 │                      ░··@························│└──────────────────────────┘
 │                      ░···························│┌─ Target ─────────────────┐
 │                      ░                           ││ no target (Tab to choose)│
@@ -16,9 +16,9 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │            Downs.                                                            │
-│ +  52.6s You take the contract Boars in the Barley                           │
-│ +  77.5s Quest complete: First Steps: 20 experience                          │
-│    77.6s entered Thornwick Downs                                             │
+│ +  37.5s You take the contract Boars in the Barley                           │
+│ +  55.6s Quest complete: First Steps: 20 experience                          │
+│    55.7s entered Thornwick Downs                                             │
 └──────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
  ONLINE | → Boars in the Barley, 92m SE | road: faster, 125% | heard 0.4s ago   

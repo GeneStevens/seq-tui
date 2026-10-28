@@ -2,7 +2,7 @@
 │                                                  ││ ann1  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
 │                                                  ││ Target: none             │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Atk off | Retaliate off  │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Atk off | Retaliate ON   │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                         D                        ││ no target (Tab to choose)│
@@ -12,7 +12,7 @@
 │                                              c   │┌─ Nearby ─────────────────┐
 │                                                  ││ ! Testgrou… 85m SW [new] │
 │                                                  ││ & Testgroun… 88m W [new] │
-│                                                  ││ +14 more                 │
+│                                                  ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ───────────────── [say] ann1: spam d ─┐
 │     0.2s bob1 comes into view                                                │

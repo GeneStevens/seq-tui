@@ -142,3 +142,34 @@ func TestEnterOnALockedOfferExplainsThenAsks(t *testing.T) {
 		t.Fatalf("the second Enter does not ask the server: %+v", act)
 	}
 }
+
+// A ferry trip that leaves a trader out of reach keeps the travel line on the
+// status line, whichever of the answer and the close comes first; a close for any
+// other reason still says so.
+func TestATripKeepsTheTravelLineWhenTheTraderIsLeftBehind(t *testing.T) {
+	const trip = "sail The East Landing ok"
+	for _, answerFirst := range []bool{true, false} {
+		a, m := vendorWorld()
+		a.traders = &screen.Traders{Open: true, NPC: "vendor"}
+		m.Self.Pos = &pb.Pos{X: 30000} // the trip carried the character out of reach
+		if answerFirst {
+			a.Update(resultMsg{note: trip, travel: true})
+			a.walkedAway(m)
+		} else {
+			a.walkedAway(m)
+			a.Update(resultMsg{note: trip, travel: true})
+		}
+		if a.traders != nil || a.view.Notice != trip {
+			t.Fatalf("answer first %v: trader open %v, notice %q", answerFirst, a.traders != nil, a.view.Notice)
+		}
+	}
+	a, m := vendorWorld()
+	a.traders = &screen.Traders{Open: true, NPC: "vendor"}
+	a.Update(resultMsg{note: trip, travel: true})
+	a.Update(resultMsg{note: "buy bread ok"}) // a later answer ends the hold
+	m.Self.Pos = &pb.Pos{X: 30000}
+	a.walkedAway(m)
+	if want := "You walked away from Hilda Brasswick, so the trade closed"; a.view.Notice != want {
+		t.Fatalf("notice %q, want %q", a.view.Notice, want)
+	}
+}

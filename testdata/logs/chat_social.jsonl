@@ -1,11 +1,11 @@
-{"welcome":{"protocol_version":1,"min_protocol_version":1,"tick_ms":100,"limits":{"max_message_bytes":4096,"max_intents_per_second":20},"classes":[{"id":"warrior","name":"Warrior","roles":["tank"],"description":"Armored front-liner who holds enemies' attention and soaks up their blows.","kit":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"Stuns for 1.5 s, interrupts a cast. On an enemy within 2.5 m."}]},{"id":"cleric","name":"Cleric","roles":["healer"],"description":"Healer who mends wounds and wards allies, with a hallowed blow of their own.","kit":[{"id":"cleric-minor-heal","name":"Minor Heal","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"ally","description":"Heals 15-20. On an ally within 25 m."},{"id":"cleric-smite","name":"Smite","cast_ms":"1500","cooldown_ms":"6000","mana_cost":"8","range_mm":"25000","target":"enemy","description":"Deals 10-14 holy damage. On an enemy within 25 m."}]},{"id":"rogue","name":"Rogue","roles":["melee"],"description":"Quick melee striker: sneaks, backstabs, bleeds enemies and slips out of fights.","kit":[{"id":"rogue-backstab","name":"Backstab","cooldown_ms":"9000","range_mm":"2500","target":"enemy","description":"Deals 12-18 physical damage. On an enemy within 2.5 m."},{"id":"rogue-sneak","name":"Sneak","cooldown_ms":"6000","target":"self","description":"Hides you until you act. On yourself."}]},{"id":"wizard","name":"Wizard","roles":["spell"],"description":"Fragile caster with the strongest spells, from bolts of fire and frost to roots.","kit":[{"id":"wizard-flame-dart","name":"Flame Dart","cast_ms":"1000","mana_cost":"6","range_mm":"25000","target":"enemy","description":"Deals 8-12 fire damage. On an enemy within 25 m."},{"id":"wizard-frost-bolt","name":"Frost Bolt","cast_ms":"2000","mana_cost":"12","range_mm":"25000","target":"enemy","description":"Deals 10-14 cold damage, slows by 40% for 12 s. On an enemy within 25 m."}]},{"id":"paladin","name":"Paladin","roles":["tank","healer"],"description":"Armored hybrid who fights at the front and can heal, cleanse and judge.","kit":[{"id":"paladin-hallowed-blow","name":"Hallowed Blow","cooldown_ms":"12000","range_mm":"2500","target":"enemy","description":"Deals 8-12 holy damage, heals you for 50% of the damage you deal. On an enemy within 2.5 m."},{"id":"paladin-challenge","name":"Challenge","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."}]},{"id":"druid","name":"Druid","roles":["healer","spell"],"description":"Nature caster who heals over time, entangles and slows enemies, and poisons them.","kit":[{"id":"druid-thorn-bolt","name":"Thorn Bolt","cast_ms":"1500","mana_cost":"7","range_mm":"25000","target":"enemy","description":"Deals 8-12 nature damage. On an enemy within 25 m."},{"id":"druid-mend","name":"Mend","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"ally","description":"Heals 14-18. On an ally within 25 m."}]}]}}
-{"snapshot":{"game_time_ms":"100","tick":"1","space":"Testgrounds","self":{"entity":{"id":"ann1","kind":"ENTITY_KIND_CHARACTER","name":"ann1","pos":{"x":"100000","y":"89000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","hints":[{"kind":"offer","id":"board","pos":{"x":"18000","y":"58000"},"label":"New contracts","note":"4 to take"},{"kind":"offer","id":"recruiter","pos":{"x":"22000","y":"56000"},"label":"New contracts","note":"1 to take"}],"sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]}}}}
-{"zone_map":{"space":"Testgrounds","name":"Testgrounds","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"line-east","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"195000","y":"10000"},"name":"Line East","leads_to":"outskirts","label":"Line East — to the Outskirts"},{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North","label":"Gate North"}],"view_radius_mm":"20000","instance_presets":[{"id":"skirmish","name":"Scuttler Skirmish","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"solo-trial","name":"Solo Trial","time_mode":"realtime","party_cap":"1","difficulty":"normal","presence":"directed","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"venture-den","name":"Venture Den","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"peril-den","name":"Peril Den","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"peril","entry_fee":"50"},{"id":"long-game","name":"Long Game","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"gate-north","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"100","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"quick-turns","name":"Quick Turns","time_mode":"turn_based","party_cap":"1","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"20000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"duo-turns","name":"Duo Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"6000","sleep_limit_ms":"604800000","tier":"venture"}],"markers":[{"id":"line-east","kind":"zone_line","pos":{"x":"195000","y":"10000"}},{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}},{"id":"overlook","kind":"scout","pos":{"x":"30000","y":"20000"}},{"id":"lookout","kind":"scout","pos":{"x":"35000","y":"8000"}},{"id":"raid-edge","kind":"event_spawn","pos":{"x":"150000","y":"20000"}},{"id":"raid-farms","kind":"event_goal","pos":{"x":"100000","y":"20000"}}],"camps":[{"id":"near","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"25000","y":"50000"}},{"id":"behind-wall","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"55000","y":"50000"}},{"id":"far","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"180000","y":"80000"}},{"id":"post","mob":"Placeholder Warden","level":"1","count":"1","pos":{"x":"10000","y":"20000"}},{"id":"trophy","mob":"Trophy Scuttler","level":"1","count":"1","pos":{"x":"100000","y":"50000"}},{"id":"lair","mob":"Den Brute","level":"1","count":"1","pos":{"x":"130000","y":"80000"}}],"npcs":[{"id":"vendor","name":"Testgrounds Vendor","role":"vendor","pos":{"x":"12000","y":"58000"},"title":"Vendor"},{"id":"banker","name":"Testgrounds Banker","role":"banker","pos":{"x":"14000","y":"58000"},"title":"Banker"},{"id":"binder","name":"Testgrounds Binder","role":"binder","pos":{"x":"16000","y":"58000"},"title":"Binder"},{"id":"binder-east","name":"Eastern Binder","role":"binder","pos":{"x":"120000","y":"20000"},"title":"Binder"},{"id":"trainer-warrior","name":"Warrior Trainer","role":"trainer","pos":{"x":"12000","y":"62000"},"title":"Warrior Trainer"},{"id":"trainer-cleric","name":"Cleric Trainer","role":"trainer","pos":{"x":"14000","y":"62000"},"title":"Cleric Trainer"},{"id":"trainer-rogue","name":"Rogue Trainer","role":"trainer","pos":{"x":"16000","y":"62000"},"title":"Rogue Trainer"},{"id":"trainer-wizard","name":"Wizard Trainer","role":"trainer","pos":{"x":"18000","y":"62000"},"title":"Wizard Trainer"},{"id":"trainer-paladin","name":"Paladin Trainer","role":"trainer","pos":{"x":"20000","y":"62000"},"title":"Paladin Trainer"},{"id":"trainer-druid","name":"Druid Trainer","role":"trainer","pos":{"x":"22000","y":"62000"},"title":"Druid Trainer"},{"id":"board","name":"Testgrounds Contract Board","role":"contract_board","pos":{"x":"18000","y":"58000"},"title":"Contract Board"},{"id":"captain","name":"Testgrounds Captain","role":"quest_giver","pos":{"x":"20000","y":"58000"},"title":"Quest Giver"},{"id":"recruiter","name":"Testgrounds Recruiter","role":"quest_giver","pos":{"x":"22000","y":"56000"},"title":"Quest Giver"}]}}
+{"welcome":{"protocol_version":1,"min_protocol_version":1,"tick_ms":100,"limits":{"max_message_bytes":4096,"max_intents_per_second":20},"classes":[{"id":"warrior","name":"Warrior","roles":["tank"],"description":"Armored front-liner who holds enemies' attention and soaks up their blows.","kit":[{"id":"warrior-taunt","name":"Taunt","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."},{"id":"warrior-bash","name":"Bash","cooldown_ms":"18000","range_mm":"2500","target":"enemy","description":"Stuns for 1.5 s, interrupts a cast. On an enemy within 2.5 m."}]},{"id":"cleric","name":"Cleric","roles":["healer"],"description":"Healer who mends wounds and wards allies, with a hallowed blow of their own.","kit":[{"id":"cleric-minor-heal","name":"Minor Heal","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"ally","description":"Heals 15-20. On an ally within 25 m."},{"id":"cleric-smite","name":"Smite","cast_ms":"1500","cooldown_ms":"6000","mana_cost":"8","range_mm":"25000","target":"enemy","description":"Deals 10-14 holy damage. On an enemy within 25 m."}]},{"id":"rogue","name":"Rogue","roles":["melee"],"description":"Quick melee striker: sneaks, backstabs, bleeds enemies and slips out of fights.","kit":[{"id":"rogue-backstab","name":"Backstab","cooldown_ms":"9000","range_mm":"2500","target":"enemy","description":"Deals 12-18 physical damage. On an enemy within 2.5 m."},{"id":"rogue-sneak","name":"Sneak","cooldown_ms":"6000","target":"self","description":"Hides you until you act. On yourself."}]},{"id":"wizard","name":"Wizard","roles":["spell"],"description":"Fragile caster with the strongest spells, from bolts of fire and frost to roots.","kit":[{"id":"wizard-flame-dart","name":"Flame Dart","cast_ms":"1000","mana_cost":"6","range_mm":"25000","target":"enemy","description":"Deals 8-12 fire damage. On an enemy within 25 m."},{"id":"wizard-frost-bolt","name":"Frost Bolt","cast_ms":"2000","mana_cost":"12","range_mm":"25000","target":"enemy","description":"Deals 10-14 cold damage, slows by 40% for 12 s. On an enemy within 25 m."}]},{"id":"paladin","name":"Paladin","roles":["tank","healer"],"description":"Armored hybrid who fights at the front and can heal, cleanse and judge.","kit":[{"id":"paladin-hallowed-blow","name":"Hallowed Blow","cooldown_ms":"12000","range_mm":"2500","target":"enemy","description":"Deals 8-12 holy damage, heals you for 50% of the damage you deal. On an enemy within 2.5 m."},{"id":"paladin-challenge","name":"Challenge","cooldown_ms":"12000","range_mm":"20000","target":"enemy","description":"Forces the enemy to turn on you. On an enemy within 20 m."}]},{"id":"druid","name":"Druid","roles":["healer","spell"],"description":"Nature caster who heals over time, entangles and slows enemies, and poisons them.","kit":[{"id":"druid-thorn-bolt","name":"Thorn Bolt","cast_ms":"1500","mana_cost":"7","range_mm":"25000","target":"enemy","description":"Deals 8-12 nature damage. On an enemy within 25 m."},{"id":"druid-mend","name":"Mend","cast_ms":"1500","mana_cost":"10","range_mm":"25000","target":"ally","description":"Heals 14-18. On an ally within 25 m."}]}],"features":["tick_frames"]}}
+{"snapshot":{"game_time_ms":"100","tick":"1","space":"Testgrounds","self":{"entity":{"id":"ann1","kind":"ENTITY_KIND_CHARACTER","name":"ann1","pos":{"x":"100000","y":"89000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","inventory_size":"20","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000","hints":[{"kind":"offer","id":"board","pos":{"x":"18000","y":"58000"},"label":"New contracts","note":"4 to take"},{"kind":"offer","id":"recruiter","pos":{"x":"22000","y":"56000"},"label":"New contracts","note":"1 to take"}],"sheet":{"level":"1","max_hp":"100","regen":"2","armor":"10","armor_cut_pct":"10","hit_pct":"75","swing_min":"5","swing_max":"9","delay_ms":"2000","dps_tenths":"35","attributes":[{"name":"strength","base":"20"},{"name":"agility"},{"name":"stamina"},{"name":"intellect"},{"name":"wisdom"}]},"bank_size":"40","auto_retaliate":true}}}
+{"zone_map":{"space":"Testgrounds","name":"Testgrounds","bounds":{"max_x":"200000","max_y":"100000"},"walls":[{"a":{"x":"40000","y":"30000"},"b":{"x":"40000","y":"70000"}}],"doors":[{"id":"line-east","kind":"DOOR_KIND_ZONE_LINE","pos":{"x":"195000","y":"10000"},"name":"Line East","leads_to":"outskirts","label":"Line East — to the Outskirts"},{"id":"gate-north","kind":"DOOR_KIND_INSTANCE_ENTRANCE","pos":{"x":"100000","y":"90000"},"name":"Gate North","label":"Gate North"}],"view_radius_mm":"20000","instance_presets":[{"id":"skirmish","name":"Scuttler Skirmish","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"solo-trial","name":"Solo Trial","time_mode":"realtime","party_cap":"1","difficulty":"normal","presence":"directed","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"venture-den","name":"Venture Den","time_mode":"realtime","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"venture"},{"id":"peril-den","name":"Peril Den","time_mode":"realtime","party_cap":"2","difficulty":"heroic","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","tier":"peril","entry_fee":"50"},{"id":"long-game","name":"Long Game","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"human","entrance":"gate-north","idle_ms":"86400000","max_lifetime_ms":"604800000","round_ticks":"100","turn_deadline_ms":"86400000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"quick-turns","name":"Quick Turns","time_mode":"turn_based","party_cap":"1","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"20000","sleep_limit_ms":"604800000","tier":"venture"},{"id":"duo-turns","name":"Duo Turns","time_mode":"turn_based","party_cap":"2","difficulty":"normal","presence":"open","entrance":"gate-north","idle_ms":"8000","max_lifetime_ms":"600000","round_ticks":"20","turn_deadline_ms":"6000","sleep_limit_ms":"604800000","tier":"venture"}],"markers":[{"id":"line-east","kind":"zone_line","pos":{"x":"195000","y":"10000"}},{"id":"gate-north","kind":"instance_entrance","pos":{"x":"100000","y":"90000"}},{"id":"overlook","kind":"scout","pos":{"x":"30000","y":"20000"},"name":"Windswept Overlook"},{"id":"lookout","kind":"scout","pos":{"x":"35000","y":"8000"},"name":"Hollow Lookout"},{"id":"raid-edge","kind":"event_spawn","pos":{"x":"150000","y":"20000"},"name":"Brigands' Hollow"},{"id":"raid-farms","kind":"event_goal","pos":{"x":"100000","y":"20000"},"name":"Tester's Farms"}],"camps":[{"id":"near","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"25000","y":"50000"}},{"id":"behind-wall","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"55000","y":"50000"}},{"id":"far","mob":"Plain Scuttler","level":"1","count":"1","pos":{"x":"180000","y":"80000"}},{"id":"post","mob":"Placeholder Warden","level":"1","count":"1","pos":{"x":"10000","y":"20000"}},{"id":"trophy","mob":"Trophy Scuttler","level":"1","count":"1","pos":{"x":"100000","y":"50000"}},{"id":"lair","mob":"Den Brute","level":"1","count":"1","pos":{"x":"130000","y":"80000"}}],"npcs":[{"id":"vendor","name":"Testgrounds Vendor","role":"vendor","pos":{"x":"12000","y":"58000"},"title":"Vendor"},{"id":"banker","name":"Testgrounds Banker","role":"banker","pos":{"x":"14000","y":"58000"},"title":"Banker"},{"id":"binder","name":"Testgrounds Binder","role":"binder","pos":{"x":"16000","y":"58000"},"title":"Binder"},{"id":"binder-east","name":"Eastern Binder","role":"binder","pos":{"x":"120000","y":"20000"},"title":"Binder"},{"id":"trainer-warrior","name":"Warrior Trainer","role":"trainer","pos":{"x":"12000","y":"62000"},"title":"Warrior Trainer"},{"id":"trainer-cleric","name":"Cleric Trainer","role":"trainer","pos":{"x":"14000","y":"62000"},"title":"Cleric Trainer"},{"id":"trainer-rogue","name":"Rogue Trainer","role":"trainer","pos":{"x":"16000","y":"62000"},"title":"Rogue Trainer"},{"id":"trainer-wizard","name":"Wizard Trainer","role":"trainer","pos":{"x":"18000","y":"62000"},"title":"Wizard Trainer"},{"id":"trainer-paladin","name":"Paladin Trainer","role":"trainer","pos":{"x":"20000","y":"62000"},"title":"Paladin Trainer"},{"id":"trainer-druid","name":"Druid Trainer","role":"trainer","pos":{"x":"22000","y":"62000"},"title":"Druid Trainer"},{"id":"board","name":"Testgrounds Contract Board","role":"contract_board","pos":{"x":"18000","y":"58000"},"title":"Contract Board"},{"id":"captain","name":"Testgrounds Captain","role":"quest_giver","pos":{"x":"20000","y":"58000"},"title":"Quest Giver"},{"id":"recruiter","name":"Testgrounds Recruiter","role":"quest_giver","pos":{"x":"22000","y":"56000"},"title":"Quest Giver"}]}}
+{"chat_settings":{"character":"ann1","ooc_on":true}}
 {"pong":{"nonce":"101"}}
-{"event":{"seq":"1","game_time_ms":"200","text":"bob1 comes into view","entity_appeared":{"entity":{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"89500"},"hp":"100","max_hp":"100","level":"1"}}}}
-{"intent_result":{"intent_id":"attend-1-ann-here","accepted":true}}
+{"tick_frame":{"base_seq":"1","events":[{"game_time_ms":"200","text":"bob1 comes into view","entity_appeared":{"entity":{"id":"bob1","kind":"ENTITY_KIND_CHARACTER","name":"bob1","pos":{"x":"100000","y":"89500"},"hp":"100","max_hp":"100","level":"1"}}}],"results":[{"intent_id":"attend-1-ann-here","accepted":true}]}}
 {"social_result":{"request_id":"s18","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"hello there","at_ms":"1735689600300"}}
+{"chat":{"channel":"say","from":"ann1","text":"hello there","at_ms":"1735689600300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"hello there"}]}}
 {"pong":{"nonce":"102"}}
 {"pong":{"nonce":"103"}}
 {"pong":{"nonce":"104"}}
@@ -17,16 +17,16 @@
 {"pong":{"nonce":"108"}}
 {"pong":{"nonce":"109"}}
 {"social_result":{"request_id":"s24","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"spam a","at_ms":"1735689600300"}}
+{"chat":{"channel":"say","from":"ann1","text":"spam a","at_ms":"1735689600300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"spam a"}]}}
 {"pong":{"nonce":"110"}}
 {"social_result":{"request_id":"s25","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"spam b","at_ms":"1735689600300"}}
+{"chat":{"channel":"say","from":"ann1","text":"spam b","at_ms":"1735689600300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"spam b"}]}}
 {"pong":{"nonce":"111"}}
 {"social_result":{"request_id":"s26","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"spam c","at_ms":"1735689600300"}}
+{"chat":{"channel":"say","from":"ann1","text":"spam c","at_ms":"1735689600300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"spam c"}]}}
 {"pong":{"nonce":"112"}}
 {"social_result":{"request_id":"s27","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"spam d","at_ms":"1735689600300"}}
+{"chat":{"channel":"say","from":"ann1","text":"spam d","at_ms":"1735689600300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"spam d"}]}}
 {"pong":{"nonce":"113"}}
 {"social_result":{"request_id":"s28","reason":"rate_limited"}}
 {"pong":{"nonce":"114"}}
@@ -37,93 +37,95 @@
 {"pong":{"nonce":"117"}}
 {"pong":{"nonce":"118"}}
 {"pong":{"nonce":"119"}}
+{"tick_frame":{"doors":{"doors":[{"id":"line-east","why":"Line East is closed to you right now"},{"id":"gate-north","why":"Gate North is still opening: the expedition beyond it isn't ready. Try again in a moment."}]}}}
+{"tick_frame":{"doors":{"doors":[{"id":"line-east","why":"Line East is closed to you right now"},{"id":"gate-north","why":"Gate North is shut: no expedition is open beyond it. Start one first."}]}}}
 {"pong":{"nonce":"120"}}
 {"pong":{"nonce":"121"}}
 {"pong":{"nonce":"122"}}
 {"pong":{"nonce":"123"}}
 {"pong":{"nonce":"124"}}
 {"social_result":{"request_id":"s35","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number a","at_ms":"1735689602300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number a","at_ms":"1735689602300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number a"}]}}
 {"pong":{"nonce":"125"}}
 {"pong":{"nonce":"126"}}
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
 {"social_result":{"request_id":"s36","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number b","at_ms":"1735689603300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number b","at_ms":"1735689603300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number b"}]}}
 {"pong":{"nonce":"129"}}
 {"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
 {"pong":{"nonce":"132"}}
 {"social_result":{"request_id":"s37","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number c","at_ms":"1735689604300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number c","at_ms":"1735689604300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number c"}]}}
 {"pong":{"nonce":"133"}}
 {"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
 {"pong":{"nonce":"136"}}
 {"social_result":{"request_id":"s38","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number d","at_ms":"1735689605300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number d","at_ms":"1735689605300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number d"}]}}
 {"pong":{"nonce":"137"}}
 {"pong":{"nonce":"138"}}
 {"pong":{"nonce":"139"}}
-{"event":{"seq":"2","game_time_ms":"6000","rules_tick":{}}}
+{"tick_frame":{"base_seq":"2","events":[{"game_time_ms":"6000","rules_tick":{}}]}}
 {"pong":{"nonce":"140"}}
 {"social_result":{"request_id":"s39","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number e","at_ms":"1735689606300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number e","at_ms":"1735689606300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number e"}]}}
 {"pong":{"nonce":"141"}}
 {"pong":{"nonce":"142"}}
 {"pong":{"nonce":"143"}}
 {"pong":{"nonce":"144"}}
 {"social_result":{"request_id":"s40","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number f","at_ms":"1735689607300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number f","at_ms":"1735689607300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number f"}]}}
 {"pong":{"nonce":"145"}}
 {"pong":{"nonce":"146"}}
 {"pong":{"nonce":"147"}}
 {"pong":{"nonce":"148"}}
 {"social_result":{"request_id":"s41","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number g","at_ms":"1735689608300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number g","at_ms":"1735689608300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number g"}]}}
 {"pong":{"nonce":"149"}}
 {"pong":{"nonce":"150"}}
 {"pong":{"nonce":"151"}}
 {"pong":{"nonce":"152"}}
 {"social_result":{"request_id":"s42","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number h","at_ms":"1735689609300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number h","at_ms":"1735689609300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number h"}]}}
 {"pong":{"nonce":"153"}}
 {"pong":{"nonce":"154"}}
 {"pong":{"nonce":"155"}}
 {"pong":{"nonce":"156"}}
 {"social_result":{"request_id":"s43","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number i","at_ms":"1735689610300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number i","at_ms":"1735689610300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number i"}]}}
 {"pong":{"nonce":"157"}}
 {"pong":{"nonce":"158"}}
 {"pong":{"nonce":"159"}}
 {"pong":{"nonce":"160"}}
 {"social_result":{"request_id":"s44","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number j","at_ms":"1735689611300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number j","at_ms":"1735689611300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number j"}]}}
 {"pong":{"nonce":"161"}}
 {"pong":{"nonce":"162"}}
 {"pong":{"nonce":"163"}}
-{"event":{"seq":"3","game_time_ms":"12000","rules_tick":{}}}
+{"tick_frame":{"base_seq":"3","events":[{"game_time_ms":"12000","rules_tick":{}}]}}
 {"pong":{"nonce":"164"}}
 {"social_result":{"request_id":"s45","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number k","at_ms":"1735689612300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number k","at_ms":"1735689612300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number k"}]}}
 {"pong":{"nonce":"165"}}
 {"pong":{"nonce":"166"}}
 {"pong":{"nonce":"167"}}
 {"pong":{"nonce":"168"}}
 {"social_result":{"request_id":"s46","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number l","at_ms":"1735689613300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number l","at_ms":"1735689613300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number l"}]}}
 {"pong":{"nonce":"169"}}
 {"pong":{"nonce":"170"}}
 {"pong":{"nonce":"171"}}
 {"pong":{"nonce":"172"}}
 {"social_result":{"request_id":"s47","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number m","at_ms":"1735689614300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number m","at_ms":"1735689614300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number m"}]}}
 {"pong":{"nonce":"173"}}
 {"pong":{"nonce":"174"}}
 {"pong":{"nonce":"175"}}
 {"pong":{"nonce":"176"}}
 {"social_result":{"request_id":"s48","ok":true}}
-{"chat":{"channel":"say","from":"ann1","text":"line number n","at_ms":"1735689615300"}}
+{"chat":{"channel":"say","from":"ann1","text":"line number n","at_ms":"1735689615300","speaker":{"id":"ann1","name":"ann1","kind":"player"},"parts":[{"text":"line number n"}]}}
 {"pong":{"nonce":"177"}}
 {"pong":{"nonce":"178"}}
 {"pong":{"nonce":"179"}}

@@ -2,11 +2,11 @@
 │               ░                           #      ││ aria  Lv 1  XP 0    | 0cr│
 │               ░                           #      ││ HP 96/100 #############- │
 │               ░                           #      ││ Target: Plain Scuttler   │
-│               ░       T TT TTT            #      ││ Atk ON | Retaliate off   │
+│               ░       T TT TTT            #      ││ Atk ON | Retaliate ON    │
 │               ░                           #      ││ Attacked by Plain Scuttl…│
 │               ░       $ BH &Q!            #      │└──────────────────────────┘
 │               ░                           #      │┌─ Quest ──────────────────┐
-│               ░         @M      c         #      ││ [ ] 1. Scout the Lookout │
+│               ░         @ M     c         #      ││ [ ] 1. Scout the Lookout │
 │               ░                           #      ││ Testgrounds Recruiter has│
 │               ░                           #      ││ work for you: G.         │
 │               ░                           #      │└──────────────────────────┘
@@ -15,10 +15,10 @@
 │               ░                           #      ││ HP 23/40 #####---- 2m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│ <   9.1s Plain Scuttler hits you for 3                                       │
-│    10.3s You hit Plain Scuttler for 5                                        │
-│ <  12.1s Plain Scuttler hits you for 2                                       │
-│    12.3s You hit Plain Scuttler for 4                                        │
+│     8.7s You hit Plain Scuttler for 5                                        │
+│ <   8.9s Plain Scuttler hits you for 3                                       │
+│    10.7s You hit Plain Scuttler for 4                                        │
+│ <  11.9s Plain Scuttler hits you for 2                                       │
 └──────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target  ·  Ctrl+R: fight back when attacked 
+ F: stop attacking · Esc: clear the target                                      
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

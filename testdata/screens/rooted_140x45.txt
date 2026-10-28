@@ -3,7 +3,7 @@
 │                                    ░                                             #             ││ HP 80/80 ############################# │
 │                                    ░                                             #             ││ MP 140/150 #########################-- │
 │                                    ░                                             #             ││ XP ------------------------- 40 to Lv 2│
-│                                    ░             T T T  T T T                    #             ││ Atk off Ret off | Plain Scuttler       │
+│                                    ░             T T T  T T T                    #             ││ Atk off Ret ON | Plain Scuttler        │
 │                                    ░                                             #             ││ Attacked by Plain Scuttler             │
 │                                    ░                                             #             │└────────────────────────────────────────┘
 │                                    ░             $ B H  & Q                      #             │┌─ Quest ────────────────────────────────┐
@@ -21,7 +21,7 @@
 │                                    ░                                             #             ││ ! Testgrounds Recruiter   13m NE [new] │
 │                                    ░                                             #             ││ $ Testgrounds Vendor              8m N │
 │                                    ░                                             #             ││ B Testgrounds Banker             9m NE │
-│                                    ░                                             #             ││ +12 more                               │
+│                                    ░                                             #             ││ +16 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Root 10mp ready                  2 Frost Bolt 12mp ready           3 Flame Dart 6mp ready            4 -                               │
@@ -37,9 +37,9 @@
 │     2.2s You begin fighting Plain Scuttler                                                                                               │
 │     2.2s Plain Scuttler is affected by Root                                                                                              │
 │     2.2s You are in combat with Plain Scuttler                                                                                           │
-│     2.3s Plain Scuttler targeted Zedd                                                                                                    │
+│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: attack · Tab: next target  ·  Ctrl+R: fight back when attacked                                                                          
+ F: attack · Tab: next target                                                                                                               
  ONLINE | Testgrounds | heard 0.4s ago | key 1 Root ok                                                                        ? help  q quit

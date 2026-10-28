@@ -3,13 +3,13 @@
 │                            ░░░░░░░░░░░░░░░░░░░░░░                            │
 │                            ░ The Smithy## ##### ░                            │
 │                            ░Cross Street# ######░                            │
-│                            ░ ###$###·@···  B#Q##░                            │
-│                            ░ ###····$&g··g·····D░                            │
-│                            ░ ###$·Paladins' Hall░                            │
+│                            ░ ###$###Q@··· $B#Q##░                            │
+│                            ░ ###Q···$&g··g·····D░                            │
+│                            ░ ###$· ····$·    ###░                            │
 │                            ░ ###Hawthorn Walk###░                            │
 │                            ░ #!##T##T#T##T##T#··░                            │
 │                            ░░░░░░░░░░░░░░░░░░░░░░                            │
-│ Thornwick, 120m by 90m, north up. You: 56m E, 51m N of the SW corner.        │
+│ Thornwick, 120m by 90m, north up. You: 57m E, 51m N of the SW corner.        │
 │ You       @ you  % scout marker  + plan end  ◄ objective                     │
 │ People    p player  T trainer  $ vendor  B banker  H binder  g guard         │
 │           Q quest person  & board  D door  “ said, for 4 s  » chat names you │

@@ -658,6 +658,15 @@ func (m *Model) apply(e *pb.Event) {
 		} else if en := m.entity(r.GetActor()); en != nil {
 			en.Dead, en.Hp, en.Pos = false, r.GetHp(), clonePos(r.GetPos())
 		}
+	case *pb.Event_Traveled:
+		// Travel, not a respawn: nothing about life or health changes. The
+		// character itself is sent a fresh snapshot after this event.
+		t := b.Traveled
+		if t.GetActor() == m.Self.ID {
+			m.Self.Pos = clonePos(t.GetPos())
+		} else if en := m.entity(t.GetActor()); en != nil {
+			en.Pos = clonePos(t.GetPos())
+		}
 	case *pb.Event_MobReset:
 		if en := m.Entities[b.MobReset.GetId()]; en != nil {
 			en.Hp, en.Dead = b.MobReset.GetHp(), false

@@ -124,5 +124,13 @@ func TestTakeNellsPunt(t *testing.T) {
 		if m.Self.Crowns != 15 || m.Self.Pos.GetX() < 190000 {
 			t.Fatalf("after the punt: %d crowns at %v", m.Self.Crowns, m.Self.Pos)
 		}
+		// A trip within the zone is travel (SEQ-193), never a return to life.
+		if !hasLog(m, "traveled", "You sail") && !hasLog(m, "traveled", "punt") {
+			t.Fatalf("no travel line in the log: %v", m.Log)
+		}
+		if hasLog(m, "respawned", "") || hasLog(m, "traveled", "return to life") || m.Self.Dead {
+			t.Fatalf("a punt trip reads as a respawn: %v", m.Log)
+		}
 	})
+	p.Golden("punt_arrived")
 }
