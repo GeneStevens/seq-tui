@@ -3,7 +3,7 @@
 │                                                                                                ││ HP 215/215 ########################### │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”     ││ XP ------------------------ 162 to Lv 7│
 │ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are         ││ Atk off | none                         │
-│ seasoned.”                                                                                     ││ Auto-retaliate: off  (Ctrl+R)          │
+│ seasoned.”                                                                                     ││ Auto-retaliate: ON  (Ctrl+R)           │
 │ “There is a larger task for those the Watch can trust. Prove yourself first, and come and see  │└────────────────────────────────────────┘
 │ me.”                                                                                           │┌─ Quest ────────────────────────────────┐
 │                                                                                                ││ [ ] 1. Eyes on the Goblins             │
@@ -12,22 +12,22 @@
 │   2  Take a contract                                                                           │└────────────────────────────────────────┘
 │   3  Turn in a contract                                                                        │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ ! Captain Rhosyn Hartley   1m NE [new] │
-│                                                                                                ││ & Thornwick Contract Board 47m W [new] │
+│ Quests they hold for you:                                                                      ││                                        │
+│   [locked] Marlbridge Iron: needs level 7                                                      ││                                        │
+│   [locked] The Deserter: needs level 9                                                         │└────────────────────────────────────────┘
+│   [locked] Beads for the Captain: needs level 9                                                │┌─ Nearby ───────────────────────────────┐
+│   [locked] Too Good a Price: needs level 9                                                     ││ ! Captain Rhosyn Hartley   1m NE [new] │
+│   [locked] Night Boats: needs level 10                                                         ││ ! Jory Fennick <Marlbridg… 20m W [new] │
+│   [locked] Figures and the Warrant: needs level 11                                             ││ ! Tamsin Hale <Watch Gree… 43m W [new] │
+│   [locked] The Source: needs level 12                                                          ││ & Thornwick Contract Board 47m W [new] │
 │                                                                                                ││ D East Gate                     12m SE │
 │                                                                                                ││ B Odalys Penn <Banker>          17m NW │
+│                                                                                                ││ Q Godric Ashdown <Reeve>         20m W │
 │                                                                                                ││ T Wynne Greenhollow <Druid Trai… 35m S │
+│                                                                                                ││ $ Corwen Pell <Wool Guild Mistr… 38m W │
 │                                                                                                ││ H Isolde Fenn <Binder>           40m W │
-│                                                                                                ││ T Ser Aldric Vane <Paladin Tra… 41m SW │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>    43m W │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer> 52m SW │
-│                                                                                                ││ $ Barnaby Tuck <General Goods>   54m W │
-│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ T Pip Nettle <Rogue Trainer>    65m SW │
-│ talk to Captain Rhosyn Hartley ok                                                              ││ +4 more                                │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ T Ser Aldric Vane <Paladin Tra… 41m SW │
+│ talk to Captain Rhosyn Hartley ok                                                              ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│

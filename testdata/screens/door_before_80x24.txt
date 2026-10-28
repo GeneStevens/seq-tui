@@ -2,7 +2,7 @@
 │                             ░                    ││ aria  Lv 1  XP 0    | 0cr│
 │                             ░                    ││ HP 100/100 ############# │
 │                             ░                    ││ Target: none             │
-│                             ░                    ││ Atk off | Retaliate off  │
+│                             ░                    ││ Atk off | Retaliate ON   │
 │                             ░                    │└──────────────────────────┘
 │                             ░                    │┌─ Target ─────────────────┐
 │                             ░                    ││ no target (Tab to choose)│
@@ -12,7 +12,7 @@
 │                             ░                    │┌─ Nearby ─────────────────┐
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                    ││ ! Testgrou… 178m W [new] │
 │                                                  ││ & Testgrou… 182m W [new] │
-│                                                  ││ +13 more                 │
+│                                                  ││ +17 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │ nothing has happened yet                                                     │

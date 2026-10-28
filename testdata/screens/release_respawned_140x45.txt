@@ -3,7 +3,7 @@
 │                                  ░                                                       #     ││ HP 6/6 ############################### │
 │                                  ░                                                       #     ││ Target: none                           │
 │                                  ░                                                       #     ││ Auto-attack: off                       │
-│                                  ░                                                       #     ││ Auto-retaliate: off  (Ctrl+R)          │
+│                                  ░                                                       #     ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                  ░                                                       #     │└────────────────────────────────────────┘
 │                                  ░                T  T T  T  T  T                        #     │┌─ Quest ────────────────────────────────┐
 │                                  ░                                                       #     ││ [ ] 1. Scout the Lookout               │
@@ -26,15 +26,15 @@
 │                                  ░                                                       #     ││ Q Testgrounds Captain <Quest G… 13m NE │
 │                                  ░                                                       #     ││ T Rogue Trainer                 13m NE │
 │                                  ░                                                       #     ││ T Wizard Trainer                14m NE │
-│                                  ░                                                       #     ││ +6 more                                │
+│                                  ░                                                       #     ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ <   4.1s Plain Scuttler hits you for 1                                                                                                   │
-│ <   7.1s Plain Scuttler hits you for 3                                                                                                   │
+│     8.9s You hit Plain Scuttler for 4                                                                                                    │
 │ <  10.1s Plain Scuttler hits you for 2                                                                                                   │
 │ x  10.1s Plain Scuttler killed you                                                                                                       │
 │    10.1s Your target is gone                                                                                                             │
 │    10.1s Your target Plain Scuttler is gone                                                                                              │
+│    10.1s You stop attacking                                                                                                              │
 │    10.1s Everyone in the fight with Plain Scuttler has fallen                                                                            │
 │    10.1s You are out of combat                                                                                                           │
 │    11.0s Plain Scuttler reset to 40 hp                                                                                                   │

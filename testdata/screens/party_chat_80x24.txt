@@ -2,7 +2,7 @@
 │                                                  ││ ann1  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 100/100 ############# │
 │                                                  ││ Target: none             │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Atk off | Retaliate off  │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Atk off | Retaliate ON   │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Party, you lead ────────┐
 │                         D                        ││  bob1  Lv 1              │
@@ -20,5 +20,5 @@
 │     0.0s bob1 joined the party                                               │
 │                                                                              │
 └──────────────────────────────────────────────────────────────────────────────┘
- E: enter Gate North                                                            
+ Gate North is shut: no expedition is open beyond it. Start one first.          
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

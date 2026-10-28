@@ -1,9 +1,9 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Jobs for the Downs>, 2m S of you                                     ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board <Jobs for the Downs>, 1m SW of you                                    ││ Hale  Lv 1 Warrior           | 0 crowns│
 │                                                                                                ││ HP 130/130 ########################### │
 │ “Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the     ││ XP ------------------------- 40 to Lv 2│
 │ proof back here.”                                                                              ││ Atk off | none                         │
-│ “Hunts, hauls and scouting: every job is paid in crowns and experience.”                       ││ Auto-retaliate: off  (Ctrl+R)          │
+│ “Hunts, hauls and scouting: every job is paid in crowns and experience.”                       ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │ What they can do for you:                                                                      │┌─ Quest chain (Ctrl+K) ─────────────────┐
 │ > 1  Take a contract                                                                           ││ First Steps                            │
@@ -19,15 +19,15 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board  2m S [new] │
+│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>    6m SE │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    5m SE │
+│                                                                                                ││ Q Ambrose Fenwick <Master of th… 6m NW │
+│                                                                                                ││ H Isolde Fenn <Binder>          13m SE │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>  13m SW │
-│                                                                                                ││ H Isolde Fenn <Binder>          14m SE │
-│                                                                                                ││ g Town Guard <Thornwick Watch>   23m E │
-│                                                                                                ││ $ Hilda Brasswick <Armourer>     29m W │
-│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ B Odalys Penn <Banker>           32m E │
-│ talk to Thornwick Contract Board ok                                                            ││ +8 more                                │
+│                                                                                                ││ $ Corwen Pell <Wool Guild Mist… 19m SE │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ g Town Guard <Thornwick Watch>   22m E │
+│ talk to Thornwick Contract Board ok                                                            ││ +13 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
@@ -37,7 +37,7 @@
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     2.8s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│     2.4s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │

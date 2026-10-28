@@ -1,14 +1,14 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │ Thornwick Contract Board <Jobs for the Downs> | you hold 1 of 3 contracts | 0 crowns           ││ Hale  Lv 1 Warrior           | 0 crowns│
 │ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ HP 130/130 ########################### │
-│> Thin the Meadow Wolves          Hunt   L1-3  │> Wolves at Wickett Mill                   0/4  ││ XP ------------------------- 40 to Lv 2│
-│  Pelts for the Tanners           Gather L1-3  │                                                ││ Atk off | none                         │
-│  Tusks for the Miller            Gather L1-3  │                                                ││ Auto-retaliate: off  (Ctrl+R)          │
-│  Word from Barleycross           Scout  L1-3  │                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│                                                                                                ││ First Steps                            │
-│                                                                                                ││ Step 2 of 4                            │
-│                                                                                                ││ Speak to your class trainer on         │
+│> Boars in the Barley             Hunt   L1-3  │> Wolves at Wickett Mill                   0/4  ││ XP ------------------------- 40 to Lv 2│
+│  Word from Wickett Mill          Scout  L1-3  │                                                ││ Atk off | none                         │
+│  Tusks for the Miller            Gather L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  Cutpurses on the Barleycr… opens at level 2  │                                                │└────────────────────────────────────────┘
+│  Clear the Roadside Bandits opens at level 4  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│  The Greywood Pack          opens at level 4  │                                                ││ First Steps                            │
+│  Tusks for the Carver       opens at level 4  │                                                ││ Step 2 of 4                            │
+│  Report from Millrace Ford  opens at level 4  │                                                ││ Speak to your class trainer on         │
 │                                                                                                ││ Trainers' Lane, by the north wall      │
 │                                                                                                ││ (warriors at the west end, druids at   │
 │                                                                                                ││ the east), for your first lesson.      │
@@ -21,13 +21,13 @@
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
 │                                                                                                ││ Wolves at Wickett Mill             0/4 │
 │────────────────────────────────────────────────────────────────────────────────────────────────│└────────────────────────────────────────┘
-│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               │┌─ Nearby ───────────────────────────────┐
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ & Thornwick Contract Board  2m S [new] │
-│ Pays 21 XP and 8 crowns.                                                                       ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>    6m SE │
-│                                                                                                ││ $ Barnaby Tuck <General Goods>  13m SW │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ H Isolde Fenn <Binder>          14m SE │
-│ take Thin the Meadow Wolves ok                                                                 ││ +11 more                               │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  │┌─ Nearby ───────────────────────────────┐
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ & Thornwick Contract Board 1m SW [new] │
+│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                                          ││ ! Gorran Stoutarm      54m SW [step 2] │
+│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ g Tamsin Hale <Watch Greeter>    5m SE │
+│                                                                                                ││ Q Ambrose Fenwick <Master of th… 6m NW │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ H Isolde Fenn <Binder>          13m SE │
+│ take Thin the Meadow Wolves ok                                                                 ││ +16 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.1s Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
@@ -37,9 +37,9 @@
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     2.8s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│     2.4s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   2.9s You take the contract Wolves at Wickett Mill                                                                                    │
+│ +   2.6s You take the contract Wolves at Wickett Mill                                                                                    │
 │                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard 0.4s ago | take Thin the Meadow Wolves ok  ? help

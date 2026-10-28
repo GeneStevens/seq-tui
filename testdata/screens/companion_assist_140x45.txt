@@ -1,17 +1,17 @@
-┌─ Thornwick Downs — North Greywood, at 152,95 m, north up ──────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+┌─ Thornwick Downs — North Greywood, at 152,170 m, north up ─────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
 │                   """"""""""""""""""""""""""""""""""""""""           ≈≈≈≈≈≈≈≈≈≈≈≈≈≈            ││ hale  Lv 5 Warrior           | 0 crowns│
-│                   """""""""""""""""""""""""""""""""""""""""          ≈≈≈≈≈≈≈≈≈≈≈≈≈≈            ││ HP 198/198 ########################### │
+│                  """""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈            ││ HP 198/198 ########################### │
 │                  """"""""""""""""""""""""""""""""""""""""""""        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ XP ------------------------ 145 to Lv 6│
-│                  """""""""""""""""""""""""""""""""""""""""""""       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ Atk ON Ret off | Bramble Tusker        │
+│                  """""""""""""""""""""""""""""""""""""""""""""       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ Atk off Ret ON | Bramble Tusker        │
 │                 """""""""""""""""""""""""""""""""""""""""""""        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ Attacked by Bramble Tusker             │
-│                 """""""""""""""""""""""""""""""""""""""""""""        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           │└────────────────────────────────────────┘
+│                 """""""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈           │└────────────────────────────────────────┘
 │                 """""""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈           │┌─ Companion, tank ──────────────────────┐
 │                """"""""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ Watch Shieldman  Lv 5                  │
 │                """"""""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈          ││ HP 153/158 ##########################- │
-│                """""""""""""""""""""""""""""""""""""""""""""          ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈          ││ stance assist                          │
+│                """""""""""""""""""""""""""""""""""""""""""""          ≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ stance assist                          │
 │               """"""""""""""""""""""""""""""""""""""""""""""          ≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ fighting Bramble Tusker                │
-│               """"""""""""""""""""""""""""""""p@""""c"""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ P call or send away   H stance         │
-│               """"""""""""""""""""""""""""""""""M"""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ Y attack my target    U come here      │
+│               """"""""""""""""""""""""""""""""p@M"""c"""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ P call or send away   H stance         │
+│               """"""""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ Y attack my target    U come here      │
 │               """"""""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈           ││ J stop    Z drop the order             │
 │               """""""""""""""""""""""""""""""""""""""""""""          ≈≈≈≈≈≈≈≈≈≈≈≈≈≈            │└────────────────────────────────────────┘
 │              """"""""""""""""""""""""""""""""""""""""""""""         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈            │┌─ Target ───────────────────────────────┐
@@ -29,17 +29,17 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s You are in combat with Bramble Tusker                                                                                           │
-│     0.3s Watch Shieldman targeted Bramble Tusker                                                                                         │
-│     1.3s You target Bramble Tusker                                                                                                       │
-│     1.5s You start attacking Bramble Tusker                                                                                              │
 │     1.5s Watch Shieldman misses Bramble Tusker                                                                                           │
-│     1.6s You start attacking Watch Shieldman                                                                                             │
+│     1.6s Bramble Tusker began attacking Watch Shieldman                                                                                  │
 │     1.6s Bramble Tusker hits Watch Shieldman for 5                                                                                       │
+│     3.0s You hit Bramble Tusker for 10                                                                                                   │
+│     3.1s Bramble Tusker targeted hale                                                                                                    │
+│     3.2s Watch Shieldman uses Taunt on Bramble Tusker                                                                                    │
+│     3.2s Bramble Tusker began attacking hale                                                                                             │
+│     3.3s Bramble Tusker targeted Watch Shieldman                                                                                         │
+│     3.4s Bramble Tusker began attacking Watch Shieldman                                                                                  │
 │     3.5s Watch Shieldman hits Bramble Tusker for 7                                                                                       │
-│     4.2s You start attacking Bramble Tusker                                                                                              │
-│ !   4.2s Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
-│     4.2s You hit Bramble Tusker for 10                                                                                                   │
+│     3.6s You stop attacking                                                                                                              │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- F: stop attacking · Esc: clear the target  ·  Ctrl+R: fight back when attacked                                                             
+ F: attack · Tab: next target                                                                                                               
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard 0.4s ago | attack ok                                ? help  q quit

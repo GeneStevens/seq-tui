@@ -3,15 +3,15 @@
 │                                                                                                ││ HP 130/130 ########################### │
 │> Wolves at Wickett Mill (Hunt)                                                                 ││ XP ------------------------- 40 to Lv 2│
 │   0 of 4 killed                                                                                ││ Atk off | none                         │
-│   Pays 22 XP and 10 crowns                                                                     ││ Auto-retaliate: off  (Ctrl+R)          │
+│   Pays 31 XP and 14 crowns                                                                     ││ Auto-retaliate: ON  (Ctrl+R)           │
 │   Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,  │└────────────────────────────────────────┘
 │   west of the river.                                                                           │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│  Word from Barleycross (Scout)                                                                 ││ First Steps                            │
-│   go to the marker                                                                             ││ Step 2 of 4                            │
-│   the marker is in another place                                                               ││ Speak to your class trainer on         │
-│   Pays 12 XP and 5 crowns                                                                      ││ Trainers' Lane, by the north wall      │
-│   Walk out to Barleycross, along the road west of the river, and return to the board with news ││ (warriors at the west end, druids at   │
-│   of the village.                                                                              ││ the east), for your first lesson.      │
+│  Tusks for the Miller (Gather)                                                                 ││ First Steps                            │
+│   0 of 3 carried                                                                               ││ Step 2 of 4                            │
+│   Pays 26 XP, 11 crowns and Tin Ring ▲                                                         ││ Speak to your class trainer on         │
+│   Bring back 3 boar tusks from the boars in the barley fields. The miller at Wickett Mill      ││ Trainers' Lane, by the north wall      │
+│   trades in them.                                                                              ││ (warriors at the west end, druids at   │
+│                                                                                                ││ the east), for your first lesson.      │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -20,26 +20,26 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
 │                                                                                                ││ Wolves at Wickett Mill             0/4 │
-│                                                                                                ││ Word from Barl… 0/1 — go to the marker │
+│                                                                                                ││ Tusks for the Miller               0/3 │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board  2m S [new] │
+│                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
 │                                                                                                ││ ! Gorran Stoutarm      54m SW [step 2] │
-│                                                                                                ││ g Tamsin Hale <Watch Greeter>    6m SE │
-│ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ $ Barnaby Tuck <General Goods>  13m SW │
-│ Esc closes                                                                                     ││ +12 more                               │
+│                                                                                                ││ g Tamsin Hale <Watch Greeter>    5m SE │
+│ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ Q Ambrose Fenwick <Master of th… 6m NW │
+│ Esc closes                                                                                     ││ +17 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
 │            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
 │ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
 │            druids at the east), for your first lesson.                                                                                   │
-│     2.8s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│     2.4s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   2.9s You take the contract Wolves at Wickett Mill                                                                                    │
-│ +   3.0s You take the contract Word from Barleycross                                                                                     │
-│ +   3.1s You take the contract Tusks for the Miller                                                                                      │
-│ !   3.2s You're carrying as many contracts as you can                                                                                    │
-│ +   3.3s You give up the contract Tusks for the Miller                                                                                   │
+│ +   2.6s You take the contract Wolves at Wickett Mill                                                                                    │
+│ +   3.7s You take the contract Tusks for the Miller                                                                                      │
+│ +   4.8s You take the contract Word from Wickett Mill                                                                                    │
+│ !   5.8s You're carrying as many contracts as you can                                                                                    │
+│ +   5.9s You give up the contract Word from Wickett Mill                                                                                 │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hawthorn Square, Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard 0.4s ago      ? help

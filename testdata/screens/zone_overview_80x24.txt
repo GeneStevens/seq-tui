@@ -1,15 +1,15 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                                                                              │
-│                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
-│                            ░"""c""""Goblin Hut"" ░                           │
-│                            ░  c ""cc≈    ""c "c" ░                           │
-│                            ░    c""";c  c#  c   ^░                           │
-│                            D·@·;··c·=c·;v·^·····;░                           │
-│                            ░ c#◆ ccc≈≈ ^c#  c   ^░                           │
-│                            ░   c  c"Goblin Hutc  ░                           │
-│                            ░"""c  ""≈    c   ^   ░                           │
-│                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
-│ Thornwick Downs, 420m by 300m, north up. You: 45m E, 136m N of the SW corner.│
+│                                ░░░░░;c░;cc░░░░░                              │
+│                                ░   ;≈≈≈≈≈c    ░                              │
+│                                ░""c#·≈$  c""" ░                              │
+│                                ░ cc";;c c"c c ░                              │
+│                                D·@·c;;c;·^···;░                              │
+│                                ░ cc"cc  c"c c ░                              │
+│                                ░"c·;v≈  c""^  ░                              │
+│                                ░ c·;c≈cc;cc   ░                              │
+│                                ░░░░░c░░░░░░░░░░                              │
+│ Thornwick Downs, 420m by 450m, north up. You: 42m E, 210m N of the SW corner.│
 │ You       @ you  % scout marker  + plan end  ◄ objective                     │
 │ People    p player  T trainer  $ vendor  B banker  H binder  g guard         │
 │           Q quest person  & board  D door  “ said, for 4 s  » chat names you │
@@ -21,4 +21,4 @@
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all ·…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 42m W | heard 0.4s ago 
+ ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W  ? help  q quit

@@ -1,15 +1,15 @@
 ┌─ Contract board ───────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Jobs for the Downs> | you hold 0 of 3 contracts | 10 crowns          ││ Hale  Lv 1 Warrior          | 10 crowns│
-│ Handed in the contract Wolves at Wickett Mill: 22 XP, 10 crowns                                ││ HP 130/130 ########################### │
-│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ XP ##################------- 10 to Lv 2│
-│> Thin the Meadow Wolves          Hunt   L1-3  │  (none)                                        ││ Atk off | none                         │
-│  Pelts for the Tanners           Gather L1-3  │                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│ Thornwick Contract Board <Jobs for the Downs> | you hold 0 of 3 contracts | 14 crowns          ││ Hale  Lv 1 Warrior          | 14 crowns│
+│ Handed in the contract Wolves at Wickett Mill: 31 XP, 14 crowns                                ││ HP 130/130 ########################### │
+│ On offer now (Enter takes it)                 │ You hold (Enter hands in, X gives up)          ││ XP #########################- 1 to Lv 2│
+│> Boars in the Barley             Hunt   L1-3  │  (none)                                        ││ Atk off | none                         │
+│  Word from Wickett Mill          Scout  L1-3  │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │  Tusks for the Miller            Gather L1-3  │                                                │└────────────────────────────────────────┘
-│  Word from Barleycross           Scout  L1-3  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
-│                                                                                                ││ First Steps                            │
-│                                                                                                ││ Step 1 of 4                            │
-│                                                                                                ││ Speak to Tamsin Hale, the Watch        │
-│                                                                                                ││ Greeter, here in Hawthorn Square.      │
+│  Cutpurses on the Barleycr… opens at level 2  │                                                │┌─ Quest chain (Ctrl+K) ─────────────────┐
+│  Clear the Roadside Bandits opens at level 4  │                                                ││ First Steps                            │
+│  The Greywood Pack          opens at level 4  │                                                ││ Step 1 of 4                            │
+│  Tusks for the Carver       opens at level 4  │                                                ││ Speak to Tamsin Hale, the Watch        │
+│  Report from Millrace Ford  opens at level 4  │                                                ││ Greeter, here in Hawthorn Square.      │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
 │                                                                                                ││ no target (Tab to choose)              │
@@ -17,29 +17,29 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board 1m NW [new] │
-│                                                                                                ││ ! Tamsin Hale <Watch G… 4m SE [step 1] │
-│                                                                                                ││ H Isolde Fenn <Binder>          12m SE │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ $ Barnaby Tuck <General Goods>  12m SW │
-│ Thin the Meadow Wolves: Hunt, L1-3, for 3 kills.                                               ││ g Town Guard <Thornwick Watch>   19m S │
-│ Kill 3 wolves in the Thornwick Downs. The meadows west of the river are thick with them.       ││ $ Hilda Brasswick <Armourer>     30m W │
-│ Pays 21 XP and 8 crowns.                                                                       ││ $ Dunstan Reeve <Weaponsmith>   32m SW │
-│                                                                                                ││ B Odalys Penn <Banker>           32m E │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer>  34m S │
-│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ T Pip Nettle <Rogue Trainer>     35m S │
-│ hand in Thin the Meadow Wolves ok                                                              ││ +7 more                                │
+│                                                                                                ││ & Thornwick Contract Board 4m SW [new] │
+│                                                                                                ││ ! Tamsin Hale <Watch Gr… 6m S [step 1] │
+│                                                                                                ││ g Town Guard <Thornwick Watch>    6m N │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Q Ambrose Fenwick <Master of the… 7m W │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ H Isolde Fenn <Binder>          14m SE │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ $ Barnaby Tuck <General Goods>  15m SW │
+│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                                          ││ $ Corwen Pell <Wool Guild Mist… 19m SE │
+│ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ Q Godric Ashdown <Reeve>         25m E │
+│                                                                                                ││ $ Jory Fennick <Marlbridge Cart… 26m E │
+│ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ B Odalys Penn <Banker>           30m E │
+│ hand in Thin the Meadow Wolves ok                                                              ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   285.5s Meadow Wolf dropped Wolf Pelt                                                                                                   │
-│   285.5s Meadow Wolf dropped 1 crown                                                                                                     │
-│   285.5s Meadow Wolf is dead: the fight is over                                                                                          │
-│   285.5s You are out of combat                                                                                                           │
-│ + 285.5s You gain 2 experience                                                                                                           │
-│ + 285.5s Wolves at Wickett Mill: 4 of 4                                                                                                  │
-│   285.5s Meadow Wolf is out of view                                                                                                      │
-│   322.0s entered Thornwick                                                                                                               │
-│   341.5s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
+│   237.0s You stop attacking                                                                                                              │
+│   237.0s Meadow Wolf dropped 1 crown                                                                                                     │
+│   237.0s Meadow Wolf is dead: the fight is over                                                                                          │
+│   237.0s You are out of combat                                                                                                           │
+│ + 237.0s You gain 2 experience                                                                                                           │
+│ + 237.0s Wolves at Wickett Mill: 4 of 4                                                                                                  │
+│   237.0s Meadow Wolf is out of view                                                                                                      │
+│   270.2s entered Thornwick                                                                                                               │
+│   284.7s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ + 341.6s You hand in Wolves at Wickett Mill: 22 experience, 10 crowns                                                                    │
+│ + 284.8s You hand in Wolves at Wickett Mill: 31 experience, 14 crowns                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 4m SE | road: faster, 125% | heard 0.4s ago | hand in Thin the Meadow Wolves ok    ? help
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125% | heard 0.4s ago | hand in Thin the Meadow Wolves ok     ? help

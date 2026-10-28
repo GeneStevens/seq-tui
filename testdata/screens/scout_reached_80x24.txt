@@ -1,13 +1,13 @@
-┌─ Thornwick Downs, at 45,136 m, north up ─────────┐┌─ You ────────────────────┐
-│    ░···········································  ││ Hale  Lv 1 Warrior  | 0cr│
-│    ░··D··········································││ HP 130/130 ############# │
-│    ░·············································││ XP ----------- 40 to Lv 2│
-│    ░                             ····            ││ Atk off Ret off | none   │
-│    ░     """""""""      @        ··;·""""""""""  │└──────────────────────────┘
-│    ░                   ;         ····#####       │┌─ Target ─────────────────┐
-│    ░                 ##### ≈≈≈≈  ··◆######       ││ no target (Tab to choose)│
-│    ░                 ##### ≈≈≈####  #####        ││                          │
-│    ░                 ##### ≈≈≈####  #####        ││                          │
+┌─ Thornwick Downs, at 42,210 m, north up ─────────┐┌─ You ────────────────────┐
+│      ░··D········································││ Hale  Lv 1 Warrior  | 0cr│
+│      ░···········································││ HP 130/130 ############# │
+│      ░                             ····         ·││ XP ----------- 40 to Lv 2│
+│      ░     """""""""               ··;·""""""""""││ Atk off Ret ON | none    │
+│      ░                  @;         ····#####     │└──────────────────────────┘
+│      ░                 ##### ≈≈≈≈Q ··◆######     │┌─ Quest chain (Ctrl+K) ───┐
+│      ░                 ##### ≈≈≈####··#####      ││ First Steps              │
+│      ░                 ##### ≈≈≈####··#####      ││ Step 1 of 4              │
+│      ░                             ····          ││ Speak to Tamsin Hale,    │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -16,9 +16,9 @@
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │            and experience.                                                   │
-│ +   2.8s You take the contract Word from Wickett Mill                        │
-│    26.7s entered Thornwick Downs                                             │
-│ +  42.2s Word from Wickett Mill: 1 of 1                                      │
+│ +   2.5s You take the contract Word from Wickett Mill                        │
+│    20.7s entered Thornwick Downs                                             │
+│ +  32.6s Word from Wickett Mill: 1 of 1                                      │
 └──────────────────────────────────────────────────────────────────────────────┘
- Walk: Option-click or arrows · M: large map · C: chat · ?: help                
- ONLINE | → Hand in: Word from Wickett Mill (Thornwick), 42m W | move ok  ? help
+ G: talk to Hew Wickett <Miller>                                                
+ ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W | move ok      

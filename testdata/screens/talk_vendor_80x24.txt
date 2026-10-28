@@ -1,15 +1,15 @@
 ┌─ Talking ────────────────────────────────────────────────────────────────────┐
-│ Hilda Brasswick <Armourer>, 3m S of you                                      │
+│ Hilda Brasswick <Armourer>, 2m S of you                                      │
 │                                                                              │
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's │
 │ Row.”                                                                        │
 │ “Armour is cheaper than a healer's patience.”                                │
+│ “The banded work is dearer than it was last month. Iron is short, and so is  │
+│ the Watch's purse. Pay or wait.”                                             │
 │                                                                              │
 │ What they can do for you:                                                    │
 │ > 1  Buy                                                                     │
 │   2  Sell                                                                    │
-│                                                                              │
-│                                                                              │
 │                                                                              │
 │                                                                              │
 │                                                                              │

@@ -4,7 +4,7 @@
 │ You are level 3. Enter buys the ability under the cursor.                                      ││ MP 150/196 ####################------- │
 │  Flame Dart             level 1   known                                                        ││ XP ------------------------- 90 to Lv 4│
 │  Frost Bolt             level 1   known                                                        ││ Atk off | none                         │
-│> Glyphshield            level 3   45 crowns                                                    ││ Auto-retaliate: off  (Ctrl+R)          │
+│> Glyphshield            level 3   45 crowns                                                    ││ Auto-retaliate: ON  (Ctrl+R)           │
 │  Root                   level 5   75 crowns                                                    │└────────────────────────────────────────┘
 │  Fireball               level 7   105 crowns                                                   │┌─ Quest ────────────────────────────────┐
 │  Blink                  level 9   135 crowns                                                   ││ [ ] 1. Scout the Lookout               │
@@ -27,7 +27,7 @@
 │                                                                                                ││ $ Testgrounds Vendor             3m SW │
 │                                                                                                ││ T Wizard Trainer                 4m NE │
 │ Enter acts · Esc back                                                                          ││ Q Testgrounds Captain <Quest Giv… 6m E │
-│ The answer is on the status line; every denial says why.                                       ││ +6 more                                │
+│ The answer is on the status line; every denial says why.                                       ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ +   0.2s You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │

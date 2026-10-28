@@ -3,7 +3,7 @@
 │                                                                                                ││ HP 100/100 ########################### │
 │                                                                                                ││ Target: none                           │
 │                                                                                                ││ Auto-attack: off                       │
-│                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Instance ─────────────────────────────┐
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Solo Trial ended                       │
@@ -19,27 +19,27 @@
 │                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
 │                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
 │                                                                                                ││ D Gate North                   0m here │
-│                                                                                                ││ H Eastern Binder                 73m S │
-│                                                                                          c     ││ T Druid Trainer                  83m W │
+│                                                                                                ││ ◆ Tester's Fa… 70m S raiders head here │
+│                                                                                          c     ││ H Eastern Binder                 73m S │
+│                                                                                                ││ T Druid Trainer                  83m W │
 │                                                                                                ││ T Paladin Trainer                85m W │
+│                                                                                                ││ v Brigands' Hol… 86m SE raiders gather │
 │                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
 │                                                                                                ││ T Wizard Trainer                 87m W │
-│                                                                                                ││ T Rogue Trainer                  89m W │
-│                                                                                                ││ H Testgrounds Binder             90m W │
-│                                                                                                ││ +5 more                                │
+│                                                                                                ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    55.4s You stop attacking                                                                                                              │
-│    55.4s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
-│    55.4s Plain Scuttler is dead: the fight is over                                                                                       │
-│    55.4s You are out of combat                                                                                                           │
-│ +  55.4s You gain 20 experience                                                                                                          │
-│    55.4s Plain Scuttler is out of view                                                                                                   │
-│    81.5s Cracked Shell Fragment was taken                                                                                                │
-│ +  81.5s You pick up Cracked Shell Fragment                                                                                              │
-│    81.5s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-│    81.5s instance ended, cleared: every mob dead and the loot taken                                                                      │
-│    81.8s entered Testgrounds                                                                                                             │
+│    19.2s You stop attacking                                                                                                              │
+│    19.2s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
+│    19.2s Plain Scuttler is dead: the fight is over                                                                                       │
+│    19.2s You are out of combat                                                                                                           │
+│ +  19.2s You gain 20 experience                                                                                                          │
+│    19.2s Plain Scuttler is out of view                                                                                                   │
+│    81.4s Cracked Shell Fragment was taken                                                                                                │
+│ +  81.4s You pick up Cracked Shell Fragment                                                                                              │
+│    81.4s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│    81.4s instance ended, cleared: every mob dead and the loot taken                                                                      │
+│    81.7s entered Testgrounds                                                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North                                                                                                                        
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                                                                              ? help  q quit
