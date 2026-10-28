@@ -1,5 +1,5 @@
 ┌─ Your character ─────────────────────────────────────────────────────────────┐
-│ Crowns 5 | bags 2 of 20 slots | bank 0 | bind point none yet                 │
+│ Crowns 5 | bags 2 of 20 slots | bank 0 of 40 | bind point none yet           │
 │  Gear  [Bags]  Stats                                                         │
 │ Items carried                                                                │
 │ >   Wolf Pelt Common                                                         │
@@ -17,7 +17,7 @@
 │ Wolf Pelt: Common, no gear slot; tradable once                               │
 │ a vendor pays 1 crown                                                        │
 │                                                                              │
-│ Tab next tab · Up / Down choose · Enter wears it · out of combat only        │
+│ Tab next tab · Up / Down choose · Enter wears it · U uses it · H heals       │
 │ Esc or C closes · N traders · T trade                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/164 | Target: none                                                      

@@ -18,10 +18,10 @@
 │                                                                                                ││ ; Millrace Ford   107m NW scout marker │
 │                                                                                                ││ ; Brigands' Road … 111m W scout marker │
 │                                                                                                ││ Q Ned Sallow <Watchman>        124m NW │
-│                                                                                """""           ││ ; The Ford Shrine 126m NW scout marker │
-│                                                                            """"""""""""""""    ││ v Brigands' Ri… 127m SW raiders gather │
-│                                                                         """""""""""""""""""""""││ ; Fordwatch       128m NW scout marker │
-│                                                                     """""""""""""""""""""""""""││ +18 more                               │
+│                                                                                """""           ││ H The Ford Shrine <Wayside Sh… 126m NW │
+│                                                                            """"""""""""""""    ││ ; The Ford Shrine 126m NW scout marker │
+│                                                                         """""""""""""""""""""""││ v Brigands' Ri… 127m SW raiders gather │
+│                                                                     """""""""""""""""""""""""""││ +20 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt ready                      2 Bash range                      3 -                               4 -                               │

@@ -11,14 +11,14 @@
 │  x Carved Orb Common              14, short 9 │                                                ││ Chest     -                            │
 │  x Etched Orb Common             42, short 37 │                                                ││ Legs      -                            │
 │  x Rune Orb Common               84, short 79 │                                                ││ Hands     -                            │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ Feet      -                            │
-│ ▲ Tin Ring: Common, Ring; tradable once                                                        ││ Ring 1    -                            │
-│ sta +1; costs 12 crowns, short 7 crowns                                                        ││ Ring 2    -                            │
-│ upgrade over an empty ring: +10 health, +1 stamina                                             ││ Neck      -                            │
-│                                                                                                ││ Main hand -                            │
-│                                                                                                ││ Off hand  -                            │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
+│    Barley Loaf Common                       2 │                                                ││ Feet      -                            │
+│    Smoked Eel Common               8, short 3 │                                                ││ Ring 1    -                            │
+│    Small Ale Common                         3 │                                                ││ Ring 2    -                            │
+│    Barleycross Ale Common          6, short 1 │                                                ││ Neck      -                            │
+│────────────────────────────────────────────────────────────────────────────────────────────────││ Main hand -                            │
+│ ▲ Tin Ring: Common, Ring; tradable once                                                        ││ Off hand  -                            │
+│ sta +1; costs 12 crowns, short 7 crowns                                                        ││                                        │
+│ upgrade over an empty ring: +10 health, +1 stamina                                             ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
@@ -30,9 +30,9 @@
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Barnaby Tuck says: Rings, pendants and a little something for the casters. Fair prices, friend. I buy what you carry for a      │
-│            quarter of what I'd sell it at. Bound or not.                                                                                 │
-│                                                                                                                                          │
+│     N.Ns Barnaby Tuck says: Rings, pendants and a little something for the casters. Fair prices, friend. Bread, smoked eel and a mug of  │
+│            ale. Sit a moment before you go back out. A rested man lives longer. I buy what you carry for a quarter of what I'd sell it   │
+│            at. Bound or not.                                                                                                             │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -1,0 +1,45 @@
+┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│ Odalys Penn <Banker>, 2m N away. You have 20 crowns.                                           ││ hale  Lv 1 Warrior          | 20 crowns│
+│                                                                                                ││ HP 65/130 ##############-------------- │
+│ Vault space: tier 2 of 3 adds 20 slots for 250 crowns (you are short 230 crowns). B buys it.   ││ XP ------------------------- 40 to Lv 2│
+│ You carry (Enter banks one)                   │ In the bank, 0 of 60 (Enter takes one)         ││ Atk off | none                         │
+│  (nothing)                                    │  (empty)                                       ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Your character (C: tab) ──────────────┐
+│                                                                                                ││ [Gear]  Bags   Stats                   │
+│                                                                                                ││ Head      -                            │
+│                                                                                                ││ Chest     -                            │
+│                                                                                                ││ Legs      -                            │
+│                                                                                                ││ Hands     -                            │
+│                                                                                                ││ Feet      -                            │
+│                                                                                                ││ Ring 1    -                            │
+│                                                                                                ││ Ring 2    -                            │
+│                                                                                                ││ Neck      -                            │
+│                                                                                                ││ Main hand -                            │
+│                                                                                                ││ Off hand  -                            │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│                                                                                                ││                                        │
+│ Tab switches list · Enter acts on the item · B buy the next bank slots · Esc back              ││                                        │
+│ buy bank slots ok                                                                              ││                                        │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
+│            /dismiss gives it up for good.                                                                                                │
+│ +   N.Ns You buy 20 more bank slots from Odalys Penn for 100 crowns                                                                      │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ ONLINE | Counting House Yard, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 30m W | heard N.Ns ago | buy bank slots ok        ? help

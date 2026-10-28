@@ -65,6 +65,7 @@ func (m *Model) applyDelta(d *pb.SelfDelta) {
 		defer func() { m.noteQuestItemsGone(before, m.GameTimeMs) }()
 		s.Inventory, s.Equipped, s.Bank = slices.Clone(v.GetInventory()), slices.Clone(v.GetEquipped()), slices.Clone(v.GetBank())
 		s.InventorySize, s.BagSlots, s.BindZone = v.GetInventorySize(), v.GetBagSlots(), v.GetBindZone()
+		s.BankSize, s.BankTiers = v.GetBankSize(), v.GetBankTiers()
 	case *pb.SelfDelta_Money:
 		s.Crowns, s.Owed = p.Money.GetCrowns(), slices.Clone(p.Money.GetOwed())
 	case *pb.SelfDelta_Stats:

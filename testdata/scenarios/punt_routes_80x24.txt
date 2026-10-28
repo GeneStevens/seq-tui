@@ -1,0 +1,24 @@
+┌─ Traders — C: your character ────────────────────────────────────────────────┐
+│ Nell Rush <Boat-Keeper>, 1m SW away. You have 25 crowns.                     │
+│                                                                              │
+│ You are level 1. Enter on a route asks to sail; Enter or Y pays the fee.     │
+│> The East Landing                                                10 crowns   │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│ Up / Down choose a route · Enter asks to sail, then Enter or Y pays · Esc ba…│
+│ The answer is on the status line; every denial says why.                     │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 65/130 | Target: none                                                       
+ ONLINE | Eelmere, Thornwick Downs | heard N.Ns ago               ? help  q quit

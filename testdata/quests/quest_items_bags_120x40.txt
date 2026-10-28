@@ -33,7 +33,7 @@
 │ charm bead: Common, no gear slot; quest item: not sold, traded or banked; goes when its quest ends                   │
 │                                                                                                                      │
 │                                                                                                                      │
-│ Tab next tab · Up / Down choose · Enter wears it · out of combat only                                                │
+│ Tab next tab · Up / Down choose · Enter wears it · U uses it · H heals                                               │
 │ Esc or C closes · N traders · T trade                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                              

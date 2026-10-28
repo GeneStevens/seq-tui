@@ -13,15 +13,15 @@
 │             #################         :::::::::@:::::::::::::                                  ││ ; Millrace Ford     3m NE scout marker │
 │                                       :::::::::::::::::::::::                                  ││ Q Wulfric Dunn <Sergeant of Fo… 19m NW │
 │                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ Q Ned Sallow <Watchman>          19m W │
-│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ ; The Ford Shrine   20m W scout marker │
-│             c                              ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ ; Fordwatch        22m NW scout marker │
+│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ H The Ford Shrine <Wayside Shri… 20m W │
+│             c                              ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                      ││ ; The Ford Shrine   20m W scout marker │
+│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Fordwatch        22m NW scout marker │
 │                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Brigands' Road … 46m SW scout marker │
-│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Goblin Lookout   69m SE scout marker │
-│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Barleycross      106m W scout marker │
+│                                            ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ $ Nell's Punt <Drawn up on the… 68m NE │
+│                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Goblin Lookout   69m SE scout marker │
+│                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Barleycross      106m W scout marker │
 │                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ◆ Barleycro… 109m SW raiders head here │
-│                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ Q Tobias Hatch <Headman of Ba… 116m SW │
-│                                             ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                     ││ ; Wickett Mill     131m W scout marker │
-│ ··········································===================··········                        ││ +16 more                               │
+│ ··········································===================··········                        ││ +18 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │

@@ -1,0 +1,24 @@
+┌─ Your character ─────────────────────────────────────────────────────────────┐
+│ Crowns 0 | bags 2 of 20 slots | bank 0 of 40 | bind point none yet           │
+│  Gear  [Bags]  Stats                                                         │
+│ Items carried                                                                │
+│ >   Hearth Draught Common                                                 59s│
+│     Smoked Eel Common                                                        │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│                                                                              │
+│──────────────────────────────────────────────────────────────────────────────│
+│ Hearth Draught: Common, no gear slot; tradable once                          │
+│ a vendor pays 8 crowns                                                       │
+│ Use: heals 90 hit points; cooldown 60 s (ready in 59s)                       │
+│ Tab next tab · Up / Down choose · Enter wears it · U uses it · H heals       │
+│ use Small Hearth Draught ok                                                  │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 105/130 | Target: none                                                      
+ ONLINE | road: faster, 125% | heard N.Ns ago | use Small Hearth Draught ok     

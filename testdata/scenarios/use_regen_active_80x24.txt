@@ -1,0 +1,24 @@
+┌─ Thornwick — Hawthorn Square, at 60,45 m, nort… ─┐┌─ You ────────────────────┐
+│  #######····######                ############## ││ hale  Lv 1 Warrior  | 0cr│
+│  #######··$·######·············    $ B  ######## ││ HP 105/130 ##########--- │
+│  #######····      ··Q··········   Q     ######## ││ XP ----------- 40 to Lv 2│
+│  #######··············&·!···················Q····││ Atk off Ret ON | none    │
+│  #######··Q·············@········g··············D│└──────────────────────────┘
+│  #######····      ··$·····H······················│┌─ Quest chain (Ctrl+K) ───┐
+│  #######··$·      ··········$··           ###### ││ First Steps              │
+│  #######····      ·············           ###### ││ Step 1 of 4              │
+│  #######····           ···                ###### ││ Speak to Tamsin Hale,    │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
+│ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
+│ 5 -                 6 -                7 -                8 -                │
+│ You: resting bonus 30s                                                       │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
+│     N.Ns Tip: tradable once means one trade to another player, then it is    │
+│            bound to them.                                                    │
+│ +   N.Ns You use Small Hearth Draught and heal 40                            │
+│ +   N.Ns You use Smoked Eel: you recover faster for 30 seconds               │
+└──────────────────────────────────────────────────────────────────────────────┘
+ G: talk to Tamsin Hale <Watch Greeter>                                         
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 2m N | road: faster, 125%    

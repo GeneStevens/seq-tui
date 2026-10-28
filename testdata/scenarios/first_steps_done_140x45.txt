@@ -20,8 +20,8 @@
 │                                         ░               """"""""""""""""""""""                 ││ ; Barleycross       65m E scout marker │
 │                                         ░                                                      ││ ◆ Barleycross  67m E raiders head here │
 │                                         ░                                                   ;  ││ ; Brigands' Road … 139m E scout marker │
-│                                         ░                                                  Q   ││ ; The Ford Shrine  148m E scout marker │
-│                                         ░                                Boars in the Ba… 91m ◢││ +19 more                               │
+│                                         ░                                                  Q   ││ H The Ford Shrine <Wayside Shr… 148m E │
+│                                         ░                                Boars in the Ba… 91m ◢││ +21 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │

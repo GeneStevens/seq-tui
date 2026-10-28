@@ -1,5 +1,5 @@
 ┌─ Your character ─────────────────────────────────────────────────────────────┐
-│ Crowns 5 | bags 2 of 20 slots | bank 0 | bind point none yet                 │
+│ Crowns 5 | bags 2 of 20 slots | bank 0 of 40 | bind point none yet           │
 │  Gear  [Bags]  Stats                                                         │
 │ Items carried                                                                │
 │ > ▲ Worn Cap Common  armor +2                                                │
@@ -17,7 +17,7 @@
 │ ▲ Worn Cap: Common, Head; tradable once                                      │
 │ armor +2; a vendor pays 2 crowns                                             │
 │ upgrade over an empty head: +2 armour                                        │
-│ Tab next tab · Up / Down choose · Enter wears it · out of combat only        │
+│ Tab next tab · Up / Down choose · Enter wears it · U uses it · H heals       │
 │ Esc or C closes · N traders · T trade                                        │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 94/100 | Target: none                                                       

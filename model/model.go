@@ -99,6 +99,9 @@ type Self struct {
 	Bank          []string
 	BindZone      string
 	InventorySize int64
+	// BankSize is the bank's slots, the bought ones included; BankTiers how many
+	// tiers of extra slots were bought (SEQ-192).
+	BankSize, BankTiers int64
 
 	// Class, and the XP the level began at and ends at (XPNext 0: the cap).
 	Class           string
@@ -141,6 +144,10 @@ type Model struct {
 	terrainOf  *pb.ZoneMap // the map terrain was built from
 	Tick       uint64
 	GameTimeMs int64
+	// itemReady is the game time each consumable cooldown group is ready, regen
+	// the resting bonus running: both kept from the use rewards (D115).
+	itemReady  map[string]int64
+	regen      *Regen
 	Self       Self
 	Group      map[string]*Member
 	Entities   map[string]*pb.EntityState // in view, not the character or its group
@@ -439,6 +446,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		Owed: slices.Clone(self.GetOwed()), Quest: self.GetQuest(),
 		InCombat: self.GetInCombat(), Attackers: slices.Clone(self.GetAttackers()), Place: self.GetPlace(), Hints: slices.Clone(self.GetHints()),
 		Sheet: self.GetSheet(), Facts: factsByItem(self.GetFacts()), BagSlots: self.GetBagSlots(),
+		BankSize: self.GetBankSize(), BankTiers: self.GetBankTiers(),
 	}
 	m.Self.setKit(self, s.GetGameTimeMs())
 	if old.ID == m.Self.ID {
@@ -513,7 +521,8 @@ func (m *Model) applyEventAt(e *pb.Event, n uint64) {
 
 func (m *Model) apply(e *pb.Event) {
 	m.GameTimeMs = max(m.GameTimeMs, e.GetGameTimeMs())
-	m.noteDescribed(e)                         // before the log line, which names the item with its tier
+	m.noteDescribed(e)
+	m.noteUse(e)                               // before the log line, which names the item with its tier
 	if !m.repeatsRound(e) && !questLedger(e) { // the server says the open round again after a snapshot: once in the log is enough
 		m.logEvent(e)
 	}

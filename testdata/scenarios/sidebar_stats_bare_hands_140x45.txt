@@ -14,16 +14,16 @@
 │> ▲ Broad Sword Common           120, short 90 │                                                ││ Fists: 7–13 / N.Ns  (5.0 damage/s)     │
 │  ▲ Poniard Common               110, short 80 │                                                ││ Strength  28                           │
 │  x Elder Staff Common           110, short 80 │                                                ││ Agility   0                            │
-│────────────────────────────────────────────────────────────────────────────────────────────────││ Stamina   0                            │
-│ ▲ Broad Sword: Common, Main hand; tradable once                                                ││ Intellect 0                            │
-│ damage 7-11 / N.Ns; costs 120 crowns, short 90 crowns                                          ││ Wisdom    0                            │
+│  x Tempered Mace Fine          200, short 170 │                                                ││ Stamina   0                            │
+│  x Tempered Sword Fine         260, short 230 │                                                ││ Intellect 0                            │
+│  x Tempered Stiletto Fine      300, short 270 │                                                ││ Wisdom    0                            │
+│  x Tempered Staff Fine         320, short 290 │                                                ││                                        │
+│  x Heavy Mace Fine             480, short 450 │                                                ││                                        │
+│  x Heavy Sword Fine            560, short 530 │                                                ││                                        │
+│────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
+│ ▲ Broad Sword: Common, Main hand; tradable once                                                ││                                        │
+│ damage 7-11 / N.Ns; costs 120 crowns, short 90 crowns                                          ││                                        │
 │ upgrade over an empty main hand: +3.6 damage/s                                                 ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
@@ -31,8 +31,8 @@
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Dunstan Reeve says: Blades, maces and staves. A good edge earns its keep. Come back at level five and I will have something     │
-│            heavier for you.                                                                                                              │
-│                                                                                                                                          │
+│            heavier for you. The tempered work takes iron I do not have to spare. The price on the slate is chalked, rubbed out and       │
+│            chalked higher.                                                                                                               │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

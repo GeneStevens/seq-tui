@@ -21,6 +21,9 @@ type Traders struct {
 	Open bool
 	Pane int
 	Cur  [2]int
+	// Confirm is a buy waiting for the player's yes (D115): "bank" for the next
+	// tier of bank slots, "route:<id>" for passage. Enter or Y buys, Esc drops it.
+	Confirm string
 }
 
 // TradeUI is the trade window's screen state: who the cursor is on while there
@@ -192,6 +195,12 @@ func itemDetail(m *model.Model, inst string, w int, price string) []string {
 	if f := m.Fact(inst); f == nil || m.FactWords(inst) == "" {
 		l3 = ""
 	}
+	if uw := m.UseWords(inst); uw != "" { // a consumable: what it does and its cooldown (D115)
+		l3 = " Use: " + uw
+		if cd := m.CooldownLeftMs(inst); cd > 0 {
+			l3 += fmt.Sprintf(" (ready in %s)", wholeSecs(cd))
+		}
+	}
 	return []string{fit(l1, w), fit(l2, w), fit(l3, w)}
 }
 
@@ -304,6 +313,8 @@ func roleWord(role string) string {
 		return "sets your bind point"
 	case "banker":
 		return "keeps your bank"
+	case "ferry":
+		return "sails you across"
 	case "contract_board":
 		return "posts contracts"
 	case "quest_giver":
@@ -361,7 +372,7 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 				far = " too far"
 			}
 			right := metres(d) + " " + bearing(n.GetPos().GetX()-sp.GetX(), n.GetPos().GetY()-sp.GetY()) + far
-			line := fit(fit(fmt.Sprintf(" %s%c %s: %s", mark, npcGlyph(n), titled(n), roleWord(n.GetRole())), w-width(right)-1)+" "+right, w)
+			line := fit(fit(fmt.Sprintf(" %s%c %s: %s", mark, npcGlyph(n), titled(n), roleWord(model.Service(n))), w-width(right)-1)+" "+right, w)
 			switch {
 			case i == t.Sel:
 				line = st.Reverse(line)
@@ -380,7 +391,7 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 		add("")
 	}
 	body := h - len(rows) - 3
-	switch n.GetRole() {
+	switch model.Service(n) {
 	case "vendor":
 		rows = append(rows, vendorLines(m, n, t, w, body, st)...)
 	case "trainer":
@@ -388,8 +399,13 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 	case "binder":
 		add(fmt.Sprintf(" Bind point now: %s.", bindWords(m)))
 		add(fmt.Sprintf(" Enter sets it here for %s: you respawn there, and Homeward brings you back to it.", crownsWord(n.GetBindFee())))
+		if m.Self.BindZone != "" {
+			add(fmt.Sprintf(" This is another binder: the fee is %s each time you bind, and it moves your bind point from %s%s.", crownsWord(n.GetBindFee()), m.Self.BindZone, shortWords(n.GetBindFee(), m.Self.Crowns)))
+		}
 	case "banker":
-		rows = append(rows, bankLines(m, t, w, body, st)...)
+		rows = append(rows, bankLines(m, n, t, w, body, st)...)
+	case "ferry":
+		rows = append(rows, ferryLines(m, n, t, w, body, st)...)
 	case "contract_board":
 		add(" Contracts: Enter opens the board, where you take them and hand them in.")
 	default:
@@ -399,11 +415,13 @@ func tradersScreenLines(m *model.Model, t *Traders, w, h int, st Styler) []strin
 		rows = append(rows, strings.Repeat(" ", w))
 	}
 	rows = rows[:h-2]
-	switch n.GetRole() {
+	switch model.Service(n) {
 	case "vendor":
 		rows = append(rows, help(" {Tab} list · {Enter} buy / sell one · {A} sell the stack · {J} sell all junk · {Esc} back", w, st))
 	case "banker":
-		rows = append(rows, help(" {Tab} switches list · {Up} / {Down} choose · {Enter} acts on the item · {Esc} back", w, st))
+		rows = append(rows, help(" {Tab} switches list · {Enter} acts on the item · {B} buy the next bank slots · {Esc} back", w, st))
+	case "ferry":
+		rows = append(rows, help(" {Up} / {Down} choose a route · {Enter} asks to sail, then {Enter} or {Y} pays · {Esc} back", w, st))
 	default:
 		rows = append(rows, help(" {Enter} acts · {Esc} back", w, st))
 	}
@@ -485,9 +503,11 @@ func trainerLines(m *model.Model, n *pb.NpcInfo, t *Traders, w, h int, st Styler
 	return rows
 }
 
-func bankLines(m *model.Model, t *Traders, w, h int, st Styler) []string {
+func bankLines(m *model.Model, n *pb.NpcInfo, t *Traders, w, h int, st Styler) []string {
 	lw := (w - 1) / 2
 	rw := w - 1 - lw
+	top := []string{fit(bankTierWords(m, n, t), w)}
+	h--
 	left := []string{st.Bold(fit(" You carry (Enter banks one)", lw))}
 	var texts []string
 	for _, sk := range m.Stacks(m.Self.Inventory) {
@@ -497,7 +517,7 @@ func bankLines(m *model.Model, t *Traders, w, h int, st Styler) []string {
 		left = append(left, fit("  (nothing)", lw))
 	}
 	left = append(left, listRows(texts, t.Cur[0], max(h-3, 1), lw, t.Pane == 0, st)...)
-	right := []string{st.Bold(fit(fmt.Sprintf(" In the bank, %d (Enter takes one)", len(m.Self.Bank)), rw))}
+	right := []string{st.Bold(fit(fmt.Sprintf(" In the bank, %s (Enter takes one)", bankWords(m)), rw))}
 	texts = nil
 	for _, sk := range m.Stacks(m.Self.Bank) {
 		texts = append(texts, itemRowM(m, sk.Inst, sk.Count, max(rw-4, 1)))
@@ -506,7 +526,64 @@ func bankLines(m *model.Model, t *Traders, w, h int, st Styler) []string {
 		right = append(right, fit("  (empty)", rw))
 	}
 	right = append(right, listRows(texts, t.Cur[1], max(h-3, 1), rw, t.Pane == 1, st)...)
-	return cols(left, right, lw, rw)
+	return append(top, cols(left, right, lw, rw)...)
+}
+
+// shortWords says by how much the purse falls short of a price, in the words
+// that follow a price: ", you are short 5 crowns".
+func shortWords(price, have int64) string {
+	if price > have {
+		return fmt.Sprintf(" (you are short %s)", crownsWord(price-have))
+	}
+	return ""
+}
+
+// bankTierWords is the banker's line above the lists: the next tier of bank
+// slots and its price, or the question waiting for a yes (D115).
+func bankTierWords(m *model.Model, n *pb.NpcInfo, t *Traders) string {
+	tier, nt, ok := m.NextBankTier(n)
+	switch {
+	case t.Confirm == "bank" && ok:
+		return fmt.Sprintf(" Buy %d more bank slots for %s? Enter or Y buys, Esc leaves it.", nt.GetSlots(), crownsWord(nt.GetPrice()))
+	case ok:
+		return fmt.Sprintf(" Vault space: tier %d of %d adds %d slots for %s%s. B buys it.", tier, len(n.GetBankTiers()), nt.GetSlots(), crownsWord(nt.GetPrice()), shortWords(nt.GetPrice(), m.Self.Crowns))
+	case len(n.GetBankTiers()) > 0:
+		return " Vault space: you have bought every tier of bank slots."
+	}
+	return " Vault space: this banker sells none."
+}
+
+func ferryLines(m *model.Model, n *pb.NpcInfo, t *Traders, w, h int, st Styler) []string {
+	routes := n.GetRoutes()
+	rows := []string{fit(fmt.Sprintf(" You are level %d. Enter on a route asks to sail; Enter or Y pays the fee.", m.Self.Level), w)}
+	var texts []string
+	for _, r := range routes {
+		note := crownsWord(r.GetFee())
+		switch {
+		case r.GetMinLevel() > m.Self.Level:
+			note += fmt.Sprintf(", level %d needed", r.GetMinLevel())
+		case r.GetMinLevel() > 1:
+			note += fmt.Sprintf(", level %d and up", r.GetMinLevel())
+		}
+		if r.GetFee() > m.Self.Crowns {
+			note += shortWords(r.GetFee(), m.Self.Crowns)
+		}
+		room := max(w-6-width(note), 8)
+		texts = append(texts, greyIf(r.GetMinLevel() > m.Self.Level || r.GetFee() > m.Self.Crowns, fmt.Sprintf("%-*s %s", room, fit(r.GetName(), room), note)))
+	}
+	if len(texts) == 0 {
+		rows = append(rows, fit("  (this ferry sails nowhere)", w))
+	}
+	t.Cur[0] = max(min(t.Cur[0], len(routes)-1), 0)
+	rows = append(rows, listRows(texts, t.Cur[0], max(h-3, 1), w, true, st)...)
+	if id, ok := strings.CutPrefix(t.Confirm, "route:"); ok {
+		for _, r := range routes {
+			if r.GetId() == id {
+				rows = append(rows, st.Bold(fit(fmt.Sprintf(" Sail to %s for %s? Enter or Y pays, Esc stays ashore.", r.GetName(), crownsWord(r.GetFee())), w)))
+			}
+		}
+	}
+	return rows
 }
 
 // TraderPeers are the other characters the trade screen can ask: those in view

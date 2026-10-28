@@ -106,6 +106,9 @@ const (
 	PersonClose     // close the character card
 	Approach        // walk up to the thing ID (a PickKind in Count) at X, Y, and act on it (D109)
 	WalkTo          // walk to the thing last clicked, the target or the spot last clicked (D109)
+	UseItem         // use the consumable ID (D115)
+	BankExpand      // buy tier Count of bank slots at the banker NPC
+	Travel          // buy passage on route ID at the ferry NPC
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -181,6 +184,8 @@ func Plan(key string, m *model.Model) Action {
 		return Action{Kind: OpenOverview}
 	case "W":
 		return Action{Kind: WalkTo}
+	case "H":
+		return healAction(m)
 	}
 	if n := slotKey(key); n > 0 {
 		return Action{Kind: UseAbility, Slot: n, Note: slotLabel(m, n)}
@@ -349,4 +354,16 @@ func releaseOrReply(m *model.Model) Action {
 		return Action{Note: "nobody has told you anything to reply to"}
 	}
 	return Action{Kind: ReplyLine, ID: m.Social.LastTell}
+}
+
+// healAction is the H key: use a healing draught from the bags (D115).
+func healAction(m *model.Model) Action {
+	inst := m.HealingItem()
+	if inst == "" {
+		return Action{Note: "you carry nothing that heals"}
+	}
+	if why := m.UseRefusal(inst); why != "" {
+		return Action{Note: why}
+	}
+	return Action{Kind: UseItem, ID: inst, Note: m.ItemName(inst)}
 }

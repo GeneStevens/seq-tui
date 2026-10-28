@@ -1,9 +1,9 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
 │ Testgrounds Banker, 2m S away. You have 37 crowns.                                             ││ zedd  Lv 3 Wizard           | 37 crowns│
 │                                                                                                ││ HP 80/96 ########################----- │
-│ You carry (Enter banks one)                   │ In the bank, 1 (Enter takes one)               ││ MP 150/196 ####################------- │
-│  (nothing)                                    │> ▲ Buckler Common                              ││ XP ------------------------- 90 to Lv 4│
-│                                                                                                ││ Atk off | none                         │
+│ Vault space: this banker sells none.                                                           ││ MP 150/196 ####################------- │
+│ You carry (Enter banks one)                   │ In the bank, 1 (Enter takes one)               ││ XP ------------------------- 90 to Lv 4│
+│  (nothing)                                    │> ▲ Buckler Common                              ││ Atk off | none                         │
 │                                                                                                ││ Auto-retaliate: off  (Ctrl+R)          │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Quest ────────────────────────────────┐
@@ -26,7 +26,7 @@
 │                                                                                                ││ T Warrior Trainer                3m NW │
 │                                                                                                ││ $ Testgrounds Vendor             3m SW │
 │                                                                                                ││ T Wizard Trainer                 4m NE │
-│ Tab switches list · Up / Down choose · Enter acts on the item · Esc back                       ││ Q Testgrounds Captain <Quest Giv… 6m E │
+│ Tab switches list · Enter acts on the item · B buy the next bank slots · Esc back              ││ Q Testgrounds Captain <Quest Giv… 6m E │
 │ bank Buckler ok                                                                                ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐

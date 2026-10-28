@@ -238,7 +238,16 @@ func abilityLines(m *model.Model, v View, w int, st Styler) []string {
 		}
 		rows = append(rows, line)
 	}
-	fx := " You: " + effectList(m, v, m.Self.Effects)
+	list := effectList(m, v, m.Self.Effects)
+	if r := m.RegenActive(); r != nil { // a regen item's resting bonus (D115)
+		bonus := "resting bonus " + wholeSecs(r.EndsAtMs-gameNow(m, v))
+		if len(m.Self.Effects) == 0 {
+			list = bonus
+		} else {
+			list += ", " + bonus
+		}
+	}
+	fx := " You: " + list
 	if t := m.Self.Target; t != "" {
 		fx += "   |   " + targetName(m) + ": " + effectList(m, v, m.TargetEffects[t])
 	}

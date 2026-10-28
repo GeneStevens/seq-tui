@@ -3,9 +3,11 @@ package app
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/screen"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
 // economy sends the intent for an action of the inventory, the traders or the
@@ -44,6 +46,15 @@ func (a *App) economy(ctx context.Context, act Action) (what, id string, err err
 	case BankWithdraw:
 		what = "take out " + act.Note
 		id, err = s.BankWithdraw(ctx, act.NPC, act.ID)
+	case UseItem:
+		what = "use " + act.Note
+		id, err = s.UseItem(ctx, act.ID)
+	case BankExpand:
+		what = "buy bank slots"
+		id, err = s.BankExpand(ctx, act.NPC, act.Count)
+	case Travel:
+		what = "sail " + act.Note
+		id, err = s.Travel(ctx, act.NPC, act.ID)
 	case TradeOpen:
 		what = "ask " + act.Note + " to trade"
 		id, err = s.TradeOpen(ctx, act.ID)
@@ -96,6 +107,10 @@ func (a *App) charKey(k string, m *model.Model) Action {
 		return Action{Kind: OpenTraders}
 	case k == "t":
 		return Action{Kind: OpenTrade}
+	case k == "u":
+		return a.useKey(m)
+	case k == "H":
+		return healAction(m)
 	case k == "tab" || k == "right":
 		return Action{Kind: SelectSide, Count: (sb.Tab + 1) % screen.Tabs}
 	case k == "left" || k == "shift+tab":
@@ -128,11 +143,34 @@ func (a *App) charKey(k string, m *model.Model) Action {
 	return Action{}
 }
 
+// useKey uses the consumable under the cursor of the bags tab (D115), or says
+// why not.
+func (a *App) useKey(m *model.Model) Action {
+	sb := &a.mouse.charTab
+	if sb.Tab != screen.TabBags {
+		return Action{Note: "U uses the item under the cursor on the Bags tab (H uses a healing draught)"}
+	}
+	inst, _, _ := screen.CharSelected(m, sb)
+	switch {
+	case inst == "":
+		return Action{Note: "you carry nothing to use"}
+	case m.Use(inst) == nil:
+		return Action{Note: m.ItemName(inst) + " can't be used (Enter wears gear)"}
+	}
+	if why := m.UseRefusal(inst); why != "" {
+		return Action{Note: why}
+	}
+	return Action{Kind: UseItem, ID: inst, Note: m.ItemName(inst)}
+}
+
 // tradersKey handles a key on the traders' screen: the list, then a window.
 func (a *App) tradersKey(k string, m *model.Model) Action {
 	t := a.traders
 	list := screen.TradersInView(m)
 	t.Sel = max(min(t.Sel, len(list)-1), 0)
+	if n := m.NPC(t.NPC); t.Open && t.Confirm != "" && n != nil {
+		return a.confirmKey(k, t, n, m) // the question comes before every other key
+	}
 	switch {
 	case k == "ctrl+c":
 		return Action{Kind: Quit}
@@ -164,7 +202,16 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 		t.Open = false
 		return Action{}
 	}
-	switch n.GetRole() {
+	switch model.Service(n) {
+	case "ferry":
+		return a.listKey(k, t, false, len(n.GetRoutes()), 0, func(_, i int) Action {
+			r := n.GetRoutes()[i]
+			if r.GetMinLevel() > m.Self.Level {
+				return Action{Note: fmt.Sprintf("%s needs level %d (you are %d)", r.GetName(), r.GetMinLevel(), m.Self.Level)}
+			}
+			t.Confirm = "route:" + r.GetId()
+			return Action{}
+		})
 	case "vendor":
 		stacks := m.Stacks(m.Self.Inventory)
 		switch k {
@@ -196,6 +243,13 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 		})
 	case "banker":
 		held, banked := m.Stacks(m.Self.Inventory), m.Stacks(m.Self.Bank)
+		if k == "B" {
+			if _, _, ok := m.NextBankTier(n); !ok {
+				return Action{Note: "there are no more bank slots to buy"}
+			}
+			t.Confirm = "bank"
+			return Action{}
+		}
 		return a.listKey(k, t, true, len(held), len(banked), func(pane, i int) Action {
 			if pane == 0 {
 				inst := held[i].Inst
@@ -216,6 +270,35 @@ func (a *App) tradersKey(k string, m *model.Model) Action {
 	case "binder":
 		if enter(k) {
 			return Action{Kind: Bind, NPC: n.GetId()}
+		}
+	}
+	return Action{}
+}
+
+// confirmKey answers a buy waiting for a yes: Enter or Y sends it, anything
+// that is Esc or N drops it, other keys leave the question open.
+func (a *App) confirmKey(k string, t *screen.Traders, n *pb.NpcInfo, m *model.Model) Action {
+	switch {
+	case k == "ctrl+c":
+		return Action{Kind: Quit}
+	case k == "esc" || k == "n" || k == "q":
+		t.Confirm = ""
+		return Action{Note: "not bought"}
+	case enter(k) || k == "y":
+		what := t.Confirm
+		t.Confirm = ""
+		if what == "bank" {
+			tier, _, ok := m.NextBankTier(n)
+			if !ok {
+				return Action{Note: "there are no more bank slots to buy"}
+			}
+			return Action{Kind: BankExpand, NPC: n.GetId(), Count: tier}
+		}
+		id := strings.TrimPrefix(what, "route:")
+		for _, r := range n.GetRoutes() {
+			if r.GetId() == id {
+				return Action{Kind: Travel, NPC: n.GetId(), ID: id, Note: r.GetName()}
+			}
 		}
 	}
 	return Action{}

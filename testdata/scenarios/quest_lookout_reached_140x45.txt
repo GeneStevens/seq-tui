@@ -19,9 +19,9 @@
 │                                    ^^^^^^^^^^^^                                                ││ ; Brigands' Road V… 84m W scout marker │
 │                                   ^^^^^^^^^^^^^                                                ││ Q Wulfric Dunn <Sergeant of Fo… 86m NW │
 │                                   ^^^^^^^^^^^^^                                                ││ Q Ned Sallow <Watchman>         86m NW │
-│                                     ^^^^^^^^^^                                                 ││ ; The Ford Shrine  87m NW scout marker │
-│                                                                                                ││ ; Fordwatch        88m NW scout marker │
-│                                                                                                ││ +19 more                               │
+│                                     ^^^^^^^^^^                                                 ││ H The Ford Shrine <Wayside Shr… 87m NW │
+│                                                                                                ││ ; The Ford Shrine  87m NW scout marker │
+│                                                                                                ││ +21 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │

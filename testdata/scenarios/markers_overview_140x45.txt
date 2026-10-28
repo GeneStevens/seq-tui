@@ -9,7 +9,7 @@
 │                                       ░  """""       """""··" ≈≈≈                                 ░                                      │
 │                                       ░ """"""    cMarlbridge Road                     """"""     ░                                      │
 │                                       ░  """"" South Farmstead≈≈≈           """""East Goblin Copse░                                      │
-│                                       ░           Fordwatch Stockade      """"""c""    """""      ░                                      │
+│                                       ░          South Greywood≈≈ $       """"""c""    """""      ░                                      │
 │                                       ░             """"c""c··≈≈     South Goblin Copse  c        ░                                      │
 │                                       ░      c    c ""Ford Shrine       c      Goblin Hut         ░                                      │
 │                                       ░             """"""##;"≈≈ c   Goblin Hut    c#             ░                                      │

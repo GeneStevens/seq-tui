@@ -19,9 +19,9 @@
 │                                         ░                                                      ││ Q Tobias Hatch <Headman of Barl… 60m E │
 │                                         ░               """"""""""""""""""""                   ││ ; Barleycross       65m E scout marker │
 │                                         ░               """"""""""""""""""""                   ││ ; Brigands' Road … 139m E scout marker │
-│                                         ░                                                      ││ ; The Ford Shrine  148m E scout marker │
-│                                         ░                                                 ;    ││ Q Ned Sallow <Watchman>         149m E │
-│                                         ░                                               Q      ││ +17 more                               │
+│                                         ░                                                      ││ H The Ford Shrine <Wayside Shr… 148m E │
+│                                         ░                                                 ;    ││ ; The Ford Shrine  148m E scout marker │
+│                                         ░                                               Q      ││ +19 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt tgt?                       2 Bash tgt?                       3 -                               4 -                               │

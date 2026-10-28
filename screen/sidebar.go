@@ -138,7 +138,11 @@ func bagLines(m *model.Model, w int, title string, cur int, st Styler) []string 
 				pre = " > "
 			}
 		}
-		line := fit(pre+itemRowM(m, sk.Inst, sk.Count, w-width(pre)), w)
+		tag := ""
+		if cd := m.CooldownLeftMs(sk.Inst); cd > 0 {
+			tag = " " + wholeSecs(cd) // a consumable still cooling down (D115)
+		}
+		line := fit(fit(pre+itemRowM(m, sk.Inst, sk.Count, w-width(pre)-width(tag)), w-width(tag))+tag, w)
 		switch {
 		case i == cur:
 			line = st.Reverse(line)
