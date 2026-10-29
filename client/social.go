@@ -104,3 +104,9 @@ func (s *Session) Whois(ctx context.Context, name string) (*pb.WhoisReply, *pb.S
 func (s *Session) Report(ctx context.Context, name, reason string) (*pb.SocialResult, error) {
 	return s.Social(ctx, agentkit.ReportOf(name, reason))
 }
+
+// Bug files a bug with the game masters; kind is the client filing it ("tui" or
+// "browser"). The server's words, with the bug's id, come as a notice.
+func (s *Session) Bug(ctx context.Context, text, kind string) (*pb.SocialResult, error) {
+	return s.Social(ctx, func(m *pb.Social) { m.Body = &pb.Social_Bug{Bug: &pb.Bug{Text: text, Client: kind}} })
+}

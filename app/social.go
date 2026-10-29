@@ -281,6 +281,20 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			return r
 		}
 		return resultMsg{note: a.reportAck(ctx, before)}
+	case "bug":
+		if arg == "" {
+			return bad("usage: /bug what went wrong (it goes to the game masters, with where you were)")
+		}
+		var before int
+		a.sess.View(func(m *model.Model) { before = m.Social.BugAck })
+		res, err := a.sess.Bug(ctx, arg, clientKind)
+		if err == nil && !res.GetOk() && res.GetReason() == "rate_limited" {
+			return bad("bug: you have filed several bugs recently; a game master will review them (rate_limited)")
+		}
+		if r, no := refused("bug", res, err); no {
+			return r
+		}
+		return resultMsg{note: a.bugAck(ctx, before)}
 	case "whois", "whoisask":
 		if name == "" {
 			return bad("usage: /whois NAME")
@@ -451,7 +465,7 @@ func lineVerb(cmd string) string {
 		return "reply"
 	case "ooc":
 		return "ooc"
-	case "oocsay", "report", "whois":
+	case "oocsay", "report", "whois", "bug":
 		return cmd
 	case "mute", "ignore":
 		return "mute"
@@ -534,6 +548,31 @@ func (a *App) reportAck(ctx context.Context, before int) string {
 		}
 	}
 	return "report sent to the game masters"
+}
+
+// bugAck is what the status line says of a bug: the server's own acknowledgement
+// ("bug N"), which follows its result, waited for a moment.
+func (a *App) bugAck(ctx context.Context, before int) string {
+	for range 20 {
+		text := ""
+		a.sess.View(func(m *model.Model) {
+			if m.Social.BugAck > before {
+				for i := len(m.Log) - 1; i >= 0 && text == ""; i-- {
+					if m.Log[i].Kind == "notice_bug_filed" {
+						text = m.Log[i].Text
+					}
+				}
+			}
+		})
+		if text != "" {
+			return text
+		}
+		select {
+		case <-ctx.Done():
+		case <-time.After(25 * time.Millisecond):
+		}
+	}
+	return "bug sent to the game masters"
 }
 
 // whoisCard asks the server who name is and makes the card of its answer.

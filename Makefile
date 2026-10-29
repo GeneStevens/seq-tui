@@ -1,4 +1,4 @@
-.PHONY: verify golden fixtures play play-testgrounds play-reset web web-smoke web-check web-wasm-test web-nohook
+.PHONY: verify golden fixtures play play-testgrounds play-reset web web-smoke web-check web-wasm-test web-nohook release-mac
 
 # verify is the repo's gate (seq-design D15): gofmt check, vet, test. Under 60 s.
 # The scenarios read seq-world's packs from the module cache, which no import
@@ -99,3 +99,9 @@ web-smoke: web-wasm-test
 	@if command -v node >/dev/null; then \
 		cp web/wasm_exec.js tmp/websmoke/ && node scripts/web-smoke.mjs tmp/websmoke; \
 	else echo "web-smoke: node not found, the wasm builds but was not run"; fi
+
+# release-mac builds seq-tui for darwin-arm64 and darwin-amd64 and packs a .tar.gz
+# for each, with a README line and SHA256SUMS, in dist/release. It publishes
+# nothing; the README has the `gh release create` command.
+release-mac:
+	scripts/release-mac.sh $(VERSION)
