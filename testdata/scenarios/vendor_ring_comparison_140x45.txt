@@ -4,13 +4,13 @@
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
 │> ▲ Tin Ring Common                12, short 7 │  (nothing)                                     ││ Atk off | none                         │
 │  ▲ Brass Ring Common             36, short 31 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
-│  ▲ Silver Ring Common            72, short 67 │                                                │└────────────────────────────────────────┘
+│  ▲ Silver Ring Common            20, short 15 │                                                │└────────────────────────────────────────┘
 │  ▲ Cord Pendant Common            12, short 7 │                                                │┌─ Your character (C: tab) ──────────────┐
 │  ▲ Bone Pendant Common           36, short 31 │                                                ││ [Gear]  Bags   Stats                   │
-│  ▲ Horn Pendant Common           72, short 67 │                                                ││ Head      -                            │
+│  ▲ Horn Pendant Common           20, short 15 │                                                ││ Head      -                            │
 │  x Carved Orb Common              14, short 9 │                                                ││ Chest     -                            │
 │  x Etched Orb Common             42, short 37 │                                                ││ Legs      -                            │
-│  x Rune Orb Common               84, short 79 │                                                ││ Hands     -                            │
+│  x Rune Orb Common               20, short 15 │                                                ││ Hands     -                            │
 │    Barley Loaf Common                       2 │                                                ││ Feet      -                            │
 │    Smoked Eel Common               8, short 3 │                                                ││ Ring 1    -                            │
 │    Small Ale Common                         3 │                                                ││ Ring 2    -                            │

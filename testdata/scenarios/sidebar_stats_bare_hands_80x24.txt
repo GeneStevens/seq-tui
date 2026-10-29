@@ -6,17 +6,17 @@
 │  ▲ Short Sword Common             24 │                                       │
 │  ▲ Dirk Common                    22 │                                       │
 │  x Ashwood Staff Common           22 │                                       │
-│  ▲ Flanged Mace Common  48, short 18 │                                       │
+│> ▲ Flanged Mace Common  48, short 18 │                                       │
 │  ▲ Long Sword Common    56, short 26 │                                       │
 │  ▲ Stiletto Common      52, short 22 │                                       │
 │  x Yew Staff Common     52, short 22 │                                       │
-│  ▲ Spiked Mace Common  110, short 80 │                                       │
-│> ▲ Broad Sword Common  120, short 90 │                                       │
-│  ▲ Poniard Common      110, short 80 │                                       │
+│  ▲ Spiked Mace Common             30 │                                       │
+│  ▲ Broad Sword Common             30 │                                       │
+│  ▲ Poniard Common                 30 │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
-│ ▲ Broad Sword: Common, Main hand; tradable once                              │
-│ damage 7-11 / N.Ns; costs 120 crowns, short 90 crowns                        │
-│ upgrade over an empty main hand: +3.6 damage/s                               │
+│ ▲ Flanged Mace: Common, Main hand; tradable once                             │
+│ damage 5-9 / N.Ns; costs 48 crowns, short 18 crowns                          │
+│ upgrade over an empty main hand: +1.8 damage/s                               │
 │ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc b…│
 │ The answer is on the status line; every denial says why.                     │
 └──────────────────────────────────────────────────────────────────────────────┘

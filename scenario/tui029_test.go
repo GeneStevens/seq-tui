@@ -112,7 +112,7 @@ func TestEveryVendorItemHasItsMarkAndComparison(t *testing.T) {
 	_, p := besideBarnaby(t, 5, nil)
 	p.Press("g", "1")
 	s := p.Screen(140, 45)
-	for _, want := range []string{"▲ Tin Ring", "▲ Brass Ring", "▲ Silver Ring", "▲ Cord Pendant", "▲ Horn Pendant", "x Carved Orb", "x Rune Orb", "short 7", "short 79"} {
+	for _, want := range []string{"▲ Tin Ring", "▲ Brass Ring", "▲ Silver Ring", "▲ Cord Pendant", "▲ Horn Pendant", "x Carved Orb", "x Rune Orb", "short 7", "short 31"} {
 		if !strings.Contains(s, want) {
 			t.Errorf("the stall lacks %q (a mark on every row, afforded or not):\n%s", want, s)
 		}

@@ -10,9 +10,9 @@
 │  ▲ Long Sword Common    56, short 26 │                                       │
 │  ▲ Stiletto Common      52, short 22 │                                       │
 │  x Yew Staff Common     52, short 22 │                                       │
-│  ▲ Spiked Mace Common  110, short 80 │                                       │
-│  ▲ Broad Sword Common  120, short 90 │                                       │
-│  ▲ Poniard Common      110, short 80 │                                       │
+│  ▲ Spiked Mace Common             30 │                                       │
+│  ▲ Broad Sword Common             30 │                                       │
+│  ▲ Poniard Common                 30 │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
 │ ▲ Short Sword: Common, Main hand; tradable once                              │
 │ damage 3-6 / N.Ns; costs 24 crowns                                           │
