@@ -2,27 +2,27 @@
 │ Dunstan Reeve <Weaponsmith>, 3m S away. You have 30 crowns.                                    ││ hale  Lv 3 Warrior          | 30 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
-│  ▲ Cudgel Common                           15 │  (nothing)                                     ││ Atk off | none                         │
-│  ▲ Short Sword Common                      24 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
-│  ▲ Dirk Common                             22 │                                                │└────────────────────────────────────────┘
-│  x Ashwood Staff Common                    22 │                                                │┌─ Your character (C: tab) ──────────────┐
-│> ▲ Flanged Mace Common           48, short 18 │                                                ││  Gear   Bags  [Stats]                  │
-│  ▲ Long Sword Common             56, short 26 │                                                ││ Level 3 Warrior                        │
-│  ▲ Stiletto Common               52, short 22 │                                                ││ Health   164  (regen 4 a tick)         │
-│  x Yew Staff Common              52, short 22 │                                                ││ Armour   20  (cuts 17% of a hit)       │
-│  ▲ Spiked Mace Common                      30 │                                                ││ Accuracy 0  (75% to hit)               │
-│  ▲ Broad Sword Common                      30 │                                                ││ Fists: 7–13 / N.Ns  (5.0 damage/s)     │
-│  ▲ Poniard Common                          30 │                                                ││ Strength  28                           │
-│  x Elder Staff Common                      30 │                                                ││ Agility   0                            │
-│  x Tempered Mace Fine          150, short 120 │                                                ││ Stamina   0                            │
-│  x Tempered Sword Fine         155, short 125 │                                                ││ Intellect 0                            │
-│  x Tempered Stiletto Fine      180, short 150 │                                                ││ Wisdom    0                            │
-│  x Tempered Staff Fine         190, short 160 │                                                ││                                        │
-│  x Heavy Mace Fine             290, short 260 │                                                ││                                        │
-│  x Heavy Sword Fine            335, short 305 │                                                ││                                        │
+│  ▲ Cudgel Common                 45, short 15 │  (nothing)                                     ││ Atk off | none                         │
+│  ▲ Short Sword Common            60, short 30 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  ▲ Dirk Common                   55, short 25 │                                                │└────────────────────────────────────────┘
+│  x Ashwood Staff Common          55, short 25 │                                                │┌─ Your character (C: tab) ──────────────┐
+│> ▲ Flanged Mace Common          110, short 80 │                                                ││  Gear   Bags  [Stats]                  │
+│  ▲ Long Sword Common            110, short 80 │                                                ││ Level 3 Warrior                        │
+│  ▲ Stiletto Common              110, short 80 │                                                ││ Health   164  (regen 4 a tick)         │
+│  x Yew Staff Common             110, short 80 │                                                ││ Armour   20  (cuts 17% of a hit)       │
+│  ▲ Spiked Mace Common           120, short 90 │                                                ││ Accuracy 0  (75% to hit)               │
+│  ▲ Broad Sword Common           120, short 90 │                                                ││ Fists: 7–13 / N.Ns  (5.0 damage/s)     │
+│  ▲ Poniard Common               120, short 90 │                                                ││ Strength  28                           │
+│  x Elder Staff Common           120, short 90 │                                                ││ Agility   0                            │
+│  x Tempered Mace Fine          195, short 165 │                                                ││ Stamina   0                            │
+│  x Tempered Sword Fine         250, short 220 │                                                ││ Intellect 0                            │
+│  x Tempered Stiletto Fine      288, short 258 │                                                ││ Wisdom    0                            │
+│  x Tempered Staff Fine         307, short 277 │                                                ││                                        │
+│  x Heavy Mace Fine             461, short 431 │                                                ││                                        │
+│  x Heavy Sword Fine            538, short 508 │                                                ││                                        │
 │────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
 │ ▲ Flanged Mace: Common, Main hand; tradable once                                               ││                                        │
-│ damage 5-9 / N.Ns; costs 48 crowns, short 18 crowns                                            ││                                        │
+│ damage 5-9 / N.Ns; costs 110 crowns, short 80 crowns                                           ││                                        │
 │ upgrade over an empty main hand: +1.8 damage/s                                                 ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │

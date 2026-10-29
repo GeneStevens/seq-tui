@@ -15,7 +15,7 @@
 │                                                                              │
 │──────────────────────────────────────────────────────────────────────────────│
 │ Small Hearth Draught: Common, no gear slot; tradable once                    │
-│ a vendor pays 3 crowns                                                       │
+│ a vendor pays 1 crown                                                        │
 │ Use: heals 40 hit points; cooldown 60 s                                      │
 │ Tab next tab · Up / Down choose · Enter wears it · U uses it · H heals       │
 │ Esc or C closes · N traders · T trade                                        │

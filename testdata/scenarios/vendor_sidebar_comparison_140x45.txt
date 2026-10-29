@@ -2,27 +2,27 @@
 │ Dunstan Reeve <Weaponsmith>, 3m S away. You have 30 crowns.                                    ││ hale  Lv 3 Warrior          | 30 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
-│  ▲ Cudgel Common                           15 │  (nothing)                                     ││ Atk off | none                         │
-│> ▲ Short Sword Common                      24 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
-│  ▲ Dirk Common                             22 │                                                │└────────────────────────────────────────┘
-│  x Ashwood Staff Common                    22 │                                                │┌─ Your character (C: tab) ──────────────┐
-│  ▲ Flanged Mace Common           48, short 18 │                                                ││ [Gear]  Bags   Stats                   │
-│  ▲ Long Sword Common             56, short 26 │                                                ││ Head      -                            │
-│  ▲ Stiletto Common               52, short 22 │                                                ││ Chest     -                            │
-│  x Yew Staff Common              52, short 22 │                                                ││ Legs      -                            │
-│  ▲ Spiked Mace Common                      30 │                                                ││ Hands     -                            │
-│  ▲ Broad Sword Common                      30 │                                                ││ Feet      -                            │
-│  ▲ Poniard Common                          30 │                                                ││ Ring 1    -                            │
-│  x Elder Staff Common                      30 │                                                ││ Ring 2    -                            │
-│  x Tempered Mace Fine          150, short 120 │                                                ││ Neck      -                            │
-│  x Tempered Sword Fine         155, short 125 │                                                ││ Main hand -                            │
-│  x Tempered Stiletto Fine      180, short 150 │                                                ││ Off hand  -                            │
-│  x Tempered Staff Fine         190, short 160 │                                                ││                                        │
-│  x Heavy Mace Fine             290, short 260 │                                                ││                                        │
-│  x Heavy Sword Fine            335, short 305 │                                                ││                                        │
+│  ▲ Cudgel Common                 45, short 15 │  (nothing)                                     ││ Atk off | none                         │
+│> ▲ Short Sword Common            60, short 30 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  ▲ Dirk Common                   55, short 25 │                                                │└────────────────────────────────────────┘
+│  x Ashwood Staff Common          55, short 25 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Flanged Mace Common          110, short 80 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Long Sword Common            110, short 80 │                                                ││ Head      -                            │
+│  ▲ Stiletto Common              110, short 80 │                                                ││ Chest     -                            │
+│  x Yew Staff Common             110, short 80 │                                                ││ Legs      -                            │
+│  ▲ Spiked Mace Common           120, short 90 │                                                ││ Hands     -                            │
+│  ▲ Broad Sword Common           120, short 90 │                                                ││ Feet      -                            │
+│  ▲ Poniard Common               120, short 90 │                                                ││ Ring 1    -                            │
+│  x Elder Staff Common           120, short 90 │                                                ││ Ring 2    -                            │
+│  x Tempered Mace Fine          195, short 165 │                                                ││ Neck      -                            │
+│  x Tempered Sword Fine         250, short 220 │                                                ││ Main hand -                            │
+│  x Tempered Stiletto Fine      288, short 258 │                                                ││ Off hand  -                            │
+│  x Tempered Staff Fine         307, short 277 │                                                ││                                        │
+│  x Heavy Mace Fine             461, short 431 │                                                ││                                        │
+│  x Heavy Sword Fine            538, short 508 │                                                ││                                        │
 │────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
 │ ▲ Short Sword: Common, Main hand; tradable once                                                ││                                        │
-│ damage 3-6 / N.Ns; costs 24 crowns                                                             ││                                        │
+│ damage 3-6 / N.Ns; costs 60 crowns, short 30 crowns                                            ││                                        │
 │ upgrade over an empty main hand: +1.5 damage/s                                                 ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
