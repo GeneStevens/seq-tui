@@ -2,20 +2,20 @@
 │ Dunstan Reeve <Weaponsmith>, 3m S away. You have 30 crowns.                  │
 │                                                                              │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
-│  ▲ Cudgel Common                  15 │  (nothing)                            │
-│  ▲ Short Sword Common             24 │                                       │
-│  ▲ Dirk Common                    22 │                                       │
-│  x Ashwood Staff Common           22 │                                       │
-│> ▲ Flanged Mace Common  48, short 18 │                                       │
-│  ▲ Long Sword Common    56, short 26 │                                       │
-│  ▲ Stiletto Common      52, short 22 │                                       │
-│  x Yew Staff Common     52, short 22 │                                       │
-│  ▲ Spiked Mace Common             30 │                                       │
-│  ▲ Broad Sword Common             30 │                                       │
-│  ▲ Poniard Common                 30 │                                       │
+│  ▲ Cudgel Common        45, short 15 │  (nothing)                            │
+│  ▲ Short Sword Common   60, short 30 │                                       │
+│  ▲ Dirk Common          55, short 25 │                                       │
+│  x Ashwood Staff Common 55, short 25 │                                       │
+│> ▲ Flanged Mace Common 110, short 80 │                                       │
+│  ▲ Long Sword Common   110, short 80 │                                       │
+│  ▲ Stiletto Common     110, short 80 │                                       │
+│  x Yew Staff Common    110, short 80 │                                       │
+│  ▲ Spiked Mace Common  120, short 90 │                                       │
+│  ▲ Broad Sword Common  120, short 90 │                                       │
+│  ▲ Poniard Common      120, short 90 │                                       │
 │──────────────────────────────────────────────────────────────────────────────│
 │ ▲ Flanged Mace: Common, Main hand; tradable once                             │
-│ damage 5-9 / N.Ns; costs 48 crowns, short 18 crowns                          │
+│ damage 5-9 / N.Ns; costs 110 crowns, short 80 crowns                         │
 │ upgrade over an empty main hand: +1.8 damage/s                               │
 │ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc b…│
 │ The answer is on the status line; every denial says why.                     │

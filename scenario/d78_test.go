@@ -66,14 +66,14 @@ func TestVendorSidebarAndComparisonBareHandsAgainstAShortSword(t *testing.T) {
 	_, p := atTheWeaponStall(t, 30, nil)
 	p.Resize(140, 45)
 	s := p.Screen(140, 45)
-	for _, want := range []string{"Traders", "[Gear]", "Your character", "Main hand", "▲ Short Sword", "short 18"} {
+	for _, want := range []string{"Traders", "[Gear]", "Your character", "Main hand", "▲ Short Sword", "short 15"} {
 		if !strings.Contains(s, want) {
 			t.Errorf("the vendor screen lacks %q:\n%s", want, s)
 		}
 	}
 	toStock(t, p, "short-sword")
 	s = p.Screen(140, 45)
-	for _, want := range []string{"▲ Short Sword: Common, Main hand", "upgrade over an empty main hand", "damage/s", "costs 24 crowns"} {
+	for _, want := range []string{"▲ Short Sword: Common, Main hand", "upgrade over an empty main hand", "damage/s", "costs 60 crowns"} {
 		if !strings.Contains(s, want) {
 			t.Errorf("the comparison card lacks %q:\n%s", want, s)
 		}
@@ -83,7 +83,7 @@ func TestVendorSidebarAndComparisonBareHandsAgainstAShortSword(t *testing.T) {
 	// A flanged mace is dearer than the 30 crowns: the card says how far short.
 	p.Press("down", "down", "down")
 	s = p.Screen(140, 45)
-	if !strings.Contains(s, "Flanged Mace") || !strings.Contains(s, "short 18 crowns") {
+	if !strings.Contains(s, "Flanged Mace") || !strings.Contains(s, "short 80 crowns") {
 		t.Errorf("an item that cannot be afforded does not say how far short:\n%s", s)
 	}
 
@@ -123,7 +123,7 @@ func tabCell(t *testing.T, p *scenario.Player, w, h int, name string) (x, y int)
 // In an 80x24 window there is no room beside the screen: C holds the sidebar as a
 // drawer, over the vendor's screen, and puts it away again without leaving it.
 func TestTheSidebarIsADrawerInANarrowWindow(t *testing.T) {
-	_, p := atTheWeaponStall(t, 30, nil)
+	_, p := atTheWeaponStall(t, 45, nil)
 	s := p.Screen(80, 24)
 	if !strings.Contains(s, "C: your character") || strings.Contains(s, "[Gear]") {
 		t.Errorf("a narrow window shows the vendor and a hint for C:\n%s", s)

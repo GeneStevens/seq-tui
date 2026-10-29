@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 192 crowns.                          ││ hale  Lv 3 Warrior         | 192 crowns│
+│ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 176 crowns.                          ││ hale  Lv 3 Warrior         | 176 crowns│
 │                                                                                                ││ HP 138/164 ######################----- │
 │ You are level 3. Enter buys the ability under the cursor.                                      ││ XP ------------------------- 90 to Lv 4│
 │  Taunt                  level 1   known                                                        ││ Atk off | none                         │
@@ -32,7 +32,7 @@
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │     N.Ns Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
 │            healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse. Pay or wait. │
-│ +   N.Ns You buy Tanned Cap from Hilda Brasswick for 8 crowns                                                                            │
+│ +   N.Ns You buy Tanned Cap from Hilda Brasswick for 24 crowns                                                                           │
 │     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │    NN.Ns Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
 │            else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.                       │

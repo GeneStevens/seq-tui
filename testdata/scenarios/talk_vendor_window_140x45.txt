@@ -2,29 +2,29 @@
 │ Hilda Brasswick <Armourer>, 2m S away. You have 200 crowns.                                    ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
-│> ▲ Tanned Cap Common                        8 │  (nothing)                                     ││ Atk off | none                         │
-│  ▲ Ringed Cap Common                       24 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
-│  ▲ Studded Cap Common                      48 │                                                │└────────────────────────────────────────┘
-│  ▲ Tanned Jerkin Common                    20 │                                                │┌─ Your character (C: tab) ──────────────┐
-│  ▲ Ringed Jerkin Common                    60 │                                                ││ [Gear]  Bags   Stats                   │
-│  ▲ Studded Jerkin Common                   30 │                                                ││ Head      -                            │
-│  ▲ Tanned Leggings Common                  16 │                                                ││ Chest     -                            │
-│  ▲ Ringed Leggings Common                  48 │                                                ││ Legs      -                            │
-│  ▲ Studded Leggings Common                 25 │                                                ││ Hands     -                            │
-│  ▲ Tanned Gloves Common                     8 │                                                ││ Feet      -                            │
-│  ▲ Ringed Gloves Common                    24 │                                                ││ Ring 1    -                            │
-│  ▲ Studded Gloves Common                   48 │                                                ││ Ring 2    -                            │
-│  ▲ Tanned Boots Common                     10 │                                                ││ Neck      -                            │
-│  ▲ Ringed Boots Common                     30 │                                                ││ Main hand -                            │
-│  ▲ Studded Boots Common                    60 │                                                ││ Off hand  -                            │
-│  ▲ Oak Buckler Common                      14 │                                                ││                                        │
-│  ▲ Iron-Rimmed Shield Common               42 │                                                ││                                        │
-│  ▲ Bossed Shield Common                    20 │                                                ││                                        │
-│  ▲ Linen Hood Common                        8 │                                                ││                                        │
-│  ▲ Wool Hood Common                        24 │                                                ││                                        │
+│> ▲ Tanned Cap Common                       24 │  (nothing)                                     ││ Atk off | none                         │
+│  ▲ Ringed Cap Common                       60 │                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│  ▲ Studded Cap Common                     100 │                                                │└────────────────────────────────────────┘
+│  ▲ Tanned Jerkin Common                    60 │                                                │┌─ Your character (C: tab) ──────────────┐
+│  ▲ Ringed Jerkin Common                   100 │                                                ││ [Gear]  Bags   Stats                   │
+│  ▲ Studded Jerkin Common                  120 │                                                ││ Head      -                            │
+│  ▲ Tanned Leggings Common                  48 │                                                ││ Chest     -                            │
+│  ▲ Ringed Leggings Common                 100 │                                                ││ Legs      -                            │
+│  ▲ Studded Leggings Common                110 │                                                ││ Hands     -                            │
+│  ▲ Tanned Gloves Common                    24 │                                                ││ Feet      -                            │
+│  ▲ Ringed Gloves Common                    60 │                                                ││ Ring 1    -                            │
+│  ▲ Studded Gloves Common                  100 │                                                ││ Ring 2    -                            │
+│  ▲ Tanned Boots Common                     30 │                                                ││ Neck      -                            │
+│  ▲ Ringed Boots Common                     75 │                                                ││ Main hand -                            │
+│  ▲ Studded Boots Common                   100 │                                                ││ Off hand  -                            │
+│  ▲ Oak Buckler Common                      42 │                                                ││                                        │
+│  ▲ Iron-Rimmed Shield Common              100 │                                                ││                                        │
+│  ▲ Bossed Shield Common                   100 │                                                ││                                        │
+│  ▲ Linen Hood Common                       24 │                                                ││                                        │
+│  ▲ Wool Hood Common                        60 │                                                ││                                        │
 │────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
 │ ▲ Tanned Cap: Common, Head; tradable once                                                      ││                                        │
-│ armor +2; costs 8 crowns                                                                       ││                                        │
+│ armor +2; costs 24 crowns                                                                      ││                                        │
 │ upgrade over an empty head: +2 armour                                                          ││                                        │
 │ Tab list · Enter buy / sell one · A sell the stack · J sell all junk · Esc back                ││                                        │
 │ The answer is on the status line; every denial says why.                                       ││                                        │

@@ -12,7 +12,7 @@ require (
 
 require (
 	ergo.services/ergo v1.999.330 // indirect
-	github.com/GeneStevens/seq-world v0.0.0-20261029002340-47d37961c767 // indirect
+	github.com/GeneStevens/seq-world v0.0.0-20261029051029-4db13bcc176f // indirect
 	github.com/charmbracelet/ultraviolet v0.0.0-20261008173134-6b8d4baf91b4 // indirect
 	github.com/charmbracelet/x/ansi v0.11.9 // indirect
 	github.com/charmbracelet/x/term v0.2.2 // indirect
