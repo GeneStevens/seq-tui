@@ -4,13 +4,13 @@
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
 │> ▲ Tin Ring Common       12, short 7 │  (nothing)                            │
 │  ▲ Brass Ring Common    36, short 31 │                                       │
-│  ▲ Silver Ring Common   72, short 67 │                                       │
+│  ▲ Silver Ring Common   20, short 15 │                                       │
 │  ▲ Cord Pendant Common   12, short 7 │                                       │
 │  ▲ Bone Pendant Common  36, short 31 │                                       │
-│  ▲ Horn Pendant Common  72, short 67 │                                       │
+│  ▲ Horn Pendant Common  20, short 15 │                                       │
 │  x Carved Orb Common     14, short 9 │                                       │
 │  x Etched Orb Common    42, short 37 │                                       │
-│  x Rune Orb Common      84, short 79 │                                       │
+│  x Rune Orb Common      20, short 15 │                                       │
 │    Barley Loaf Common              2 │                                       │
 │    Smoked Eel Common      8, short 3 │                                       │
 │──────────────────────────────────────────────────────────────────────────────│

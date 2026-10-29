@@ -6,12 +6,16 @@ github.com/GeneStevens/seq v0.0.0-20261028203837-d6fe5db2acfb h1:BYWIqyqwLVzLr5s
 github.com/GeneStevens/seq v0.0.0-20261028203837-d6fe5db2acfb/go.mod h1:Y8tpZPy0k/+Xwog7ikwDlPMHfJoUX5t2TiGAg2904NI=
 github.com/GeneStevens/seq v0.0.0-20261028221054-56467dbaf942 h1:s5eGz2m9ydoOwu8DGIVCTXr/l2jn0O4F+ww2CJbG5zA=
 github.com/GeneStevens/seq v0.0.0-20261028221054-56467dbaf942/go.mod h1:Y8tpZPy0k/+Xwog7ikwDlPMHfJoUX5t2TiGAg2904NI=
+github.com/GeneStevens/seq v0.0.0-20261028224824-b2434b7b21bc h1:yf7HQGf0Rbp9DqnhqcpxsXui8VXXP2Qwaod7fsDX+RA=
+github.com/GeneStevens/seq v0.0.0-20261028224824-b2434b7b21bc/go.mod h1:Y8tpZPy0k/+Xwog7ikwDlPMHfJoUX5t2TiGAg2904NI=
 github.com/GeneStevens/seq-world v0.0.0-20261028200451-483b2b369291 h1:r7ihKM/TUioTPL0BBEvhrLq1z7dpFqW5FkxSEwGvzXc=
 github.com/GeneStevens/seq-world v0.0.0-20261028200451-483b2b369291/go.mod h1:QOSrHOlR//S/yHyMcs2jmr6F9oyDr7u7YFr0h14m+ho=
 github.com/GeneStevens/seq-world v0.0.0-20261028205419-580be1365a83 h1:J1mnKMP4XmL/Nwe/y1JWkEFlbafhvUKYoOdHBCzQBX4=
 github.com/GeneStevens/seq-world v0.0.0-20261028205419-580be1365a83/go.mod h1:VmBBMZ+ph9f0iCYQKaHRlWdvbOkDUnZ1S+ySWYFahVc=
 github.com/GeneStevens/seq-world v0.0.0-20261028211732-35774d4f426a h1:JmJsEnYatCHXQBnDv/VYgA2BKOF7ks2vmOaerw0Z9S0=
 github.com/GeneStevens/seq-world v0.0.0-20261028211732-35774d4f426a/go.mod h1:VmBBMZ+ph9f0iCYQKaHRlWdvbOkDUnZ1S+ySWYFahVc=
+github.com/GeneStevens/seq-world v0.0.0-20261029002340-47d37961c767 h1:L022w5jlTNImJlP6Fet5DXO32jXcwY6N+6jkGTpeEIc=
+github.com/GeneStevens/seq-world v0.0.0-20261029002340-47d37961c767/go.mod h1:VmBBMZ+ph9f0iCYQKaHRlWdvbOkDUnZ1S+ySWYFahVc=
 github.com/aymanbagabas/go-udiff v0.2.0 h1:TK0fH4MteXUDspT88n8CKzvK0X9O2xu9yQjWpi6yML8=
 github.com/aymanbagabas/go-udiff v0.2.0/go.mod h1:RE4Ex0qsGkTAJoQdQQCA0uG+nAzJO/pI/QwceO5fgrA=
 github.com/charmbracelet/colorprofile v0.4.3 h1:QPa1IWkYI+AOB+fE+mg/5/4HRMZcaXex9t5KX76i20Q=

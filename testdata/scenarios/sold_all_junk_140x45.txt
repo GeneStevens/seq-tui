@@ -10,16 +10,16 @@
 │  ▲ Long Sword Common             56, short 54 │                                                ││ Head      -                            │
 │  ▲ Stiletto Common               52, short 50 │                                                ││ Chest     -                            │
 │  x Yew Staff Common              52, short 50 │                                                ││ Legs      -                            │
-│  ▲ Spiked Mace Common          110, short 108 │                                                ││ Hands     -                            │
-│  ▲ Broad Sword Common          120, short 118 │                                                ││ Feet      -                            │
-│  ▲ Poniard Common              110, short 108 │                                                ││ Ring 1    -                            │
-│  x Elder Staff Common          110, short 108 │                                                ││ Ring 2    -                            │
-│  x Tempered Mace Fine          200, short 198 │                                                ││ Neck      -                            │
-│  x Tempered Sword Fine         260, short 258 │                                                ││ Main hand -                            │
-│  x Tempered Stiletto Fine      300, short 298 │                                                ││ Off hand  -                            │
-│  x Tempered Staff Fine         320, short 318 │                                                ││                                        │
-│  x Heavy Mace Fine             480, short 478 │                                                ││                                        │
-│  x Heavy Sword Fine            560, short 558 │                                                ││                                        │
+│  ▲ Spiked Mace Common            30, short 28 │                                                ││ Hands     -                            │
+│  ▲ Broad Sword Common            30, short 28 │                                                ││ Feet      -                            │
+│  ▲ Poniard Common                30, short 28 │                                                ││ Ring 1    -                            │
+│  x Elder Staff Common            30, short 28 │                                                ││ Ring 2    -                            │
+│  x Tempered Mace Fine          150, short 148 │                                                ││ Neck      -                            │
+│  x Tempered Sword Fine         155, short 153 │                                                ││ Main hand -                            │
+│  x Tempered Stiletto Fine      180, short 178 │                                                ││ Off hand  -                            │
+│  x Tempered Staff Fine         190, short 188 │                                                ││                                        │
+│  x Heavy Mace Fine             290, short 288 │                                                ││                                        │
+│  x Heavy Sword Fine            335, short 333 │                                                ││                                        │
 │────────────────────────────────────────────────────────────────────────────────────────────────││                                        │
 │ ▲ Cudgel: Common, Main hand; tradable once                                                     ││                                        │
 │ damage 2-5 / N.Ns; costs 15 crowns, short 13 crowns                                            ││                                        │

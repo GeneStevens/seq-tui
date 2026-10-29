@@ -66,7 +66,7 @@ func TestVendorSidebarAndComparisonBareHandsAgainstAShortSword(t *testing.T) {
 	_, p := atTheWeaponStall(t, 30, nil)
 	p.Resize(140, 45)
 	s := p.Screen(140, 45)
-	for _, want := range []string{"Traders", "[Gear]", "Your character", "Main hand", "▲ Short Sword", "short 90"} {
+	for _, want := range []string{"Traders", "[Gear]", "Your character", "Main hand", "▲ Short Sword", "short 18"} {
 		if !strings.Contains(s, want) {
 			t.Errorf("the vendor screen lacks %q:\n%s", want, s)
 		}
@@ -80,10 +80,10 @@ func TestVendorSidebarAndComparisonBareHandsAgainstAShortSword(t *testing.T) {
 	}
 	p.Golden("vendor_sidebar_comparison")
 
-	// A broad sword is dearer than the 30 crowns: the card says how far short.
-	p.Press("down", "down", "down", "down", "down", "down", "down", "down")
+	// A flanged mace is dearer than the 30 crowns: the card says how far short.
+	p.Press("down", "down", "down")
 	s = p.Screen(140, 45)
-	if !strings.Contains(s, "Broad Sword") || !strings.Contains(s, "short 90 crowns") {
+	if !strings.Contains(s, "Flanged Mace") || !strings.Contains(s, "short 18 crowns") {
 		t.Errorf("an item that cannot be afforded does not say how far short:\n%s", s)
 	}
 
