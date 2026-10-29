@@ -67,6 +67,35 @@ make web-smoke    # builds the wasm and runs it under Node: first screen at 80x2
 
 Serve `web/dist` on the same origin as seqd (a Caddy proxy for `/seq/v1`, no server change), open the page and paste a session token; `docs/browser.md` has a sample Caddyfile, local development with an mkcert certificate, and what the page does. Not in the browser build: duo mode and session logs. Bubble Tea v2.1.0 has no js build, so `third_party/bubbletea` is a copy with one added file (`tty_js.go`); `docs/upstream-bubbletea-js.md` has the patch and the text for an upstream pull request.
 
+## Play on play.spielengine.com
+
+The M11 playtest server is at **https://play.spielengine.com/**. Both clients need an invite code (it starts `seq_inv_`): ask Gene for one, and keep it private. It is read from the environment, never from a flag.
+
+**In the browser** (nothing to install): open the link, paste the code in the field "Session token", tick "Make a new character" the first time, and press the button. The page connects back to the host it came from (`wss://play.spielengine.com/seq/v1`, from `location`; there is no host in the page), so it works the same behind any TLS-terminating proxy that serves seqd with `-web-dir`.
+
+**In a terminal on a Mac**, either way:
+
+- *Download* (no Go needed). Gene publishes `seq-tui-<version>-darwin-arm64.tar.gz` (Apple silicon) and `...-darwin-amd64.tar.gz` (Intel) on the repo's Releases page, with `SHA256SUMS`. Check the sum (`shasum -a 256 -c SHA256SUMS --ignore-missing`), unpack (`tar xzf seq-tui-*.tar.gz`), then clear the quarantine flag once, since the binary is not signed: `xattr -d com.apple.quarantine ./seq-tui` (or right-click it in Finder, choose Open, and confirm).
+- *Build from the repo* (you have been invited to it): install Go, set up private module access (above), then `go build -o seq-tui ./cmd/seq-tui`.
+
+Then:
+
+```
+SEQ_SESSION_TOKEN=<your invite code> ./seq-tui -url wss://play.spielengine.com/seq/v1 -new     # first time: make a character
+SEQ_SESSION_TOKEN=<your invite code> ./seq-tui -url wss://play.spielengine.com/seq/v1           # later: pick one
+```
+
+The server has a normal public certificate, which the program checks against the system's trusted certificates; do not use `-insecure`.
+
+**Found a bug?** Type `/bug` and what went wrong (`/bug the ferry sign has a typo`), in the terminal or the browser. It goes to the game masters with where you were; the log answers "bug N".
+
+**Gene: publishing the Mac download.** `make release-mac` (or `make release-mac VERSION=v0.1.0`) builds both architectures and writes `dist/release/seq-tui-<version>-darwin-{arm64,amd64}.tar.gz` and `dist/release/SHA256SUMS`. It publishes nothing. Check the files, then create the release yourself:
+
+```
+make release-mac VERSION=v0.1.0
+gh release create v0.1.0 dist/release/*.tar.gz dist/release/SHA256SUMS --repo GeneStevens/seq-tui --title "seq-tui v0.1.0 for Mac" --notes "Unsigned Mac build for the play.spielengine.com playtest. First launch: xattr -d com.apple.quarantine ./seq-tui"
+```
+
 ## Playing together (M9, D58)
 
 Chat, parties, who and friends are the server's *social* requests, not intents (`client.Session.Social` and its wrappers on the toolkit's connection): each is answered by one result, with the refusal's reason when it is refused, and the status line says it in words. The model keeps what the server tells (`model.Social`: the chat scrollback of 500 lines, the party, the invitation waiting, the characters the who list named, the friends list); chat is not an event, so a resume does not replay it.

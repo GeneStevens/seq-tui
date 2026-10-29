@@ -113,6 +113,8 @@ type Social struct {
 	OOCOff bool
 	// ReportLimitText is the server's last words on a report refused for an account limit.
 	ReportLimitText string
+	// BugAck counts the server's acknowledgements of a /bug seen.
+	BugAck int
 	// ReportAck counts the server's acknowledgements of a /report seen.
 	ReportAck int
 	invites   int
@@ -274,6 +276,11 @@ func (m *Model) applyNotice(n *pb.SocialNotice) {
 		// The server's own words for a refused report (D112); kept for the refusal of /report.
 		text = firstText(text, "You've filed several reports recently. A GM will review them.")
 		s.ReportLimitText = text
+	case "bug_filed":
+		s.BugAck++
+		text = firstText(text, "your bug was filed with the game masters")
+	case "bug_limit":
+		text = firstText(text, "You've filed several bugs recently. A GM will review them.")
 	case "report_filed":
 		s.ReportAck++
 		text = firstText(text, "your report was filed with the game masters")

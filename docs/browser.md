@@ -214,3 +214,7 @@ the SGR mouse report; the question is whether the terminal sends it.
 
 Where Option-click does not arrive, click the thing (or the ground) and press **W**:
 it walks to what was clicked, else the target, else the spot clicked.
+
+## Served by seqd behind a TLS proxy (M11)
+
+`seqd -web-dir <web/dist> -plain-http` serves this page and `/seq/v1` from one address, with a proxy (HAProxy on play.spielengine.com) ending TLS in front of it. The page takes its server from `location`: `wss://` when the page came over https, `ws://` over http, and the host it came from, so no host name is built in. `?url=` still points a development page at another server.

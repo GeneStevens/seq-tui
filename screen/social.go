@@ -287,6 +287,8 @@ func socialHelp() []string {
 		"                 /ooc on brings it back (the server keeps your choice)",
 		"Report           /report NAME what happened   files it with the game masters, with",
 		"                 the latest chat; the server answers in the log. Five an hour",
+		"Bug              /bug TEXT   tells the game masters what went wrong, with where you",
+		"                 were; the server answers \"bug N\" in the log",
 		"Names            a name in the Chat tab or the drawer is a link: click it, or N",
 		"                 selects the first (Tab and Shift+Tab step, Enter opens, Esc lets",
 		"                 go). The card shows class, level and zone (\"anonymous\" if",

@@ -4,3 +4,4 @@ tmp/
 traces/
 seq-data/
 web/dist/
+dist/
