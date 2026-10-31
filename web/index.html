@@ -12,12 +12,18 @@
   #terminal { position: absolute; inset: 0; padding: 4px; box-sizing: border-box; }
   #login, #loading, #small, #ended { position: absolute; z-index: 10; }
   #login { inset: 0; display: flex; align-items: center; justify-content: center; background: #000; }
-  #login form { width: min(28em, 90vw); }
+  #loginbox { width: min(28em, 90vw); }
   #login h1 { font: 700 1.6em "DejaVu Sans Mono", monospace; margin: 0 0 .6em; }
   #login label { display: block; margin: .8em 0 .2em; }
   #login input[type=text], #login input[type=password] { width: 100%; box-sizing: border-box; padding: .4em; font: 14px "DejaVu Sans Mono", monospace; background: #111; color: #eee; border: 1px solid #555; }
+  #login input[type=email] { width: 100%; box-sizing: border-box; padding: .4em; font: 14px "DejaVu Sans Mono", monospace; background: #111; color: #eee; border: 1px solid #555; }
   #login button { margin-top: 1em; padding: .5em 1.2em; font-size: 1em; }
+  #login button.link, #login a { background: none; border: 0; color: #6cf; text-decoration: underline; cursor: pointer; padding: .5em 0; font-size: 1em; }
+  #login button.google { width: 100%; background: #fff; color: #222; border: 1px solid #ccc; border-radius: 4px; }
   #login p.note { color: #999; font-size: .9em; }
+  #login p.or { text-align: center; color: #888; margin: .6em 0 0; }
+  #login p.error { color: #f88; }
+  #login [hidden] { display: none; }
   #loading { left: 0; right: 0; bottom: 0; padding: .5em 1em; background: #222; color: #ddd; display: none; }
   #loading .bar { display: inline-block; width: 8em; height: .5em; margin-left: .6em; background: #444; vertical-align: middle; overflow: hidden; }
   #loading .bar::after { content: ""; display: block; width: 30%; height: 100%; background: #6cf; animation: slide 1s linear infinite; }
@@ -31,8 +37,16 @@
 <div id="terminal"></div>
 
 <div id="login">
-  <form id="loginform">
+  <div id="loginbox">
     <h1>SEQ</h1>
+    <div id="welcome" hidden>
+      <p>Welcome back, <b id="who"></b>.</p>
+      <button id="play" type="button">Play</button>
+      <button id="signout" type="button" class="link">Sign out</button>
+    </div>
+    <div id="signin" hidden></div>
+    <p id="otherlink" hidden><a href="#" id="other">Other ways to sign in</a></p>
+  <form id="loginform" hidden>
     <label for="token">Session token</label>
     <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="seq_st_..." required>
     <label for="character">Character id <small>(optional: leave empty to pick one)</small></label>
@@ -41,14 +55,18 @@
     <button type="submit">Play</button>
     <p class="note">The token is kept in this tab's session storage and is gone when the tab closes. Sessions are not recorded in the browser, and duo mode is not available here.</p>
   </form>
+  </div>
 </div>
 <div id="loading">Loading SEQ <span class="bar"></span></div>
 <div id="small">The terminal is too small: SEQ needs at least 80 columns by 24 rows. Make the window bigger.</div>
-<div id="ended"><pre id="endedmsg"></pre><button id="again">Back to the login</button></div>
+<div id="ended"><pre id="endedmsg"></pre><button id="again">Back to the login</button> <button id="endsignout" type="button" hidden>Sign out</button></div>
 
 <script src="vendor/xterm.js"></script>
 <script src="vendor/addon-fit.js"></script>
 <script src="vendor/addon-webgl.js"></script>
+<script src="vendor/stytch-vanilla-js-6.3.0.headless.js"></script>
+<script src="auth.js"></script>
+<script src="signin-ui.js"></script>
 <script src="wasm_exec.js"></script>
 <script src="app.js"></script>
 </body>

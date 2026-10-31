@@ -100,6 +100,13 @@ async function start(settings) {
   window.seqExited = (msg) => {
     running = false;
     term.dispose();
+    if (settings.fromSaved && /hello refused/.test(msg || "")) { // the saved sign-in ran out or was revoked
+      localStorage.removeItem(SeqAuth.SESSION_KEY);
+      msg = "";
+      $("endedmsg").textContent = "Your saved sign-in has expired. Sign in again.";
+      $("ended").style.display = "flex";
+      return;
+    }
     if (msg) {
       sessionStorage.removeItem("seq.character"); // a refused id is not offered again
     } else if (sessionStorage.getItem("seq.character.tried")) {
@@ -107,6 +114,7 @@ async function start(settings) {
     }
     sessionStorage.removeItem("seq.character.tried");
     $("endedmsg").textContent = msg ? "SEQ stopped: " + plainReason(msg) : "Thanks for playing.";
+    $("endsignout").hidden = !auth.saved();
     $("ended").style.display = "flex";
   };
 
@@ -139,6 +147,7 @@ async function instantiate(go) {
 }
 
 $("again").addEventListener("click", () => location.reload());
+$("endsignout").addEventListener("click", async () => { await auth.signOut(); location.reload(); });
 $("token").value = sessionStorage.getItem("seq.token") || "";
 // Only an id that worked is offered again (seq.character is set when a run ends
 // without an error); the field is empty otherwise.
@@ -157,5 +166,50 @@ $("loginform").addEventListener("submit", async (e) => {
   else sessionStorage.removeItem("seq.character.tried");
   start(settings);
 });
+
+const auth = SeqAuth.createAuth({ fetch: window.fetch.bind(window), local: localStorage, session: sessionStorage, stytchLib: window.stytch, origin: location.origin });
+const pageURL = () => new URLSearchParams(location.search).get("url") || "";
+
+// startSignedIn plays with the seqd session a sign-in gave (the picker lists the
+// account's characters, so no character id is asked for).
+function startSignedIn(s, fromSaved) {
+  history.replaceState(null, "", location.pathname + (pageURL() ? "?url=" + encodeURIComponent(pageURL()) : ""));
+  start({ token: s.token, character: "", newchar: false, url: pageURL(), fromSaved });
+}
+
+// boot decides the first screen: the token form alone when the server has no
+// sign-in; a sign-in coming back to this page (a link or Google that redirected
+// to the root) is finished; a saved session gets a welcome and one click to play;
+// otherwise the sign-in panel, with the token form behind "Other ways to sign in".
+async function boot() {
+  const cfg = await auth.config();
+  if (!cfg) { $("loginform").hidden = false; return; }
+  $("other").addEventListener("click", (e) => { e.preventDefault(); $("loginform").hidden = !$("loginform").hidden; });
+  $("otherlink").hidden = false;
+  const flow = SeqAuth.createFlow(auth, cfg, { offerLink: true, returnTo: "/", onSignedIn: (s) => startSignedIn(s, false) });
+  const draw = SeqSignInUI.mount($("signin"), flow);
+  flow.onView = draw;
+  const back = () => { $("welcome").hidden = true; $("signin").hidden = false; draw(flow.view); };
+  if (new URLSearchParams(location.search).has("stytch_token_type")) {
+    $("signin").hidden = false;
+    try {
+      const s = await auth.completeCallback(location.search);
+      if (s && s.returnTo && s.returnTo !== "/") return location.replace(s.returnTo); // e.g. /activate?code=…
+      if (s) return startSignedIn(s, false);
+    }
+    catch (e) { history.replaceState(null, "", location.pathname); flow.view = { screen: "choose", google: !!cfg.google, emailOtp: cfg.email_otp !== false, error: e.message }; draw(flow.view); return; }
+  }
+  const s = auth.saved();
+  if (s) {
+    $("who").textContent = s.account;
+    $("welcome").hidden = false;
+    $("play").addEventListener("click", () => startSignedIn(s, true));
+    $("signout").addEventListener("click", async () => { await auth.signOut(); $("welcome").hidden = true; $("signin").hidden = false; draw(flow.view); });
+    $("play").focus();
+    return;
+  }
+  back();
+}
+boot();
 
 fetch("keys.json").then((r) => r.json()).then((k) => { intercepted = new Set(k.intercept); }).catch(() => {});

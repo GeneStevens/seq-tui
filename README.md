@@ -33,6 +33,7 @@ ssh -T git@github.com            # should greet you by name
 
 ```
 make play                # Thornwick, on a world that is kept between runs; asks which character to play
+make play-web            # the same world, in the browser, on http://localhost:8480 (no proxy or certificate)
 make play-testgrounds    # the engine's test zone (me-1), on a database thrown away on quitting: for tests and quick checks
 make play-reset          # wipe the kept world, after asking
 ```
@@ -46,6 +47,8 @@ make play-reset          # wipe the kept world, after asking
 - **Zehen.** The old `make play` database was a throwaway (tmpfs), so a character made before this change, Zehen included, is gone; make a new one.
 - **Testgrounds.** `make play-testgrounds` (or `SEQ_TESTGROUNDS=1 make play`) is the old setup: the same server with new characters starting in Testgrounds (the engine's test zone, with its builder names), the development characters `me-1` and `me-2`, `me-1` played with no picker, and a database that goes with the container (docker project `seq-tui-play`, port 55432, no picker). From Testgrounds you can walk to the zone line in the east (`D` on the map; `Nearby` lists it) and press **E** there to cross, and **E** again at the other side to come back.
 - **Settings.** `SEQ_ADDR` (the server's address), `SEQ_PG_PORT`, `SEQ_PLAY_PROJECT` (the docker project, so the volume), `SEQ_WORLD_PACKS=DIR` (serve a `seq-world` checkout's packs instead of the pinned one), `SEQ_PLAY_DRY=1` (print what would run and stop). `make play` starts `seqd` with `-dev-testers=false`, so the development account holds no Testgrounds testers (`player-1`, `player-2`) and the picker lists only what you made; the Testgrounds setup keeps its testers.
+
+**`make play-web`** is `make play` for the browser, in one command: the same server and kept world, but it builds the page (`make web`) and has `seqd` serve it itself (`-web-dir`, `-plain-http` on loopback), so there is no Caddyfile, certificate or second terminal. It prints **http://localhost:8480/** (port 8480, so it can sit beside `make play`'s 8443; they share one database container, so do not run both at once) and, while sign-in is off, a development token to paste into the page. To try the real sign-in on a Stytch **Test** project, set `SEQ_STYTCH_PROJECT_ID`, `SEQ_STYTCH_DOMAIN`, `SEQ_STYTCH_PUBLIC_TOKEN` and `SEQ_STYTCH_SECRET` in the environment before `make play-web`; they pass through to `seqd` (docs/browser.md says what to set up in Stytch). `SEQ_ADDR` changes the address (it must stay on loopback).
 
 Without the scripts:
 
@@ -71,19 +74,27 @@ Serve `web/dist` on the same origin as seqd (a Caddy proxy for `/seq/v1`, no ser
 
 The M11 playtest server is at **https://play.spielengine.com/**. Both clients need an invite code (it starts `seq_inv_`): ask Gene for one, and keep it private. It is read from the environment, never from a flag.
 
-**In the browser** (nothing to install): open the link, paste the code in the field "Session token", tick "Make a new character" the first time, and press the button. The page connects back to the host it came from (`wss://play.spielengine.com/seq/v1`, from `location`; there is no host in the page), so it works the same behind any TLS-terminating proxy that serves seqd with `-web-dir`.
+**In the browser** (nothing to install): open the link and choose **Sign in with Google**, or enter your email and choose **Email me a sign-in link** (open the link on the same device; **Use a code instead** sends a code to type in). The first time you get a new account; after that the page remembers you and shows **Welcome back** with one **Play** button (and **Sign out**). The game then asks which character to play. If you already have a SEQ account from an invite code, the first sign-in offers **Already have a SEQ account? Link it**: enter the old invite code (or a session token) once and your characters come with you. **Other ways to sign in** (under the sign-in) keeps the old field for a pasted invite code or session token. The page connects back to the host it came from (`wss://play.spielengine.com/seq/v1`, from `location`; there is no host in the page), so it works the same behind any TLS-terminating proxy that serves seqd with `-web-dir`.
 
 **In a terminal on a Mac**, either way:
 
 - *Download* (no Go needed). Gene publishes `seq-tui-<version>-darwin-arm64.tar.gz` (Apple silicon) and `...-darwin-amd64.tar.gz` (Intel) on the repo's Releases page, with `SHA256SUMS`. Check the sum (`shasum -a 256 -c SHA256SUMS --ignore-missing`), unpack (`tar xzf seq-tui-*.tar.gz`), then clear the quarantine flag once, since the binary is not signed: `xattr -d com.apple.quarantine ./seq-tui` (or right-click it in Finder, choose Open, and confirm).
 - *Build from the repo* (you have been invited to it): install Go, set up private module access (above), then `go build -o seq-tui ./cmd/seq-tui`.
 
-Then:
+Then sign in once, through the browser:
 
 ```
-SEQ_SESSION_TOKEN=<your invite code> ./seq-tui -url wss://play.spielengine.com/seq/v1 -new     # first time: make a character
-SEQ_SESSION_TOKEN=<your invite code> ./seq-tui -url wss://play.spielengine.com/seq/v1           # later: pick one
+./seq-tui login -url wss://play.spielengine.com/seq/v1
 ```
+
+It prints a code like `BCDF-GHJK` and an address, tries to open your browser on it, and waits. On the page (**/activate**) sign in if you are not already, check that the account named there is yours and the code matches, and choose **Approve**. The terminal notices by itself and saves the sign-in in `~/.config/seq/play.spielengine.com.session` (a file only you can read; `$XDG_CONFIG_HOME/seq` if set). From then on a plain run needs nothing else, and lands on the character picker:
+
+```
+./seq-tui -url wss://play.spielengine.com/seq/v1
+./seq-tui logout -url wss://play.spielengine.com/seq/v1     # forget the saved sign-in
+```
+
+If the saved sign-in has run out (it lasts 90 days) or is refused, the program says so and runs the login again. `SEQ_SESSION_TOKEN=<an invite code or session token>` still overrides all of this, for development and tests; an invite code works that way too (`-new` makes a character).
 
 The server has a normal public certificate, which the program checks against the system's trusted certificates; do not use `-insecure`.
 

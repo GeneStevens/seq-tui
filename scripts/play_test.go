@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -19,6 +20,8 @@ import (
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/coder/websocket"
 
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
@@ -363,4 +366,72 @@ func TestPlayWorldPersistsAndResets(t *testing.T) {
 	if err := s.session(t).Select(ctx, id); err == nil {
 		t.Errorf("the character survived play-reset")
 	}
+}
+
+// make play-web (SEQ_PLAY_WEB=1) is the same kept world with seqd serving the
+// browser build itself over plain HTTP, on a port of its own. The test runs seqd
+// with the flags the dry run prints (the page directory pointed at the source
+// page, which needs no build): the page and the sign-in pages are served, a
+// WebSocket upgrade at /seq/v1 is accepted, and Stytch settings in the
+// environment reach /auth/config.
+func TestPlayWebServesThePageAndTheGateway(t *testing.T) {
+	rep := dryRun(t, "SEQ_PLAY_WEB=1")
+	if rep["mode"] != "world" || !strings.HasPrefix(rep["web"], "http://127.0.0.1:8480/") || rep["seq-tui"] != "" {
+		t.Fatalf("make play-web is not the kept world on the web: %v", rep)
+	}
+	if rep := dryRun(t); strings.Contains(rep["seqd"], "-web-dir") || strings.Contains(rep["seqd"], "8480") {
+		t.Errorf("make play serves the web: %s", rep["seqd"])
+	}
+	flags := strings.Fields(rep["seqd"])
+	for i, f := range flags {
+		if f == "-web-dir" {
+			flags[i+1], _ = filepath.Abs("../web")
+		}
+	}
+	if !slicesContains(flags, "-plain-http") || !slicesContains(flags, "-web-dir") {
+		t.Fatalf("seqd is not given the page and plain http: %v", flags)
+	}
+	t.Setenv("SEQ_STYTCH_PROJECT_ID", "project-test-abc")
+	t.Setenv("SEQ_STYTCH_DOMAIN", "https://example.customers.stytch.dev")
+	t.Setenv("SEQ_STYTCH_PUBLIC_TOKEN", "public-token-test-abc")
+	s := start(t, flags, "")
+	get := func(path string) (int, string) {
+		resp, err := http.Get("http://" + s.addr + path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer resp.Body.Close()
+		b, _ := io.ReadAll(resp.Body)
+		return resp.StatusCode, string(b)
+	}
+	for path, want := range map[string]string{
+		"/":                        "Other ways to sign in",
+		"/activate?code=ABCD-EFGH": "activate.js",
+		"/auth/config":             `"stytch_public_token":"public-token-test-abc"`,
+	} {
+		if code, body := get(path); code != 200 || !strings.Contains(body, want) {
+			t.Errorf("GET %s = %d, want a page with %q:\n%.300s", path, code, want, body)
+		}
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	c, resp, err := websocket.Dial(ctx, "ws://"+s.addr+"/seq/v1", &websocket.DialOptions{HTTPHeader: http.Header{"Origin": {"http://" + s.addr}}})
+	if err != nil {
+		t.Fatalf("WebSocket upgrade: %v (%v)\n%s", err, resp, s.log)
+	}
+	c.CloseNow()
+	// the terminal's login starts against the same listener: the contract seq-tui login relies on
+	dev, err := (&client.DeviceLogin{Base: "http://" + s.addr}).Start(ctx)
+	if err != nil || !strings.HasSuffix(dev.VerificationURI, "/activate") || !strings.HasSuffix(dev.VerificationURIComplete, "/activate?code="+dev.UserCode) {
+		t.Errorf("device start: %+v, %v", dev, err)
+	}
+}
+
+func slicesContains(s []string, v string) bool {
+	for _, x := range s {
+		if x == v {
+			return true
+		}
+	}
+	return false
 }

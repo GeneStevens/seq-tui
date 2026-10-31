@@ -16,11 +16,12 @@
 package main
 
 import (
+	"context"
 	"crypto/tls"
 	"flag"
 	"fmt"
-	"net/url"
 	"os"
+	"os/signal"
 	"strconv"
 	"strings"
 
@@ -53,12 +54,20 @@ func run() error {
 	size := flag.String("size", "80x24", "with -replay: the screen size, WxH")
 	noMouse := flag.Bool("no-mouse", false, "do not ask the terminal for mouse reports (clicks, hover, the wheel); the keys do everything, and the terminal's own text selection works")
 	bell := flag.Bool("bell", false, "ring the terminal's bell when a mob begins attacking you (off by default)")
-	flag.Parse()
+	args := os.Args[1:]
+	sub := ""
+	if len(args) > 0 && (args[0] == "login" || args[0] == "logout") {
+		sub, args = args[0], args[1:]
+	}
+	flag.CommandLine.Parse(args)
+	if flag.NArg() > 0 {
+		return fmt.Errorf("unexpected argument %q (the commands are login and logout)", flag.Arg(0))
+	}
 
 	root := *logDir
 	if root == "" {
 		var err error
-		if root, err = sessionlog.DefaultDir(); err != nil && !*noRec {
+		if root, err = sessionlog.DefaultDir(); err != nil && !*noRec && sub == "" {
 			return fmt.Errorf("no place for the session log (use -log-dir or -no-record): %w", err)
 		}
 	}
@@ -69,39 +78,78 @@ func run() error {
 		}
 		return runReplay(path, *text, *size)
 	}
-	token := os.Getenv("SEQ_SESSION_TOKEN")
-	if token == "" {
-		return fmt.Errorf("set SEQ_SESSION_TOKEN to your session token (it is never taken as a flag)")
+	tlsCfg, err := tlsFor(*addr, *insecure)
+	if err != nil {
+		return err
 	}
-	var tlsCfg *tls.Config
-	if *insecure {
-		u, err := url.Parse(*addr)
+	cfgDir, err := client.ConfigDir()
+	if err != nil {
+		return fmt.Errorf("no place for the saved sign-in (set SEQ_SESSION_TOKEN): %w", err)
+	}
+	si := signIn{Gateway: *addr, Dir: cfgDir, Out: os.Stdout, HTTP: client.HTTPClient(tlsCfg), Open: openBrowser}
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+	defer stop()
+	switch sub {
+	case "logout":
+		return si.Logout()
+	case "login":
+		_, err := si.Login(ctx)
+		return err
+	}
+	token, saved, err := si.Token(ctx, os.Getenv("SEQ_SESSION_TOKEN"))
+	if err != nil {
+		return err
+	}
+	stop() // Ctrl+C belongs to the screen from here
+	p := play{flags: playFlags{addr: *addr, char: *char, create: *create, duo: *duo, rec: *rec, noRec: *noRec, noMouse: *noMouse, bell: *bell}, root: root, tls: tlsCfg}
+	err = p.run(token)
+	if saved && client.IsCredentialRefused(err) {
+		fmt.Fprintln(os.Stderr, "Your saved sign-in is no longer valid; signing in again.")
+		if path, perr := si.path(); perr == nil {
+			client.RemoveSession(path)
+		}
+		ctx, stop = signal.NotifyContext(context.Background(), os.Interrupt)
+		defer stop()
+		sv, lerr := si.Login(ctx)
+		if lerr != nil {
+			return lerr
+		}
+		stop()
+		err = p.run(sv.Token)
+	}
+	return err
+}
+
+type playFlags struct {
+	addr, char, duo, rec         string
+	create, noRec, noMouse, bell bool
+}
+
+// play is one start of the screen on a server.
+type play struct {
+	flags playFlags
+	root  string
+	tls   *tls.Config
+}
+
+func (p play) run(token string) error {
+	f := p.flags
+	cfg := client.Config{URL: f.addr, TLS: p.tls, Credential: token, Character: f.char}
+	if f.rec != "" {
+		rf, err := os.Create(f.rec)
 		if err != nil {
 			return err
 		}
-		switch u.Hostname() {
-		case "127.0.0.1", "localhost", "::1":
-			tlsCfg = &tls.Config{InsecureSkipVerify: true} // a development server's in-memory certificate
-		default:
-			return fmt.Errorf("-insecure is for a local server only, not %s", u.Hostname())
-		}
-	}
-	cfg := client.Config{URL: *addr, TLS: tlsCfg, Credential: token, Character: *char}
-	if *rec != "" {
-		f, err := os.Create(*rec)
-		if err != nil {
-			return err
-		}
-		defer f.Close()
-		cfg.Record = record.NewWriter(f)
+		defer rf.Close()
+		cfg.Record = record.NewWriter(rf)
 	}
 	cfg.Session = client.NewSessionID()
-	who := *char
-	if *create || *char == "" {
+	who := f.char
+	if f.create || f.char == "" {
 		who = "" // not known until it is made or picked
 	}
-	slog, err := sessionlog.Start(root, *noRec, sessionlog.Options{Credential: token, Meta: sessionlog.Meta{
-		Session: cfg.Session, Server: *addr, Character: who, Client: "seq-tui", Versions: sessionlog.Versions(client.ProtocolVersion)}})
+	slog, err := sessionlog.Start(p.root, f.noRec, sessionlog.Options{Credential: token, Meta: sessionlog.Meta{
+		Session: cfg.Session, Server: f.addr, Character: who, Client: "seq-tui", Versions: sessionlog.Versions(client.ProtocolVersion)}})
 	if err != nil {
 		return fmt.Errorf("opening the session log (-no-record turns it off): %w", err)
 	}
@@ -109,8 +157,8 @@ func run() error {
 		defer slog.Close()
 		cfg.Log = slog.Rec
 	}
-	return app.Launch{Cfg: cfg, Create: *create, LogRoot: root, Log: slog, Bell: *bell, NoMouse: *noMouse,
-		Duo: *duo, DuoAgent: os.Getenv("SEQ_DUO_AGENT_SECRET")}.Run()
+	return app.Launch{Cfg: cfg, Create: f.create, LogRoot: p.root, Log: slog, Bell: f.bell, NoMouse: f.noMouse,
+		Duo: f.duo, DuoAgent: os.Getenv("SEQ_DUO_AGENT_SECRET")}.Run()
 }
 
 func runReplay(path string, text bool, size string) error {

@@ -5,6 +5,16 @@
 # checks: the same server on a throwaway PostgreSQL, new characters starting in
 # Testgrounds (the engine's test zone), and the dev characters me-1 and me-2.
 #
+# make play-web (SEQ_PLAY_WEB=1) is the same server and kept world, but it builds
+# the browser version (make web) and has seqd serve it itself (-web-dir) over
+# plain HTTP on loopback (-plain-http), on http://localhost:8480, so there is no
+# certificate, proxy or Caddyfile and no clash with make play's 8443. It prints
+# the address and, with sign-in off, the development token to paste. Stytch's
+# settings (SEQ_STYTCH_PROJECT_ID, SEQ_STYTCH_DOMAIN, SEQ_STYTCH_PUBLIC_TOKEN,
+# SEQ_STYTCH_SECRET) pass through from the environment to seqd, so the real
+# sign-in can be tried on a Stytch Test project (docs/browser.md). Do not run it
+# together with make play: they share the kept world's database container.
+#
 # Needs: docker (OrbStack's), and access to the private seq module. The script
 # downloads the module itself; if that fails it says what the one-time setup is
 # (GOPRIVATE, and git over ssh; the README has the same text).
@@ -19,7 +29,8 @@
 #
 #   SEQ_TESTGROUNDS=1   the Testgrounds setup (same as make play-testgrounds)
 #   SEQ_PG_PORT=55433   host port of the database (55432 in the Testgrounds setup)
-#   SEQ_ADDR=127.0.0.1:8443   where the server listens
+#   SEQ_ADDR=127.0.0.1:8443   where the server listens (8480 with SEQ_PLAY_WEB=1)
+#   SEQ_PLAY_WEB=1      make play-web: the browser build instead of the terminal (see below)
 #   SEQ_CHARACTER=ID    skip the picker and play this character (me-1 or me-2 in Testgrounds)
 #   SEQ_NEW=1           skip the picker and make a new character
 #   SEQ_WORLD_PACKS=DIR  serve the packs in DIR (a seq-world checkout under work) instead of the pinned seq-world's
@@ -29,7 +40,8 @@ set -eu
 
 cd "$(dirname "$0")/.."
 . scripts/play-env.sh
-addr="${SEQ_ADDR:-127.0.0.1:8443}"
+web="${SEQ_PLAY_WEB:-}"
+if [ "$web" = 1 ]; then addr="${SEQ_ADDR:-127.0.0.1:8480}"; else addr="${SEQ_ADDR:-127.0.0.1:8443}"; fi
 module=github.com/GeneStevens/seq
 
 setup_help() {
@@ -93,6 +105,8 @@ if [ -n "$startspace" ]; then set -- "$@" -start-space "$startspace"; fi
 # testers (player-1, player-2) on the account. Testgrounds mode needs them.
 if [ "$mode" = world ]; then set -- "$@" -dev-testers=false; fi
 
+if [ "$web" = 1 ]; then set -- "$@" -web-dir "$PWD/web/dist" -plain-http; fi
+
 tui_args="-insecure -url wss://$addr/seq/v1"
 if [ "${SEQ_NEW:-}" = 1 ]; then
 	tui_args="$tui_args -new"
@@ -107,7 +121,7 @@ if [ "${SEQ_PLAY_DRY:-}" = 1 ]; then
 	echo "docker project: $project ($mount database on 127.0.0.1:$port)"
 	echo "packs: $packs"
 	echo "seqd $*"
-	echo "seq-tui $tui_args"
+	if [ "$web" = 1 ]; then echo "web http://$addr/"; else echo "seq-tui $tui_args"; fi
 	exit 0
 fi
 if ! docker info >/dev/null 2>&1; then
@@ -149,6 +163,19 @@ if [ "$mode" = world ] && ! grep -q '"start_space":"thornwick"' "$log"; then
 	echo "make play: the server did not start new characters in Thornwick (see $log):" >&2
 	grep 'packs loaded' "$log" >&2 || true
 	exit 1
+fi
+
+if [ "$web" = 1 ]; then
+	echo
+	echo "SEQ in the browser: http://$addr/    (Ctrl+C stops it and keeps the world)"
+	if [ -n "${SEQ_STYTCH_PROJECT_ID:-}" ] && [ "${SEQ_STYTCH:-}" != false ]; then
+		echo "sign-in: Stytch project $SEQ_STYTCH_PROJECT_ID; add http://$addr/ and http://$addr/auth/callback as Redirect URLs (docs/browser.md)"
+	else
+		echo "sign-in is off (no SEQ_STYTCH_PROJECT_ID). Paste this development token on the page:"
+	fi
+	echo "  token: $token"
+	wait "$seqd_pid"
+	exit 0
 fi
 
 go build -o tmp/seq-tui ./cmd/seq-tui
