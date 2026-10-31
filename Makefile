@@ -1,4 +1,4 @@
-.PHONY: verify golden fixtures play play-testgrounds play-reset web web-smoke web-check web-wasm-test web-nohook release-mac
+.PHONY: verify golden fixtures play play-web play-testgrounds play-reset web web-smoke web-check web-wasm-test web-nohook release-mac
 
 # verify is the repo's gate (seq-design D15): gofmt check, vet, test. Under 60 s.
 # The scenarios read seq-world's packs from the module cache, which no import
@@ -39,6 +39,13 @@ golden:
 play:
 	scripts/play.sh
 
+# play-web is make play for the browser: the same kept world, with seqd serving the
+# browser build itself on http://localhost:8480 (no proxy, certificate or Caddyfile).
+# It builds the page first (make web). Stytch settings in the environment pass
+# through, to try the real sign-in; without them it prints a development token.
+play-web: web
+	SEQ_PLAY_WEB=1 scripts/play.sh
+
 # play-testgrounds is the setup for tests and quick checks: Testgrounds (the
 # engine's test zone), me-1, and a database thrown away on quitting.
 play-testgrounds:
@@ -56,7 +63,8 @@ WEBDIST := web/dist
 web:
 	rm -rf $(WEBDIST) && mkdir -p $(WEBDIST)
 	GOOS=js GOARCH=wasm go build -trimpath -ldflags='-s -w' -o $(WEBDIST)/seq-tui.wasm ./cmd/seq-tui-web
-	cp web/index.html web/app.js web/keys.json web/wasm_exec.js $(WEBDIST)/
+	cp web/index.html web/app.js web/auth.js web/signin-ui.js web/callback.js web/activate.js web/page.css web/keys.json web/wasm_exec.js $(WEBDIST)/
+	cp -R web/activate web/auth $(WEBDIST)/
 	cp -R web/vendor $(WEBDIST)/vendor
 	@$(MAKE) --no-print-directory web-nohook WASM=$(WEBDIST)/seq-tui.wasm
 	node scripts/web-compress.mjs $(WEBDIST)
@@ -77,12 +85,14 @@ web-wasm-test:
 	@mkdir -p $(CURDIR)/tmp/websmoke
 	GOOS=js GOARCH=wasm go build -tags webtest -trimpath -ldflags='-s -w' -o tmp/websmoke/seq-tui.wasm ./cmd/seq-tui-web
 
-# web-check feeds the wasm's output into a headless xterm.js (120x40, as the page
+# web-check runs the sign-in pages' check (scripts/web-signin-check.mjs: the page
+# logic against stubs), then feeds the wasm's output into a headless xterm.js (120x40, as the page
 # sets it up, with convertEol) and compares its rows with the frame the program
 # meant to draw: the picker, a screen change, the game, keys, a resize. It also
 # runs with convertEol off, which must fail: that is the drift web/app.js prevents.
 web-check: web-wasm-test
 	@if command -v node >/dev/null; then \
+		node scripts/web-signin-check.mjs && \
 		cp web/wasm_exec.js tmp/websmoke/ && \
 		node scripts/web-check.mjs tmp/websmoke && \
 		node scripts/web-check.mjs tmp/websmoke --convert-eol=off --expect-fail >/dev/null && \

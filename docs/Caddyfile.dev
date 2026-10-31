@@ -1,16 +1,30 @@
-# Local development: see docs/browser.md. Run from the repository root.
+# Local development with real certificates: see docs/browser.md ("Caddy and a
+# trusted certificate"). Most people want `make play-web` instead, which needs none
+# of this. Run from the repository root.
 {
 	auto_https disable_redirects
+}
+(seqd) {
+	reverse_proxy https://127.0.0.1:9443 {
+		header_up Host {hostport}
+		transport http {
+			tls_server_name localhost
+		}
+	}
 }
 localhost:8443 {
 	tls tmp/localhost.pem tmp/localhost-key.pem
 	handle /seq/v1* {
-		reverse_proxy https://127.0.0.1:9443 {
-			header_up Host {hostport}
-			transport http {
-				tls_server_name localhost
-			}
-		}
+		import seqd
+	}
+	# The sign-in page that finishes a Google or emailed-link sign-in is a file;
+	# the rest of /auth/ is seqd's (config, the Stytch exchange, device login).
+	handle /auth/callback* {
+		root * web/dist
+		file_server
+	}
+	handle /auth/* {
+		import seqd
 	}
 	handle {
 		root * web/dist

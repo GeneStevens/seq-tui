@@ -21,10 +21,14 @@ Both need Go and Node. `make web` prints each file's size. At the time of writin
 
 ## What the page does
 
-- Asks for a session token (the one `seq-tui` takes in `SEQ_SESSION_TOKEN`), and
-  optionally a character id, or to make a new character. The token is kept in
+- Signs the player in (D119; see "Sign-in" below): Google, an emailed sign-in
+  link, or an emailed code. The seqd session it gets is kept in `localStorage`
+  (90 days), so a returning player sees "Welcome back" and one Play button.
+- When the server has sign-in off, or under "Other ways to sign in", asks for a
+  session token (the one `seq-tui` takes in `SEQ_SESSION_TOKEN`), and
+  optionally a character id, or to make a new character. That token is kept in
   the tab's `sessionStorage`, so it survives a reload and goes when the tab
-  closes. A real web login is a later project.
+  closes.
 - Connects to `wss://<the page's host>/seq/v1`. Open the page as
   `…/?url=wss://other/seq/v1` to name another server (development: the server
   checks the browser's `Origin`, so another host is refused unless it is the page's).
@@ -54,6 +58,75 @@ Not in the browser build: duo mode (`-duo`), session logs (it runs as
 `-replay`. Key releases do not exist in xterm.js, so the walk uses the same
 repeat-idle fallback as a terminal without the kitty keyboard protocol
 (xterm.js never answers the query, so the program does not expect releases).
+
+## Sign-in (D119)
+
+The pages are `index.html` (the game), `/activate` (approve `seq-tui login`) and
+`/auth/callback` (where Stytch brings a player back). They share `auth.js` (the
+flow, with the browser parts passed in so `make web-check` can run it against
+stubs), `signin-ui.js` (the panel) and Stytch's headless JavaScript SDK.
+
+- **Config.** The page reads `GET /auth/config` from seqd: the Stytch project's
+  public token and which methods are on. A 404, or no project, means sign-in is
+  off and the page shows the token form alone, as before.
+- **Methods.** Google (Stytch OAuth); email: a sign-in **link** by default
+  (`magicLinks.email.loginOrCreate`), with **Use a code instead** one click away
+  (`otps.email`). No passwords. The Stytch session JWT is posted to
+  `POST /auth/stytch`; the answer is a seqd session token, which the game's hello
+  takes as it takes any other. A brand-new account (no characters) is offered
+  "Already have a SEQ account? Link it" (`POST /auth/link` with an old invite code
+  or session token).
+- **The SDK** is vendored: `web/vendor/stytch-vanilla-js-6.3.0.headless.js`, the
+  `dist/iife/index.headless.js` of the npm package `@stytch/vanilla-js` 6.3.0
+  (MIT), unchanged. To update it, `npm pack @stytch/vanilla-js@<version>`, copy
+  that file under its new version's name and change the three pages' `<script>`
+  lines (`scripts/web-signin-check.mjs` holds them to the pinned name). No CDN
+  is used, so there is no SRI to keep.
+- **Stytch project settings** (Test and Live each): *Redirect URLs*: add the
+  page's origin with `/auth/callback` and with `/`, for login and signup, and for
+  both the OAuth and the Email magic link types: `https://play.spielengine.com/auth/callback`,
+  `https://play.spielengine.com/`, `https://localhost:8443/auth/callback`,
+  `https://localhost:8443/` (the Caddy setup) and `http://localhost:8480/auth/callback`,
+  `http://localhost:8480/` (`make play-web`). Add the origins as authorized
+  domains (*Frontend SDK*), enable Google OAuth and the Email OTP and Email
+  magic link products, and **leave PKCE off for email magic links** (it is a
+  project setting: "PKCE required for Email Magic Links"), so that a link works
+  without the browser having kept a secret. A link that still does not work (used,
+  expired, or the project requires PKCE and it was opened elsewhere) ends on a page that
+  says so and offers a code instead.
+- **Why two redirect URLs.** seqd serves everything under `/auth/` itself and has no
+  `/auth/callback` page, so behind it the page finishes the sign-in at `/` (which takes
+  the same `?stytch_token_type=…&token=…`); the page asks `/auth/callback/` once and uses
+  it when the host serves the file (Caddy in `docs/Caddyfile.dev` does). Both URLs are
+  listed so either works.
+- **Sessions.** The Stytch session lasts what the SDK gives; the seqd session (90
+  days) is what return visits use. **Sign out** forgets it and ends the Stytch
+  session. A saved session the server turns down at hello is dropped, with a
+  message to sign in again.
+- **`/activate`** takes `?code=ABCD-EFGH` (`verification_uri_complete`), asks the
+  player to sign in if the browser has no Stytch session, then shows "Approve
+  sign-in for seq-tui on this device? Code …, account …" with Approve and Deny.
+  Behind seqd's `-web-dir` it is served from `activate/index.html`.
+- **Checks.** `scripts/web-signin-check.mjs` (part of `make web-check`, so of
+  `make verify`) runs the flow against a stubbed `/auth/*` and a stubbed SDK:
+  Google, link, code, linking, saved sessions and their expiry, sign-out, the
+  callback (a link that works, and one that fails and offers a code) and
+  `/activate`.
+
+## Local play in one command
+
+```sh
+make play-web          # http://localhost:8480/ (needs docker, as make play does)
+```
+
+seqd serves the page itself (`-web-dir web/dist -plain-http`, loopback), so no
+Caddyfile, certificate or token hunt: the command builds the page, starts seqd on
+the kept world, and prints the address and, with sign-in off, the development
+token to paste. To try real sign-in on a Stytch **Test** project, export
+`SEQ_STYTCH_PROJECT_ID`, `SEQ_STYTCH_DOMAIN` (`https://….customers.stytch.dev`),
+`SEQ_STYTCH_PUBLIC_TOKEN` and `SEQ_STYTCH_SECRET` first, with the redirect URLs
+above in the project. `make play-web` and `make play` share the database
+container: run one at a time.
 
 ## Serving it on the same origin as seqd
 
@@ -92,7 +165,9 @@ needs it (the page falls back to a slower load without).
 
 ## Local development
 
-A browser needs a trusted certificate for `wss://`. Once:
+`make play-web` (above) is the simple way. This section is for Caddy with a
+trusted certificate (it is what `https://localhost:8443` and the sign-in redirect URLs
+there need). A browser needs a trusted certificate for `wss://`. Once:
 
 ```sh
 brew install mkcert caddy nss
@@ -122,29 +197,8 @@ The dev account's characters are `me-1` and `me-2`. Open `https://localhost:8443
 paste the token and leave Character id empty to pick one (or type `me-1`).
 `make web` again after a change; a reload loads the new wasm.
 
-`docs/Caddyfile.dev` serves `web/dist` on `https://localhost:8443` and proxies `/seq/v1` to seqd:
-
-```caddyfile
-{
-	auto_https disable_redirects
-}
-localhost:8443 {
-	tls tmp/localhost.pem tmp/localhost-key.pem
-	handle /seq/v1* {
-		reverse_proxy https://127.0.0.1:9443 {
-			header_up Host {hostport}
-			transport http {
-				tls_server_name localhost
-			}
-		}
-	}
-	handle {
-		root * web/dist
-		file_server
-		header /*.wasm Content-Type application/wasm
-	}
-}
-```
+`docs/Caddyfile.dev` serves `web/dist` on `https://localhost:8443`, proxies `/seq/v1` and
+`/auth/` to seqd, and serves the `/auth/callback` page itself (see the file).
 
 `127.0.0.1` rather than `localhost` keeps the upstream off `::1`, where seqd is not
 listening; `tls_server_name localhost` is the name on the certificate.
@@ -214,6 +268,15 @@ the SGR mouse report; the question is whether the terminal sends it.
 
 Where Option-click does not arrive, click the thing (or the ground) and press **W**:
 it walks to what was clicked, else the target, else the spot clicked.
+
+## Playing on play.spielengine.com
+
+In the browser: open https://play.spielengine.com/, sign in with Google or an
+emailed link (or code), and play; the next visit shows Welcome back and one Play
+button. In a terminal: `seq-tui login -url wss://play.spielengine.com/seq/v1`
+prints a code and opens `/activate`; approve it there and the terminal saves the
+sign-in (`~/.config/seq/play.spielengine.com.session`, mode 0600) and later runs
+need no login. `seq-tui logout` forgets it. The README has the steps.
 
 ## Served by seqd behind a TLS proxy (M11)
 

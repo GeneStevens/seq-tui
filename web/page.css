@@ -1,0 +1,13 @@
+html, body { margin: 0; background: #000; color: #ccc; font: 14px/1.4 system-ui, sans-serif; }
+main { width: min(28em, 90vw); margin: 12vh auto; }
+h1 { font: 700 1.6em "DejaVu Sans Mono", monospace; margin: 0 0 .6em; }
+label { display: block; margin: .8em 0 .2em; }
+input { width: 100%; box-sizing: border-box; padding: .4em; font: 14px "DejaVu Sans Mono", monospace; background: #111; color: #eee; border: 1px solid #555; }
+button { margin-top: 1em; padding: .5em 1.2em; font-size: 1em; }
+button.link, a { background: none; border: 0; color: #6cf; text-decoration: underline; cursor: pointer; padding: .5em 0; }
+button.google { width: 100%; background: #fff; color: #222; border: 1px solid #ccc; border-radius: 4px; }
+.code { font: 700 1.8em "DejaVu Sans Mono", monospace; letter-spacing: .1em; color: #fff; }
+.error { color: #f88; }
+.or { text-align: center; color: #888; margin: .6em 0 0; }
+.note { color: #999; font-size: .9em; }
+[hidden] { display: none; }
