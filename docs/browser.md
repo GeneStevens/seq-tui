@@ -101,10 +101,18 @@ stubs), `signin-ui.js` (the panel) and Stytch's headless JavaScript SDK.
   so every host above has it. The page still falls back to finishing the sign-in at `/`
   (which takes the same `?stytch_token_type=…&token=…`) when a host does not serve the
   callback file; that fallback is code only, and needs no Redirect URL.
-- **Sessions.** The Stytch session lasts what the SDK gives; the seqd session (90
-  days) is what return visits use. **Sign out** forgets it and ends the Stytch
+- **Sessions.** The page asks Stytch for a session of `stytch_session_minutes`, the
+  length seqd serves in `/auth/config` (60 when it serves none, as an older seqd):
+  the Stytch session only has to last through sign-in, because seqd issues its own
+  session (90 days) once Stytch confirms the player, and that is what return visits
+  use. The Stytch project's **Session duration** setting (Test and Live each) must be
+  at least seqd's `stytch_session_minutes`, or Stytch refuses the sign-in with
+  `invalid_session_duration`; it needs no 30-day setting. **Sign out** forgets it and ends the Stytch
   session. A saved session the server turns down at hello is dropped, with a
-  message to sign in again.
+  message to sign in again. The character picker (here and in the terminal) asks the
+  server for the list again every 5 seconds while it is open, and at once when a
+  character is refused as in use, so a character another connection has left stops
+  showing "online (in use)"; it stops once a character is chosen.
 - **`/activate`** takes `?code=ABCD-EFGH` (`verification_uri_complete`), asks the
   player to sign in if the browser has no Stytch session, then shows "Approve
   sign-in for seq-tui on this device? Code …, account …" with Approve and Deny.

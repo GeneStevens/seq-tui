@@ -178,3 +178,26 @@ func choose(t *testing.T, p *scenario.Player, name string) {
 	}
 	t.Fatalf("no row for %s:\n%s", name, p.Screen(80, 24))
 }
+
+// TUI-070: an open picker asks the server for the list on its own. Hale is in
+// play on another connection; when that connection leaves, Hale's line stops
+// saying "online (in use)" with no key pressed.
+func TestPickerLineFreesItselfWhenTheOtherSessionLeaves(t *testing.T) {
+	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: outsideAccount()})
+	other := w.Login("ann", "hale")
+	p := w.Pick("ann")
+	if l := lineWith(p.Screen(80, 24), "Hale"); !strings.Contains(l, "online (in use)") {
+		t.Fatalf("Hale is not shown in use:\n%s", p.Screen(80, 24))
+	}
+	other.LogOut()
+	w.Advance(7 * time.Second) // past the picker's refresh interval; the real redraw tick does the asking
+	var s string
+	for end := time.Now().Add(5 * time.Second); time.Now().Before(end); time.Sleep(20 * time.Millisecond) {
+		if s = p.Screen(80, 24); !strings.Contains(lineWith(s, "Hale"), "online") {
+			break
+		}
+	}
+	if l := lineWith(s, "Hale"); l == "" || strings.Contains(l, "online") {
+		t.Errorf("Hale's line did not change to free by itself:\n%s", s)
+	}
+}

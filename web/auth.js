@@ -9,7 +9,7 @@
   const SESSION_KEY = "seq.session";   // localStorage: {token, account, expires_ms}: kept for return visits
   const AFTER_KEY = "seq.after";       // sessionStorage: where the callback goes on (the /activate page and its code)
   const CALLBACK_PATH = "/auth/callback";
-  const SESSION_MINUTES = 60 * 24 * 30;
+  const DEFAULT_SESSION_MINUTES = 60;   // an older seqd does not serve stytch_session_minutes
   const LINK_MINUTES = 30;
   const CODE_MINUTES = 10;
 
@@ -23,6 +23,13 @@
     const { fetch, local, session, stytchLib, origin } = deps;
     const now = deps.now || (() => Date.now());
     let cfg = null, client = null;
+
+    // sessionMinutes is the Stytch session length the server asks for: the
+    // sign-in only has to last until POST /auth/stytch trades it for seqd's own.
+    function sessionMinutes() {
+      const m = cfg && Number(cfg.stytch_session_minutes);
+      return m > 0 ? Math.floor(m) : DEFAULT_SESSION_MINUTES;
+    }
 
     async function json(path, body) {
       let r;
@@ -132,7 +139,7 @@
     }
 
     async function verifyCode(methodId, code) {
-      const r = await stytch().otps.authenticate(String(code).replace(/\s+/g, ""), methodId, { session_duration_minutes: SESSION_MINUTES });
+      const r = await stytch().otps.authenticate(String(code).replace(/\s+/g, ""), methodId, { session_duration_minutes: sessionMinutes() });
       return exchange(r.session_jwt);
     }
 
@@ -146,8 +153,8 @@
       if (!type || !token) return null;
       let r;
       try {
-        if (type === "magic_links") r = await stytch().magicLinks.authenticate(token, { session_duration_minutes: SESSION_MINUTES });
-        else if (type === "oauth") r = await stytch().oauth.authenticate(token, { session_duration_minutes: SESSION_MINUTES });
+        if (type === "magic_links") r = await stytch().magicLinks.authenticate(token, { session_duration_minutes: sessionMinutes() });
+        else if (type === "oauth") r = await stytch().oauth.authenticate(token, { session_duration_minutes: sessionMinutes() });
         else throw new Error("Unknown sign-in type.");
       } catch (e) {
         const err = new Error(type === "magic_links"
@@ -167,7 +174,7 @@
       try {
         const c = stytch();
         if (!c.session.getSync()) return null;
-        const r = await c.session.authenticate({ session_duration_minutes: SESSION_MINUTES });
+        const r = await c.session.authenticate({ session_duration_minutes: sessionMinutes() });
         return r.session_jwt || null;
       } catch (e) {
         return null;
