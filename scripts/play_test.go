@@ -376,7 +376,7 @@ func TestPlayWorldPersistsAndResets(t *testing.T) {
 // environment reach /auth/config.
 func TestPlayWebServesThePageAndTheGateway(t *testing.T) {
 	rep := dryRun(t, "SEQ_PLAY_WEB=1")
-	if rep["mode"] != "world" || !strings.HasPrefix(rep["web"], "http://127.0.0.1:8480/") || rep["seq-tui"] != "" {
+	if rep["mode"] != "world" || !strings.HasPrefix(rep["web"], "http://localhost:8480/") || rep["seq-tui"] != "" {
 		t.Fatalf("make play-web is not the kept world on the web: %v", rep)
 	}
 	if rep := dryRun(t); strings.Contains(rep["seqd"], "-web-dir") || strings.Contains(rep["seqd"], "8480") {
@@ -407,6 +407,7 @@ func TestPlayWebServesThePageAndTheGateway(t *testing.T) {
 	for path, want := range map[string]string{
 		"/":                        "Other ways to sign in",
 		"/activate?code=ABCD-EFGH": "activate.js",
+		"/auth/callback":           "callback.js",
 		"/auth/config":             `"stytch_public_token":"public-token-test-abc"`,
 	} {
 		if code, body := get(path); code != 200 || !strings.Contains(body, want) {
@@ -421,8 +422,10 @@ func TestPlayWebServesThePageAndTheGateway(t *testing.T) {
 	}
 	c.CloseNow()
 	// the terminal's login starts against the same listener: the contract seq-tui login relies on
-	dev, err := (&client.DeviceLogin{Base: "http://" + s.addr}).Start(ctx)
-	if err != nil || !strings.HasSuffix(dev.VerificationURI, "/activate") || !strings.HasSuffix(dev.VerificationURIComplete, "/activate?code="+dev.UserCode) {
+	// reached as localhost, the link it prints is the localhost one the Redirect URLs name
+	base := "http://localhost:" + s.addr[strings.LastIndex(s.addr, ":")+1:]
+	dev, err := (&client.DeviceLogin{Base: base}).Start(ctx)
+	if err != nil || dev.VerificationURI != base+"/activate" || dev.VerificationURIComplete != base+"/activate?code="+dev.UserCode {
 		t.Errorf("device start: %+v, %v", dev, err)
 	}
 }

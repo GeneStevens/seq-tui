@@ -82,23 +82,25 @@ stubs), `signin-ui.js` (the panel) and Stytch's headless JavaScript SDK.
   that file under its new version's name and change the three pages' `<script>`
   lines (`scripts/web-signin-check.mjs` holds them to the pinned name). No CDN
   is used, so there is no SRI to keep.
-- **Stytch project settings** (Test and Live each): *Redirect URLs*: add the
-  page's origin with `/auth/callback` and with `/`, for login and signup, and for
-  both the OAuth and the Email magic link types: `https://play.spielengine.com/auth/callback`,
-  `https://play.spielengine.com/`, `https://localhost:8443/auth/callback`,
-  `https://localhost:8443/` (the Caddy setup) and `http://localhost:8480/auth/callback`,
-  `http://localhost:8480/` (`make play-web`). Add the origins as authorized
-  domains (*Frontend SDK*), enable Google OAuth and the Email OTP and Email
-  magic link products, and **leave PKCE off for email magic links** (it is a
-  project setting: "PKCE required for Email Magic Links"), so that a link works
+- **Stytch project settings** (Test and Live each): *Redirect URLs*: one per host,
+  `<origin>/auth/callback`, for login and signup, and for both the OAuth and the Email
+  magic link types. Stytch matches them exactly, so the host must be spelled as the
+  browser shows it:
+  - `http://localhost:8480/auth/callback` (`make play-web`);
+  - `https://localhost:8443/auth/callback` (the dev Caddy setup);
+  - `https://play.spielengine.com/auth/callback` (live).
+
+  Add the same three origins as authorized domains (*Frontend SDK*): `http://localhost:8480`,
+  `https://localhost:8443` and `https://play.spielengine.com`. Enable Google OAuth and the
+  Email OTP and Email magic link products, and **leave PKCE off for email magic links**
+  (it is a project setting: "PKCE required for Email Magic Links"), so that a link works
   without the browser having kept a secret. A link that still does not work (used,
   expired, or the project requires PKCE and it was opened elsewhere) ends on a page that
   says so and offers a code instead.
-- **Why two redirect URLs.** seqd serves everything under `/auth/` itself and has no
-  `/auth/callback` page, so behind it the page finishes the sign-in at `/` (which takes
-  the same `?stytch_token_type=…&token=…`); the page asks `/auth/callback/` once and uses
-  it when the host serves the file (Caddy in `docs/Caddyfile.dev` does). Both URLs are
-  listed so either works.
+- **The callback page.** seqd serves `/auth/callback` (and `/activate`) from `-web-dir`,
+  so every host above has it. The page still falls back to finishing the sign-in at `/`
+  (which takes the same `?stytch_token_type=…&token=…`) when a host does not serve the
+  callback file; that fallback is code only, and needs no Redirect URL.
 - **Sessions.** The Stytch session lasts what the SDK gives; the seqd session (90
   days) is what return visits use. **Sign out** forgets it and ends the Stytch
   session. A saved session the server turns down at hello is dropped, with a
@@ -125,8 +127,42 @@ the kept world, and prints the address and, with sign-in off, the development
 token to paste. To try real sign-in on a Stytch **Test** project, export
 `SEQ_STYTCH_PROJECT_ID`, `SEQ_STYTCH_DOMAIN` (`https://….customers.stytch.dev`),
 `SEQ_STYTCH_PUBLIC_TOKEN` and `SEQ_STYTCH_SECRET` first, with the redirect URLs
-above in the project. `make play-web` and `make play` share the database
+above in the project (the next section has the commands). `make play-web` and `make play` share the database
 container: run one at a time.
+
+### Try real sign-in locally
+
+Use a Stytch **Test** project with `http://localhost:8480/auth/callback` as a
+Redirect URL and `http://localhost:8480` as an authorized domain (above). Open the
+page as `http://localhost:8480/`, not `127.0.0.1`: the host must match.
+`SEQ_STYTCH_SECRET` is a secret, so read it without echoing it.
+
+bash or zsh:
+
+```sh
+export SEQ_STYTCH_PROJECT_ID=project-test-…
+export SEQ_STYTCH_DOMAIN=https://….customers.stytch.dev
+export SEQ_STYTCH_PUBLIC_TOKEN=public-token-test-…
+read -rs "SEQ_STYTCH_SECRET?Stytch secret: " && export SEQ_STYTCH_SECRET   # zsh; in bash: read -rsp "Stytch secret: " SEQ_STYTCH_SECRET; export SEQ_STYTCH_SECRET
+make play-web
+```
+
+fish:
+
+```fish
+set -x SEQ_STYTCH_PROJECT_ID project-test-…
+set -x SEQ_STYTCH_DOMAIN https://….customers.stytch.dev
+set -x SEQ_STYTCH_PUBLIC_TOKEN public-token-test-…
+read -s -x SEQ_STYTCH_SECRET -P "Stytch secret: "
+make play-web
+```
+
+`SEQ_STYTCH_SECRET` is optional for the page to load, but seqd needs it to check
+the session the page posts, so set it to sign in end to end. With none of the
+variables set, the page shows the development token form. To check the device
+login against the same server, run
+`seq-tui login -url ws://localhost:8480/seq/v1`: it prints an
+`http://localhost:8480/activate?code=…` link to approve in the same browser.
 
 ## Serving it on the same origin as seqd
 
