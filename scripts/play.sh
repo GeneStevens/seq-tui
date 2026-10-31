@@ -42,6 +42,9 @@ cd "$(dirname "$0")/.."
 . scripts/play-env.sh
 web="${SEQ_PLAY_WEB:-}"
 if [ "$web" = 1 ]; then addr="${SEQ_ADDR:-127.0.0.1:8480}"; else addr="${SEQ_ADDR:-127.0.0.1:8443}"; fi
+# The address people open: Stytch's Redirect URLs name localhost, and match exactly,
+# so the page, the hints and the activate link use localhost, not the loopback IP.
+webaddr="localhost:${addr##*:}"
 module=github.com/GeneStevens/seq
 
 setup_help() {
@@ -121,7 +124,7 @@ if [ "${SEQ_PLAY_DRY:-}" = 1 ]; then
 	echo "docker project: $project ($mount database on 127.0.0.1:$port)"
 	echo "packs: $packs"
 	echo "seqd $*"
-	if [ "$web" = 1 ]; then echo "web http://$addr/"; else echo "seq-tui $tui_args"; fi
+	if [ "$web" = 1 ]; then echo "web http://$webaddr/"; else echo "seq-tui $tui_args"; fi
 	exit 0
 fi
 if ! docker info >/dev/null 2>&1; then
@@ -167,9 +170,9 @@ fi
 
 if [ "$web" = 1 ]; then
 	echo
-	echo "SEQ in the browser: http://$addr/    (Ctrl+C stops it and keeps the world)"
+	echo "SEQ in the browser: http://$webaddr/    (Ctrl+C stops it and keeps the world)"
 	if [ -n "${SEQ_STYTCH_PROJECT_ID:-}" ] && [ "${SEQ_STYTCH:-}" != false ]; then
-		echo "sign-in: Stytch project $SEQ_STYTCH_PROJECT_ID; add http://$addr/ and http://$addr/auth/callback as Redirect URLs (docs/browser.md)"
+		echo "sign-in: Stytch project $SEQ_STYTCH_PROJECT_ID; add http://$webaddr/auth/callback as a Redirect URL and http://$webaddr as an authorized domain (docs/browser.md)"
 	else
 		echo "sign-in is off (no SEQ_STYTCH_PROJECT_ID). Paste this development token on the page:"
 	fi
