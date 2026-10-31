@@ -35,45 +35,47 @@ type App struct {
 	lastN    uint64
 	// paint is what the program keeps so that it draws once for what changed,
 	// not once for each message it is sent (D89, T4): see Update and View.
-	paint    paintState
-	retrying bool
-	pings    int
-	menu     *screen.Menu   // the instance menu, nil when closed
-	slots    *screen.Slots  // the slot screen, nil when closed
-	create   *screen.Create // character creation, nil once a character is chosen
-	picker   *screen.Picker // the character picker, nil once a character is chosen or made
-	back     *screen.Picker // the picker the creation screen came from (Esc goes back)
-	char     bool           // the character view is open (C)
-	traders  *screen.Traders
-	trade    *screen.TradeUI
-	talk     *screen.Talk // the conversation, nil when closed
-	board    *screen.Board
-	cons     *screen.ContractsUI
-	role     *screen.Role       // the choice of the recruit's role, nil when closed
-	duo      *client.Duo        // the second character on a stance, nil when there is none
-	toDuo    bool               // the helper keys talk to it, not to the house companion
-	focus    bool               // directing the second character: the keys and the screen are its (D56)
-	focusCmd bool               // a command went to it since the focus changed
-	draftAlt Draft              // the other character's plan while its focus is away
-	overview bool               // the whole-zone map
-	line     *screen.Line       // the command line, nil when closed
-	soc      *screen.SocialUI   // the Social screen, nil when closed
-	ses      *screen.SessionsUI // the sessions view, nil when closed
-	quest    *screen.QuestUI    // the quest chain screen, nil when closed
-	replay   *replay            // a recording drawn in place of the screen, nil when none
-	mouse    mouseState         // the pointer, the zoom, the card and the sidebar (D77, D78)
-	approach *approach          // the thing an Option-click is closing in on (D109), nil when none
-	log      *sessionlog.Log    // this session's own log, nil when recording is off
-	stopTold bool               // the recording's stop has been put in the event log
-	logRoot  string             // the directory of the player's session logs
-	bannerN  int                // the announcement the banner is for, and when it came
-	bannerAt time.Time
-	inviteN  int // the invitation the prompt is for, and when it came
-	inviteAt time.Time
-	gameAt   time.Time // when the model's game time last moved
-	gameMs   int64
-	draft    Draft // the plan being built in a turn-based instance
-	Err      error // why the program ended, if it ended badly
+	paint      paintState
+	retrying   bool
+	pings      int
+	menu       *screen.Menu   // the instance menu, nil when closed
+	slots      *screen.Slots  // the slot screen, nil when closed
+	create     *screen.Create // character creation, nil once a character is chosen
+	picker     *screen.Picker // the character picker, nil once a character is chosen or made
+	refreshing bool           // a refresh of the picker's list is out
+	refreshed  time.Time      // when the picker's list was last asked for
+	back       *screen.Picker // the picker the creation screen came from (Esc goes back)
+	char       bool           // the character view is open (C)
+	traders    *screen.Traders
+	trade      *screen.TradeUI
+	talk       *screen.Talk // the conversation, nil when closed
+	board      *screen.Board
+	cons       *screen.ContractsUI
+	role       *screen.Role       // the choice of the recruit's role, nil when closed
+	duo        *client.Duo        // the second character on a stance, nil when there is none
+	toDuo      bool               // the helper keys talk to it, not to the house companion
+	focus      bool               // directing the second character: the keys and the screen are its (D56)
+	focusCmd   bool               // a command went to it since the focus changed
+	draftAlt   Draft              // the other character's plan while its focus is away
+	overview   bool               // the whole-zone map
+	line       *screen.Line       // the command line, nil when closed
+	soc        *screen.SocialUI   // the Social screen, nil when closed
+	ses        *screen.SessionsUI // the sessions view, nil when closed
+	quest      *screen.QuestUI    // the quest chain screen, nil when closed
+	replay     *replay            // a recording drawn in place of the screen, nil when none
+	mouse      mouseState         // the pointer, the zoom, the card and the sidebar (D77, D78)
+	approach   *approach          // the thing an Option-click is closing in on (D109), nil when none
+	log        *sessionlog.Log    // this session's own log, nil when recording is off
+	stopTold   bool               // the recording's stop has been put in the event log
+	logRoot    string             // the directory of the player's session logs
+	bannerN    int                // the announcement the banner is for, and when it came
+	bannerAt   time.Time
+	inviteN    int // the invitation the prompt is for, and when it came
+	inviteAt   time.Time
+	gameAt     time.Time // when the model's game time last moved
+	gameMs     int64
+	draft      Draft // the plan being built in a turn-based instance
+	Err        error // why the program ended, if it ended badly
 
 	// Clock tells the time the screen's countdowns and "heard ago" read; nil is
 	// the wall clock. A scenario sets it to its server's clock.
@@ -153,6 +155,7 @@ func (a *App) Init() tea.Cmd {
 	a.watch = a.sess.Changed()
 	a.sess.View(func(m *model.Model) { a.chat.seen, a.chat.init = m.Social.ChatN, true })
 	a.observe()
+	a.refreshed = a.now() // the picker's list is fresh as the program opens
 	return tea.Batch(a.waitChange(), tea.Tick(redraw, func(time.Time) tea.Msg { return redrawMsg{} }))
 }
 
@@ -231,7 +234,7 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if a.pings++; a.pings%pingEvery == 0 {
 			cmds = append(cmds, a.ping)
 		}
-		cmds = append(cmds, a.walkTick(), a.approachTick())
+		cmds = append(cmds, a.walkTick(), a.approachTick(), a.pickerTick())
 		return a, tea.Batch(cmds...)
 	case frameMsg:
 		return a, a.walkFrame()
@@ -291,7 +294,9 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		msg.Fn(a)
 		close(msg.Done)
 	case picked:
-		a.pickedMsg(msg)
+		return a, a.pickedMsg(msg)
+	case listed:
+		a.listedMsg(msg)
 	case created:
 		a.inflight--
 		switch {

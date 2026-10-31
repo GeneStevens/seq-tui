@@ -44,10 +44,10 @@ function world(over = {}) {
   const call = (name, ...a) => { w.calls.push([name, ...a]); if (w.stytchFail === name) throw new Error("stytch said no"); };
   w.stytchLib = { StytchHeadlessClient: class {
     constructor(token) { w.calls.push(["client", token]); }
-    get oauth() { return { google: { start: async (o) => call("google.start", o) }, authenticate: async (t, o) => { call("oauth.authenticate", t); return { session_jwt: w.jwt }; } }; }
-    get magicLinks() { return { email: { loginOrCreate: async (e, o) => call("link.send", e, o) }, authenticate: async (t, o) => { call("link.authenticate", t); return { session_jwt: w.jwt }; } }; }
-    get otps() { return { email: { loginOrCreate: async (e, o) => { call("otp.send", e, o); return { method_id: "mid-1" }; } }, authenticate: async (c, m, o) => { call("otp.authenticate", c, m); if (c === "000000") throw new Error("That code is not right."); return { session_jwt: w.jwt }; } }; }
-    get session() { return { getSync: () => (w.signedIn ? { id: "s" } : null), authenticate: async () => ({ session_jwt: w.jwt }), revoke: async () => call("session.revoke") }; }
+    get oauth() { return { google: { start: async (o) => call("google.start", o) }, authenticate: async (t, o) => { call("oauth.authenticate", t, o); return { session_jwt: w.jwt }; } }; }
+    get magicLinks() { return { email: { loginOrCreate: async (e, o) => call("link.send", e, o) }, authenticate: async (t, o) => { call("link.authenticate", t, o); return { session_jwt: w.jwt }; } }; }
+    get otps() { return { email: { loginOrCreate: async (e, o) => { call("otp.send", e, o); return { method_id: "mid-1" }; } }, authenticate: async (c, m, o) => { call("otp.authenticate", c, m, o); if (c === "000000") throw new Error("That code is not right."); return { session_jwt: w.jwt }; } }; }
+    get session() { return { getSync: () => (w.signedIn ? { id: "s" } : null), authenticate: async (o) => { call("session.authenticate", o); return { session_jwt: w.jwt }; }, revoke: async () => call("session.revoke") }; }
   } };
   w.auth = () => SeqAuth.createAuth({ fetch: w.fetch, local: w.local, session: w.session, stytchLib: w.stytchLib, origin: "https://localhost:8443", now: () => w.clock });
   return w;
@@ -88,7 +88,7 @@ await flowCase("google, link, code, new account, link to an old one", async () =
   ok(/not right/.test(flow.view.error), "wrong code message");
   eq(signed.length, 0, "not signed in by a wrong code");
   await flow.act("verify", { code: "123 456" });
-  eq(calls(w, "otp.authenticate")[1].slice(1), ["123456", "mid-1"], "spaces dropped from the code");
+  eq(calls(w, "otp.authenticate")[1].slice(1, 3), ["123456", "mid-1"], "spaces dropped from the code");
   eq(w.posts.find((p) => p[0] === "/auth/stytch")[1], { session: "jwt-1" }, "the Stytch session is posted");
   eq(flow.view.screen, "newaccount", "a brand-new account is offered the link");
   eq(signed.length, 0, "not started yet: the offer comes first");
@@ -134,6 +134,23 @@ await flowCase("stytch errors come back as words on the first view", async () =>
   await flow.act("link", { email: "a@b.c" });
   eq([flow.view.screen, flow.view.error], ["choose", "stytch said no"], "send failure");
   ok(/stytch said no/.test(UI.render(flow.view)), "rendered");
+});
+
+await flowCase("the Stytch session length is the server's stytch_session_minutes, 60 without it", async () => {
+  const minutes = async (cfg) => {
+    const w = world({ cfg });
+    const auth = w.auth(); await auth.config();
+    await auth.verifyCode("mid-1", "123456");
+    await auth.completeCallback("?stytch_token_type=magic_links&token=t");
+    await auth.completeCallback("?stytch_token_type=oauth&token=t");
+    await auth.stytchJWT();
+    return [calls(w, "otp.authenticate")[0][3], calls(w, "link.authenticate")[0][2], calls(w, "oauth.authenticate")[0][2], calls(w, "session.authenticate")[0][1]]
+      .map((o) => o.session_duration_minutes);
+  };
+  eq(await minutes({ ...CFG, stytch_session_minutes: 15 }), [15, 15, 15, 15], "the server's minutes go to every Stytch call");
+  eq(await minutes(CFG), [60, 60, 60, 60], "an older seqd: 60");
+  eq(await minutes({ ...CFG, stytch_session_minutes: 0 }), [60, 60, 60, 60], "zero: 60");
+  ok(!/60 \* 24 \* 30/.test(readFileSync(path.join(root, "web", "auth.js"), "utf8")), "no 30-day constant");
 });
 
 // ---- saved sessions and sign-out
