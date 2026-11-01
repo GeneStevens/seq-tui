@@ -23,7 +23,16 @@ const SavedLifetime = 90 * 24 * time.Hour
 type Saved struct {
 	Token   string    `json:"token"`
 	Account string    `json:"account,omitempty"`
+	Email   string    `json:"email,omitempty"` // absent in a file saved before the email was kept
 	Saved   time.Time `json:"saved"`
+}
+
+// Who is what to call the player: the confirmed email, else the account id.
+func (s Saved) Who() string {
+	if s.Email != "" {
+		return s.Email
+	}
+	return s.Account
 }
 
 // ConfigDir is where the sessions live: $XDG_CONFIG_HOME/seq, else ~/.config/seq.

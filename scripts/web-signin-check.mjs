@@ -22,7 +22,7 @@ const eq = (got, want, what) => ok(JSON.stringify(got) === JSON.stringify(want),
 
 const store = () => { const m = new Map(); return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k), m }; };
 const CFG = { stytch_project_id: "project-test-1", stytch_public_token: "public-token-test-1", stytch_domain: "https://x.customers.stytch.dev", google: true, email_otp: true };
-const SESSION = { token: "seq_st_new", account: "p-abc", expires_ms: 4102444800000, created: true, has_characters: false };
+const SESSION = { token: "seq_st_new", account: "p-abc", email: "a@b.c", expires_ms: 4102444800000, created: true, has_characters: false };
 
 // world builds the stubs for one case. server answers by path; stytch records its calls.
 function world(over = {}) {
@@ -160,6 +160,8 @@ await flowCase("saved session, expiry, sign out", async () => {
   eq(auth.saved(), null, "nothing saved");
   await auth.exchange("jwt-1");
   eq(auth.saved().account, "p-abc", "saved after sign-in");
+  eq(SeqAuth.who(auth.saved()), "a@b.c", "the email from the sign-in is kept and greeted");
+  eq([SeqAuth.who({ account: "p-abc", email: "a@b.c" }), SeqAuth.who({ account: "p-abc", email: "" }), SeqAuth.who({ token: "t", account: "p-old" }), SeqAuth.who(null)], ["a@b.c", "p-abc", "p-old", ""], "greeting: email, empty email, old record, none");
   w.clock = 4102444800001;
   eq(auth.saved(), null, "expired session is not offered");
   eq(w.local.getItem(SeqAuth.SESSION_KEY), null, "and is dropped");
@@ -199,7 +201,8 @@ await flowCase("activate: not signed in, approve, deny, bad code", async () => {
   let v = await SeqAuth.activateLoad(auth, "abcd-efgh");
   eq([v.screen, v.code, v.account], ["confirm", "ABCD-EFGH", "p-abc"], "signed in sees what is approved");
   const html = UI.renderActivate(v);
-  ok(/Approve sign-in for <b>seq-tui<\/b> on this device\?/.test(html) && /ABCD-EFGH/.test(html) && /p-abc/.test(html), "confirm text names the app, code and account");
+  ok(/Approve sign-in for <b>a@b\.c<\/b> on seq-tui\?/.test(html) && /ABCD-EFGH/.test(html) && !/p-abc/.test(html), "confirm text leads with the email and the code");
+  ok(/Approve sign-in for <b>p-abc<\/b>/.test(UI.renderActivate({ ...v, email: "" })), "no email: the account id");
   eq(w.posts.find((p) => p[0] === "/auth/device/approve")[1], { session: "jwt-1", user_code: "abcd-efgh", confirm: false, deny: false }, "the check does not approve");
   eq((await SeqAuth.activateDecide(auth, "ABCD-EFGH", "confirm")).screen, "approved", "approve");
   eq((await SeqAuth.activateDecide(auth, "ABCD-EFGH", "deny")).screen, "denied", "deny");

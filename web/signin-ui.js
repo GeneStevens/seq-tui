@@ -43,9 +43,9 @@
           '<input name="code" type="text" autocomplete="off" spellcheck="false" placeholder="ABCD-EFGH" value="' + esc(v.code) + '" autofocus>' +
           '<button type="submit">Continue</button></form>';
       case "confirm":
-        return "<p>Approve sign-in for <b>seq-tui</b> on this device?</p>" +
+        return "<p>Approve sign-in for <b>" + esc(v.email || v.account) + "</b> on seq-tui?</p>" +
           '<p>Code <span class="code">' + esc(v.code) + "</span></p>" +
-          "<p>Account <b>" + esc(v.account) + "</b>" + (v.email ? " (" + esc(v.email) + ")" : "") + "</p>" +
+          "<p>Signing in as <b>" + esc(v.email || v.account) + "</b></p>" +
           '<p class="note">Only approve a code you see in your own terminal right now.</p>' +
           '<button type="button" data-act="approve">Approve</button> <button type="button" class="link" data-act="deny">Deny</button>';
       case "approved":

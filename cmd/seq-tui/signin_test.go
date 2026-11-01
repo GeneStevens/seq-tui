@@ -33,7 +33,7 @@ func device(t *testing.T, final string) *httptest.Server {
 			json.NewEncoder(w).Encode(map[string]string{"error": final})
 			return
 		}
-		json.NewEncoder(w).Encode(map[string]string{"token": "seq_st_new", "account": "gene"})
+		json.NewEncoder(w).Encode(map[string]string{"token": "seq_st_new", "account": "gene", "email": "gene@example.com"})
 	})
 	srv := httptest.NewServer(mux)
 	t.Cleanup(srv.Close)
@@ -59,7 +59,7 @@ func TestLoginLogoutAndToken(t *testing.T) {
 	if err != nil || tok != "seq_st_new" || saved {
 		t.Fatalf("Token = %q, %v, %v", tok, saved, err)
 	}
-	for _, want := range []string{"ABCD-EFGH", "https://h/activate", "Signed in as gene"} {
+	for _, want := range []string{"ABCD-EFGH", "https://h/activate", "Signed in as gene@example.com"} {
 		if !strings.Contains(out.String(), want) {
 			t.Errorf("output lacks %q:\n%s", want, out)
 		}
