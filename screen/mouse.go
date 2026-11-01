@@ -74,6 +74,13 @@ func (h *Hits) at(x, y int) {
 	}
 }
 
+// shift moves where the map about to be drawn starts, dx cells to the right.
+func (h *Hits) shift(dx int) {
+	if h != nil {
+		h.org.X += dx
+	}
+}
+
 // setGrid notes the grid just drawn as the map.
 func (h *Hits) setGrid(g *grid) {
 	if h != nil {

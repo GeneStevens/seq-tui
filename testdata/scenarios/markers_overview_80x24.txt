@@ -1,24 +1,24 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
-│                                                                              │
-│                                ░░░░░;c░;cc░░░░░                              │
-│                                ░   ;≈≈≈≈≈c    ░                              │
-│                                ░""c#·≈$  c""" ░                              │
-│                                ░ cc";;c c"c c ░                              │
-│                                D·@·c;;c;·^···;░                              │
-│                                ░ cc"cc  c"c c ░                              │
-│                                ░"c·;v≈  c""^  ░                              │
-│                                ░ c·;c≈cc;cc   ░                              │
-│                                ░░░░░c░░░░░░░░░░                              │
+│                            ░░░░░░░░░░░;░░░░░░░░░░░                           │
+│                            ░     ;";≈≈≈≈≈≈≈·     ░                           │
+│                            ░      ··≈≈≈          ░                           │
+│                            ░" " " "·≈≈    "   "  ░                           │
+│                            ░     " ·≈ $  " " " " ░                           │
+│                            ░    " ";;:Far Road  ^░                           │
+│                            D·;@;···;==·;··^·····;░                           │
+│                            ░ #Q◆  " ≈≈ ^##      ^░                           │
+│                            ░   ··  "≈≈   " # ^   ░                           │
+│                            ░" " ·;;v≈The Millrace░                           │
+│                            ░ "  ·  "≈≈  ^;       ░                           │
+│                            ░    ;#  ≈ · ;^^      ░                           │
+│                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
 │ Thornwick Downs, 420m by 450m, north up. You: 60m E, 210m N of the SW corner.│
-│ You       @ you  % scout marker  + plan end  ◄ objective                     │
-│ People    p player  T trainer  $ vendor  B banker  H binder  g guard         │
-│           Q quest person  & board  D door  “ said, for 4 s  » chat names you │
-│ Quest     ! new  ? hand in  ? in progress  m quest mob  D next door          │
+│ You       @ you                                                              │
+│ People    $ vendor  Q quest person  D door                                   │
 │ Events    ; scout point  v raiders appear  ◆ raiders head for                │
-│ Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp       │
 │ Ground    # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road    │
-│           . floor  ░ zone edge                                               │
-│ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all ·…│
+│           ░ zone edge                                                        │
+│ labels off                                                                   │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit
+ ONLINE | Thornwick Downs | heard N.Ns ago | labels off           ? help  q quit

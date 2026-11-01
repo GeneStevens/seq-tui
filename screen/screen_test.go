@@ -656,9 +656,16 @@ func TestRoleGlyphsMarksAndLegend(t *testing.T) {
 		}
 	}
 	over := screen.Render(m, screen.View{Conn: screen.ConnOnline, Overview: true}, 140, 45, screen.Plain())
-	for _, want := range []string{"T trainer", "░ zone edge", "D next door"} {
+	// The zone map's legend lists the marks on the map, and no others (D120): the
+	// trainer, vendor and banker are drawn as quest marks here.
+	for _, want := range []string{"H binder", "g guard", "& board", "! new", "? hand in", "░ zone edge"} {
 		if !strings.Contains(over, want) {
 			t.Errorf("the zone map's legend lacks %q:\n%s", want, over)
+		}
+	}
+	for _, not := range []string{"T trainer", "$ vendor", "B banker", "c camp", "= bridge"} {
+		if strings.Contains(over, not) {
+			t.Errorf("the zone map's legend lists %q, which is not on the map:\n%s", not, over)
 		}
 	}
 }

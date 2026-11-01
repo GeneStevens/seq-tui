@@ -417,25 +417,89 @@ func contractsBox(m *model.Model, w int, st Styler) (h int, lines []string) {
 // way to a line.
 const minOverviewRows = 10
 
+// The legend goes in a column beside the large map (D120) in a window this wide
+// (inside the box), so the map has the full height; in a narrower one it stays
+// below the map.
+const (
+	sideLegendMinW = 100
+	sideLegendW    = 34
+	sideGap        = 3
+)
+
+const legendElsewhere = "The legend is on page 2 of the help (?)."
+
 func overviewLines(m *model.Model, v View, w, h int, st Styler) []string {
-	legend := legendLines(m, w-2, st)
-	if room := h - 2 - minOverviewRows; len(legend) > room {
-		legend = []string{"The legend is on page 2 of the help (?)."} // a short window keeps its map
+	status := func() string {
+		b := m.Map.GetBounds()
+		sp := m.Self.Pos
+		return fit(fmt.Sprintf(" %s, %dm by %dm, north up. You: %dm E, %dm N of the SW corner.", m.Map.GetName(),
+			(b.GetMaxX()-b.GetMinX())/1000, (b.GetMaxY()-b.GetMinY())/1000, (sp.GetX()-b.GetMinX())/1000, (sp.GetY()-b.GetMinY())/1000), w)
 	}
-	foot := 2 + len(legend)
-	rows := overviewRows(m, v, w, h-foot, st)
-	add := func(l string) { rows = append(rows, fit(l, w)) }
-	b := m.Map.GetBounds()
-	sp := m.Self.Pos
-	add(fmt.Sprintf(" %s, %dm by %dm, north up. You: %dm E, %dm N of the SW corner.", m.Map.GetName(),
-		(b.GetMaxX()-b.GetMinX())/1000, (b.GetMaxY()-b.GetMinY())/1000, (sp.GetX()-b.GetMinX())/1000, (sp.GetY()-b.GetMinY())/1000))
+	hint := fit(" Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes", w)
+	if w >= sideLegendMinW {
+		return pad(overviewBeside(m, v, w, h, st, status(), hint), w, h)
+	}
+	return pad(overviewBelow(m, v, w, h, st, status(), hint), w, h)
+}
+
+// overviewBeside is the large map with its legend in a column to the right of
+// it, the two centred in the window and the map as tall as it can be.
+func overviewBeside(m *model.Model, v View, w, h int, st Styler, status, hint string) []string {
+	mh := max(h-2, 1)
+	cw := overviewWidth(m, v, w-sideLegendW-sideGap, mh)
+	pre := max((w-(cw+sideGap+sideLegendW))/2, 0)
+	v.Hits.shift(pre)
+	rows, present := overviewRows(m, v, cw, mh, st)
+	legend := legendSide(sideLegendW, st, present)
+	if len(legend) > mh {
+		legend = append(legend[:mh-1], " "+legendElsewhere[:len(legendElsewhere)-1])
+	}
+	out := make([]string, 0, h)
+	for i, row := range rows {
+		line := strings.Repeat(" ", pre) + row
+		if i < len(legend) {
+			line += strings.Repeat(" ", sideGap) + legend[i]
+		}
+		out = append(out, line+strings.Repeat(" ", max(w-visibleWidth(line), 0)))
+	}
+	return append(out, status, hint)
+}
+
+// overviewBelow is the large map with its legend under it, as many lines as the
+// marks on the map need, or a line saying where the legend is when the window
+// has no room for them.
+func overviewBelow(m *model.Model, v View, w, h int, st Styler, status, hint string) []string {
+	room := h - 2 - minOverviewRows
+	// The legend's height depends on the marks on the map, and the map's height on
+	// the legend's: start from the whole legend (or what fits), and draw again at
+	// the height the marks asked for.
+	n := min(len(legendLines(m, w-2, st, nil)), max(room, 1))
+	var rows, legend []string
+	for range 3 {
+		var present marks
+		rows, present = overviewRows(m, v, w, h-2-n, st)
+		legend = legendLines(m, w-2, st, present)
+		if len(legend) > room {
+			legend = []string{legendElsewhere}
+		}
+		if len(legend) == n {
+			break
+		}
+		n = len(legend)
+	}
+	if len(legend) > n {
+		legend = append(legend[:n-1], legendElsewhere)
+	}
+	out := append(rows, status)
 	for _, l := range legend {
 		// Already styled and fitted to w-2: fit would print its escapes as "?".
 		l = " " + l
-		rows = append(rows, l+strings.Repeat(" ", max(w-visibleWidth(l), 0)))
+		out = append(out, l+strings.Repeat(" ", max(w-visibleWidth(l), 0)))
 	}
-	add(" Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes")
-	return pad(rows, w, h)
+	for len(legend) < n {
+		out, legend = append(out, strings.Repeat(" ", w)), append(legend, "")
+	}
+	return append(out, hint)
 }
 
 // eventBanner is the one-line banner of a world event that is on or just ended,

@@ -293,9 +293,13 @@ func TestAllTheZonesMarkersAreOnTheMap(t *testing.T) {
 	}
 	p.Press("m")
 	s := p.Screen(140, 45)
-	if !strings.Contains(s, "Goblin Lookout") {
-		t.Errorf("the overview does not name the Goblin Lookout:\n%s", s)
+	// The Lookout is too small a place to be named at the widest zoom (D120);
+	// naming everything (Ctrl+A, as Alt) does.
+	p.Press("ctrl+a")
+	if all := p.Screen(140, 45); !strings.Contains(all, "Goblin Lookout") {
+		t.Errorf("the overview does not name the Goblin Lookout:\n%s", all)
 	}
+	p.Press("ctrl+a")
 	for _, glyph := range []string{";", "v", "G"} {
 		// The overview draws the markers; the legend names them (it has the glyph
 		// too, so the picture must hold at least one more).

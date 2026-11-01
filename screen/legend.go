@@ -56,10 +56,33 @@ var legendGroups = []legendGroup{
 
 const legendLabelW = 10
 
+// listed says an entry is on the map being shown: there is a cell of its kind
+// and glyph (the target is any glyph, in upper case). A nil set lists everything
+// (the help's page).
+func (it legendItem) listed(present marks) bool {
+	if present == nil {
+		return true
+	}
+	if it.kind == kTarget {
+		for k := range present {
+			if k.k == kTarget {
+				return true
+			}
+		}
+		return false
+	}
+	if present[markKey{it.kind, it.glyph}] {
+		return true
+	}
+	// A board with something to take is drawn in gold, still the board's glyph.
+	return it.kind == kDoor && (present[markKey{kMarkGold, it.glyph}] || present[markKey{kMarkGrey, it.glyph}])
+}
+
 // legendLines is the legend at w cells, one labelled line for each kind of thing
 // (wrapped under its label when it is too long), the glyphs drawn as the map
-// draws them.
-func legendLines(m *model.Model, w int, st Styler) []string {
+// draws them. It lists only the marks in present (D120), and a kind with none is
+// left out.
+func legendLines(m *model.Model, w int, st Styler, present marks) []string {
 	var out []string
 	for _, g := range legendGroups {
 		label := g.label
@@ -75,6 +98,9 @@ func legendLines(m *model.Model, w int, st Styler) []string {
 			line, plain = "", 0
 		}
 		for _, it := range g.items {
+			if !it.listed(present) {
+				continue
+			}
 			text := string(it.glyph) + " " + it.word
 			if plain > 0 && legendLabelW+plain+2+width(text) > w {
 				emit()
@@ -86,7 +112,40 @@ func legendLines(m *model.Model, w int, st Styler) []string {
 			line += cellStyle(it.kind, it.area, st)(string(it.glyph)) + " " + it.word
 			plain += width(text)
 		}
-		emit()
+		if plain > 0 {
+			emit()
+		}
+	}
+	return out
+}
+
+// legendSide is the legend as a column w cells wide beside the large map (D120):
+// each kind a bold heading with its marks under it, as many to a line as fit.
+func legendSide(w int, st Styler, present marks) []string {
+	var out []string
+	for _, g := range legendGroups {
+		var lines []string
+		line, plain := "", 0
+		for _, it := range g.items {
+			if !it.listed(present) {
+				continue
+			}
+			text := string(it.glyph) + " " + it.word
+			if plain > 0 && 1+plain+2+width(text) > w {
+				lines, line, plain = append(lines, " "+line), "", 0
+			}
+			if plain > 0 {
+				line += "  "
+				plain += 2
+			}
+			line += cellStyle(it.kind, it.area, st)(string(it.glyph)) + " " + it.word
+			plain += width(text)
+		}
+		if plain > 0 {
+			lines = append(lines, " "+line)
+			out = append(out, st.Bold(g.label))
+			out = append(out, lines...)
+		}
 	}
 	return out
 }
