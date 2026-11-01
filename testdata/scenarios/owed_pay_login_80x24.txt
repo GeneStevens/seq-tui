@@ -19,6 +19,6 @@
 │            at your next join                                                 │
 │ +   N.Ns owed pay waiting from a refund for Scuttler Skirmish: 50 crowns,    │
 │            paid at your next join                                            │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

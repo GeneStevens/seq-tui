@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Delve Gate is shut to you: every place in the expedition beyond it is taken, and a replacement can only fill one a member has left.        
  ! Delve Gate is shut to you: every place in the expedition beyond it is taken, and a replacement can only fill one a member has left.      

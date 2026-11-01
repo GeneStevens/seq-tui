@@ -19,6 +19,6 @@
 │ +   N.Ns You pay 50 crowns to enter                                          │
 │     N.Ns instance opened: Peril Den (up to 2 in it); enter at gate-north with│
 │            E                                                                 │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | heard N.Ns ago | instance requested; the log says when it is open     

@@ -42,6 +42,11 @@ const before = out.length;
 await until("a redraw after the resize", () => out.length > before);
 console.log("resize taken");
 
+// PgUp scrolls the log panel back: the border says there is more below.
+globalThis.seqInput("\x1b[5~");
+await until("the log panel scrolled back", () => text().includes("· End"));
+console.log("log panel scrolled back: ok");
+
 globalThis.seqInput("q");
 await Promise.race([done, until("the program to quit on q", () => false, 5000)]);
 if (exited) throw new Error("ended with an error: " + exited);

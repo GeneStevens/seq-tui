@@ -19,6 +19,6 @@
 │    10.1s Everyone in the fight with Plain Scuttler has fallen                │
 │    10.1s You are out of combat                                               │
 │    11.0s Plain Scuttler reset to 40 hp                                       │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  R: release your body and wake at your bind point                               
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

@@ -52,7 +52,8 @@ var Bindings = []Binding{
 	{Keys: []string{"t"}, Show: "T", What: "trade with a character in reach", Group: "People and things"},
 	{Keys: []string{"i"}, Show: "I", What: "this zone's instance menu (Enter opens one)", Group: "People and things"},
 	{Keys: []string{"/"}, Show: "/", What: "the command line: chat, parties, /quest, /dismiss (Backspace on the slash, or Tab, makes it a chat line)", Group: "Screens"},
-	{Keys: []string{"C"}, Show: "Shift+C", What: "the chat drawer over the map: PgUp / PgDn, the wheel and End scroll (the arrows still walk), Tab filters (all, say, party, tell, ooc), Esc drops it", Group: "Screens"},
+	{Keys: []string{"pgup", "pgdown", "home", "end"}, Show: "PgUp, PgDn", What: "scroll the Events, Chat or Party panel back (the wheel over it too); Home: oldest line, End: back to live", Group: "Screens"},
+	{Keys: []string{"C"}, Show: "Shift+C", What: "the chat drawer over the map: PgUp / PgDn, wheel, End scroll (arrows still walk), Tab filters, Esc drops it", Group: "Screens"},
 	{Keys: []string{"N"}, Show: "Shift+N", What: "select a name in the Chat tab or the drawer: Tab steps, Enter opens its card (tell, invite, ignore, report), Esc lets go", Group: "Screens"},
 	{Keys: []string{"[", "]"}, Show: "[ and ]", What: "the bottom panel's tab: Events, Chat, Party (clicking a tab does too)", Group: "Screens"},
 	{Keys: []string{"ctrl+l"}, Show: "Ctrl+L", What: "your session logs: replay, read, export", Group: "Screens"},
@@ -178,7 +179,7 @@ var guideMouse = []section{
 		{"W", "walk to the selected target, or to the last spot clicked: for a terminal that sends no Option-click"},
 		{"Hover", "its name beside the pointer: a mob, person, door, marker, or you"},
 		{"Alt, Ctrl+A", "name everything on the map (Ctrl+A if your terminal sends no Alt with the mouse)"},
-		{"Wheel, + -", "zoom the map"},
+		{"Wheel, + -", "zoom the map (the wheel over the Events, Chat or Party panel scrolls it back instead)"},
 		{"Right-click, Esc", "let go of the selection"},
 	}, []string{
 		"A plain click never moves you and a first click never attacks. Option (Alt) is the walking click: it is the same in the terminal and in the browser. If your terminal keeps Option-click for itself, click, then press W. M opens the large map: Option-click a spot to walk there, or move the cursor with the arrows and press Enter. Shift+click is never used: terminals keep it for selecting text. Every mouse action has a key; the game is fully playable without a mouse. docs/browser.md lists which terminals send Option-click.",

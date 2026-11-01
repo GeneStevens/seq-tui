@@ -19,6 +19,6 @@
 │ +  63.1s bram received 3 xp from Warren Digger                               │
 │ +  63.1s You gain 3 experience                                               │
 │    63.1s Warren Digger is out of view                                        │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  L: loot all 2 drops                                                            
  ONLINE | Hollow Warren (Warren Venture Delve) | heard 0.4s ago | attack ok     

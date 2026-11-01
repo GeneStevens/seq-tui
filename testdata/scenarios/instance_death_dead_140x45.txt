@@ -40,6 +40,6 @@
 │    NN.Ns You stop attacking                                                                                                              │
 │    NN.Ns Everyone in the fight with Plain Scuttler has fallen                                                                            │
 │    NN.Ns You are out of combat                                                                                                           │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  R: release your body and wake at your bind point                                                                                           
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago                                                                           ? help  q quit

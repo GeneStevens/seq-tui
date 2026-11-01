@@ -19,6 +19,6 @@
 │     N.Ns bram joined the party                                               │
 │     N.Ns instance opened for your party: Warren Venture Delve (up to 3 in    │
 │            it); enter at delve-gate with E                                   │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Delve Gate                                                            
  ONLINE | Hollow Warren | heard N.Ns ago                          ? help  q quit

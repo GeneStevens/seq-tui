@@ -19,6 +19,6 @@
 │     0.3s Slot 3: Flame Dart                                                  │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

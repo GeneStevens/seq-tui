@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                                    
  ONLINE | directing bram | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | directing bram: X back, Z its stance  

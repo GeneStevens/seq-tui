@@ -119,6 +119,7 @@ func (a *App) chatDo(act Action) (tea.Model, tea.Cmd) {
 			tab = (a.view.Panel + act.Count + screen.PanelTabs) % screen.PanelTabs
 		}
 		a.view.Panel = min(max(tab, 0), screen.PanelTabs-1)
+		a.mouse.scroll = [screen.PanelTabs]screen.ScrollPos{} // a tab you come to is live
 		a.sess.View(func(m *model.Model) {
 			if m.UnderAttack() && a.view.Panel != screen.PanelEvents {
 				a.view.Notice = "in a fight the panel shows Events; " + screen.PanelName(a.view.Panel) + " comes back when it ends"

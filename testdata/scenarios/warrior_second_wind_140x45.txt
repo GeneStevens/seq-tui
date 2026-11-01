@@ -40,6 +40,6 @@
 │     N.Ns You use Second Wind                                                                                                             │
 │     N.Ns You are affected by Second Wind                                                                                                 │
 │ <   N.Ns Plain Scuttler hits you for 4                                                                                                   │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | Testgrounds | heard N.Ns ago | key 3 Second Wind ok                                                                 ? help  q quit

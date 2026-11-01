@@ -19,6 +19,6 @@
 │     N.Ns Plain Scuttler (level 1, even) is attacking you                     │
 │     N.Ns You are in combat with Plain Scuttler                               │
 │     N.Ns entered Testgrounds                                                 │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: go through the Line East to the Outskirts                                   
  ONLINE | Testgrounds | heard N.Ns ago | use door ok              ? help  q quit

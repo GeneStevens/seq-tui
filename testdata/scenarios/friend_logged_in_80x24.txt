@@ -19,6 +19,6 @@
 │     N.Ns friend cy1 logged out                                               │
 │     N.Ns friend cy1 logged in                                                │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

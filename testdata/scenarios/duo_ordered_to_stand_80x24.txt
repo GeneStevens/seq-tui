@@ -19,6 +19,6 @@
 │ <   N.Ns Bramble Tusker misses you                                           │
 │     N.Ns bram cleared the target                                             │
 │     N.Ns bram stopped attacking                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | forest: slowed to 75% | second character ordered: stop  ? help  q quit

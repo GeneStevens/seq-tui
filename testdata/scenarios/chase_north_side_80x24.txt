@@ -19,6 +19,6 @@
 │     N.Ns You start attacking Meadow Wolf                                     │
 │     N.Ns Meadow Wolf (level 1, even) is attacking you                        │
 │     N.Ns You are in combat with Meadow Wolf                                  │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Too far: 5 m. Option-click the target to close in · F: stop attacking          
  ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

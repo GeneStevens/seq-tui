@@ -19,6 +19,6 @@
 │            delve-gate with E                                                 │
 │     N.Ns entered Hollow Warren (Warren Venture Delve)                        │
 │     N.Ns bram comes into view                                                │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Delve Gate                                                            
  ONLINE | use door ok; second character: you are too far from the door; walk to…

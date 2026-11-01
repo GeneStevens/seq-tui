@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Hew Wickett <Miller>                                                                                                            
  ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W | heard N.Ns ago                           ? help  q quit

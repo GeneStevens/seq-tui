@@ -40,6 +40,6 @@
 │ + 237.0s You gain 2 experience                                                                                                           │
 │ + 237.0s Wolves at Wickett Mill: 4 of 4                                                                                                  │
 │   237.0s Meadow Wolf is out of view                                                                                                      │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot all 3 drops                                                                                                                        
  ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 63m NW | heard 0.4s ago | attack ok              ? help  q quit

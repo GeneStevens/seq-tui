@@ -35,6 +35,6 @@
 │ [say] Hale: welcome Mira and Gorran                                                                                  │
 │ [say] Aria: thanks Hale                                                                                              │
 │                                                                                                                      │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                
  ONLINE | Z | heard 0.4s ago                                                                              ? help  q quit

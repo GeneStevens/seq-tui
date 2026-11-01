@@ -19,6 +19,6 @@
 │            with E                                                            │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | heard 0.4s ago | instance requested; the log says when it is open     

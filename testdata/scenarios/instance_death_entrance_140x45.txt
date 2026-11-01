@@ -40,6 +40,6 @@
 │    NN.Ns You release your body and will return in 5 seconds                                                                              │
 │    NN.Ns Plain Scuttler reset to 40 hp                                                                                                   │
 │    NN.Ns You return to life in Testgrounds (Solo Trial)                                                                                  │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North  ·  Tab: target · F: attack                                                                                            
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | release ok                                                              ? help  q quit

@@ -19,6 +19,6 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack  ·  Ctrl+R: fight back when attacked                   
  ⚠ Gray Wolf is attacking you — HP 30/30 — Esc to fight                         

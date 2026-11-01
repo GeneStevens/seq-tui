@@ -19,6 +19,6 @@
 │     N.Ns You target Bramble Tusker                                           │
 │     N.Ns You begin casting Minor Heal                                        │
 │     N.Ns You use Minor Heal                                                  │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | directing bram | forest: slowed to 75% | key 1 Minor Heal ok    ? help

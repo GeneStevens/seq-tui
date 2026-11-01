@@ -19,6 +19,6 @@
 │     N.Ns cora joined the party                                               │
 │     N.Ns bram is out of view                                                 │
 │     N.Ns cora comes into view                                                │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Delve Gate                                                            
  ! usage: /status away, /status autopilot or /status clear (no effect on play)  

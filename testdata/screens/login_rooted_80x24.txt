@@ -19,6 +19,6 @@
 │     1.8s Plain Scuttler is affected by Root                                  │
 │     1.8s You are in combat with Plain Scuttler                               │
 │     1.9s Plain Scuttler targeted zedd                                        │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard 0.4s ago                            ? help  q quit

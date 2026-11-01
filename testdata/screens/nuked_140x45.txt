@@ -40,6 +40,6 @@
 │    12.2s You are out of combat                                                                                                           │
 │ +  12.2s You gain 20 experience                                                                                                          │
 │    12.2s Plain Scuttler is out of view                                                                                                   │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok                                                                  ? help  q quit

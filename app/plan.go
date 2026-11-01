@@ -93,6 +93,7 @@ const (
 	CloseCard       // close the info card
 	SelectSide      // pick the sidebar tab Count (D78)
 	ScrollSide      // scroll the sidebar by Count rows
+	ScrollLog       // scroll the bottom panel back by Count rows (negative: forward); Note "pgup", "pgdown", "home" or "end" for a page, the oldest line and live
 	MoveCursor      // move the large map's cursor a cell: Note is the key
 	AutoRetaliate   // turn auto-retaliate On (D85)
 	WalkKey         // a movement key went down: Note is the key (hold-to-walk)
@@ -206,6 +207,8 @@ func common(key string) Action {
 		return Action{Kind: OpenQuest}
 	case "v":
 		return Action{Kind: ToggleVerbose}
+	case "pgup", "pgdown", "home", "end":
+		return Action{Kind: ScrollLog, Note: key} // the bottom panel's scrollback
 	case "+", "=":
 		return Action{Kind: ZoomMap, Count: 1}
 	case "-", "_":

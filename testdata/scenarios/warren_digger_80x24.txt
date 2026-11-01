@@ -19,6 +19,6 @@
 │     N.Ns bram comes into view                                                │
 │    NN.Ns Warren Digger comes into view                                       │
 │    NN.Ns You target Warren Digger                                            │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | target ok     

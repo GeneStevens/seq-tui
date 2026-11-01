@@ -19,6 +19,6 @@
 │     2.4s bram comes into view                                                │
 │    25.4s Warren Digger comes into view                                       │
 │    26.1s You target Warren Digger                                            │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Hollow Warren (Warren Venture Delve) | heard 0.4s ago | target ok     

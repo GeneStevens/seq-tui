@@ -31,6 +31,9 @@ type LogEntry struct {
 	// ends in "(capped: paid as a level N creature)", and the screen mutes that
 	// part, as information rather than a fault.
 	Capped bool
+	// Ord is the line's number in the order the log took it (LogOrd): a scrolled
+	// back panel keeps its place by it as lines arrive and the oldest are cut.
+	Ord uint64
 }
 
 func (m *Model) logEvent(e *pb.Event) {
@@ -260,6 +263,8 @@ func (e LogEntry) Hidden() bool {
 // shows the newest ones either way.
 func (m *Model) trimLog() {
 	for i := m.logLen; i < len(m.Log); i++ {
+		m.LogOrd++
+		m.Log[i].Ord = m.LogOrd
 		if !m.Log[i].Hidden() {
 			m.LogN++
 		}

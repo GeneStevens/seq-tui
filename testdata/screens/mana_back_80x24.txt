@@ -19,6 +19,6 @@
 │ +  12.2s You gain 20 experience                                              │
 │    12.2s Plain Scuttler is out of view                                       │
 │    42.2s Plain Scuttler comes into view                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok      ? help  q quit

@@ -19,6 +19,6 @@
 │ +   N.Ns You take the contract Wolves at Wickett Mill                        │
 │    NN.Ns entered Thornwick Downs                                             │
 │    NN.Ns Meadow Wolf comes into view                                         │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 57m NW ? help  q quit

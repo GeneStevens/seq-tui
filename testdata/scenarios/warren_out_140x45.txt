@@ -40,6 +40,6 @@
 │ !  NN.Ns You have no target                                                                                                              │
 │    NN.Ns bram is out of view                                                                                                             │
 │    NN.Ns entered Hollow Warren                                                                                                           │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Delve Gate                                                                                                                        
  ONLINE | Hollow Warren | heard N.Ns ago | use door ok                                                                        ? help  q quit

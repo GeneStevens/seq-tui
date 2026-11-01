@@ -41,5 +41,5 @@
 │ +   N.Ns You take the contract Word from Wickett Mill                                                                                    │
 │ !   N.Ns You're carrying as many contracts as you can                                                                                    │
 │ +   N.Ns You give up the contract Word from Wickett Mill                                                                                 │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hawthorn Square, Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard N.Ns ago      ? help

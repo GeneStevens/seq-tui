@@ -19,6 +19,6 @@
 │            trust. Prove yourself first, and come and see me.                 │
 │ !   0.3s You haven't earned a companion yet                                  │
 │ +   0.5s You take the contract Eyes on the Goblins                           │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Captain Rhosyn Hartley <Watch Captain>                              
  ONLINE | → Eyes on the Goblins (Thornwick Downs), 12m SE | heard 0.4s ago      

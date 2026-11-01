@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North                                                                                                                        
  ONLINE | Testgrounds | heard 0.4s ago | ! say: you are talking too fast: wait a moment (rate_limited)                        ? help  q quit

@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: go through the East Gate to the Thornwick Downs  ·  G: talk to Town Guard <Thornwick Watch>                                             
  ONLINE | East Gate, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 54m W | road: faster, 125% | heard N.Ns ago         ? help  q quit

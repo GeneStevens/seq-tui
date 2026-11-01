@@ -506,6 +506,16 @@ func TestChatGoldens(t *testing.T) {
 		{"chat_prompt_ooc", func(m *model.Model, v *screen.View) {
 			v.Line = &screen.Line{Channel: "ooc", Text: "anyone for the Warren?"}
 		}},
+		{"events_scrolled", func(m *model.Model, v *screen.View) {
+			longLog(m)
+			v.Back = scrolledBack(screen.PanelEvents, 7)
+			v.Verbose = true
+		}},
+		{"chat_scrolled", func(m *model.Model, v *screen.View) {
+			longChat(m)
+			v.Panel = screen.PanelChat
+			v.Back = scrolledBack(screen.PanelChat, 5)
+		}},
 		{"chat_prompt", func(m *model.Model, v *screen.View) {
 			v.Line = &screen.Line{Channel: "tell", Target: "Mira", Text: "see you there"}
 		}},
@@ -588,4 +598,25 @@ func TestDrawingNeverMovesTheMarksButNotesWhatItShowed(t *testing.T) {
 	if *v.Read != (screen.Marks{}) {
 		t.Errorf("a render without hits moved the marks: %+v", *v.Read)
 	}
+}
+
+// longLog is sixty log lines, one after the other.
+func longLog(m *model.Model) {
+	for i := 1; i <= 60; i++ {
+		m.Notice("log line " + strconv.Itoa(i))
+	}
+}
+
+// longChat is thirty lines of chat.
+func longChat(m *model.Model) {
+	for i := 1; i <= 30; i++ {
+		say(m, "say", "Mira", "", "chat line "+strconv.Itoa(i))
+	}
+}
+
+// scrolledBack is a view with the panel tab scrolled back by rows.
+func scrolledBack(tab, rows int) *[screen.PanelTabs]screen.ScrollPos {
+	var b [screen.PanelTabs]screen.ScrollPos
+	b[tab].Scroll(rows)
+	return &b
 }

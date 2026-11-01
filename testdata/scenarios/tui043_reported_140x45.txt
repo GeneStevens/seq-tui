@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Testgrounds Vendor  ·  Tab: target · F: attack                                                                                  
  ONLINE | Your report about bob1 has been filed (report 1). A game master will look at it; you will not be told what comes of it.     ? help

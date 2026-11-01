@@ -19,6 +19,6 @@
 │     N.Ns Slot 3: Flame Dart                                                  │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

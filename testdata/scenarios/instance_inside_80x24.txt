@@ -19,6 +19,6 @@
 │            with E                                                            │
 │     N.Ns entered Testgrounds (Solo Trial)                                    │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Gate North  ·  Tab: target · F: attack                                
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | use door ok ? help  q quit

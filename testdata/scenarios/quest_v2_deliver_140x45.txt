@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Testgrounds Captain <Quest Giver>  ·  Tab: target · F: attack                                                                   
  ONLINE | Testgrounds | The Old Relic 2/3 | heard N.Ns ago                                                                    ? help  q quit

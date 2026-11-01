@@ -19,6 +19,6 @@
 │            Lookout. It is optional; /dismiss gives it up for good.           │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | Testgrounds | The Old Relic 1/3 | heard N.Ns ago        ? help  q quit

@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North  ·  Tab: target · F: attack                                                                                            
  ONLINE | Testgrounds (Quick Turns) | heard N.Ns ago | ! a plan holds one move or door: Backspace removes the one it has      ? help  q quit

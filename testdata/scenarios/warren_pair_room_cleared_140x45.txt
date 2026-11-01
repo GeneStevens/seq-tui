@@ -40,6 +40,6 @@
 │    NN.Ns 9 crowns was taken                                                                                                              │
 │ +  NN.Ns You took Digger's Claw, Digger's Cap, 9 crowns                                                                                  │
 │    NN.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok                                                     ? help  q quit

@@ -488,6 +488,8 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 		a.moveCursor(act.Note)
 	case SelectSide:
 		a.activeSide().Tab = min(max(act.Count, 0), screen.Tabs-1)
+	case ScrollLog:
+		a.scrollLog(act)
 	case ScrollSide:
 		sb := a.activeSide()
 		sb.Scroll[sb.Tab] = max(sb.Scroll[sb.Tab]+act.Count, 0)

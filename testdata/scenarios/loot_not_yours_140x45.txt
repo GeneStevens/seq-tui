@@ -40,6 +40,6 @@
 │    NN.Ns Trophy Scuttler dropped 5 crowns                                                                                                │
 │    NN.Ns Trophy Scuttler is dead: the fight is over                                                                                      │
 │    NN.Ns Trophy Scuttler is out of view                                                                                                  │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Testgrounds | heard N.Ns ago | not lootable: the drops in view are not yours to take                                ? help  q quit

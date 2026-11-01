@@ -42,8 +42,11 @@ type View struct {
 	// scrolled.
 	HelpPage, HelpScroll int
 	Verbose              bool // log routine movement and rules ticks too
-	roomy                bool // the You panel may take a row of its own for auto-retaliate (set by the column)
-	Conn                 Conn
+	// Back is how far each tab of the bottom panel is scrolled back; drawing settles
+	// it. Nil means every tab is live.
+	Back  *[PanelTabs]ScrollPos
+	roomy bool // the You panel may take a row of its own for auto-retaliate (set by the column)
+	Conn  Conn
 	// Cut is the server's own text for a connection it ended or a login it
 	// refused (a suspension, a ban, a kick): shown plainly while the client is
 	// off the server.

@@ -40,6 +40,6 @@
 │ + NNN.Ns You gain 2 experience                                                                                                           │
 │ + NNN.Ns Wolves at Wickett Mill: 4 of 4                                                                                                  │
 │   NNN.Ns Meadow Wolf is out of view                                                                                                      │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot all 3 drops                                                                                                                        
  ONLINE | Thornwick Downs | First Steps 1/4 | → Go to Thornwick (Thornwick), 63m NW | heard N.Ns ago | no target in view      ? help  q quit

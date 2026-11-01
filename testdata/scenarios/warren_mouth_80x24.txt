@@ -19,6 +19,6 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: go through the Warren Mouth to the Thornwick Downs                          
  ONLINE | Hollow Warren | heard N.Ns ago                          ? help  q quit

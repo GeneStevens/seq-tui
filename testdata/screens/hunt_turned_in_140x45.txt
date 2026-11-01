@@ -41,5 +41,5 @@
 │   284.7s Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
 │            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
 │ + 284.8s You hand in Wolves at Wickett Mill: 31 experience, 14 crowns                                                                    │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125% | heard 0.4s ago | hand in Thin the Meadow Wolves ok     ? help

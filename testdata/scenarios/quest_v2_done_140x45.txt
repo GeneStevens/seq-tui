@@ -40,6 +40,6 @@
 │    NN.Ns Eastern Binder says:                                                                                                            │
 │ +  NN.Ns Quest complete: The Old Relic                                                                                                   │
 │ +  NN.Ns Quest item removed from your bags: 1 Old Relic.                                                                                 │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Eastern Binder                                                                                                                  
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

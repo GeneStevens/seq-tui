@@ -13,7 +13,7 @@ import (
 
 // Default bounds of the event log, the intent list and the error list.
 const (
-	DefaultLogCap     = 200
+	DefaultLogCap     = 1000
 	DefaultIntentsCap = 32
 	errorsCap         = 16
 	faultsCap         = 16
@@ -222,6 +222,8 @@ type Model struct {
 	// start of the session: the Events tab's unread count reads it.
 	LogN   int
 	logLen int
+	// LogOrd numbers every line the log has taken, for the panel to hold its place by.
+	LogOrd uint64
 	// Intents are the most recent intents, oldest first.
 	Intents []IntentStatus
 	// Errors are the protocol errors received, most recent last.

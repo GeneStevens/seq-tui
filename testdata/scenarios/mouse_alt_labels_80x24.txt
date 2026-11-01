@@ -19,6 +19,6 @@
 │    NN.Ns You target Plain Scuttler                                           │
 │    NN.Ns You start attacking Plain Scuttler                                  │
 │    NN.Ns You stop attacking                                                  │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

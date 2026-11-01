@@ -19,6 +19,6 @@
 │ +   N.Ns You take the contract Word from Wickett Mill                        │
 │    NN.Ns entered Thornwick Downs                                             │
 │ +  NN.Ns Word from Wickett Mill: 1 of 1                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Hew Wickett <Miller>                                                
  ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W  ? help  q quit

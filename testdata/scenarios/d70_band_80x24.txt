@@ -19,6 +19,6 @@
 │     N.Ns You start attacking Goblin Scrapper                                 │
 │     N.Ns Goblin Scrapper (level 5, easy) is attacking you                    │
 │     N.Ns You are in combat with Goblin Scrapper                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Too far: 6 m. Option-click the target to close in · F: stop attacking          
  ONLINE | Thornwick Downs | heard N.Ns ago | target ok            ? help  q quit

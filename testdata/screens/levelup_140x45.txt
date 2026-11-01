@@ -40,6 +40,6 @@
 │ +   7.5s You gain 60 experience                                                                                                          │
 │ +   7.5s You reached level 2! Health 80 → 88, mana 150 → 173. Intellect +2, Wisdom +1                                                    │
 │     7.5s Plain Scuttler is out of view                                                                                                   │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot Cracked Shell Fragment                                                                                                             
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok                                                                  ? help  q quit

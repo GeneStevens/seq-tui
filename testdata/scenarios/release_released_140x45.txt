@@ -40,6 +40,6 @@
 │    NN.Ns You are out of combat                                                                                                           │
 │    NN.Ns Plain Scuttler reset to 40 hp                                                                                                   │
 │    NN.Ns You release your body and will return in 5 seconds                                                                              │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  R: release your body and wake at your bind point                                                                                           
  ONLINE | Testgrounds | heard N.Ns ago | release ok                                                                           ? help  q quit

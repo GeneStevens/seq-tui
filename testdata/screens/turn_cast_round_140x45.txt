@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North  ·  F: attack · Tab: next target                                                                                       
  ONLINE | Testgrounds (Quick Turns) | heard 0.4s ago | plan accepted, counts even if you disconnect                           ? help  q quit

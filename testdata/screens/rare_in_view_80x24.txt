@@ -19,6 +19,6 @@
 │    11.2s You target Old Grimtusk                                             │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Thornwick Downs | heard 0.4s ago | target ok            ? help  q quit
