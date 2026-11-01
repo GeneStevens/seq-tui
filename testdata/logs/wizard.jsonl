@@ -69,10 +69,10 @@
 {"pong":{"nonce":"149"}}
 {"pong":{"nonce":"150"}}
 {"tick_frame":{"base_seq":"12","events":[{"game_time_ms":"2200","text":"You spend 10 mana","resource_changed":{"actor":"zedd","resource":"mana","delta":"-10","reason":"cost"}},{"game_time_ms":"2200","text":"You use Root on Plain Scuttler","ability_used":{"actor":"zedd","target":"mob-near-1","ability":"wizard-root","slot":1}},{"game_time_ms":"2200","text":"You begin fighting Plain Scuttler","encounter_opened":{"id":"testgrounds.enc-1","owner":"zedd","mob":"mob-near-1"}},{"game_time_ms":"2200","text":"Plain Scuttler is affected by Root","effect_applied":{"source":"zedd","target":"mob-near-1","ability":"wizard-root","kind":"root","duration_ms":"18000"}},{"game_time_ms":"2200","text":"You are in combat with Plain Scuttler","combat_state":{"actor":"zedd","in_combat":true,"attackers":["mob-near-1"]}}]}}
-# mark rooted
 {"tick_frame":{"base_seq":"17","events":[{"game_time_ms":"2300","target_changed":{"actor":"mob-near-1","target":"zedd"}}]}}
 {"pong":{"nonce":"151"}}
 {"pong":{"nonce":"152"}}
+# mark rooted
 {"pong":{"nonce":"153"}}
 {"pong":{"nonce":"154"}}
 {"tick_frame":{"base_seq":"18","events":[{"game_time_ms":"2400","text":"You begin casting Flame Dart on Plain Scuttler","cast_started":{"actor":"zedd","target":"mob-near-1","ability":"wizard-flame-dart","cast_ms":"1000"}}],"results":[{"intent_id":"tui-5","accepted":true}]}}

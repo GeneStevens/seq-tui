@@ -14,9 +14,9 @@ import (
 
 // The bigger Downs (420 x 450 m, seq-world's WLD-031): a trimmed copy of its map
 // with the places the quests send a character to, drawn from a northern view
-// (Highfold, where y is large: north is up) and a southern one
-// (Eel Mere). The pinned seq-world still has the old Downs, so the map is built
-// here; the goldens are testdata/downs, rewritten by `make golden`.
+// (Highfold) and a southern one (Eel Mere). The map is built here in the layout
+// seq-world gave the Downs in WLD-053 (D125): north is up, so Highfold has the
+// large y. The goldens are testdata/downs, rewritten by `make golden`.
 
 func rect(x0, y0, x1, y1 int64) []*pb.Pos {
 	return []*pb.Pos{{X: x0, Y: y0}, {X: x1, Y: y0}, {X: x1, Y: y1}, {X: x0, Y: y1}}

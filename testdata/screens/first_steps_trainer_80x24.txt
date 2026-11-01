@@ -1,13 +1,13 @@
 ┌─ Thornwick — Hawthorn Square, at 60,45 m, nort… ─┐┌─ You ────────────────────┐
-│  #######····######                ############## ││ Hale  Lv 1 Warrior  | 0cr│
-│  #######··$·######·············    $ B  ######## ││ HP 130/130 ############# │
-│  #######····      ··Q··········   Q     ######## ││ XP ----------- 40 to Lv 2│
-│  #######··············&·g···················Q····││ Atk off Ret ON | none    │
+│▲ Gorran 52m·           ···                ###### ││ Hale  Lv 1 Warrior  | 0cr│
+│  #######····      ·············           ###### ││ HP 130/130 ############# │
+│  #######··$·      ··········$··           ###### ││ XP ----------- 40 to Lv 2│
+│  #######············$·····H······················││ Atk off Ret ON | none    │
 │  #######··Q·············@········g··············D│└──────────────────────────┘
-│  #######····      ··$·····H······················│┌─ Quest chain (Ctrl+K) ───┐
-│  #######··$·      ··········$··           ###### ││ First Steps              │
-│  #######····      ·············           ###### ││ Step 2 of 4              │
-│▼ Gorran 52m·           ···                ###### ││ Speak to your class      │
+│  #######····      ····&···········Q·········Q····│┌─ Quest chain (Ctrl+K) ───┐
+│  #######··$·      ··Q··········    $    ######## ││ First Steps              │
+│  #######····######·············      B  ######## ││ Step 2 of 4              │
+│  #######····######                ############## ││ Speak to your class      │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │                druids at the east), for your first lesson.                   │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Tamsin Hale <Watch Greeter>                                         
- ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m SW     ? help  q quit
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m NW     ? help  q quit

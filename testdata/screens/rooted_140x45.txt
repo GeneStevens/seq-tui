@@ -37,7 +37,7 @@
 │   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
 │   16:04:03.2 Plain Scuttler is affected by Root                                                                                          │
 │   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
-│                                                                                                                                          │
+│   16:04:03.2 Plain Scuttler targeted Zedd                                                                                                │
 │                                                                                                                                          │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘

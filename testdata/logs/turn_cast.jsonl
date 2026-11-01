@@ -38,9 +38,9 @@
 {"pong":{"nonce":"124"}}
 {"pong":{"nonce":"125"}}
 # mark turn_cast_plan
-{"pong":{"nonce":"126"}}
 {"tick_frame":{"base_seq":"3","events":[{"text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689621400","submitted":["zedd"],"participants":"1"}}]}}
 {"tick_frame":{"results":[{"intent_id":"tui-3","accepted":true}]}}
+{"pong":{"nonce":"126"}}
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
 {"pong":{"nonce":"129"}}
