@@ -144,7 +144,7 @@ var guidePlaying = []section{
 // mapPage is the page on reading the map: the legend, then the marks and the alarm.
 func mapPage(m *model.Model, _ View, w int, st Styler) []string {
 	out := []string{"Legend"}
-	for _, l := range legendLines(m, w-2, st) {
+	for _, l := range legendLines(m, w-2, st, nil) {
 		out = append(out, preStyled+"  "+l)
 	}
 	out = append(out, "", "Marks and pointers")

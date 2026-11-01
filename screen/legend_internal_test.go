@@ -9,7 +9,7 @@ import (
 // glyph looks in the legend as it does on the map.
 func TestLegendGlyphsAreInTheirMapStyles(t *testing.T) {
 	st := ANSI()
-	text := strings.Join(legendLines(nil, 120, st), "\n")
+	text := strings.Join(legendLines(nil, 120, st, nil), "\n")
 	for _, g := range legendGroups {
 		for _, it := range g.items {
 			// The map's own path: a cell of this kind in a grid, styled.
@@ -26,7 +26,7 @@ func TestLegendGlyphsAreInTheirMapStyles(t *testing.T) {
 }
 
 func TestLegendIsGroupedByKind(t *testing.T) {
-	lines := legendLines(nil, 76, Plain())
+	lines := legendLines(nil, 76, Plain(), nil)
 	for _, label := range []string{"You", "People", "Quest", "Events", "Creatures", "Ground"} {
 		n := 0
 		for _, l := range lines {

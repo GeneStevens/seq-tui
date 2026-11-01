@@ -1,23 +1,23 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
-│                                                                              │
-│                            ░░░░░░░░░░░░░░░░░░░░░░                            │
-│                            ░ The Smithy## ##### ░                            │
-│                            ░Cross Street# ######░                            │
-│                            ░ ###$###Q···· $B#Q##░                            │
-│                            ░ ###Q···$&@··g·····D░                            │
-│                            ░ ###$· ····$·    ###░                            │
-│                            ░ ###Hawthorn Walk###░                            │
-│                            ░ #!##T##T#T##T##T#··░                            │
-│                            ░░░░░░░░░░░░░░░░░░░░░░                            │
+│                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
+│                       ░#     ··  South Wall     #### #░                      │
+│                       ░######··Tanner's Row ######## #░                      │
+│                       ░######··###Thornwick ##########░                      │
+│                       ░######··####········ #B########░                      │
+│                       ░######$·   ··Q&····· $   ##Q###░                      │
+│              West Wall░######Q········@····g········D·░East Wall             │
+│                       ░######$·   ·$···H$··      #####░                      │
+│                       ░######··   ·········      #####░                      │
+│                       ░######··      ···         #####░                      │
+│                       ░# ·!····T···T···T···T····T····#░                      │
+│             North Wall░# ######Trainers' Lane#####   #░                      │
+│                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
 │ Thornwick, 120m by 90m, north up. You: 60m E, 45m N of the SW corner.        │
-│ You       @ you  % scout marker  + plan end  ◄ objective                     │
-│ People    p player  T trainer  $ vendor  B banker  H binder  g guard         │
-│           Q quest person  & board  D door  “ said, for 4 s  » chat names you │
-│ Quest     ! new  ? hand in  ? in progress  m quest mob  D next door          │
-│ Events    ; scout point  v raiders appear  ◆ raiders head for                │
-│ Creatures m mob  M target  x dead  r rare  * loot  ~ not yours  c camp       │
-│ Ground    # building  ^ rock  ≈ water  : ford  = bridge  " forest  · road    │
-│           . floor  ░ zone edge                                               │
+│ You       @ you                                                              │
+│ People    T trainer  $ vendor  B banker  H binder  g guard  Q quest person   │
+│           & board  D door                                                    │
+│ Quest     ! new                                                              │
+│ Ground    # building  · road  ░ zone edge                                    │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all ·…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      

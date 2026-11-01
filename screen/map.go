@@ -286,14 +286,49 @@ func zoomed(radius int64, zoom int) int64 {
 
 // overviewRows draws the whole zone in cw x ch cells: the bounds fit the panel,
 // so one cell spans many metres. What the character has not seen is not there.
-func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
-	b := m.Map.GetBounds()
+// It also says which marks are on the picture, for the legend to list.
+func overviewRows(m *model.Model, v View, cw, ch int, st Styler) ([]string, marks) {
+	g := overviewGrid(m, v, cw, ch)
+	c, r := g.cellOf(m.Self.Pos)
+	g.put(c, r, glyphSelf, kSelf)
+	paintPlaces(g, m, v)
+	present := g.marksShown()
+	v.Hits.setGrid(g)
+	paintOverlays(g, m, v)
+	return g.styled(st), present
+}
+
+// overviewScale is how many millimetres a column spans on the large map when it
+// is cw x ch cells: the bounds fit, keeping the true aspect.
+func overviewScale(b *pb.Rect, cw, ch int) int64 {
 	w, h := b.GetMaxX()-b.GetMinX(), b.GetMaxY()-b.GetMinY()
 	// The bounds span an even number of cells either side of the character's
 	// centre cell: the zone's edges are drawn on cells, so a zone as tall as the
 	// panel (the 450 m Downs at 80 x 24) would otherwise lose its south edge.
 	cols, rows := int64(max((cw-1)/2*2, 1)), int64(max((ch-1)/2*2, 1))
-	col := max((w+cols-1)/cols, (h+2*rows-1)/(2*rows), 1)
+	return max((w+cols-1)/cols, (h+2*rows-1)/(2*rows), 1)
+}
+
+// overviewWidth is the width the large map needs at a height, at most max:
+// where the zone is taller than wide the map is narrower than the window and
+// the legend sits beside it, not far off.
+func overviewWidth(m *model.Model, v View, maxW, ch int) int {
+	if v.BigZoom > 0 {
+		return maxW
+	}
+	b := m.Map.GetBounds()
+	col := overviewScale(b, maxW, ch)
+	// The columns the zone spans at that scale, and the edges drawn on cells either
+	// side of them, as overviewScale counts them.
+	cells := int((b.GetMaxX()-b.GetMinX()+col-1)/col) + 2
+	return min(cells|1, maxW)
+}
+
+// overviewGrid paints the zone as the large map shows it, without the character
+// and the names.
+func overviewGrid(m *model.Model, v View, cw, ch int) *grid {
+	b := m.Map.GetBounds()
+	col := overviewScale(b, cw, ch)
 	centre := &pb.Pos{X: (b.GetMinX() + b.GetMaxX()) / 2, Y: (b.GetMinY() + b.GetMaxY()) / 2}
 	if z := min(max(v.BigZoom, 0), MaxZoom); z > 0 {
 		// Zoomed in, the map is centred on the character and each cell spans less.
@@ -301,32 +336,63 @@ func overviewRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	}
 	g := gridFor(v.Hits, scale{col: col, row: 2 * col}, cw, ch, centre)
 	paintWorld(g, m, v, true)
-	c, r := g.cellOf(m.Self.Pos)
-	g.put(c, r, glyphSelf, kSelf)
-	paintPlaces(g, m)
-	v.Hits.setGrid(g)
-	paintOverlays(g, m, v)
-	return g.styled(st)
+	return g
 }
 
+// placeMinCells is the least a place must span on the large map to be named
+// when the map is not showing everything (D120): its longer side, counted in
+// columns (a row is two columns tall), at least this many. A lake or a wood
+// clears it at the widest zoom; a hut, a stone or a sheepfold pen does not, and
+// each step in halves what a cell spans, so doubles the cells a place spans.
+const placeMinCells = 8
+
 // paintPlaces writes the names of the zone's named places (D76) on the large
-// map, centred on each place and under every glyph: a name is written only where
-// it covers open ground or building, never over another name or a glyph, and is
-// moved a row up or down to find room. The smaller places are written first.
-func paintPlaces(g *grid, m *model.Model) {
+// map, one for each place (D120): where the place has several areas it is the
+// middle of them all. A name is written only where it covers open ground, a
+// building, rock or forest, and never road, water, a ford or bridge, a door, the
+// character, the objective, a mark or another name; if the middle does not fit,
+// the nearest spot inside or beside the place does, and if none does the name
+// is left out. The larger places are written first. A place too small to matter
+// at this zoom is not named, unless everything is (Alt held).
+func paintPlaces(g *grid, m *model.Model, v View) {
 	places := m.PlaceLabels()
 	b := m.Map.GetBounds()
 	_, top := g.cellOf(&pb.Pos{X: b.GetMinX(), Y: b.GetMaxY()})
 	_, bottom := g.cellOf(&pb.Pos{X: b.GetMinX(), Y: b.GetMinY()})
-	sort.SliceStable(places, func(i, j int) bool { return places[i].Size < places[j].Size })
+	sort.SliceStable(places, func(i, j int) bool { return places[i].Size > places[j].Size })
+	var objective [2]int64
+	haveObjective := false
+	if h := m.Objective(); h != nil && h.GetPos() != nil {
+		objective[0], objective[1] = g.cellOf(h.GetPos())
+		haveObjective = true
+	}
 	for _, p := range places {
+		span := max(p.DX, p.DY/2) / g.sc.col // columns
+		if !v.Labels && span < placeMinCells {
+			continue
+		}
+		w := width(p.Name)
 		c, r := g.cellOf(p.Pos)
-		c0 := c - int64(width(p.Name)/2)
-		for _, dr := range []int64{0, -1, 1, -2, 2} {
-			if r+dr > top && r+dr < bottom && g.roomFor(c0, r+dr, width(p.Name)) && !g.nameAt(c0-1, r+dr) && !g.nameAt(c0+int64(width(p.Name)), r+dr) {
-				g.text(c0, r+dr, p.Name, kPlace)
-				break
+		halfC := max(p.DX/g.sc.col/2, 2) + int64(w)/2
+		halfR := max(p.DY/g.sc.row/2, 0) + 1
+		type spot struct{ dc, dr, cost int64 }
+		var spots []spot
+		for dr := -halfR; dr <= halfR; dr++ {
+			for dc := -halfC; dc <= halfC; dc++ {
+				spots = append(spots, spot{dc, dr, dc*dc + 4*dr*dr})
 			}
+		}
+		sort.SliceStable(spots, func(i, j int) bool { return spots[i].cost < spots[j].cost })
+		for _, s := range spots {
+			c0, row := c+s.dc-int64(w/2), r+s.dr
+			if row <= top || row >= bottom || !g.roomFor(c0, row, w) || g.nameAt(c0-1, row) || g.nameAt(c0+int64(w), row) {
+				continue
+			}
+			if haveObjective && row == objective[1] && objective[0] >= c0 && objective[0] < c0+int64(w) {
+				continue
+			}
+			g.text(c0, row, p.Name, kPlace)
+			break
 		}
 	}
 }
@@ -337,18 +403,55 @@ func (g *grid) nameAt(c, r int64) bool {
 	return r >= 0 && r < int64(g.ch) && c >= 0 && c < int64(g.cw) && g.cells[r][c].k == kPlace
 }
 
-// roomFor says w cells from (c, r) are inside the grid and show no more than
-// ground: nothing is drawn over them.
+// nameable says a name may be written over the cell (D120): over open ground,
+// or a building, rock or forest, and over nothing else. Road, water, ford and
+// bridge are ground too, and a name over them breaks the line a person follows.
+func (c cell) nameable() bool {
+	switch c.k {
+	case kEmpty:
+		return true
+	case kGround:
+		switch c.a {
+		case model.Building, model.Rock, model.Forest, model.Floor:
+			return true
+		}
+	}
+	return false
+}
+
+// roomFor says w cells from (c, r) are inside the grid and show nothing a name
+// may not cover: nothing else is drawn over them.
 func (g *grid) roomFor(c, r int64, w int) bool {
 	if r < 0 || r >= int64(g.ch) || c < 0 || c+int64(w) > int64(g.cw) {
 		return false
 	}
 	for i := 0; i < w; i++ {
-		if g.cells[r][c+int64(i)].k > kGround {
+		if !g.cells[r][c+int64(i)].nameable() {
 			return false
 		}
 	}
 	return true
+}
+
+// A mark on the picture: what the legend lists is what is here.
+type markKey struct {
+	k cellKind
+	r rune
+}
+
+type marks map[markKey]bool
+
+// marksShown is the marks on the grid: each kind and glyph that has a cell.
+func (g *grid) marksShown() marks {
+	out := marks{}
+	for _, row := range g.cells {
+		for _, c := range row {
+			if c.k != kEmpty && c.r != ' ' {
+				out[markKey{c.k, c.r}] = true
+			}
+		}
+	}
+	return out
 }
 
 // groundGlyph is the glyph of a kind of ground; 0 for open ground.
@@ -382,8 +485,8 @@ var groundShown = []model.AreaKind{model.Building, model.Rock, model.Bridge, mod
 // paintStatic puts what does not move on the grid: the ground, the bounds and
 // the walls. They are the same for the same zone map, scale and cell the
 // character stands in, so the layer is made once for each and copied (T5).
-func paintStatic(g *grid, m *model.Model) {
-	copy(g.flat, staticLayer(g, m.Ground(), m.Map))
+func paintStatic(g *grid, m *model.Model, overview bool) {
+	copy(g.flat, staticLayer(g, m.Ground(), m.Map, overview))
 }
 
 // The program draws the same ground again and again while the character stands
@@ -394,6 +497,7 @@ type groundKey struct {
 	sc         scale
 	pcol, prow int64
 	cw, ch     int
+	overview   bool // the large map's ground (D120), not the panel's
 }
 
 var (
@@ -403,8 +507,8 @@ var (
 
 // staticLayer is the layer for g's place and scale: the ground, and with a zone
 // map the bounds and walls over it. Its cells are shared: callers copy them.
-func staticLayer(g *grid, t *model.Terrain, zm *pb.ZoneMap) []cell {
-	key := groundKey{t, zm, g.sc, g.pcol, g.prow, g.cw, g.ch}
+func staticLayer(g *grid, t *model.Terrain, zm *pb.ZoneMap, overview bool) []cell {
+	key := groundKey{t, zm, g.sc, g.pcol, g.prow, g.cw, g.ch, overview}
 	groundMu.Lock()
 	cells, ok := groundMemo[key]
 	groundMu.Unlock()
@@ -414,7 +518,7 @@ func staticLayer(g *grid, t *model.Terrain, zm *pb.ZoneMap) []cell {
 	scratch := newGrid(g.sc, g.cw, g.ch, &pb.Pos{})
 	scratch.pcol, scratch.prow = g.pcol, g.prow
 	if t != nil {
-		rasterGround(scratch, t)
+		rasterGround(scratch, t, overview)
 	}
 	if zm != nil {
 		paintLines(scratch, zm)
@@ -432,7 +536,7 @@ func staticLayer(g *grid, t *model.Terrain, zm *pb.ZoneMap) []cell {
 // across it, so a feature narrower than a cell still shows. In a dungeon (a
 // zone with floor, where floor is the only walkable ground) the floor is drawn,
 // the rock that touches it is drawn as a wall, and the rest stays blank.
-func rasterGround(g *grid, t *model.Terrain) {
+func rasterGround(g *grid, t *model.Terrain, overview bool) {
 	dungeon := t.HasFloor()
 	// Only the areas that reach the view are asked about the cells in it: a
 	// dungeon has fifty, and the view is a few of them.
@@ -484,10 +588,23 @@ func rasterGround(g *grid, t *model.Terrain) {
 	for r := range g.ch {
 		for c := range g.cw {
 			if k := kindAt(c, r); groundGlyph(k) != 0 {
+				if overview && k == model.Forest && forestGap(g, c, r) {
+					continue
+				}
 				g.cells[r][c] = cell{r: groundGlyph(k), k: kGround, a: k}
 			}
 		}
 	}
+}
+
+// forestGap says a forest cell of the large map is left blank (D120): the
+// forest is a stipple of every other cell, which reads calmer than a solid run
+// of quotes and needs no glyph a terminal might lack. The cell's place in the
+// zone's own grid decides, not its place in the window, so the pattern does not
+// flicker as the map scrolls.
+func forestGap(g *grid, c, r int) bool {
+	gc, gr := int64(c-g.cw/2)+g.pcol, g.prow-int64(r-g.ch/2)
+	return (gc+gr)&1 != 0
 }
 
 // touches says a cell has floor in one of the eight cells round it.
@@ -522,10 +639,14 @@ func paintLines(g *grid, zm *pb.ZoneMap) {
 // the bounds, walls, doors, the NPCs seen (remembered ones too), camps, the
 // markers of held scout contracts, drops, the plan, and what is in view.
 func paintWorld(g *grid, m *model.Model, v View, overview bool) {
-	paintStatic(g, m)
-	for _, camp := range m.Camps() {
-		c, r := g.cellOf(camp.GetPos())
-		g.put(c, r, glyphCamp, kCamp)
+	paintStatic(g, m, overview)
+	// The camps are scattered all over the zone: the widest large map leaves
+	// them out (D120) and shows them once zoomed in, or when everything is named.
+	if !overview || v.BigZoom > 0 || v.Labels {
+		for _, camp := range m.Camps() {
+			c, r := g.cellOf(camp.GetPos())
+			g.put(c, r, glyphCamp, kCamp)
+		}
 	}
 	for _, d := range m.Map.GetDoors() {
 		c, r := g.cellOf(d.GetPos())
@@ -641,8 +762,11 @@ func cellStyle(k cellKind, area model.AreaKind, st Styler) func(string) string {
 	switch k {
 	case kGround:
 		return groundStyle(area, st)
-	case kPlace, kCard, kSelf:
+	case kPlace, kCard:
 		return st.Bold
+	case kSelf:
+		// The first thing the eye finds (D120), and not by colour.
+		return func(s string) string { return st.Reverse(st.Bold(s)) }
 	case kBubble:
 		return func(x string) string { return st.Chat.Say(st.Bold(x)) }
 	case kLabel:
@@ -678,7 +802,9 @@ func groundStyle(k model.AreaKind, st Styler) func(string) string {
 		return st.Cyan
 	case model.Forest:
 		return st.Green
-	case model.Rock, model.Road, model.Floor:
+	case model.Road:
+		return st.Bold // a road must not fade into the ground it crosses (D120)
+	case model.Rock, model.Floor:
 		return st.Dim
 	}
 	return func(s string) string { return s }

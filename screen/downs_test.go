@@ -78,11 +78,39 @@ func downsMap() *pb.ZoneMap {
 	}
 }
 
+// downsWide is the Downs with the places that stand in several pieces, as the
+// real zone's do (D120): the same name on several areas, small features beside
+// the large, and camps in the woods. It is the map of the large map's goldens.
+func downsWide() *pb.ZoneMap {
+	zm := downsMap()
+	zm.Areas = append(zm.Areas,
+		&pb.Area{Id: "highfold-fold-2", Name: "Highfold Sheepfold", Kind: "building", Poly: rect(84000, 33000, 92000, 38000)},
+		&pb.Area{Id: "highfold-fold-3", Name: "Highfold Sheepfold", Kind: "building", Poly: rect(95000, 33000, 103000, 38000)},
+		&pb.Area{Id: "hoarstone-3", Name: "The Hoarstones", Kind: "rock", Poly: rect(236000, 36000, 239000, 39000)},
+		&pb.Area{Id: "goblin-copse-n", Name: "North Goblin Copse", Kind: "forest", Poly: poly(300000, 300000, 340000, 296000, 352000, 330000, 320000, 346000, 296000, 330000)},
+		&pb.Area{Id: "goblin-copse-e", Name: "East Goblin Copse", Kind: "forest", Poly: poly(344000, 120000, 384000, 116000, 392000, 150000, 360000, 160000)},
+		&pb.Area{Id: "goblin-hut-1", Name: "Goblin Hut", Kind: "building", Poly: rect(310000, 310000, 318000, 316000)},
+		&pb.Area{Id: "goblin-hut-2", Name: "Goblin Hut", Kind: "building", Poly: rect(324000, 312000, 332000, 318000)},
+		&pb.Area{Id: "goblin-hut-3", Name: "Goblin Hut", Kind: "building", Poly: rect(316000, 324000, 324000, 330000)},
+		&pb.Area{Id: "eldbury-ring-1", Name: "Eldbury Ring", Kind: "rock", Poly: rect(40000, 300000, 43000, 303000)},
+		&pb.Area{Id: "eldbury-ring-2", Name: "Eldbury Ring", Kind: "rock", Poly: rect(100000, 304000, 103000, 307000)},
+		&pb.Area{Id: "eldbury-ring-3", Name: "Eldbury Ring", Kind: "rock", Poly: rect(76000, 332000, 79000, 335000)},
+		&pb.Area{Id: "eldbury-ring-4", Name: "Eldbury Ring", Kind: "rock", Poly: rect(52000, 322000, 55000, 325000)})
+	zm.Camps = append(zm.Camps,
+		&pb.Camp{Id: "goblin-camp-a", Mob: "Goblin Skulker", Level: 7, Count: 3, Pos: &pb.Pos{X: 320000, Y: 322000}},
+		&pb.Camp{Id: "goblin-camp-b", Mob: "Goblin Skulker", Level: 7, Count: 3, Pos: &pb.Pos{X: 372000, Y: 140000}})
+	return zm
+}
+
 // downsWorld is the Downs with the character at (x, y) and the quest step that
 // brings it there.
 func downsWorld(x, y int64, q *pb.QuestInfo, seen ...*pb.NpcInfo) *model.Model {
+	return downsWorldOn(downsMap(), x, y, q, seen...)
+}
+
+func downsWorldOn(zm *pb.ZoneMap, x, y int64, q *pb.QuestInfo, seen ...*pb.NpcInfo) *model.Model {
 	m := model.New()
-	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ZoneMap{ZoneMap: downsMap()}})
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_ZoneMap{ZoneMap: zm}})
 	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Snapshot{Snapshot: &pb.Snapshot{Space: "thornwick-downs", Seq: 1, GameTimeMs: 1000,
 		Self: &pb.SelfState{Entity: &pb.EntityState{Id: "me", Name: "Hale", Level: 8, Pos: &pb.Pos{X: x, Y: y}, Hp: 130, MaxHp: 130}, Quest: q},
 		Npcs: seen}}})
@@ -105,10 +133,17 @@ func TestTheBiggerDownsGoldens(t *testing.T) {
 		{"downs_eel_mere", 190000, 412000, south, false, []string{"Kills: 2 of 5", "190,412 m"}},
 		{"downs_highfold_overview", 100000, 44000, north, true, nil},
 		{"downs_eel_mere_overview", 190000, 412000, south, true, nil},
+		{"downs_wide_overview", 100000, 44000, north, true, nil},
 	}
 	for _, c := range cases {
-		for _, sz := range [][2]int{{80, 24}, {120, 40}} {
+		for _, sz := range [][2]int{{80, 24}, {120, 40}, {200, 50}} {
+			if sz[0] == 200 && c.name != "downs_wide_overview" {
+				continue // the wide window is held by the Downs' own golden
+			}
 			m := downsWorld(c.x, c.y, c.q)
+			if c.name == "downs_wide_overview" {
+				m = downsWorldOn(downsWide(), c.x, c.y, c.q)
+			}
 			v := view()
 			v.Overview = c.big
 			got := screen.Render(m, v, sz[0], sz[1], screen.Plain()) + "\n"
