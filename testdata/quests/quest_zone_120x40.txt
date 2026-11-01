@@ -4,7 +4,7 @@
 │ Now:                                                                                                                 │
 │   Take the news to Captain Hartley.                                                                                  │
 │   This step is in another zone: Thornwick.                                                                           │
-│   Take the Town Gate: 204m NW of you.                                                                                │
+│   Take the Town Gate: 204m SW of you.                                                                                │
 │                                                                                                                      │
 │ It is optional: nothing waits for it and nothing reminds you.                                                        │
 │                                                                                                                      │

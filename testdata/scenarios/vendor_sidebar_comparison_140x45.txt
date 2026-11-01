@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Dunstan Reeve <Weaponsmith>, 3m S away. You have 30 crowns.                                    ││ hale  Lv 3 Warrior          | 30 crowns│
+│ Dunstan Reeve <Weaponsmith>, 3m N away. You have 30 crowns.                                    ││ hale  Lv 3 Warrior          | 30 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ For sale (Enter buys one)                     │ You carry (Enter sells one)                    ││ XP ------------------------- 90 to Lv 4│
 │  ▲ Cudgel Common                 45, short 15 │  (nothing)                                     ││ Atk off | none                         │

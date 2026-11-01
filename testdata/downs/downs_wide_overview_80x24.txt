@@ -1,23 +1,23 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                                                                              │
-│                            ░░░░░░░░░░░;░░░░░░░░░░░                           │
-│         Eelmere Stilt House░     ;"≈≈≈≈≈≈≈≈·     ░                           │
-│                            ░      ·≈≈≈≈Goblin Hut░                           │
-│                            ░   Q   ·≈Eelmere +2  ░                           │
-│             Eldbury Ring +8░       ·≈≈     "#### ░Goblin Stockade            │
-│                            ░       ;≈≈Fordwatch  ░                           │
-│                            D        ≈···· ······D░                           │
-│                            ░   ·    ≈≈Far Road  ^░                           │
-│                            ░   ··  "≈≈Highfold +3░                           │
-│                            ░    · " ≈≈    Q   "  ░Barleycross +2             │
-│          Highfold Wool Shed░    ·  "≈≈  ^;       ░                           │
-│          Highfold Sheepfold░    @   ≈≈  ;        ░                           │
 │                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
-│ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.│
+│          Highfold Sheepfold░    @   ≈≈  ;        ░                           │
+│          Highfold Wool Shed░    ·  "≈≈  ^;       ░                           │
+│                            ░    · " ≈≈    Q   "  ░Barleycross +2             │
+│                            ░   ··  "≈≈Highfold +3░                           │
+│                            ░   ·    ≈≈Far Road  ^░                           │
+│                            D        ≈···· ······D░                           │
+│                            ░       ;≈≈Fordwatch  ░                           │
+│             Eldbury Ring +8░       ·≈≈ Goblin Hut░Goblin Stockade            │
+│                            ░   Q   ·≈Eelmere +2  ░                           │
+│                            ░      ·≈≈≈≈          ░                           │
+│         Eelmere Stilt House░     ;"≈≈≈≈≈≈≈≈·     ░                           │
+│                            ░░░░░░░░░░░;░░░░░░░░░░░                           │
+│ Thornwick Downs, 420m by 450m, north up. You: 100m E, 406m N of the SW corne…│
 │ You       @ you                                                              │
 │ People    Q quest person  D door                                             │
 │ Events    ; scout point                                                      │
-│ Ground    # building  ^ rock  ≈ water  " forest  · road  ░ zone edge         │
+│ Ground    ^ rock  ≈ water  " forest  · road  ░ zone edge                     │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all ·…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      

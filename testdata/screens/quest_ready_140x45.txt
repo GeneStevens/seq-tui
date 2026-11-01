@@ -18,14 +18,14 @@
 │                                                                                                ││ Break the Raiding Party          READY │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ ? Captain Rhosyn Hart… 1m NE [hand in] │
+│                                                                                                ││ ? Captain Rhosyn Hart… 1m SE [hand in] │
 │                                                                                                ││ ! Jory Fennick <Marlbridg… 20m W [new] │
 │────────────────────────────────────────────────────────────────────────────────────────────────││ ! Tamsin Hale <Watch Gree… 43m W [new] │
 │ Break the Raiding Party: Hunt, 5 of 5 killed.                                                  ││ & Thornwick Contract Board 47m W [new] │
-│                                                                                                ││ D East Gate                     12m SE │
-│ Pays nothing.                                                                                  ││ B Odalys Penn <Banker>          17m NW │
-│ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m NE.                         ││ Q Godric Ashdown <Reeve>         20m W │
-│                                                                                                ││ T Wynne Greenhollow <Druid Trai… 35m S │
+│                                                                                                ││ D East Gate                     12m NE │
+│ Pays nothing.                                                                                  ││ B Odalys Penn <Banker>          17m SW │
+│ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m SE.                         ││ Q Godric Ashdown <Reeve>         20m W │
+│                                                                                                ││ T Wynne Greenhollow <Druid Trai… 35m N │
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ $ Corwen Pell <Wool Guild Mistr… 38m W │
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Watch House Yard, Thornwick | → Hand in: Break the Raiding Party, 1m NE | heard 0.4s ago                            ? help  q quit
+ ONLINE | Watch House Yard, Thornwick | → Hand in: Break the Raiding Party, 1m SE | heard 0.4s ago                            ? help  q quit

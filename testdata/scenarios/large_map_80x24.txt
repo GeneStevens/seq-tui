@@ -1,17 +1,17 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
-│             South Wall░#     ··    #The Counting House░                      │
-│                       ░######··    ####The Watch House░The Chandlery         │
-│            The Armoury░######··#Thornwick +10#########░                      │
-│                       ░######··####········ #B########░                      │
-│           Tanner's Row░######$·   ··Q&····· $   ##Q###░Watch House Yard      │
-│              West Wall░######Q········@····g········D·░East Wall             │
-│                       ░######$·   ·$···H$··  East Gate░Gatehouse Way         │
-│                       ░######··   ·········      #####░                      │
-│                       ░######··      ··· The Gatehouse░                      │
-│         Trainers' Lane░# ·!····T···T···T···T···· Thornwick · Trainers' Lane  │
 │         Warriors' Hall░The Tannery#North Wall#####   #░Druids' Hall          │
-│                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
+│         Trainers' Lane░# ·!····T···T···T···T····T····#░                      │
+│                       ░######··      ··· The Gatehouse░                      │
+│                       ░######··   ·········      #####░                      │
+│                       ░######$·   ·$···H$··  East Gate░Gatehouse Way         │
+│              West Wall░######Q········@····g········D·░East Wall             │
+│           Tanner's Row░######$·   ··Q&····· $   ##Q###░Watch House Yard      │
+│                       ░######··####········ #B########░                      │
+│            The Armoury░######··#Thornwick +10#########░                      │
+│                       ░######··    ####The Watch House░The Chandlery         │
+│             South Wall░#     ··    #The Counting House░                      │
+│                       ░░░░░░░░░░░░░░░░░░░░░░░░░░ Thornwick · South Wall      │
 │ Thornwick, 120m by 90m, north up. You: 60m E, 45m N of the SW corner.        │
 │ You       @ you                                                              │
 │ People    T trainer  $ vendor  B banker  H binder  g guard  Q quest person   │
@@ -21,4 +21,4 @@
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all ·…│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m SW     ? help  q quit
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m NW     ? help  q quit

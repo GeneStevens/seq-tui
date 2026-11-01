@@ -1,13 +1,13 @@
-┌─ Thornwick Downs, at 251,180 m, north up ────────┐┌─ You: in combat ─────────┐
-│         ^^^^^^                                   ││ hale  Lv 8 Warrior  | 0cr│
-│                                                  ││ HP 249/249 ############# │
+┌─ Thornwick Downs, at 251,270 m, north up ────────┐┌─ You: in combat ─────────┐
+│                                """""""""""""""###││ hale  Lv 8 Warrior  | 0cr│
+│                                    """"""""   ###││ HP 249/249 ############# │
 │                                                  ││ XP ---------- 202 to Lv 9│
-│                         ####                     ││ Atk ON Ret ON | Goblin S…│
-│                      M  @###                     ││ Attacked by Goblin Scrap…│
-│                                                  │└──────────────────────────┘
-│                                                  │┌─ Target ─────────────────┐
+│                                                  ││ Atk ON Ret ON | Goblin S…│
+│                      M  @                        ││ Attacked by Goblin Scrap…│
+│                         ####                     │└──────────────────────────┘
+│                         ####                     │┌─ Target ─────────────────┐
 │                                                  ││ M Goblin Scrapper  Lv 5  │
-│                                   """"""""""" ###││ HP 160/160 ####### 6m W  │
+│                                                  ││ HP 160/160 ####### 6m W  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt ready       2 Bash range       3 -                4 -                │

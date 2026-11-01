@@ -1,5 +1,5 @@
 ┌─ Talking — C: your character ────────────────────────────────────────────────┐
-│ Captain Rhosyn Hartley <Watch Captain>, 1m NE of you                         │
+│ Captain Rhosyn Hartley <Watch Captain>, 1m SE of you                         │
 │                                                                              │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are    │
 │ another matter.”                                                             │

@@ -17,13 +17,13 @@
 │                                                                                                ││                                        │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ & Thornwick Contract Board 4m SW [new] │
-│                                                                                                ││ ! Tamsin Hale <Watch Gr… 6m S [step 1] │
-│                                                                                                ││ g Town Guard <Thornwick Watch>    6m N │
+│                                                                                                ││ & Thornwick Contract Board 4m NW [new] │
+│                                                                                                ││ ! Tamsin Hale <Watch Gr… 6m N [step 1] │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   5m SW │
 │────────────────────────────────────────────────────────────────────────────────────────────────││ Q Ambrose Fenwick <Master of the… 7m W │
-│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ H Isolde Fenn <Binder>          14m SE │
-│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ $ Barnaby Tuck <General Goods>  15m SW │
-│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                                          ││ $ Corwen Pell <Wool Guild Mist… 19m SE │
+│ Boars in the Barley: Hunt, L1-3, for 3 kills.                                                  ││ H Isolde Fenn <Binder>          14m NE │
+│ Kill 3 boars in the Thornwick Downs before they ruin the harvest.                              ││ $ Barnaby Tuck <General Goods>  15m NW │
+│ Pays 30 XP, 14 crowns and Tin Ring ▲.                                                          ││ $ Corwen Pell <Wool Guild Mist… 19m NE │
 │ Tin Ring: upgrade over an empty ring: +10 health, +1 stamina                                   ││ Q Godric Ashdown <Reeve>         25m E │
 │                                                                                                ││ $ Jory Fennick <Marlbridge Cart… 26m E │
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││ B Odalys Penn <Banker>           30m E │
@@ -42,4 +42,4 @@
 │                proof back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                   │
 │ + 16:04:03.2 You hand in Wolves at Wickett Mill: 31 experience, 14 crowns                                                                │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125% | heard 0.4s ago | hand in Thin the Meadow Wolves ok     ? help
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 6m N | road: faster, 125% | heard 0.4s ago | hand in Thin the Meadow Wolves ok     ? help

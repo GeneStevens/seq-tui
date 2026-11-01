@@ -1,29 +1,29 @@
-┌─ Thornwick Downs, at 100,44 m, north up ─────────────────────────────────────────┐┌─ You ────────────────────────────┐
-│                                   ····                                           ││ Hale  Lv 8  XP 0       | 0 crowns│
-│                                   ····                                           ││ HP 130/130 ##################### │
-│                                   ·····                                          ││ Target: none                     │
-│                                   ·····                                          ││ Atk off | Retaliate off          │
-│                                    ····                          c               │└──────────────────────────────────┘
-│                                    ·····                                         │┌─ Quest chain (Ctrl+K) ───────────┐
-│                                    ·····                                         ││ A Boat for the Ferryman          │
-│                                     ····                                         ││ Step 4 of 5                      │
-│                                                                                  ││ Take the news to Captain         │
-│                                                                                  ││ Hartley.                         │
-│                                         ;                                        ││ This step is in another zone:    │
-│                                                           ······················=││   Thornwick.                     │
-│                                         @                 ······················=││ Take the Town Gate: 204m NW of   │
-│                                         Q                 ······················=││   you.                           │
+┌─ Thornwick Downs, at 100,406 m, north up ────────────────────────────────────────┐┌─ You ────────────────────────────┐
+│                                                                                  ││ Hale  Lv 8  XP 0       | 0 crowns│
+│                                                                                  ││ HP 130/130 ##################### │
+│                                                                                  ││ Target: none                     │
+│                                                                                  ││ Atk off | Retaliate off          │
 │                                                                                  │└──────────────────────────────────┘
+│                                      #######                                     │┌─ Quest chain (Ctrl+K) ───────────┐
+│                               #####  #######                                     ││ A Boat for the Ferryman          │
+│                               #####  #######                                     ││ Step 4 of 5                      │
+│                               #####                                              ││ Take the news to Captain         │
+│                                                                                  ││ Hartley.                         │
+│                                                                                  ││ This step is in another zone:    │
+│                                         Q                 ·······················││   Thornwick.                     │
+│                                         @                 ······················=││ Take the Town Gate: 204m SW of   │
+│                                                           ······················=││   you.                           │
+│                                         ;                                        │└──────────────────────────────────┘
 │                                                                                  │┌─ Target ─────────────────────────┐
 │                                                                                  ││ no target (Tab to choose)        │
-│                               #####  #######                                     ││                                  │
-│                               #####  #######                                     ││                                  │
-│                                      #######                                     │└──────────────────────────────────┘
-│                                                                                  │┌─ Nearby ─────────────────────────┐
-│                                                                                  ││ Q Maud Fenner <Highfold Re… 4m S │
-│                                                                                  ││ ; Highfold     6m N scout marker │
-│                                                                                  ││ ; The Hoars… 146m E scout marker │
-│                                                                                  ││ +7 more                          │
+│                                     ····                                         ││                                  │
+│                                    ·····                                         ││                                  │
+│                                    ·····                                         │└──────────────────────────────────┘
+│                                    ····                          c               │┌─ Nearby ─────────────────────────┐
+│                                   ·····                                          ││ Q Maud Fenner <Highfold Re… 4m N │
+│                                   ·····                                          ││ ; Highfold     6m S scout marker │
+│                                   ·····                                          ││ ; The Hoars… 146m E scout marker │
+│                                   ····                                           ││ +7 more                          │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────┐
 │ + 16:04:03.2 On the quest chain A Boat for the Ferryman, step 4 of 5: Take the news to Captain Hartley. It is        │

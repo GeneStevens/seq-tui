@@ -104,15 +104,15 @@ var warrenCamps = []struct {
 	id   string
 	x, y int64
 }{
-	{"diggers-c", 62000, 70000}, {"diggers-a", 30000, 35000}, {"diggers-b", 28000, 100000},
-	{"scouts-a", 72000, 28000}, {"slingers-a", 72000, 16000}, {"scouts-b", 72000, 112000},
-	{"slingers-b", 96000, 90000},
-	{"cutthroats-a", 142000, 35000}, {"cutthroats-b", 142000, 105000},
-	{"shamans-a", 172000, 50000}, {"shamans-b", 180000, 95000},
-	{"brutes-a", 204000, 32000}, {"brutes-c", 224000, 70000}, {"brutes-b", 214000, 106000},
-	{"stalkers-a", 262000, 38000}, {"stalkers-b", 262000, 102000},
-	{"deep-shamans-a", 288000, 55000}, {"deep-shamans-b", 288000, 108000},
-	{"wardens-a", 312000, 36000}, {"wardens-b", 312000, 104000},
+	{"diggers-c", 62000, 70000}, {"diggers-a", 30000, 105000}, {"diggers-b", 28000, 40000},
+	{"scouts-a", 72000, 112000}, {"slingers-a", 72000, 124000}, {"scouts-b", 72000, 28000},
+	{"slingers-b", 96000, 50000},
+	{"cutthroats-a", 142000, 105000}, {"cutthroats-b", 142000, 35000},
+	{"shamans-a", 172000, 90000}, {"shamans-b", 180000, 45000},
+	{"brutes-a", 204000, 108000}, {"brutes-c", 224000, 70000}, {"brutes-b", 214000, 34000},
+	{"stalkers-a", 262000, 102000}, {"stalkers-b", 262000, 38000},
+	{"deep-shamans-a", 288000, 85000}, {"deep-shamans-b", 288000, 32000},
+	{"wardens-a", 312000, 104000}, {"wardens-b", 312000, 36000},
 	{"chief", 340000, 70000},
 }
 
@@ -343,7 +343,7 @@ func TestTwoAccountsClearTheWholeWarren(t *testing.T) {
 		{Name: "ann", Home: scenario.Warren, Classed: map[string]string{"hale": "warrior"}},
 		{Name: "bob", Home: scenario.Warren, Classed: map[string]string{"bram": "cleric"}}}})
 	w.Place("ann", "hale", 11000, 70000)
-	w.Place("bob", "bram", 11000, 71000)
+	w.Place("bob", "bram", 11000, 69000)
 	w.Srv.Give("hale", levelUp(12, hardy))
 	w.Srv.Give("bram", levelUpAs("cleric", 12, hardy))
 	ann := w.Login("ann", "hale")

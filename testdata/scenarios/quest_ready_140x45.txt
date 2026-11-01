@@ -24,7 +24,7 @@
 │ Break the Raiding Party: Hunt, 5 of 5 killed.                                                  ││                                        │
 │                                                                                                ││                                        │
 │ Pays nothing.                                                                                  ││                                        │
-│ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m NE.                         ││                                        │
+│ Finished: hand it in at Captain Rhosyn Hartley <Watch Captain>, 1m SE.                         ││                                        │
 │                                                                                                ││                                        │
 │ Tab offered / held · Enter take / hand in · X give up · Esc back                               ││                                        │
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││                                        │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | Watch House Yard, Thornwick | → Hand in: Break the Raiding Party, 1m NE | heard N.Ns ago                            ? help  q quit
+ ONLINE | Watch House Yard, Thornwick | → Hand in: Break the Raiding Party, 1m SE | heard N.Ns ago                            ? help  q quit

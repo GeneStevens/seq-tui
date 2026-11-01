@@ -20,7 +20,7 @@ import (
 func atTheWeaponStall(t *testing.T, crowns int, edit func(*core.CharacterSave)) (*scenario.World, *scenario.Player) {
 	t.Helper()
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
-	w.Place("ann", "hale", 28000, 38500)
+	w.Place("ann", "hale", 28000, 51500)
 	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")

@@ -49,20 +49,16 @@
 {"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
 {"pong":{"nonce":"129"}}
-{"pong":{"nonce":"130"}}
 {"tick_frame":{"base_seq":"3","events":[{"text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689609200","submitted":["bob1"],"participants":"2"}}]}}
+{"pong":{"nonce":"130"}}
 {"pong":{"nonce":"131"}}
 {"pong":{"nonce":"132"}}
-{"pong":{"nonce":"133"}}
-{"pong":{"nonce":"134"}}
 # mark party_round_bob_sent
 {"tick_frame":{"base_seq":"4","events":[{"text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689609200","submitted":["ann1","bob1"],"participants":"2"}}]}}
 {"tick_frame":{"results":[{"intent_id":"tui-2","accepted":true}]}}
+{"pong":{"nonce":"133"}}
+{"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
-{"pong":{"nonce":"136"}}
-{"pong":{"nonce":"137"}}
-{"pong":{"nonce":"138"}}
-{"pong":{"nonce":"139"}}
 {"tick_frame":{"base_seq":"5","events":[{"game_time_ms":"100","entity_moved":{"id":"mob-pair-1","pos":{"x":"99792","y":"75785"}}}],"deltas":[{"group":{}}],"doors":{"doors":[{"id":"gate-north","usable":true}]}}}
 {"tick_frame":{"base_seq":"6","events":[{"game_time_ms":"200","entity_moved":{"id":"mob-pair-1","pos":{"x":"99584","y":"75570"}}}]}}
 {"tick_frame":{"base_seq":"7","events":[{"game_time_ms":"300","entity_moved":{"id":"mob-pair-1","pos":{"x":"99376","y":"75355"}}}]}}
@@ -85,6 +81,6 @@
 {"tick_frame":{"base_seq":"24","events":[{"game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"all_submitted","submitted":["ann1","bob1"],"deadline_ms":"1735689609200","plays":[{"character":"ann1","source":"own_plan"},{"character":"bob1","source":"own_plan"}],"participants":"2"}}]}}
 {"party":{"id":"party-1","leader":"ann1","members":[{"name":"ann1","online":true,"leader":true,"zone":"Testgrounds (Duo Turns)","level":1,"hp":100,"max_hp":100},{"name":"bob1","online":true,"zone":"Testgrounds (Duo Turns)","level":1,"hp":100,"max_hp":100}]}}
 {"tick_frame":{"base_seq":"25","events":[{"game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689609300","participants":"2"}}]}}
-{"pong":{"nonce":"140"}}
-{"pong":{"nonce":"141"}}
+{"pong":{"nonce":"136"}}
+{"pong":{"nonce":"137"}}
 {"party":{"id":"party-1","leader":"ann1","members":[{"name":"ann1","online":true,"leader":true,"zone":"Testgrounds (Duo Turns)","level":1,"hp":100,"max_hp":100},{"name":"bob1"}]}}

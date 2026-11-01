@@ -12,6 +12,8 @@
 {"pong":{"nonce":"107"}}
 {"pong":{"nonce":"108"}}
 {"tick_frame":{"results":[{"intent_id":"attend-1-ann-here","accepted":true}],"doors":{"doors":[{"id":"line-east","why":"Line East is closed to you right now"},{"id":"gate-north","why":"Gate North is still opening: the expedition beyond it isn't ready. Try again in a moment."}]}}}
+{"tick_frame":{"deltas":[{"quest":{"quest":{"id":"relics","name":"The Old Relic","step":"1","steps":"3","text":"Watch from the Hollow Lookout.","target_kind":"place","target":"lookout","target_name":"Hollow Lookout","target_pos":{"x":"35000","y":"8000"},"step_reward":{},"reward":{},"kind":"watch","progress":"1","need":"3","unit":"seconds"}}}]}}
+{"tick_frame":{"deltas":[{"quest":{"quest":{"id":"relics","name":"The Old Relic","step":"1","steps":"3","text":"Watch from the Hollow Lookout.","target_kind":"place","target":"lookout","target_name":"Hollow Lookout","target_pos":{"x":"35000","y":"8000"},"step_reward":{},"reward":{},"kind":"watch","progress":"2","need":"3","unit":"seconds"}}}]}}
 {"tick_frame":{"base_seq":"1","events":[{"game_time_ms":"3100","text":"The Old Relic: step 1 done. Next: Bring 2 old relics to the Testgrounds Captain.","quest":{"quest":"relics","name":"The Old Relic","reason":"step","step":"1","text":"Bring 2 old relics to the Testgrounds Captain."}},{"game_time_ms":"3100","reward":{"recipient":"hale","kind":"quest"}}],"deltas":[{"inventory":{"inventory":["relic","relic","relic"],"inventory_size":"20","bag_slots":"1","bank_size":"40"}},{"money":{}},{"stats":{"state":{"entity":{"id":"hale","kind":"ENTITY_KIND_CHARACTER","name":"hale","pos":{"x":"35000","y":"8000"},"hp":"100","max_hp":"100","level":"1"},"stats":{"level":"1","max_hp":"100","regen":"2","armor":"10","strength":"20","weapon_min":"3","weapon_max":"7","weapon_delay_ms":"2000","speed_mm_s":"4000","melee_range_mm":"2500"},"gcd_ms":"1500","ground":"open","speed_pct":"100","effective_speed_mm_s":"4000"}}},{"quest":{"quest":{"id":"relics","name":"The Old Relic","step":"2","steps":"3","text":"Bring 2 old relics to the Testgrounds Captain.","target_kind":"npc","target":"captain","target_name":"Testgrounds Captain","target_pos":{"x":"20000","y":"58000"},"step_reward":{"crowns":"7"},"reward":{},"kind":"deliver","progress":"2","need":"2","unit":"items","item":"relic"}}},{"offers":{}},{"items":{"items":[{"id":"relic","name":"Old Relic","tier":"common","bind_on_pickup":true,"stats":{},"quest_item":true}]}}]}}
 {"tick_frame":{"doors":{"doors":[{"id":"line-east","why":"Line East is closed to you right now"},{"id":"gate-north","why":"Gate North is shut: no expedition is open beyond it. Start one first."}]}}}
 {"pong":{"nonce":"109"}}
@@ -238,9 +240,9 @@
 {"pong":{"nonce":"167"}}
 {"pong":{"nonce":"168"}}
 {"tick_frame":{"base_seq":"198","events":[{"game_time_ms":"22000","entity_moved":{"id":"mob-near-1","pos":{"x":"24077","y":"50344"}}}],"results":[{"intent_id":"tui-11","accepted":true}]}}
+# mark quest_v2_deliver
 {"pong":{"nonce":"169"}}
 {"pong":{"nonce":"170"}}
-# mark quest_v2_deliver
 {"pong":{"nonce":"171"}}
 {"pong":{"nonce":"172"}}
 {"pong":{"nonce":"173"}}

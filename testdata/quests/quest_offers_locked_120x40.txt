@@ -1,5 +1,5 @@
 ┌─ Talking ────────────────────────────────────────────────────────────────────────┐┌─ You ────────────────────────────┐
-│ Maud Fenner <Highfold Reeve>, 1m N of you                                        ││ Hale  Lv 8  XP 0       | 0 crowns│
+│ Maud Fenner <Highfold Reeve>, 361m S of you                                      ││ Hale  Lv 8  XP 0       | 0 crowns│
 │                                                                                  ││ HP 130/130 ##################### │
 │ “The wolves are bold this year.”                                                 ││ Target: none                     │
 │                                                                                  ││ Atk off | Retaliate off          │
@@ -17,13 +17,13 @@
 │                                                                                  ││                                  │
 │                                                                                  │└──────────────────────────────────┘
 │                                                                                  │┌─ Nearby ─────────────────────────┐
-│                                                                                  ││ Q Maud Fenner <Highfold Re… 1m N │
-│                                                                                  ││ Q Maud Fenner <Highfold Re… 4m S │
-│                                                                                  ││ ; Highfold     6m N scout marker │
+│                                                                                  ││ Q Maud Fenner <Highfold Re… 4m N │
+│                                                                                  ││ ; Highfold     6m S scout marker │
 │                                                                                  ││ ; The Hoars… 146m E scout marker │
 │                                                                                  ││ ; Highlow    158m E scout marker │
-│                                                                                  ││ D Town Gate              204m NW │
-│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again             ││ ; Fordwatch  231m N scout marker │
+│                                                                                  ││ D Town Gate              204m SW │
+│                                                                                  ││ ; Fordwatch  231m S scout marker │
+│ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again             ││ D Hollow Warren          350m SE │
 │ The answer is on the status line; every refusal says why.                        ││ +4 more                          │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────┐

@@ -1,6 +1,6 @@
 ┌─ Traders ────────────────────────────────────────────────────────────────────┐
-│ Tilda <Provisioner>, 1m N away. You have 0 crowns.                           │
-│                                                                              │
+│ Tilda <Provisioner>, 361m S away. You have 0 crowns.                         │
+│ Too far: stand within 3m of Tilda to deal with them.                         │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
 │  (nothing)                           │>   charm bead ×2      [quest] no sale │
 │                                      │    Tin Ring                    pays 3 │

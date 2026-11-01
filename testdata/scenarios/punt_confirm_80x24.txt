@@ -1,5 +1,5 @@
 ┌─ Traders — C: your character ────────────────────────────────────────────────┐
-│ Nell Rush <Boat-Keeper>, 1m SW away. You have 25 crowns.                     │
+│ Nell Rush <Boat-Keeper>, 1m NW away. You have 25 crowns.                     │
 │                                                                              │
 │ You are level 1. Enter on a route asks to sail; Enter or Y pays the fee.     │
 │> The East Landing                                                10 crowns   │

@@ -51,7 +51,7 @@ func offered(t *testing.T, p *scenario.Player, board, name string) int {
 // greeter, who stands between: G there talks to the nearest person, the board.
 func toTheBoard(w *scenario.World, p *scenario.Player) {
 	p.Step("left")
-	walk(w, p, "up", 2)
+	walk(w, p, "down", 2)
 }
 
 func walk(w *scenario.World, p *scenario.Player, key string, n int) {
@@ -245,9 +245,9 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	p.Golden("downs_gate")
 
 	// Across the fields to the wolves at (45, 169), east of the mill: they notice a character 8 m off.
-	walkVia(t, w, p, [2]int64{34000, 225000}, [2]int64{34000, 180000}, [2]int64{45000, 180000})
+	walkVia(t, w, p, [2]int64{34000, 225000}, [2]int64{34000, 270000}, [2]int64{45000, 270000})
 	p.Golden("downs_camp")
-	walkVia(t, w, p, [2]int64{45000, 174000})
+	walkVia(t, w, p, [2]int64{45000, 276000})
 	fightUntil(t, w, p, func(m *model.Model) bool { c := m.Contract("hunt-mill-wolves"); return c != nil && c.GetReady() }, 25)
 	p.Model(func(m *model.Model) {
 		if c := m.Contract("hunt-mill-wolves"); c == nil || c.GetHave() != 4 || !hasLog(m, "reward", "Wolves at Wickett Mill: 4 of 4") {
@@ -257,11 +257,11 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 	p.Golden("hunt_ready")
 
 	// Home: back to the door, through it, and across the square to the board.
-	walkVia(t, w, p, [2]int64{34000, 180000}, [2]int64{34000, 225000}, [2]int64{8000, 225000})
+	walkVia(t, w, p, [2]int64{34000, 270000}, [2]int64{34000, 225000}, [2]int64{8000, 225000})
 	p.Press("e")
 	notice(t, p, "use door ok", false)
 	p.Eventually("Thornwick", inSpace("Thornwick"))
-	walkVia(t, w, p, [2]int64{57000, 45000}, [2]int64{57000, 51000}) // by the board, off the greeter
+	walkVia(t, w, p, [2]int64{57000, 45000}, [2]int64{57000, 39000}) // by the board, off the greeter
 	p.Press("g")
 	p.Press("2")
 	for _, sz := range [][2]int{{140, 45}, {80, 24}} {
@@ -294,7 +294,7 @@ func TestThornwickHuntOutTheGateAndBack(t *testing.T) {
 func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("thornwick_shops.jsonl")
-	w.Place("ann", "hale", 28000, 64000)
+	w.Place("ann", "hale", 28000, 26000)
 	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
@@ -305,7 +305,7 @@ func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
 	p := w.Login("ann", "hale")
 
 	// The vendor is 8 m off, up the row: close the gap, then talk.
-	walk(w, p, "down", 2)
+	walk(w, p, "up", 2)
 	p.Press("g")
 	p.Model(func(m *model.Model) {
 		if d := m.Said("vendor-armour"); d == nil || len(d.Options) != 2 || d.Options[0].GetAction() != "buy" {
@@ -324,7 +324,7 @@ func TestThornwickBuyFromAVendorAndTrainAnAbility(t *testing.T) {
 	p.Press("esc", "esc")
 
 	// To the warrior trainer: up Tanner's Row to Candlemakers' Lane, then west.
-	walk(w, p, "down", 14)
+	walk(w, p, "up", 14)
 	walk(w, p, "left", 4)
 	p.Press("g")
 	p.Model(func(m *model.Model) {
@@ -398,7 +398,7 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 	p.Golden("scout_marker_in_view")
 
 	// Down to the mill's latitude, then east to it.
-	walk(w, p, "down", 5)
+	walk(w, p, "up", 5)
 	walk(w, p, "right", 13)
 	p.Model(func(m *model.Model) {
 		if c := m.Contract("scout-wickett-mill"); c == nil || !c.GetReady() || !hasLog(m, "reward", "Word from Wickett Mill: 1 of 1") {
@@ -412,10 +412,10 @@ func TestThornwickScoutToAMarker(t *testing.T) {
 
 	// Home and hand it in.
 	walk(w, p, "left", 13)
-	walk(w, p, "up", 5)
+	walk(w, p, "down", 5)
 	p.Press("e")
 	p.Eventually("Thornwick", inSpace("Thornwick"))
-	walkVia(t, w, p, [2]int64{57000, 45000}, [2]int64{57000, 51000}) // by the board, off the greeter
+	walkVia(t, w, p, [2]int64{57000, 45000}, [2]int64{57000, 39000}) // by the board, off the greeter
 	p.Press("g", "2", "enter")
 	notice(t, p, "hand in Word from Wickett Mill ok", false)
 	p.Model(func(m *model.Model) {
@@ -440,7 +440,7 @@ func TestThornwickHarvestRaidAnnouncedAndJoined(t *testing.T) {
 		},
 	})
 	w.Fixture("thornwick_raid.jsonl")
-	w.Place("ann", "hale", 110000, 131000)
+	w.Place("ann", "hale", 110000, 319000)
 	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
@@ -485,13 +485,13 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 		Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}},
 		Zone: func(space string, z *core.Zone) {
 			if space == scenario.Downs { // one place for it to appear, 10 m from the character
-				z.Rares[0].Points = []core.Pos{{X: 215000, Y: 145000}}
+				z.Rares[0].Points = []core.Pos{{X: 215000, Y: 305000}}
 				z.Rares[0].MinMs, z.Rares[0].MaxMs = 10_000, 10_000 // it comes at 10 s
 			}
 		},
 	})
 	w.Fixture("thornwick_rare.jsonl")
-	w.Place("ann", "hale", 205000, 145000)
+	w.Place("ann", "hale", 205000, 305000)
 	z, _ := content.Zone(scenario.Thornwick)
 	w.Srv.Give("hale", func(cs *core.CharacterSave) {
 		cl := z.Class("warrior")
@@ -525,7 +525,7 @@ func TestThornwickARareComesIntoView(t *testing.T) {
 func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("thornwick_trainer.jsonl")
-	w.Place("ann", "hale", 28000, 40000)
+	w.Place("ann", "hale", 28000, 50000)
 	p := w.Login("ann", "hale")
 	p.Model(func(m *model.Model) {
 		if m.NPC("trainer-warrior") != nil {
@@ -533,7 +533,7 @@ func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 		}
 	})
 	p.Golden("trainer_out_of_view")
-	walk(w, p, "down", 3)
+	walk(w, p, "up", 3)
 	p.Model(func(m *model.Model) {
 		n := m.NPC("trainer-warrior")
 		if n == nil || n.GetReachMm() <= 0 || m.InReach(n) || !hasLog(m, "npc_appeared", "Gorran Stoutarm <Warrior Trainer> comes into view") {
@@ -551,7 +551,7 @@ func TestThornwickATrainerAppearsAsYouWalkUp(t *testing.T) {
 	}
 	p.Golden("trainer_too_far")
 	p.Press("esc")
-	walkVia(t, w, p, [2]int64{28000, 19000}, [2]int64{16000, 19000})
+	walkVia(t, w, p, [2]int64{28000, 71000}, [2]int64{16000, 71000})
 	p.Model(func(m *model.Model) {
 		if n := m.NPC("trainer-warrior"); n == nil || !m.InReach(n) {
 			t.Fatalf("the trainer is not in reach after the walk: %v at %v", n, m.Self.Pos)

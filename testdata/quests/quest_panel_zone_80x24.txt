@@ -1,18 +1,18 @@
-┌─ Thornwick Downs, at 100,44 m, north up ─────────┐┌─ You ────────────────────┐
-│                      ···               "        ≈││ Hale  Lv 8  XP 0    | 0cr│
-│                      ···                        ≈││ HP 130/130 ############# │
-│                      ···                         ││ Target: none             │
-│                      ···              c          ││ Atk off | Retaliate off  │
-│                       ···                        │└──────────────────────────┘
+┌─ Thornwick Downs, at 100,406 m, north up ────────┐┌─ You ────────────────────┐
+│                                                  ││ Hale  Lv 8  XP 0    | 0cr│
+│                                                  ││ HP 130/130 ############# │
+│                                                  ││ Target: none             │
+│                        ####                      ││ Atk off | Retaliate off  │
+│                    ### ####                      │└──────────────────────────┘
 │                                                  │┌─ Quest chain (Ctrl+K) ───┐
-│                         ;                        ││ A Boat for the Ferryman  │
+│                         Q          ··············││ A Boat for the Ferryman  │
 │                         @          ············==││ Step 4 of 5              │
-│                         Q          ··············││ Take the news to Captain │
+│                         ;                        ││ Take the news to Captain │
 │                                                  ││ Hartley.                 │
-│                    ### ####                      ││ This step is in another  │
-│                    ### ####                      ││   zone: Thornwick.       │
-│                                                  ││ Take the Town Gate: 204m │
-│                                                  ││   NW of you.             │
+│                       ···                        ││ This step is in another  │
+│                      ···              c          ││   zone: Thornwick.       │
+│                      ···                         ││ Take the Town Gate: 204m │
+│                      ···                         ││   SW of you.             │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
 │ + 16:04:03.2 On the quest chain A Boat for the Ferryman, step 4 of 5: Take   │

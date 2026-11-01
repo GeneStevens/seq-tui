@@ -1,24 +1,24 @@
 ┌─ Traders — C: your character ────────────────────────────────────────────────┐
 │ Traders in view. Up / Down choose, Enter opens, Esc closes. Walk up to one f…│
 │                                                                              │
-│ > $ Dunstan Reeve <Weaponsmith>: sells and buys                          5m N│
-│   Q Hobb Tanner <Master of the Hides Guild>: talks              15m N too far│
-│   T Mother Elswyth <Cleric Trainer>: teaches                    16m S too far│
-│   g Town Guard <Thornwick Watch>: keeps watch over the town     16m S too far│
-│   T Gorran Stoutarm <Warrior Trainer>: teaches                 19m SW too far│
+│ > $ Dunstan Reeve <Weaponsmith>: sells and buys                          5m S│
+│   Q Hobb Tanner <Master of the Hides Guild>: talks              15m S too far│
+│   T Mother Elswyth <Cleric Trainer>: teaches                    16m N too far│
+│   g Town Guard <Thornwick Watch>: keeps watch over the town     16m N too far│
+│   T Gorran Stoutarm <Warrior Trainer>: teaches                 19m NW too far│
 │   $ Barnaby Tuck <General Goods>: sells and buys                24m E too far│
-│   T Pip Nettle <Rogue Trainer>: teaches                        25m SE too far│
-│   $ Hilda Brasswick <Armourer>: sells and buys                  25m N too far│
-│   Q Ambrose Fenwick <Master of the Grain Guild>: talks         33m NE too far│
-│   & Thornwick Contract Board <Jobs for the Downs>: posts cont… 34m NE too far│
-│   g Tamsin Hale <Watch Greeter>: keeps watch over the town     36m NE too far│
+│   T Pip Nettle <Rogue Trainer>: teaches                        25m NE too far│
+│   $ Hilda Brasswick <Armourer>: sells and buys                  25m S too far│
+│   Q Ambrose Fenwick <Master of the Grain Guild>: talks         33m SE too far│
+│   & Thornwick Contract Board <Jobs for the Downs>: posts cont… 34m SE too far│
+│   g Tamsin Hale <Watch Greeter>: keeps watch over the town     36m SE too far│
 │   H Isolde Fenn <Binder>: sets your bind point                  37m E too far│
-│   T Ormond Quill <Wizard Trainer>: teaches                     39m SE too far│
+│   T Ormond Quill <Wizard Trainer>: teaches                     39m NE too far│
 │   $ Corwen Pell <Wool Guild Mistress>: sells and buys           40m E too far│
 │   T Ser Aldric Vane <Paladin Trainer>: teaches                  54m E too far│
 │   Q Godric Ashdown <Reeve>: talks                               59m E too far│
-│   $ Jory Fennick <Marlbridge Carter>: sells and buys           61m NE too far│
-│   B Odalys Penn <Banker>: keeps your bank                      66m NE too far│
+│   $ Jory Fennick <Marlbridge Carter>: sells and buys           61m SE too far│
+│   B Odalys Penn <Banker>: keeps your bank                      66m SE too far│
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 36m NE | road: faster, 125%  
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 36m SE | road: faster, 125%  

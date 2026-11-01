@@ -1,5 +1,5 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Captain Rhosyn Hartley <Watch Captain>, 1m NE of you                                           ││ hale  Lv 6 Warrior           | 0 crowns│
+│ Captain Rhosyn Hartley <Watch Captain>, 1m SE of you                                           ││ hale  Lv 6 Warrior           | 0 crowns│
 │                                                                                                ││ HP 215/215 ########################### │
 │ “Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter.”     ││ XP ------------------------ 162 to Lv 7│
 │ “Wolves and bandits on the near roads, goblins farther out. Go carefully until you are         ││ Atk off | none                         │
@@ -14,18 +14,18 @@
 │ Quests they hold for you:                                                                      ││ ! Jory Fennick <Marlbridg… 20m W [new] │
 │   [locked] Marlbridge Iron: needs level 7                                                      ││ ! Tamsin Hale <Watch Gree… 43m W [new] │
 │   [locked] The Deserter: needs level 9                                                         ││ & Thornwick Contract Board 47m W [new] │
-│   [locked] Beads for the Captain: needs level 9                                                ││ Q Captain Rhosyn Hartley <Watch… 1m NE │
-│   [locked] Too Good a Price: needs level 9                                                     ││ D East Gate                     12m SE │
-│   [locked] Night Boats: needs level 10                                                         ││ B Odalys Penn <Banker>          17m NW │
+│   [locked] Beads for the Captain: needs level 9                                                ││ Q Captain Rhosyn Hartley <Watch… 1m SE │
+│   [locked] Too Good a Price: needs level 9                                                     ││ D East Gate                     12m NE │
+│   [locked] Night Boats: needs level 10                                                         ││ B Odalys Penn <Banker>          17m SW │
 │   [locked] Figures and the Warrant: needs level 11                                             ││ Q Godric Ashdown <Reeve>         20m W │
-│   [locked] The Source: needs level 12                                                          ││ T Wynne Greenhollow <Druid Trai… 35m S │
+│   [locked] The Source: needs level 12                                                          ││ T Wynne Greenhollow <Druid Trai… 35m N │
 │                                                                                                ││ $ Corwen Pell <Wool Guild Mistr… 38m W │
 │                                                                                                ││ H Isolde Fenn <Binder>           40m W │
-│                                                                                                ││ T Ser Aldric Vane <Paladin Tra… 41m SW │
+│                                                                                                ││ T Ser Aldric Vane <Paladin Tra… 41m NW │
 │                                                                                                ││ Q Ambrose Fenwick <Master of th… 51m W │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer> 52m SW │
+│                                                                                                ││ T Ormond Quill <Wizard Trainer> 52m NW │
 │                                                                                                ││ $ Barnaby Tuck <General Goods>   54m W │
-│                                                                                                ││ T Pip Nettle <Rogue Trainer>    65m SW │
+│                                                                                                ││ T Pip Nettle <Rogue Trainer>    65m NW │
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ Q Hobb Tanner <Master of the Hi… 75m W │
 │ talk to Captain Rhosyn Hartley ok                                                              ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘

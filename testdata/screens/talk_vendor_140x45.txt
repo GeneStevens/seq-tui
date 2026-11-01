@@ -1,5 +1,5 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Hilda Brasswick <Armourer>, 2m S of you                                                        ││ hale  Lv 3 Warrior         | 200 crowns│
+│ Hilda Brasswick <Armourer>, 2m N of you                                                        ││ hale  Lv 3 Warrior         | 200 crowns│
 │                                                                                                ││ HP 130/164 #####################------ │
 │ “Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row.”             ││ XP ------------------------- 90 to Lv 4│
 │ “Armour is cheaper than a healer's patience.”                                                  ││ Atk off | none                         │
@@ -13,18 +13,18 @@
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 29m E [new] │
 │                                                                                                ││ ! Tamsin Hale <Watch Gree… 34m E [new] │
-│                                                                                                ││ $ Hilda Brasswick <Armourer>      2m S │
-│                                                                                                ││ Q Hobb Tanner <Master of the Hi… 12m S │
-│                                                                                                ││ g Town Guard <Thornwick Watch>   16m N │
-│                                                                                                ││ $ Dunstan Reeve <Weaponsmith>    22m S │
+│                                                                                                ││ $ Hilda Brasswick <Armourer>      2m N │
+│                                                                                                ││ Q Hobb Tanner <Master of the Hi… 12m N │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   16m S │
+│                                                                                                ││ $ Dunstan Reeve <Weaponsmith>    22m N │
 │                                                                                                ││ Q Ambrose Fenwick <Master of th… 24m E │
-│                                                                                                ││ $ Barnaby Tuck <General Goods>  28m SE │
-│                                                                                                ││ H Isolde Fenn <Binder>          40m SE │
-│                                                                                                ││ T Mother Elswyth <Cleric Traine… 42m S │
-│                                                                                                ││ T Gorran Stoutarm <Warrior Trai… 44m S │
-│                                                                                                ││ $ Corwen Pell <Wool Guild Mist… 46m SE │
-│                                                                                                ││ T Pip Nettle <Rogue Trainer>    47m SE │
-│                                                                                                ││ T Ormond Quill <Wizard Trainer> 55m SE │
+│                                                                                                ││ $ Barnaby Tuck <General Goods>  28m NE │
+│                                                                                                ││ H Isolde Fenn <Binder>          40m NE │
+│                                                                                                ││ T Mother Elswyth <Cleric Traine… 42m N │
+│                                                                                                ││ T Gorran Stoutarm <Warrior Trai… 44m N │
+│                                                                                                ││ $ Corwen Pell <Wool Guild Mist… 46m NE │
+│                                                                                                ││ T Pip Nettle <Rogue Trainer>    47m NE │
+│                                                                                                ││ T Ormond Quill <Wizard Trainer> 55m NE │
 │                                                                                                ││ Q Godric Ashdown <Reeve>         55m E │
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││ $ Jory Fennick <Marlbridge Cart… 56m E │
 │ talk to Hilda Brasswick ok                                                                     ││ +5 more                                │

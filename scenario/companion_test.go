@@ -17,7 +17,7 @@ import (
 // (SEQ-049, D35, D42, D46): each presses its own keys.
 
 // captainAt is a metre west of Captain Rhosyn Hartley, who stands at (104, 50) m.
-const captainX, captainY = 103000, 50000
+const captainX, captainY = 103000, 40000
 
 // levelUp makes the character a warrior of the level, knowing what the class
 // knows at level 1 (as the other scenarios do), with a full set of hit points.
@@ -91,7 +91,7 @@ func TestCompanionQuestFirstStepFromTheCaptain(t *testing.T) {
 func TestCompanionQuestScoutTheLookout(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs, Classed: map[string]string{"hale": "warrior"}}}})
 	w.Fixture("companion_lookout.jsonl")
-	w.Place("ann", "hale", 216000, 215000)
+	w.Place("ann", "hale", 216000, 235000)
 	w.Srv.Give("hale", levelUp(6, func(cs *core.CharacterSave) {
 		cs.Contracts = []core.ContractState{{ID: "companion-goblin-lookout", Kind: "scout", Zone: "thornwick-downs", Match: "goblin-lookout", Need: 1, Name: "Eyes on the Goblins"}}
 	}))
@@ -206,7 +206,7 @@ func advanceUntil(t *testing.T, w *scenario.World, p *scenario.Player, what stri
 func TestCompanionAssistsThenIsOverridden(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: downsAccount()})
 	w.Fixture("companion_fight.jsonl")
-	w.Place("ann", "hale", 146000, 170000) // beside the Bramble Tuskers' camp, out of their notice
+	w.Place("ann", "hale", 146000, 280000) // beside the Bramble Tuskers' camp, out of their notice
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.GiveCompanion("hale", companionRecord("tank", ""))
 	p := w.Login("ann", "hale")
@@ -269,7 +269,7 @@ func TestCompanionAssistsThenIsOverridden(t *testing.T) {
 // server's own state agree at each.
 func TestCompanionStancesCycle(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: downsAccount()})
-	w.Place("ann", "hale", 100000, 100000)
+	w.Place("ann", "hale", 350000, 100000)
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.GiveCompanion("hale", companionRecord("healer", ""))
 	p := w.Login("ann", "hale")
@@ -296,7 +296,7 @@ func TestCompanionStancesCycle(t *testing.T) {
 func TestCompanionDisconnectsAndReturns(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: downsAccount()})
 	w.Fixture("companion_reconnect.jsonl")
-	w.Place("ann", "hale", 100000, 100000)
+	w.Place("ann", "hale", 350000, 100000)
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.GiveCompanion("hale", companionRecord("caster", "guard"))
 	p := w.Login("ann", "hale")
@@ -400,8 +400,8 @@ func TestSecondCharacterOnGuard(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs,
 		Classed: map[string]string{"hale": "warrior", "bram": "cleric"}}}})
 	w.Fixture("duo_guard.jsonl")
-	w.Place("ann", "hale", 146000, 170000)
-	w.Place("ann", "bram", 144000, 170000)
+	w.Place("ann", "hale", 146000, 280000)
+	w.Place("ann", "bram", 144000, 280000)
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.Give("bram", levelUpAs("cleric", 5, nil))
 	p := w.LoginWithDuo("ann", "hale", "bram")

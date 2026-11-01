@@ -42,27 +42,25 @@
 {"pong":{"nonce":"124"}}
 {"pong":{"nonce":"125"}}
 {"pong":{"nonce":"126"}}
-{"pong":{"nonce":"127"}}
 {"tick_frame":{"base_seq":"6","events":[{"text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria"],"participants":"2"}}]}}
 {"tick_frame":{"results":[{"intent_id":"tui-3","accepted":true}]}}
+{"pong":{"nonce":"127"}}
 {"pong":{"nonce":"128"}}
+# mark duo_one_of_two
 {"pong":{"nonce":"129"}}
 {"pong":{"nonce":"130"}}
-# mark duo_one_of_two
 {"pong":{"nonce":"131"}}
 {"pong":{"nonce":"132"}}
 {"pong":{"nonce":"133"}}
-{"pong":{"nonce":"134"}}
 {"tick_frame":{"base_seq":"7","events":[{"text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria"],"participants":"2"}}]}}
 {"tick_frame":{"results":[{"intent_id":"tui-4","accepted":true}]}}
+{"pong":{"nonce":"134"}}
 {"pong":{"nonce":"135"}}
 {"pong":{"nonce":"136"}}
-{"pong":{"nonce":"137"}}
 {"tick_frame":{"base_seq":"8","events":[{"text":"Round 1 begins","round_started":{"round":"1","deadline_ms":"1735689607700","submitted":["aria","bram"],"participants":"2"}}]}}
+{"pong":{"nonce":"137"}}
 {"pong":{"nonce":"138"}}
 {"pong":{"nonce":"139"}}
-{"pong":{"nonce":"140"}}
-{"pong":{"nonce":"141"}}
 {"tick_frame":{"base_seq":"9","events":[{"game_time_ms":"100","entity_moved":{"id":"aria","pos":{"x":"100400","y":"90000"}}},{"game_time_ms":"100","entity_moved":{"id":"mob-pair-1","pos":{"x":"100088","y":"76286"}}}]}}
 {"tick_frame":{"base_seq":"11","events":[{"game_time_ms":"200","entity_moved":{"id":"aria","pos":{"x":"100800","y":"90000"}}},{"game_time_ms":"200","entity_moved":{"id":"mob-pair-1","pos":{"x":"100175","y":"76572"}}}]}}
 {"tick_frame":{"base_seq":"13","events":[{"game_time_ms":"300","entity_moved":{"id":"aria","pos":{"x":"101200","y":"90000"}}},{"game_time_ms":"300","entity_moved":{"id":"mob-pair-1","pos":{"x":"100263","y":"76858"}}}]}}
@@ -85,8 +83,8 @@
 {"tick_frame":{"base_seq":"44","events":[{"game_time_ms":"2000","entity_moved":{"id":"mob-pair-1","pos":{"x":"100570","y":"81865"}}}]}}
 {"tick_frame":{"base_seq":"45","events":[{"game_time_ms":"2000","text":"Round 1 is resolved","round_resolved":{"round":"1","reason":"all_submitted","submitted":["aria","bram"],"deadline_ms":"1735689607700","plays":[{"character":"aria","source":"own_plan"},{"character":"bram","source":"own_plan"}],"participants":"2"}}]}}
 {"tick_frame":{"base_seq":"46","events":[{"game_time_ms":"2000","text":"Round 2 begins","round_started":{"round":"2","deadline_ms":"1735689607800","participants":"2"}}]}}
+{"pong":{"nonce":"140"}}
+{"pong":{"nonce":"141"}}
+# mark duo_two_of_two
 {"pong":{"nonce":"142"}}
 {"pong":{"nonce":"143"}}
-# mark duo_two_of_two
-{"pong":{"nonce":"144"}}
-{"pong":{"nonce":"145"}}

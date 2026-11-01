@@ -1,44 +1,44 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │               ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   You                                             │
-│               ░     Eelmere Boat Shed·············;············                      ░    @ you                                          │
-│               ░                Eelmere;≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ·····                    ░   People                                          │
-│               ░                 ##;# "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                        ░    $ vendor  Q quest person  D door               │
-│               ░    Eelmere Stilt House≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                        ░   Quest                                           │
-│               ░                    ··· ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore             ░    D next door                                    │
-│               ░                     ···   ≈≈≈Eel Mere                                ░   Events                                          │
-│               ░                      ···   ≈≈Eel Mere Reeds                          ░    ; scout point  v raiders appear                │
-│               ░   " " "           " " ··"  ≈≈                                        ░    ◆ raiders head for                             │
-│               ░  " " "         " " " "···" ≈≈                            " "         ░   Ground                                          │
-│               ░   " " " Marlbridge Road··  ≈≈≈                          " " " "      ░    # building  ^ rock  ≈ water                    │
-│               ░  " " South Farmstead +1··" ≈≈≈             " " " " "     " " "       ░    : ford  = bridge  " forest                     │
-│               ░               " " " " "···≈≈≈   $    South Goblin Copse " " "        ░    · road  ░ zone edge                            │
-│               ░        South Greywood +1··≈≈≈              " " " "                   ░                                                   │
-│               ░       Fordwatch Stockade··≈≈≈               " " " "                  ░                                                   │
-│               ░      Fordwatch Watch Hut·;≈≈≈                       ##               ░                                                   │
-│               ░             Ford Shrine;QQ::::          ##                           ░                                                   │
-│               ░Thornwick Road Fordwatch +2:;::Brigands' Road ^^^              ^^^^^^^░                                                   │
-│               ░Thornwick Gate +4          ≈≈≈              Far Road            ^^^^^^░                                                   │
-│               ░D··························====··································;·D  ░                                                   │
-│               ░   "  @;  ·;## "       ;    ≈≈    ··^^;·····                    ^^^^^^░                                                   │
-│               ░      Q#≈#Q◆Wickett Mill"   ≈≈≈     ^^                         ^^^^^^^░                                                   │
-│               ░      ##  ··Barleycross Hall≈≈≈      Goblin Hut                       ░                                                   │
-│               ░          ···   The Millrace≈≈≈                                       ░                                                   │
-│               ░           ···North Greywood≈≈≈           Goblin Stockade +1          ░                                                   │
+│               ░         Highfold Green Highfold Sheepfold                            ░    @ you                                          │
+│               ░            Highfold +5     ≈≈    The Hoarstones                      ░   People                                          │
+│               ░                Q           ≈≈  ··^··· ^^;   ^                        ░    $ vendor  Q quest person  D door               │
+│               ░                ; ###······====········   ^^                          ░   Quest                                           │
+│               ░               ··           ≈≈Hill Track +1^^                         ░    D next door                                    │
+│               ░               ··           ≈≈≈          ^;^                          ░   Events                                          │
+│               ░              ···           ≈≈≈                                       ░    ; scout point  v raiders appear                │
+│               ░   " " "      ··    ^^^^^^  ≈≈                                        ░    ◆ raiders head for                             │
+│               ░  " " " "     ··   ;^;";v^"≈≈≈                                        ░   Ground                                          │
+│               ░   "Drove Road··    ^^ " ^ ≈≈≈                           ^            ░    # building  ^ rock  ≈ water                    │
+│               ░    "        ···    " " " "≈≈≈              " " " "    ^^^^           ░    : ford  = bridge  " forest                     │
+│               ░             ··    " " " " ≈≈≈        North Goblin Copse^^            ░    · road  ░ zone edge                            │
 │               ░            ···     " " " " ≈≈≈             " " " "                   ░                                                   │
-│               ░             ··    " " " " ≈≈≈        North Goblin Copse^^            ░                                                   │
-│               ░    "        ···    " " " "≈≈≈              " " " "    ^^^^           ░                                                   │
-│               ░   "Drove Road··    ^^ " ^ ≈≈≈                           ^            ░                                                   │
-│               ░  " " " "     ··   ;^;";v^"≈≈≈                                        ░                                                   │
-│               ░   " " "      ··    ^^^^^^  ≈≈                                        ░                                                   │
-│               ░              ···           ≈≈≈                                       ░                                                   │
-│               ░               ··           ≈≈≈          ^;^                          ░                                                   │
-│               ░               ··           ≈≈Hill Track +1^^                         ░                                                   │
-│               ░                ; ###······====········  ^^^                          ░                                                   │
-│               ░                Q           ≈≈  ··^····^^;   ^                        ░                                                   │
-│               ░            Highfold +5     ≈≈    The Hoarstones                      ░                                                   │
-│               ░         Highfold Green Highfold Sheepfold                            ░                                                   │
+│               ░           ···North Greywood≈≈≈           Goblin Stockade +1          ░                                                   │
+│               ░          ···   The Millrace≈≈≈                                       ░                                                   │
+│               ░      ##  ··Barleycross Hall≈≈≈      Goblin Hut                       ░                                                   │
+│               ░      Q#≈#Q◆Wickett Mill"   ≈≈≈     ^^                         ^^^^^^^░                                                   │
+│               ░   "  @;  ·;## "       ;    ≈≈    ··^^;·····Far Road            ^^^^^^░                                                   │
+│               ░D··························====··································;·D  ░                                                   │
+│               ░Thornwick Gate +4          ≈≈≈Brigands' Road ^^^                ^^^^^^░                                                   │
+│               ░Thornwick Road Fordwatch +2:;::               ^^^              ^^^^^^^░                                                   │
+│               ░             Ford Shrine;QQ::::          ##                           ░                                                   │
+│               ░      Fordwatch Watch Hut·;≈≈≈                       ##               ░                                                   │
+│               ░       Fordwatch Stockade··≈≈≈               " " " "                  ░                                                   │
+│               ░        South Greywood +1··≈≈≈              " " " "                   ░                                                   │
+│               ░               " " " " "···≈≈≈   $    South Goblin Copse " " "        ░                                                   │
+│               ░  " " South Farmstead +1··" ≈≈≈             " " " " "     " " "       ░                                                   │
+│               ░   " " " Marlbridge Road··  ≈≈≈                          " " " "      ░                                                   │
+│               ░  " " "         " " " "···" ≈≈                            " "         ░                                                   │
+│               ░   " " "           " " ··"  ≈≈                                        ░                                                   │
+│               ░                      ···   ≈≈Eel Mere Reeds                          ░                                                   │
+│               ░                     ···   ≈≈≈Eel Mere                                ░                                                   │
+│               ░                    ··· ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore             ░                                                   │
+│               ░                Eelmere≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                        ░                                                   │
+│               ░                 ##;# "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                        ░                                                   │
+│               ░    Eelmere Stilt House;≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ·····                    ░                                                   │
+│               ░     Eelmere Boat Shed·············;············                      ░                                                   │
 │               ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                                   │
-│ Thornwick Downs, 420m by 450m, north up. You: 42m E, 210m N of the SW corner.                                                            │
+│ Thornwick Downs, 420m by 450m, north up. You: 42m E, 239m N of the SW corner.                                                            │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                                                  

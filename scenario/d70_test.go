@@ -17,8 +17,8 @@ import (
 
 // The camps of the Downs the scenarios use (seq-world's zones.yaml), by id.
 var d70Camps = map[string]core.Pos{
-	"goblin-scrappers-a": {X: 245000, Y: 180000},
-	"goblin-hexers-a":    {X: 355000, Y: 165000},
+	"goblin-scrappers-a": {X: 245000, Y: 270000},
+	"goblin-hexers-a":    {X: 355000, Y: 285000},
 }
 
 // d70Hero logs in a warrior of the level standing dx mm east of the camp's

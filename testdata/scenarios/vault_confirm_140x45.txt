@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Odalys Penn <Banker>, 2m N away. You have 120 crowns.                                          ││ hale  Lv 1 Warrior         | 120 crowns│
+│ Odalys Penn <Banker>, 2m S away. You have 120 crowns.                                          ││ hale  Lv 1 Warrior         | 120 crowns│
 │                                                                                                ││ HP 65/130 ##############-------------- │
 │ Buy 20 more bank slots for 100 crowns? Enter or Y buys, Esc leaves it.                         ││ XP ------------------------- 40 to Lv 2│
 │ You carry (Enter banks one)                   │ In the bank, 0 of 40 (Enter takes one)         ││ Atk off | none                         │

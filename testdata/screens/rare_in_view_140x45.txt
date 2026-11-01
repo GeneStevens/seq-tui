@@ -1,27 +1,27 @@
-┌─ Thornwick Downs, at 205,145 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ hale  Lv 12 (max) Warrior    | 0 crowns│
-│        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ HP 143/317 ############--------------- │
-│        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ XP ########################### 1772 max│
-│        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                          ││ Atk off Ret ON | Old Grimtusk          │
-│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                          │└────────────────────────────────────────┘
-│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                          │┌─ Target ───────────────────────────────┐
-│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                          ││ R Old Grimtusk  Lv 6 RARE              │
-│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           ││ HP 300/300 ##################### 5m E  │
-│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           ││ trivial, not in a fight                │
-│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           │└────────────────────────────────────────┘
-│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           │┌─ Nearby ───────────────────────────────┐
-│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                            @     R                                         ││ R Old Grimt… 5m E 300/300 trivial RARE │
-│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ v Brigands' Rise 69m SW raiders gather │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ ; Goblin Lookout    74m N scout marker │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ ; Eldbury          77m SW scout marker │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Eldbury Inner R… 84m SW scout marker │
-│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Highlow          85m SE scout marker │
-│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Brigands' Road … 90m NW scout marker │
-│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ ; Eldbury Edge      93m W scout marker │
-│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ ; Millrace Ford    112m N scout marker │
-│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ ; The Hoarstones   115m S scout marker │
-│   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ Q Ned Sallow <Watchman>        122m NW │
-│   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ +19 more                               │
+┌─ Thornwick Downs, at 205,305 m, north up ──────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│   ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ hale  Lv 12 (max) Warrior    | 0 crowns│
+│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ HP 143/317 ############--------------- │
+│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                              ││ XP ########################### 1772 max│
+│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ Atk off Ret ON | Old Grimtusk          │
+│    ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             │└────────────────────────────────────────┘
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             │┌─ Target ───────────────────────────────┐
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                             ││ R Old Grimtusk  Lv 6 RARE              │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ HP 300/300 ##################### 5m E  │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            ││ trivial, not in a fight                │
+│     ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            │└────────────────────────────────────────┘
+│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                            │┌─ Nearby ───────────────────────────────┐
+│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                           @     R                                         ││ R Old Grimt… 5m E 300/300 trivial RARE │
+│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           ││ v Brigands' Rise 69m NW raiders gather │
+│      ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           ││ ; Goblin Lookout    74m S scout marker │
+│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                           ││ ; Eldbury          77m NW scout marker │
+│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                          ││ ; Eldbury Inner R… 84m NW scout marker │
+│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                          ││ ; Highlow          85m NE scout marker │
+│       ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                          ││ ; Brigands' Road … 90m SW scout marker │
+│        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                          ││ ; Eldbury Edge      93m W scout marker │
+│        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ ; Millrace Ford    112m S scout marker │
+│        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ ; The Hoarstones   115m N scout marker │
+│        ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ Q Ned Sallow <Watchman>        122m SW │
+│         ≈≈≈≈≈≈≈≈≈≈≈≈≈≈                                                                         ││ +19 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt ready                      2 Bash range                      3 -                               4 -                               │

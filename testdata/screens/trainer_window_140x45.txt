@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 192 crowns.                          ││ hale  Lv 3 Warrior         | 192 crowns│
+│ Gorran Stoutarm <Warrior Trainer>, 0m here away. You have 176 crowns.                          ││ hale  Lv 3 Warrior         | 176 crowns│
 │                                                                                                ││ HP 138/164 ######################----- │
 │ You are level 3. Enter buys the ability under the cursor.                                      ││ XP ------------------------- 90 to Lv 4│
 │  Taunt                  level 1   known                                                        ││ Atk off | none                         │
@@ -11,21 +11,21 @@
 │  Sunder                 level 11  165 crowns                                                   ││                                        │
 │────────────────────────────────────────────────────────────────────────────────────────────────│└────────────────────────────────────────┘
 │ Second Wind: For a short while, a share of the damage you deal comes back to you as health. Use│┌─ Nearby ───────────────────────────────┐
-│ it in the thick of a long fight.                                                               ││ & Thornwick Contract Boa… 52m NE [new] │
-│                                                                                                ││ ! Tamsin Hale <Watch Gre… 54m NE [new] │
+│ it in the thick of a long fight.                                                               ││ & Thornwick Contract Boa… 52m SE [new] │
+│                                                                                                ││ ! Tamsin Hale <Watch Gre… 54m SE [new] │
 │                                                                                                ││ T Gorran Stoutarm <Warrior Tr… 0m here │
 │                                                                                                ││ T Mother Elswyth <Cleric Traine… 16m E │
-│                                                                                                ││ $ Dunstan Reeve <Weaponsmith>   23m NE │
+│                                                                                                ││ $ Dunstan Reeve <Weaponsmith>   23m SE │
 │                                                                                                ││ g Town Guard <Thornwick Watch>   24m E │
 │                                                                                                ││ T Pip Nettle <Rogue Trainer>     32m E │
-│                                                                                                ││ Q Hobb Tanner <Master of the Hi… 32m N │
-│                                                                                                ││ $ Barnaby Tuck <General Goods>  42m NE │
-│                                                                                                ││ $ Hilda Brasswick <Armourer>     42m N │
+│                                                                                                ││ Q Hobb Tanner <Master of the Hi… 32m S │
+│                                                                                                ││ $ Barnaby Tuck <General Goods>  42m SE │
+│                                                                                                ││ $ Hilda Brasswick <Armourer>     42m S │
 │                                                                                                ││ T Ormond Quill <Wizard Trainer>  48m E │
-│                                                                                                ││ Q Ambrose Fenwick <Master of t… 52m NE │
-│                                                                                                ││ H Isolde Fenn <Binder>          54m NE │
+│                                                                                                ││ Q Ambrose Fenwick <Master of t… 52m SE │
+│                                                                                                ││ H Isolde Fenn <Binder>          54m SE │
 │                                                                                                ││ $ Corwen Pell <Wool Guild Mistr… 56m E │
-│                                                                                                ││ g Town Guard <Thornwick Watch>   57m N │
+│                                                                                                ││ g Town Guard <Thornwick Watch>   57m S │
 │ Enter acts · Esc back                                                                          ││ T Ser Aldric Vane <Paladin Trai… 64m E │
 │ The answer is on the status line; every denial says why.                                       ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
@@ -33,7 +33,7 @@
 │   16:04:03.2 Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper    │
 │                than a healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse.   │
 │                Pay or wait.                                                                                                              │
-│ + 16:04:03.2 You buy Tanned Cap from Hilda Brasswick for 8 crowns                                                                        │
+│ + 16:04:03.2 You buy Tanned Cap from Hilda Brasswick for 24 crowns                                                                       │
 │   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
 │   16:04:03.2 Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash.       │
 │                Everything else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.        │

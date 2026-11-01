@@ -1,5 +1,5 @@
 ┌─ Traders ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Odalys Penn <Banker>, 2m N away. You have 20 crowns.                                           ││ hale  Lv 1 Warrior          | 20 crowns│
+│ Odalys Penn <Banker>, 2m S away. You have 20 crowns.                                           ││ hale  Lv 1 Warrior          | 20 crowns│
 │                                                                                                ││ HP 65/130 ##############-------------- │
 │ Vault space: tier 2 of 3 adds 20 slots for 250 crowns (you are short 230 crowns). B buys it.   ││ XP ------------------------- 40 to Lv 2│
 │ You carry (Enter banks one)                   │ In the bank, 0 of 60 (Enter takes one)         ││ Atk off | none                         │

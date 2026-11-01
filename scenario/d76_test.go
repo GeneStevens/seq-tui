@@ -56,7 +56,9 @@ func TestMarksPointerAndHintsAlongFirstSteps(t *testing.T) {
 			if sz[0] == 140 && !strings.Contains(s, "! Tamsin Hale") {
 				t.Errorf("%v: Nearby does not mark Tamsin Hale with the gold !:\n%s", sz, s)
 			}
-			if !strings.Contains(mapPart(s, sz[0]), "!") {
+			// At 80 x 24 a map row is about 4.5 m tall, so Tamsin, 2 m south of the
+			// start, shares the character's cell and the @ is drawn over her !.
+			if sz[0] == 140 && !strings.Contains(mapPart(s, sz[0]), "!") {
 				t.Errorf("%v: no ! on the map:\n%s", sz, s)
 			}
 			if st := lastRow(s); !strings.Contains(st, "→ Talk to Tamsin Hale") {
@@ -93,7 +95,7 @@ func TestMarksPointerAndHintsAlongFirstSteps(t *testing.T) {
 			}
 		}
 		p.Golden("marks_pointer_trainer")
-		walkVia(t, w, p, [2]int64{60000, 22000}, [2]int64{60000, 17000}, [2]int64{16000, 17000})
+		walkVia(t, w, p, [2]int64{60000, 68000}, [2]int64{60000, 73000}, [2]int64{16000, 73000})
 		if h := hintRow(p.Screen(140, 45)); !strings.Contains(h, "G: talk to Gorran Stoutarm <Warrior Trainer>") {
 			t.Errorf("at the trainer, the hint line: %q", h)
 		}
@@ -103,7 +105,7 @@ func TestMarksPointerAndHintsAlongFirstSteps(t *testing.T) {
 	})
 
 	w.Step("then the board", func() {
-		walkVia(t, w, p, [2]int64{60000, 17000}, [2]int64{60000, 45000}, [2]int64{57000, 45000}, [2]int64{57000, 51000})
+		walkVia(t, w, p, [2]int64{60000, 73000}, [2]int64{60000, 45000}, [2]int64{57000, 45000}, [2]int64{57000, 39000})
 		s := p.Screen(140, 45)
 		if !strings.Contains(s, "→ Take a contract") || !strings.Contains(s, "[step 3]") || !strings.Contains(mapPart(s, 140), "&") {
 			t.Errorf("at the board:\n%s", s)

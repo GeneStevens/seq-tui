@@ -16,9 +16,9 @@
 │ Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at│
 │ Wickett Mill, west of the river.                                             │
 │ Pays 31 XP and 14 crowns.                                                    │
-│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 4m SW.│
+│ Finished: hand it in at Thornwick Contract Board <Jobs for the Downs>, 4m NW.│
 │ Tab offered / held · Enter take / hand in · X give up · Esc back             │
 │ Up / Down choose. The answer is on the status line; every refusal says why.  │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125%    
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 6m N | road: faster, 125%    

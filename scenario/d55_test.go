@@ -73,7 +73,7 @@ func TestDuoOnAStanceStandsInEachRound(t *testing.T) {
 // at the next snapshot.
 func TestTheServersSpeedInAForestAndOnTheRoad(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: warrior(scenario.Downs), Zone: noSpawns})
-	w.Place("ann", "hale", 140000, 145000) // in Greywood
+	w.Place("ann", "hale", 140000, 305000) // in Greywood
 	p := w.Login("ann", "hale")
 	var pct int64
 	p.Model(func(m *model.Model) {
@@ -90,7 +90,7 @@ func TestTheServersSpeedInAForestAndOnTheRoad(t *testing.T) {
 
 	// Out of the wood the server has not spoken again: the line names the open
 	// ground and claims no speed.
-	walkVia(t, w, p, [2]int64{112000, 145000})
+	walkVia(t, w, p, [2]int64{112000, 305000})
 	if got := status(p); strings.Contains(got, "slowed") || strings.Contains(got, "faster") {
 		t.Fatalf("out of the forest the status line still says %q", got)
 	}
@@ -218,8 +218,8 @@ func TestCompanionAndPartyManaAreShown(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: []testserver.Account{{Name: "ann", Home: scenario.Downs,
 		Classed: map[string]string{"hale": "warrior", "bram": "cleric"}}}})
 	w.Fixture("companion_mana.jsonl")
-	w.Place("ann", "hale", 146000, 170000)
-	w.Place("ann", "bram", 144000, 170000)
+	w.Place("ann", "hale", 146000, 280000)
+	w.Place("ann", "bram", 144000, 280000)
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.Give("bram", levelUpAs("cleric", 5, nil))
 	w.Srv.GiveCompanion("hale", companionRecord("healer", "follow"))
@@ -264,7 +264,7 @@ func TestCompanionAndPartyManaAreShown(t *testing.T) {
 // the zone overview names them in its legend.
 func TestAllTheZonesMarkersAreOnTheMap(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: warrior(scenario.Downs), Zone: noSpawns})
-	w.Place("ann", "hale", 60000, 210000) // between the town gate and Barleycross
+	w.Place("ann", "hale", 60000, 240000) // between the town gate and Barleycross
 	p := w.Login("ann", "hale")
 	p.Eventually("the zone map", func(m *model.Model) bool { return m.Map != nil && m.Map.GetSpace() == m.Space })
 	p.Model(func(m *model.Model) {
