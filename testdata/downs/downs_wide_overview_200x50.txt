@@ -2,18 +2,18 @@
 │                                                                                                                            You                                                                       │
 │                                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                                                    │
 │                                         ░                        ···············;············                         ░    People                                                                    │
-│                                         ░                         "  ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ·······                     ░     $ vendor  Q quest person  D door                                         │
+│                                         ░         Eelmere Stilt House≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ·······                     ░     $ vendor  Q quest person  D door                                         │
 │                                         ░                Eelmere +1"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈   ··                     ░    Events                                                                    │
-│                                         ░                   ##;   " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore            ░     ; scout point                                                            │
-│                                         ░   Eelmere Stilt House··" "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                            ░    Ground                                                                    │
-│                                         ░                       ··· ≈≈≈ ≈≈≈≈≈≈≈≈≈≈                                    ░     # building  ^ rock  ≈ water                                              │
+│                                         ░                   ##;   " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                          ░     ; scout point                                                            │
+│                                         ░                   ## ··" "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                            ░    Ground                                                                    │
+│                                         ░                       ··· ≈≈≈ ≈≈≈≈≈≈≈≈≈≈Eel Mere Shore                      ░     # building  ^ rock  ≈ water                                              │
 │                                         ░                        ··· ≈≈≈    Eel Mere                                  ░     = bridge  " forest  · road                                               │
 │                                         ░                         ·· ≈≈≈≈                                             ░     ░ zone edge                                                              │
 │                                         ░                         ···≈≈≈≈                                             ░                                                                              │
 │                                         ░                          ···≈≈≈≈                        " " "               ░                                                                              │
-│                                         ░            Marlbridge Road··≈≈≈≈                 North Goblin Copse         ░                                                                              │
+│                                         ░             Q^            ··≈≈≈≈                 North Goblin Copse         ░                                                                              │
 │                                         ░      Eldbury Ring         ··≈≈≈≈≈                   Goblin Hut +1           ░                                                                              │
-│                                         ░                           ··≈≈≈≈≈                      "## Goblin Stockade  ░                                                                              │
+│                                         ░            Marlbridge Road··≈≈≈≈≈                      "## Goblin Stockade  ░                                                                              │
 │                                         ░       ^                   ··≈≈≈≈≈                     " " " " "  ###        ░                                                                              │
 │                                         ░                           ···≈≈≈≈                                           ░                                                                              │
 │                                         ░                            ··≈≈≈≈                                           ░                                                                              │
@@ -37,11 +37,11 @@
 │                                         ░                ··       "     ≈≈≈                                           ░                                                                              │
 │                                         ░                ··             ≈≈≈             ;                             ░                                                                              │
 │                                         ░                ··             ≈≈≈          ^^^^^^                           ░                                                                              │
-│                                         ░                  ;            ≈≈≈Hill Track +1^^                            ░                                                                              │
+│                                         ░                  ;            ≈≈≈           ^^^^                            ░                                                                              │
 │                                         ░                  @    ·······====·········  ;                               ░                                                                              │
 │                                         ░              Highfold +1      ≈≈≈    ^  ^                                   ░                                                                              │
 │                                         ░       Highfold Sheepfold      ≈≈≈                                           ░                                                                              │
-│                                         ░         Highfold Wool Shed                                                  ░                                                                              │
+│                                         ░         Highfold Wool Shed Hill Track +1                                    ░                                                                              │
 │                                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                                                              │
 │ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.                                                                                                                        │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                                                                                                         │

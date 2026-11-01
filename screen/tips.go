@@ -53,45 +53,50 @@ func (h *Hits) TipAt(x, y int) string {
 }
 
 // paintTips draws the tip of the cell the pointer is over and of the cell the
-// keyboard cursor is on, each beside its cell. A cell with something on it that
-// has a label of its own (a person, a mob, a door) shows that label instead.
+// keyboard cursor is on, each beside its cell. Over a thing with a label of its
+// own (a person, a mob, a door) the pointer shows that label, drawn with the
+// others; the cursor, which has none, says the thing too, then the places.
 func paintTips(g *grid, m *model.Model, v View) {
-	var cells [][2]int64
+	type spot struct {
+		c, r   int64
+		cursor bool
+	}
+	var spots []spot
 	if v.Hits != nil && v.Hover != nil {
-		cells = append(cells, [2]int64{int64(v.Hover.X - v.Hits.org.X), int64(v.Hover.Y - v.Hits.org.Y)})
+		spots = append(spots, spot{int64(v.Hover.X - v.Hits.org.X), int64(v.Hover.Y - v.Hits.org.Y), false})
 	}
 	if v.Cursor != nil {
 		c, r := g.cellOf(v.Cursor)
-		cells = append(cells, [2]int64{c, r})
+		spots = append(spots, spot{c, r, true})
 	}
-	if len(cells) == 0 {
+	if len(spots) == 0 {
 		return
 	}
 	ts := things(g, m)
-	var used map[[2]int64]bool
-	for _, at := range cells {
-		if _, ok := thingAt(ts, at[0], at[1]); ok {
-			continue
+	used := map[[2]int64]bool{}
+	for _, at := range spots {
+		var parts []string
+		if t, ok := thingAt(ts, at.c, at.r); ok {
+			if !at.cursor {
+				continue
+			}
+			parts = append(parts, t.label)
 		}
-		tip := strings.Join(g.placesAt(at[0], at[1]), tipSep)
-		if tip == "" {
-			continue
+		if parts = append(parts, g.placesAt(at.c, at.r)...); len(parts) > 0 {
+			g.tip(used, at.c, at.r, strings.Join(parts, tipSep))
 		}
-		if used == nil {
-			used = map[[2]int64]bool{}
-		}
-		g.tip(used, at[0], at[1], tip)
 	}
 }
 
 // tip writes a label for the cell (c, r): beside it, right then left, else on
-// the row above or below, kept inside the map. A tip longer than the map is cut.
+// the rows above or below, kept inside the map and off the names, the character
+// and the cursor. A tip longer than the map is cut.
 func (g *grid) tip(used map[[2]int64]bool, c, r int64, tip string) {
 	text := " " + strings.TrimRight(fit(tip, max(g.cw-2, 1)), " ") + " "
 	w := int64(width(text))
 	mid := min(max(c-w/2, 0), int64(g.cw)-w)
-	for _, at := range [][2]int64{{c + 1, r}, {c - w, r}, {mid, r - 1}, {mid, r + 1}} {
-		if g.labelRoom(used, at[0], at[1], int(w)) {
+	for _, at := range [][2]int64{{c + 1, r}, {c - w, r}, {mid, r - 1}, {mid, r + 1}, {mid, r - 2}, {mid, r + 2}} {
+		if g.labelRoom(used, at[0], at[1], int(w)) && g.clearOfNames(at[0], at[1], int(w)) {
 			g.text(at[0], at[1], text, kLabel)
 			for i := int64(0); i < w; i++ {
 				used[[2]int64{at[0] + i, at[1]}] = true
@@ -99,4 +104,16 @@ func (g *grid) tip(used map[[2]int64]bool, c, r int64, tip string) {
 			return
 		}
 	}
+}
+
+// clearOfNames says w cells from (c, r) hold no name, nor the character, nor the
+// cursor: a tip does not cover them.
+func (g *grid) clearOfNames(c, r int64, w int) bool {
+	for i := 0; i < w; i++ {
+		switch g.cells[r][c+int64(i)].k {
+		case kPlace, kSelf, kCursor, kLabel:
+			return false
+		}
+	}
+	return true
 }

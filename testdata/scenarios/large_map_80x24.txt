@@ -1,16 +1,16 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
-│             South Wall░#     ··  The Cottages   #### #░                      │
-│                       ░######··    #The Counting House░                      │
-│                       ░######··#Thornwick +19#########░                      │
+│             South Wall░#     ··    #The Counting House░                      │
+│                       ░######··    ####The Watch House░The Chandlery         │
+│            The Armoury░######··#Thornwick +10#########░                      │
 │                       ░######··####········ #B########░                      │
-│                       ░######$·   ··Q&····· $   ##Q###░                      │
+│           Tanner's Row░######$·   ··Q&····· $   ##Q###░Watch House Yard      │
 │              West Wall░######Q········@····g········D·░East Wall             │
-│                       ░######$·   ·$···H$··  East Gate░                      │
+│                       ░######$·   ·$···H$··  East Gate░Gatehouse Way         │
 │                       ░######··   ·········      #####░                      │
 │                       ░######··      ··· The Gatehouse░                      │
-│                       ░# ·!····T···T···T···T···· Thornwick · Trainers' Lane  │
-│                       ░# ########North Wall#######   #░                      │
+│         Trainers' Lane░# ·!····T···T···T···T···· Thornwick · Trainers' Lane  │
+│         Warriors' Hall░The Tannery#North Wall#####   #░Druids' Hall          │
 │                       ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                      │
 │ Thornwick, 120m by 90m, north up. You: 60m E, 45m N of the SW corner.        │
 │ You       @ you                                                              │

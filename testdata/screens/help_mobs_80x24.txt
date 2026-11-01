@@ -13,11 +13,11 @@
 │   W                 walk to the selected target, or to the last spot         │
 │                     clicked: for a terminal that sends no Option-click       │
 │   Hover             its name beside the pointer: a mob, person, door,        │
-│                     marker, or you                                           │
+│                     marker, or you; on the large map the places there (the   │
+│                     arrow keys' cursor does the same)                        │
 │   Alt, Ctrl+A       name everything on the map (Ctrl+A if your terminal      │
 │                     sends no Alt with the mouse)                             │
 │   Wheel, + -        zoom the map (the wheel over the Events, Chat or Party   │
-│                     panel scrolls it back instead)                           │
 │ Page 3 of 10  Up, Down scroll  ? next page  Left, Right turn  Esc closes     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           

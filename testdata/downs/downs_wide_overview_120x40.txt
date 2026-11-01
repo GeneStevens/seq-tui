@@ -1,16 +1,16 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                                                           You                                        │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                     │
-│          ░                  ·······≈≈≈≈;≈≈≈········Eel Mere Shore    ░    People                                     │
-│          ░          Eelmere +2≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     $ vendor  Q quest person  D door          │
+│          ░                  ·······≈≈≈≈;≈≈≈········                  ░    People                                     │
+│          ░             Eelmere≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     $ vendor  Q quest person  D door          │
 │          ░               #; " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                    ░    Events                                     │
-│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                      ░     ; scout point                             │
+│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore        ░     ; scout point                             │
 │          ░                  ·· ≈≈  Eel Mere                          ░    Ground                                     │
-│          ░                   ··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
+│          ░Eelmere Stilt House··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
 │          ░                   ··≈≈≈≈                                  ░     = bridge  " forest  · road                │
-│          ░     Marlbridge Road··≈≈≈                  " " "           ░     ░ zone edge                               │
-│          ░   Eldbury Ring     ··≈≈≈              Goblin Hut +2       ░                                               │
-│          ░             ^      ··≈≈≈≈                 #Goblin Stockade░                                               │
+│          ░  Eldbury Ring +1   ··≈≈≈                  " " "           ░     ░ zone edge                               │
+│          ░       ^  Q         ··≈≈≈              Goblin Hut +2       ░                                               │
+│          ░     Marlbridge Road··≈≈≈≈                 #Goblin Stockade░                                               │
 │          ░     ^               ·≈≈≈≈                " " "   ###      ░                                               │
 │          ░                     ·≈≈≈≈                                 ░                                               │
 │          ░                    $; ≈≈≈                                 ░                                               │

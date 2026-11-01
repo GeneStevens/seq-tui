@@ -1,12 +1,12 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                                                           You                                        │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                     │
-│          ░                  ·······≈≈≈≈;≈≈≈········Eel Mere Shore    ░    People                                     │
-│          ░          Eelmere +2≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     Q quest person  D door                    │
+│          ░                  ·······≈≈≈≈;≈≈≈········                  ░    People                                     │
+│          ░          Eelmere +1≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     Q quest person  D door                    │
 │          ░               #; " ≈≈≈≈≈≈@≈≈≈≈≈≈≈≈≈≈≈≈                    ░    Events                                     │
-│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                      ░     ; scout point                             │
+│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore        ░     ; scout point                             │
 │          ░                  ·· ≈≈  Eel Mere                          ░    Ground                                     │
-│          ░                   ··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
+│          ░Eelmere Stilt House··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
 │          ░                   ··≈≈≈≈                                  ░     = bridge  " forest  · road                │
 │          ░     Marlbridge Road··≈≈≈                                  ░     ░ zone edge                               │
 │          ░                    ··≈≈≈                                  ░                                               │

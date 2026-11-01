@@ -361,6 +361,14 @@ const (
 	groupRows = 6
 )
 
+// searchMoreCols and searchMoreRows are how far beside a place its name may go,
+// beyond its own extent and the name's own width, when the spots inside are
+// taken; the spots nearest the place are tried first.
+const (
+	searchMoreCols = 6
+	searchMoreRows = 2
+)
+
 // namedPlace is a name written on the large map and the places left out that
 // are counted under it.
 type namedPlace struct {
@@ -450,8 +458,8 @@ func (g *grid) nameAll(m *model.Model, cands []int, group map[string][]string) [
 		c, r := g.cellOf(p.Pos)
 		for ti, text := range texts {
 			w := width(text)
-			halfC := max(p.DX/g.sc.col/2, 2) + int64(w)/2
-			halfR := max(p.DY/g.sc.row/2, 0) + 1
+			halfC := max(p.DX/g.sc.col/2, 2) + int64(w)/2 + searchMoreCols
+			halfR := max(p.DY/g.sc.row/2, 0) + 1 + searchMoreRows
 			type spot struct{ dc, dr, cost int64 }
 			var spots []spot
 			for dr := -halfR; dr <= halfR; dr++ {

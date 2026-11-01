@@ -1,12 +1,12 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │               ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   You                                             │
-│               ░                      ·············;············                      ░    @ you                                          │
-│               ░             Eelmere +1;≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ·····                    ░   People                                          │
-│               ░  Eelmere Boat Shed;# "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore          ░    $ vendor  Q quest person  D door               │
+│               ░     Eelmere Boat Shed·············;············                      ░    @ you                                          │
+│               ░                Eelmere;≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ·····                    ░   People                                          │
+│               ░                 ##;# "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                        ░    $ vendor  Q quest person  D door               │
 │               ░    Eelmere Stilt House≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                        ░   Events                                          │
-│               ░                    ··· ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                           ░    ; scout point  v raiders appear                │
+│               ░                    ··· ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore             ░    ; scout point  v raiders appear                │
 │               ░                     ···   ≈≈≈Eel Mere                                ░    ◆ raiders head for                             │
-│               ░                      ···   ≈≈                                        ░   Ground                                          │
+│               ░                      ···   ≈≈Eel Mere Reeds                          ░   Ground                                          │
 │               ░   " " "           " " ··"  ≈≈                                        ░    # building  ^ rock  ≈ water                    │
 │               ░  " " "         " " " "···" ≈≈                            " "         ░    : ford  = bridge  " forest                     │
 │               ░   " " " Marlbridge Road··  ≈≈≈                          " " " "      ░    · road  ░ zone edge                            │
@@ -15,14 +15,14 @@
 │               ░        South Greywood +1··≈≈≈              " " " "                   ░                                                   │
 │               ░       Fordwatch Stockade··≈≈≈               " " " "                  ░                                                   │
 │               ░      Fordwatch Watch Hut·;≈≈≈                       ##               ░                                                   │
-│               ░                 " " " #;QQ::::          ##                           ░                                                   │
-│               ░               Fordwatch +5:;::               ^^^              ^^^^^^^░                                                   │
-│               ░Thornwick Gate  Ford Shrine≈≈≈              Far Road            ^^^^^^░                                                   │
+│               ░ Barley Hedgerow " " " #;QQ::::          ##                           ░                                                   │
+│               ░Thornwick Gate Fordwatch +3:;::Brigands' Road ^^^              ^^^^^^^░                                                   │
+│               ░Wickett Mill +3 Ford Shrine≈≈≈              Far Road            ^^^^^^░                                                   │
 │               ░D··························====··································;·D  ░                                                   │
 │               ░   "   ; @·;## "       ;    ≈≈    ··^^;·····                    ^^^^^^░                                                   │
 │               ░      Q#≈#Q◆Barleycross Hall≈≈≈     ^^                         ^^^^^^^░                                                   │
-│               ░      ##  ··    The Millrace≈≈≈      Goblin Hut                       ░                                                   │
-│               ░          ···       " " " " ≈≈≈                                       ░                                                   │
+│               ░      ##  ··Barleycross Barn≈≈≈      Goblin Hut                       ░                                                   │
+│               ░          ···   The Millrace≈≈≈                                       ░                                                   │
 │               ░           ···North Greywood≈≈≈           Goblin Stockade +1          ░                                                   │
 │               ░            ···     " " " " ≈≈≈             " " " "                   ░                                                   │
 │               ░             ··    " " " " ≈≈≈        North Goblin Copse^^            ░                                                   │
@@ -34,9 +34,9 @@
 │               ░               ··           ≈≈≈          ^;^                          ░                                                   │
 │               ░               ··           ≈≈Hill Track +1^^                         ░                                                   │
 │               ░                ; ###······====········  ^^^                          ░                                                   │
-│               ░  Highfold GreenQ           ≈≈  ··^····^^;   ^                        ░                                                   │
+│               ░                Q           ≈≈  ··^····^^;   ^                        ░                                                   │
 │               ░            Highfold +5     ≈≈    The Hoarstones                      ░                                                   │
-│               ░        Highfold Sheepfold                                            ░                                                   │
+│               ░         Highfold Green Highfold Sheepfold                            ░                                                   │
 │               ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                                   │
 │ Thornwick Downs, 420m by 450m, north up. You: 60m E, 210m N of the SW corner.                                                            │
 │ labels off                                                                                                                               │

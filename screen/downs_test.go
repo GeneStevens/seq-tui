@@ -102,6 +102,7 @@ func downsWide() *pb.ZoneMap {
 		&pb.Area{Id: "goblin-stockade", Name: "Goblin Stockade", Kind: "building", Poly: rect(356000, 300000, 372000, 312000)},
 		&pb.Area{Id: "goblin-rocks", Name: "Goblin Rocks", Kind: "rock", Poly: rect(326000, 334000, 329000, 337000)})
 	zm.Npcs = append(zm.Npcs,
+		&pb.NpcPlace{Id: "eldbury-druid", Name: "Aldith Marrow", Role: "quest_giver", Title: "Ring Warden", Pos: &pb.Pos{X: 77000, Y: 330000}},
 		&pb.NpcPlace{Id: "barleycross-miller", Name: "Edda Barley", Role: "quest_giver", Title: "Barleycross Miller", Pos: &pb.Pos{X: 272000, Y: 128000}},
 		&pb.NpcPlace{Id: "fordwatch-warden", Name: "Hob Ferrier", Role: "vendor", Title: "Fordwatch Warden", Pos: &pb.Pos{X: 151000, Y: 262000}})
 	zm.Camps = append(zm.Camps,

@@ -1,17 +1,17 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                                                                              │
 │                            ░░░░░░░░░░░;░░░░░░░░░░░                           │
-│                            ░     ;"≈≈≈≈≈≈≈≈·     ░                           │
-│                            ░      ·≈≈≈≈          ░                           │
-│                            ░       ·≈  Goblin Hut░                           │
-│                            ░       ·≈≈     "#### ░                           │
-│                            ░       ;≈≈Far Road   ░                           │
+│         Eelmere Stilt House░     ;"≈≈≈≈≈≈≈≈·     ░                           │
+│                            ░      ·≈≈≈≈Goblin Hut░                           │
+│                            ░   Q   ·≈Eelmere +2  ░                           │
+│             Eldbury Ring +8░       ·≈≈     "#### ░Goblin Stockade            │
+│                            ░       ;≈≈Fordwatch  ░                           │
 │                            D        ≈···· ······D░                           │
-│                            ░   ·    ≈≈          ^░                           │
-│                            ░   ··  "≈≈Barleycross░                           │
-│                            ░    · " ≈≈    Q   "  ░                           │
-│                            ░    ·  "≈≈  ^;       ░                           │
-│                            ░    @   ≈≈  ;        ░                           │
+│                            ░   ·    ≈≈Far Road  ^░                           │
+│                            ░   ··  "≈≈Highfold +3░                           │
+│                            ░    · " ≈≈    Q   "  ░Barleycross +2             │
+│          Highfold Wool Shed░    ·  "≈≈  ^;       ░                           │
+│          Highfold Sheepfold░    @   ≈≈  ;        ░                           │
 │                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
 │ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.│
 │ You       @ you                                                              │
