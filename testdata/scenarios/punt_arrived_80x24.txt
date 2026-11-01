@@ -19,6 +19,6 @@
 │ +   N.Ns You pay 10 crowns for passage with Nell Rush                        │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Nell's Punt <Drawn up on the east bank>                             
  ONLINE | Thornwick Downs | heard N.Ns ago | sail The East Landing ok     ? help

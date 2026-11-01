@@ -16,8 +16,8 @@
 │                     marker, or you                                           │
 │   Alt, Ctrl+A       name everything on the map (Ctrl+A if your terminal      │
 │                     sends no Alt with the mouse)                             │
-│   Wheel, + -        zoom the map                                             │
-│   Right-click, Esc  let go of the selection                                  │
+│   Wheel, + -        zoom the map (the wheel over the Events, Chat or Party   │
+│                     panel scrolls it back instead)                           │
 │ Page 3 of 10  Up, Down scroll  ? next page  Left, Right turn  Esc closes     │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 115/120 | Target: Shell Rat 12/20                                           

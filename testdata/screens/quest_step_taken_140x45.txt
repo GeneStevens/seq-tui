@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Captain Rhosyn Hartley <Watch Captain>                                                                                          
  ONLINE | Watch House Yard, Thornwick | → Eyes on the Goblins (Thornwick Downs), 12m SE | heard 0.4s ago                      ? help  q quit

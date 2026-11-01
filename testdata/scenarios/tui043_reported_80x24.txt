@@ -19,6 +19,6 @@
 │ [ooc] bob1: third line                                                       │
 │»[say] bob1: hello ann1, well met                                             │
 │ [tell] to bob1: on my way                                                    │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Testgrounds Vendor  ·  Tab: target · F: attack                      
  ONLINE | Your report about bob1 has been filed (report 1). A game master will …

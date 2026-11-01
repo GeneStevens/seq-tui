@@ -19,6 +19,6 @@
 │ [ooc] bob1: third line                                                       │
 │»[say] bob1: hello ann1, well met                                             │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Testgrounds Vendor  ·  Tab: target · F: attack                      
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

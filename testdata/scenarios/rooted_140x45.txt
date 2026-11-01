@@ -40,6 +40,6 @@
 │     N.Ns Plain Scuttler targeted Zedd                                                                                                    │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                                                                               
  ONLINE | Testgrounds | heard N.Ns ago | key 1 Root ok                                                                        ? help  q quit

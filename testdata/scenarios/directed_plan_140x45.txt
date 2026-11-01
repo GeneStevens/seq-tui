@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North  ·  Tab: target · F: attack                                                                                            
  ONLINE | directing bram | Testgrounds (Duo Turns) | heard N.Ns ago                                                           ? help  q quit

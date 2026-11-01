@@ -19,6 +19,6 @@
 │ [tell] Mira: group for the Warren?                                           │
 │»[say] Gorran Stoutarm: Aria, come back when you are stronger                 │
 │ [say] Aria: on my way                                                        │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Z | heard 0.4s ago                                      ? help  q quit

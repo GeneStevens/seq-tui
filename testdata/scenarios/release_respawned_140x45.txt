@@ -40,6 +40,6 @@
 │    NN.Ns Plain Scuttler reset to 40 hp                                                                                                   │
 │    NN.Ns You release your body and will return in 5 seconds                                                                              │
 │    NN.Ns You return to life in Testgrounds                                                                                               │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                                    
  ONLINE | Testgrounds | heard N.Ns ago | release ok                                                                           ? help  q quit

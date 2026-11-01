@@ -19,6 +19,6 @@
 │     1.3s Aria began fighting Shell Rat                                       │
 │     1.4s Aria hit Shell Rat for 8                                            │
 │ <   1.5s Shell Rat hit Aria for 5                                            │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                      
  ONLINE | outskirts | heard 0.4s ago                              ? help  q quit

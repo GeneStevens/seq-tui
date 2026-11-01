@@ -40,6 +40,6 @@
 │ +  22.9s You gain 20 experience                                                                                                          │
 │    22.9s Plain Scuttler is out of view                                                                                                   │
 │    52.9s Plain Scuttler comes into view                                                                                                  │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot Cracked Shell Fragment  ·  Tab: target · F: attack                                                                                 
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Bash ok                                                                        ? help  q quit

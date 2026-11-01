@@ -40,6 +40,6 @@
 │    81.4s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
 │    81.4s instance ended, cleared: every mob dead and the loot taken                                                                      │
 │    81.7s entered Testgrounds                                                                                                             │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North                                                                                                                        
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                                                                              ? help  q quit

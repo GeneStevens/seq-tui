@@ -19,6 +19,6 @@
 │     N.Ns Plain Scuttler misses ann1                                          │
 │     N.Ns Ann1 hits Plain Scuttler for 6                                      │
 │     N.Ns Plain Scuttler hits ann1 for 2                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard N.Ns ago | accepted the invitation  ? help  q quit

@@ -19,6 +19,6 @@
 │     2.2s You begin fighting Plain Scuttler                                   │
 │     2.2s Plain Scuttler is affected by Root                                  │
 │     2.2s You are in combat with Plain Scuttler                               │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard 0.4s ago | key 1 Root ok            ? help  q quit

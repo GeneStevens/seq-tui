@@ -40,6 +40,6 @@
 │     N.Ns Your companion is ordered: stop                                                                                                 │
 │     N.Ns Your target Bramble Tusker is gone                                                                                              │
 │     N.Ns Watch Shieldman stopped attacking                                                                                               │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                                                                               
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | companion order: stop ok                 ? help  q quit

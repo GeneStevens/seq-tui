@@ -40,6 +40,6 @@
 │     N.Ns instance not opened: your group already has an instance open (instance_exists), inst-1                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Delve Gate is shut to you: every place in the expedition beyond it is taken, and a replacement can only fill one a member has left.        
  ONLINE | Hollow Warren | heard N.Ns ago | instance requested; the log says when it is open                                   ? help  q quit

@@ -19,6 +19,6 @@
 │ +   2.5s You take the contract Word from Wickett Mill                        │
 │    20.7s entered Thornwick Downs                                             │
 │ +  32.6s Word from Wickett Mill: 1 of 1                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Hew Wickett <Miller>                                                
  ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W | move ok      

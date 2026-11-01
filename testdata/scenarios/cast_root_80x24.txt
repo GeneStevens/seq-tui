@@ -19,6 +19,6 @@
 │     N.Ns Slot 3: Flame Dart                                                  │
 │     N.Ns You target Plain Scuttler                                           │
 │     N.Ns You begin casting Root on Plain Scuttler                            │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard N.Ns ago | key 1 Root ok            ? help  q quit

@@ -40,6 +40,6 @@
 │   NNN.Ns Pit Slinger is out of view                                                                                                      │
 │   NNN.Ns 15 crowns was taken                                                                                                             │
 │ + NNN.Ns You find 15 crowns                                                                                                              │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok                                                     ? help  q quit

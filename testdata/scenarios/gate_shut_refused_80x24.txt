@@ -19,6 +19,6 @@
 │            first.                                                            │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Gate North is shut: no expedition is open beyond it. Start one first.          
  ! Gate North is shut: no expedition is open beyond it. Start one first.  ? help

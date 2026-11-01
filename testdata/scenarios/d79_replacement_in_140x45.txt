@@ -40,6 +40,6 @@
 │     N.Ns cora comes into view                                                                                                            │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Delve Gate                                                                                                                        
  ONLINE | heard N.Ns ago | ! usage: /status away, /status autopilot or /status clear (no effect on play)                      ? help  q quit

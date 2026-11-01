@@ -19,6 +19,6 @@
 │            bound to them.                                                    │
 │    NN.Ns instance ended, cleared: every mob dead and the loot taken          │
 │    NN.Ns entered Testgrounds                                                 │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                  ? help  q quit

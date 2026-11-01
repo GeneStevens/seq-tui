@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  R: release your body and wake at your bind point                                                                                           
  ONLINE | Thornwick Road, Thornwick Downs | road: faster, 125% | heard N.Ns ago                                               ? help  q quit

@@ -19,6 +19,6 @@
 │            delve-gate with E                                                 │
 │     1.2s entered Hollow Warren (Warren Venture Delve)                        │
 │     2.4s bram comes into view                                                │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Delve Gate                                                            
  ONLINE | Hollow Warren (Warren Venture Delve) | heard 0.4s ago   ? help  q quit

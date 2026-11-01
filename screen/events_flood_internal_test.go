@@ -33,7 +33,7 @@ func TestTheDeathStaysInEventsAfterAFloodOfQuietEvents(t *testing.T) {
 		}
 	}
 
-	rows := strings.Join(logLines(m, View{}, 70, 12, Plain()), "\n")
+	rows := strings.Join(logRowsOnly(m, View{}, 70, 12, Plain()), "\n")
 	for _, want := range []string{"hit Me for 3", "killed Me"} {
 		if !strings.Contains(rows, want) {
 			t.Errorf("the panel lost %q after 2,000 quiet events:\n%s", want, rows)
@@ -53,12 +53,12 @@ func TestTheDeathStaysInEventsAfterAFloodOfQuietEvents(t *testing.T) {
 	if shown != 4 || quiet >= 3*model.DefaultLogCap {
 		t.Errorf("the log holds %d visible and %d quiet lines", shown, quiet)
 	}
-	all := strings.Join(logLines(m, View{Verbose: true}, 70, 12, Plain()), "\n")
+	all := strings.Join(logRowsOnly(m, View{Verbose: true}, 70, 12, Plain()), "\n")
 	if !strings.Contains(all, "moved to") {
 		t.Errorf("verbose mode shows no quiet line:\n%s", all)
 	}
-	// The visible ring keeps the last 200 lines when it is full of them.
-	for i := range 450 {
+	// The visible ring keeps the last DefaultLogCap lines when it is full of them.
+	for i := range 3*model.DefaultLogCap + 50 {
 		ev(500000+int64(i), &pb.Event{Body: &pb.Event_Combat{Combat: &pb.Combat{Kind: pb.CombatKind_COMBAT_KIND_HIT, Attacker: "mob", Target: "me", Amount: int64(i)}}})
 		ev(500000+int64(i), &pb.Event{Body: &pb.Event_EntityMoved{EntityMoved: &pb.EntityMoved{Id: "mob", Pos: &pb.Pos{X: int64(i)}}}})
 	}
@@ -74,4 +74,10 @@ func TestTheDeathStaysInEventsAfterAFloodOfQuietEvents(t *testing.T) {
 	if last := m.Log[len(m.Log)-2]; last.Kind != "combat_hit" || last.Seq == 0 {
 		t.Errorf("the newest visible line is not kept: %+v", last)
 	}
+}
+
+// logRowsOnly is the log panel's rows, without the count of new lines.
+func logRowsOnly(m *model.Model, v View, w, h int, st Styler) []string {
+	rows, _ := logLines(m, v, w, h, st)
+	return rows
 }

@@ -39,6 +39,11 @@ type Hits struct {
 	// when it is not drawn).
 	Panel  []Tab
 	Drawer Rect
+	// Log is the bottom panel, borders and all (W is 0 when it is not drawn), LogTab the tab
+	// it shows and LogPage how many rows a page of it is.
+	Log     Rect
+	LogTab  int
+	LogPage int
 	// Names are the names in the chat as drawn, top to bottom (D101 §9): a click
 	// on one opens that character's card, and the keyboard steps through them.
 	// Card is the character card's block and CardActs where its actions were
@@ -62,7 +67,7 @@ func (h *Hits) begin() {
 		h.spare = h.g
 	}
 	h.Map, h.Side, h.Tabs, h.g = Rect{}, Rect{}, h.Tabs[:0], nil
-	h.Panel, h.Drawer = h.Panel[:0], Rect{}
+	h.Panel, h.Drawer, h.Log = h.Panel[:0], Rect{}, Rect{}
 	h.Names, h.Card, h.CardActs, h.nameN = h.Names[:0], Rect{}, h.CardActs[:0], 0
 	h.Seen = Marks{}
 }

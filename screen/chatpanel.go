@@ -2,6 +2,7 @@ package screen
 
 import (
 	"fmt"
+	"math"
 	"strings"
 	"time"
 	"unicode"
@@ -633,7 +634,14 @@ func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []chatRow 
 // walks from the newest line back and stops once need rows are in hand, so only
 // the lines that show are wrapped and styled.
 func chatRows(m *model.Model, w, need int, keep func(model.ChatLine) bool, st Styler) []chatRow {
+	rows, _ := chatRowsSeq(m, w, need, keep, st)
+	return rows
+}
+
+// chatRowsSeq is chatRows with the number of the line each row belongs to.
+func chatRowsSeq(m *model.Model, w, need int, keep func(model.ChatLine) bool, st Styler) ([]chatRow, []int) {
 	var blocks [][]chatRow // newest line first
+	var nums []int
 	have := 0
 	for i := len(m.Social.Chat) - 1; i >= 0 && have < need; i-- {
 		l := m.Social.Chat[i]
@@ -642,13 +650,18 @@ func chatRows(m *model.Model, w, need int, keep func(model.ChatLine) bool, st St
 		}
 		rows := chatLineRows(m, l, w, st)
 		blocks = append(blocks, rows)
+		nums = append(nums, l.Seq)
 		have += len(rows)
 	}
 	out := make([]chatRow, 0, have)
+	seqs := make([]int, 0, have)
 	for i := len(blocks) - 1; i >= 0; i-- {
 		out = append(out, blocks[i]...)
+		for range blocks[i] {
+			seqs = append(seqs, nums[i])
+		}
 	}
-	return out
+	return out, seqs
 }
 
 // chatRowsOf is all the chat as rows, for the Social screen (which has no links).
@@ -658,18 +671,21 @@ func chatRowsOf(m *model.Model, w int, st Styler) []string {
 
 func partyOnly(l model.ChatLine) bool { return l.Channel == "party" }
 
-// chatTabLines are the rows of the Chat and Party tabs: the newest lines that fit.
-// np says where they are drawn, for the names in them.
-func chatTabLines(m *model.Model, w, h int, keep func(model.ChatLine) bool, empty string, st Styler, np *namePlace) []string {
-	rows := chatRows(m, w, h, keep, st)
-	if len(rows) > h {
-		rows = rows[len(rows)-h:]
+// chatTabLines are the rows of the Chat and Party tabs: the newest lines that fit,
+// or, scrolled back by pos, the lines before its place; and how many lines are past
+// the last one in view. np says where they are drawn, for the names in them.
+func chatTabLines(m *model.Model, w, h int, keep func(model.ChatLine) bool, empty string, st Styler, np *namePlace, pos *ScrollPos) ([]string, int) {
+	need := h
+	if pos != nil && !pos.Live() {
+		need = math.MaxInt
 	}
-	out := np.paint(rows, 0, st)
+	rows, seqs := chatRowsSeq(m, w, need, keep, st)
+	lo, hi, fresh := pos.window(seqs, h)
+	out := np.paint(rows[lo:hi], 0, st)
 	if len(out) == 0 {
 		out = append(out, st.Dim(fit(" "+empty, w)))
 	}
-	return pad(out, w, h)
+	return pad(out, w, h), fresh
 }
 
 // newestChat is the newest line of chat, for the ticker.
@@ -739,17 +755,18 @@ func bottomPanel(m *model.Model, v View, w, h, y int, st Styler) []string {
 	tab := panelTab(m, v)
 	v.viewed(m, tab)
 	var body []string
+	fresh := 0
 	np := namesIn(v, 1, y+1)
 	if v.Drawer != nil {
 		np = nil // the drawer is over the map with the same lines: its names are the ones to click
 	}
 	switch tab {
 	case PanelChat:
-		body = chatTabLines(m, w-2, h-2, func(model.ChatLine) bool { return true }, "nobody has said anything: / types, C lifts the chat over the map", st, np)
+		body, fresh = chatTabLines(m, w-2, h-2, func(model.ChatLine) bool { return true }, "nobody has said anything: / types, C lifts the chat over the map", st, np, v.pos(PanelChat))
 	case PanelParty:
-		body = chatTabLines(m, w-2, h-2, partyOnly, "no party chat: /p types to the party", st, np)
+		body, fresh = chatTabLines(m, w-2, h-2, partyOnly, "no party chat: /p types to the party", st, np, v.pos(PanelParty))
 	default:
-		body = logLines(m, v, w-2, h-2, st)
+		body, fresh = logLines(m, v, w-2, h-2, st)
 	}
 	side := st.Dim("│")
 	rows := []string{panelTop(m, v, w, y, tab, st)}
@@ -760,7 +777,18 @@ func bottomPanel(m *model.Model, v View, w, h, y int, st Styler) []string {
 		}
 		rows = append(rows, side+line+side)
 	}
-	return append(rows, st.Dim("└"+strings.Repeat("─", w-2)+"┘"))
+	if v.Hits != nil {
+		v.Hits.Log, v.Hits.LogTab, v.Hits.LogPage = Rect{0, y, w, h}, tab, max(h-2, 1)
+	}
+	if p := v.pos(tab); p != nil && !p.Live() {
+		mark := " " + scrollMark(fresh) + " "
+		return append(rows, st.Dim("└─")+st.Bold(mark)+st.Dim(strings.Repeat("─", max(w-3-width(mark), 0))+"┘"))
+	}
+	hint := " wheel · PgUp/PgDn · Home/End: scroll back "
+	if width(hint) > w-4 {
+		return append(rows, st.Dim("└"+strings.Repeat("─", w-2)+"┘"))
+	}
+	return append(rows, st.Dim("└─"+hint+strings.Repeat("─", w-3-width(hint))+"┘"))
 }
 
 // drawerLines are the rows inside the chat drawer: the filters, a warning while

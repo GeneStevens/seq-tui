@@ -19,6 +19,6 @@
 │ +  NN.Ns You gain 20 experience                                              │
 │    NN.Ns Plain Scuttler is out of view                                       │
 │    NN.Ns Plain Scuttler comes into view                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  L: loot Cracked Shell Fragment  ·  Tab: target · F: attack                     
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

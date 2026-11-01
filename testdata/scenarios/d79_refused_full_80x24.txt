@@ -19,6 +19,6 @@
 │     N.Ns hale invites you to a party                                         │
 │ !   N.Ns Delve Gate is shut to you: every place in the expedition beyond it  │
 │            is taken, and a replacement can only fill one a member has left.  │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Delve Gate is shut to you: every place in the expedition beyond it is taken, a…
  ONLINE | ! Delve Gate is shut to you: every place in the expedition beyond it …

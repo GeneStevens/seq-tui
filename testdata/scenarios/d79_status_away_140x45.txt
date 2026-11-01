@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Delve Gate                                                                                                                        
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | status: away (no effect on rewards or play)                 ? help  q quit

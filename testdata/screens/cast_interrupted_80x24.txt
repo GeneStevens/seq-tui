@@ -19,6 +19,6 @@
 │    22.7s You begin casting Frost Bolt on Plain Scuttler                      │
 │ <  24.4s Plain Scuttler hits you for 4                                       │
 │ !  24.4s Your Frost Bolt is interrupted                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok      ? help  q quit

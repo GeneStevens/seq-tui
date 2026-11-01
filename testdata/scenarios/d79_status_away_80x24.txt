@@ -19,6 +19,6 @@
 │     N.Ns bram is out of view                                                 │
 │     N.Ns entered Hollow Warren (Warren Venture Delve)                        │
 │     N.Ns cora joined the party                                               │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Delve Gate                                                            
  ONLINE | heard N.Ns ago | status: away (no effect on rewards or play)    ? help

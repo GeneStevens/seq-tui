@@ -2,6 +2,7 @@ package screen
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"strings"
 
@@ -459,28 +460,39 @@ type logRow struct {
 	fn   func(string) string
 }
 
-// logLines is the log panel's rows. It walks the log from the newest entry back
-// and stops once h rows are in hand, so only the entries that show are wrapped
-// and styled.
-func logLines(m *model.Model, v View, w, h int, st Styler) []string {
+// logLines is the log panel's rows, and how many lines are past the last one in
+// view while it is scrolled back. Live, it walks the log from the newest entry
+// back and stops once h rows are in hand, so only the entries that show are
+// wrapped and styled; scrolled back, it wraps the whole log to find its place.
+func logLines(m *model.Model, v View, w, h int, st Styler) ([]string, int) {
+	pos := v.pos(PanelEvents)
+	need := h
+	if pos != nil && !pos.Live() {
+		need = math.MaxInt
+	}
 	var blocks [][]logRow // newest entry first
+	var ords []int
 	have := 0
-	for i := len(m.Log) - 1; i >= 0 && have < h; i-- {
+	for i := len(m.Log) - 1; i >= 0 && have < need; i-- {
 		e := &m.Log[i]
 		if !v.Verbose && e.Hidden() {
 			continue
 		}
 		rows := logEntryRows(m, e, w, st)
 		blocks = append(blocks, rows)
+		ords = append(ords, int(e.Ord))
 		have += len(rows)
 	}
 	all := make([]logRow, 0, have)
+	seqs := make([]int, 0, have)
 	for i := len(blocks) - 1; i >= 0; i-- {
 		all = append(all, blocks[i]...)
+		for range blocks[i] {
+			seqs = append(seqs, ords[i])
+		}
 	}
-	if len(all) > h {
-		all = all[len(all)-h:]
-	}
+	lo, hi, fresh := pos.window(seqs, h)
+	all = all[lo:hi]
 	rows := make([]string, 0, h)
 	for _, s := range all {
 		rows = append(rows, s.fn(fit(s.text, w)))
@@ -488,7 +500,7 @@ func logLines(m *model.Model, v View, w, h int, st Styler) []string {
 	if len(all) == 0 {
 		rows = append(rows, fit(" nothing has happened yet", w))
 	}
-	return pad(rows, w, h)
+	return pad(rows, w, h), fresh
 }
 
 // logEntryRows is one log entry, wrapped to w cells and styled.

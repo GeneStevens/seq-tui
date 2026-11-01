@@ -40,6 +40,6 @@
 │     N.Ns You are in combat with Plain Scuttler                                                                                           │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Testgrounds Captain <Quest Giver>  ·  Too far: 10 m. Option-click the target to close in · F: stop attacking                    
  ONLINE | ✉ 2 | Testgrounds | heard N.Ns ago | in a fight the panel shows Events; Chat comes back when it ends                ? help  q quit

@@ -19,6 +19,6 @@
 │    NN.Ns You begin casting Frost Bolt on Plain Scuttler                      │
 │ <  NN.Ns Plain Scuttler hits you for 4                                       │
 │ !  NN.Ns Your Frost Bolt is interrupted                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok      ? help  q quit

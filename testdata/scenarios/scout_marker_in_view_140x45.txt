@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                                                                               
  ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 0m here | road: faster, 125% | heard N.Ns ago | use door ok        ? help  q quit

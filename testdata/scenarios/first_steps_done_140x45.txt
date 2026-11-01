@@ -40,6 +40,6 @@
 │ +  NN.Ns You take the contract Boars in the Barley                                                                                       │
 │ +  NN.Ns Quest complete: First Steps: 20 experience                                                                                      │
 │    NN.Ns entered Thornwick Downs                                                                                                         │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                                                                               
  ONLINE | Thornwick Gate, Thornwick Downs | → Boars in the Barley, 92m SE | road: faster, 125% | heard N.Ns ago | use door ok ? help  q quit

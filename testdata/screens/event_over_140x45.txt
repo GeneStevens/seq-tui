@@ -40,6 +40,6 @@
 │ + 106.2s You are paid for Harvest Raid: 120 experience, 60 crowns, Harvest Garland                                                       │
 │   106.2s Raiding Goblin is out of view                                                                                                   │
 │   106.2s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot all 9 drops                                                                                                                        
  ONLINE | Thornwick Downs | heard 0.4s ago | attack ok                                                                        ? help  q quit

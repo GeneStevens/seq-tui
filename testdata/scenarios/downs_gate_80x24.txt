@@ -19,6 +19,6 @@
 │            and experience.                                                   │
 │ +   N.Ns You take the contract Wolves at Wickett Mill                        │
 │    NN.Ns entered Thornwick Downs                                             │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
  ONLINE | First Steps 1/4 | road: faster, 125% | heard N.Ns ago | use door ok   

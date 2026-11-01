@@ -19,6 +19,6 @@
 │     N.Ns Bramble Tusker (level 5, even) is attacking you                     │
 │     N.Ns You are in combat with Bramble Tusker                               │
 │     N.Ns bram comes into view                                                │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Too far: 8 m. Option-click the target to close in · F: stop attacking          
  ONLINE | forest: slowed to 75% | heard N.Ns ago | second character in play     

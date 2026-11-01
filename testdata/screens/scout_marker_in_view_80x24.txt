@@ -19,6 +19,6 @@
 │            and experience.                                                   │
 │ +   2.5s You take the contract Word from Wickett Mill                        │
 │    20.7s entered Thornwick Downs                                             │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
  ONLINE | First Steps 1/4 | road: faster, 125% | heard 0.4s ago | use door ok   

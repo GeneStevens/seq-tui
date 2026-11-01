@@ -19,6 +19,6 @@
 │     0.8s Shell Rat appeared                                                  │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | testgrounds | heard 0.4s ago                            ? help  q quit

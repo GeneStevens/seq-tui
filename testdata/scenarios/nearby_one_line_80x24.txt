@@ -19,6 +19,6 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Barnaby Tuck <General Goods>                                        
  ONLINE | Hawthorn Square, Thornwick | road: faster, 125% | heard N.Ns ago      

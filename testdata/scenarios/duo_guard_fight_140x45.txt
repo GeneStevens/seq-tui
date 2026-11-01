@@ -40,6 +40,6 @@
 │     N.Ns You stop attacking                                                                                                              │
 │     N.Ns bram began attacking Bramble Tusker                                                                                             │
 │     N.Ns Bram hits Bramble Tusker for 4                                                                                                  │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                                                                               
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | attack ok                                ? help  q quit

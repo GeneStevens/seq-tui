@@ -19,6 +19,6 @@
 │   NNN.Ns You hit Warren Chief for 108                                        │
 │   NNN.Ns Warren Chief began attacking hale                                   │
 │ < NNN.Ns Warren Chief hits you for 9                                         │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                      
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

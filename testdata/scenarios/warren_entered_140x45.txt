@@ -40,6 +40,6 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Delve Gate                                                                                                                        
  ONLINE | heard N.Ns ago | use door ok; second character: you are too far from the door; walk to it first (out_of_reach)      ? help  q quit

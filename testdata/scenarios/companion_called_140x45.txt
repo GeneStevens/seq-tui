@@ -40,6 +40,6 @@
 │     N.Ns Your companion takes the role of melee                                                                                          │
 │     N.Ns Your companion arrives at your side                                                                                             │
 │     N.Ns Watch Skirmisher comes into view                                                                                                │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Captain Rhosyn Hartley <Watch Captain>                                                                                          
  ONLINE | Watch House Yard, Thornwick | heard N.Ns ago | call the companion ok                                                ? help  q quit

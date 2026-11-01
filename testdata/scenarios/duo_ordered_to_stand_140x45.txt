@@ -40,6 +40,6 @@
 │ <   N.Ns Bramble Tusker misses you                                                                                                       │
 │     N.Ns bram cleared the target                                                                                                         │
 │     N.Ns bram stopped attacking                                                                                                          │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                                                                               
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | second character ordered: stop           ? help  q quit

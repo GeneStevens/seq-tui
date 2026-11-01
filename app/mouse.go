@@ -23,12 +23,13 @@ type mouseState struct {
 	zoom    int  // the map's zoom
 	bigZoom int  // the large map's zoom
 	card    string
-	sel     *selection     // the mob, person or drop last clicked: W walks to it (D109)
-	spot    *pb.Pos        // the ground last clicked: W walks there when nothing is selected
-	hinted  bool           // the "Option-click to walk" hint has been shown this session
-	cursor  *pb.Pos        // the large map's keyboard cursor
-	side    screen.Sidebar // the sidebar beside a service
-	charTab screen.Sidebar // the character view's own tab, scroll and cursors
+	sel     *selection                         // the mob, person or drop last clicked: W walks to it (D109)
+	spot    *pb.Pos                            // the ground last clicked: W walks there when nothing is selected
+	hinted  bool                               // the "Option-click to walk" hint has been shown this session
+	cursor  *pb.Pos                            // the large map's keyboard cursor
+	side    screen.Sidebar                     // the sidebar beside a service
+	scroll  [screen.PanelTabs]screen.ScrollPos // how far back each tab of the bottom panel is read
+	charTab screen.Sidebar                     // the character view's own tab, scroll and cursors
 }
 
 // activeSide is the tab state the keys and clicks turn: the character view's
@@ -44,6 +45,7 @@ func (a *App) activeSide() *screen.Sidebar {
 func (a *App) mouseView(v *screen.View) {
 	ms := &a.mouse
 	v.Hits, v.Hover, v.Labels = &ms.hits, ms.hover, ms.alt || ms.labels
+	v.Back = &ms.scroll
 	v.Zoom, v.BigZoom, v.Card, v.Cursor, v.Side = ms.zoom, ms.bigZoom, ms.card, ms.cursor, a.activeSide()
 }
 
@@ -173,6 +175,9 @@ func (a *App) onMouse(msg tea.MouseMsg) (tea.Model, tea.Cmd) {
 			// The wheel over the drawer scrolls the chat back and forward.
 			a.chat.drawer.Scroll = max(a.chat.drawer.Scroll+map[tea.MouseButton]int{tea.MouseWheelUp: 3, tea.MouseWheelDown: -3}[mo.Button], 0)
 			return a, nil
+		case ms.hits.Log.W > 0 && ms.hits.Log.In(mo.X, mo.Y):
+			// The wheel over the log panel scrolls it and never zooms the map.
+			return a.do(Action{Kind: ScrollLog, Count: map[tea.MouseButton]int{tea.MouseWheelUp: 3, tea.MouseWheelDown: -3}[mo.Button]})
 		case ms.hits.Side.In(mo.X, mo.Y):
 			return a.do(Action{Kind: ScrollSide, Count: map[tea.MouseButton]int{tea.MouseWheelUp: -1, tea.MouseWheelDown: 1}[mo.Button]})
 		case mo.Button == tea.MouseWheelUp:
@@ -344,4 +349,27 @@ func (a *App) pickAction(m *model.Model, p screen.Pick, alt bool) Action {
 		return Action{Note: "Option-click to walk here (or click, then W)"}
 	}
 	return Action{}
+}
+
+// scrollLog scrolls the tab the bottom panel shows, as the last drawing laid it.
+func (a *App) scrollLog(act Action) {
+	a.refresh()
+	h := &a.mouse.hits
+	if h.Log.W == 0 || h.LogTab < 0 || h.LogTab >= screen.PanelTabs {
+		return
+	}
+	p, page := &a.mouse.scroll[h.LogTab], max(h.LogPage-1, 1)
+	switch act.Note {
+	case "pgup":
+		p.Scroll(page)
+	case "pgdown":
+		p.Scroll(-page)
+	case "home":
+		p.Oldest()
+	case "end":
+		p.Reset()
+	default:
+		p.Scroll(act.Count)
+	}
+	a.paint.hitsStale = true
 }

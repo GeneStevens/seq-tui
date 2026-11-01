@@ -19,6 +19,6 @@
 │            trust. Prove yourself first, and come and see me.                 │
 │     N.Ns You have earned a house companion                                   │
 │ +   N.Ns You hand in Break the Raiding Party: 100 experience, 40 crowns      │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Captain Rhosyn Hartley <Watch Captain>                              
  ONLINE | Watch House Yard, Thornwick | heard N.Ns ago            ? help  q quit

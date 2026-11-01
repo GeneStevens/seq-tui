@@ -19,6 +19,6 @@
 │            mere eels off the ferry landing. It is optional; /dismiss gives it│
 │            up for good.                                                      │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | thornwick-downs | A Boat for the Ferryman 3/5 | heard 0.4s ago  ? help

@@ -48,6 +48,7 @@ Both need Go and Node. `make web` prints each file's size. At the time of writin
   internal is ever gone the page logs a warning and a Mac's Shift-click goes to
   the game, whose fallback is then to copy with the browser's own tools).
   Without Option, click then **W**.
+- Keeps no scrollback of its own (`scrollback: 0`): the Events, Chat and Party panel scrolls back in the program (TUI-073) with the wheel over it, PgUp / PgDn, Home and End, which reach the game as keys and mouse reports like any other. `scripts/web-smoke.mjs` sends a PgUp and checks the panel's `↓ … · End` mark.
 - Says so under 80 × 24 (the program shows its own too small note as well).
 - Draws box and block characters with xterm's `customGlyphs` (the WebGL renderer;
   without WebGL the DOM renderer is used and they come from the font), in a bundled

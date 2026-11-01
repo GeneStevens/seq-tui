@@ -19,6 +19,6 @@
 │     N.Ns bob1 declined your party invitation                                 │
 │     N.Ns bob1 joined the party                                               │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Gate North is shut: no expedition is open beyond it. Start one first.          
  ONLINE | Testgrounds | heard N.Ns ago | invited bob1             ? help  q quit

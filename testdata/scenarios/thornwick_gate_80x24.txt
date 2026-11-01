@@ -19,6 +19,6 @@
 │            Watch Greeter, here in Hawthorn Square. It is optional; /dismiss  │
 │            gives it up for good.                                             │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: go through the East Gate to the Thornwick Downs                             
  ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 53m W | road: faster, 125%   

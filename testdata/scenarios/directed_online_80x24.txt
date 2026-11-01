@@ -19,6 +19,6 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Gate North is shut: no expedition is open beyond it. Start one first.          
  ONLINE | directing ann2 | ✉ 1 | Testgrounds | heard N.Ns ago     ? help  q quit

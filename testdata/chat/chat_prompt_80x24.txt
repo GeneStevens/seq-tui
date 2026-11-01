@@ -19,6 +19,6 @@
 │                                                                              │
 │                                                                              │
 │                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  [tell Mira] > see you there_                Enter send  Tab channel  Esc cancel
