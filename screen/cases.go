@@ -227,6 +227,7 @@ var Cases = []Case{
 
 // Replay reads the log named by c from dir (testdata/logs) into a new model.
 func (c Case) Replay(dir string) (*model.Model, error) {
+	model.FixClock() // the screens show the time each line came (D121): a golden needs it fixed
 	m := model.New()
 	if c.Log == "" {
 		return m, nil

@@ -9,12 +9,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/screen"
 )
 
 func main() {
-	model.FixClock() // the screens show the time each line came (D121)
 	out := filepath.Join("testdata", "screens")
 	if err := os.MkdirAll(out, 0o755); err != nil {
 		fail(err)

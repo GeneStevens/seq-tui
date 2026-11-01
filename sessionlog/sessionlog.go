@@ -411,10 +411,9 @@ type ServerLine struct {
 	Text string
 }
 
-// String is the line as the exports print it: the local time with its zone
-// offset (D121) and the words, which keep the game time the server put in them.
+// String is the line as the exports print it: the time (UTC) and the words.
 func (l ServerLine) String() string {
-	return time.UnixMilli(l.TMs).Local().Format("2006-01-02 15:04:05.000 -0700") + "  " + l.Text
+	return time.UnixMilli(l.TMs).UTC().Format("2006-01-02 15:04:05.000") + "  " + l.Text
 }
 
 // ExportServer writes the server's log of a session, readable, to the export
