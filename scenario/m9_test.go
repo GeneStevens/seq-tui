@@ -399,7 +399,7 @@ func TestTwoAccountsClearAWarrenRoomTogether(t *testing.T) {
 		{Name: "bob", Home: scenario.Warren, Classed: map[string]string{"bram": "cleric"}}}})
 	w.Fixture("party_warren.jsonl")
 	w.Place("ann", "hale", 11000, 70000)
-	w.Place("bob", "bram", 11000, 71000)
+	w.Place("bob", "bram", 11000, 69000)
 	w.Srv.Give("hale", levelUp(7, nil))
 	w.Srv.Give("bram", levelUpAs("cleric", 7, nil))
 	ann := w.Login("ann", "hale")

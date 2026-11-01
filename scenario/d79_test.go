@@ -43,8 +43,8 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 		{Name: "bob", Home: scenario.Warren, Classed: map[string]string{"bram": "cleric"}},
 		{Name: "cass", Home: scenario.Warren, Classed: map[string]string{"cora": "warrior"}}}})
 	w.Place("ann", "hale", 11000, 70000)
-	w.Place("bob", "bram", 11000, 71000)
-	w.Place("cass", "cora", 11000, 72000)
+	w.Place("bob", "bram", 11000, 69000)
+	w.Place("cass", "cora", 11000, 68000)
 	w.Srv.Give("hale", levelUp(12, hardy))
 	w.Srv.Give("bram", levelUpAs("cleric", 12, hardy))
 	w.Srv.Give("cora", levelUp(12, hardy))

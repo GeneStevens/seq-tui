@@ -1,5 +1,5 @@
 ┌─ Traders — C: your character ────────────────────────────────────────────────┐
-│ Odalys Penn <Banker>, 2m N away. You have 20 crowns.                         │
+│ Odalys Penn <Banker>, 2m S away. You have 20 crowns.                         │
 │                                                                              │
 │ Vault space: tier 2 of 3 adds 20 slots for 250 crowns (you are short 230 cro…│
 │ You carry (Enter banks one)          │ In the bank, 0 of 60 (Enter takes one)│

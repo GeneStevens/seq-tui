@@ -1,13 +1,13 @@
-┌─ Thornwick — East Gate, at 112,44 m, north up ───┐┌─ You ────────────────────┐
-│           ##############  #░                     ││ Hale  Lv 1 Warrior | 15cr│
-│········    $ B  ########  #░                     ││ HP 130/130 ############# │
-│········   Q     ########  #░                     ││ XP ----------- 40 to Lv 2│
-│·g···················Q·····#░                     ││ Atk off Ret ON | none    │
-│·········g···············@··░                     │└──────────────────────────┘
-│···H·······················#░                     │┌─ Quest chain (Ctrl+K) ───┐
-│·g···$··           ######  #░                     ││ First Steps              │
-│········           ######  #░                     ││ Step 4 of 4              │
-│···                ######  #░                     ││ Walk east along          │
+┌─ Thornwick — East Gate, at 112,46 m, north up ───┐┌─ You ────────────────────┐
+│···                ######  #░                     ││ Hale  Lv 1 Warrior | 15cr│
+│·g······           ######  #░                     ││ HP 130/130 ############# │
+│·····$··           ######  #░                     ││ XP ----------- 40 to Lv 2│
+│···H·······················#░                     ││ Atk off Ret ON | none    │
+│·g·······g···············@··░                     │└──────────────────────────┘
+│···········Q·········Q·····#░                     │┌─ Quest chain (Ctrl+K) ───┐
+│········    $    ########  #░                     ││ First Steps              │
+│········      B  ########  #░                     ││ Step 4 of 4              │
+│           ##############  #░                     ││ Walk east along          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │ + 16:04:03.2 You take the contract Boars in the Barley                       │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: go through the East Gate to the Thornwick Downs                             
- ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 2m NE   ? help
+ ONLINE | First Steps 4/4 | → East Gate — to the Thornwick Downs, 2m SE   ? help

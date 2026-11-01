@@ -1,39 +1,39 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                                                           You                                        │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                     │
-│          ░                  ·······≈≈≈≈;≈≈≈········                  ░    People                                     │
-│          ░             Eelmere≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     $ vendor  Q quest person  D door          │
-│          ░               #; " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                    ░    Events                                     │
-│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore        ░     ; scout point                             │
-│          ░                  ·· ≈≈  Eel Mere                          ░    Ground                                     │
-│          ░Eelmere Stilt House··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
-│          ░                   ··≈≈≈≈                                  ░     = bridge  " forest  · road                │
-│          ░  Eldbury Ring +1   ··≈≈≈                  " " "           ░     ░ zone edge                               │
-│          ░       ^  Q         ··≈≈≈              Goblin Hut +2       ░                                               │
-│          ░     Marlbridge Road··≈≈≈≈                 #Goblin Stockade░                                               │
-│          ░     ^               ·≈≈≈≈                " " "   ###      ░                                               │
-│          ░                     ·≈≈≈≈                                 ░                                               │
-│          ░                    $; ≈≈≈                                 ░                                               │
-│          ░              Fordwatch≈≈≈                                 ░                                               │
-│          ░                       ≈≈≈        Far Road                 ░                                               │
-│          ░D                      ≈≈···························    D  ░                                               │
-│          ░        The Millrace +1≈≈≈                            ^^^^^░                                               │
-│          ░         ·             ≈≈≈                           ^^^^^^░                                               │
-│          ░         ·          " "≈≈≈                                 ░                                               │
-│          ░         ··        " " ≈≈≈                                 ░                                               │
-│          ░          ··      " " "≈≈≈                        " " "    ░                                               │
-│          ░           ··    " " " ≈≈≈     Barleycross +1    " " "     ░                                               │
+│          ░   Highfold Sheepfold   ≈≈                                 ░    People                                     │
+│          ░         Highfold +2    ≈≈Hill Track +1                    ░     $ vendor  Q quest person  D door          │
+│          ░           ##@    ····====·······^;                        ░    Events                                     │
+│          ░             ;         ≈≈≈        ^^^^                     ░     ; scout point                             │
+│          ░            ··         ≈≈≈        ^;^                      ░    Ground                                     │
+│          ░            ··     "   ≈≈≈                                 ░     # building  ^ rock  ≈ water               │
+│          ░            ·     " " "≈≈≈                                 ░     = bridge  " forest  · road                │
+│          ░           ··    " " " ≈≈≈     Barleycross +1        "     ░     ░ zone edge                               │
 │          ░ Drove Road··     " " "≈≈≈            Q         " " " "    ░                                               │
-│          ░           ··    " " " ≈≈≈                           "     ░                                               │
-│          ░            ·     " " "≈≈≈                                 ░                                               │
-│          ░            ··     "   ≈≈≈                                 ░                                               │
-│          ░            ··         ≈≈≈        ^;^                      ░                                               │
-│          ░             ;         ≈≈≈Hill Track +1                    ░                                               │
-│          ░           ##@    ····====·······^;                        ░                                               │
-│          ░         Highfold +2    ≈≈  ^^ ^                           ░                                               │
-│          ░   Highfold Sheepfold   ≈≈                                 ░                                               │
+│          ░           ··    " " " ≈≈≈                       " " "     ░                                               │
+│          ░          ··      " " "≈≈≈                        " " "    ░                                               │
+│          ░         ··        " " ≈≈≈                                 ░                                               │
+│          ░         ·          " "≈≈≈                                 ░                                               │
+│          ░         ·             ≈≈≈                           ^^^^^^░                                               │
+│          ░        The Millrace +1≈≈≈        Far Road            ^^^^^░                                               │
+│          ░D                      ≈≈···························    D  ░                                               │
+│          ░                       ≈≈≈                                 ░                                               │
+│          ░              Fordwatch≈≈≈                                 ░                                               │
+│          ░                    $; ≈≈≈                                 ░                                               │
+│          ░                     ·≈≈≈≈                                 ░                                               │
+│          ░                     ·≈≈≈≈                " " "            ░                                               │
+│          ░  Eldbury Ring +1   ··≈≈≈≈                 #Goblin Stockade░                                               │
+│          ░       ^  Q         ··≈≈≈              Goblin Hut +2       ░                                               │
+│          ░     Marlbridge Road··≈≈≈                  " " "           ░                                               │
+│          ░                   ··≈≈≈≈                                  ░                                               │
+│          ░Eelmere Stilt House··≈≈≈                                   ░                                               │
+│          ░                  ·· ≈≈  Eel Mere                          ░                                               │
+│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore        ░                                               │
+│          ░               #; " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                    ░                                               │
+│          ░             Eelmere≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░                                               │
+│          ░                  ·······≈≈≈≈;≈≈≈········                  ░                                               │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                               │
-│ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.                                        │
+│ Thornwick Downs, 420m by 450m, north up. You: 100m E, 406m N of the SW corner.                                       │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                              

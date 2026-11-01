@@ -1,13 +1,13 @@
-┌─ Thornwick — Watch House Yard, at 103,50 m, no… ─┐┌─ You ────────────────────┐
-│  ###### #####  ##############  #░                ││ hale  Lv 6 Warrior  | 0cr│
-│                ##############  #░                ││ HP 215/215 ############# │
-│·············    ! B  ########  #░                ││ XP ---------- 162 to Lv 7│
-│··Q··········   Q     ########  #░                ││ Atk off Ret ON | none    │
-│····&·!··················@?·····#░                │└──────────────────────────┘
-│······························D··░                │┌─ Quest ──────────────────┐
-│··$·····H·······················#░                ││ [>] 1. Eyes on the…scout │
-│··········$··           ######  #░                ││ Scout the goblin lookout │
-│·············           ######  #░                ││ beyond the ford and      │
+┌─ Thornwick — Watch House Yard, at 103,40 m, no… ─┐┌─ You ────────────────────┐
+│·············           ######  #░                ││ hale  Lv 6 Warrior  | 0cr│
+│··········$··           ######  #░                ││ HP 215/215 ############# │
+│··$·····H·······················#░                ││ XP ---------- 162 to Lv 7│
+│······!·······················D··░                ││ Atk off Ret ON | none    │
+│····&···········Q········@?·····#░                │└──────────────────────────┘
+│··Q··········    !    ########  #░                │┌─ Quest ──────────────────┐
+│·············      B  ########  #░                ││ [>] 1. Eyes on the…scout │
+│                ##############  #░                ││ Scout the goblin lookout │
+│  ###### #####  ##############  #░                ││ beyond the ford and      │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │ + 16:04:03.2 You take the contract Eyes on the Goblins                       │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Captain Rhosyn Hartley <Watch Captain>                              
- ONLINE | → Eyes on the Goblins (Thornwick Downs), 12m SE | heard N.Ns ago      
+ ONLINE | → Eyes on the Goblins (Thornwick Downs), 12m NE | heard N.Ns ago      

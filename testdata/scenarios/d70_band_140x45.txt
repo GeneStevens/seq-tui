@@ -1,27 +1,27 @@
-┌─ Thornwick Downs, at 251,180 m, north up ──────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
-│          ^^^^^^^^^^                                                                            ││ hale  Lv 8 Warrior           | 0 crowns│
-│                                                                                                ││ HP 249/249 ########################### │
-│                                                                                                ││ XP ------------------------ 202 to Lv 9│
-│                                                                                                ││ Atk ON Ret ON | Goblin Scrapper        │
+┌─ Thornwick Downs, at 251,270 m, north up ──────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
+│                                                                    """"""""""""""""""""""""""""││ hale  Lv 8 Warrior           | 0 crowns│
+│                                                                        """"""""""""""""""""""""││ HP 249/249 ########################### │
+│                                                                            """"""""""""""""""  ││ XP ------------------------ 202 to Lv 9│
+│                                                                               """"""""         ││ Atk ON Ret ON | Goblin Scrapper        │
 │                                                                                                ││ Attacked by Goblin Scrapper            │
 │                                                                                                │└────────────────────────────────────────┘
-│                                               ##########                                       │┌─ Target ───────────────────────────────┐
-│                                               ##########                                       ││ M Goblin Scrapper  Lv 5                │
-│                                               ##########                                       ││ HP 160/160 ##################### 6m W  │
-│                                               ##########                                       ││ easy, fighting you                     │
-│                                               ##########                                       │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ M Goblin Scrapper  Lv 5                │
+│                                                                                                ││ HP 160/160 ##################### 6m W  │
+│                                                                                                ││ easy, fighting you                     │
+│                                                                                                │└────────────────────────────────────────┘
 │                                         M      @                                               │┌─ Nearby ───────────────────────────────┐
-│                                                                                                ││ ! Wulfric Dunn <Sergean… 125m NW [new] │
-│                                                                                                ││ M Goblin Scrapper    6m W 160/160 easy │
-│                                                                                                ││ ; Goblin Lookout   41m NW scout marker │
-│                                                                                                ││ ; Highlow          104m S scout marker │
-│                                                                                                ││ ; Millrace Ford   107m NW scout marker │
+│                                                                                                ││ ! Wulfric Dunn <Sergean… 125m SW [new] │
+│                                               ##########                                       ││ M Goblin Scrapper    6m W 160/160 easy │
+│                                               ##########                                       ││ ; Goblin Lookout   41m SW scout marker │
+│                                               ##########                                       ││ ; Highlow          104m N scout marker │
+│                                               ##########                                       ││ ; Millrace Ford   107m SW scout marker │
 │                                                                                                ││ ; Brigands' Road … 111m W scout marker │
-│                                                                                                ││ Q Ned Sallow <Watchman>        124m NW │
-│                                                                                """""           ││ H The Ford Shrine <Wayside Sh… 126m NW │
-│                                                                            """"""""""""""""    ││ ; The Ford Shrine 126m NW scout marker │
-│                                                                         """""""""""""""""""""""││ v Brigands' Ri… 127m SW raiders gather │
-│                                                                     """""""""""""""""""""""""""││ +20 more                               │
+│                                                                                                ││ Q Ned Sallow <Watchman>        124m SW │
+│                                                                                                ││ H The Ford Shrine <Wayside Sh… 126m SW │
+│                                                                                                ││ ; The Ford Shrine 126m SW scout marker │
+│                                                                                                ││ v Brigands' Ri… 127m NW raiders gather │
+│             ^^^^^^^                                                                            ││ +20 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt ready                      2 Bash range                      3 -                               4 -                               │

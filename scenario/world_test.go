@@ -77,8 +77,8 @@ func TestDownsCrossByTheRoadAndFordTheRiver(t *testing.T) {
 	// East along the road for 138 m, then south across the fields to the river bank.
 	walkVia(t, w, p, [2]int64{150000, 225000})
 	onGround(t, p, model.Road)
-	walkVia(t, w, p, [2]int64{150000, 240000})
-	walkVia(t, w, p, [2]int64{162000, 240000})
+	walkVia(t, w, p, [2]int64{150000, 210000})
+	walkVia(t, w, p, [2]int64{162000, 210000})
 	p.Golden("downs_riverbank")
 
 	// The water is not walked into.
@@ -93,10 +93,10 @@ func TestDownsCrossByTheRoadAndFordTheRiver(t *testing.T) {
 	})
 
 	// The ford, 10 m south, is crossed.
-	walkVia(t, w, p, [2]int64{162000, 252000}, [2]int64{170000, 252000})
+	walkVia(t, w, p, [2]int64{162000, 198000}, [2]int64{170000, 198000})
 	onGround(t, p, model.Ford)
 	p.Golden("downs_ford")
-	walkVia(t, w, p, [2]int64{186000, 252000})
+	walkVia(t, w, p, [2]int64{186000, 198000})
 	p.Model(func(m *model.Model) {
 		if m.Self.Pos.GetX() < 183000 {
 			t.Fatalf("the ford was not crossed: %v", m.Self.Pos)
@@ -119,14 +119,14 @@ func TestDownsGetChasedRoundABuilding(t *testing.T) {
 			kept := z.Spawns[:0]
 			for _, s := range z.Spawns {
 				if s.ID == "meadow-wolves-a" || strings.HasPrefix(s.ID, "meadow-wolves-a-") {
-					s.Pos = core.Pos{X: 45000, Y: 179000} // 14 m north of the mill's north wall
+					s.Pos = core.Pos{X: 45000, Y: 270000} // 13 m north of the mill's north wall, 7 m from the character: inside its 8 m aggro range
 					kept = append(kept, s)
 				}
 			}
 			z.Spawns = kept
 		},
 	})
-	w.Place("ann", "hale", 45000, 187000)
+	w.Place("ann", "hale", 45000, 263000)
 	p := w.Login("ann", "hale")
 	wolf := func() (id string, x, y int64) {
 		p.Model(func(m *model.Model) {
@@ -144,13 +144,13 @@ func TestDownsGetChasedRoundABuilding(t *testing.T) {
 
 	// West along the north wall, then south along the west wall, then east along
 	// the south wall: the mill is between the character and where the wolf began.
-	walkVia(t, w, p, [2]int64{36000, 187000})
+	walkVia(t, w, p, [2]int64{36000, 263000})
 	p.Golden("chase_north_side")
-	walkVia(t, w, p, [2]int64{36000, 207000}, [2]int64{45000, 207000})
+	walkVia(t, w, p, [2]int64{36000, 243000}, [2]int64{45000, 243000})
 	_, wx, wy := wolf()
 	p.Model(func(m *model.Model) {
 		d := math.Hypot(float64(wx-m.Self.Pos.GetX()), float64(wy-m.Self.Pos.GetY()))
-		if wx == 0 || d > 8000 || wy < 193000 {
+		if wx == 0 || d > 8000 || wy > 257000 {
 			t.Fatalf("the wolf is at (%d, %d), %.0f mm from the character at %v: it did not follow round the mill", wx, wy, d, m.Self.Pos)
 		}
 		if m.Self.HP <= 0 {

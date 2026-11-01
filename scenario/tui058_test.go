@@ -74,7 +74,7 @@ func TestUseADraughtAndALoafFromTheBags(t *testing.T) {
 
 func TestBuyVaultSpaceOnConfirm(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: warriorAccount("hale"), Zone: noSpawns})
-	w.Place("ann", "hale", 88000, 57000)
+	w.Place("ann", "hale", 88000, 33000)
 	give(w, "hale", 120)
 	p := w.Login("ann", "hale")
 
@@ -110,7 +110,7 @@ func TestBuyVaultSpaceOnConfirm(t *testing.T) {
 
 func TestTakeNellsPunt(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: warrior(scenario.Downs), Zone: noSpawns})
-	w.Place("ann", "hale", 119500, 411500)
+	w.Place("ann", "hale", 119500, 38500)
 	give(w, "hale", 25)
 	p := w.Login("ann", "hale")
 

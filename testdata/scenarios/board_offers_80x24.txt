@@ -21,4 +21,4 @@
 │ Up / Down choose. The answer is on the status line; every refusal says why.  │
 └──────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                      
- ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW     ? help  q quit
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m NW     ? help  q quit

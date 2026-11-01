@@ -1,13 +1,13 @@
-┌─ Thornwick — Tanner's Row, at 28,31 m, north up ─┐┌─ You ────────────────────┐
-│            ░#  #######··············&·!··········││ hale  Lv 1 Warrior  | 0cr│
-│            ░#  #######··Q························││ HP 130/130 ############# │
-│            ░#  #######····      ··$·····H········││ XP ----------- 40 to Lv 2│
-│            ░#  #######··$·      ··········$··    ││ Atk off Ret ON | none    │
+┌─ Thornwick — Tanner's Row, at 28,59 m, north up ─┐┌─ You ────────────────────┐
+│            ░#   ··T··g···T·······T······T······T·││ hale  Lv 1 Warrior  | 0cr│
+│            ░#   ·································││ HP 130/130 ############# │
+│            ░#  #######····           ···         ││ XP ----------- 40 to Lv 2│
+│            ░#  #######····           ···         ││ Atk off Ret ON | none    │
 │            ░#  #######··@·      ·············    │└──────────────────────────┘
-│            ░#  #######····           ···         │┌─ Quest chain (Ctrl+K) ───┐
-│            ░#  #######····           ···         ││ First Steps              │
-│            ░#   ··T··g···T·······T······T······T·││ Step 1 of 4              │
-│            ░#   ·································││ Speak to Tamsin Hale,    │
+│            ░#  #######··$·      ··········$··    │┌─ Quest chain (Ctrl+K) ───┐
+│            ░#  #######············$·····H········││ First Steps              │
+│            ░#  #######··Q·············!··········││ Step 1 of 4              │
+│            ░#  #######····      ····&···········Q││ Speak to Tamsin Hale,    │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt tgt?        2 Bash tgt?        3 -                4 -                │
@@ -21,4 +21,4 @@
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Dunstan Reeve <Weaponsmith>                                         
- ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 36m NE | road: faster, 125%  
+ ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 36m SE | road: faster, 125%  

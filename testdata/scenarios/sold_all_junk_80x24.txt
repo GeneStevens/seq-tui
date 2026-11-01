@@ -1,5 +1,5 @@
 ┌─ Traders — C: your character ────────────────────────────────────────────────┐
-│ Dunstan Reeve <Weaponsmith>, 3m S away. You have 2 crowns.                   │
+│ Dunstan Reeve <Weaponsmith>, 3m N away. You have 2 crowns.                   │
 │                                                                              │
 │ For sale (Enter buys one)            │ You carry (Enter sells one)           │
 │> ▲ Cudgel Common        45, short 43 │> ▲ Short Sword Common          pays 4 │

@@ -1,39 +1,39 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                                                           You                                        │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                     │
-│          ░                  ·······≈≈≈≈;≈≈≈········                  ░    People                                     │
-│          ░          Eelmere +1≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     Q quest person  D door                    │
-│          ░               #; " ≈≈≈≈≈≈@≈≈≈≈≈≈≈≈≈≈≈≈                    ░    Events                                     │
-│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore        ░     ; scout point                             │
-│          ░                  ·· ≈≈  Eel Mere                          ░    Ground                                     │
-│          ░Eelmere Stilt House··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
-│          ░                   ··≈≈≈≈                                  ░     = bridge  " forest  · road                │
-│          ░     Marlbridge Road··≈≈≈                                  ░     ░ zone edge                               │
-│          ░                    ··≈≈≈                                  ░                                               │
-│          ░                    ··≈≈≈≈                                 ░                                               │
-│          ░                     ·≈≈≈≈                                 ░                                               │
-│          ░                     ·≈≈≈≈                                 ░                                               │
-│          ░                     ; ≈≈≈                                 ░                                               │
-│          ░                       ≈≈≈                                 ░                                               │
-│          ░                       ≈≈≈        Far Road                 ░                                               │
-│          ░D                      ≈≈···························    D  ░                                               │
-│          ░        The Millrace +2≈≈≈                            ^^^^^░                                               │
-│          ░         ·             ≈≈≈                           ^^^^^^░                                               │
-│          ░         ·          " "≈≈≈                                 ░                                               │
-│          ░         ··        " " ≈≈≈                                 ░                                               │
-│          ░          ··      " " "≈≈≈                                 ░                                               │
-│          ░           ··    " " " ≈≈≈                                 ░                                               │
+│          ░    Highfold Wool Shed  ≈≈                                 ░    People                                     │
+│          ░         Highfold +2    ≈≈Hill Track +2                    ░     Q quest person  D door                    │
+│          ░             Q    ····====······· ;                        ░    Events                                     │
+│          ░             ;         ≈≈≈        ^^^^                     ░     ; scout point                             │
+│          ░            ··         ≈≈≈        ^;^                      ░    Ground                                     │
+│          ░            ··     "   ≈≈≈                                 ░     # building  ^ rock  ≈ water               │
+│          ░            ·     " " "≈≈≈                                 ░     = bridge  " forest  · road                │
+│          ░           ··    " " " ≈≈≈                                 ░     ░ zone edge                               │
 │          ░ Drove Road··     " " "≈≈≈                                 ░                                               │
 │          ░           ··    " " " ≈≈≈                                 ░                                               │
-│          ░            ·     " " "≈≈≈                                 ░                                               │
-│          ░            ··     "   ≈≈≈                                 ░                                               │
-│          ░            ··         ≈≈≈        ^;^                      ░                                               │
-│          ░             ;         ≈≈≈Hill Track +2                    ░                                               │
-│          ░             Q    ····====······· ;                        ░                                               │
-│          ░         Highfold +2    ≈≈  ^^ ^                           ░                                               │
-│          ░    Highfold Wool Shed  ≈≈                                 ░                                               │
+│          ░          ··      " " "≈≈≈                                 ░                                               │
+│          ░         ··        " " ≈≈≈                                 ░                                               │
+│          ░         ·          " "≈≈≈                                 ░                                               │
+│          ░         ·             ≈≈≈                           ^^^^^^░                                               │
+│          ░        The Millrace +2≈≈≈        Far Road            ^^^^^░                                               │
+│          ░D                      ≈≈···························    D  ░                                               │
+│          ░                       ≈≈≈                                 ░                                               │
+│          ░                       ≈≈≈                                 ░                                               │
+│          ░                     ; ≈≈≈                                 ░                                               │
+│          ░                     ·≈≈≈≈                                 ░                                               │
+│          ░                     ·≈≈≈≈                                 ░                                               │
+│          ░                    ··≈≈≈≈                                 ░                                               │
+│          ░                    ··≈≈≈                                  ░                                               │
+│          ░     Marlbridge Road··≈≈≈                                  ░                                               │
+│          ░                   ··≈≈≈≈                                  ░                                               │
+│          ░Eelmere Stilt House··≈≈≈                                   ░                                               │
+│          ░                  ·· ≈≈  Eel Mere                          ░                                               │
+│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore        ░                                               │
+│          ░               #; " ≈≈≈≈≈≈@≈≈≈≈≈≈≈≈≈≈≈≈                    ░                                               │
+│          ░          Eelmere +1≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░                                               │
+│          ░                  ·······≈≈≈≈;≈≈≈········                  ░                                               │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                               │
-│ Thornwick Downs, 420m by 450m, north up. You: 190m E, 412m N of the SW corner.                                       │
+│ Thornwick Downs, 420m by 450m, north up. You: 190m E, 38m N of the SW corner.                                        │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                         │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 130/130 | Target: none                                                                                              

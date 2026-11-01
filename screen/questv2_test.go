@@ -18,7 +18,7 @@ import (
 // goldens are testdata/quests, rewritten by `make golden`.
 
 func questWorld(q *pb.QuestInfo) *model.Model {
-	m := downsWorld(100000, 44000, q)
+	m := downsWorld(100000, 406000, q)
 	m.Items["charm-bead"] = &pb.ItemInfo{Id: "charm-bead", Name: "charm bead", Tier: "common", QuestItem: true}
 	m.Items["tin-ring"] = &pb.ItemInfo{Id: "tin-ring", Name: "Tin Ring", Slot: "finger", SellPrice: 3}
 	if q.GetItem() != "" { // a deliver or collect step counts what the bags hold
@@ -76,7 +76,7 @@ func TestQuestV2Goldens(t *testing.T) {
 			cut.Progress = 0
 			snapQuest(m, cut)
 		}, []string{"Watching… 0 of 20 s", "started over at 12 s", "you left the spot"}},
-		{"quest_zone", "zone", func(m *model.Model, v *screen.View) { v.Quest = &screen.QuestUI{} }, []string{"This step is in another zone: Thornwick.", "Take the Town Gate: 204m NW of you"}},
+		{"quest_zone", "zone", func(m *model.Model, v *screen.View) { v.Quest = &screen.QuestUI{} }, []string{"This step is in another zone: Thornwick.", "Take the Town Gate: 204m SW of you"}},
 		{"quest_downs_from_thornwick", "downs", func(m *model.Model, v *screen.View) { v.Quest = &screen.QuestUI{} }, []string{"This step is in another zone: Thornwick Downs.", "Take the Downs Gate: 18m E of you"}},
 		{"quest_panel_downs_from_thornwick", "downs", func(m *model.Model, v *screen.View) {}, []string{"in another zone:"}},
 		{"quest_panel_watch", "watch", func(m *model.Model, v *screen.View) {}, []string{"Watching… 12 of 20 s"}},

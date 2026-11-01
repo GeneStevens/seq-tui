@@ -21,9 +21,9 @@ func overviewOf(m *model.Model, v screen.View, w, h int) string {
 }
 
 func TestImportantSmallPlacesAreNamedAtZoomZero(t *testing.T) {
-	north := &pb.QuestInfo{Id: "highfold-watch", Name: "The Shepherds' Watch", Step: 2, Steps: 4, Kind: "watch", Text: "Watch the fold.", TargetKind: "place", Target: "highfold", TargetName: "Highfold", TargetPos: &pb.Pos{X: 100000, Y: 50000}}
+	north := &pb.QuestInfo{Id: "highfold-watch", Name: "The Shepherds' Watch", Step: 2, Steps: 4, Kind: "watch", Text: "Watch the fold.", TargetKind: "place", Target: "highfold", TargetName: "Highfold", TargetPos: &pb.Pos{X: 100000, Y: 400000}}
 	for _, sz := range [][2]int{{80, 24}, {120, 40}, {200, 50}} {
-		out := overviewOf(downsWorldOn(downsWide(), 100000, 44000, north), view(), sz[0], sz[1])
+		out := overviewOf(downsWorldOn(downsWide(), 100000, 406000, north), view(), sz[0], sz[1])
 		for _, name := range []string{"Barleycross", "Eldbury Ring", "Eelmere", "Fordwatch", "Goblin Stockade"} {
 			if !strings.Contains(out, name) {
 				t.Errorf("%v: %q is not named at zoom 0:\n%s", sz, name, out)
@@ -34,7 +34,7 @@ func TestImportantSmallPlacesAreNamedAtZoomZero(t *testing.T) {
 
 // Places left out are counted under a name near them, and the tip lists them.
 func TestHiddenPlacesAreGroupedUnderTheNearestName(t *testing.T) {
-	m := downsWorldOn(downsWide(), 100000, 44000, nil)
+	m := downsWorldOn(downsWide(), 100000, 406000, nil)
 	h := &screen.Hits{}
 	v := view()
 	v.Hits = h
@@ -62,7 +62,7 @@ func TestHiddenPlacesAreGroupedUnderTheNearestName(t *testing.T) {
 
 // The mouse over a spot of the large map shows a one-line tip naming the places there.
 func TestTheTipFollowsThePointer(t *testing.T) {
-	m := downsWorldOn(downsWide(), 100000, 44000, nil)
+	m := downsWorldOn(downsWide(), 100000, 406000, nil)
 	h := &screen.Hits{}
 	v := view()
 	v.Hits = h
@@ -90,15 +90,15 @@ func TestTheTipFollowsThePointer(t *testing.T) {
 
 // The keyboard cursor does the same where there is no mouse motion.
 func TestTheTipFollowsTheCursor(t *testing.T) {
-	m := downsWorldOn(downsWide(), 100000, 44000, nil)
+	m := downsWorldOn(downsWide(), 100000, 406000, nil)
 	v := view()
 	before := overviewOf(m, v, 120, 40)
-	v.Cursor = &pb.Pos{X: 364000, Y: 306000} // the stockade
+	v.Cursor = &pb.Pos{X: 364000, Y: 144000} // the stockade
 	after := overviewOf(m, v, 120, 40)
 	if strings.Contains(before, " Goblin Stockade ") || !strings.Contains(after, " Goblin Stockade ") {
 		t.Errorf("the cursor on the stockade shows no tip:\n%s", after)
 	}
-	v.Cursor = &pb.Pos{X: 327500, Y: 335500} // the rocks, which no name shows
+	v.Cursor = &pb.Pos{X: 327500, Y: 114500} // the rocks, which no name shows
 	if out := overviewOf(m, v, 120, 40); !strings.Contains(out, " Goblin Rocks ") {
 		t.Errorf("the cursor on the rocks does not name them:\n%s", out)
 	}

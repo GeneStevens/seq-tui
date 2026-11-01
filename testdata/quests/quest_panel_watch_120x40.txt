@@ -1,29 +1,29 @@
-┌─ Thornwick Downs, at 100,44 m, north up ─────────────────────────────────────────┐┌─ You ────────────────────────────┐
-│                                   ····                                           ││ Hale  Lv 8  XP 0       | 0 crowns│
-│                                   ····                                           ││ HP 130/130 ##################### │
-│                                   ·····                                          ││ Target: none                     │
-│                                   ·····                                          ││ Atk off | Retaliate off          │
-│                                    ····                          c               │└──────────────────────────────────┘
-│                                    ·····                                         │┌─ Quest chain (Ctrl+K) ───────────┐
-│                                    ·····                                         ││ The Shepherds' Watch             │
-│                                     ····                                         ││ Step 2 of 4                      │
-│                                                                                  ││ Watch the shore from the green.  │
+┌─ Thornwick Downs, at 100,406 m, north up ────────────────────────────────────────┐┌─ You ────────────────────────────┐
+│                                                                                  ││ Hale  Lv 8  XP 0       | 0 crowns│
+│                                                                                  ││ HP 130/130 ##################### │
+│                                                                                  ││ Target: none                     │
+│                                                                                  ││ Atk off | Retaliate off          │
+│                                                                                  │└──────────────────────────────────┘
+│                                      #######                                     │┌─ Quest chain (Ctrl+K) ───────────┐
+│                               #####  #######                                     ││ The Shepherds' Watch             │
+│                               #####  #######                                     ││ Step 2 of 4                      │
+│                               #####                                              ││ Watch the shore from the green.  │
 │                                                                                  ││ Watching… 12 of 20 s             │
-│                                         ;                                        │└──────────────────────────────────┘
-│                                                           ······················=│┌─ Target ─────────────────────────┐
+│                                                                                  │└──────────────────────────────────┘
+│                                         Q                 ·······················│┌─ Target ─────────────────────────┐
 │                                         @                 ······················=││ no target (Tab to choose)        │
-│                                         Q                 ······················=││                                  │
-│                                                                                  ││                                  │
+│                                                           ······················=││                                  │
+│                                         ;                                        ││                                  │
 │                                                                                  │└──────────────────────────────────┘
 │                                                                                  │┌─ Nearby ─────────────────────────┐
-│                               #####  #######                                     ││ Q Maud Fenner <Highfold Re… 4m S │
-│                               #####  #######                                     ││ ; Highfold     6m N scout marker │
-│                                      #######                                     ││ ; The Hoars… 146m E scout marker │
-│                                                                                  ││ ; Highlow    158m E scout marker │
-│                                                                                  ││ D Town Gate              204m NW │
-│                                                                                  ││ ; Fordwatch  231m N scout marker │
-│                                                                                  ││ D Hollow Warren          350m NE │
-│                                                                                  ││ +3 more                          │
+│                                     ····                                         ││ Q Maud Fenner <Highfold Re… 4m N │
+│                                    ·····                                         ││ ; Highfold     6m S scout marker │
+│                                    ·····                                         ││ ; The Hoars… 146m E scout marker │
+│                                    ····                          c               ││ ; Highlow    158m E scout marker │
+│                                   ·····                                          ││ D Town Gate              204m SW │
+│                                   ·····                                          ││ ; Fordwatch  231m S scout marker │
+│                                   ·····                                          ││ D Hollow Warren          350m SE │
+│                                   ····                                           ││ +3 more                          │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────┐
 │ + 16:04:03.2 On the quest chain The Shepherds' Watch, step 2 of 4: Watch the shore from the green. It is optional;   │

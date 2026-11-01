@@ -91,7 +91,7 @@ func TestFirstStepsFromTheGreeterToTheEastGate(t *testing.T) {
 
 	w.Step("trainer", func() {
 		// Down the lane to the square's south side, west along Candlemakers' Lane.
-		walkVia(t, w, p, [2]int64{60000, 22000}, [2]int64{60000, 17000}, [2]int64{16000, 17000})
+		walkVia(t, w, p, [2]int64{60000, 68000}, [2]int64{60000, 73000}, [2]int64{16000, 73000})
 		talkTo(t, w, p, "trainer-warrior")
 		p.Press("esc")
 		w.Advance(time.Second)
@@ -104,7 +104,7 @@ func TestFirstStepsFromTheGreeterToTheEastGate(t *testing.T) {
 	})
 
 	w.Step("board", func() {
-		walkVia(t, w, p, [2]int64{60000, 17000}, [2]int64{60000, 45000}, [2]int64{57000, 45000}, [2]int64{57000, 51000})
+		walkVia(t, w, p, [2]int64{60000, 73000}, [2]int64{60000, 45000}, [2]int64{57000, 45000}, [2]int64{57000, 39000})
 		p.Press("g", "1", "enter")
 		notice(t, p, "ok", false)
 		p.Press("esc", "esc")

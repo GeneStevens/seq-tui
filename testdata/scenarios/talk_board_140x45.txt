@@ -1,5 +1,5 @@
 ┌─ Talking ──────────────────────────────────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
-│ Thornwick Contract Board <Jobs for the Downs>, 1m SW of you                                    ││ Hale  Lv 1 Warrior           | 0 crowns│
+│ Thornwick Contract Board <Jobs for the Downs>, 1m NW of you                                    ││ Hale  Lv 1 Warrior           | 0 crowns│
 │                                                                                                ││ HP 130/130 ########################### │
 │ “Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the     ││ XP ------------------------- 40 to Lv 2│
 │ proof back here.”                                                                              ││ Atk off | none                         │
@@ -42,4 +42,4 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
- ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard N.Ns ago | talk to Thornwick Contract Board ok   
+ ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m NW | road: faster, 125% | heard N.Ns ago | talk to Thornwick Contract Board ok   

@@ -84,8 +84,8 @@ func posOf(m *model.Model) (x, y int64) { return m.Self.Pos.GetX(), m.Self.Pos.G
 // directing, Z hands it back to its stance, X gives the session back to the first.
 func TestDirectYourSecondCharacter(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: duoAccount(), Zone: shelved})
-	w.Place("ann", "hale", 146000, 170000) // beside the Bramble Tuskers' camp, out of their notice
-	w.Place("ann", "bram", 144000, 170000)
+	w.Place("ann", "hale", 146000, 280000) // beside the Bramble Tuskers' camp, out of their notice
+	w.Place("ann", "bram", 144000, 280000)
 	w.Srv.Give("hale", levelUp(5, nil))
 	w.Srv.Give("bram", levelUpAs("cleric", 5, nil))
 	p := w.LoginWithDuo("ann", "hale", "bram")
