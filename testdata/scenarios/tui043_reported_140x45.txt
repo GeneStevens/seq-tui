@@ -29,10 +29,10 @@
 │                                ░                                                       #       ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Events •1  [Chat]  Party ───────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ [ooc] bob1: anyone for the Warren?                                                                                                       │
-│ [ooc] bob1: third line                                                                                                                   │
-│»[say] bob1: hello ann1, well met                                                                                                         │
-│ [tell] to bob1: on my way                                                                                                                │
+│ 16:04:03.2 [ooc] bob1: anyone for the Warren?                                                                                            │
+│ 16:04:03.2 [ooc] bob1: third line                                                                                                        │
+│»16:04:03.2 [say] bob1: hello ann1, well met                                                                                              │
+│ 16:04:03.2 [tell] to bob1: on my way                                                                                                     │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

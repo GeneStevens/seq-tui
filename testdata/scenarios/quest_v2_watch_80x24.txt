@@ -15,8 +15,8 @@
 │                                                  │                            
 └──────────────────────────────────────────────────┘                            
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: The Old Relic. First: Watch from the Hollow    │
-│            Lookout. It is optional; /dismiss gives it up for good.           │
+│ + 16:04:03.2 Quest chain offered: The Old Relic. First: Watch from the Hollow│
+│                Lookout. It is optional; /dismiss gives it up for good.       │
 │                                                                              │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘

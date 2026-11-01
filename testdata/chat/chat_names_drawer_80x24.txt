@@ -4,14 +4,14 @@
 │    ░                                         ░   ││ Target: none             │
 ┌─ Chat: all ──────────────────────────────────────┐│ Atk off | Retaliate off  │
 │ [all] say party tell ooc   Tab filters           │└──────────────────────────┘
-│ [party] Mira: ready when you are                 │┌─ Target ─────────────────┐
-│ [tell] Mira: group for the Warren?               ││ no target (Tab to choose)│
-│»[say] Gorran Stoutarm: Aria, come back when you  ││                          │
-│    are stronger                                  ││                          │
-│ [say] Aria: on my way                            │└──────────────────────────┘
-│»[ooc] Bram: anyone for the Warren, Aria?         │┌─ Nearby ─────────────────┐
-│ [say] Hale: welcome Mira and Gorran              ││ p Mira       4m NE 20/20 │
-│ [say] Aria: thanks Hale                          ││ T Gorran Stoutarm  5m NW │
+│ 16:04:03.2 [tell] Mira: group for the Warren?    │┌─ Target ─────────────────┐
+│»16:04:03.2 [say] Gorran Stoutarm: Aria, come back││ no target (Tab to choose)│
+│               when you are stronger              ││                          │
+│ 16:04:03.2 [say] Aria: on my way                 ││                          │
+│»16:04:03.2 [ooc] Bram: anyone for the Warren,    │└──────────────────────────┘
+│               Aria?                              │┌─ Nearby ─────────────────┐
+│ 16:04:03.2 [say] Hale: welcome Mira and Gorran   ││ p Mira       4m NE 20/20 │
+│ 16:04:03.2 [say] Aria: thanks Hale               ││ T Gorran Stoutarm  5m NW │
 │ PgUp / PgDn, wheel scroll · End: newest · arrows…││ m Gray Wolf   6m W 20/20 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────── [say] Aria: thanks Hale ─┐

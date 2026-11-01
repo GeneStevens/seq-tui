@@ -15,8 +15,8 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│ *  20.0s Goblins pour out of the east to raid the harvest at Barleycross.    │
-│            Defend the farms!                                                 │
+│ * 16:04:03.2 Goblins pour out of the east to raid the harvest at Barleycross.│
+│                Defend the farms!                                             │
 │                                                                              │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘

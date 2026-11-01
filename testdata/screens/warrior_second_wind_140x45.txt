@@ -29,17 +29,17 @@
 │ You: Second Wind 12s   |   Plain Scuttler: none                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.3s You use Taunt on Plain Scuttler                                                                                                 │
-│     0.3s You begin fighting Plain Scuttler                                                                                               │
-│     0.3s You are in combat with Plain Scuttler                                                                                           │
-│     0.4s Plain Scuttler targeted gorm                                                                                                    │
-│     4.4s Plain Scuttler began attacking gorm                                                                                             │
-│ <   4.4s Plain Scuttler hits you for 4                                                                                                   │
-│     6.9s You start attacking Plain Scuttler                                                                                              │
-│     6.9s You miss Plain Scuttler                                                                                                         │
-│     7.0s You use Second Wind                                                                                                             │
-│     7.0s You are affected by Second Wind                                                                                                 │
-│ <   7.4s Plain Scuttler hits you for 4                                                                                                   │
+│   16:04:03.2 You use Taunt on Plain Scuttler                                                                                             │
+│   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
+│   16:04:03.2 Plain Scuttler targeted gorm                                                                                                │
+│   16:04:03.2 Plain Scuttler began attacking gorm                                                                                         │
+│ < 16:04:03.2 Plain Scuttler hits you for 4                                                                                               │
+│   16:04:03.2 You start attacking Plain Scuttler                                                                                          │
+│   16:04:03.2 You miss Plain Scuttler                                                                                                     │
+│   16:04:03.2 You use Second Wind                                                                                                         │
+│   16:04:03.2 You are affected by Second Wind                                                                                             │
+│ < 16:04:03.2 Plain Scuttler hits you for 4                                                                                               │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | Testgrounds | heard 0.4s ago | key 3 Second Wind ok                                                                 ? help  q quit

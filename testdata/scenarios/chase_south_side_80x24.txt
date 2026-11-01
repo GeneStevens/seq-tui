@@ -15,10 +15,10 @@
 │ You: none   |   Meadow Wolf: none                                            │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns You are in combat with Meadow Wolf                                  │
-│     N.Ns You hit Meadow Wolf for 10                                          │
-│     N.Ns Meadow Wolf began attacking hale                                    │
-│     N.Ns You hit Meadow Wolf for 9                                           │
+│   16:04:03.2 You are in combat with Meadow Wolf                              │
+│   16:04:03.2 You hit Meadow Wolf for 10                                      │
+│   16:04:03.2 Meadow Wolf began attacking hale                                │
+│   16:04:03.2 You hit Meadow Wolf for 9                                       │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Hew Wickett <Miller>  ·  Too far: 3 m. Option-click the target to c…
  ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit

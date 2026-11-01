@@ -29,17 +29,17 @@
 │                                                                                                ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: The Old Relic. First: Watch from the Hollow Lookout. It is optional; /dismiss gives it up for good.        │
-│ +   N.Ns The Old Relic: step 1 done. Next: Bring 2 old relics to the Testgrounds Captain.                                                │
-│    NN.Ns Placeholder Warden is out of view                                                                                               │
-│    NN.Ns Testgrounds Captain says: Keep the ground quiet. There may be a larger task for you, later.                                     │
-│ +  NN.Ns The Old Relic: step 2 done: 7 crowns. Next: Tell the Eastern Binder it is done.                                                 │
-│ +  NN.Ns Quest item removed from your bags: 2 Old Relic.                                                                                 │
-│    NN.Ns Plain Scuttler is out of view                                                                                                   │
-│    NN.Ns Placeholder Warden is out of view                                                                                               │
-│    NN.Ns Eastern Binder says:                                                                                                            │
-│ +  NN.Ns Quest complete: The Old Relic                                                                                                   │
-│ +  NN.Ns Quest item removed from your bags: 1 Old Relic.                                                                                 │
+│ + 16:04:03.2 Quest chain offered: The Old Relic. First: Watch from the Hollow Lookout. It is optional; /dismiss gives it up for good.    │
+│ + 16:04:03.2 The Old Relic: step 1 done. Next: Bring 2 old relics to the Testgrounds Captain.                                            │
+│   16:04:03.2 Placeholder Warden is out of view                                                                                           │
+│   16:04:03.2 Testgrounds Captain says: Keep the ground quiet. There may be a larger task for you, later.                                 │
+│ + 16:04:03.2 The Old Relic: step 2 done: 7 crowns. Next: Tell the Eastern Binder it is done.                                             │
+│ + 16:04:03.2 Quest item removed from your bags: 2 Old Relic.                                                                             │
+│   16:04:03.2 Plain Scuttler is out of view                                                                                               │
+│   16:04:03.2 Placeholder Warden is out of view                                                                                           │
+│   16:04:03.2 Eastern Binder says:                                                                                                        │
+│ + 16:04:03.2 Quest complete: The Old Relic                                                                                               │
+│ + 16:04:03.2 Quest item removed from your bags: 1 Old Relic.                                                                             │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Eastern Binder                                                                                                                  
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit

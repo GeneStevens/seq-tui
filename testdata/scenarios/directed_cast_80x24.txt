@@ -15,10 +15,10 @@
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns Greywood Wolf comes into view                                       │
-│     N.Ns You target Bramble Tusker                                           │
-│     N.Ns You begin casting Minor Heal                                        │
-│     N.Ns You use Minor Heal                                                  │
+│   16:04:03.2 Greywood Wolf comes into view                                   │
+│   16:04:03.2 You target Bramble Tusker                                       │
+│   16:04:03.2 You begin casting Minor Heal                                    │
+│   16:04:03.2 You use Minor Heal                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | directing bram | forest: slowed to 75% | key 1 Minor Heal ok    ? help

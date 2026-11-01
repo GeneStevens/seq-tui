@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns entered Hollow Warren                                               │
-│     N.Ns cora is out of view                                                 │
-│     N.Ns instance not opened: your group already has an instance open        │
-│            (instance_exists), inst-1                                         │
+│   16:04:03.2 entered Hollow Warren                                           │
+│   16:04:03.2 cora is out of view                                             │
+│   16:04:03.2 instance not opened: your group already has an instance open    │
+│                (instance_exists), inst-1                                     │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Delve Gate is shut to you: every place in the expedition beyond it is taken, a…
  ONLINE | heard N.Ns ago | instance requested; the log says when it is open     

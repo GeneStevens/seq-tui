@@ -95,7 +95,15 @@ func downsWide() *pb.ZoneMap {
 		&pb.Area{Id: "eldbury-ring-1", Name: "Eldbury Ring", Kind: "rock", Poly: rect(40000, 300000, 43000, 303000)},
 		&pb.Area{Id: "eldbury-ring-2", Name: "Eldbury Ring", Kind: "rock", Poly: rect(100000, 304000, 103000, 307000)},
 		&pb.Area{Id: "eldbury-ring-3", Name: "Eldbury Ring", Kind: "rock", Poly: rect(76000, 332000, 79000, 335000)},
-		&pb.Area{Id: "eldbury-ring-4", Name: "Eldbury Ring", Kind: "rock", Poly: rect(52000, 322000, 55000, 325000)})
+		&pb.Area{Id: "eldbury-ring-4", Name: "Eldbury Ring", Kind: "rock", Poly: rect(52000, 322000, 55000, 325000)},
+		// D121: small places that matter are named at any zoom: a hamlet with a
+		// quest person, a stockade (a building), a ford with its warden.
+		&pb.Area{Id: "barleycross", Name: "Barleycross", Kind: "town", Poly: rect(262000, 120000, 284000, 138000)},
+		&pb.Area{Id: "goblin-stockade", Name: "Goblin Stockade", Kind: "building", Poly: rect(356000, 300000, 372000, 312000)},
+		&pb.Area{Id: "goblin-rocks", Name: "Goblin Rocks", Kind: "rock", Poly: rect(326000, 334000, 329000, 337000)})
+	zm.Npcs = append(zm.Npcs,
+		&pb.NpcPlace{Id: "barleycross-miller", Name: "Edda Barley", Role: "quest_giver", Title: "Barleycross Miller", Pos: &pb.Pos{X: 272000, Y: 128000}},
+		&pb.NpcPlace{Id: "fordwatch-warden", Name: "Hob Ferrier", Role: "vendor", Title: "Fordwatch Warden", Pos: &pb.Pos{X: 151000, Y: 262000}})
 	zm.Camps = append(zm.Camps,
 		&pb.Camp{Id: "goblin-camp-a", Mob: "Goblin Skulker", Level: 7, Count: 3, Pos: &pb.Pos{X: 320000, Y: 322000}},
 		&pb.Camp{Id: "goblin-camp-b", Mob: "Goblin Skulker", Level: 7, Count: 3, Pos: &pb.Pos{X: 372000, Y: 140000}})

@@ -7,7 +7,7 @@
 │   Kill 4 wolves in the Thornwick Downs. They have been circling the millpond │
 │   at Wickett Mill, west of the river.                                        │
 │  Tusks for the Miller (Gather)                                               │
-│   0 of 3 carried                                                             │
+│   0 of 3 looted since you took it                                            │
 │   Pays 26 XP, 11 crowns and Tin Ring ▲                                       │
 │   Bring back 3 boar tusks from the boars in the barley fields. The miller at │
 │   Wickett Mill trades in them.                                               │

@@ -15,10 +15,10 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│    NN.Ns Placeholder Warden is out of view                                   │
-│    NN.Ns Eastern Binder says:                                                │
-│ +  NN.Ns Quest complete: The Old Relic                                       │
-│ +  NN.Ns Quest item removed from your bags: 1 Old Relic.                     │
+│   16:04:03.2 Placeholder Warden is out of view                               │
+│   16:04:03.2 Eastern Binder says:                                            │
+│ + 16:04:03.2 Quest complete: The Old Relic                                   │
+│ + 16:04:03.2 Quest item removed from your bags: 1 Old Relic.                 │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Eastern Binder                                                      
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

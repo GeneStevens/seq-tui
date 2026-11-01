@@ -15,9 +15,9 @@
 │                                                  │                            
 └──────────────────────────────────────────────────┘                            
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│ +   1.0s On the quest chain The Shepherds' Watch, step 2 of 4: Watch the     │
-│            shore from the green. It is optional; /dismiss gives it up for    │
-│            good.                                                             │
+│ + 16:04:03.2 On the quest chain The Shepherds' Watch, step 2 of 4: Watch the │
+│                shore from the green. It is optional; /dismiss gives it up for│
+│                good.                                                         │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                

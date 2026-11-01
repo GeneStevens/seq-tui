@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│ !  NN.Ns You have no target                                                  │
-│    NN.Ns entered Thornwick                                                   │
-│   NNN.Ns entered Thornwick Downs                                             │
-│ + NNN.Ns owed pay arrived with the join: 30 crowns                           │
+│ ! 16:04:03.2 You have no target                                              │
+│   16:04:03.2 entered Thornwick                                               │
+│   16:04:03.2 entered Thornwick Downs                                         │
+│ + 16:04:03.2 owed pay arrived with the join: 30 crowns                       │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: go through the Town Gate to the Thornwick                                   
  ONLINE | road: faster, 125% | heard N.Ns ago | use door ok       ? help  q quit

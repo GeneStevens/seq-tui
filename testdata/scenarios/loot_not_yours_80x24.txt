@@ -15,10 +15,10 @@
 │                                                  ││ +21 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│            yours to take                                                     │
-│    NN.Ns Trophy Scuttler dropped 5 crowns                                    │
-│    NN.Ns Trophy Scuttler is dead: the fight is over                          │
-│    NN.Ns Trophy Scuttler is out of view                                      │
+│                not yours to take                                             │
+│   16:04:03.2 Trophy Scuttler dropped 5 crowns                                │
+│   16:04:03.2 Trophy Scuttler is dead: the fight is over                      │
+│   16:04:03.2 Trophy Scuttler is out of view                                  │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | not lootable: the drops in view are not yours to take   ? help  q quit

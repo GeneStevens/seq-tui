@@ -5,17 +5,17 @@
 ┌─ Chat: say  ⚠ UNDER ATTACK ──────────────────────┐│ Atk off | Retaliate off  │
 │ all [say] party tell ooc   Tab filters           ││ Attacked by Gray Wolf    │
 │ ⚠ UNDER ATTACK: F fights back. This closes when …│└──────────────────────────┘
-│ [say] Mira: well met, traveller, the road is long│┌─ Target ─────────────────┐
-│»[say] Gorran Stoutarm: Aria, come back when you  ││ no target (Tab to choose)│
-│    are stronger                                  ││                          │
-│ [say] Aria: on my way                            ││                          │
-│                                                  ││                          │
+│ 16:04:03.2 [say] Mira: well met, traveller, the  │┌─ Target ─────────────────┐
+│               road is long                       ││ no target (Tab to choose)│
+│»16:04:03.2 [say] Gorran Stoutarm: Aria, come back││                          │
+│               when you are stronger              ││                          │
+│ 16:04:03.2 [say] Aria: on my way                 ││                          │
 │                                                  ││                          │
 │                                                  ││                          │
 │ PgUp / PgDn, wheel scroll · End: newest · arrows…││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ────────────── [say] Aria: on my way ─┐
-│     1.1s an event this client does not know                                  │
+│   16:04:03.2 an event this client does not know                              │
 │                                                                              │
 │                                                                              │
 │                                                                              │

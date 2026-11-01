@@ -30,9 +30,9 @@
 │ buy bank slots ok                                                                              ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
-│            /dismiss gives it up for good.                                                                                                │
-│ +   N.Ns You buy 20 more bank slots from Odalys Penn for 100 crowns                                                                      │
+│ + 16:04:03.2 Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;  │
+│                /dismiss gives it up for good.                                                                                            │
+│ + 16:04:03.2 You buy 20 more bank slots from Odalys Penn for 100 crowns                                                                  │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

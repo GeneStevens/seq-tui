@@ -562,7 +562,8 @@ func plainSegFn(s string, fn func(string) string) cseg { return cseg{seg: seg{s,
 // line that names the character starts its first row with », in bold, so it is
 // found without colour.
 func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []chatRow {
-	avail := max(w-1, 8)
+	stamp := model.Stamp(l.At, l.Approx) + " "
+	avail := max(w-1-width(stamp), 8)
 	var rows []chatRow
 	var cur []cseg
 	curW := 0
@@ -574,14 +575,19 @@ func chatLineRows(m *model.Model, l model.ChatLine, w int, st Styler) []chatRow 
 		} else if len(rows) > 0 {
 			lead = "    "
 		}
-		segs := append([]cseg{plainSegFn(lead, fn)}, cur...)
+		// The time is on a line's first row (D121); the rows after it line up under the text.
+		when := strings.Repeat(" ", width(stamp))
+		if len(rows) == 0 {
+			when = stamp
+		}
+		segs := append([]cseg{plainSegFn(lead, fn), plainSegFn(when, st.Dim)}, cur...)
 		if l.Mention {
 			for i := range segs {
 				inner := segs[i].fn
 				segs[i].fn = func(s string) string { return st.Chat.Mention(inner(s)) }
 			}
 		}
-		used := width(lead) + curW
+		used := width(lead) + width(when) + curW
 		segs = append(segs, plainSeg(strings.Repeat(" ", max(w-used, 0))))
 		rows = append(rows, chatRow{segs})
 		cur, curW = nil, 0

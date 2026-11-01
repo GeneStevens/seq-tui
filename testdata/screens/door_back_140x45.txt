@@ -29,14 +29,14 @@
 │                                                                                                ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.4s entered Outskirts                                                                                                               │
-│     0.5s Plain Scuttler targeted aria                                                                                                    │
-│     0.5s You begin fighting Plain Scuttler                                                                                               │
-│     0.5s You target Plain Scuttler                                                                                                       │
-│     0.5s You start attacking Plain Scuttler                                                                                              │
-│     0.5s Plain Scuttler (level 1, even) is attacking you                                                                                 │
-│     0.5s You are in combat with Plain Scuttler                                                                                           │
-│     0.6s entered Testgrounds                                                                                                             │
+│   16:04:03.2 entered Outskirts                                                                                                           │
+│   16:04:03.2 Plain Scuttler targeted aria                                                                                                │
+│   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You start attacking Plain Scuttler                                                                                          │
+│   16:04:03.2 Plain Scuttler (level 1, even) is attacking you                                                                             │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
+│   16:04:03.2 entered Testgrounds                                                                                                         │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -286,8 +286,12 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			return bad("usage: /bug what went wrong (it goes to the game masters, with where you were)")
 		}
 		var before int
-		a.sess.View(func(m *model.Model) { before = m.Social.BugAck })
-		res, err := a.sess.Bug(ctx, arg, clientKind)
+		var when string
+		a.sess.View(func(m *model.Model) {
+			before = m.Social.BugAck
+			when = m.NowStamp() // local and game time (D121)
+		})
+		res, err := a.sess.Bug(ctx, arg+" [at "+when+"]", clientKind)
 		if err == nil && !res.GetOk() && res.GetReason() == "rate_limited" {
 			return bad("bug: you have filed several bugs recently; a game master will review them (rate_limited)")
 		}

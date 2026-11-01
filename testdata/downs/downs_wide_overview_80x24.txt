@@ -3,19 +3,19 @@
 │                            ░░░░░░░░░░░;░░░░░░░░░░░                           │
 │                            ░     ;"≈≈≈≈≈≈≈≈·     ░                           │
 │                            ░      ·≈≈≈≈          ░                           │
-│                            ░       ·≈The Millrace░                           │
-│                            ░       ·≈≈     "##   ░                           │
+│                            ░       ·≈  Goblin Hut░                           │
+│                            ░       ·≈≈     "#### ░                           │
 │                            ░       ;≈≈Far Road   ░                           │
 │                            D        ≈···· ······D░                           │
 │                            ░   ·    ≈≈          ^░                           │
-│                            ░   ··  "≈≈         " ░                           │
-│                            ░    · " ≈≈        "  ░                           │
+│                            ░   ··  "≈≈Barleycross░                           │
+│                            ░    · " ≈≈    Q   "  ░                           │
 │                            ░    ·  "≈≈  ^;       ░                           │
 │                            ░    @   ≈≈  ;        ░                           │
 │                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
 │ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.│
 │ You       @ you                                                              │
-│ People    D door                                                             │
+│ People    Q quest person  D door                                             │
 │ Events    ; scout point                                                      │
 │ Ground    # building  ^ rock  ≈ water  " forest  · road  ░ zone edge         │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all ·…│

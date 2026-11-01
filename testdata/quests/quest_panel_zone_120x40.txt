@@ -26,8 +26,8 @@
 │                                                                                  ││ +7 more                          │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────┐
-│ +   1.0s On the quest chain A Boat for the Ferryman, step 4 of 5: Take the news to Captain Hartley. It is optional;  │
-│            /dismiss gives it up for good.                                                                            │
+│ + 16:04:03.2 On the quest chain A Boat for the Ferryman, step 4 of 5: Take the news to Captain Hartley. It is        │
+│                optional; /dismiss gives it up for good.                                                              │
 │                                                                                                                      │
 │                                                                                                                      │
 │                                                                                                                      │

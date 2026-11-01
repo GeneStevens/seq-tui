@@ -26,15 +26,15 @@
 │   ░                                                                          ░   ││                                  │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ Events  [Chat]  Party ──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ [say] Mira: chat line 17                                                                                             │
-│ [say] Mira: chat line 18                                                                                             │
-│ [say] Mira: chat line 19                                                                                             │
-│ [say] Mira: chat line 20                                                                                             │
-│ [say] Mira: chat line 21                                                                                             │
-│ [say] Mira: chat line 22                                                                                             │
-│ [say] Mira: chat line 23                                                                                             │
-│ [say] Mira: chat line 24                                                                                             │
-│ [say] Mira: chat line 25                                                                                             │
+│ 16:04:03.2 [say] Mira: chat line 17                                                                                  │
+│ 16:04:03.2 [say] Mira: chat line 18                                                                                  │
+│ 16:04:03.2 [say] Mira: chat line 19                                                                                  │
+│ 16:04:03.2 [say] Mira: chat line 20                                                                                  │
+│ 16:04:03.2 [say] Mira: chat line 21                                                                                  │
+│ 16:04:03.2 [say] Mira: chat line 22                                                                                  │
+│ 16:04:03.2 [say] Mira: chat line 23                                                                                  │
+│ 16:04:03.2 [say] Mira: chat line 24                                                                                  │
+│ 16:04:03.2 [say] Mira: chat line 25                                                                                  │
 └─ ↓ 5 new · End ──────────────────────────────────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                
  ONLINE | Z | heard 0.4s ago                                                                              ? help  q quit

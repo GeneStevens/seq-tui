@@ -29,17 +29,17 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns You start attacking Bramble Tusker                                                                                              │
-│    NN.Ns Bramble Tusker (level 5, even) is attacking you                                                                                 │
-│    NN.Ns You are in combat with Bramble Tusker                                                                                           │
-│    NN.Ns bram cleared the target                                                                                                         │
-│    NN.Ns bram stopped attacking                                                                                                          │
-│    NN.Ns You hit Bramble Tusker for 10                                                                                                   │
-│    NN.Ns Bramble Tusker began attacking hale                                                                                             │
-│ <  NN.Ns Bramble Tusker hits you for 4                                                                                                   │
-│    NN.Ns You hit Bramble Tusker for 11                                                                                                   │
-│ <  NN.Ns Bramble Tusker misses you                                                                                                       │
-│    NN.Ns You hit Bramble Tusker for 13                                                                                                   │
+│   16:04:03.2 You start attacking Bramble Tusker                                                                                          │
+│   16:04:03.2 Bramble Tusker (level 5, even) is attacking you                                                                             │
+│   16:04:03.2 You are in combat with Bramble Tusker                                                                                       │
+│   16:04:03.2 bram cleared the target                                                                                                     │
+│   16:04:03.2 bram stopped attacking                                                                                                      │
+│   16:04:03.2 You hit Bramble Tusker for 10                                                                                               │
+│   16:04:03.2 Bramble Tusker began attacking hale                                                                                         │
+│ < 16:04:03.2 Bramble Tusker hits you for 4                                                                                               │
+│   16:04:03.2 You hit Bramble Tusker for 11                                                                                               │
+│ < 16:04:03.2 Bramble Tusker misses you                                                                                                   │
+│   16:04:03.2 You hit Bramble Tusker for 13                                                                                               │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Too far: 3 m. Option-click the target to close in · F: stop attacking                                                                      
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago                                            ? help  q quit

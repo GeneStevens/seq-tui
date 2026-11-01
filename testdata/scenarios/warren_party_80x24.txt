@@ -15,8 +15,8 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat •1  Party •1 ─ [say] hale: I will take the… ─┐
-│     N.Ns bram comes into view                                                │
-│     N.Ns bram joined the party                                               │
+│   16:04:03.2 bram comes into view                                            │
+│   16:04:03.2 bram joined the party                                           │
 │                                                                              │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘

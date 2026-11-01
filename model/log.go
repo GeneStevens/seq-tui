@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
@@ -34,6 +35,11 @@ type LogEntry struct {
 	// Ord is the line's number in the order the log took it (LogOrd): a scrolled
 	// back panel keeps its place by it as lines arrive and the oldest are cut.
 	Ord uint64
+	// At is the local wall-clock time the client received the line (D121), or, for
+	// a line replayed at login, the time worked out from the game time (Approx).
+	// The zero time says there is none.
+	At     time.Time
+	Approx bool
 }
 
 func (m *Model) logEvent(e *pb.Event) {
@@ -265,6 +271,9 @@ func (m *Model) trimLog() {
 	for i := m.logLen; i < len(m.Log); i++ {
 		m.LogOrd++
 		m.Log[i].Ord = m.LogOrd
+		if m.Log[i].At.IsZero() {
+			m.Log[i].At, m.Log[i].Approx = m.localAt(m.Log[i].GameTimeMs)
+		}
 		if !m.Log[i].Hidden() {
 			m.LogN++
 		}

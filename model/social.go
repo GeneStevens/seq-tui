@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"slices"
 	"strings"
+	"time"
 	"unicode"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
@@ -23,7 +24,11 @@ type ChatLine struct {
 	From, To string
 	Text     string
 	AtMs     int64
-	Mine     bool
+	// At is the local wall-clock time the client received the line (D121); Approx
+	// says it was worked out from the game time because the line was replayed.
+	At     time.Time
+	Approx bool
+	Mine   bool
 	// Seq numbers the lines the session has seen, from 1: it keeps counting past
 	// the scrollback's cap, so a mark "read up to Seq n" outlives the lines cut.
 	Seq int
@@ -156,6 +161,7 @@ func (m *Model) applySocial(msg *pb.ServerMessage) {
 			SpeakerID: c.GetSpeaker().GetId(), SpeakerKind: c.GetSpeaker().GetKind(), Parts: partsOf(c.GetParts())}
 		s.ChatN++
 		l.Seq = s.ChatN
+		l.At, l.Approx = m.localAt(l.AtMs)
 		l.Mention = !l.Mine && m.mentionsMe(l)
 		if l.Channel == "tell" {
 			s.TellPeer = l.To

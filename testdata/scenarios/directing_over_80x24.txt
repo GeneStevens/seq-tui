@@ -15,10 +15,10 @@
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│ <  NN.Ns Bramble Tusker hits you for 4                                       │
-│    NN.Ns You hit Bramble Tusker for 11                                       │
-│ <  NN.Ns Bramble Tusker misses you                                           │
-│    NN.Ns You hit Bramble Tusker for 13                                       │
+│ < 16:04:03.2 Bramble Tusker hits you for 4                                   │
+│   16:04:03.2 You hit Bramble Tusker for 11                                   │
+│ < 16:04:03.2 Bramble Tusker misses you                                       │
+│   16:04:03.2 You hit Bramble Tusker for 13                                   │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Too far: 3 m. Option-click the target to close in · F: stop attacking          
  ONLINE | forest: slowed to 75% | heard N.Ns ago                  ? help  q quit

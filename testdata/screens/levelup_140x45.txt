@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     5.5s You begin casting Frost Bolt on Plain Scuttler                                                                                  │
-│     7.5s You use Frost Bolt on Plain Scuttler                                                                                            │
-│     7.5s You hit Plain Scuttler with Frost Bolt for 13 cold damage                                                                       │
-│ x   7.5s You killed Plain Scuttler                                                                                                       │
-│     7.5s Your target Plain Scuttler is gone                                                                                              │
-│     7.5s Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
-│     7.5s Plain Scuttler is dead: the fight is over                                                                                       │
-│     7.5s You are out of combat                                                                                                           │
-│ +   7.5s You gain 60 experience                                                                                                          │
-│ +   7.5s You reached level 2! Health 80 → 88, mana 150 → 173. Intellect +2, Wisdom +1                                                    │
-│     7.5s Plain Scuttler is out of view                                                                                                   │
+│   16:04:03.2 You begin casting Frost Bolt on Plain Scuttler                                                                              │
+│   16:04:03.2 You use Frost Bolt on Plain Scuttler                                                                                        │
+│   16:04:03.2 You hit Plain Scuttler with Frost Bolt for 13 cold damage                                                                   │
+│ x 16:04:03.2 You killed Plain Scuttler                                                                                                   │
+│   16:04:03.2 Your target Plain Scuttler is gone                                                                                          │
+│   16:04:03.2 Plain Scuttler dropped Cracked Shell Fragment                                                                               │
+│   16:04:03.2 Plain Scuttler is dead: the fight is over                                                                                   │
+│   16:04:03.2 You are out of combat                                                                                                       │
+│ + 16:04:03.2 You gain 60 experience                                                                                                      │
+│ + 16:04:03.2 You reached level 2! Health 80 → 88, mana 150 → 173. Intellect +2, Wisdom +1                                                │
+│   16:04:03.2 Plain Scuttler is out of view                                                                                               │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot Cracked Shell Fragment                                                                                                             
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok                                                                  ? help  q quit

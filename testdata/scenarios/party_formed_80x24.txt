@@ -15,8 +15,8 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns ann1 invites you to a party                                         │
-│     N.Ns ann1 invites you to a party                                         │
+│   16:04:03.2 ann1 invites you to a party                                     │
+│   16:04:03.2 ann1 invites you to a party                                     │
 │                                                                              │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘

@@ -29,13 +29,13 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
-│            /dismiss gives it up for good.                                                                                                │
-│     N.Ns Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │
-│            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
-│            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
-│ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
-│            druids at the east), for your first lesson.                                                                                   │
+│ + 16:04:03.2 Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;  │
+│                /dismiss gives it up for good.                                                                                            │
+│   16:04:03.2 Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The       │
+│                trainers keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the│
+│                east gate leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                    │
+│ + 16:04:03.2 First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end, │
+│                druids at the east), for your first lesson.                                                                               │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

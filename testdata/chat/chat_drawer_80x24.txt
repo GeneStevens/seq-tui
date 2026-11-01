@@ -4,13 +4,13 @@
 │    ░                                         ░   ││ Target: none             │
 ┌─ Chat: all ──────────────────────────────────────┐│ Atk off | Retaliate off  │
 │ [all] say party tell ooc   Tab filters           │└──────────────────────────┘
-│ [say] Mira: well met, traveller, the road is long│┌─ Target ─────────────────┐
-│ [party] Mira: ready when you are                 ││ no target (Tab to choose)│
-│ [tell] Mira: group for the Warren?               ││                          │
-│»[say] Gorran Stoutarm: Aria, come back when you  ││                          │
-│    are stronger                                  │└──────────────────────────┘
-│ [say] Aria: on my way                            │┌─ Nearby ─────────────────┐
-│                                                  ││ p Mira       4m NE 20/20 │
+│ 16:04:03.2 [say] Mira: well met, traveller, the  │┌─ Target ─────────────────┐
+│               road is long                       ││ no target (Tab to choose)│
+│ 16:04:03.2 [party] Mira: ready when you are      ││                          │
+│ 16:04:03.2 [tell] Mira: group for the Warren?    ││                          │
+│»16:04:03.2 [say] Gorran Stoutarm: Aria, come back│└──────────────────────────┘
+│               when you are stronger              │┌─ Nearby ─────────────────┐
+│ 16:04:03.2 [say] Aria: on my way                 ││ p Mira       4m NE 20/20 │
 │                                                  ││ T Gorran Stoutarm  5m NW │
 │ PgUp / PgDn, wheel scroll · End: newest · arrows…││ m Gray Wolf   6m W 20/20 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘

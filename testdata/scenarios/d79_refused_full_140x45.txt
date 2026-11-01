@@ -29,11 +29,11 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns bram is out of view                                                                                                             │
-│     N.Ns hale is out of view                                                                                                             │
-│     N.Ns hale invites you to a party                                                                                                     │
-│ !   N.Ns Delve Gate is shut to you: every place in the expedition beyond it is taken, and a replacement can only fill one a member has   │
-│            left.                                                                                                                         │
+│   16:04:03.2 bram is out of view                                                                                                         │
+│   16:04:03.2 hale is out of view                                                                                                         │
+│   16:04:03.2 hale invites you to a party                                                                                                 │
+│ ! 16:04:03.2 Delve Gate is shut to you: every place in the expedition beyond it is taken, and a replacement can only fill one a member   │
+│                has left.                                                                                                                 │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

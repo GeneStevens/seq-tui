@@ -15,10 +15,10 @@
 │ You: none   |   Plain Scuttler: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns Slot 1: Root                                                        │
-│     N.Ns Slot 3: Flame Dart                                                  │
-│     N.Ns You target Plain Scuttler                                           │
-│     N.Ns You begin casting Root on Plain Scuttler                            │
+│   16:04:03.2 Slot 1: Root                                                    │
+│   16:04:03.2 Slot 3: Flame Dart                                              │
+│   16:04:03.2 You target Plain Scuttler                                       │
+│   16:04:03.2 You begin casting Root on Plain Scuttler                        │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard N.Ns ago | key 1 Root ok            ? help  q quit

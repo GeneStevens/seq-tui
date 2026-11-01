@@ -29,10 +29,10 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s bram comes into view                                                                                                            │
-│     1.4s instance opened: Warren Venture Delve (up to 3 in it); enter at delve-gate with E                                               │
-│     1.2s entered Hollow Warren (Warren Venture Delve)                                                                                    │
-│     2.4s bram comes into view                                                                                                            │
+│   16:04:03.2 bram comes into view                                                                                                        │
+│   16:04:03.2 instance opened: Warren Venture Delve (up to 3 in it); enter at delve-gate with E                                           │
+│   16:04:03.2 entered Hollow Warren (Warren Venture Delve)                                                                                │
+│   16:04:03.2 bram comes into view                                                                                                        │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

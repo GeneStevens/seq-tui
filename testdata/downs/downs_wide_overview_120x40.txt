@@ -1,37 +1,37 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                                                           You                                        │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                     │
-│          ░                  ·······≈≈≈≈;≈≈≈········                  ░    People                                     │
-│          ░      Eel Mere Shore≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     D door                                    │
+│          ░                  ·······≈≈≈≈;≈≈≈········Eel Mere Shore    ░    People                                     │
+│          ░          Eelmere +2≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     $ vendor  Q quest person  D door          │
 │          ░               #; " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                    ░    Events                                     │
 │          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                      ░     ; scout point                             │
 │          ░                  ·· ≈≈  Eel Mere                          ░    Ground                                     │
 │          ░                   ··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
 │          ░                   ··≈≈≈≈                                  ░     = bridge  " forest  · road                │
 │          ░     Marlbridge Road··≈≈≈                  " " "           ░     ░ zone edge                               │
-│          ░   Eldbury Ring     ··≈≈≈                 " ##" "          ░                                               │
-│          ░             ^      ··≈≈≈≈                 ####"           ░                                               │
-│          ░     ^               ·≈≈≈≈                " " "            ░                                               │
+│          ░   Eldbury Ring     ··≈≈≈              Goblin Hut +2       ░                                               │
+│          ░             ^      ··≈≈≈≈                 #Goblin Stockade░                                               │
+│          ░     ^               ·≈≈≈≈                " " "   ###      ░                                               │
 │          ░                     ·≈≈≈≈                                 ░                                               │
-│          ░                     ; ≈≈≈                                 ░                                               │
-│          ░                       ≈≈≈                                 ░                                               │
+│          ░                    $; ≈≈≈                                 ░                                               │
+│          ░              Fordwatch≈≈≈                                 ░                                               │
 │          ░                       ≈≈≈        Far Road                 ░                                               │
 │          ░D                      ≈≈···························    D  ░                                               │
-│          ░           The Millrace≈≈≈                            ^^^^^░                                               │
+│          ░        The Millrace +1≈≈≈                            ^^^^^░                                               │
 │          ░         ·             ≈≈≈                           ^^^^^^░                                               │
 │          ░         ·          " "≈≈≈                                 ░                                               │
 │          ░         ··        " " ≈≈≈                                 ░                                               │
 │          ░          ··      " " "≈≈≈                        " " "    ░                                               │
-│          ░           ··    " " " ≈≈≈                       " " "     ░                                               │
-│          ░ Drove Road··     " " "≈≈≈                      " " " "    ░                                               │
+│          ░           ··    " " " ≈≈≈     Barleycross +1    " " "     ░                                               │
+│          ░ Drove Road··     " " "≈≈≈            Q         " " " "    ░                                               │
 │          ░           ··    " " " ≈≈≈                           "     ░                                               │
 │          ░            ·     " " "≈≈≈                                 ░                                               │
 │          ░            ··     "   ≈≈≈                                 ░                                               │
 │          ░            ··         ≈≈≈        ^;^                      ░                                               │
-│          ░             ;         ≈≈≈Hill Track^^                     ░                                               │
+│          ░             ;         ≈≈≈Hill Track +1                    ░                                               │
 │          ░           ##@    ····====·······^;                        ░                                               │
-│          ░           ####         ≈≈  ^^ ^                           ░                                               │
-│          ░                        ≈≈                                 ░                                               │
+│          ░         Highfold +2    ≈≈  ^^ ^                           ░                                               │
+│          ░   Highfold Sheepfold   ≈≈                                 ░                                               │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                               │
 │ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.                                        │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                         │

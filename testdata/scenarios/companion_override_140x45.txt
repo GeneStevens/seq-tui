@@ -29,17 +29,17 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns You hit Bramble Tusker for 10                                                                                                   │
-│     N.Ns Bramble Tusker targeted hale                                                                                                    │
-│     N.Ns Watch Shieldman uses Taunt on Bramble Tusker                                                                                    │
-│     N.Ns Bramble Tusker began attacking hale                                                                                             │
-│     N.Ns Bramble Tusker targeted Watch Shieldman                                                                                         │
-│     N.Ns Bramble Tusker began attacking Watch Shieldman                                                                                  │
-│     N.Ns Watch Shieldman hits Bramble Tusker for 7                                                                                       │
-│     N.Ns You stop attacking                                                                                                              │
-│     N.Ns Your companion is ordered: stop                                                                                                 │
-│     N.Ns Your target Bramble Tusker is gone                                                                                              │
-│     N.Ns Watch Shieldman stopped attacking                                                                                               │
+│   16:04:03.2 You hit Bramble Tusker for 10                                                                                               │
+│   16:04:03.2 Bramble Tusker targeted hale                                                                                                │
+│   16:04:03.2 Watch Shieldman uses Taunt on Bramble Tusker                                                                                │
+│   16:04:03.2 Bramble Tusker began attacking hale                                                                                         │
+│   16:04:03.2 Bramble Tusker targeted Watch Shieldman                                                                                     │
+│   16:04:03.2 Bramble Tusker began attacking Watch Shieldman                                                                              │
+│   16:04:03.2 Watch Shieldman hits Bramble Tusker for 7                                                                                   │
+│   16:04:03.2 You stop attacking                                                                                                          │
+│   16:04:03.2 Your companion is ordered: stop                                                                                             │
+│   16:04:03.2 Your target Bramble Tusker is gone                                                                                          │
+│   16:04:03.2 Watch Shieldman stopped attacking                                                                                           │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                                                                               
  ONLINE | North Greywood, Thornwick Downs | forest: slowed to 75% | heard N.Ns ago | companion order: stop ok                 ? help  q quit

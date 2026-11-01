@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│            and experience.                                                   │
-│ +   2.5s You take the contract Word from Wickett Mill                        │
-│    20.7s entered Thornwick Downs                                             │
-│ +  32.6s Word from Wickett Mill: 1 of 1                                      │
+│                crowns and experience.                                        │
+│ + 16:04:03.2 You take the contract Word from Wickett Mill                    │
+│   16:04:03.2 entered Thornwick Downs                                         │
+│ + 16:04:03.2 Word from Wickett Mill: 1 of 1                                  │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Hew Wickett <Miller>                                                
  ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 39m W | move ok      

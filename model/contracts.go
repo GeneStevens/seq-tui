@@ -377,14 +377,18 @@ func (m *Model) KnownNPCs() []*pb.NpcInfo {
 	return out
 }
 
+// GatherRule is the rule of a gather contract in words (D121): the count is the
+// items looted since the contract was taken, never what the bags already hold.
+const GatherRule = "looted since you took it"
+
 // Progress says how far a held contract has got in words: "2 of 3 killed",
-// "1 of 3 carried", "go to the marker" or "marker reached", "ready to hand in".
+// "1 of 3 looted since you took it", "go to the marker" or "marker reached".
 func Progress(c *pb.ContractInfo) string {
 	switch c.GetKind() {
 	case "hunt", "bounty":
 		return fmt.Sprintf("%d of %d killed", c.GetHave(), c.GetNeed())
 	case "gather":
-		return fmt.Sprintf("%d of %d carried", c.GetHave(), c.GetNeed())
+		return fmt.Sprintf("%d of %d %s", c.GetHave(), c.GetNeed(), GatherRule)
 	case "scout":
 		if c.GetHave() >= c.GetNeed() {
 			return "marker reached"

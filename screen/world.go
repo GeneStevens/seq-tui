@@ -356,6 +356,9 @@ func ready(rows []string, st Styler) []string {
 // at least 12 cells of it.
 func stateWords(m *model.Model, c *pb.ContractInfo, w int) string {
 	short := compactState(c)
+	if c.GetKind() == "gather" && !c.GetReady() {
+		return gatherState(c, short, w, min(width(c.GetName()), 12))
+	}
 	if c.GetKind() != "scout" || c.GetReady() {
 		return short
 	}
@@ -370,6 +373,18 @@ func stateWords(m *model.Model, c *pb.ContractInfo, w int) string {
 		}
 	}
 	return head
+}
+
+// gatherState is a gather contract's count with its rule (D121), "1/3 · looted
+// since you took it", shortened as the row's width w allows: the name keeps at
+// least keep cells of it.
+func gatherState(c *pb.ContractInfo, count string, w, keep int) string {
+	for _, tail := range []string{model.GatherRule, "looted since taken", "looted"} {
+		if v := count + " · " + tail; w-width(v)-1 >= keep {
+			return v
+		}
+	}
+	return count
 }
 
 // compactState is a contract's progress in the fewest cells: "2/3", "go", "READY".

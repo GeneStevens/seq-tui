@@ -30,11 +30,11 @@
 │ sell all junk ok                                                                               ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-│     N.Ns Dunstan Reeve says: Blades, maces and staves. A good edge earns its keep. Come back at level five and I will have something     │
-│            heavier for you. The tempered work takes iron I do not have to spare. The price on the slate is chalked, rubbed out and       │
-│            chalked higher.                                                                                                               │
-│ +   N.Ns You sell your junk (2 items) to Dunstan Reeve for 2 crowns                                                                      │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
+│   16:04:03.2 Dunstan Reeve says: Blades, maces and staves. A good edge earns its keep. Come back at level five and I will have something │
+│                heavier for you. The tempered work takes iron I do not have to spare. The price on the slate is chalked, rubbed out and   │
+│                chalked higher.                                                                                                           │
+│ + 16:04:03.2 You sell your junk (2 items) to Dunstan Reeve for 2 crowns                                                                  │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

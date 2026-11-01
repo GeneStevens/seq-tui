@@ -29,9 +29,9 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns You release your body and will return in 5 seconds                                                                              │
-│     N.Ns You return to life in Thornwick Gate                                                                                            │
-│     N.Ns entered Thornwick                                                                                                               │
+│   16:04:03.2 You release your body and will return in 5 seconds                                                                          │
+│   16:04:03.2 You return to life in Thornwick Gate                                                                                        │
+│   16:04:03.2 entered Thornwick                                                                                                           │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

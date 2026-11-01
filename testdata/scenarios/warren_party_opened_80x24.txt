@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat •1  Party •1 ─ [say] hale: I will take the… ─┐
-│     N.Ns bram comes into view                                                │
-│     N.Ns bram joined the party                                               │
-│     N.Ns instance opened for your party: Warren Venture Delve (up to 3 in    │
-│            it); enter at delve-gate with E                                   │
+│   16:04:03.2 bram comes into view                                            │
+│   16:04:03.2 bram joined the party                                           │
+│   16:04:03.2 instance opened for your party: Warren Venture Delve (up to 3 in│
+│                it); enter at delve-gate with E                               │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Delve Gate                                                            
  ONLINE | Hollow Warren | heard N.Ns ago                          ? help  q quit

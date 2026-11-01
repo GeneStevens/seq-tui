@@ -15,10 +15,10 @@
 │    ░                                         ░   ││ m Gray Wolf   6m W 20/20 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events  [Chat]  Party ──────────────────────────────────────────────────────┐
-│ [say] Mira: chat line 22                                                     │
-│ [say] Mira: chat line 23                                                     │
-│ [say] Mira: chat line 24                                                     │
-│ [say] Mira: chat line 25                                                     │
+│ 16:04:03.2 [say] Mira: chat line 22                                          │
+│ 16:04:03.2 [say] Mira: chat line 23                                          │
+│ 16:04:03.2 [say] Mira: chat line 24                                          │
+│ 16:04:03.2 [say] Mira: chat line 25                                          │
 └─ ↓ 5 new · End ──────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Z | heard 0.4s ago                                      ? help  q quit

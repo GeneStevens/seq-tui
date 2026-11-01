@@ -15,10 +15,10 @@
 │ You: none   |   Plain Scuttler: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns You use Taunt on Plain Scuttler                                     │
-│     N.Ns You begin fighting Plain Scuttler                                   │
-│     N.Ns You are in combat with Plain Scuttler                               │
-│     N.Ns Plain Scuttler targeted gorm                                        │
+│   16:04:03.2 You use Taunt on Plain Scuttler                                 │
+│   16:04:03.2 You begin fighting Plain Scuttler                               │
+│   16:04:03.2 You are in combat with Plain Scuttler                           │
+│   16:04:03.2 Plain Scuttler targeted gorm                                    │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard N.Ns ago | key 1 Taunt ok           ? help  q quit

@@ -29,12 +29,12 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     3.1s Bram began fighting Shell Rat                                                                                                   │
-│     3.2s Bram hit Shell Rat for 6                                                                                                        │
-│     3.3s Aria targeted Shell Rat                                                                                                         │
-│ !   3.3s that mob is in someone else's fight (encounter_owned)                                                                           │
-│ !   3.4s Aria was refused auto_attack on Shell Rat: that mob is in someone else's fight                                                  │
-│     3.5s Bram hit Shell Rat for 7                                                                                                        │
+│   16:04:03.2 Bram began fighting Shell Rat                                                                                               │
+│   16:04:03.2 Bram hit Shell Rat for 6                                                                                                    │
+│   16:04:03.2 Aria targeted Shell Rat                                                                                                     │
+│ ! 16:04:03.2 that mob is in someone else's fight (encounter_owned)                                                                       │
+│ ! 16:04:03.2 Aria was refused auto_attack on Shell Rat: that mob is in someone else's fight                                              │
+│   16:04:03.2 Bram hit Shell Rat for 7                                                                                                    │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

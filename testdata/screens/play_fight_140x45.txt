@@ -29,17 +29,17 @@
 │                            ░                                                       #           ││ +11 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     2.2s You target Plain Scuttler                                                                                                       │
-│     2.7s You hit Plain Scuttler for 4                                                                                                    │
-│     2.9s Plain Scuttler began attacking aria                                                                                             │
-│ <   2.9s Plain Scuttler hits you for 2                                                                                                   │
-│     4.7s You hit Plain Scuttler for 6                                                                                                    │
-│ <   5.9s Plain Scuttler hits you for 1                                                                                                   │
-│     6.7s You miss Plain Scuttler                                                                                                         │
-│     8.7s You hit Plain Scuttler for 5                                                                                                    │
-│ <   8.9s Plain Scuttler hits you for 3                                                                                                   │
-│    10.7s You hit Plain Scuttler for 4                                                                                                    │
-│ <  11.9s Plain Scuttler hits you for 2                                                                                                   │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You hit Plain Scuttler for 4                                                                                                │
+│   16:04:03.2 Plain Scuttler began attacking aria                                                                                         │
+│ < 16:04:03.2 Plain Scuttler hits you for 2                                                                                               │
+│   16:04:03.2 You hit Plain Scuttler for 6                                                                                                │
+│ < 16:04:03.2 Plain Scuttler hits you for 1                                                                                               │
+│   16:04:03.2 You miss Plain Scuttler                                                                                                     │
+│   16:04:03.2 You hit Plain Scuttler for 5                                                                                                │
+│ < 16:04:03.2 Plain Scuttler hits you for 3                                                                                               │
+│   16:04:03.2 You hit Plain Scuttler for 4                                                                                                │
+│ < 16:04:03.2 Plain Scuttler hits you for 2                                                                                               │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                                                                                  
  ONLINE | Testgrounds | heard 0.4s ago                                                                                        ? help  q quit

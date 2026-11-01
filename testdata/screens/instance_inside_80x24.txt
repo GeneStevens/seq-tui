@@ -15,9 +15,9 @@
 │                         m                        ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     0.2s instance opened: Solo Trial (up to 1 in it); enter at gate-north    │
-│            with E                                                            │
-│     1.3s entered Testgrounds (Solo Trial)                                    │
+│   16:04:03.2 instance opened: Solo Trial (up to 1 in it); enter at gate-north│
+│                with E                                                        │
+│   16:04:03.2 entered Testgrounds (Solo Trial)                                │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Gate North  ·  Tab: target · F: attack                                

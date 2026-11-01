@@ -15,9 +15,9 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat •1  Party •1 ─ [party] bob1: ready when yo… ─┐
-│     N.Ns bob1 comes into view                                                │
-│     N.Ns bob1 declined your party invitation                                 │
-│     N.Ns bob1 joined the party                                               │
+│   16:04:03.2 bob1 comes into view                                            │
+│   16:04:03.2 bob1 declined your party invitation                             │
+│   16:04:03.2 bob1 joined the party                                           │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Gate North is shut: no expedition is open beyond it. Start one first.          

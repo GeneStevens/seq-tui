@@ -15,10 +15,10 @@
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns Bram hits Bramble Tusker for 4                                      │
-│ <   N.Ns Bramble Tusker misses you                                           │
-│     N.Ns bram cleared the target                                             │
-│     N.Ns bram stopped attacking                                              │
+│   16:04:03.2 Bram hits Bramble Tusker for 4                                  │
+│ < 16:04:03.2 Bramble Tusker misses you                                       │
+│   16:04:03.2 bram cleared the target                                         │
+│   16:04:03.2 bram stopped attacking                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | forest: slowed to 75% | second character ordered: stop  ? help  q quit

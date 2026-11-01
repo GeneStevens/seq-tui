@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
-│            druids at the east), for your first lesson.                                                                                   │
-│    NN.Ns Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
-│            else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.                       │
-│ +  NN.Ns First Steps: step 2 done: 15 crowns. Next: Take a contract from the Thornwick Contract Board, here in Hawthorn Square. Jobs pay │
-│            crowns and experience.                                                                                                        │
-│    NN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +  NN.Ns First Steps: step 3 done. Next: Walk east along Gatehouse Way to the East Gate and press E at the gate to go out to the         │
-│            Thornwick Downs.                                                                                                              │
-│ +  NN.Ns You take the contract Boars in the Barley                                                                                       │
+│ + 16:04:03.2 First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end, │
+│                druids at the east), for your first lesson.                                                                               │
+│   16:04:03.2 Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash.       │
+│                Everything else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.        │
+│ + 16:04:03.2 First Steps: step 2 done: 15 crowns. Next: Take a contract from the Thornwick Contract Board, here in Hawthorn Square. Jobs │
+│                pay crowns and experience.                                                                                                │
+│   16:04:03.2 Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the    │
+│                proof back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                   │
+│ + 16:04:03.2 First Steps: step 3 done. Next: Walk east along Gatehouse Way to the East Gate and press E at the gate to go out to the     │
+│                Thornwick Downs.                                                                                                          │
+│ + 16:04:03.2 You take the contract Boars in the Barley                                                                                   │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: go through the East Gate to the Thornwick Downs                                                                                         
  ONLINE | East Gate, Thornwick | First Steps 4/4 | → East Gate — to the Thornwick Downs, 2m NE | road: faster, 125% | heard N.Ns ago  ? help

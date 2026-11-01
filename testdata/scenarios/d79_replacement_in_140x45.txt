@@ -29,15 +29,15 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns bram comes into view                                                                                                            │
-│     N.Ns cora comes into view                                                                                                            │
-│     N.Ns bram joined the party                                                                                                           │
-│     N.Ns instance opened for your party: Warren Venture Delve (up to 3 in it); enter at delve-gate with E                                │
-│     N.Ns bram is out of view                                                                                                             │
-│     N.Ns entered Hollow Warren (Warren Venture Delve)                                                                                    │
-│     N.Ns cora joined the party                                                                                                           │
-│     N.Ns bram is out of view                                                                                                             │
-│     N.Ns cora comes into view                                                                                                            │
+│   16:04:03.2 bram comes into view                                                                                                        │
+│   16:04:03.2 cora comes into view                                                                                                        │
+│   16:04:03.2 bram joined the party                                                                                                       │
+│   16:04:03.2 instance opened for your party: Warren Venture Delve (up to 3 in it); enter at delve-gate with E                            │
+│   16:04:03.2 bram is out of view                                                                                                         │
+│   16:04:03.2 entered Hollow Warren (Warren Venture Delve)                                                                                │
+│   16:04:03.2 cora joined the party                                                                                                       │
+│   16:04:03.2 bram is out of view                                                                                                         │
+│   16:04:03.2 cora comes into view                                                                                                        │
 │                                                                                                                                          │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘

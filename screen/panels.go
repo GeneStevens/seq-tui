@@ -536,7 +536,7 @@ func logEntryRows(m *model.Model, e *model.LogEntry, w int, st Styler) []logRow 
 	case e.Kind == "entity_moved" || e.Kind == "rules_tick" || e.Kind == "resource_changed":
 		fn = st.Dim
 	}
-	prefix := fmt.Sprintf(" %s %5.1fs ", mark, float64(e.GameTimeMs)/1000)
+	prefix := " " + mark + " " + model.Stamp(e.At, e.Approx) + " "
 	muted := false // inside the capped part of an experience line (D86)
 	var out []logRow
 	for i, ln := range wrap(clean(e.Text), max(w-width(prefix), 8)) {

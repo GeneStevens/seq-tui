@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│            bandits on the near roads, goblins farther out. Go carefully until│
-│            you are seasoned. There is a larger task for those the Watch can  │
-│            trust. Prove yourself first, and come and see me.                 │
-│     N.Ns Your companion takes the role of melee                              │
+│                carefully until you are seasoned. There is a larger task for  │
+│                those the Watch can trust. Prove yourself first, and come and │
+│                see me.                                                       │
+│   16:04:03.2 Your companion takes the role of melee                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Captain Rhosyn Hartley <Watch Captain>                              
  ONLINE | Watch House Yard, Thornwick | heard N.Ns ago            ? help  q quit

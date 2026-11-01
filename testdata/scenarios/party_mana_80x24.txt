@@ -15,10 +15,10 @@
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns You start attacking Bramble Tusker                                  │
-│     N.Ns Bramble Tusker (level 5, even) is attacking you                     │
-│     N.Ns You are in combat with Bramble Tusker                               │
-│     N.Ns bram comes into view                                                │
+│   16:04:03.2 You start attacking Bramble Tusker                              │
+│   16:04:03.2 Bramble Tusker (level 5, even) is attacking you                 │
+│   16:04:03.2 You are in combat with Bramble Tusker                           │
+│   16:04:03.2 bram comes into view                                            │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Too far: 8 m. Option-click the target to close in · F: stop attacking          
  ONLINE | forest: slowed to 75% | heard N.Ns ago | second character in play     

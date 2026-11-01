@@ -30,12 +30,12 @@
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Plain Scuttler targeted aria                                                                                                    │
-│     N.Ns You begin fighting Plain Scuttler                                                                                               │
-│     N.Ns You target Plain Scuttler                                                                                                       │
-│     N.Ns You start attacking Plain Scuttler                                                                                              │
-│     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
-│     N.Ns You are in combat with Plain Scuttler                                                                                           │
+│   16:04:03.2 Plain Scuttler targeted aria                                                                                                │
+│   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You start attacking Plain Scuttler                                                                                          │
+│   16:04:03.2 Plain Scuttler (level 1, even) is attacking you                                                                             │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

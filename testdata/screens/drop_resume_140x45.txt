@@ -29,10 +29,10 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     5.1s Aria targeted Shell Rat                                                                                                         │
-│     5.2s Aria hit Shell Rat for 5                                                                                                        │
-│     5.3s Aria hit Shell Rat for 6                                                                                                        │
-│     5.4s Aria hit Shell Rat for 4                                                                                                        │
+│   16:04:03.2 Aria targeted Shell Rat                                                                                                     │
+│   16:04:03.2 Aria hit Shell Rat for 5                                                                                                    │
+│   16:04:03.2 Aria hit Shell Rat for 6                                                                                                    │
+│   16:04:03.2 Aria hit Shell Rat for 4                                                                                                    │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

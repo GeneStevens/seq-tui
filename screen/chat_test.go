@@ -418,7 +418,7 @@ func TestColourCarriesMeaningAndNoColourStaysReadable(t *testing.T) {
 		t.Error("NO_COLOR: your own name is not underlined")
 	}
 	plain := sgr.ReplaceAllString(mono, "")
-	for _, tag := range []string{"[say]", "[party]", "[tell]", "»[say] Gorran Stoutarm: Aria,"} {
+	for _, tag := range []string{"[say]", "[party]", "[tell]", "»16:04:03.2 [say] Gorran Stoutarm: Aria,"} {
 		if !strings.Contains(plain, tag) {
 			t.Errorf("the screen without colour lacks %q", tag)
 		}

@@ -15,10 +15,10 @@
 │           ░                           #          ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│    NN.Ns You stop attacking                                                  │
-│    NN.Ns Everyone in the fight with Plain Scuttler has fallen                │
-│    NN.Ns You are out of combat                                               │
-│    NN.Ns Plain Scuttler reset to 40 hp                                       │
+│   16:04:03.2 You stop attacking                                              │
+│   16:04:03.2 Everyone in the fight with Plain Scuttler has fallen            │
+│   16:04:03.2 You are out of combat                                           │
+│   16:04:03.2 Plain Scuttler reset to 40 hp                                   │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  R: release your body and wake at your bind point                               
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

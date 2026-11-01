@@ -29,11 +29,11 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.1s Aria targeted Shell Rat                                                                                                         │
-│     1.2s Aria began attacking Shell Rat                                                                                                  │
-│     1.3s Aria began fighting Shell Rat                                                                                                   │
-│     1.4s Aria hit Shell Rat for 8                                                                                                        │
-│ <   1.5s Shell Rat hit Aria for 5                                                                                                        │
+│   16:04:03.2 Aria targeted Shell Rat                                                                                                     │
+│   16:04:03.2 Aria began attacking Shell Rat                                                                                              │
+│   16:04:03.2 Aria began fighting Shell Rat                                                                                               │
+│   16:04:03.2 Aria hit Shell Rat for 8                                                                                                    │
+│ < 16:04:03.2 Shell Rat hit Aria for 5                                                                                                    │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

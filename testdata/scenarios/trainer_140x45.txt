@@ -30,10 +30,10 @@
 │ The answer is on the status line; every denial says why.                                       ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                           │
-│     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-│ +   N.Ns You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                            │
-│ +   N.Ns You buy Buckler from Testgrounds Vendor for 12 crowns                                                                           │
+│ + 16:04:03.2 You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                       │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
+│ + 16:04:03.2 You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                        │
+│ + 16:04:03.2 You buy Buckler from Testgrounds Vendor for 12 crowns                                                                       │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
