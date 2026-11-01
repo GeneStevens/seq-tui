@@ -29,8 +29,8 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns You sail with Nell Rush to The East Landing                                                                                     │
-│ +   N.Ns You pay 10 crowns for passage with Nell Rush                                                                                    │
+│   16:04:03.2 You sail with Nell Rush to The East Landing                                                                                 │
+│ + 16:04:03.2 You pay 10 crowns for passage with Nell Rush                                                                                │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

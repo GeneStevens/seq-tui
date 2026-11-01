@@ -29,16 +29,16 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s Your companion goes off with nobody to follow                                                                                   │
-│     0.2s Watch Spellcaster is out of view                                                                                                │
-│     0.2s Your companion is back                                                                                                          │
-│     0.2s Watch Spellcaster comes into view                                                                                               │
-│     2.2s Your companion goes off with nobody to follow                                                                                   │
-│     2.2s Watch Spellcaster is out of view                                                                                                │
-│     2.2s Your companion is back                                                                                                          │
-│     2.2s Watch Spellcaster comes into view                                                                                               │
-│     4.2s You send your companion away                                                                                                    │
-│     4.2s Watch Spellcaster is out of view                                                                                                │
+│   16:04:03.2 Your companion goes off with nobody to follow                                                                               │
+│   16:04:03.2 Watch Spellcaster is out of view                                                                                            │
+│   16:04:03.2 Your companion is back                                                                                                      │
+│   16:04:03.2 Watch Spellcaster comes into view                                                                                           │
+│   16:04:03.2 Your companion goes off with nobody to follow                                                                               │
+│   16:04:03.2 Watch Spellcaster is out of view                                                                                            │
+│   16:04:03.2 Your companion is back                                                                                                      │
+│   16:04:03.2 Watch Spellcaster comes into view                                                                                           │
+│   16:04:03.2 You send your companion away                                                                                                │
+│   16:04:03.2 Watch Spellcaster is out of view                                                                                            │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            

@@ -15,7 +15,7 @@
 │                 ░                           #    ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat •2  Party ─────── [tell] to bob1: on my way ─┐
-│     N.Ns bob1 comes into view                                                │
+│   16:04:03.2 bob1 comes into view                                            │
 │                                                                              │
 │                                                                              │
 │                                                                              │

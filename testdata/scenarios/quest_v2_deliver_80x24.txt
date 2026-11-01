@@ -15,10 +15,10 @@
 │           ░                           #          ││ [ ] 1. Scout the Lookout │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│            Lookout. It is optional; /dismiss gives it up for good.           │
-│ +   N.Ns The Old Relic: step 1 done. Next: Bring 2 old relics to the         │
-│            Testgrounds Captain.                                              │
-│    NN.Ns Placeholder Warden is out of view                                   │
+│                Lookout. It is optional; /dismiss gives it up for good.       │
+│ + 16:04:03.2 The Old Relic: step 1 done. Next: Bring 2 old relics to the     │
+│                Testgrounds Captain.                                          │
+│   16:04:03.2 Placeholder Warden is out of view                               │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Testgrounds Captain <Quest Giver>  ·  Tab: target · F: attack       
  ONLINE | Testgrounds | The Old Relic 2/3 | heard N.Ns ago        ? help  q quit

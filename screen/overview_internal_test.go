@@ -30,6 +30,7 @@ func overviewWorld(objective *pb.Pos) *model.Model {
 			{Id: "h1", Name: "Hut", Kind: "building", Poly: rectPoly(130000, 170000, 136000, 176000)},
 			{Id: "h2", Name: "Hut", Kind: "building", Poly: rectPoly(140000, 170000, 146000, 176000)},
 			{Id: "h3", Name: "Hut", Kind: "building", Poly: rectPoly(130000, 180000, 136000, 186000)},
+			{Id: "s1", Name: "Stones", Kind: "rock", Poly: rectPoly(130000, 150000, 144000, 164000)},
 		},
 		Doors: []*pb.Door{{Id: "gate", Kind: pb.DoorKind_DOOR_KIND_ZONE_LINE, Name: "Gate", Pos: &pb.Pos{X: 4000, Y: 200000}, LeadsTo: "x"}},
 		Camps: []*pb.Camp{{Id: "camp", Mob: "Wolf", Level: 2, Count: 2, Pos: &pb.Pos{X: 270000, Y: 140000}}},
@@ -92,8 +93,8 @@ func TestOnePlaceHasOneLabel(t *testing.T) {
 			}
 		}
 	}
-	if got := len(m.PlaceLabels()); got != 5 {
-		t.Errorf("%d places, want 5 (river, road, lake, meadow, hut)", got)
+	if got := len(m.PlaceLabels()); got != 6 {
+		t.Errorf("%d places, want 6 (river, road, lake, meadow, hut, stones)", got)
 	}
 }
 
@@ -139,26 +140,30 @@ func TestLabelOfWaterGoesBesideIt(t *testing.T) {
 }
 
 // A place too small to matter is named only when zoomed in or with everything
-// named (Alt); the Hut spans 16 m and the widest map has a cell of several metres.
+// named (Alt); the Stones span 14 m and the widest map has a cell of several metres.
+// The Hut is as small, but a building matters (D121): it is named at any zoom.
 func TestSmallPlacesAreNamedOnlyWhenZoomedInOrWithAlt(t *testing.T) {
 	m := overviewWorld(nil)
 	has := func(v View, name string) bool {
 		_, g := placed(m, v, 120, 40)
 		for _, n := range names(g) {
-			if n == name {
+			if n == name || strings.HasPrefix(n, name+" +") { // a name may carry the count under it
 				return true
 			}
 		}
 		return false
 	}
-	if has(View{}, "Hut") {
-		t.Error("the hut is named at the widest zoom")
+	if has(View{}, "Stones") {
+		t.Error("the stones are named at the widest zoom")
 	}
-	if !has(View{BigZoom: 2}, "Hut") {
-		t.Error("the hut is not named when zoomed in")
+	if !has(View{BigZoom: 2}, "Stones") {
+		t.Error("the stones are not named when zoomed in")
 	}
-	if !has(View{Labels: true}, "Hut") {
-		t.Error("the hut is not named with Alt held")
+	if !has(View{Labels: true}, "Stones") {
+		t.Error("the stones are not named with Alt held")
+	}
+	if !has(View{}, "Hut") {
+		t.Error("the hut, a building, is not named at the widest zoom")
 	}
 	if !has(View{}, "Meadow") {
 		t.Error("the meadow, four pieces spanning 100 m, is not named at the widest zoom")

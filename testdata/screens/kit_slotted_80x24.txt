@@ -15,8 +15,8 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     0.2s Slot 1: Root                                                        │
-│     0.3s Slot 3: Flame Dart                                                  │
+│   16:04:03.2 Slot 1: Root                                                    │
+│   16:04:03.2 Slot 3: Flame Dart                                              │
 │                                                                              │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘

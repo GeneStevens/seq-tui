@@ -177,7 +177,7 @@ var guideMouse = []section{
 		{"Click mob, person", "select it and open its card (a click one cell off counts); click again (or F to attack, G to talk) to act"},
 		{"Click loot", "pick up everything within reach; farther away it says how far"},
 		{"W", "walk to the selected target, or to the last spot clicked: for a terminal that sends no Option-click"},
-		{"Hover", "its name beside the pointer: a mob, person, door, marker, or you"},
+		{"Hover", "its name beside the pointer: a mob, person, door, marker, or you; on the large map the places there (the arrow keys' cursor does the same)"},
 		{"Alt, Ctrl+A", "name everything on the map (Ctrl+A if your terminal sends no Alt with the mouse)"},
 		{"Wheel, + -", "zoom the map (the wheel over the Events, Chat or Party panel scrolls it back instead)"},
 		{"Right-click, Esc", "let go of the selection"},

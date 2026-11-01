@@ -1,15 +1,15 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                                                                              │
 │                              ░░░░░░░░░;░░░░░░░░░░                            │
-│                              ░    ;;≈≈≈≈≈≈·     ░                            │
-│                              ░ "   ··≈          ░                            │
-│                              ░"   # ·≈$   " " " ░                            │
-│                              ░   " ";;Far Road^^░                            │
-│                              D·@◆#·;·=·;·^^···;D░                            │
-│                              ░ ##  " ≈   "##  ^^░                            │
-│                              ░"  ·"^"≈    " ^   ░                            │
-│                              ░ " ·;;v≈  ;       ░                            │
-│                              ░   ;#·==··;^      ░                            │
+│           Eelmere Stilt House░    ;;≈≈≈≈≈≈·     ░                            │
+│                   Ford Shrine░ "   ··≈Eelmere   ░                            │
+│             South Greywood +5░"   # ·≈$Far Road ░                            │
+│           Fordwatch Watch Hut░   " ";;Fordwatch^░                            │
+│            Thornwick Gate +29D·@◆#·;·=·;·^^···;D░                            │
+│                  Wickett Mill░ ##  " ≈Goblin Hut░Goblin Stockade             │
+│              Barleycross Hall░"  ·"^"≈Highfold  ░                            │
+│            Highfold Sheepfold░ " ·;;v≈  ;       ░                            │
+│                Highfold Green░   ;#·==··;^      ░                            │
 │                              ░░░░░░░░░░░░░░░░░░░░                            │
 │ Thornwick Downs, 420m by 450m, north up. You: 42m E, 210m N of the SW corner.│
 │ You       @ you                                                              │

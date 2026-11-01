@@ -15,10 +15,10 @@
 │ #                                                ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns Plain Scuttler comes into view                                      │
-│    NN.Ns You target Plain Scuttler                                           │
-│    NN.Ns You start attacking Plain Scuttler                                  │
-│    NN.Ns You stop attacking                                                  │
+│   16:04:03.2 Plain Scuttler comes into view                                  │
+│   16:04:03.2 You target Plain Scuttler                                       │
+│   16:04:03.2 You start attacking Plain Scuttler                              │
+│   16:04:03.2 You stop attacking                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

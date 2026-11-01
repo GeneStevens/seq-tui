@@ -30,9 +30,9 @@
 │ talk to Captain Rhosyn Hartley ok                                                              ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
-│            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
-│            Watch can trust. Prove yourself first, and come and see me.                                                                   │
+│   16:04:03.2 Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves│
+│                and bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those │
+│                the Watch can trust. Prove yourself first, and come and see me.                                                           │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

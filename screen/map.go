@@ -3,6 +3,7 @@ package screen
 import (
 	"fmt"
 	"math"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -124,6 +125,9 @@ type grid struct {
 	pcol, prow int64 // the player's cell in the global grid
 	cells      [][]cell
 	flat       []cell // what the rows of cells are cut from
+	// The large map's places, most significant first, and the names written (D121).
+	places []model.PlaceLabel
+	named  []namedPlace
 }
 
 func newGrid(sc scale, cw, ch int, self *pb.Pos) *grid {
@@ -145,6 +149,7 @@ func gridFor(h *Hits, sc scale, cw, ch int, self *pb.Pos) *grid {
 		h.spare = nil
 		g.sc, g.pcol, g.prow = sc, roundDiv(self.GetX(), sc.col), roundDiv(self.GetY(), sc.row)
 		clear(g.flat)
+		g.places, g.named = nil, g.named[:0]
 		return g
 	}
 	return newGrid(sc, cw, ch, self)
@@ -295,6 +300,7 @@ func overviewRows(m *model.Model, v View, cw, ch int, st Styler) ([]string, mark
 	present := g.marksShown()
 	v.Hits.setGrid(g)
 	paintOverlays(g, m, v)
+	paintTips(g, m, v)
 	return g.styled(st), present
 }
 
@@ -344,57 +350,148 @@ func overviewGrid(m *model.Model, v View, cw, ch int) *grid {
 // columns (a row is two columns tall), at least this many. A lake or a wood
 // clears it at the widest zoom; a hut, a stone or a sheepfold pen does not, and
 // each step in halves what a cell spans, so doubles the cells a place spans.
+// A place that matters (model.Sig*: it has a building, a person, a door or the
+// objective) is named at any zoom whatever its size (D121).
 const placeMinCells = 8
 
+// groupCols and groupRows are how near a place left unnamed must be to a name,
+// in cells from the name's middle, to be counted under it as "Name +N" (D121).
+const (
+	groupCols = 12
+	groupRows = 6
+)
+
+// searchMoreCols and searchMoreRows are how far beside a place its name may go,
+// beyond its own extent and the name's own width, when the spots inside are
+// taken; the spots nearest the place are tried first.
+const (
+	searchMoreCols = 6
+	searchMoreRows = 2
+)
+
+// namedPlace is a name written on the large map and the places left out that
+// are counted under it.
+type namedPlace struct {
+	name   string // the place's own name
+	pos    *pb.Pos
+	text   string // what is written: the name, or "name +N"
+	c, r   int64  // the cell its text starts in
+	w      int
+	hidden []string // the names of the places left out near it, most significant first
+}
+
 // paintPlaces writes the names of the zone's named places (D76) on the large
-// map, one for each place (D120): where the place has several areas it is the
-// middle of them all. A name is written only where it covers open ground, a
-// building, rock or forest, and never road, water, a ford or bridge, a door, the
-// character, the objective, a mark or another name; if the middle does not fit,
-// the nearest spot inside or beside the place does, and if none does the name
-// is left out. The larger places are written first. A place too small to matter
-// at this zoom is not named, unless everything is (Alt held).
+// map, one for each place (D120): where the place has several pieces in one
+// cluster it is the middle of them all, else beside the largest (D121). A name
+// is written only where it covers open ground, a building, rock or forest, and
+// never road, water, a ford or bridge, a door, the character, the objective, a
+// mark or another name; if the middle does not fit, the nearest spot inside or
+// beside the place does, and if none does the name is left out. The places that
+// matter most are written first, then the larger. A place that is small and
+// matters to nobody is not named, unless everything is (Alt held); the ones
+// left out near a name are counted under it, "Mill +2" (D121).
 func paintPlaces(g *grid, m *model.Model, v View) {
 	places := m.PlaceLabels()
+	model.RankPlaces(places)
+	g.places, g.named = places, g.named[:0]
+	var cands []int // indexes into places
+	for i, p := range places {
+		span := max(p.DX, p.DY/2) / g.sc.col // columns
+		if v.Labels || p.Sig > model.SigSize || span >= placeMinCells {
+			cands = append(cands, i)
+		}
+	}
+	snap := slices.Clone(g.flat)
+	named := g.nameAll(m, cands, nil)
+	// The places left out, and the ones named that found no room, are counted
+	// under the nearest name that matters most; then the names are written again
+	// with the counts, which may make a name wider.
+	byName := map[string]int{}
+	for i, n := range named {
+		byName[n.name] = i
+	}
+	grouped := false
+	for i := range places {
+		if _, ok := byName[places[i].Name]; ok {
+			continue
+		}
+		hc, hr := g.cellOf(places[i].Pos)
+		for j := range named {
+			if c, r := g.cellOf(named[j].pos); abs(c-hc) <= groupCols && abs(r-hr) <= groupRows {
+				named[j].hidden, grouped = append(named[j].hidden, places[i].Name), true
+				break
+			}
+		}
+	}
+	if !grouped {
+		g.named = named
+		return
+	}
+	copy(g.flat, snap)
+	more := map[string][]string{}
+	for _, n := range named {
+		more[n.name] = n.hidden
+	}
+	g.named = g.nameAll(m, cands, more)
+}
+
+// nameAll writes the names of the places cands (indexes into g.places, most
+// significant first) and returns those that found room. group has the names left
+// out under a name, and the name is then written "Name +N".
+func (g *grid) nameAll(m *model.Model, cands []int, group map[string][]string) []namedPlace {
 	b := m.Map.GetBounds()
 	_, top := g.cellOf(&pb.Pos{X: b.GetMinX(), Y: b.GetMaxY()})
 	_, bottom := g.cellOf(&pb.Pos{X: b.GetMinX(), Y: b.GetMinY()})
-	sort.SliceStable(places, func(i, j int) bool { return places[i].Size > places[j].Size })
 	var objective [2]int64
 	haveObjective := false
 	if h := m.Objective(); h != nil && h.GetPos() != nil {
 		objective[0], objective[1] = g.cellOf(h.GetPos())
 		haveObjective = true
 	}
-	for _, p := range places {
-		span := max(p.DX, p.DY/2) / g.sc.col // columns
-		if !v.Labels && span < placeMinCells {
-			continue
+	var out []namedPlace
+	for _, i := range cands {
+		p := &g.places[i]
+		texts := []string{p.Name}
+		if hid := group[p.Name]; len(hid) > 0 {
+			texts = []string{fmt.Sprintf("%s +%d", p.Name, len(hid)), p.Name}
 		}
-		w := width(p.Name)
 		c, r := g.cellOf(p.Pos)
-		halfC := max(p.DX/g.sc.col/2, 2) + int64(w)/2
-		halfR := max(p.DY/g.sc.row/2, 0) + 1
-		type spot struct{ dc, dr, cost int64 }
-		var spots []spot
-		for dr := -halfR; dr <= halfR; dr++ {
-			for dc := -halfC; dc <= halfC; dc++ {
-				spots = append(spots, spot{dc, dr, dc*dc + 4*dr*dr})
+		for ti, text := range texts {
+			w := width(text)
+			halfC := max(p.DX/g.sc.col/2, 2) + int64(w)/2 + searchMoreCols
+			halfR := max(p.DY/g.sc.row/2, 0) + 1 + searchMoreRows
+			type spot struct{ dc, dr, cost int64 }
+			var spots []spot
+			for dr := -halfR; dr <= halfR; dr++ {
+				for dc := -halfC; dc <= halfC; dc++ {
+					spots = append(spots, spot{dc, dr, dc*dc + 4*dr*dr})
+				}
 			}
-		}
-		sort.SliceStable(spots, func(i, j int) bool { return spots[i].cost < spots[j].cost })
-		for _, s := range spots {
-			c0, row := c+s.dc-int64(w/2), r+s.dr
-			if row <= top || row >= bottom || !g.roomFor(c0, row, w) || g.nameAt(c0-1, row) || g.nameAt(c0+int64(w), row) {
-				continue
+			sort.SliceStable(spots, func(i, j int) bool { return spots[i].cost < spots[j].cost })
+			done := false
+			for _, s := range spots {
+				c0, row := c+s.dc-int64(w/2), r+s.dr
+				if row <= top || row >= bottom || !g.roomFor(c0, row, w) || g.nameAt(c0-1, row) || g.nameAt(c0+int64(w), row) {
+					continue
+				}
+				if haveObjective && row == objective[1] && objective[0] >= c0 && objective[0] < c0+int64(w) {
+					continue
+				}
+				g.text(c0, row, text, kPlace)
+				n := namedPlace{name: p.Name, pos: p.Pos, text: text, c: c0, r: row, w: w}
+				if ti == 0 {
+					n.hidden = group[p.Name]
+				}
+				out = append(out, n)
+				done = true
+				break
 			}
-			if haveObjective && row == objective[1] && objective[0] >= c0 && objective[0] < c0+int64(w) {
-				continue
+			if done {
+				break
 			}
-			g.text(c0, row, p.Name, kPlace)
-			break
 		}
 	}
+	return out
 }
 
 // nameAt says the cell holds a letter of a place's name: the next name keeps a

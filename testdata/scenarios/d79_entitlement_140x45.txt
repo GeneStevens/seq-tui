@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns Warren Digger dropped Digger's Claw                                                                                             │
-│    NN.Ns Warren Digger dropped 10 crowns                                                                                                 │
-│    NN.Ns Warren Digger is dead: the fight is over                                                                                        │
-│    NN.Ns You are out of combat                                                                                                           │
-│ +  NN.Ns cora used their own bonus roll for this encounter                                                                               │
-│ +  NN.Ns Your account's bonus roll for Hollow Warren (Warren Venture Delve)'s Warren Digger.                                             │
-│    NN.Ns Warren Digger is out of view                                                                                                    │
-│    NN.Ns Digger's Claw was taken                                                                                                         │
-│    NN.Ns 10 crowns was taken                                                                                                             │
-│ +  NN.Ns You took Digger's Claw, 10 crowns                                                                                               │
-│    NN.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│   16:04:03.2 Warren Digger dropped Digger's Claw                                                                                         │
+│   16:04:03.2 Warren Digger dropped 10 crowns                                                                                             │
+│   16:04:03.2 Warren Digger is dead: the fight is over                                                                                    │
+│   16:04:03.2 You are out of combat                                                                                                       │
+│ + 16:04:03.2 cora used their own bonus roll for this encounter                                                                           │
+│ + 16:04:03.2 Your account's bonus roll for Hollow Warren (Warren Venture Delve)'s Warren Digger.                                         │
+│   16:04:03.2 Warren Digger is out of view                                                                                                │
+│   16:04:03.2 Digger's Claw was taken                                                                                                     │
+│   16:04:03.2 10 crowns was taken                                                                                                         │
+│ + 16:04:03.2 You took Digger's Claw, 10 crowns                                                                                           │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok                                                     ? help  q quit

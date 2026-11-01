@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   NNN.Ns bram stopped attacking                                                                                                          │
-│   NNN.Ns Your target Den Brute is gone                                                                                                   │
-│   NNN.Ns You stop attacking                                                                                                              │
-│   NNN.Ns Den Brute dropped Den Fang                                                                                                      │
-│   NNN.Ns Den Brute dropped 12 crowns                                                                                                     │
-│   NNN.Ns Den Brute is dead: the fight is over                                                                                            │
-│   NNN.Ns You are out of combat                                                                                                           │
-│   NNN.Ns Den Brute is out of view                                                                                                        │
-│   NNN.Ns Den Fang was taken                                                                                                              │
-│   NNN.Ns 12 crowns was taken                                                                                                             │
-│ + NNN.Ns You took Den Fang, 12 crowns                                                                                                    │
+│   16:04:03.2 bram stopped attacking                                                                                                      │
+│   16:04:03.2 Your target Den Brute is gone                                                                                               │
+│   16:04:03.2 You stop attacking                                                                                                          │
+│   16:04:03.2 Den Brute dropped Den Fang                                                                                                  │
+│   16:04:03.2 Den Brute dropped 12 crowns                                                                                                 │
+│   16:04:03.2 Den Brute is dead: the fight is over                                                                                        │
+│   16:04:03.2 You are out of combat                                                                                                       │
+│   16:04:03.2 Den Brute is out of view                                                                                                    │
+│   16:04:03.2 Den Fang was taken                                                                                                          │
+│   16:04:03.2 12 crowns was taken                                                                                                         │
+│ + 16:04:03.2 You took Den Fang, 12 crowns                                                                                                │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok                                                     ? help  q quit

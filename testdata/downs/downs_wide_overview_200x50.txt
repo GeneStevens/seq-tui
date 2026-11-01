@@ -2,23 +2,23 @@
 │                                                                                                                            You                                                                       │
 │                                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                                                    │
 │                                         ░                        ···············;············                         ░    People                                                                    │
-│                                         ░                         "  ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ·······                     ░     D door                                                                   │
-│                                         ░                        " "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈   ··                     ░    Events                                                                    │
-│                                         ░                   ##;   " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore            ░     ; scout point                                                            │
+│                                         ░         Eelmere Stilt House≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ·······                     ░     $ vendor  Q quest person  D door                                         │
+│                                         ░                Eelmere +1"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈   ··                     ░    Events                                                                    │
+│                                         ░                   ##;   " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                          ░     ; scout point                                                            │
 │                                         ░                   ## ··" "≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                            ░    Ground                                                                    │
-│                                         ░                       ··· ≈≈≈ ≈≈≈≈≈≈≈≈≈≈                                    ░     # building  ^ rock  ≈ water                                              │
+│                                         ░                       ··· ≈≈≈ ≈≈≈≈≈≈≈≈≈≈Eel Mere Shore                      ░     # building  ^ rock  ≈ water                                              │
 │                                         ░                        ··· ≈≈≈    Eel Mere                                  ░     = bridge  " forest  · road                                               │
 │                                         ░                         ·· ≈≈≈≈                                             ░     ░ zone edge                                                              │
 │                                         ░                         ···≈≈≈≈                                             ░                                                                              │
 │                                         ░                          ···≈≈≈≈                        " " "               ░                                                                              │
-│                                         ░            Marlbridge Road··≈≈≈≈                     " " ##" " "            ░                                                                              │
-│                                         ░      Eldbury Ring         ··≈≈≈≈≈                North Goblin Copse         ░                                                                              │
-│                                         ░                           ··≈≈≈≈≈                      "## ##"              ░                                                                              │
-│                                         ░       ^                   ··≈≈≈≈≈                     " " " " "             ░                                                                              │
+│                                         ░             Q^            ··≈≈≈≈                 North Goblin Copse         ░                                                                              │
+│                                         ░      Eldbury Ring         ··≈≈≈≈≈                   Goblin Hut +1           ░                                                                              │
+│                                         ░            Marlbridge Road··≈≈≈≈≈                      "## Goblin Stockade  ░                                                                              │
+│                                         ░       ^                   ··≈≈≈≈≈                     " " " " "  ###        ░                                                                              │
 │                                         ░                           ···≈≈≈≈                                           ░                                                                              │
 │                                         ░                            ··≈≈≈≈                                           ░                                                                              │
-│                                         ░                            ; ≈≈≈≈                                           ░                                                                              │
-│                                         ░                              ≈≈≈≈                                           ░                                                                              │
+│                                         ░                   Fordwatch; ≈≈≈≈                                           ░                                                                              │
+│                                         ░                           $  ≈≈≈≈                                           ░                                                                              │
 │                                         ░                              ≈≈≈≈                                           ░                                                                              │
 │                                         ░                              ≈≈≈≈             Far Road                      ░                                                                              │
 │                                         ░D                             ≈≈≈····································     D  ░                                                                              │
@@ -28,20 +28,20 @@
 │                                         ░            ·             " "  ≈≈≈                                           ░                                                                              │
 │                                         ░           ···           " " " ≈≈≈                                           ░                                                                              │
 │                                         ░            ···         " " "  ≈≈≈                                " "        ░                                                                              │
-│                                         ░             ··· North Greywood≈≈≈                               " " " "     ░                                                                              │
-│                                         ░              ···     " " " " ≈≈≈≈                          East Goblin Copse░                                                                              │
-│                                         ░     Drove Road··      " " " "≈≈≈≈                               " " " "     ░                                                                              │
+│                                         ░             ··· North Greywood≈≈≈                       East Goblin Copse +1░                                                                              │
+│                                         ░              ···     " " " " ≈≈≈≈         Barleycross +1         " " " "    ░                                                                              │
+│                                         ░     Drove Road··      " " " "≈≈≈≈                Q              " " " "     ░                                                                              │
 │                                         ░               ··     " " " " ≈≈≈≈                              " " " "      ░                                                                              │
 │                                         ░               ··      " " " "≈≈≈≈                                           ░                                                                              │
 │                                         ░                ··    " " " "  ≈≈≈                                           ░                                                                              │
 │                                         ░                ··       "     ≈≈≈                                           ░                                                                              │
 │                                         ░                ··             ≈≈≈             ;                             ░                                                                              │
 │                                         ░                ··             ≈≈≈          ^^^^^^                           ░                                                                              │
-│                                         ░                  ;            ≈≈≈Hill Track ^^^^                            ░                                                                              │
+│                                         ░                  ;            ≈≈≈           ^^^^                            ░                                                                              │
 │                                         ░                  @    ·······====·········  ;                               ░                                                                              │
-│                                         ░               Highfold        ≈≈≈    ^  ^                                   ░                                                                              │
-│                                         ░               #####           ≈≈≈                                           ░                                                                              │
-│                                         ░                                                                             ░                                                                              │
+│                                         ░              Highfold +1      ≈≈≈    ^  ^                                   ░                                                                              │
+│                                         ░       Highfold Sheepfold      ≈≈≈                                           ░                                                                              │
+│                                         ░         Highfold Wool Shed Hill Track +1                                    ░                                                                              │
 │                                         ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                                                              │
 │ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.                                                                                                                        │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                                                                                                         │

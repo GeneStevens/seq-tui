@@ -29,12 +29,12 @@
 │ You: none   |   Goblin Scrapper: none                                                                                                    │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns You target Goblin Scrapper                                                                                                      │
-│     N.Ns Goblin Scrapper targeted hale                                                                                                   │
-│     N.Ns You begin fighting Goblin Scrapper                                                                                              │
-│     N.Ns You start attacking Goblin Scrapper                                                                                             │
-│     N.Ns Goblin Scrapper (level 5, easy) is attacking you                                                                                │
-│     N.Ns You are in combat with Goblin Scrapper                                                                                          │
+│   16:04:03.2 You target Goblin Scrapper                                                                                                  │
+│   16:04:03.2 Goblin Scrapper targeted hale                                                                                               │
+│   16:04:03.2 You begin fighting Goblin Scrapper                                                                                          │
+│   16:04:03.2 You start attacking Goblin Scrapper                                                                                         │
+│   16:04:03.2 Goblin Scrapper (level 5, easy) is attacking you                                                                            │
+│   16:04:03.2 You are in combat with Goblin Scrapper                                                                                      │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

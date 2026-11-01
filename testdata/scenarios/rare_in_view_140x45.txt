@@ -29,8 +29,8 @@
 │ You: none   |   Old Grimtusk: none                                                                                                       │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ *  NN.Ns Old Grimtusk comes into view                                                                                                    │
-│    NN.Ns You target Old Grimtusk                                                                                                         │
+│ * 16:04:03.2 Old Grimtusk comes into view                                                                                                │
+│   16:04:03.2 You target Old Grimtusk                                                                                                     │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

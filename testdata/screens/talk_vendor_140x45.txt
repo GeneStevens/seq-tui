@@ -30,9 +30,9 @@
 │ talk to Hilda Brasswick ok                                                                     ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.6s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
-│            healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse. Pay or wait. │
-│                                                                                                                                          │
+│   16:04:03.2 Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper    │
+│                than a healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse.   │
+│                Pay or wait.                                                                                                              │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

@@ -29,17 +29,17 @@
 │                                                                                                ││ replacement waits for the encounter    │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Plain Scuttler targeted bram                                                                                                    │
-│     N.Ns Bram begins fighting Plain Scuttler                                                                                             │
-│     N.Ns You target Plain Scuttler                                                                                                       │
-│     N.Ns You start attacking Plain Scuttler                                                                                              │
-│ !   N.Ns Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                              │
-│     N.Ns bram targeted Plain Scuttler                                                                                                    │
-│     N.Ns bram began attacking Plain Scuttler                                                                                             │
-│     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
-│     N.Ns You are in combat with Plain Scuttler                                                                                           │
-│     N.Ns round 1 ran (everyone had a plan; 2 of 2 submitted): you played your own plan; bram played its own plan                         │
-│     N.Ns round 2 is open: game time waits for plans (0 of 2 submitted: none yet)                                                         │
+│   16:04:03.2 Plain Scuttler targeted bram                                                                                                │
+│   16:04:03.2 Bram begins fighting Plain Scuttler                                                                                         │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You start attacking Plain Scuttler                                                                                          │
+│ ! 16:04:03.2 Your walk stopped: you began attacking; a fight stops a walk. Move again to go on.                                          │
+│   16:04:03.2 bram targeted Plain Scuttler                                                                                                │
+│   16:04:03.2 bram began attacking Plain Scuttler                                                                                         │
+│   16:04:03.2 Plain Scuttler (level 1, even) is attacking you                                                                             │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
+│   16:04:03.2 round 1 ran (everyone had a plan; 2 of 2 submitted): you played your own plan; bram played its own plan                     │
+│   16:04:03.2 round 2 is open: game time waits for plans (0 of 2 submitted: none yet)                                                     │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Gate North  ·  Too far: 8 m. Option-click the target to close in · F: stop attacking                                              
  ONLINE | Testgrounds (Duo Turns) | heard N.Ns ago | plan accepted, counts even if you disconnect                             ? help  q quit

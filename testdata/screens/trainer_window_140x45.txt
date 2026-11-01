@@ -30,13 +30,13 @@
 │ The answer is on the status line; every denial says why.                                       ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.6s Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper than a │
-│            healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse. Pay or wait. │
-│ +   1.7s You buy Tanned Cap from Hilda Brasswick for 8 crowns                                                                            │
-│     1.7s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-│    14.4s Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash. Everything│
-│            else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.                       │
-│                                                                                                                                          │
+│   16:04:03.2 Hilda Brasswick says: Hide for the brawlers, linen and wool for the casters. All sewn on Tanner's Row. Armour is cheaper    │
+│                than a healer's patience. The banded work is dearer than it was last month. Iron is short, and so is the Watch's purse.   │
+│                Pay or wait.                                                                                                              │
+│ + 16:04:03.2 You buy Tanned Cap from Hilda Brasswick for 8 crowns                                                                        │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
+│   16:04:03.2 Gorran Stoutarm says: Stand your ground and the rest will follow. Show me you can take a hit. Taunt first, then bash.       │
+│                Everything else is patience. Open with Bash, keep Second Wind for long fights, and Taunt pulls a mob off a friend.        │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

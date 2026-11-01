@@ -30,13 +30,13 @@
 │ ! offer Scuttler Blade denied: that item is bound and cannot be traded (bound)                 ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.1s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-│     0.2s c2 comes into view                                                                                                              │
-│     0.3s You ask c2 to trade                                                                                                             │
-│     0.4s The trade with c2 is open                                                                                                       │
-│     0.5s You offer Worn Cap                                                                                                              │
-│ !   0.6s That item is bound to you and can't be traded                                                                                   │
-│     0.7s C2 offers 7 crowns                                                                                                              │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
+│   16:04:03.2 c2 comes into view                                                                                                          │
+│   16:04:03.2 You ask c2 to trade                                                                                                         │
+│   16:04:03.2 The trade with c2 is open                                                                                                   │
+│   16:04:03.2 You offer Worn Cap                                                                                                          │
+│ ! 16:04:03.2 That item is bound to you and can't be traded                                                                               │
+│   16:04:03.2 C2 offers 7 crowns                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

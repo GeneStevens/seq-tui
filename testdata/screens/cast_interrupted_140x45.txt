@@ -29,17 +29,17 @@
 │ You: none   |   Plain Scuttler: Snared 9s                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    16.7s You hit Plain Scuttler with Frost Bolt for 12 cold damage                                                                       │
-│    16.7s Plain Scuttler is affected by Frost Bolt                                                                                        │
-│ <  18.4s Plain Scuttler hits you for 1                                                                                                   │
-│    18.7s You begin casting Frost Bolt on Plain Scuttler                                                                                  │
-│    20.7s You use Frost Bolt on Plain Scuttler                                                                                            │
-│    20.7s You hit Plain Scuttler with Frost Bolt for 12 cold damage                                                                       │
-│    20.7s Plain Scuttler is affected by Frost Bolt                                                                                        │
-│ <  21.4s Plain Scuttler hits you for 3                                                                                                   │
-│    22.7s You begin casting Frost Bolt on Plain Scuttler                                                                                  │
-│ <  24.4s Plain Scuttler hits you for 4                                                                                                   │
-│ !  24.4s Your Frost Bolt is interrupted                                                                                                  │
+│   16:04:03.2 You hit Plain Scuttler with Frost Bolt for 12 cold damage                                                                   │
+│   16:04:03.2 Plain Scuttler is affected by Frost Bolt                                                                                    │
+│ < 16:04:03.2 Plain Scuttler hits you for 1                                                                                               │
+│   16:04:03.2 You begin casting Frost Bolt on Plain Scuttler                                                                              │
+│   16:04:03.2 You use Frost Bolt on Plain Scuttler                                                                                        │
+│   16:04:03.2 You hit Plain Scuttler with Frost Bolt for 12 cold damage                                                                   │
+│   16:04:03.2 Plain Scuttler is affected by Frost Bolt                                                                                    │
+│ < 16:04:03.2 Plain Scuttler hits you for 3                                                                                               │
+│   16:04:03.2 You begin casting Frost Bolt on Plain Scuttler                                                                              │
+│ < 16:04:03.2 Plain Scuttler hits you for 4                                                                                               │
+│ ! 16:04:03.2 Your Frost Bolt is interrupted                                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  F: attack · Tab: next target                                                                                                               
  ONLINE | Testgrounds | heard 0.4s ago | key 2 Frost Bolt ok                                                                  ? help  q quit

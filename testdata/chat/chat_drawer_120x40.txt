@@ -7,11 +7,11 @@
 │   ░                                                                          ░   │┌─ Target ─────────────────────────┐
 ┌─ Chat: all ──────────────────────────────────────────────────────────────────────┐│ no target (Tab to choose)        │
 │ [all] say party tell ooc   Tab filters                                           ││                                  │
-│ [say] Mira: well met, traveller, the road is long                                ││                                  │
-│ [party] Mira: ready when you are                                                 │└──────────────────────────────────┘
-│ [tell] Mira: group for the Warren?                                               │┌─ Nearby ─────────────────────────┐
-│»[say] Gorran Stoutarm: Aria, come back when you are stronger                     ││ p Mira               4m NE 20/20 │
-│ [say] Aria: on my way                                                            ││ T Gorran Stoutarm <Warrio… 5m NW │
+│ 16:04:03.2 [say] Mira: well met, traveller, the road is long                     ││                                  │
+│ 16:04:03.2 [party] Mira: ready when you are                                      │└──────────────────────────────────┘
+│ 16:04:03.2 [tell] Mira: group for the Warren?                                    │┌─ Nearby ─────────────────────────┐
+│»16:04:03.2 [say] Gorran Stoutarm: Aria, come back when you are stronger          ││ p Mira               4m NE 20/20 │
+│ 16:04:03.2 [say] Aria: on my way                                                 ││ T Gorran Stoutarm <Warrio… 5m NW │
 │                                                                                  ││ m Gray Wolf           6m W 20/20 │
 │                                                                                  ││                                  │
 │                                                                                  ││                                  │

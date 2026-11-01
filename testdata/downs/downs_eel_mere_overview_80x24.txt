@@ -1,17 +1,17 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                                                                              │
 │                            ░░░░░░░░░░░;░░░░░░░░░░░                           │
-│                            ░     ;"≈≈@≈≈≈≈≈·     ░                           │
+│         Eelmere Stilt House░     ;"≈≈@≈≈≈≈≈·     ░                           │
 │                            ░      ·≈≈≈≈          ░                           │
-│                            ░       ·≈The Millrace░                           │
+│                            ░       ·≈Eelmere +4  ░                           │
 │                            ░       ·≈≈           ░                           │
 │                            ░       ;≈≈Far Road   ░                           │
 │                            D        ≈···· ······D░                           │
 │                            ░   ·    ≈≈          ^░                           │
 │                            ░   ··  "≈≈           ░                           │
-│                            ░    · " ≈≈           ░                           │
-│                            ░    ·  "≈≈  ^;       ░                           │
-│                            ░    ;   ≈≈  ;        ░                           │
+│                            ░    · " ≈≈Highfold +7░                           │
+│          Highfold Sheepfold░    ·  "≈≈  ^;       ░                           │
+│          Highfold Wool Shed░    ;   ≈≈  ;        ░                           │
 │                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
 │ Thornwick Downs, 420m by 450m, north up. You: 190m E, 412m N of the SW corne…│
 │ You       @ you                                                              │

@@ -30,16 +30,16 @@
 │ Up / Down choose. The answer is on the status line; every refusal says why.                    ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   NNN.Ns Your target Meadow Wolf is gone                                                                                                 │
-│   NNN.Ns You stop attacking                                                                                                              │
-│   NNN.Ns Meadow Wolf dropped 1 crown                                                                                                     │
-│   NNN.Ns Meadow Wolf is dead: the fight is over                                                                                          │
-│   NNN.Ns You are out of combat                                                                                                           │
-│ + NNN.Ns You gain 2 experience                                                                                                           │
-│ + NNN.Ns Wolves at Wickett Mill: 4 of 4                                                                                                  │
-│   NNN.Ns Meadow Wolf is out of view                                                                                                      │
-│   NNN.Ns entered Thornwick                                                                                                               │
-│   NNN.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
+│   16:04:03.2 Your target Meadow Wolf is gone                                                                                             │
+│   16:04:03.2 You stop attacking                                                                                                          │
+│   16:04:03.2 Meadow Wolf dropped 1 crown                                                                                                 │
+│   16:04:03.2 Meadow Wolf is dead: the fight is over                                                                                      │
+│   16:04:03.2 You are out of combat                                                                                                       │
+│ + 16:04:03.2 You gain 2 experience                                                                                                       │
+│ + 16:04:03.2 Wolves at Wickett Mill: 4 of 4                                                                                              │
+│   16:04:03.2 Meadow Wolf is out of view                                                                                                  │
+│   16:04:03.2 entered Thornwick                                                                                                           │
+│   16:04:03.2 Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the    │
+│                proof back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                   │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hawthorn Square, Thornwick | First Steps 1/4 | → Talk to Tamsin Hale, 6m S | road: faster, 125% | heard N.Ns ago    ? help  q quit

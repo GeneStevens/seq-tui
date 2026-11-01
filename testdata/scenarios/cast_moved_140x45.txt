@@ -29,9 +29,9 @@
 │ You: none   |   Plain Scuttler: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns You target Plain Scuttler                                                                                                       │
-│     N.Ns You begin casting Frost Bolt on Plain Scuttler                                                                                  │
-│ !   N.Ns Your Frost Bolt is cancelled: you moved, so the cast stopped                                                                    │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You begin casting Frost Bolt on Plain Scuttler                                                                              │
+│ ! 16:04:03.2 Your Frost Bolt is cancelled: you moved, so the cast stopped                                                                │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

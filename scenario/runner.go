@@ -1141,6 +1141,7 @@ func note(name string, took time.Duration) {
 // Main is a TestMain for a package of scenarios: it runs them, prints each one's
 // time and holds the whole suite to MaxSuite.
 func Main(m *testing.M) {
+	model.FixClock() // lines carry the time they came: a golden needs it fixed (D121)
 	began := time.Now()
 	code := m.Run()
 	total := time.Since(began)

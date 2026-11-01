@@ -30,11 +30,11 @@
 │ offer 7 crowns ok                                                                              ││ +4 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns c1 asks to trade                                                                                                                │
-│     N.Ns The trade with c1 is open                                                                                                       │
-│     N.Ns C1 offers Worn Cap                                                                                                              │
-│     N.Ns You offer 7 crowns                                                                                                              │
-│     N.Ns C1 confirms the trade                                                                                                           │
+│   16:04:03.2 c1 asks to trade                                                                                                            │
+│   16:04:03.2 The trade with c1 is open                                                                                                   │
+│   16:04:03.2 C1 offers Worn Cap                                                                                                          │
+│   16:04:03.2 You offer 7 crowns                                                                                                          │
+│   16:04:03.2 C1 confirms the trade                                                                                                       │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

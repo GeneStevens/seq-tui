@@ -30,16 +30,16 @@
 │ take Wolves at Wickett Mill ok                                                                 ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
-│            /dismiss gives it up for good.                                                                                                │
-│     N.Ns Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The trainers  │
-│            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
-│            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
-│ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
-│            druids at the east), for your first lesson.                                                                                   │
-│     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   N.Ns You take the contract Wolves at Wickett Mill                                                                                    │
+│ + 16:04:03.2 Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;  │
+│                /dismiss gives it up for good.                                                                                            │
+│   16:04:03.2 Tamsin Hale says: Welcome to Thornwick, friend. Hawthorn Square is the heart of the town, and the Watch keeps it. The       │
+│                trainers keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the│
+│                east gate leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                    │
+│ + 16:04:03.2 First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end, │
+│                druids at the east), for your first lesson.                                                                               │
+│   16:04:03.2 Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the    │
+│                proof back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                   │
+│ + 16:04:03.2 You take the contract Wolves at Wickett Mill                                                                                │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard N.Ns ago | take Wolves at Wickett Mill ok  ? help

@@ -197,7 +197,7 @@ func TestARefusalInEventsIsRedAndBold(t *testing.T) {
 	m.IntentSent("i1", 1, "use_door")
 	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_IntentResult{IntentResult: &pb.IntentResult{IntentId: "i1", Reason: "no_instance", Text: "Gate North is shut: no expedition is open beyond it. Start one first."}}})
 	out := screen.Render(m, screen.View{Conn: screen.ConnOnline}, 140, 45, screen.ANSI())
-	if !strings.Contains(out, "\x1b[31m\x1b[1m !   1.0s Gate North is shut") {
+	if !strings.Contains(out, "\x1b[31m\x1b[1m ! 16:04:03.2 Gate North is shut") {
 		for _, l := range strings.Split(out, "\n") {
 			if strings.Contains(l, "Gate North is shut") {
 				t.Logf("%q", l)

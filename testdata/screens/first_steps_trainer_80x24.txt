@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│            want the Watch's work.                                            │
-│ +   0.2s First Steps: step 1 done. Next: Speak to your class trainer on      │
-│            Trainers' Lane, by the north wall (warriors at the west end,      │
-│            druids at the east), for your first lesson.                       │
+│                watch-house, if you want the Watch's work.                    │
+│ + 16:04:03.2 First Steps: step 1 done. Next: Speak to your class trainer on  │
+│                Trainers' Lane, by the north wall (warriors at the west end,  │
+│                druids at the east), for your first lesson.                   │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Tamsin Hale <Watch Greeter>                                         
  ONLINE | First Steps 2/4 | → Talk to Gorran Stoutarm, 53m SW     ? help  q quit

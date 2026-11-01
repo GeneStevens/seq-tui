@@ -26,8 +26,8 @@
 │                                                                                  ││                                  │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────┐
-│ +   1.0s Quest chain offered: The Shepherds' Watch. First: Speak to Maud Fenner, the Highfold Reeve. It is optional; │
-│            /dismiss gives it up for good.                                                                            │
+│ + 16:04:03.2 Quest chain offered: The Shepherds' Watch. First: Speak to Maud Fenner, the Highfold Reeve. It is       │
+│                optional; /dismiss gives it up for good.                                                              │
 │                                                                                                                      │
 │                                                                                                                      │
 │                                                                                                                      │

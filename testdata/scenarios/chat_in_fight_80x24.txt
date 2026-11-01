@@ -15,10 +15,10 @@
 │           ░                           #          ││ HP 40/40 ######## 10m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat •2  Party ───────── [tell] bob1: behind you ─┐
-│     N.Ns You target Plain Scuttler                                           │
-│     N.Ns You start attacking Plain Scuttler                                  │
-│     N.Ns Plain Scuttler (level 1, even) is attacking you                     │
-│     N.Ns You are in combat with Plain Scuttler                               │
+│   16:04:03.2 You target Plain Scuttler                                       │
+│   16:04:03.2 You start attacking Plain Scuttler                              │
+│   16:04:03.2 Plain Scuttler (level 1, even) is attacking you                 │
+│   16:04:03.2 You are in combat with Plain Scuttler                           │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Testgrounds Captain <Quest Giver>  ·  Too far: 10 m. Option-click t…
  ONLINE | ✉ 2 | in a fight the panel shows Events; Chat comes back when it ends 

@@ -29,15 +29,15 @@
 │                   ░                                                       #                    ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat •2  Party ───────────────────────────────────────────────────────────────────── [tell] bob1: behind you ─┐
-│     N.Ns bob1 comes into view                                                                                                            │
-│     N.Ns Plain Scuttler comes into view                                                                                                  │
-│     N.Ns Plain Scuttler targeted ann1                                                                                                    │
-│     N.Ns You begin fighting Plain Scuttler                                                                                               │
-│ !   N.Ns Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                                  │
-│     N.Ns You target Plain Scuttler                                                                                                       │
-│     N.Ns You start attacking Plain Scuttler                                                                                              │
-│     N.Ns Plain Scuttler (level 1, even) is attacking you                                                                                 │
-│     N.Ns You are in combat with Plain Scuttler                                                                                           │
+│   16:04:03.2 bob1 comes into view                                                                                                        │
+│   16:04:03.2 Plain Scuttler comes into view                                                                                              │
+│   16:04:03.2 Plain Scuttler targeted ann1                                                                                                │
+│   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
+│ ! 16:04:03.2 Your walk stopped: you are fighting Plain Scuttler; a fight stops a walk. Move again to go on.                              │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You start attacking Plain Scuttler                                                                                          │
+│   16:04:03.2 Plain Scuttler (level 1, even) is attacking you                                                                             │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
 │                                                                                                                                          │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘

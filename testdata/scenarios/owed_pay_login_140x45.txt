@@ -29,8 +29,8 @@
 │                                  ░                                                       #     ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns owed pay waiting from the Scuttler Raid: 30 XP and 15 crowns, paid at your next join                                            │
-│ +   N.Ns owed pay waiting from a refund for Scuttler Skirmish: 50 crowns, paid at your next join                                         │
+│ + 16:04:03.2 owed pay waiting from the Scuttler Raid: 30 XP and 15 crowns, paid at your next join                                        │
+│ + 16:04:03.2 owed pay waiting from a refund for Scuttler Skirmish: 50 crowns, paid at your next join                                     │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

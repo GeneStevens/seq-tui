@@ -29,13 +29,13 @@
 │ You: none   |   Bramble Tusker: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Bramble Tusker targeted Watch Medic                                                                                             │
-│     N.Ns Watch Medic begins fighting Bramble Tusker                                                                                      │
-│     N.Ns You target Bramble Tusker                                                                                                       │
-│     N.Ns You start attacking Bramble Tusker                                                                                              │
-│     N.Ns Bramble Tusker (level 5, even) is attacking you                                                                                 │
-│     N.Ns You are in combat with Bramble Tusker                                                                                           │
-│     N.Ns bram comes into view                                                                                                            │
+│   16:04:03.2 Bramble Tusker targeted Watch Medic                                                                                         │
+│   16:04:03.2 Watch Medic begins fighting Bramble Tusker                                                                                  │
+│   16:04:03.2 You target Bramble Tusker                                                                                                   │
+│   16:04:03.2 You start attacking Bramble Tusker                                                                                          │
+│   16:04:03.2 Bramble Tusker (level 5, even) is attacking you                                                                             │
+│   16:04:03.2 You are in combat with Bramble Tusker                                                                                       │
+│   16:04:03.2 bram comes into view                                                                                                        │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

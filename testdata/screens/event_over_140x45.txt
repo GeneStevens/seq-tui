@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   106.2s Your target Raiding Goblin is gone                                                                                              │
-│   106.2s You stop attacking                                                                                                              │
-│   106.2s Raiding Goblin dropped Goblin Charm Bead                                                                                        │
-│   106.2s Raiding Goblin dropped 4 crowns                                                                                                 │
-│   106.2s Raiding Goblin is dead: the fight is over                                                                                       │
-│ * 106.2s The raid is broken. The harvest at Barleycross is safe.                                                                         │
-│   106.2s You are out of combat                                                                                                           │
-│ + 106.2s You gain 2 experience                                                                                                           │
-│ + 106.2s You are paid for Harvest Raid: 120 experience, 60 crowns, Harvest Garland                                                       │
-│   106.2s Raiding Goblin is out of view                                                                                                   │
-│   106.2s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│   16:04:03.2 Your target Raiding Goblin is gone                                                                                          │
+│   16:04:03.2 You stop attacking                                                                                                          │
+│   16:04:03.2 Raiding Goblin dropped Goblin Charm Bead                                                                                    │
+│   16:04:03.2 Raiding Goblin dropped 4 crowns                                                                                             │
+│   16:04:03.2 Raiding Goblin is dead: the fight is over                                                                                   │
+│ * 16:04:03.2 The raid is broken. The harvest at Barleycross is safe.                                                                     │
+│   16:04:03.2 You are out of combat                                                                                                       │
+│ + 16:04:03.2 You gain 2 experience                                                                                                       │
+│ + 16:04:03.2 You are paid for Harvest Raid: 120 experience, 60 crowns, Harvest Garland                                                   │
+│   16:04:03.2 Raiding Goblin is out of view                                                                                               │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  L: loot all 9 drops                                                                                                                        
  ONLINE | Thornwick Downs | heard 0.4s ago | attack ok                                                                        ? help  q quit

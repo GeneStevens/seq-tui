@@ -202,6 +202,7 @@ await flowCase("activate: not signed in, approve, deny, bad code", async () => {
   eq([v.screen, v.code, v.account], ["confirm", "ABCD-EFGH", "p-abc"], "signed in sees what is approved");
   const html = UI.renderActivate(v);
   ok(/Approve sign-in for <b>a@b\.c<\/b> on seq-tui\?/.test(html) && /ABCD-EFGH/.test(html) && !/p-abc/.test(html), "confirm text leads with the email and the code");
+  ok(html.split("a@b.c").length === 2, "confirm shows the email once");
   ok(/Approve sign-in for <b>p-abc<\/b>/.test(UI.renderActivate({ ...v, email: "" })), "no email: the account id");
   eq(w.posts.find((p) => p[0] === "/auth/device/approve")[1], { session: "jwt-1", user_code: "abcd-efgh", confirm: false, deny: false }, "the check does not approve");
   eq((await SeqAuth.activateDecide(auth, "ABCD-EFGH", "confirm")).screen, "approved", "approve");

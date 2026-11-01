@@ -2,11 +2,11 @@
 │                                                                           You                                        │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                     │
 │          ░                  ·······≈≈≈≈;≈≈≈········                  ░    People                                     │
-│          ░      Eel Mere Shore≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     Q quest person  D door                    │
+│          ░          Eelmere +1≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     Q quest person  D door                    │
 │          ░               #; " ≈≈≈≈≈≈@≈≈≈≈≈≈≈≈≈≈≈≈                    ░    Events                                     │
-│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                      ░     ; scout point                             │
+│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore        ░     ; scout point                             │
 │          ░                  ·· ≈≈  Eel Mere                          ░    Ground                                     │
-│          ░                   ··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
+│          ░Eelmere Stilt House··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
 │          ░                   ··≈≈≈≈                                  ░     = bridge  " forest  · road                │
 │          ░     Marlbridge Road··≈≈≈                                  ░     ░ zone edge                               │
 │          ░                    ··≈≈≈                                  ░                                               │
@@ -17,7 +17,7 @@
 │          ░                       ≈≈≈                                 ░                                               │
 │          ░                       ≈≈≈        Far Road                 ░                                               │
 │          ░D                      ≈≈···························    D  ░                                               │
-│          ░           The Millrace≈≈≈                            ^^^^^░                                               │
+│          ░        The Millrace +2≈≈≈                            ^^^^^░                                               │
 │          ░         ·             ≈≈≈                           ^^^^^^░                                               │
 │          ░         ·          " "≈≈≈                                 ░                                               │
 │          ░         ··        " " ≈≈≈                                 ░                                               │
@@ -28,10 +28,10 @@
 │          ░            ·     " " "≈≈≈                                 ░                                               │
 │          ░            ··     "   ≈≈≈                                 ░                                               │
 │          ░            ··         ≈≈≈        ^;^                      ░                                               │
-│          ░             ;         ≈≈≈Hill Track^^                     ░                                               │
+│          ░             ;         ≈≈≈Hill Track +2                    ░                                               │
 │          ░             Q    ····====······· ;                        ░                                               │
-│          ░           ####         ≈≈  ^^ ^                           ░                                               │
-│          ░                        ≈≈                                 ░                                               │
+│          ░         Highfold +2    ≈≈  ^^ ^                           ░                                               │
+│          ░    Highfold Wool Shed  ≈≈                                 ░                                               │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                               │
 │ Thornwick Downs, 420m by 450m, north up. You: 190m E, 412m N of the SW corner.                                       │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                         │

@@ -29,11 +29,11 @@
 │ You: none   |   Plain Scuttler: none                                                                                                     │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s You target Plain Scuttler                                                                                                       │
-│     0.3s You use Taunt on Plain Scuttler                                                                                                 │
-│     0.3s You begin fighting Plain Scuttler                                                                                               │
-│     0.3s You are in combat with Plain Scuttler                                                                                           │
-│     0.4s Plain Scuttler targeted gorm                                                                                                    │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You use Taunt on Plain Scuttler                                                                                             │
+│   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
+│   16:04:03.2 Plain Scuttler targeted gorm                                                                                                │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

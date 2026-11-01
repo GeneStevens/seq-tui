@@ -2,36 +2,36 @@
 │                                                                           You                                        │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░     @ you                                     │
 │          ░                  ·······≈≈≈≈;≈≈≈········                  ░    People                                     │
-│          ░      Eel Mere Shore≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     D door                                    │
+│          ░             Eelmere≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈ ···                 ░     $ vendor  Q quest person  D door          │
 │          ░               #; " ≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                    ░    Events                                     │
-│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈                      ░     ; scout point                             │
+│          ░                 ··"≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈Eel Mere Shore        ░     ; scout point                             │
 │          ░                  ·· ≈≈  Eel Mere                          ░    Ground                                     │
-│          ░                   ··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
+│          ░Eelmere Stilt House··≈≈≈                                   ░     # building  ^ rock  ≈ water               │
 │          ░                   ··≈≈≈≈                                  ░     = bridge  " forest  · road                │
-│          ░     Marlbridge Road··≈≈≈                  " " "           ░     ░ zone edge                               │
-│          ░   Eldbury Ring     ··≈≈≈                 " ##" "          ░                                               │
-│          ░             ^      ··≈≈≈≈                 ####"           ░                                               │
-│          ░     ^               ·≈≈≈≈                " " "            ░                                               │
+│          ░  Eldbury Ring +1   ··≈≈≈                  " " "           ░     ░ zone edge                               │
+│          ░       ^  Q         ··≈≈≈              Goblin Hut +2       ░                                               │
+│          ░     Marlbridge Road··≈≈≈≈                 #Goblin Stockade░                                               │
+│          ░     ^               ·≈≈≈≈                " " "   ###      ░                                               │
 │          ░                     ·≈≈≈≈                                 ░                                               │
-│          ░                     ; ≈≈≈                                 ░                                               │
-│          ░                       ≈≈≈                                 ░                                               │
+│          ░                    $; ≈≈≈                                 ░                                               │
+│          ░              Fordwatch≈≈≈                                 ░                                               │
 │          ░                       ≈≈≈        Far Road                 ░                                               │
 │          ░D                      ≈≈···························    D  ░                                               │
-│          ░           The Millrace≈≈≈                            ^^^^^░                                               │
+│          ░        The Millrace +1≈≈≈                            ^^^^^░                                               │
 │          ░         ·             ≈≈≈                           ^^^^^^░                                               │
 │          ░         ·          " "≈≈≈                                 ░                                               │
 │          ░         ··        " " ≈≈≈                                 ░                                               │
 │          ░          ··      " " "≈≈≈                        " " "    ░                                               │
-│          ░           ··    " " " ≈≈≈                       " " "     ░                                               │
-│          ░ Drove Road··     " " "≈≈≈                      " " " "    ░                                               │
+│          ░           ··    " " " ≈≈≈     Barleycross +1    " " "     ░                                               │
+│          ░ Drove Road··     " " "≈≈≈            Q         " " " "    ░                                               │
 │          ░           ··    " " " ≈≈≈                           "     ░                                               │
 │          ░            ·     " " "≈≈≈                                 ░                                               │
 │          ░            ··     "   ≈≈≈                                 ░                                               │
 │          ░            ··         ≈≈≈        ^;^                      ░                                               │
-│          ░             ;         ≈≈≈Hill Track^^                     ░                                               │
+│          ░             ;         ≈≈≈Hill Track +1                    ░                                               │
 │          ░           ##@    ····====·······^;                        ░                                               │
-│          ░           ####         ≈≈  ^^ ^                           ░                                               │
-│          ░                        ≈≈                                 ░                                               │
+│          ░         Highfold +2    ≈≈  ^^ ^                           ░                                               │
+│          ░   Highfold Sheepfold   ≈≈                                 ░                                               │
 │          ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░                                               │
 │ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.                                        │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all · M or Esc closes                         │

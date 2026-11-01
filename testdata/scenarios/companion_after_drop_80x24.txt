@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns Your companion goes off with nobody to follow                       │
-│     N.Ns Watch Spellcaster is out of view                                    │
-│     N.Ns Your companion is back                                              │
-│     N.Ns Watch Spellcaster comes into view                                   │
+│   16:04:03.2 Your companion goes off with nobody to follow                   │
+│   16:04:03.2 Watch Spellcaster is out of view                                │
+│   16:04:03.2 Your companion is back                                          │
+│   16:04:03.2 Watch Spellcaster comes into view                               │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | Thornwick Downs | heard N.Ns ago | reconnected          ? help  q quit

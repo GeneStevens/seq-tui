@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│    NN.Ns You are out of combat                                               │
-│ +  NN.Ns bram received 3 xp from Warren Digger                               │
-│ +  NN.Ns You gain 3 experience                                               │
-│    NN.Ns Warren Digger is out of view                                        │
+│   16:04:03.2 You are out of combat                                           │
+│ + 16:04:03.2 bram received 3 xp from Warren Digger                           │
+│ + 16:04:03.2 You gain 3 experience                                           │
+│   16:04:03.2 Warren Digger is out of view                                    │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  L: loot all 2 drops                                                            
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago   ? help  q quit

@@ -15,9 +15,9 @@
 │ #                                                ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns Trophy Scuttler is out of view                                      │
-│     N.Ns Plain Scuttler comes into view                                      │
-│    NN.Ns You target Plain Scuttler                                           │
+│   16:04:03.2 Trophy Scuttler is out of view                                  │
+│   16:04:03.2 Plain Scuttler comes into view                                  │
+│   16:04:03.2 You target Plain Scuttler                                       │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   

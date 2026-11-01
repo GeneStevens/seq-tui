@@ -15,9 +15,9 @@
 │                 ░                           #    ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Events  [Chat]  Party ──────────────────────────────────────────────────────┐
-│ [ooc] bob1: anyone for the Warren?                                           │
-│ [ooc] bob1: third line                                                       │
-│»[say] bob1: hello ann1, well met                                             │
+│ 16:04:03.2 [ooc] bob1: anyone for the Warren?                                │
+│ 16:04:03.2 [ooc] bob1: third line                                            │
+│»16:04:03.2 [say] bob1: hello ann1, well met                                  │
 │                                                                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Testgrounds Vendor  ·  Tab: target · F: attack                      

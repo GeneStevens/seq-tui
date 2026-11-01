@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│   237.0s You are out of combat                                               │
-│ + 237.0s You gain 2 experience                                               │
-│ + 237.0s Wolves at Wickett Mill: 4 of 4                                      │
-│   237.0s Meadow Wolf is out of view                                          │
+│   16:04:03.2 You are out of combat                                           │
+│ + 16:04:03.2 You gain 2 experience                                           │
+│ + 16:04:03.2 Wolves at Wickett Mill: 4 of 4                                  │
+│   16:04:03.2 Meadow Wolf is out of view                                      │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  L: loot all 3 drops                                                            
  ONLINE | First Steps 1/4 | → Go to Thornwick (Thornwick), 63m NW | attack ok   

@@ -39,7 +39,7 @@ func TestAShutGateIsHonestAndItsRefusalIsNotMissed(t *testing.T) {
 	notice(t, p, why, true)
 	w.Advance(time.Second)
 	s = p.Screen(140, 45)
-	if !regexp.MustCompile(`! +[0-9.]+s ` + regexp.QuoteMeta(why)).MatchString(s) {
+	if !regexp.MustCompile(`! +[0-9:.]+ ` + regexp.QuoteMeta(why)).MatchString(s) {
 		t.Errorf("the refusal is not in Events:\n%s", s)
 	}
 	if !strings.Contains(lastRow(s), "! "+why) {

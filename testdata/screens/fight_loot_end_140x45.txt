@@ -29,17 +29,17 @@
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     1.4s Aria hit Shell Rat for 8                                                                                                        │
-│ <   1.5s Shell Rat hit Aria for 5                                                                                                        │
-│     1.6s Aria hit Shell Rat for 12                                                                                                       │
-│ x   1.7s Aria killed Shell Rat                                                                                                           │
-│     1.8s the fight with Shell Rat is over: mob_died                                                                                      │
-│     1.9s Shell Rat dropped Shell Fragment                                                                                                │
-│ +   2.0s Aria received 25 xp from Shell Rat                                                                                              │
-│     2.1s Aria's target Shell Rat cleared: target_dead                                                                                    │
-│     2.2s Aria stopped attacking                                                                                                          │
-│ +   2.3s Aria received Shell Fragment                                                                                                    │
-│     2.3s Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│   16:04:03.2 Aria hit Shell Rat for 8                                                                                                    │
+│ < 16:04:03.2 Shell Rat hit Aria for 5                                                                                                    │
+│   16:04:03.2 Aria hit Shell Rat for 12                                                                                                   │
+│ x 16:04:03.2 Aria killed Shell Rat                                                                                                       │
+│   16:04:03.2 the fight with Shell Rat is over: mob_died                                                                                  │
+│   16:04:03.2 Shell Rat dropped Shell Fragment                                                                                            │
+│ + 16:04:03.2 Aria received 25 xp from Shell Rat                                                                                          │
+│   16:04:03.2 Aria's target Shell Rat cleared: target_dead                                                                                │
+│   16:04:03.2 Aria stopped attacking                                                                                                      │
+│ + 16:04:03.2 Aria received Shell Fragment                                                                                                │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | outskirts | heard 0.4s ago | loot accepted                                                                          ? help  q quit

@@ -29,11 +29,11 @@
 │ You: resting bonus 30s                                                                                                                   │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
-│            /dismiss gives it up for good.                                                                                                │
-│     N.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
-│ +   N.Ns You use Small Hearth Draught and heal 40                                                                                        │
-│ +   N.Ns You use Smoked Eel: you recover faster for 30 seconds                                                                           │
+│ + 16:04:03.2 Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;  │
+│                /dismiss gives it up for good.                                                                                            │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
+│ + 16:04:03.2 You use Small Hearth Draught and heal 40                                                                                    │
+│ + 16:04:03.2 You use Smoked Eel: you recover faster for 30 seconds                                                                       │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

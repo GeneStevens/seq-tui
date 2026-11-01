@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│            fresh each half hour. Take what suits you, and bring the proof    │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns │
-│            and experience.                                                   │
-│ +   N.Ns You take the contract Wolves at Wickett Mill                        │
+│                fresh each half hour. Take what suits you, and bring the proof│
+│                back here. Hunts, hauls and scouting: every job is paid in    │
+│                crowns and experience.                                        │
+│ + 16:04:03.2 You take the contract Wolves at Wickett Mill                    │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: go through the East Gate to the Thornwick Downs  ·  G: talk to Town Guard <…
  ONLINE | First Steps 1/4 | → Talk to Tamsin Hale, 54m W | road: faster, 125%   

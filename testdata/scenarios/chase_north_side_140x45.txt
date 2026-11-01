@@ -29,12 +29,12 @@
 │ You: none   |   Meadow Wolf: none                                                                                                        │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Meadow Wolf targeted hale                                                                                                       │
-│     N.Ns You begin fighting Meadow Wolf                                                                                                  │
-│     N.Ns You target Meadow Wolf                                                                                                          │
-│     N.Ns You start attacking Meadow Wolf                                                                                                 │
-│     N.Ns Meadow Wolf (level 1, even) is attacking you                                                                                    │
-│     N.Ns You are in combat with Meadow Wolf                                                                                              │
+│   16:04:03.2 Meadow Wolf targeted hale                                                                                                   │
+│   16:04:03.2 You begin fighting Meadow Wolf                                                                                              │
+│   16:04:03.2 You target Meadow Wolf                                                                                                      │
+│   16:04:03.2 You start attacking Meadow Wolf                                                                                             │
+│   16:04:03.2 Meadow Wolf (level 1, even) is attacking you                                                                                │
+│   16:04:03.2 You are in combat with Meadow Wolf                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

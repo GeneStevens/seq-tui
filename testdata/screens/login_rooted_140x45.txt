@@ -29,13 +29,13 @@
 │ You: none   |   Plain Scuttler: Rooted 18s                                                                                               │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s You target Plain Scuttler                                                                                                       │
-│     0.3s You begin casting Root on Plain Scuttler                                                                                        │
-│     1.8s You use Root on Plain Scuttler                                                                                                  │
-│     1.8s You begin fighting Plain Scuttler                                                                                               │
-│     1.8s Plain Scuttler is affected by Root                                                                                              │
-│     1.8s You are in combat with Plain Scuttler                                                                                           │
-│     1.9s Plain Scuttler targeted zedd                                                                                                    │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You begin casting Root on Plain Scuttler                                                                                    │
+│   16:04:03.2 You use Root on Plain Scuttler                                                                                              │
+│   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
+│   16:04:03.2 Plain Scuttler is affected by Root                                                                                          │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
+│   16:04:03.2 Plain Scuttler targeted zedd                                                                                                │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

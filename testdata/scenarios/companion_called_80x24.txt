@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│            trust. Prove yourself first, and come and see me.                 │
-│     N.Ns Your companion takes the role of melee                              │
-│     N.Ns Your companion arrives at your side                                 │
-│     N.Ns Watch Skirmisher comes into view                                    │
+│                see me.                                                       │
+│   16:04:03.2 Your companion takes the role of melee                          │
+│   16:04:03.2 Your companion arrives at your side                             │
+│   16:04:03.2 Watch Skirmisher comes into view                                │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  G: talk to Captain Rhosyn Hartley <Watch Captain>                              
  ONLINE | Watch House Yard, Thornwick | heard N.Ns ago | call the companion ok  

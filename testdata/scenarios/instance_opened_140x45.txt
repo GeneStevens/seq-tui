@@ -29,7 +29,7 @@
 │                                                                                                ││ +10 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns instance opened: Solo Trial (up to 1 in it); enter at gate-north with E                                                         │
+│   16:04:03.2 instance opened: Solo Trial (up to 1 in it); enter at gate-north with E                                                     │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

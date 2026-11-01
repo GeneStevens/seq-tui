@@ -7,7 +7,7 @@
 │   Kill 4 wolves in the Thornwick Downs. They have been circling the millpond at Wickett Mill,  │└────────────────────────────────────────┘
 │   west of the river.                                                                           │┌─ Quest chain (Ctrl+K) ─────────────────┐
 │  Tusks for the Miller (Gather)                                                                 ││ First Steps                            │
-│   0 of 3 carried                                                                               ││ Step 2 of 4                            │
+│   0 of 3 looted since you took it                                                              ││ Step 2 of 4                            │
 │   Pays 26 XP, 11 crowns and Tin Ring ▲                                                         ││ Speak to your class trainer on         │
 │   Bring back 3 boar tusks from the boars in the barley fields. The miller at Wickett Mill      ││ Trainers' Lane, by the north wall      │
 │   trades in them.                                                                              ││ (warriors at the west end, druids at   │
@@ -20,7 +20,7 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Contracts (K) ────────────────────────┐
 │                                                                                                ││ Wolves at Wickett Mill             0/4 │
-│                                                                                                ││ Tusks for the Miller               0/3 │
+│                                                                                                ││ Tusks for th… 0/3 · looted since taken │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ & Thornwick Contract Board 1m SW [new] │
@@ -30,16 +30,16 @@
 │ Esc closes                                                                                     ││ +17 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│            keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the east gate   │
-│            leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                                  │
-│ +   N.Ns First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end,     │
-│            druids at the east), for your first lesson.                                                                                   │
-│     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   N.Ns You take the contract Wolves at Wickett Mill                                                                                    │
-│ +   N.Ns You take the contract Tusks for the Miller                                                                                      │
-│ +   N.Ns You take the contract Word from Wickett Mill                                                                                    │
-│ !   N.Ns You're carrying as many contracts as you can                                                                                    │
-│ +   N.Ns You give up the contract Word from Wickett Mill                                                                                 │
+│                trainers keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the│
+│                east gate leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                    │
+│ + 16:04:03.2 First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end, │
+│                druids at the east), for your first lesson.                                                                               │
+│   16:04:03.2 Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the    │
+│                proof back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                   │
+│ + 16:04:03.2 You take the contract Wolves at Wickett Mill                                                                                │
+│ + 16:04:03.2 You take the contract Tusks for the Miller                                                                                  │
+│ + 16:04:03.2 You take the contract Word from Wickett Mill                                                                                │
+│ ! 16:04:03.2 You're carrying as many contracts as you can                                                                                │
+│ + 16:04:03.2 You give up the contract Word from Wickett Mill                                                                             │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  ONLINE | Hawthorn Square, Thornwick | First Steps 2/4 | → Talk to Gorran Stoutarm, 54m SW | road: faster, 125% | heard N.Ns ago      ? help

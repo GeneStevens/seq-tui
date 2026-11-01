@@ -15,10 +15,10 @@
 │ You: none   |   Warren Chief: chief-pack-cry 17s                             │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│   NNN.Ns Bram hits Warren Chief for 108                                      │
-│   NNN.Ns You hit Warren Chief for 108                                        │
-│   NNN.Ns Warren Chief began attacking hale                                   │
-│ < NNN.Ns Warren Chief hits you for 9                                         │
+│   16:04:03.2 Bram hits Warren Chief for 108                                  │
+│   16:04:03.2 You hit Warren Chief for 108                                    │
+│   16:04:03.2 Warren Chief began attacking hale                               │
+│ < 16:04:03.2 Warren Chief hits you for 9                                     │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: stop attacking · Esc: clear the target                                      
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | loot ok ? help

@@ -15,10 +15,10 @@
 │               ░                           #      ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│    42.3s Cracked Shell Fragment was taken                                    │
-│ +  42.3s You pick up Cracked Shell Fragment                                  │
-│    42.3s Tip: tradable once means one trade to another player, then it is    │
-│            bound to them.                                                    │
+│   16:04:03.2 Cracked Shell Fragment was taken                                │
+│ + 16:04:03.2 You pick up Cracked Shell Fragment                              │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is│
+│                bound to them.                                                │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                
  ONLINE | Testgrounds | heard 0.4s ago | loot ok                  ? help  q quit

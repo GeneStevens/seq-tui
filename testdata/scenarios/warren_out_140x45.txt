@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│    NN.Ns You stop attacking                                                                                                              │
-│    NN.Ns Warren Digger dropped Digger's Claw                                                                                             │
-│    NN.Ns Warren Digger dropped 9 crowns                                                                                                  │
-│    NN.Ns Warren Digger is dead: the fight is over                                                                                        │
-│    NN.Ns You are out of combat                                                                                                           │
-│ +  NN.Ns bram received 3 xp from Warren Digger                                                                                           │
-│ +  NN.Ns You gain 3 experience                                                                                                           │
-│    NN.Ns Warren Digger is out of view                                                                                                    │
-│ !  NN.Ns You have no target                                                                                                              │
-│    NN.Ns bram is out of view                                                                                                             │
-│    NN.Ns entered Hollow Warren                                                                                                           │
+│   16:04:03.2 You stop attacking                                                                                                          │
+│   16:04:03.2 Warren Digger dropped Digger's Claw                                                                                         │
+│   16:04:03.2 Warren Digger dropped 9 crowns                                                                                              │
+│   16:04:03.2 Warren Digger is dead: the fight is over                                                                                    │
+│   16:04:03.2 You are out of combat                                                                                                       │
+│ + 16:04:03.2 bram received 3 xp from Warren Digger                                                                                       │
+│ + 16:04:03.2 You gain 3 experience                                                                                                       │
+│   16:04:03.2 Warren Digger is out of view                                                                                                │
+│ ! 16:04:03.2 You have no target                                                                                                          │
+│   16:04:03.2 bram is out of view                                                                                                         │
+│   16:04:03.2 entered Hollow Warren                                                                                                       │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  E: enter Delve Gate                                                                                                                        
  ONLINE | Hollow Warren | heard N.Ns ago | use door ok                                                                        ? help  q quit

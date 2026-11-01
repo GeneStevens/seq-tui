@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│    NN.Ns Warren Digger is out of view                                        │
-│ !  NN.Ns You have no target                                                  │
-│    NN.Ns bram is out of view                                                 │
-│    NN.Ns entered Hollow Warren                                               │
+│   16:04:03.2 Warren Digger is out of view                                    │
+│ ! 16:04:03.2 You have no target                                              │
+│   16:04:03.2 bram is out of view                                             │
+│   16:04:03.2 entered Hollow Warren                                           │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Delve Gate                                                            
  ONLINE | Hollow Warren | heard N.Ns ago | use door ok            ? help  q quit

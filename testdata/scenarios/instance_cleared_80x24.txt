@@ -15,10 +15,10 @@
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│    NN.Ns Tip: tradable once means one trade to another player, then it is    │
-│            bound to them.                                                    │
-│    NN.Ns instance ended, cleared: every mob dead and the loot taken          │
-│    NN.Ns entered Testgrounds                                                 │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is│
+│                bound to them.                                                │
+│   16:04:03.2 instance ended, cleared: every mob dead and the loot taken      │
+│   16:04:03.2 entered Testgrounds                                             │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  E: enter Gate North                                                            
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                  ? help  q quit

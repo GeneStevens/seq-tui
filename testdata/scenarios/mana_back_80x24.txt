@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│    NN.Ns You are out of combat                                               │
-│ +  NN.Ns You gain 20 experience                                              │
-│    NN.Ns Plain Scuttler is out of view                                       │
-│    NN.Ns Plain Scuttler comes into view                                      │
+│   16:04:03.2 You are out of combat                                           │
+│ + 16:04:03.2 You gain 20 experience                                          │
+│   16:04:03.2 Plain Scuttler is out of view                                   │
+│   16:04:03.2 Plain Scuttler comes into view                                  │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard N.Ns ago | key 2 Frost Bolt ok      ? help  q quit

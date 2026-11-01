@@ -1,21 +1,21 @@
 ┌─ Zone overview ──────────────────────────────────────────────────────────────┐
 │                                                                              │
 │                            ░░░░░░░░░░░;░░░░░░░░░░░                           │
-│                            ░     ;"≈≈≈≈≈≈≈≈·     ░                           │
-│                            ░      ·≈≈≈≈          ░                           │
-│                            ░       ·≈The Millrace░                           │
-│                            ░       ·≈≈     "##   ░                           │
-│                            ░       ;≈≈Far Road   ░                           │
+│         Eelmere Stilt House░     ;"≈≈≈≈≈≈≈≈·     ░                           │
+│                            ░      ·≈≈≈≈Goblin Hut░                           │
+│                            ░   Q   ·≈Eelmere +2  ░                           │
+│             Eldbury Ring +8░       ·≈≈     "#### ░Goblin Stockade            │
+│                            ░       ;≈≈Fordwatch  ░                           │
 │                            D        ≈···· ······D░                           │
-│                            ░   ·    ≈≈          ^░                           │
-│                            ░   ··  "≈≈         " ░                           │
-│                            ░    · " ≈≈        "  ░                           │
-│                            ░    ·  "≈≈  ^;       ░                           │
-│                            ░    @   ≈≈  ;        ░                           │
+│                            ░   ·    ≈≈Far Road  ^░                           │
+│                            ░   ··  "≈≈Highfold +3░                           │
+│                            ░    · " ≈≈    Q   "  ░Barleycross +2             │
+│          Highfold Wool Shed░    ·  "≈≈  ^;       ░                           │
+│          Highfold Sheepfold░    @   ≈≈  ;        ░                           │
 │                            ░░░░░░░░░░░░░░░░░░░░░░░                           │
 │ Thornwick Downs, 420m by 450m, north up. You: 100m E, 44m N of the SW corner.│
 │ You       @ you                                                              │
-│ People    D door                                                             │
+│ People    Q quest person  D door                                             │
 │ Events    ; scout point                                                      │
 │ Ground    # building  ^ rock  ≈ water  " forest  · road  ░ zone edge         │
 │ Option-click: walk · arrows + Enter · wheel or + - zoom · Ctrl+A names all ·…│

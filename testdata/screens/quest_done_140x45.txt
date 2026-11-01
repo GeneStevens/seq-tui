@@ -29,11 +29,11 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
-│            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
-│            Watch can trust. Prove yourself first, and come and see me.                                                                   │
-│     0.3s You have earned a house companion                                                                                               │
-│ +   0.3s You hand in Break the Raiding Party: 100 experience, 40 crowns                                                                  │
+│   16:04:03.2 Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves│
+│                and bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those │
+│                the Watch can trust. Prove yourself first, and come and see me.                                                           │
+│   16:04:03.2 You have earned a house companion                                                                                           │
+│ + 16:04:03.2 You hand in Break the Raiding Party: 100 experience, 40 crowns                                                              │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

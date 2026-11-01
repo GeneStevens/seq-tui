@@ -29,14 +29,14 @@
 │ You: none   |   Plain Scuttler: Rooted 18s                                                                                               │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     0.2s Slot 1: Root                                                                                                                    │
-│     0.3s Slot 3: Flame Dart                                                                                                              │
-│     0.6s You target Plain Scuttler                                                                                                       │
-│     0.7s You begin casting Root on Plain Scuttler                                                                                        │
-│     2.2s You use Root on Plain Scuttler                                                                                                  │
-│     2.2s You begin fighting Plain Scuttler                                                                                               │
-│     2.2s Plain Scuttler is affected by Root                                                                                              │
-│     2.2s You are in combat with Plain Scuttler                                                                                           │
+│   16:04:03.2 Slot 1: Root                                                                                                                │
+│   16:04:03.2 Slot 3: Flame Dart                                                                                                          │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You begin casting Root on Plain Scuttler                                                                                    │
+│   16:04:03.2 You use Root on Plain Scuttler                                                                                              │
+│   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
+│   16:04:03.2 Plain Scuttler is affected by Root                                                                                          │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

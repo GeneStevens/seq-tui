@@ -15,10 +15,10 @@
 │ You: none   |   Bramble Tusker: none                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns You stop attacking                                                  │
-│     N.Ns Your companion is ordered: stop                                     │
-│     N.Ns Your target Bramble Tusker is gone                                  │
-│     N.Ns Watch Shieldman stopped attacking                                   │
+│   16:04:03.2 You stop attacking                                              │
+│   16:04:03.2 Your companion is ordered: stop                                 │
+│   16:04:03.2 Your target Bramble Tusker is gone                              │
+│   16:04:03.2 Watch Shieldman stopped attacking                               │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | forest: slowed to 75% | heard N.Ns ago | companion order: stop ok     

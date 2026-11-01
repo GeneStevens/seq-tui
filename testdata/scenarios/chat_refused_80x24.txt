@@ -15,7 +15,7 @@
 │                                                  ││ +18 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ───────────────── [say] ann1: spam d ─┐
-│     N.Ns bob1 comes into view                                                │
+│   16:04:03.2 bob1 comes into view                                            │
 │                                                                              │
 │                                                                              │
 │                                                                              │

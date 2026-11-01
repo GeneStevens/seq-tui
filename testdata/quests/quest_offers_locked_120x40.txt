@@ -27,9 +27,9 @@
 │ The answer is on the status line; every refusal says why.                        ││ +4 more                          │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────┐
-│ +   1.0s On the quest chain Wolves at the Fold, step 2 of 3: Drive off the hill wolves near Highfold. It is optional;│
-│            /dismiss gives it up for good.                                                                            │
-│     2.0s Maud Fenner says: The wolves are bold this year.                                                            │
+│ + 16:04:03.2 On the quest chain Wolves at the Fold, step 2 of 3: Drive off the hill wolves near Highfold. It is      │
+│                optional; /dismiss gives it up for good.                                                              │
+│   16:04:03.2 Maud Fenner says: The wolves are bold this year.                                                        │
 │                                                                                                                      │
 │                                                                                                                      │
 │                                                                                                                      │

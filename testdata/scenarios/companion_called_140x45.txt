@@ -29,17 +29,17 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
-│            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
-│            Watch can trust. Prove yourself first, and come and see me.                                                                   │
-│     N.Ns You have earned a house companion                                                                                               │
-│ +   N.Ns You hand in Break the Raiding Party: 100 experience, 40 crowns                                                                  │
-│     N.Ns Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves and│
-│            bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those the     │
-│            Watch can trust. Prove yourself first, and come and see me.                                                                   │
-│     N.Ns Your companion takes the role of melee                                                                                          │
-│     N.Ns Your companion arrives at your side                                                                                             │
-│     N.Ns Watch Skirmisher comes into view                                                                                                │
+│   16:04:03.2 Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves│
+│                and bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those │
+│                the Watch can trust. Prove yourself first, and come and see me.                                                           │
+│   16:04:03.2 You have earned a house companion                                                                                           │
+│ + 16:04:03.2 You hand in Break the Raiding Party: 100 experience, 40 crowns                                                              │
+│   16:04:03.2 Captain Rhosyn Hartley says: Captain Hartley of the Thornwick Watch. We hold the walls; the Downs are another matter. Wolves│
+│                and bandits on the near roads, goblins farther out. Go carefully until you are seasoned. There is a larger task for those │
+│                the Watch can trust. Prove yourself first, and come and see me.                                                           │
+│   16:04:03.2 Your companion takes the role of melee                                                                                      │
+│   16:04:03.2 Your companion arrives at your side                                                                                         │
+│   16:04:03.2 Watch Skirmisher comes into view                                                                                            │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  G: talk to Captain Rhosyn Hartley <Watch Captain>                                                                                          
  ONLINE | Watch House Yard, Thornwick | heard N.Ns ago | call the companion ok                                                ? help  q quit

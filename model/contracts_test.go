@@ -46,7 +46,7 @@ func TestProgressInWords(t *testing.T) {
 	}{
 		{&pb.ContractInfo{Kind: "hunt", Have: 1, Need: 4}, "1 of 4 killed"},
 		{&pb.ContractInfo{Kind: "bounty", Have: 0, Need: 1}, "0 of 1 killed"},
-		{&pb.ContractInfo{Kind: "gather", Have: 2, Need: 3}, "2 of 3 carried"},
+		{&pb.ContractInfo{Kind: "gather", Have: 2, Need: 3}, "2 of 3 looted since you took it"},
 		{&pb.ContractInfo{Kind: "scout", Have: 0, Need: 1}, "go to the marker"},
 		{&pb.ContractInfo{Kind: "scout", Have: 1, Need: 1}, "marker reached"},
 	} {

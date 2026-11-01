@@ -29,17 +29,17 @@
 │                    ░                                                       #                   ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ <   7.1s Plain Scuttler hits you for 3                                                                                                   │
-│     8.9s You hit Plain Scuttler for 4                                                                                                    │
-│ <  10.1s Plain Scuttler hits you for 2                                                                                                   │
-│ x  10.1s Plain Scuttler killed you                                                                                                       │
-│    10.1s Your target is gone                                                                                                             │
-│    10.1s Your target Plain Scuttler is gone                                                                                              │
-│    10.1s You stop attacking                                                                                                              │
-│    10.1s Everyone in the fight with Plain Scuttler has fallen                                                                            │
-│    10.1s You are out of combat                                                                                                           │
-│    11.0s Plain Scuttler reset to 40 hp                                                                                                   │
-│    30.2s You release your body and will return in 5 seconds                                                                              │
+│ < 16:04:03.2 Plain Scuttler hits you for 3                                                                                               │
+│   16:04:03.2 You hit Plain Scuttler for 4                                                                                                │
+│ < 16:04:03.2 Plain Scuttler hits you for 2                                                                                               │
+│ x 16:04:03.2 Plain Scuttler killed you                                                                                                   │
+│   16:04:03.2 Your target is gone                                                                                                         │
+│   16:04:03.2 Your target Plain Scuttler is gone                                                                                          │
+│   16:04:03.2 You stop attacking                                                                                                          │
+│   16:04:03.2 Everyone in the fight with Plain Scuttler has fallen                                                                        │
+│   16:04:03.2 You are out of combat                                                                                                       │
+│   16:04:03.2 Plain Scuttler reset to 40 hp                                                                                               │
+│   16:04:03.2 You release your body and will return in 5 seconds                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  R: release your body and wake at your bind point                                                                                           
  ONLINE | Testgrounds | heard 0.4s ago | release ok                                                                           ? help  q quit

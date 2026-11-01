@@ -15,7 +15,7 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│ !  NN.Ns Something solid blocks the way                                      │
+│ ! 16:04:03.2 Something solid blocks the way                                  │
 │                                                                              │
 │                                                                              │
 │                                                                              │

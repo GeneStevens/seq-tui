@@ -29,13 +29,13 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ +   N.Ns Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;      │
-│            /dismiss gives it up for good.                                                                                                │
-│     N.Ns Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the proof  │
-│            back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                             │
-│ +   N.Ns You take the contract Wolves at Wickett Mill                                                                                    │
-│    NN.Ns entered Thornwick Downs                                                                                                         │
-│    NN.Ns Meadow Wolf comes into view                                                                                                     │
+│ + 16:04:03.2 Quest chain offered: First Steps. First: Speak to Tamsin Hale, the Watch Greeter, here in Hawthorn Square. It is optional;  │
+│                /dismiss gives it up for good.                                                                                            │
+│   16:04:03.2 Thornwick Contract Board says: Short jobs for the Downs, posted fresh each half hour. Take what suits you, and bring the    │
+│                proof back here. Hunts, hauls and scouting: every job is paid in crowns and experience.                                   │
+│ + 16:04:03.2 You take the contract Wolves at Wickett Mill                                                                                │
+│   16:04:03.2 entered Thornwick Downs                                                                                                     │
+│   16:04:03.2 Meadow Wolf comes into view                                                                                                 │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

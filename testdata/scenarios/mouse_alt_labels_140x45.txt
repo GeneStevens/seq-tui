@@ -29,11 +29,11 @@
 │#                                                                                               ││ +5 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Trophy Scuttler is out of view                                                                                                  │
-│     N.Ns Plain Scuttler comes into view                                                                                                  │
-│    NN.Ns You target Plain Scuttler                                                                                                       │
-│    NN.Ns You start attacking Plain Scuttler                                                                                              │
-│    NN.Ns You stop attacking                                                                                                              │
+│   16:04:03.2 Trophy Scuttler is out of view                                                                                              │
+│   16:04:03.2 Plain Scuttler comes into view                                                                                              │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You start attacking Plain Scuttler                                                                                          │
+│   16:04:03.2 You stop attacking                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

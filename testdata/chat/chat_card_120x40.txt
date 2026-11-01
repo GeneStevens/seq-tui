@@ -26,14 +26,14 @@
 │   ░                                                                          ░   ││                                  │
 └──────────────────────────────────────────────────────────────────────────────────┘└──────────────────────────────────┘
 ┌─ Events  [Chat]  Party ──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ [say] Mira: well met, traveller, the road is long                                                                    │
-│ [party] Mira: ready when you are                                                                                     │
-│ [tell] Mira: group for the Warren?                                                                                   │
-│»[say] Gorran Stoutarm: Aria, come back when you are stronger                                                         │
-│ [say] Aria: on my way                                                                                                │
-│»[ooc] Bram: anyone for the Warren, Aria?                                                                             │
-│ [say] Hale: welcome Mira and Gorran                                                                                  │
-│ [say] Aria: thanks Hale                                                                                              │
+│ 16:04:03.2 [say] Mira: well met, traveller, the road is long                                                         │
+│ 16:04:03.2 [party] Mira: ready when you are                                                                          │
+│ 16:04:03.2 [tell] Mira: group for the Warren?                                                                        │
+│»16:04:03.2 [say] Gorran Stoutarm: Aria, come back when you are stronger                                              │
+│ 16:04:03.2 [say] Aria: on my way                                                                                     │
+│»16:04:03.2 [ooc] Bram: anyone for the Warren, Aria?                                                                  │
+│ 16:04:03.2 [say] Hale: welcome Mira and Gorran                                                                       │
+│ 16:04:03.2 [say] Aria: thanks Hale                                                                                   │
 │                                                                                                                      │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────┘
  Tab: target · F: attack                                                                                                

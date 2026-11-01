@@ -29,17 +29,17 @@
 │                            ░                                                       #           ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ x  NN.Ns You killed Plain Scuttler                                                                                                       │
-│    NN.Ns Your target Plain Scuttler is gone                                                                                              │
-│    NN.Ns You stop attacking                                                                                                              │
-│    NN.Ns Plain Scuttler dropped Cracked Shell Fragment                                                                                   │
-│    NN.Ns Plain Scuttler is dead: the fight is over                                                                                       │
-│    NN.Ns You are out of combat                                                                                                           │
-│ +  NN.Ns You gain 20 experience                                                                                                          │
-│    NN.Ns Plain Scuttler is out of view                                                                                                   │
-│    NN.Ns Cracked Shell Fragment was taken                                                                                                │
-│ +  NN.Ns You pick up Cracked Shell Fragment                                                                                              │
-│    NN.Ns Tip: tradable once means one trade to another player, then it is bound to them.                                                 │
+│ x 16:04:03.2 You killed Plain Scuttler                                                                                                   │
+│   16:04:03.2 Your target Plain Scuttler is gone                                                                                          │
+│   16:04:03.2 You stop attacking                                                                                                          │
+│   16:04:03.2 Plain Scuttler dropped Cracked Shell Fragment                                                                               │
+│   16:04:03.2 Plain Scuttler is dead: the fight is over                                                                                   │
+│   16:04:03.2 You are out of combat                                                                                                       │
+│ + 16:04:03.2 You gain 20 experience                                                                                                      │
+│   16:04:03.2 Plain Scuttler is out of view                                                                                               │
+│   16:04:03.2 Cracked Shell Fragment was taken                                                                                            │
+│ + 16:04:03.2 You pick up Cracked Shell Fragment                                                                                          │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
  Walk: Option-click or arrows · M: large map · C: chat · ?: help                                                                            
  ONLINE | Testgrounds | heard N.Ns ago | loot ok                                                                              ? help  q quit

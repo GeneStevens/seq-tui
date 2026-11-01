@@ -15,10 +15,10 @@
 │           ░                           #          │└──────────────────────────┘
 └──────────────────────────────────────────────────┘                            
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns Plain Scuttler began attacking ann1                                 │
-│     N.Ns Plain Scuttler misses ann1                                          │
-│     N.Ns Ann1 hits Plain Scuttler for 6                                      │
-│     N.Ns Plain Scuttler hits ann1 for 2                                      │
+│   16:04:03.2 Plain Scuttler began attacking ann1                             │
+│   16:04:03.2 Plain Scuttler misses ann1                                      │
+│   16:04:03.2 Ann1 hits Plain Scuttler for 6                                  │
+│   16:04:03.2 Plain Scuttler hits ann1 for 2                                  │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  Tab: target · F: attack                                                        
  ONLINE | Testgrounds | heard N.Ns ago | accepted the invitation  ? help  q quit

@@ -15,10 +15,10 @@
 │ You: none   |   Warren Digger: none                                          │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│     N.Ns entered Hollow Warren (Warren Venture Delve)                        │
-│     N.Ns bram comes into view                                                │
-│    NN.Ns Warren Digger comes into view                                       │
-│    NN.Ns You target Warren Digger                                            │
+│   16:04:03.2 entered Hollow Warren (Warren Venture Delve)                    │
+│   16:04:03.2 bram comes into view                                            │
+│   16:04:03.2 Warren Digger comes into view                                   │
+│   16:04:03.2 You target Warren Digger                                        │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  F: attack · Tab: next target                                                   
  ONLINE | Hollow Warren (Warren Venture Delve) | heard N.Ns ago | target ok     

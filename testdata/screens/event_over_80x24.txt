@@ -15,10 +15,10 @@
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│            Garland                                                           │
-│   106.2s Raiding Goblin is out of view                                       │
-│   106.2s Tip: tradable once means one trade to another player, then it is    │
-│            bound to them.                                                    │
+│                Harvest Garland                                               │
+│   16:04:03.2 Raiding Goblin is out of view                                   │
+│   16:04:03.2 Tip: tradable once means one trade to another player, then it is│
+│                bound to them.                                                │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
  L: loot all 9 drops                                                            
  ONLINE | Thornwick Downs | heard 0.4s ago | attack ok            ? help  q quit

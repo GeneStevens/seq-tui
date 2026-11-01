@@ -29,9 +29,9 @@
 │ You: none                                                                                                                                │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│     N.Ns Your companion takes the assist stance                                                                                          │
-│     N.Ns Your companion takes the guard stance                                                                                           │
-│     N.Ns Your companion takes the heal stance                                                                                            │
+│   16:04:03.2 Your companion takes the assist stance                                                                                      │
+│   16:04:03.2 Your companion takes the guard stance                                                                                       │
+│   16:04:03.2 Your companion takes the heal stance                                                                                        │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
