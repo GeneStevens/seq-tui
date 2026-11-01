@@ -155,3 +155,27 @@ func TestSavedSession(t *testing.T) {
 		t.Error("garbage must not load")
 	}
 }
+
+func TestSavedWho(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "h.session")
+	now := time.Date(2026, 10, 31, 12, 0, 0, 0, time.UTC)
+	for _, tc := range []struct{ name, file, want string }{
+		{"with email", `{"token":"seq_st_a","account":"p-1","email":"a@b.c","saved":"2026-10-31T12:00:00Z"}`, "a@b.c"},
+		{"old file, no email", `{"token":"seq_st_a","account":"p-1","saved":"2026-10-31T12:00:00Z"}`, "p-1"},
+		{"empty email", `{"token":"seq_st_a","account":"p-1","email":"","saved":"2026-10-31T12:00:00Z"}`, "p-1"},
+	} {
+		if err := os.WriteFile(path, []byte(tc.file), 0o600); err != nil {
+			t.Fatal(err)
+		}
+		s, ok := LoadSession(path, now)
+		if !ok || s.Token != "seq_st_a" || s.Who() != tc.want {
+			t.Errorf("%s: ok=%v token=%q who=%q, want %q", tc.name, ok, s.Token, s.Who(), tc.want)
+		}
+	}
+	if err := SaveSession(path, Saved{Token: "t", Account: "p-1", Email: "a@b.c", Saved: now}); err != nil {
+		t.Fatal(err)
+	}
+	if s, _ := LoadSession(path, now); s.Email != "a@b.c" {
+		t.Errorf("email not kept: %+v", s)
+	}
+}

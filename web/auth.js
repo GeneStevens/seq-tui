@@ -6,7 +6,7 @@
 // it in Node against stubs. The DOM is in signin-ui.js.
 "use strict";
 (function (root) {
-  const SESSION_KEY = "seq.session";   // localStorage: {token, account, expires_ms}: kept for return visits
+  const SESSION_KEY = "seq.session";   // localStorage: {token, account, email, expires_ms}: kept for return visits
   const AFTER_KEY = "seq.after";       // sessionStorage: where the callback goes on (the /activate page and its code)
   const CALLBACK_PATH = "/auth/callback";
   const DEFAULT_SESSION_MINUTES = 60;   // an older seqd does not serve stytch_session_minutes
@@ -83,7 +83,7 @@
     async function exchange(jwt) {
       if (!jwt) throw new Error("Sign-in did not finish: no session came back. Try again.");
       const r = await json("/auth/stytch", { session: jwt });
-      const s = { token: r.token, account: r.account, expires_ms: r.expires_ms };
+      const s = { token: r.token, account: r.account, email: r.email || "", expires_ms: r.expires_ms };
       local.setItem(SESSION_KEY, JSON.stringify(s));
       return { ...s, created: !!r.created, hasCharacters: !!r.has_characters };
     }
@@ -185,7 +185,7 @@
     // session token of it.
     async function link(jwt, credential) {
       const r = await json("/auth/link", { session: jwt, credential: credential.trim() });
-      const s = { token: r.token, account: r.account, expires_ms: r.expires_ms };
+      const s = { token: r.token, account: r.account, email: r.email || "", expires_ms: r.expires_ms };
       local.setItem(SESSION_KEY, JSON.stringify(s));
       return { ...s, created: false, hasCharacters: true };
     }
@@ -300,7 +300,11 @@
     }
   }
 
-  const api = { createAuth, createFlow, callbackPage, activateLoad, activateDecide, plain, SESSION_KEY, AFTER_KEY, CALLBACK_PATH };
+  // who is what the page calls a signed-in player: the confirmed email, else the
+  // account id (an old saved record has no email).
+  function who(s) { return (s && (s.email || s.account)) || ""; }
+
+  const api = { who, createAuth, createFlow, callbackPage, activateLoad, activateDecide, plain, SESSION_KEY, AFTER_KEY, CALLBACK_PATH };
   if (typeof module === "object" && module.exports) module.exports = api;
   else root.SeqAuth = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

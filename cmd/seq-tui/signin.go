@@ -80,13 +80,13 @@ func (s signIn) Login(ctx context.Context) (client.Saved, error) {
 	if err != nil {
 		return client.Saved{}, loginWords(err)
 	}
-	saved := client.Saved{Token: g.Token, Account: g.Account, Saved: s.now().UTC()}
+	saved := client.Saved{Token: g.Token, Account: g.Account, Email: g.Email, Saved: s.now().UTC()}
 	if err := client.SaveSession(path, saved); err != nil {
 		return client.Saved{}, fmt.Errorf("signed in, but the session could not be saved (%v)", err)
 	}
 	who := ""
-	if g.Account != "" {
-		who = " as " + g.Account
+	if name := saved.Who(); name != "" {
+		who = " as " + name
 	}
 	fmt.Fprintf(s.Out, "Signed in%s. Saved to %s\n", who, path)
 	return saved, nil

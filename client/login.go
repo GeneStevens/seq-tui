@@ -40,6 +40,7 @@ type Device struct {
 type Grant struct {
 	Token   string `json:"token"`
 	Account string `json:"account"`
+	Email   string `json:"email,omitempty"`
 }
 
 // DeviceLogin runs the device flow against one server.

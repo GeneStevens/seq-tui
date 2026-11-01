@@ -201,7 +201,7 @@ async function boot() {
   }
   const s = auth.saved();
   if (s) {
-    $("who").textContent = s.account;
+    $("who").textContent = SeqAuth.who(s);
     $("welcome").hidden = false;
     $("play").addEventListener("click", () => startSignedIn(s, true));
     $("signout").addEventListener("click", async () => { await auth.signOut(); $("welcome").hidden = true; $("signin").hidden = false; draw(flow.view); });

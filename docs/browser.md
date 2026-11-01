@@ -23,7 +23,7 @@ Both need Go and Node. `make web` prints each file's size. At the time of writin
 
 - Signs the player in (D119; see "Sign-in" below): Google, an emailed sign-in
   link, or an emailed code. The seqd session it gets is kept in `localStorage`
-  (90 days), so a returning player sees "Welcome back" and one Play button.
+  (90 days), so a returning player sees "Welcome back, <email>" and one Play button.
 - When the server has sign-in off, or under "Other ways to sign in", asks for a
   session token (the one `seq-tui` takes in `SEQ_SESSION_TOKEN`), and
   optionally a character id, or to make a new character. That token is kept in
