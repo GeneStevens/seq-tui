@@ -1,9 +1,9 @@
 ergo.services/ergo v1.999.330 h1:9reLfSUoaAmg1ITcdTGGhJ9UXawQW+xR9yeqHbjsddE=
 ergo.services/ergo v1.999.330/go.mod h1:2WcCdXUIZvCfy9Kkac3Sx6V/tB23Mx3yK6xz77hRfbM=
-github.com/GeneStevens/seq v0.0.0-20261101203701-b7db81c07a2d h1:OauI446LSyP9MA9ac0De3FMon4D5xh/cpKeQH6suUzg=
-github.com/GeneStevens/seq v0.0.0-20261101203701-b7db81c07a2d/go.mod h1:Y8tpZPy0k/+Xwog7ikwDlPMHfJoUX5t2TiGAg2904NI=
-github.com/GeneStevens/seq-world v0.0.0-20261029051029-4db13bcc176f h1:Vz80C2beO1EjIpKXL9EGFUQZlpWDC0OcGvRZDb/CC7c=
-github.com/GeneStevens/seq-world v0.0.0-20261029051029-4db13bcc176f/go.mod h1:Cbo6wvm0tfX3vJgdk/91/LB054WJG0veJ4x/mW3zZPo=
+github.com/GeneStevens/seq v0.0.0-20261101230134-dddcf4068f1e h1:+HkKIQ0VEvY7OmYMxUEMPdRcXBIQ21oHaHOBEV29aUg=
+github.com/GeneStevens/seq v0.0.0-20261101230134-dddcf4068f1e/go.mod h1:Y8tpZPy0k/+Xwog7ikwDlPMHfJoUX5t2TiGAg2904NI=
+github.com/GeneStevens/seq-world v0.0.0-20261101231409-48d938969fdd h1:XhFJpp4DHlr3UvFdcbJhIHAljbdH/Az/EUGxEiX7+s4=
+github.com/GeneStevens/seq-world v0.0.0-20261101231409-48d938969fdd/go.mod h1:BUwEO/Dtl3DCobDFA2OwO36JrUcivRJrLmGsTR+zV1Y=
 github.com/aymanbagabas/go-udiff v0.2.0 h1:TK0fH4MteXUDspT88n8CKzvK0X9O2xu9yQjWpi6yML8=
 github.com/aymanbagabas/go-udiff v0.2.0/go.mod h1:RE4Ex0qsGkTAJoQdQQCA0uG+nAzJO/pI/QwceO5fgrA=
 github.com/charmbracelet/colorprofile v0.4.3 h1:QPa1IWkYI+AOB+fE+mg/5/4HRMZcaXex9t5KX76i20Q=
