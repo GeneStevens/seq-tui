@@ -8,13 +8,13 @@
   const cfg = await auth.config();
   if (!cfg) { $("status").textContent = "Sign-in is not turned on for this server."; $("home").hidden = false; return; }
   const r = await SeqAuth.callbackPage(auth, location.search);
-  if (r.ok) { location.replace(r.to); return; }
+  if (r.ok) { location.replace(SeqAuth.safeAfter(r.to) || "/"); return; }
   const status = $("status");
   status.className = "error";
   status.textContent = r.error;
   $("home").hidden = false;
   if (r.hintCode) { // offer the code right here
-    const flow = SeqAuth.createFlow(auth, cfg, { returnTo: "/", onSignedIn: () => location.replace(auth.takeReturn() || "/") });
+    const flow = SeqAuth.createFlow(auth, cfg, { returnTo: "/", onSignedIn: () => location.replace(SeqAuth.safeAfter(auth.takeReturn()) || "/") });
     $("signin").hidden = false;
     const draw = SeqSignInUI.mount($("signin"), flow);
     flow.onView = draw;

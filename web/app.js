@@ -186,15 +186,23 @@ async function boot() {
   if (!cfg) { $("loginform").hidden = false; return; }
   $("other").addEventListener("click", (e) => { e.preventDefault(); $("loginform").hidden = !$("loginform").hidden; });
   $("otherlink").hidden = false;
-  const flow = SeqAuth.createFlow(auth, cfg, { offerLink: true, returnTo: "/", onSignedIn: (s) => startSignedIn(s, false) });
+  // /?after=<path> (a same-origin path, else ignored) is where sign-in goes on to,
+  // e.g. the graphical client at /play/. Without one a stale kept path is dropped.
+  const after = SeqAuth.safeAfter(new URLSearchParams(location.search).get("after"));
+  const comingBack = new URLSearchParams(location.search).has("stytch_token_type");
+  if (!comingBack && !after) sessionStorage.removeItem(SeqAuth.AFTER_KEY);
+  const signedIn = (s) => { if (after) { sessionStorage.removeItem(SeqAuth.AFTER_KEY); return location.replace(after); } startSignedIn(s, false); };
+  const flow = SeqAuth.createFlow(auth, cfg, { offerLink: true, returnTo: after || "/", onSignedIn: signedIn });
+  if (after && auth.saved()) { sessionStorage.removeItem(SeqAuth.AFTER_KEY); return location.replace(after); }
   const draw = SeqSignInUI.mount($("signin"), flow);
   flow.onView = draw;
   const back = () => { $("welcome").hidden = true; $("signin").hidden = false; draw(flow.view); };
-  if (new URLSearchParams(location.search).has("stytch_token_type")) {
+  if (comingBack) {
     $("signin").hidden = false;
     try {
       const s = await auth.completeCallback(location.search);
-      if (s && s.returnTo && s.returnTo !== "/") return location.replace(s.returnTo); // e.g. /activate?code=…
+      const to = s && SeqAuth.safeAfter(s.returnTo);
+      if (to && to !== "/") return location.replace(to); // e.g. /activate?code=… or /play/
       if (s) return startSignedIn(s, false);
     }
     catch (e) { history.replaceState(null, "", location.pathname); flow.view = { screen: "choose", google: !!cfg.google, emailOtp: cfg.email_otp !== false, error: e.message }; draw(flow.view); return; }

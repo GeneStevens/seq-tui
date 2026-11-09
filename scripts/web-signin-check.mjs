@@ -211,6 +211,48 @@ await flowCase("activate: not signed in, approve, deny, bad code", async () => {
   ok(v.screen === "error" && /wrong/.test(v.error), "a wrong code says so");
 });
 
+// ---- /?after=: the main page returns the player to where they came from
+await flowCase("after: accepted and refused values", async () => {
+  const long = "/" + "a".repeat(199);
+  const table = [
+    ["/play/", "/play/"], ["/play/?x=1#y", "/play/?x=1#y"], ["/", "/"], ["/activate?code=ABCD-EFGH", "/activate?code=ABCD-EFGH"], [long.slice(0, 200), long.slice(0, 200)],
+    [long + "a", ""], ["//evil.example", ""], ["//", ""], ["https://evil.example/", ""], ["javascript:alert(1)", ""], ["play/", ""], ["", ""],
+    ["/\\evil.example", ""], ["/a\\b", ""], ["/a\nb", ""], ["/a\tb", ""], ["/a\u0000b", ""], ["/a\u007fb", ""], [null, ""], [undefined, ""], [42, ""],
+  ];
+  for (const [v, want] of table) eq(SeqAuth.safeAfter(v), want, "safeAfter(" + JSON.stringify(v) + ")");
+});
+
+await flowCase("after: kept through google and the callback; /activate wins; default unchanged", async () => {
+  const w = world(); const auth = w.auth(); await auth.config();
+  const flow = SeqAuth.createFlow(auth, CFG, { returnTo: "/play/", onSignedIn() {} });
+  await flow.act("google");
+  eq(w.session.getItem(SeqAuth.AFTER_KEY), "/play/", "after kept when Google starts");
+  let r = await SeqAuth.callbackPage(auth, "?stytch_token_type=oauth&token=t");
+  eq([r.ok, r.to], [true, "/play/"], "the callback goes to the kept path");
+  const link = world({ callbackServed: true }); const la = link.auth(); await la.config();
+  await SeqAuth.createFlow(la, CFG, { returnTo: "/play/", onSignedIn() {} }).act("link", { email: "a@b.c" });
+  r = await SeqAuth.callbackPage(la, "?stytch_token_type=magic_links&token=t");
+  eq(r.to, "/play/", "the emailed link too");
+  // a stale /play/ never beats /activate's own return, which overwrites it
+  w.session.setItem(SeqAuth.AFTER_KEY, "/play/");
+  await auth.emailLink("a@b.c", "/activate?code=ABCD-EFGH");
+  r = await SeqAuth.callbackPage(auth, "?stytch_token_type=magic_links&token=t");
+  eq(r.to, "/activate?code=ABCD-EFGH", "/activate takes precedence");
+  // no after: today's behaviour
+  const d = world(); const da = d.auth(); await da.config();
+  await SeqAuth.createFlow(da, CFG, { returnTo: "/", onSignedIn() {} }).act("google");
+  eq((await SeqAuth.callbackPage(da, "?stytch_token_type=oauth&token=t")).to, "/", "no after: back to the root");
+});
+
+// ---- the main page's own wiring (app.js), checked in source
+await flowCase("after: the main page wires it", async () => {
+  const app = readFileSync(path.join(root, "web", "app.js"), "utf8");
+  ok(/safeAfter\(new URLSearchParams\(location\.search\)\.get\("after"\)\)/.test(app), "app.js reads and validates ?after=");
+  ok(/returnTo: after \|\| "\/"/.test(app), "the flow returns to after, else /");
+  ok(/if \(after && auth\.saved\(\)\) \{[^}]*location\.replace\(after\)/.test(app), "already signed in: straight to after");
+  ok(/removeItem\(SeqAuth\.AFTER_KEY\)/.test(app), "a stale kept path is dropped");
+});
+
 // ---- drawing
 await flowCase("render", async () => {
   ok(!/Google/.test(UI.render({ screen: "choose", google: false, emailOtp: true, email: "" })), "no Google button when off");
