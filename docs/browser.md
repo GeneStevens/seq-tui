@@ -118,6 +118,13 @@ stubs), `signin-ui.js` (the panel) and Stytch's headless JavaScript SDK.
   player to sign in if the browser has no Stytch session, then shows "Approve
   sign-in for seq-tui on this device? Code …, account …" with Approve and Deny.
   Behind seqd's `-web-dir` it is served from `activate/index.html`.
+- **`/?after=<path>`** (D167.5) makes the main page's sign-in return the player to
+  the page they came from, e.g. the graphical client at `/play/`. Only a same-origin
+  path counts: one leading `/`, not `//`, no scheme, backslash or control
+  character, at most 200 characters; anything else is ignored and `/` applies. The
+  path is kept in `sessionStorage["seq.after"]` through Google and the emailed
+  link or code, and a visitor with a saved session goes straight to it. `/activate`
+  keeps its own return, which takes precedence.
 - **Checks.** `scripts/web-signin-check.mjs` (part of `make web-check`, so of
   `make verify`) runs the flow against a stubbed `/auth/*` and a stubbed SDK:
   Google, link, code, linking, saved sessions and their expiry, sign-out, the

@@ -304,7 +304,17 @@
   // account id (an old saved record has no email).
   function who(s) { return (s && (s.email || s.account)) || ""; }
 
-  const api = { who, createAuth, createFlow, callbackPage, activateLoad, activateDecide, plain, SESSION_KEY, AFTER_KEY, CALLBACK_PATH };
+  // safeAfter is the return path /?after= may carry: a same-origin path (one
+  // leading "/", not "//", no scheme, backslash or control character, at most 200
+  // characters), else "" (ignored, the default "/" applies).
+  function safeAfter(v) {
+    if (typeof v !== "string" || v.length > 200 || v[0] !== "/" || v[1] === "/") return "";
+    if (/[\\\u0000-\u001f\u007f]/.test(v)) return "";
+    if (/^\/[^?#]*:/.test(v) && /^\/+[a-z][a-z0-9+.-]*:/i.test(v)) return "";
+    return v;
+  }
+
+  const api = { safeAfter, who, createAuth, createFlow, callbackPage, activateLoad, activateDecide, plain, SESSION_KEY, AFTER_KEY, CALLBACK_PATH };
   if (typeof module === "object" && module.exports) module.exports = api;
   else root.SeqAuth = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);
