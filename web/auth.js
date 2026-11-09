@@ -310,7 +310,6 @@
   function safeAfter(v) {
     if (typeof v !== "string" || v.length > 200 || v[0] !== "/" || v[1] === "/") return "";
     if (/[\\\u0000-\u001f\u007f]/.test(v)) return "";
-    if (/^\/[^?#]*:/.test(v) && /^\/+[a-z][a-z0-9+.-]*:/i.test(v)) return "";
     return v;
   }
 
