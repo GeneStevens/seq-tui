@@ -28,7 +28,7 @@
 │                                                                                                ││ T Druid Trainer                106m NW │
 │                                                                                                ││ +9 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat •3  Party ────────────────────────────── [say] Testgrounds Captain: Tell the Eastern Binder it is done. ─┐
 │ + 16:04:03.2 Quest chain offered: The Old Relic. First: Watch from the Hollow Lookout. It is optional; /dismiss gives it up for good.    │
 │ + 16:04:03.2 The Old Relic: step 1 done. Next: Bring 2 old relics to the Testgrounds Captain.                                            │
 │   16:04:03.2 Placeholder Warden is out of view                                                                                           │
