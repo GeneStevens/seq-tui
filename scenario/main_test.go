@@ -8,6 +8,6 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	_ = flag.Set("test.run", "TestWizard|TestCast|TestWarrior|TestLevelUp|TestTurnBased|TestCreation|TestCompanion|TestSecondCharacter")
+	_ = flag.Set("test.skip", "TestWizard|TestCast|TestWarrior|TestLevelUp|TestTurnBased|TestCreation|TestCompanion|TestSecondCharacter")
 	scenario.Main(m)
 } // DEBUGTMP
