@@ -45,7 +45,6 @@ var Bindings = []Binding{
 	{Keys: []string{"r"}, Show: "R", What: "when you are dead: give up your body and respawn; alive: answer the last tell", Group: "Fighting"},
 	{Keys: []string{"g"}, Show: "G", What: "talk to the nearest person", Group: "People and things"},
 	{Keys: []string{"l"}, Show: "L", What: "loot everything within reach that you may take", Group: "People and things"},
-	{Keys: []string{"L"}, Show: "Shift+L", What: "look: what the person or mob nearest you (or the large map's cursor) wears and holds, on the map's card; Esc closes it", Group: "People and things"},
 	{Keys: []string{"k"}, Show: "K", What: "contracts you hold (X gives one up)", Group: "People and things"},
 	{Keys: []string{"ctrl+k"}, Show: "Ctrl+K", What: "your quest chain: its step; X dismisses it for good", Group: "People and things"},
 	{Keys: []string{"n"}, Show: "N", What: "traders: buy, sell, train, bind, bank, sail", Group: "People and things"},
@@ -351,6 +350,7 @@ func keyLines(m *model.Model, v View, w int) []string {
 	out = append(out, "", "Map and log")
 	out = append(out, keyTable([][2]string{
 		{"Legend", "on its own page (? turns the page)"},
+		{"Shift+L", "look: what the person or mob nearest you (or the large map's cursor) wears and holds; Esc closes the card"},
 		{"! in the log", "a refusal, a cast that did not land, a walk a fight stopped"},
 		{"< x + *", "a hit on you; a kill; a reward, level or quest step; a world event"},
 	}, w)...)
