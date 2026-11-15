@@ -9,6 +9,7 @@ import (
 	"sort"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
+	"google.golang.org/protobuf/proto"
 )
 
 // Default bounds of the event log, the intent list and the error list.
@@ -524,8 +525,8 @@ func (m *Model) applyEventAt(e *pb.Event, n uint64) {
 func (m *Model) apply(e *pb.Event) {
 	m.GameTimeMs = max(m.GameTimeMs, e.GetGameTimeMs())
 	m.noteDescribed(e)
-	m.noteUse(e)                               // before the log line, which names the item with its tier
-	if !m.repeatsRound(e) && !questLedger(e) { // the server says the open round again after a snapshot: once in the log is enough
+	m.noteUse(e)                                                           // before the log line, which names the item with its tier
+	if !m.repeatsRound(e) && !questLedger(e) && e.GetEntityHeld() == nil { // the server says the open round again after a snapshot: once in the log is enough
 		m.logEvent(e)
 	}
 	m.noteWalkStop(e)
@@ -558,6 +559,12 @@ func (m *Model) apply(e *pb.Event) {
 			if m.Self.HasDestination && m.Self.Destination.GetX() == mv.GetPos().GetX() && m.Self.Destination.GetY() == mv.GetPos().GetY() {
 				m.Self.HasDestination = false
 			}
+		}
+	case *pb.Event_EntityHeld:
+		// What a figure holds or wears changed (D197): kept for its Target panel and
+		// look; it is routine, and goes to no log.
+		if en := m.entity(b.EntityHeld.GetId()); en != nil {
+			en.Held, en.VisibleGear = cloneHeld(b.EntityHeld.GetHeld()), cloneGear(b.EntityHeld.GetVisibleGear())
 		}
 	case *pb.Event_EntityLeft:
 		id := b.EntityLeft.GetId()
@@ -756,7 +763,25 @@ func clonePos(p *pb.Pos) *pb.Pos { return &pb.Pos{X: p.GetX(), Y: p.GetY(), Z: p
 
 func cloneEntity(e *pb.EntityState) *pb.EntityState {
 	return &pb.EntityState{Id: e.GetId(), Kind: e.GetKind(), Name: e.GetName(), Pos: clonePos(e.GetPos()),
-		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare(), Owner: e.GetOwner(), Target: e.GetTarget(), Con: e.GetCon()}
+		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare(), Owner: e.GetOwner(), Target: e.GetTarget(), Con: e.GetCon(),
+		Class: e.GetClass(), Appearance: e.GetAppearance(), Held: cloneHeld(e.GetHeld()), VisibleGear: cloneGear(e.GetVisibleGear())}
+}
+
+// cloneHeld and cloneGear copy what a figure holds and wears. A nil stays nil: an
+// older server sends no look, and "plain clothes" is said only of an empty block
+// that is present.
+func cloneHeld(h *pb.HeldForms) *pb.HeldForms {
+	if h == nil {
+		return nil
+	}
+	return proto.Clone(h).(*pb.HeldForms)
+}
+
+func cloneGear(g *pb.VisibleGear) *pb.VisibleGear {
+	if g == nil {
+		return nil
+	}
+	return proto.Clone(g).(*pb.VisibleGear)
 }
 
 func cloneCompanion(c *pb.CompanionState) *pb.CompanionState {
