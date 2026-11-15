@@ -15,13 +15,13 @@
 │                                    ░                                             #             ││ M Plain Scuttler  Lv 1                 │
 │                                    ░                                             #             ││ HP 400/400 #################### 13m E  │
 │                                    ░                                             #             ││ even, fighting you                     │
+│                                    ░                                             #             ││ Wears: a chitinous shell and snapping …│
 │                                    ░                                             #             │└────────────────────────────────────────┘
 │                                    ░                                             #             │┌─ Nearby ───────────────────────────────┐
 │                                    ░                                             #             ││ & Testgrounds Contract B… 11m NE [new] │
 │                                    ░                                             #             ││ ! Testgrounds Recruiter   13m NE [new] │
 │                                    ░                                             #             ││ $ Testgrounds Vendor              8m N │
-│                                    ░                                             #             ││ B Testgrounds Banker             9m NE │
-│                                    ░                                             #             ││ +16 more                               │
+│                                    ░                                             #             ││ +17 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Flame Dart 6mp ready             2 Frost Bolt 12mp ready           3 Root 10mp ready                 4 -                               │

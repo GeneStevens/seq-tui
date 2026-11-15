@@ -15,6 +15,7 @@
 │                            ░                                                       #           ││ M Plain Scuttler  Lv 1                 │
 │                            ░                   @  M           c                    #           ││ HP 23/40 #############---------- 2m E  │
 │                            ░                                                       #           ││ even, fighting you                     │
+│                            ░                                                       #           ││ Wears: a chitinous shell and snapping …│
 │                            ░                                                       #           │└────────────────────────────────────────┘
 │                            ░                                                       #           │┌─ Nearby ───────────────────────────────┐
 │                            ░                                                       #           ││ & Testgrounds Contract Bo… 9m NE [new] │
@@ -25,8 +26,7 @@
 │                            ░                                                       #           ││ $ Testgrounds Vendor              8m N │
 │                            ░                                                       #           ││ Q Testgrounds Captain <Quest G… 10m NE │
 │                            ░                                                       #           ││ T Cleric Trainer                 12m N │
-│                            ░                                                       #           ││ T Rogue Trainer                  12m N │
-│                            ░                                                       #           ││ +11 more                               │
+│                            ░                                                       #           ││ +12 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │   16:04:03.2 You target Plain Scuttler                                                                                                   │
