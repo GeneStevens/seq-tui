@@ -171,6 +171,8 @@ func Plan(key string, m *model.Model) Action {
 		return Action{Kind: AutoRetaliate, On: !m.Self.AutoRetaliate}
 	case "l":
 		return lootAllAction(m)
+	case "L":
+		return lookAction(m, nil)
 	case "e", "enter":
 		if id := nearestDoor(m); id != "" {
 			return Action{Kind: UseDoor, ID: id}
@@ -394,4 +396,13 @@ func nearestFigure(m *model.Model, at *pb.Pos) string {
 		try(id, m.Group[id].Entity)
 	}
 	return best
+}
+
+// lookAction is the key L (D197.10): the look card of the figure nearest at
+// (the character, when at is nil).
+func lookAction(m *model.Model, at *pb.Pos) Action {
+	if id := nearestFigure(m, at); id != "" {
+		return Action{Kind: Look, ID: id}
+	}
+	return Action{Note: "no one in view to look at"}
 }

@@ -430,11 +430,7 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		case k == "esc" && a.mouse.card != "":
 			act = Action{Kind: CloseCard}
 		case k == "L":
-			if id := nearestFigure(m, a.mouse.cursor); id != "" {
-				act = Action{Kind: Look, ID: id}
-			} else {
-				act = Action{Note: "no one in view to look at"}
-			}
+			act = lookAction(m, a.mouse.cursor)
 		case m.Social.Invite != nil && (k == "y" || k == "n"):
 			act = Action{Kind: SocialDo, ID: map[bool]string{true: "accept", false: "decline"}[k == "y"], Note: m.Social.Invite.From}
 		case k == "x":
