@@ -3,7 +3,7 @@
 │                    ░    TTTTTT       #           ││ HP 114/120 ############- │
 │                    ░    $BH&Q!       #           ││ XP ----------- 40 to Lv 2│
 │                    ░                 #           ││ Atk ON Ret ON | Plain Sc…│
-│                    ░    @M    c      #      c    ││ Attacked by Plain Scuttl…│
+│                    ░    @     c      #      c    ││ Attacked by Plain Scuttl…│
 │                    ░                 #           │└──────────────────────────┘
 │                    ░                 #           │┌─ Quest ──────────────────┐
 │                    ░                 #           ││ [ ] 1. Scout the Lookout │

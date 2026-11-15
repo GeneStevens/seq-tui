@@ -10,18 +10,18 @@
 │                                        ░                        !                    #         ││ [ ] 1. Scout the Lookout               │
 │                                        ░                                             #         ││ Testgrounds Recruiter has work for you:│
 │                                        ░                                             #         ││ G.                                     │
-│                                        ░       @  M                 c                #         │└────────────────────────────────────────┘
+│                                        ░       @ M                  c                #         │└────────────────────────────────────────┘
 │                                        ░                                             #         │┌─ Target ───────────────────────────────┐
 │                                        ░                                             #         ││ M Plain Scuttler  Lv 1                 │
 │                                        ░                                             #         ││ HP 339/400 #################---- 2m E  │
 │                                        ░                                             #         ││ even, fighting you                     │
+│                                        ░                                             #         ││ Wears: a chitinous shell and snapping …│
 │                                        ░                                             #         │└────────────────────────────────────────┘
 │                                        ░                                             #         │┌─ Nearby ───────────────────────────────┐
 │                                        ░                                             #         ││ & Testgrounds Contract B… 14m NE [new] │
 │                                        ░                                             #         ││ ! Testgrounds Recruiter    16m E [new] │
 │                                        ░                                             #         ││ M Plain Scuttler     2m E 339/400 even │
-│                                        ░                                             #         ││ $ Testgrounds Vendor             9m NE │
-│                                        ░                                             #         ││ +16 more                               │
+│                                        ░                                             #         ││ +17 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Flame Dart 6mp ready             2 Frost Bolt 12mp ready           3 -                               4 -                               │
