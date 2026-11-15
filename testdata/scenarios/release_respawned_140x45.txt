@@ -14,9 +14,9 @@
 │                                  ░                                                       #     ││ no target (Tab to choose)              │
 │                                  ░                                                       #     ││                                        │
 │                                  ░             @                    c                    #     ││                                        │
-│                                  ░                                      m                #     │└────────────────────────────────────────┘
+│                                  ░                                                       #     │└────────────────────────────────────────┘
 │                                  ░                                                       #     │┌─ Nearby ───────────────────────────────┐
-│                                  ░                                                       #     ││ & Testgrounds Contract B… 11m NE [new] │
+│                                  ░                                 m                     #     ││ & Testgrounds Contract B… 11m NE [new] │
 │                                  ░                                                       #     ││ ! Testgrounds Recruiter   13m NE [new] │
 │                                  ░                                                       #     ││ $ Testgrounds Vendor              8m N │
 │                                  ░                                                       #     ││ B Testgrounds Banker             9m NE │

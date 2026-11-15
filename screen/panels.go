@@ -65,10 +65,13 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	// The Target panel gives up its last line (the fight) when one row is short.
 	target := left >= targetRows-1
 	targetH := min(targetRows, left)
+	if target && targetH == targetRows && left >= targetRows+1+5 && targetWears(m) != "" {
+		targetH++ // a row more for "Wears:", while Nearby keeps 5 rows
+	}
 	if target {
 		left -= targetH
 	}
-	if turn && target && targetH == targetRows && left > 5 {
+	if turn && target && targetH >= targetRows && left > 5 {
 		more := min(left-5, 4) // a longer plan list, while Nearby keeps 5 rows
 		round += more
 		left -= more
@@ -87,7 +90,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		round += left
 	case inst > 0:
 		inst += left
-	case target && targetH == targetRows:
+	case target && targetH >= targetRows:
 		targetH += left
 	}
 	if inst > 0 {
@@ -396,12 +399,27 @@ func pad(rows []string, w, h int) []string {
 	return rows
 }
 
-func targetLines(m *model.Model, w int, st Styler) []string {
+// targetEntity is the figure the character has targeted, or nil.
+func targetEntity(m *model.Model) *pb.EntityState {
 	id := m.Self.Target
 	e := m.Entities[id]
 	if id != "" && e == nil && m.Group[id] != nil {
 		e = m.Group[id].Entity
 	}
+	return e
+}
+
+// targetWears is the target's "Wears: …" line, "" when it has none.
+func targetWears(m *model.Model) string {
+	if e := targetEntity(m); e != nil {
+		return WearsLine(e)
+	}
+	return ""
+}
+
+func targetLines(m *model.Model, w int, st Styler) []string {
+	id := m.Self.Target
+	e := targetEntity(m)
 	if e == nil {
 		return pad([]string{fit(" no target (Tab to choose)", w)}, w, targetRows-2)
 	}
@@ -430,11 +448,15 @@ func targetLines(m *model.Model, w int, st Styler) []string {
 			fight = "in a fight with " + who
 		}
 	}
-	return []string{
+	out := []string{
 		st.Bold(fit(fmt.Sprintf(" %c %s  Lv %d%s", g, e.GetName(), e.GetLevel(), rareTag(e)), w)),
 		fit(" "+state+bar(e.GetHp(), e.GetMaxHp(), max(w-width(state)-width(right)-4, 0))+" "+right, w),
 		fit(" "+bandWord(e)+fight, w),
 	}
+	if wears := WearsLine(e); wears != "" {
+		out = append(out, fit(" "+wears, w))
+	}
+	return out
 }
 
 // bandWord is the mob's difficulty band for the Target panel, in words so that

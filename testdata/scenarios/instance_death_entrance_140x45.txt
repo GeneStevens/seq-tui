@@ -1,45 +1,45 @@
-┌─ Testgrounds (Solo Trial), at 100,90 m, north up ──────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+┌─ Testgrounds (Solo Trial), at 100,90 m, north up ──────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
 │                                                                                                ││ aria  Lv 1  XP 0             | 0 crowns│
 │                                                                                                ││ HP 6/6 ############################### │
-│                                                                                                ││ Target: none                           │
-│                                                                                                ││ Auto-attack: off                       │
+│                                                                                                ││ Target: Plain Scuttler                 │
+│                                                                                                ││ Auto-attack: ON                        │
 │                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                                                                                ││ Attacked by Plain Scuttler             │
 │                                                                                                │└────────────────────────────────────────┘
-│                                                                                                │┌─ Instance ─────────────────────────────┐
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Solo Trial                             │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│┌─ Instance ─────────────────────────────┐
+│                                                                                                ││ Solo Trial                             │
 │                                                                                                ││ real-time | inside                     │
 │                                                                                                ││ party up to 1 | normal                 │
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Target ───────────────────────────────┐
-│                                                                                                ││ no target (Tab to choose)              │
-│                                                                                                ││                                        │
-│                                                @                                               ││                                        │
+│                                                                                                ││ M Plain Scuttler  Lv 1                 │
+│                                                @                                               ││ HP 40/40 ###################### 12m S  │
+│                                                                                                ││ even, fighting you                     │
+│                                                                                                ││ Wears: a chitinous shell and snapping …│
 │                                                                                                │└────────────────────────────────────────┘
 │                                                                                                │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ D Gate North                   0m here │
-│                                                                                                ││ m Plain Scuttler      18m S 40/40 even │
+│                                                                                                ││ M Plain Scuttler      12m S 40/40 even │
+│                                                                                                ││                                        │
+│                                                  M                                             ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
 │                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                                                                ││                                        │
-│                                                    m                                           ││                                        │
 │                                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
-│   16:04:03.2 You miss Plain Scuttler                                                                                                     │
-│ < 16:04:03.2 Plain Scuttler hits you for 3                                                                                               │
-│ x 16:04:03.2 Plain Scuttler killed you                                                                                                   │
-│   16:04:03.2 Your target is gone                                                                                                         │
-│   16:04:03.2 Your target Plain Scuttler is gone                                                                                          │
-│   16:04:03.2 You stop attacking                                                                                                          │
 │   16:04:03.2 Everyone in the fight with Plain Scuttler has fallen                                                                        │
 │   16:04:03.2 You are out of combat                                                                                                       │
 │   16:04:03.2 You release your body and will return in 5 seconds                                                                          │
 │   16:04:03.2 Plain Scuttler reset to 40 hp                                                                                               │
 │   16:04:03.2 You return to life in Testgrounds (Solo Trial)                                                                              │
+│   16:04:03.2 Plain Scuttler targeted aria                                                                                                │
+│   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │
+│   16:04:03.2 You target Plain Scuttler                                                                                                   │
+│   16:04:03.2 You start attacking Plain Scuttler                                                                                          │
+│   16:04:03.2 Plain Scuttler (level 1, even) is attacking you                                                                             │
+│   16:04:03.2 You are in combat with Plain Scuttler                                                                                       │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
- E: enter Gate North  ·  Tab: target · F: attack                                                                                            
+ E: enter Gate North  ·  Too far: 12 m. Option-click the target to close in · F: stop attacking                                             
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | release ok                                                              ? help  q quit

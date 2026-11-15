@@ -296,14 +296,15 @@ func TestClickingLootTakesAllOfIt(t *testing.T) {
 	}
 	p.Click(x, y)
 	p.Model(func(m *model.Model) {
-		if len(m.Drops) != 0 || len(m.Self.Inventory) != 2 {
-			t.Errorf("one click on loot should take all of it: %d drops left, bags %v", len(m.Drops), m.Self.Inventory)
+		// The coin is not looted: it lands, sits and is collected by walking near (D192).
+		if len(m.Drops) != 1 || m.Drops[m.DropIDs()[0]].GetItem() != "" || len(m.Self.Inventory) != 2 {
+			t.Errorf("one click on loot should take all the items: %d drops left, bags %v", len(m.Drops), m.Self.Inventory)
 		}
 		n := 0
 		for _, e := range m.Log {
 			if e.Kind == "reward" && strings.HasPrefix(e.Text, "You took ") {
 				n++
-				for _, want := range []string{"Worn Cap", "Scuttler Blade", "5 crowns"} {
+				for _, want := range []string{"Worn Cap", "Scuttler Blade"} {
 					if !strings.Contains(e.Text, want) {
 						t.Errorf("the loot-all line %q lacks %q", e.Text, want)
 					}

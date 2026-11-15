@@ -23,6 +23,7 @@ type mouseState struct {
 	zoom    int  // the map's zoom
 	bigZoom int  // the large map's zoom
 	card    string
+	look    string                             // the id whose card shows its full look (L); the card of any other id is the usual one
 	sel     *selection                         // the mob, person or drop last clicked: W walks to it (D109)
 	spot    *pb.Pos                            // the ground last clicked: W walks there when nothing is selected
 	hinted  bool                               // the "Option-click to walk" hint has been shown this session
@@ -47,6 +48,7 @@ func (a *App) mouseView(v *screen.View) {
 	v.Hits, v.Hover, v.Labels = &ms.hits, ms.hover, ms.alt || ms.labels
 	v.Back = &ms.scroll
 	v.Zoom, v.BigZoom, v.Card, v.Cursor, v.Side = ms.zoom, ms.bigZoom, ms.card, ms.cursor, a.activeSide()
+	v.CardLook = ms.card != "" && ms.card == ms.look
 }
 
 // refresh makes sure the geometry of what is on the screen is as the screen is

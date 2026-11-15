@@ -29,7 +29,7 @@
 │ Up / Down choose · X gives the contract up (anywhere) · hand a finished one in at its board    ││ Q Ambrose Fenwick <Master of th… 6m SW │
 │ Esc closes                                                                                     ││ +17 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat •7  Party ──────────────── [say] Thornwick Contract Board: You're carrying as many contracts as you can ─┐
 │                trainers keep their halls along Trainers' Lane, one for every craft. The contract board stands here in the square, and the│
 │                east gate leads out to the Downs. Captain Hartley is in the watch-house, if you want the Watch's work.                    │
 │ + 16:04:03.2 First Steps: step 1 done. Next: Speak to your class trainer on Trainers' Lane, by the north wall (warriors at the west end, │

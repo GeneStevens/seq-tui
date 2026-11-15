@@ -61,7 +61,7 @@ func TestAMobInViewShowsItsDifficultyBand(t *testing.T) {
 
 // A goblin flees once it is hurt, and the log says so, then says it turns back.
 func TestAGoblinFleesAndTurnsBackInTheLog(t *testing.T) {
-	w, p, id := d70Hero(t, 8, "goblin-scrappers-a", 9000, heavy)
+	w, p, id := d70Hero(t, 8, "goblin-scrappers-a", 3000, heavy)
 	p.Press("tab", "f")
 	var fled, back bool
 	for range 60 {

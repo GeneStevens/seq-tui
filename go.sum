@@ -1,7 +1,11 @@
+ergo.services/application/observer v0.3.1 h1:xEXqFjw11x6umeBd+2s9rGrn/s7Uo/hJG4oXypTnyqw=
+ergo.services/application/observer v0.3.1/go.mod h1:SV9VqcCskfy3sxU3jvCqfu7pe4ThgYRXFuZ56C3Yct0=
 ergo.services/ergo v1.999.330 h1:9reLfSUoaAmg1ITcdTGGhJ9UXawQW+xR9yeqHbjsddE=
 ergo.services/ergo v1.999.330/go.mod h1:2WcCdXUIZvCfy9Kkac3Sx6V/tB23Mx3yK6xz77hRfbM=
-github.com/GeneStevens/seq v0.0.0-20261101230134-dddcf4068f1e h1:+HkKIQ0VEvY7OmYMxUEMPdRcXBIQ21oHaHOBEV29aUg=
-github.com/GeneStevens/seq v0.0.0-20261101230134-dddcf4068f1e/go.mod h1:Y8tpZPy0k/+Xwog7ikwDlPMHfJoUX5t2TiGAg2904NI=
+ergo.services/meta/sse v0.3.1 h1:k6JXMUqI+piRW4qhAhoY7yYumRdfw3sqw8hpBElTkSE=
+ergo.services/meta/sse v0.3.1/go.mod h1:I8m5eokhSEZLq6Q16R3zTq/d2ydim2G/xx5FNPPfTn8=
+github.com/GeneStevens/seq v0.0.0-20261115075024-cf858ace07d7 h1:/SoWU1Ti8NJDrJbKowBCvTh451olvdhRgwEj6JWDrIU=
+github.com/GeneStevens/seq v0.0.0-20261115075024-cf858ace07d7/go.mod h1:ej3HLpstuWqO5Al5if9dcyeGRTX6E4E4VovMm+/bQKw=
 github.com/GeneStevens/seq-world v0.0.0-20261101231409-48d938969fdd h1:XhFJpp4DHlr3UvFdcbJhIHAljbdH/Az/EUGxEiX7+s4=
 github.com/GeneStevens/seq-world v0.0.0-20261101231409-48d938969fdd/go.mod h1:BUwEO/Dtl3DCobDFA2OwO36JrUcivRJrLmGsTR+zV1Y=
 github.com/aymanbagabas/go-udiff v0.2.0 h1:TK0fH4MteXUDspT88n8CKzvK0X9O2xu9yQjWpi6yML8=

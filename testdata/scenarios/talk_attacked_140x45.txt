@@ -29,7 +29,7 @@
 │ 1-9 or Up / Down choose · Enter does it · Esc closes · G talks again                           ││                                        │
 │ talk to Testgrounds Vendor ok                                                                  ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat •2  Party ───────── [say] Testgrounds Vendor: I buy what you carry, for a quarter of what I sell it at. ─┐
 │   16:04:03.2 Testgrounds Vendor says: Fresh stock, fair prices. I buy what you carry, for a quarter of what I sell it at.                │
 │   16:04:03.2 Plain Scuttler targeted aria                                                                                                │
 │   16:04:03.2 You begin fighting Plain Scuttler                                                                                           │

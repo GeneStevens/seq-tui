@@ -429,7 +429,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = Action{Kind: Stop} // Esc ends an approach first
 		case k == "esc" && a.mouse.card != "":
 			act = Action{Kind: CloseCard}
-
+		case k == "L":
+			act = lookAction(m, a.mouse.cursor)
 		case m.Social.Invite != nil && (k == "y" || k == "n"):
 			act = Action{Kind: SocialDo, ID: map[bool]string{true: "accept", false: "decline"}[k == "y"], Note: m.Social.Invite.From}
 		case k == "x":
@@ -484,6 +485,8 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 		a.view.Notice = map[bool]string{true: "labels on: everything on the map is named (Ctrl+A turns them off)", false: "labels off"}[a.mouse.labels]
 	case CloseCard:
 		a.mouse.card = ""
+	case Look:
+		a.mouse.card, a.mouse.look = act.ID, act.ID
 	case MoveCursor:
 		a.moveCursor(act.Note)
 	case SelectSide:

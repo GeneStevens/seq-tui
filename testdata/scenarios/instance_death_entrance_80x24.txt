@@ -1,24 +1,24 @@
-┌─ Testgrounds (Solo Trial), at 100,90 m, north … ─┐┌─ You ────────────────────┐
+┌─ Testgrounds (Solo Trial), at 100,90 m, north … ─┐┌─ You: in combat ─────────┐
 │                                                  ││ aria  Lv 1  XP 0    | 0cr│
 │                                                  ││ HP 6/6 ################# │
-│                                                  ││ Target: none             │
-│                                                  ││ Atk off | Retaliate ON   │
-│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
+│                                                  ││ Target: Plain Scuttler   │
+│                                                  ││ Atk ON | Retaliate ON    │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ Attacked by Plain Scuttl…│
+│                                                  │└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
-│                                                  ││ Solo Trial               │
-│                         @                        ││ real-time | inside       │
+│                         @                        ││ Solo Trial               │
+│                                                  ││ real-time | inside       │
 │                                                  ││ party up to 1 | normal   │
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
-│                                                  ││ no target (Tab to choose)│
-│                                                  ││                          │
-│                                                  ││                          │
+│                          M                       ││ M Plain Scuttler  Lv 1   │
+│                                                  ││ HP 40/40 ######## 12m S  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│   16:04:03.2 You are out of combat                                           │
-│   16:04:03.2 You release your body and will return in 5 seconds              │
-│   16:04:03.2 Plain Scuttler reset to 40 hp                                   │
-│   16:04:03.2 You return to life in Testgrounds (Solo Trial)                  │
+│   16:04:03.2 You target Plain Scuttler                                       │
+│   16:04:03.2 You start attacking Plain Scuttler                              │
+│   16:04:03.2 Plain Scuttler (level 1, even) is attacking you                 │
+│   16:04:03.2 You are in combat with Plain Scuttler                           │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
- E: enter Gate North  ·  Tab: target · F: attack                                
+ E: enter Gate North  ·  Too far: 12 m. Option-click the target to close in · F…
  ONLINE | Testgrounds (Solo Trial) | heard N.Ns ago | release ok  ? help  q quit

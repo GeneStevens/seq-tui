@@ -9,8 +9,8 @@
 │                         @                        ││ Duo Turns                │
 │                                                  ││ turn-based | inside      │
 │                                                  │└──────────────────────────┘
-│                         p                        │┌─ Round 2, 6 s left ──────┐
-│                         M                        ││ 0 of 1 submitted         │
+│                         M                        │┌─ Round 2, 6 s left ──────┐
+│                                                  ││ 0 of 1 submitted         │
 │                                                  ││ Plan: empty, not sent    │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘

@@ -7,8 +7,8 @@
 │                  ░       $ BH &Q!            #   │┌─ Quest ──────────────────┐
 │                  ░                           #   ││ [ ] 1. Scout the Lookout │
 │                  ░      @          c         #   ││ Testgrounds Recruiter has│
-│                  ░                  m        #   ││ work for you: G.         │
-│                  ░                           #   │└──────────────────────────┘
+│                  ░                           #   ││ work for you: G.         │
+│                  ░                m          #   │└──────────────────────────┘
 │                  ░                           #   │┌─ Target ─────────────────┐
 │                  ░                           #   ││ no target (Tab to choose)│
 │                  ░                           #   ││                          │

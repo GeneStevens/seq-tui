@@ -1,27 +1,27 @@
 ┌─ Thornwick Downs, at 35,263 m, north up ───────────────────────────────────────────────────────┐┌─ You: in combat ───────────────────────┐
-│       ░                                                   c                           ·········││ hale  Lv 1 Warrior           | 0 crowns│
-│       ░                                                                              ··········││ HP 130/130 ########################### │
-│       ░                                                                             ···········││ XP ------------------------- 40 to Lv 2│
-│       ░                                                                            ··········· ││ Atk ON Ret ON | Meadow Wolf            │
-│       ░                                                                           ···········  ││ Attacked by Meadow Wolf                │
-│       ░                                                                           ··········   │└────────────────────────────────────────┘
+│       ░                                                                                ········││ hale  Lv 1 Warrior           | 0 crowns│
+│       ░                                                   c                           ·········││ HP 130/130 ########################### │
+│       ░                                                                              ··········││ XP ------------------------- 40 to Lv 2│
+│       ░                                                                             ···········││ Atk ON Ret ON | Meadow Wolf            │
+│       ░                                                                            ··········· ││ Attacked by Meadow Wolf                │
+│       ░                                                                           ···········  │└────────────────────────────────────────┘
 │       ░                                                                           ··········   │┌─ Target ───────────────────────────────┐
 │       ░                                                                           ··········   ││ M Meadow Wolf  Lv 1                    │
-│       ░                                                                           ··········   ││ HP 45/45 ####################### 5m E  │
+│       ░                                                                           ··········   ││ HP 45/45 ####################### 4m E  │
 │       ░                                                                           ··········   ││ even, fighting you                     │
-│       ░                                             M                              ·········   │└────────────────────────────────────────┘
-│       ░                                        @                                   ·········   │┌─ Nearby ───────────────────────────────┐
-│       ░                                                                            ··········  ││ M Meadow Wolf          5m E 45/45 even │
-│       ░                                                                            ··········  ││ Q Hew Wickett <Miller>          22m SE │
-│       ░                                             ############                   ··········  ││ ; Wickett Mill     24m SE scout marker │
+│       ░                                                                           ··········   │└────────────────────────────────────────┘
+│       ░                                        @    M                              ·········   │┌─ Nearby ───────────────────────────────┐
+│       ░                                                                            ·········   ││ M Meadow Wolf          4m E 45/45 even │
+│       ░                                                                            ··········  ││ Q Hew Wickett <Miller>           22m S │
+│       ░                                                                            ··········  ││ ; Wickett Mill     25m SE scout marker │
 │       ░                                             ############                   ··········  ││ Q Tobias Hatch <Headman of Bar… 33m SE │
-│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########········####││ ◆ Barleycross 39m SE raiders head here │
-│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########········####││ ; Barleycross      43m SE scout marker │
-│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########········####││ D Town Gate                     48m SW │
+│       ░                                             ############                   ··········  ││ ◆ Barleycross 40m SE raiders head here │
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########········####││ ; Barleycross      44m SE scout marker │
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########········####││ D Town Gate                     49m SW │
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈########········####││ ; Eldbury Edge    111m NE scout marker │
 │       ░                                             ############  ≈≈≈≈≈≈≈≈≈########········####││ ; Brigands' Road … 111m E scout marker │
-│       ░                                             ############  ≈≈≈≈≈≈≈≈≈≈       ········####││ ; Eldbury Edge    112m NE scout marker │
-│       ░                                                                       Q    ········   #││ ; Eldbury Inner … 119m NE scout marker │
-│       ░                                                  Q                         ····◆···   #││ +20 more                               │
+│       ░                                             ############  ≈≈≈≈≈≈≈≈≈≈       ········####││ ; Eldbury Inner … 119m NE scout marker │
+│       ░                                                                       Q    ········   #││ +20 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ 1 Taunt ready                      2 Bash range                      3 -                               4 -                               │
@@ -41,5 +41,5 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
- Too far: 5 m. Option-click the target to close in · F: stop attacking                                                                      
+ Too far: 4 m. Option-click the target to close in · F: stop attacking                                                                      
  ONLINE | Thornwick Downs | heard N.Ns ago                                                                                    ? help  q quit

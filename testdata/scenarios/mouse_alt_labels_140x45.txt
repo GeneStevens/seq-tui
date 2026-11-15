@@ -9,12 +9,13 @@
 │#                                                                                               ││ M Plain Scuttler  Lv 1                 │
 │#                                                                                               ││ HP 40/40 ###################### 17m W  │
 │#                                                                                               ││ even, not in a fight                   │
+│#                                                                                               ││ Wears: a chitinous shell and snapping …│
 │#                                                                                               │└────────────────────────────────────────┘
 │#                                                                                               │┌─ Nearby ───────────────────────────────┐
 │#                                                                                               ││ ! Testgrounds Recruiter    53m W [new] │
-│#                                                                                               ││ & Testgrounds Contract Bo… 57m W [new] │
-│#                    c                          @ You: aria, level 1, at 74,49 m    c           ││ M Plain Scuttler      17m W 40/40 even │
-│#                       M Plain Scuttler  Lv 1, even                                            ││ ◆ Tester's F… 40m SE raiders head here │
+│#                    c                          @ You: aria, level 1, at 74,49 m    c           ││ & Testgrounds Contract Bo… 57m W [new] │
+│#                       M Plain Scuttler  Lv 1, even                                            ││ M Plain Scuttler      17m W 40/40 even │
+│#                                                                                               ││ ◆ Tester's F… 40m SE raiders head here │
 │#                                                                                               ││ D Gate North             48m NE (shut) │
 │#                                                                                               ││ ; Windswept Overl… 53m SW scout marker │
 │#                                                                                               ││ T Druid Trainer                  54m W │
@@ -25,8 +26,7 @@
 │#                                                                                               ││ T Wizard Trainer                 58m W │
 │#                                                                                               ││ H Testgrounds Binder             59m W │
 │#                                                                                               ││ T Rogue Trainer                  59m W │
-│#                                                                                               ││ B Testgrounds Banker             61m W │
-│#                                                                                               ││ +5 more                                │
+│#                                                                                               ││ +6 more                                │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
 │   16:04:03.2 Trophy Scuttler is out of view                                                                                              │

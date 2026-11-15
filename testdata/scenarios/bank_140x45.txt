@@ -29,7 +29,7 @@
 │ Tab switches list · Enter acts on the item · B buy the next bank slots · Esc back              ││                                        │
 │ bank Buckler ok                                                                                ││                                        │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
-┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat •1  Party ───────────────────────────────────────────────── [say] Wizard Trainer: You already know that ─┐
 │ + 16:04:03.2 You buy Worn Cap from Testgrounds Vendor for 8 crowns                                                                       │
 │   16:04:03.2 Tip: tradable once means one trade to another player, then it is bound to them.                                             │
 │ + 16:04:03.2 You sell Worn Cap to Testgrounds Vendor for 2 crowns                                                                        │

@@ -15,18 +15,18 @@
 │                   ░               p$  B H  &  Q                           #                    ││ M Plain Scuttler  Lv 1                 │
 │                   ░                            @            M             #                    ││ HP 40/40 ###################### 10m E  │
 │                   ░                              !                        #                    ││ even, fighting you                     │
+│                   ░                                                       #                    ││ Wears: a chitinous shell and snapping …│
 │                   ░                                                       #                    │└────────────────────────────────────────┘
 │                   ░                                                       #                    │┌─ Nearby ───────────────────────────────┐
-│                   ░                                                       #                    ││ ! Testgrounds Recruiter    2m SE [new] │
-│                   ░                                  c                    #                    ││ & Testgrounds Contract Boa… 3m W [new] │
+│                   ░                                  c                    #                    ││ ! Testgrounds Recruiter    2m SE [new] │
+│                   ░                                                       #                    ││ & Testgrounds Contract Boa… 3m W [new] │
 │                   ░                                                       #                    ││ Q Testgrounds Captain <Quest Gi… 1m NW │
 │                   ░                                                       #                    ││ H Testgrounds Binder              5m W │
 │                   ░                                                       #                    ││ T Paladin Trainer                 5m N │
 │                   ░                                                       #                    ││ T Druid Trainer                   5m N │
 │                   ░                                                       #                    ││ T Wizard Trainer                 5m NW │
 │                   ░                                                       #                    ││ T Rogue Trainer                  6m NW │
-│                   ░                                                       #                    ││ B Testgrounds Banker              7m W │
-│                   ░                                                       #                    ││ +12 more                               │
+│                   ░                                                       #                    ││ +13 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
 ┌─ [Events: short · v: all]  Chat •2  Party ───────────────────────────────────────────────────────────────────── [tell] bob1: behind you ─┐
 │   16:04:03.2 bob1 comes into view                                                                                                        │

@@ -91,6 +91,7 @@ const (
 	ZoomMap         // zoom the map by Count steps (D77)
 	ToggleLabels    // label everything on the map, in place of holding Alt (D77)
 	CloseCard       // close the info card
+	Look            // open the look card of figure ID: what it wears and holds (D197.10)
 	SelectSide      // pick the sidebar tab Count (D78)
 	ScrollSide      // scroll the sidebar by Count rows
 	ScrollLog       // scroll the bottom panel back by Count rows (negative: forward); Note "pgup", "pgdown", "home" or "end" for a page, the oldest line and live
@@ -170,6 +171,8 @@ func Plan(key string, m *model.Model) Action {
 		return Action{Kind: AutoRetaliate, On: !m.Self.AutoRetaliate}
 	case "l":
 		return lootAllAction(m)
+	case "L":
+		return lookAction(m, nil)
 	case "e", "enter":
 		if id := nearestDoor(m); id != "" {
 			return Action{Kind: UseDoor, ID: id}
@@ -369,4 +372,37 @@ func healAction(m *model.Model) Action {
 		return Action{Note: why}
 	}
 	return Action{Kind: UseItem, ID: inst, Note: m.ItemName(inst)}
+}
+
+// nearestFigure is the mob or person nearest to at, and its id: the figure the
+// look key (L) reads. at is the large map's cursor, else the character.
+func nearestFigure(m *model.Model, at *pb.Pos) string {
+	if at == nil {
+		at = m.Self.Pos
+	}
+	best, bestD := "", int64(0)
+	try := func(id string, e *pb.EntityState) {
+		if e == nil || id == m.Self.ID {
+			return
+		}
+		if d := d2(e.GetPos(), at); best == "" || d < bestD {
+			best, bestD = id, d
+		}
+	}
+	for _, id := range m.EntityIDs() {
+		try(id, m.Entities[id])
+	}
+	for _, id := range m.GroupIDs() {
+		try(id, m.Group[id].Entity)
+	}
+	return best
+}
+
+// lookAction is the key L (D197.10): the look card of the figure nearest at
+// (the character, when at is nil).
+func lookAction(m *model.Model, at *pb.Pos) Action {
+	if id := nearestFigure(m, at); id != "" {
+		return Action{Kind: Look, ID: id}
+	}
+	return Action{Note: "no one in view to look at"}
 }

@@ -14,7 +14,7 @@
 │                                                  ││                          │
 │                                                  ││                          │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
-┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat •3  Party ─ [say] Testgrounds Captain: Tel… ─┐
 │   16:04:03.2 Placeholder Warden is out of view                               │
 │   16:04:03.2 Eastern Binder says:                                            │
 │ + 16:04:03.2 Quest complete: The Old Relic                                   │

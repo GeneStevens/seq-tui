@@ -270,43 +270,41 @@ func killCamp(t *testing.T, w *scenario.World, id string, ann, bob *scenario.Pla
 		})
 		t.Fatalf("camp %s did not fall (seen %v)", id, seen)
 	}
-	// What it dropped appears a tick after the kill; hale takes it all.
+	// What it dropped appears a tick after the kill.
 	w.Srv.Advance(time.Second)
 	w.Settle()
-	// Hale takes what falls; when his bags are full (a camp of two drops twice as
-	// much) bram does, and what neither can carry crumbles away in two minutes.
-	looter, full := ann, map[*scenario.Player]bool{}
-	for range 24 {
-		left := 0
-		var to *pb.Pos
-		looter.Model(func(m *model.Model) {
-			left = len(m.Drops)
-			for _, did := range m.DropIDs() { // a pair falls a little apart: stand by the drop
-				if d := m.Drops[did].GetPos(); math.Hypot(float64(d.GetX()-m.Self.Pos.GetX()), float64(d.GetY()-m.Self.Pos.GetY())) > 3000 {
-					to = d
-					break
+	// Loot is personal (D190, D191): each account takes its own drops, walking up to
+	// a pile that fell a little apart (coin is collected by standing near it). What
+	// a full bag leaves crumbles away in two minutes.
+	for _, looter := range []*scenario.Player{ann, bob} {
+		for range 12 {
+			left := 0
+			var to *pb.Pos
+			looter.Model(func(m *model.Model) {
+				left = len(m.Drops)
+				for _, did := range m.DropIDs() {
+					if d := m.Drops[did].GetPos(); math.Hypot(float64(d.GetX()-m.Self.Pos.GetX()), float64(d.GetY()-m.Self.Pos.GetY())) > 2000 {
+						to = d
+						break
+					}
 				}
+			})
+			if left == 0 {
+				break
 			}
-		})
-		if left == 0 || (full[ann] && full[bob]) {
-			break
-		}
-		if to != nil {
-			if _, err := looter.Sess.Move(context.Background(), to.GetX(), to.GetY()); err != nil {
-				t.Fatalf("move to the drop: %v", err)
+			if to != nil {
+				if _, err := looter.Sess.Move(context.Background(), to.GetX(), to.GetY()); err != nil {
+					t.Fatalf("move to the drop: %v", err)
+				}
+				looter.Sync()
+				w.Srv.Advance(4 * time.Second)
+				w.Settle()
 			}
-			looter.Sync()
-			w.Srv.Advance(4 * time.Second)
+			looter.Press("l")
+			w.Srv.Advance(time.Second)
 			w.Settle()
-		}
-		looter.Press("l")
-		w.Srv.Advance(time.Second)
-		w.Settle()
-		if n, bad := looter.Notice(); bad && strings.Contains(n, "bags are full") {
-			full[looter] = true
-			looter = bob
-			if full[bob] {
-				looter = ann
+			if n, bad := looter.Notice(); bad && strings.Contains(n, "bags are full") {
+				break
 			}
 		}
 	}

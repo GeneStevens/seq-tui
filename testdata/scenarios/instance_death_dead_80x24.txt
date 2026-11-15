@@ -7,8 +7,8 @@
 │                                                  │┌─ Instance ───────────────┐
 │                         D                        ││ Solo Trial               │
 │                         @                        ││ real-time | inside       │
-│                                                  ││ party up to 1 | normal   │
-│                         m                        │└──────────────────────────┘
+│                         m                        ││ party up to 1 | normal   │
+│                                                  │└──────────────────────────┘
 │                                                  │┌─ Target ─────────────────┐
 │                                                  ││ no target (Tab to choose)│
 │                                                  ││                          │

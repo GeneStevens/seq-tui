@@ -1,8 +1,8 @@
 ┌─ Thornwick Downs, at 42,275 m, north up ─────────┐┌─ You ────────────────────┐
-│      ░                                 ·····     ││ Hale  Lv 1 Warrior  | 0cr│
+│      ░                                 ·····     ││ Hale  Lv 1 Warrior  | 7cr│
 │      ░                                ·····      ││ HP 128/130 ############- │
 │      ░                               ·····       ││ XP ##--------- 32 to Lv 2│
-│      ░                   *          ·····c       ││ Atk off Ret ON | none    │
+│      ░                  *c          ·····c       ││ Atk off Ret ON | none    │
 │      ░                  @          ·····         │└──────────────────────────┘
 │      ░                             ····          │┌─ Quest chain (Ctrl+K) ───┐
 │      ░                             ····          ││ First Steps              │
@@ -14,11 +14,11 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│   16:04:03.2 You are out of combat                                           │
-│ + 16:04:03.2 You gain 2 experience                                           │
+┌─ [Events: short · v: all]  Chat •2  Party ─ [say] Thornwick Contract Board… ─┐
 │ + 16:04:03.2 Wolves at Wickett Mill: 4 of 4                                  │
 │   16:04:03.2 Meadow Wolf is out of view                                      │
+│   16:04:03.2 1 crown crumbles away                                           │
+│ + 16:04:03.2 You find 1 crown                                                │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
- L: loot all 3 drops                                                            
+ L: loot all 2 drops                                                            
  ONLINE | → Go to Thornwick (Thornwick), 62m SW | no target in view       ? help

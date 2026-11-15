@@ -14,7 +14,7 @@
 │ 5 -                 6 -                7 -                8 -                │
 │ You: none                                                                    │
 └──────────────────────────────────────────────────────────────────────────────┘
-┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
+┌─ [Events: short · v: all]  Chat •6  Party ─ [say] Captain Rhosyn Hartley: … ─┐
 │                see me.                                                       │
 │   16:04:03.2 Your companion takes the role of melee                          │
 │   16:04:03.2 Your companion arrives at your side                             │

@@ -125,9 +125,9 @@ func TestPickerCreateRowAndBack(t *testing.T) {
 	}
 }
 
-// A character a connection is playing is listed as online, and picking it is
-// refused by the server with a reason; the picker stays open and the row stays.
-func TestPickerShowsOnlineCharacterAndRefusesIt(t *testing.T) {
+// A character a connection is playing is listed as online, and picking it takes
+// it over (the newest login wins): the picker gives way to the game.
+func TestPickerShowsOnlineCharacterAndTakesItOver(t *testing.T) {
 	w := scenario.New(t, testserver.Options{Zones: scenario.Town, Accounts: outsideAccount()})
 	w.Login("ann", "hale")
 
@@ -153,8 +153,8 @@ func TestPickerShowsOnlineCharacterAndRefusesIt(t *testing.T) {
 			break
 		}
 	}
-	if !strings.Contains(s2, "! ") || !strings.Contains(s2, "character_in_use") || !strings.Contains(s2, "> Hale") {
-		t.Errorf("picking an online character is not refused with a reason, or the row left the list:\n%s", s2)
+	if strings.Contains(s2, "character_in_use") || strings.Contains(s2, "Logging in") || !strings.Contains(s2, "Hale") || !strings.Contains(s2, "Thornwick") {
+		t.Errorf("picking an online character does not take it over:\n%s", s2)
 	}
 }
 
