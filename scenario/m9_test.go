@@ -475,13 +475,17 @@ func TestTwoAccountsClearAWarrenRoomTogether(t *testing.T) {
 	// screens do not depend on when.
 	advanceUntil(t, w, ann, "the digger's drop", time.Second, 10, func(m *model.Model) bool { return len(m.Drops) > 0 })
 	advanceUntil(t, w, bob, "the digger's drop in bram's view", time.Second, 10, func(m *model.Model) bool { return len(m.Drops) > 0 })
+	// Loot is personal (D190): each takes their own.
 	for range 6 {
 		left := 0
-		ann.Model(func(m *model.Model) { left = len(m.Drops) })
+		for _, p := range []*scenario.Player{ann, bob} {
+			p.Model(func(m *model.Model) { left += len(m.Drops) })
+		}
 		if left == 0 {
 			break
 		}
 		ann.Press("l")
+		bob.Press("l")
 		w.Advance(time.Second)
 	}
 	for _, p := range []*scenario.Player{ann, bob} {

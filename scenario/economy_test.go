@@ -53,7 +53,7 @@ func openTrader(t *testing.T, p *scenario.Player, name string) {
 	p.Press("enter")
 }
 
-// Kill the trophy scuttler, take its coin and its two drops with L, then wear
+// Kill the trophy scuttler, take its two drops with L, then wear
 // them from the inventory screen. A bystander in view of the kill sees the Rare
 // drop as one it may not take, and L says so without asking the server.
 func TestEquipALootedItem(t *testing.T) {
@@ -75,7 +75,8 @@ func TestEquipALootedItem(t *testing.T) {
 		}
 		w.Advance(time.Second)
 	}
-	b.Eventually("the bystander sees the drops", func(m *model.Model) bool { return len(m.Drops) >= 3 })
+	// Loot is personal (D190): the bystander is shown no item of the kill, only the coin
+	b.Eventually("the bystander sees the coin", func(m *model.Model) bool { return len(m.Drops) >= 1 })
 	// The drop event describes the item (D52): its tier, binding and stats are
 	// known at once, before it is looted and before any snapshot comes.
 	p.Model(func(m *model.Model) {
@@ -86,8 +87,8 @@ func TestEquipALootedItem(t *testing.T) {
 	})
 	b.Model(func(m *model.Model) {
 		for id, d := range m.Drops {
-			if d.GetCanLoot() {
-				t.Fatalf("the bystander may take %s", id)
+			if d.GetCanLoot() || d.GetItem() != "" {
+				t.Fatalf("the bystander sees or may take %s: %v", id, d)
 			}
 		}
 	})
@@ -98,11 +99,12 @@ func TestEquipALootedItem(t *testing.T) {
 	// The participant takes all three with one L (loot-all, D78), as one log line.
 	p.Press("l")
 	items, crowns := inventoryOf(p)
-	if len(items) != 2 || crowns != 5 {
+	if len(items) != 2 || crowns != 0 {
 		t.Fatalf("after looting: %q, %d crowns", items, crowns)
 	}
 	p.Model(func(m *model.Model) {
-		if len(m.Drops) != 0 || !hasLog(m, "reward", "You took") {
+		// The coin is collected by walking near it (D192), not by L.
+		if len(m.Drops) != 1 || !hasLog(m, "reward", "You took") {
 			t.Fatalf("drops %d; log ends %+v", len(m.Drops), m.Log[len(m.Log)-3:])
 		}
 	})
