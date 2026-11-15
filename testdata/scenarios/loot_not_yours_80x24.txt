@@ -11,11 +11,11 @@
 │                                                  │└──────────────────────────┘
 │                                                  │┌─ Nearby ─────────────────┐
 │                                                  ││ ! Testgroun… 79m W [new] │
-│                        p~                        ││ & Testgroun… 82m W [new] │
-│                                                  ││ +21 more                 │
+│                        pc                        ││ & Testgroun… 82m W [new] │
+│                          ~                       ││ +19 more                 │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
-│                not yours to take                                             │
+│   16:04:03.2 c1 stopped attacking                                            │
 │   16:04:03.2 Trophy Scuttler dropped 5 crowns                                │
 │   16:04:03.2 Trophy Scuttler is dead: the fight is over                      │
 │   16:04:03.2 Trophy Scuttler is out of view                                  │
