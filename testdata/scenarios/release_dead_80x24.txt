@@ -6,7 +6,7 @@
 │           ░                           #          │└──────────────────────────┘
 │           ░       $ BH &Q!            #          │┌─ Quest ──────────────────┐
 │           ░                           #          ││ [ ] 1. Scout the Lookout │
-│           ░             @m  c         #          ││ Testgrounds Recruiter has│
+│           ░             @   m         #          ││ Testgrounds Recruiter has│
 │           ░                           #          ││ work for you: G.         │
 │           ░                           #          │└──────────────────────────┘
 │           ░                           #          │┌─ Target ─────────────────┐
