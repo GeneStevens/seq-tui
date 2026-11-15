@@ -961,6 +961,12 @@ func (p *Player) Eventually(what string, pred func(*model.Model) bool) {
 			return
 		}
 		if time.Now().After(deadline) {
+			p.Model(func(m *model.Model) {
+				t.Logf("DEBUGTMP online=%v space=%q ended=%+v inst=%v drops=%d", online, m.Space, m.Ended, m.Instance, len(m.Drops))
+				for _, e := range m.Log[max(len(m.Log)-8, 0):] {
+					t.Logf("DEBUGTMP log %s: %s", e.Kind, e.Text)
+				}
+			})
 			t.Fatalf("%s: gave up waiting for %s", p.Character, what)
 		}
 		time.Sleep(time.Millisecond)
