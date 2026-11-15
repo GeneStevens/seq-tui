@@ -124,10 +124,10 @@ func login(t *testing.T, srv *server, s *client.Session) *fake {
 		f := srv.accept(t)
 		fc <- f
 		h := f.next(t).GetHello()
-		if h.GetCredential() != "seq_st_human" || h.GetProtocolVersion() != 1 {
+		if h.GetCredential() != "seq_st_human" || h.GetProtocolVersion() != client.ProtocolVersion {
 			t.Errorf("hello %v", h)
 		}
-		f.say(&pb.Welcome{ProtocolVersion: 1})
+		f.say(&pb.Welcome{ProtocolVersion: client.ProtocolVersion})
 		sel := f.next(t).GetSelect()
 		if sel.GetCharacter() != "me-1" || sel.GetSession() != "sess" {
 			t.Errorf("select %v", sel)
@@ -249,7 +249,7 @@ func TestSelectRefused(t *testing.T) {
 	go func() {
 		f := srv.accept(t)
 		f.next(t)
-		f.say(&pb.Welcome{ProtocolVersion: 1})
+		f.say(&pb.Welcome{ProtocolVersion: client.ProtocolVersion})
 		f.next(t)
 		f.say(&pb.Error{Code: pb.ErrorCode_ERROR_CODE_SELECT_REFUSED, Message: "not your character"})
 	}()
@@ -286,7 +286,7 @@ func TestDropResumeAndResend(t *testing.T) {
 	go func() {
 		f2 := srv.accept(t)
 		f2.next(t) // hello
-		f2.say(&pb.Welcome{ProtocolVersion: 1})
+		f2.say(&pb.Welcome{ProtocolVersion: client.ProtocolVersion})
 		r := f2.next(t).GetResume()
 		if r.GetSession() != "sess" || r.GetLastSeq() != 11 {
 			t.Errorf("resume %v: it must name the session and the last event applied", r)

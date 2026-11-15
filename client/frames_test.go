@@ -3,12 +3,14 @@ package client_test
 import (
 	"bytes"
 	"context"
+	"slices"
 	"testing"
 	"time"
 
 	"github.com/coder/websocket"
 	"google.golang.org/protobuf/proto"
 
+	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
@@ -36,10 +38,10 @@ func TestFramedDropResumeIsExactlyOnce(t *testing.T) {
 	go func() {
 		f := srv.accept(t)
 		fc <- f
-		if h := f.next(t).GetHello(); len(h.GetFeatures()) != 1 || h.GetFeatures()[0] != "tick_frames" {
-			t.Errorf("hello asks for %v, want tick_frames", h.GetFeatures())
+		if h := f.next(t).GetHello(); !slices.Equal(h.GetFeatures(), []string{"tick_frames", "taken_over"}) {
+			t.Errorf("hello asks for %v, want tick_frames and taken_over", h.GetFeatures())
 		}
-		f.say(&pb.Welcome{ProtocolVersion: 1, Features: []string{"tick_frames"}})
+		f.say(&pb.Welcome{ProtocolVersion: client.ProtocolVersion, Features: []string{"tick_frames"}})
 		f.next(t) // select
 		f.say(snap(10))
 	}()
@@ -63,7 +65,7 @@ func TestFramedDropResumeIsExactlyOnce(t *testing.T) {
 	go func() {
 		f2 := srv.accept(t)
 		f2.next(t) // hello
-		f2.say(&pb.Welcome{ProtocolVersion: 1})
+		f2.say(&pb.Welcome{ProtocolVersion: client.ProtocolVersion})
 		if r := f2.next(t).GetResume(); r.GetLastSeq() != 13 {
 			t.Errorf("resume after %d, want 13: the last event of the last frame", r.GetLastSeq())
 		}
