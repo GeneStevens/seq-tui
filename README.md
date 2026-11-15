@@ -150,6 +150,7 @@ Chat on a small screen (D101, TUI-042): the bottom row is one **tabbed panel**, 
 | Hover: a name-and-title label by the pointer (a drop also says how it compares with what you wear; a marker says its name and kind; your own `@` says who you are, your level, where you stand and where you are walking to; a shut door says so) | Nearby lists the same |
 | Option-click a named marker (a scout point, a world event's spawn or goal): walks there, like the ground | arrows, or the large map's cursor and Enter |
 | Hold Alt over the map: everything on it is labelled | Ctrl+A turns the labels on and off, for a terminal that sends no Alt with the mouse |
+| Shift+L | look: the full "Wears: …" of the person or mob nearest you (or the large map's cursor), on the map's card. The Target panel carries the target's "Wears:" line (agentkit's phrase; a mob's appearance), and hovering a person names their class and level (D197.10) |
 | Scroll wheel over the map: zoom the map (and the large map) | + and - |
 | Scroll wheel over the bottom panel (Events, Chat, Party): scroll it back 3 rows (never zooms the map) | PgUp / PgDn, Home, End |
 | Right-click, or Esc: let go of the selection | Esc |
