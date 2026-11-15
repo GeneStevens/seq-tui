@@ -84,6 +84,11 @@ func TestAGoblinFleesAndTurnsBackInTheLog(t *testing.T) {
 					t.Logf("%d %s %s", l.GameTimeMs, l.Kind, l.Text)
 				}
 			}
+			e := m.Entities[id]
+			t.Logf("DEBUGTMP self %v target %q auto %v ent %v intents %v", m.Self.Pos, m.Self.Target, m.Self.AutoAttack, e, m.Intents)
+			for _, l := range m.Log {
+				t.Logf("DEBUGTMP all %d %s %s", l.GameTimeMs, l.Kind, l.Text)
+			}
 			t.Fatal("the goblin never fled")
 		})
 	}
