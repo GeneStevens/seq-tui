@@ -2,12 +2,12 @@
 │         ░                   c          ·····c    ││ hale  Lv 1 Warrior  | 0cr│
 │         ░                             ·····      ││ HP 130/130 ############# │
 │         ░                             ····       ││ XP ----------- 40 to Lv 2│
-│         ░                             ····       ││ Atk ON Ret ON | Meadow W…│
-│         ░               @ M           ····       ││ Attacked by Meadow Wolf  │
+│         ░                 M           ····       ││ Atk ON Ret ON | Meadow W…│
+│         ░               @             ····       ││ Attacked by Meadow Wolf  │
 │         ░                 #####       ····       │└──────────────────────────┘
 │         ░                 ##### ≈≈≈####··#####   │┌─ Target ─────────────────┐
 │         ░                 ##### ≈≈≈####··#####   ││ M Meadow Wolf  Lv 1      │
-│         ░                   Q       Q ··◆·#####  ││ HP 45/45 ######### 5m E  │
+│         ░                   Q       Q ··◆·#####  ││ HP 45/45 ######### 4m E  │
 └──────────────────────────────────────────────────┘└──────────────────────────┘
 ┌─ Abilities (keys 1-8, B sets the slots) ─────────────────────────────────────┐
 │ 1 Taunt ready       2 Bash range       3 -                4 -                │
@@ -20,5 +20,5 @@
 │   16:04:03.2 Meadow Wolf (level 1, even) is attacking you                    │
 │   16:04:03.2 You are in combat with Meadow Wolf                              │
 └─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
- Too far: 5 m. Option-click the target to close in · F: stop attacking          
+ Too far: 4 m. Option-click the target to close in · F: stop attacking          
  ONLINE | Thornwick Downs | heard N.Ns ago                        ? help  q quit
