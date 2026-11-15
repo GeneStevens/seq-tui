@@ -11,15 +11,15 @@
 │                                     ░                       !                   #              ││ Testgrounds Recruiter has work for you:│
 │                                     ░                                           #              ││ G.                                     │
 │                                     ░                                           #              │└────────────────────────────────────────┘
-│                                     ░          @   *            c               #              │┌─ Target ───────────────────────────────┐
-│                                     ░                                           #              ││ no target (Tab to choose)              │
+│                                     ░          @                c               #              │┌─ Target ───────────────────────────────┐
+│                                     ░               *                           #              ││ no target (Tab to choose)              │
 │                                     ░                                           #              ││                                        │
 │                                     ░                                           #              ││                                        │
 │                                     ░                                           #              │└────────────────────────────────────────┘
 │                                     ░                                           #              │┌─ Nearby ───────────────────────────────┐
 │                                     ░                                           #              ││ & Testgrounds Contract B… 11m NE [new] │
 │                                     ░                                           #              ││ ! Testgrounds Recruiter   13m NE [new] │
-│                                     ░                                           #              ││ * Cracked Shell Fragment          3m E │
+│                                     ░                                           #              ││ * Cracked Shell Fragment          4m E │
 │                                     ░                                           #              ││ $ Testgrounds Vendor              8m N │
 │                                     ░                                           #              ││ +16 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
