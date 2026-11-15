@@ -18,6 +18,8 @@
 │   When your objective is off the map an arrow at the edge points to it, with its name and distance (◄ Gorran 23m); the status line names │
 │   it too. Nearby lists what matters to your quest first, tagged [step 2] or [2/3].                                                       │
 │   The zone edge is the ░ line: walking ends there. Beside it, a zone line is a door (D).                                                 │
+│   A figure's glyph never changes with its gear. The Target panel says what the target wears ("Wears: …"); Shift+L opens a card with the  │
+│   full look of the person or mob nearest you, or nearest the large map's cursor. Hovering over a person names their class and level.     │
 │   The line under the log changes with what you stand next to: the door, the person, the drop, the mobs in view.                          │
 │                                                                                                                                          │
 │ Danger                                                                                                                                   │
@@ -26,8 +28,6 @@
 │   health, and nothing closes by itself. Esc leaves the screen; the attacker is already your target, so F fights it. -bell rings the      │
 │   terminal's bell too.                                                                                                                   │
 │   The You panel says "in combat" and who is attacking. A hard or deadly mob is called out as DANGER.                                     │
-│                                                                                                                                          │
-│                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │
 │                                                                                                                                          │

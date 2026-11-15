@@ -137,7 +137,7 @@ func things(g *grid, m *model.Model) []thing {
 		out = append(out, thing{c: c, r: r, pick: p, label: label, dead: dead})
 	}
 	ent := func(e *pb.EntityState) {
-		kind, label := PickPlayer, e.GetName()
+		kind, label := PickPlayer, playerLabel(m, e)
 		if e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB {
 			kind = PickMob
 			label = fmt.Sprintf("%s  Lv %d", e.GetName(), e.GetLevel())
@@ -393,14 +393,17 @@ func paintOverlays(g *grid, m *model.Model, v View) {
 		g.put(c, r, '+', kCursor)
 	}
 	if v.Card != "" {
-		paintCard(g, m, v.Card)
+		paintCard(g, m, v.Card, v.CardLook)
 	}
 }
 
 // paintCard draws the info card of the mob or NPC with that id in a corner of
 // the map: the one its subject is not in.
-func paintCard(g *grid, m *model.Model, id string) {
+func paintCard(g *grid, m *model.Model, id string, look bool) {
 	lines := CardLines(m, id)
+	if look {
+		lines = LookLines(m, id, g.cw-6)
+	}
 	if len(lines) == 0 {
 		return
 	}
@@ -428,6 +431,28 @@ func paintCard(g *grid, m *model.Model, id string) {
 	for i, l := range box {
 		g.text(c0, int64(i), l, kCard)
 	}
+}
+
+// LookLines are the lines of the look card (the L key): the figure's name, level
+// and class, then everything it wears and holds, wrapped to w. nil for an id that
+// is no figure in view.
+func LookLines(m *model.Model, id string, w int) []string {
+	e := m.Entities[id]
+	if e == nil && m.Group[id] != nil {
+		e = m.Group[id].Entity
+	}
+	if e == nil {
+		return nil
+	}
+	who := e.GetName()
+	if e.GetKind() != pb.EntityKind_ENTITY_KIND_MOB {
+		who = playerLabel(m, e)
+	}
+	look := WearsLine(e)
+	if look == "" {
+		look = "Nothing is known of what it wears."
+	}
+	return append([]string{who}, wrapped(look, min(max(w, 20), 56), "")...)
 }
 
 // CardLines are the lines of the info card of a mob or NPC (D77): its name and

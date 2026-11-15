@@ -135,14 +135,15 @@ type View struct {
 	// everything on the map (Alt held, or the toggle); Zoom and BigZoom are the
 	// zoom of the map and of the large map; Card is the id whose info card is
 	// open; Cursor the keyboard cursor of the large map, a place in the world.
-	Hits    *Hits
-	Hover   *Pt
-	Labels  bool
-	Zoom    int
-	BigZoom int
-	Card    string
-	Cursor  *pb.Pos
-	Side    *Sidebar
+	Hits     *Hits
+	Hover    *Pt
+	Labels   bool
+	Zoom     int
+	BigZoom  int
+	Card     string
+	CardLook bool // the open card shows the figure's full look (the L key)
+	Cursor   *pb.Pos
+	Side     *Sidebar
 }
 
 // Render draws the whole screen: h lines of w cells each, joined by newlines.

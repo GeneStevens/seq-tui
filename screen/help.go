@@ -45,6 +45,7 @@ var Bindings = []Binding{
 	{Keys: []string{"r"}, Show: "R", What: "when you are dead: give up your body and respawn; alive: answer the last tell", Group: "Fighting"},
 	{Keys: []string{"g"}, Show: "G", What: "talk to the nearest person", Group: "People and things"},
 	{Keys: []string{"l"}, Show: "L", What: "loot everything within reach that you may take", Group: "People and things"},
+	{Keys: []string{"L"}, Show: "Shift+L", What: "look: what the person or mob nearest you (or the large map's cursor) wears and holds, on the map's card; Esc closes it", Group: "People and things"},
 	{Keys: []string{"k"}, Show: "K", What: "contracts you hold (X gives one up)", Group: "People and things"},
 	{Keys: []string{"ctrl+k"}, Show: "Ctrl+K", What: "your quest chain: its step; X dismisses it for good", Group: "People and things"},
 	{Keys: []string{"n"}, Show: "N", What: "traders: buy, sell, train, bind, bank, sail", Group: "People and things"},
@@ -154,6 +155,7 @@ func mapPage(m *model.Model, _ View, w int, st Styler) []string {
 		"World events and scouting have their own marks. The scout points (;) are gold, as your own scout marker (%) is. A world event's raiders appear at a purple v and head for a purple ◆. Hover over any of them for its name, or Option-click to walk there; Nearby lists the named ones.",
 		"When your objective is off the map an arrow at the edge points to it, with its name and distance (◄ Gorran 23m); the status line names it too. Nearby lists what matters to your quest first, tagged [step 2] or [2/3].",
 		"The zone edge is the ░ line: walking ends there. Beside it, a zone line is a door (D).",
+		"A figure's glyph never changes with its gear. The Target panel says what the target wears (\"Wears: …\"); {Shift+L} opens a card with the full look of the person or mob nearest you, or nearest the large map's cursor. Hovering over a person names their class and level.",
 		"The line under the log changes with what you stand next to: the door, the person, the drop, the mobs in view.",
 	} {
 		out = append(out, wrapIndent("  "+p, w, "  ")...)
@@ -177,7 +179,7 @@ var guideMouse = []section{
 		{"Click mob, person", "select it and open its card (a click one cell off counts); click again (or F to attack, G to talk) to act"},
 		{"Click loot", "pick up everything within reach; farther away it says how far"},
 		{"W", "walk to the selected target, or to the last spot clicked: for a terminal that sends no Option-click"},
-		{"Hover", "its name beside the pointer: a mob, person, door, marker, or you; on the large map the places there (the arrow keys' cursor does the same)"},
+		{"Hover", "its name beside the pointer (a person's class and level too): a mob, person, door, marker, or you; on the large map the places there (the arrow keys' cursor does the same)"},
 		{"Alt, Ctrl+A", "name everything on the map (Ctrl+A if your terminal sends no Alt with the mouse)"},
 		{"Wheel, + -", "zoom the map (the wheel over the Events, Chat or Party panel scrolls it back instead)"},
 		{"Right-click, Esc", "let go of the selection"},
