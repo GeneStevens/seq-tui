@@ -45,6 +45,7 @@ type App struct {
 	refreshing bool           // a refresh of the picker's list is out
 	refreshed  time.Time      // when the picker's list was last asked for
 	back       *screen.Picker // the picker the creation screen came from (Esc goes back)
+	want       string         // a character made but not chosen: the next list chooses it
 	char       bool           // the character view is open (C)
 	traders    *screen.Traders
 	trade      *screen.TradeUI
@@ -139,8 +140,13 @@ type (
 	}
 	reconnected struct{ err error }
 	// created answers a character creation: err is nil when the character was
-	// made and chosen.
-	created struct{ err error }
+	// made and chosen. id is the character made when only the choosing failed.
+	created struct {
+		err error
+		id  string
+	}
+	// bodyChanged answers the owner's change of a character's body.
+	bodyChanged struct{ err error }
 )
 
 // now is the time the screen reads.
@@ -303,9 +309,13 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case msg.err == nil:
 			a.create, a.back = nil, nil
 			a.view.Notice, a.view.NoticeBad = "", false
+		case msg.id != "":
+			return a, a.madeNotChosen(msg)
 		default:
 			a.create.Busy, a.create.Err = false, createError(msg.err)
 		}
+	case bodyChanged:
+		return a, a.bodyChangedMsg(msg)
 	case resultMsg:
 		a.inflight--
 		if msg.quiet {
@@ -584,7 +594,11 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 	case CreateCharacter:
 		a.create.Busy, a.create.Err = true, ""
 		a.inflight++
-		return a, a.createCmd(act.Note, act.ID)
+		return a, a.createCmd(act.Note, act.ID, act.Body)
+	case ChangeBody:
+		a.picker.Busy, a.picker.Changing, a.picker.Err, a.picker.Confirm = true, true, "", false
+		a.inflight++
+		return a, a.changeBodyCmd(act.ID, act.Body)
 	case Logout:
 		if a.focus {
 			a.view.Notice = "X gives you back to yourself first: O logs yourself out"

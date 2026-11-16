@@ -10,6 +10,8 @@ import (
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 
+	"github.com/GeneStevens/seq/agentkit"
+
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/screen"
@@ -35,7 +37,7 @@ func className(id string) string {
 func pickerRows(chars []*pb.CharacterEntry) []screen.PickerRow {
 	var rows []screen.PickerRow
 	for _, c := range chars {
-		row := screen.PickerRow{ID: c.GetCharacter(), Name: c.GetName(), Class: className(c.GetClass()), Level: int64(c.GetLevel()), Zone: c.GetZone(), Online: c.GetOnline()}
+		row := screen.PickerRow{ID: c.GetCharacter(), Name: c.GetName(), Class: className(c.GetClass()), Level: int64(c.GetLevel()), Zone: c.GetZone(), Online: c.GetOnline(), Body: agentkit.BodyWord(c.GetBodyType()), CanChange: c.GetBodyChangeAvailable()}
 		if ms := c.GetLastPlayedMs(); ms > 0 {
 			row.Played = time.UnixMilli(ms)
 		}
@@ -70,8 +72,19 @@ func (a *App) pickerKey(k string) Action {
 	if p.Busy {
 		return Action{}
 	}
-	p.Err = ""
+	p.Err, p.Note = "", ""
+	if p.Confirm { // "Change body?": Enter says yes, anything else no
+		p.Confirm = false
+		if c := p.Chosen(); c != nil && (k == "enter" || k == "y") {
+			return Action{Kind: ChangeBody, ID: c.ID, Body: otherBody(c.Body)}
+		}
+		return Action{}
+	}
 	switch k {
+	case "b":
+		if c := p.Chosen(); c != nil && c.CanChange && otherBody(c.Body) != "" {
+			p.Confirm = true
+		}
 	case "ctrl+l":
 		return Action{Kind: OpenSessions}
 	case "up", "w", "k":
@@ -91,6 +104,53 @@ func (a *App) pickerKey(k string) Action {
 		}
 	}
 	return Action{}
+}
+
+// otherBody is the body a change from this one goes to: "" when this one is
+// none (an older server).
+func otherBody(w string) string { return screen.OtherBody(w) }
+
+// changeBodyCmd sends the owner's change of a character's body.
+func (a *App) changeBodyCmd(id, body string) tea.Cmd {
+	return func() tea.Msg {
+		ctx, cancel := context.WithTimeout(context.Background(), commandTimeout)
+		defer cancel()
+		return bodyChanged{a.sess.ChangeBody(ctx, id, body)}
+	}
+}
+
+// bodyChangedMsg takes the answer to the change: the list is asked for again
+// either way, so the picker shows the body the server has now; a refusal says
+// why, plainly.
+func (a *App) bodyChangedMsg(msg bodyChanged) tea.Cmd {
+	a.inflight--
+	p := a.picker
+	if p == nil {
+		return nil
+	}
+	p.Busy, p.Changing = false, false
+	if msg.err != nil {
+		p.Err = strings.TrimPrefix(msg.err.Error(), "body change refused: ")
+	} else {
+		p.Note = "Body changed. That was the one free change."
+	}
+	a.refreshing = false
+	return a.refreshPicker()
+}
+
+// madeNotChosen is a creation that made the character and failed to choose it:
+// the picker is open on the characters, refreshed, with the new one chosen, to
+// play; the character is never made again.
+func (a *App) madeNotChosen(msg created) tea.Cmd {
+	p := a.back
+	if p == nil {
+		p = &screen.Picker{}
+	}
+	p.Busy, p.Err = false, "The character was made, but playing it failed: "+createError(msg.err)+". Press Enter to play it."
+	a.picker, a.back, a.create = p, nil, nil
+	a.want = msg.id
+	a.refreshing = false
+	return a.refreshPicker()
 }
 
 func (a *App) pickerEnter() Action {
@@ -198,6 +258,9 @@ func (a *App) listedMsg(msg listed) {
 		chosen = c.ID
 	}
 	create := p.Create()
+	if a.want != "" { // a character just made: chosen, to play
+		chosen, create, a.want = a.want, false, ""
+	}
 	p.Rows = pickerRows(msg.chars)
 	if create {
 		p.Sel = len(p.Rows)

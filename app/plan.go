@@ -44,6 +44,7 @@ const (
 	OpenSlots  // the slot screen
 	CreateCharacter
 	PickCharacter // choose the character ID on the picker
+	ChangeBody    // the owner's one free change of the character ID to Body
 	OpenInventory // the inventory and gear screen
 	OpenTraders   // the screen for the traders in view
 	OpenTrade     // the trade window
@@ -124,6 +125,7 @@ type Action struct {
 	Slot   int    // UseAbility, SetSlot: 1 to 8
 	NPC    string // Buy, Sell, Train, Bind, BankDeposit, BankWithdraw: the trader
 	Gear   string // Unequip: the gear slot
+	Body   string // CreateCharacter, ChangeBody: "female" or "male", "" for none
 	// Count is how many Buy buys; Amount is the crowns of TradeCrowns.
 	Count  int
 	Amount int64

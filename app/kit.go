@@ -6,14 +6,18 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 
+	"github.com/GeneStevens/seq/agentkit"
+	pb "github.com/GeneStevens/seq/protocol/seqv1"
+
 	"github.com/GeneStevens/seq-tui/client"
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/screen"
 )
 
 // createKey handles a key on the character creation screen. The name takes
-// letters; Tab or Down moves to the class list (the server's menu), where Up
-// and Down or the number choose; Enter makes the character from either.
+// letters; Tab or Down moves on to the body line, when the server lists more
+// than one body (D202), and then to the class list (the server's menu), where
+// Up and Down or the number choose; Enter makes the character from any of them.
 func (a *App) createKey(k string, m *model.Model) Action {
 	c := a.create
 	if c.Busy {
@@ -23,6 +27,10 @@ func (a *App) createKey(k string, m *model.Model) Action {
 		return Action{}
 	}
 	c.Err = ""
+	bodies := m.Bodies()
+	if len(bodies) < 2 {
+		bodies = nil
+	}
 	switch k {
 	case "ctrl+c":
 		return Action{Kind: Quit}
@@ -33,27 +41,57 @@ func (a *App) createKey(k string, m *model.Model) Action {
 			c.Err = "a name is 3 to 16 letters"
 			return Action{}
 		}
+		if bodies != nil && c.Body == pb.BodyType_BODY_TYPE_UNSPECIFIED {
+			c.Err = "choose a body: Female or Male"
+			return Action{}
+		}
 		menu := m.Classes()
 		if c.Class >= len(menu) {
 			c.Err = "the server has sent no class menu to choose from"
 			return Action{}
 		}
-		return Action{Kind: CreateCharacter, ID: menu[c.Class].GetId(), Note: c.Name}
+		act := Action{Kind: CreateCharacter, ID: menu[c.Class].GetId(), Note: c.Name}
+		if bodies != nil {
+			act.Body = agentkit.BodyWord(c.Body)
+		}
+		return act
 	case "tab":
-		c.Classes = !c.Classes
+		switch {
+		case !c.Bodies && !c.Classes && bodies != nil:
+			c.Bodies = true
+		case c.Bodies:
+			c.Bodies, c.Classes = false, true
+		default:
+			c.Classes = !c.Classes
+		}
 		return Action{}
 	case "esc":
-		if !c.Classes && c.Name == "" && a.back != nil {
+		if !c.Classes && !c.Bodies && c.Name == "" && a.back != nil {
 			a.picker, a.back, a.create = a.back, nil, nil // back to the characters
 			return Action{}
 		}
-		c.Classes = false
+		c.Classes, c.Bodies = false, false
+		return Action{}
+	}
+	if c.Bodies {
+		switch k {
+		case "up":
+			c.Bodies = false
+		case "down":
+			c.Bodies, c.Classes = false, true
+		case "right", "left":
+			c.Body = nextBody(bodies, c.Body, k == "right")
+		case "f", "F":
+			c.Body = chooseBody(bodies, pb.BodyType_BODY_TYPE_FEMALE, c.Body)
+		case "m", "M":
+			c.Body = chooseBody(bodies, pb.BodyType_BODY_TYPE_MALE, c.Body)
+		}
 		return Action{}
 	}
 	if !c.Classes {
 		switch {
 		case k == "down":
-			c.Classes = true
+			c.Bodies, c.Classes = bodies != nil, bodies == nil
 		case k == "backspace":
 			if r := []rune(c.Name); len(r) > 0 {
 				c.Name = string(r[:len(r)-1])
@@ -68,7 +106,7 @@ func (a *App) createKey(k string, m *model.Model) Action {
 	switch {
 	case k == "up":
 		if c.Class == 0 {
-			c.Classes = false
+			c.Classes, c.Bodies = false, bodies != nil
 		} else {
 			c.Class--
 		}
@@ -80,17 +118,52 @@ func (a *App) createKey(k string, m *model.Model) Action {
 	return Action{}
 }
 
+// nextBody is the body after (or before) the chosen one among the listed; with
+// none chosen, Right takes the first and Left the last.
+func nextBody(bodies []pb.BodyType, cur pb.BodyType, forward bool) pb.BodyType {
+	at := -1
+	for i, b := range bodies {
+		if b == cur {
+			at = i
+		}
+	}
+	switch {
+	case at < 0 && forward:
+		return bodies[0]
+	case at < 0:
+		return bodies[len(bodies)-1]
+	case forward:
+		return bodies[(at+1)%len(bodies)]
+	}
+	return bodies[(at+len(bodies)-1)%len(bodies)]
+}
+
+// chooseBody is want when the server lists it, else what was chosen.
+func chooseBody(bodies []pb.BodyType, want, cur pb.BodyType) pb.BodyType {
+	for _, b := range bodies {
+		if b == want {
+			return want
+		}
+	}
+	return cur
+}
+
 // createCmd makes the character on the server, then chooses it: the first
-// snapshot is in the model when it returns.
-func (a *App) createCmd(name string, class string) tea.Cmd {
+// snapshot is in the model when it returns. When the character is made and the
+// choosing fails, the answer carries its id, so the picker offers it and
+// nothing makes it a second time.
+func (a *App) createCmd(name, class, body string) tea.Cmd {
 	return func() tea.Msg {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*commandTimeout)
 		defer cancel()
-		id, err := a.sess.CreateCharacter(ctx, name, class)
-		if err == nil {
-			err = a.sess.Select(ctx, id)
+		id, err := a.sess.CreateCharacterBody(ctx, name, class, body)
+		if err != nil {
+			return created{err: err}
 		}
-		return created{err}
+		if err = a.sess.Select(ctx, id); err != nil {
+			return created{err: err, id: id}
+		}
+		return created{}
 	}
 }
 

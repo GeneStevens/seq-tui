@@ -209,7 +209,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 	case v.Quest != nil:
 		takeover("Quest chain", func(w, h int) []string { return questScreenLines(m, v.Quest, w, h, st) })
 	case v.Picker != nil:
-		rows = append(rows, box("Choose a character", w, th+lh, pickerLines(v.Picker, v.Now, w-2, th+lh-2, st), st)...)
+		rows = append(rows, box("Choose a character", w, th+lh, pickerLines(m, v.Picker, v.Now, w-2, th+lh-2, st), st)...)
 	case v.Create != nil:
 		rows = append(rows, box("New character", w, th+lh, createLines(m, v.Create, w-2, th+lh-2, st), st)...)
 	case v.Social != nil:
