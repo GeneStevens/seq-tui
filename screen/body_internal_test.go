@@ -50,7 +50,9 @@ func TestPickerLinesBodyAndChange(t *testing.T) {
 	both := bodiesModel(pb.BodyType_BODY_TYPE_MALE, pb.BodyType_BODY_TYPE_FEMALE)
 	one := bodiesModel(pb.BodyType_BODY_TYPE_MALE)
 	rows := []PickerRow{{ID: "a", Name: "Aria", Class: "Ranger", Body: "female", CanChange: true, Level: 3}, {ID: "b", Name: "Brin", Class: "Warrior", Body: "male", Level: 2}}
-	text := func(m *model.Model, p *Picker) string { return strings.Join(pickerLines(m, p, now, 100, 20, Plain()), "\n") }
+	text := func(m *model.Model, p *Picker) string {
+		return strings.Join(pickerLines(m, p, now, 100, 20, Plain()), "\n")
+	}
 
 	got := text(both, &Picker{Rows: rows})
 	if !strings.Contains(got, "Body") || !strings.Contains(got, "female") || !strings.Contains(got, "Change body (once, free)") {
