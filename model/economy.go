@@ -267,6 +267,21 @@ func (m *Model) Label(id string) string { return m.label(id) }
 // starts with. Empty before the welcome, or from a server that has no menu.
 func (m *Model) Classes() []*pb.ClassInfo { return m.Welcome.GetClasses() }
 
+// Bodies is the bodies creation takes, as the welcome lists them (D202), the
+// female before the male. One body, or none (an older server), is no choice.
+func (m *Model) Bodies() []pb.BodyType {
+	var out []pb.BodyType
+	for _, b := range []pb.BodyType{pb.BodyType_BODY_TYPE_FEMALE, pb.BodyType_BODY_TYPE_MALE} {
+		for _, l := range m.Welcome.GetBodies() {
+			if l == b {
+				out = append(out, b)
+				break
+			}
+		}
+	}
+	return out
+}
+
 // Class is the menu entry with that id, or nil.
 func (m *Model) Class(id string) *pb.ClassInfo {
 	for _, c := range m.Classes() {

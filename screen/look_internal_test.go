@@ -83,3 +83,21 @@ func TestLookCarriesLight(t *testing.T) {
 		}
 	}
 }
+
+// An explicit look names the body first (D202); a figure with none says nothing new.
+func TestExplicitLookNamesTheBody(t *testing.T) {
+	player := pb.EntityKind_ENTITY_KIND_CHARACTER
+	for _, c := range []struct {
+		body pb.BodyType
+		want string
+	}{
+		{pb.BodyType_BODY_TYPE_FEMALE, "Wears: female; plain clothes; empty hands"},
+		{pb.BodyType_BODY_TYPE_MALE, "Wears: male; plain clothes; empty hands"},
+		{pb.BodyType_BODY_TYPE_UNSPECIFIED, "Wears: plain clothes; empty hands"},
+	} {
+		e := &pb.EntityState{Name: "Aria", Kind: player, BodyType: c.body, VisibleGear: &pb.VisibleGear{}}
+		if got := WearsLine(e); got != c.want {
+			t.Errorf("body %v: %q, want %q", c.body, got, c.want)
+		}
+	}
+}

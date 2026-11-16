@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/GeneStevens/seq-tui/model"
+	"github.com/GeneStevens/seq/agentkit"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
 
@@ -260,8 +261,12 @@ func abilityLines(m *model.Model, v View, w int, st Styler) []string {
 type Create struct {
 	Name  string
 	Class int
-	// Classes says the cursor is on the class list; else it is on the name.
-	Classes bool
+	// Classes says the cursor is on the class list; Bodies, on the body line
+	// (shown only when the server lists more than one body); else it is on
+	// the name.
+	Classes, Bodies bool
+	// Body is the body chosen, none to begin with (D202): the player chooses.
+	Body pb.BodyType
 	// Busy: the character is being made. Err is why the last try failed.
 	Busy bool
 	Err  string
@@ -275,21 +280,60 @@ func rolesWords(roles []string) string {
 	return strings.Join(roles, " + ")
 }
 
+// BodyName is a body as a player reads it ("Female"); "" for none.
+func BodyName(b pb.BodyType) string {
+	w := agentkit.BodyWord(b)
+	if w == "" {
+		return ""
+	}
+	return strings.ToUpper(w[:1]) + w[1:]
+}
+
+// bodyLine is the creation screen's line of bodies, the chosen one in
+// brackets: "Body   Female · Male".
+func bodyLine(bodies []pb.BodyType, chosen pb.BodyType) string {
+	var names []string
+	for _, b := range bodies {
+		n := BodyName(b)
+		if b == chosen {
+			n = "[" + n + "]"
+		}
+		names = append(names, n)
+	}
+	return " Body   " + strings.Join(names, " · ")
+}
+
 func createLines(m *model.Model, c *Create, w, h int, st Styler) []string {
 	var rows []string
 	add := func(s string) { rows = append(rows, fit(s, w)) }
 	menu := m.Classes()
-	add(" Make a character: a name and a class.")
+	bodies := m.Bodies()
+	if len(bodies) < 2 {
+		bodies = nil
+	}
+	if bodies != nil {
+		add(" Make a character: a name, a body and a class.")
+	} else {
+		add(" Make a character: a name and a class.")
+	}
 	add("")
 	cursor := "_"
-	if c.Classes {
+	if c.Classes || c.Bodies {
 		cursor = ""
 	}
 	name := fmt.Sprintf(" Name   %s%s", c.Name, cursor)
-	if !c.Classes {
+	if !c.Classes && !c.Bodies {
 		rows = append(rows, st.Reverse(fit(name+strings.Repeat(" ", max(MaxName-width(c.Name), 0))+"   3 to 16 letters", w)))
 	} else {
 		add(name + "   3 to 16 letters")
+	}
+	if bodies != nil {
+		line := bodyLine(bodies, c.Body)
+		if c.Bodies {
+			rows = append(rows, st.Reverse(fit(line, w)))
+		} else {
+			add(line)
+		}
 	}
 	add("")
 	add(" Class (the server's menu)")
@@ -320,8 +364,12 @@ func createLines(m *model.Model, c *Create, w, h int, st Styler) []string {
 	default:
 		tail = append(tail, fit("", w))
 	}
-	tail = append(tail, fit(" Type the name. Tab or Down moves to the classes: Up / Down or 1-"+fmt.Sprint(max(len(menu), 1))+" choose.", w),
-		fit(" Enter makes the character and plays it. Ctrl+C quits.", w))
+	if bodies != nil {
+		tail = append(tail, fit(" Type the name. Tab or Down moves on: Left / Right or F / M choose the body; then Up / Down or 1-"+fmt.Sprint(max(len(menu), 1))+" choose the class.", w))
+	} else {
+		tail = append(tail, fit(" Type the name. Tab or Down moves to the classes: Up / Down or 1-"+fmt.Sprint(max(len(menu), 1))+" choose.", w))
+	}
+	tail = append(tail, fit(" Enter makes the character and plays it. Ctrl+C quits.", w))
 	if c.Class >= 0 && c.Class < len(menu) {
 		cl := menu[c.Class]
 		for _, l := range wrap(cl.GetDescription(), w-2) {

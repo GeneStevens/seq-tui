@@ -250,13 +250,19 @@ func (r Refused) Error() string { return "refused: " + r.Reason }
 // CreateCharacter makes a character of the account and returns its id, which
 // Select takes (D46). A refusal is a Refused.
 func (s *Session) CreateCharacter(ctx context.Context, name, class string) (string, error) {
+	return s.CreateCharacterBody(ctx, name, class, "")
+}
+
+// CreateCharacterBody is CreateCharacter with a body (D202), "female" or "male";
+// "" sends none, which the server answers with its default.
+func (s *Session) CreateCharacterBody(ctx context.Context, name, class, body string) (string, error) {
 	s.mu.Lock()
 	a, before := s.agent, len(s.m.Errors)
 	s.mu.Unlock()
 	if a == nil {
 		return "", errors.New("not connected")
 	}
-	id, err := a.CreateCharacter(ctx, name, class)
+	cc, err := a.CreateCharacterBody(ctx, name, class, body)
 	if err != nil {
 		s.mu.Lock()
 		defer s.mu.Unlock()
@@ -267,7 +273,18 @@ func (s *Session) CreateCharacter(ctx context.Context, name, class string) (stri
 		}
 		return "", err
 	}
-	return id, nil
+	return cc.GetCharacter(), nil
+}
+
+// ChangeBody is the owner's one free change of a character's body (D202), to
+// "female" or "male". A refusal is an error that says why.
+func (s *Session) ChangeBody(ctx context.Context, character, body string) error {
+	a := s.agentOrNil()
+	if a == nil {
+		return errors.New("not connected")
+	}
+	_, err := a.ChangeBody(ctx, character, body)
+	return err
 }
 
 // Select chooses the character to play; the first snapshot is in the model
