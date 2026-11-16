@@ -56,3 +56,30 @@ func TestTargetWearsLine(t *testing.T) {
 		t.Errorf("an old server's target has no Wears line: %q", lines)
 	}
 }
+
+// A figure's light is said after its gear, in the server's words (D200.5); a
+// figure with none reads as it did.
+func TestLookCarriesLight(t *testing.T) {
+	light := func(strength, colour, origin string) *pb.VisibleGear {
+		return &pb.VisibleGear{Light: &pb.CarriedLight{Strength: strength, Colour: colour, Origin: origin}}
+	}
+	held := func(family string) *pb.HeldForms { return &pb.HeldForms{Off: &pb.ItemForm{Family: family}} }
+	for _, c := range []struct {
+		name string
+		g    *pb.VisibleGear
+		h    *pb.HeldForms
+		want string
+	}{
+		{"none", &pb.VisibleGear{}, nil, "Wears: plain clothes; empty hands"},
+		{"a torch", light("medium", "warm", "off_hand"), held("torch"), "Wears: plain clothes; holds a torch; carries a lit torch"},
+		{"a lantern", light("wide", "warm", "off_hand"), held("lantern"), "Wears: plain clothes; holds a lantern; carries a lit lantern"},
+		{"a cold body light", light("faint", "cold", "body"), nil, "Wears: plain clothes; empty hands; a pale glow at the throat"},
+		{"a faint head light", light("small", "warm", "head"), nil, "Wears: plain clothes; empty hands; a small warm light at the brow"},
+		{"an off-hand light that is no torch", light("small", "cold", "off_hand"), nil, "Wears: plain clothes; empty hands; carries a small cold light"},
+	} {
+		e := &pb.EntityState{Name: "Aria", Kind: pb.EntityKind_ENTITY_KIND_CHARACTER, VisibleGear: c.g, Held: c.h}
+		if got := WearsLine(e); got != c.want {
+			t.Errorf("%s: %q, want %q", c.name, got, c.want)
+		}
+	}
+}
