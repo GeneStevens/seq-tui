@@ -36,6 +36,7 @@ import (
 	"github.com/GeneStevens/seq-tui/record"
 	"github.com/GeneStevens/seq-tui/sessionlog"
 	"github.com/GeneStevens/seq/agentkit"
+	"github.com/GeneStevens/seq/content"
 	"github.com/GeneStevens/seq/core"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 	"github.com/GeneStevens/seq/server"
@@ -215,14 +216,22 @@ func usesWorld(zones []string) bool {
 // one.
 func WorldPacks(t testing.TB) string {
 	t.Helper()
+	dir, err := worldPacks()
+	if err != nil {
+		t.Fatal(err)
+	}
+	return dir
+}
+
+func worldPacks() (string, error) {
 	if d := os.Getenv(EnvWorld); d != "" {
-		return d
+		return d, nil
 	}
 	out, err := exec.Command("go", "list", "-m", "-f", "{{.Dir}}", "github.com/GeneStevens/seq-world").Output()
 	if err != nil || len(strings.TrimSpace(string(out))) == 0 {
-		t.Fatalf("seq-world is not in the module cache (go list: %v)", err)
+		return "", fmt.Errorf("seq-world is not in the module cache (go list: %v)", err)
 	}
-	return filepath.Join(strings.TrimSpace(string(out)), "packs")
+	return filepath.Join(strings.TrimSpace(string(out)), "packs"), nil
 }
 
 // Fixture says the first player of this world is recorded to the named log in
@@ -1158,6 +1167,15 @@ func note(name string, took time.Duration) {
 // time and holds the whole suite to MaxSuite.
 func Main(m *testing.M) {
 	model.FixClock() // lines carry the time they came: a golden needs it fixed (D121)
+	// The world's packs are loaded once, before any scenario: a scenario that
+	// reads a zone before it starts a server (content.Zone) finds it, whatever
+	// ran first, and the scenarios that run beside each other load nothing twice.
+	if dir, err := worldPacks(); err == nil {
+		if _, err := content.UsePacks(dir); err != nil {
+			fmt.Println("FAIL: the world's packs:", err)
+			os.Exit(1)
+		}
+	}
 	began := time.Now()
 	code := m.Run()
 	total := time.Since(began)
