@@ -109,6 +109,8 @@ func (a *App) charKey(k string, m *model.Model) Action {
 		return Action{Kind: OpenTrade}
 	case k == "u":
 		return a.useKey(m)
+	case k == "l" || k == "L":
+		return a.linkKey(m)
 	case k == "H":
 		return healAction(m)
 	case k == "tab" || k == "right":
@@ -141,6 +143,20 @@ func (a *App) charKey(k string, m *model.Model) Action {
 		}
 	}
 	return Action{}
+}
+
+// linkKey links the item under the cursor of the bags or the worn list into the
+// chat line (D206), or says why not.
+func (a *App) linkKey(m *model.Model) Action {
+	sb := &a.mouse.charTab
+	if sb.Tab == screen.TabStats {
+		return Action{Note: "L links the item under the cursor into the chat line: choose it on the Gear or Bags tab"}
+	}
+	inst, _, _ := screen.CharSelected(m, sb)
+	if inst == "" {
+		return Action{Note: "there is no item under the cursor to link"}
+	}
+	return Action{Kind: LinkItem, ID: inst}
 }
 
 // useKey uses the consumable under the cursor of the bags tab (D115), or says

@@ -107,9 +107,9 @@ func charLines(m *model.Model, v View, w, h int, st Styler) []string {
 	}
 	switch sb.Tab {
 	case TabGear:
-		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} choose · {Enter} takes it off · out of combat only", w, st))
+		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} choose · {Enter} takes it off · {L} links it into chat · out of combat only", w, st))
 	case TabBags:
-		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} choose · {Enter} wears it · {U} uses it · {H} heals", w, st))
+		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} choose · {Enter} wears it · {U} uses it · {H} heals · {L} links it", w, st))
 	default:
 		rows = append(rows, help(" {Tab} next tab · {Up} / {Down} scroll", w, st))
 	}

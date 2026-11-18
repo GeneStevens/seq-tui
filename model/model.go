@@ -190,6 +190,9 @@ type Model struct {
 	// vendors, trainers, binders and bankers in view, and Trade the character's
 	// trade window: nil when it has none.
 	Items map[string]*pb.ItemInfo
+	// LinkFacts are the comparisons the server gave for linked items (D206), by
+	// item id: what Fact answers for an item the character's own list lacks.
+	LinkFacts map[string]*pb.ItemFact
 	// Lessons are the abilities the trainers in view teach, as they described
 	// them (D52): the names and words of abilities the character does not know.
 	Lessons map[string]*pb.AbilityInfo

@@ -9,6 +9,7 @@ import (
 	"sort"
 
 	"github.com/GeneStevens/seq-tui/model"
+	"github.com/GeneStevens/seq-tui/screen"
 	"github.com/GeneStevens/seq/agentkit"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
@@ -116,6 +117,8 @@ const (
 	ChooseDirection  // choose the entry ID of the list the guard NPC gave: it becomes the destination (Note is its name)
 	SetDestination   // mark the spot X, Y of this zone as the destination
 	ClearDestination // clear the destination
+	ShowItems        // show the details of an item linked in the chat or in what a person said (D206)
+	LinkItem         // link the item ID (named Note) into the chat line, opening it if it is shut (D206)
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -145,6 +148,8 @@ type Action struct {
 	For string
 	// Quiet: a good answer is not put on the status line (an approach's steps).
 	Quiet bool
+	// Links are the items a chat line holds (D206): SocialDo "line" sends their ids.
+	Links []screen.LineLink
 }
 
 // Plan decides what a key does against the model. It is pure.
@@ -248,6 +253,8 @@ func common(key string) Action {
 		return Action{Kind: OpenSessions}
 	case "X":
 		return Action{Kind: ClearDestination}
+	case "I":
+		return Action{Kind: ShowItems}
 	}
 	return Action{}
 }

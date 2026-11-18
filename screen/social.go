@@ -20,7 +20,14 @@ type Line struct {
 	// Channel is what plain text is sent as (say, party or tell, to Target) and
 	// Prompt says so; text that starts with a slash is a command, whatever it is.
 	Channel, Target string
+	// Links are the items put in the text (D206), in the order they stand in it.
+	// Each is written "[Name]" in the text; what is sent is the item's id and where.
+	Links []LineLink
 }
+
+// LineLink is an item linked into the chat line: its id and the name written
+// in brackets in the text.
+type LineLink struct{ Item, Name string }
 
 // The tabs of the Social screen.
 const (
@@ -294,6 +301,14 @@ func socialHelp() []string {
 		"                 go). The card shows class, level and zone (\"anonymous\" if",
 		"                 hidden): T tells, I invites, N ignores, R reports (asks why),",
 		"                 Esc closes. Your own name opens nothing. /whois NAME opens one",
+		"Items            an item linked in a line shows as [Item Name], in its rarity",
+		"                 colour (fine green, rare blue, named bold magenta; the brackets",
+		"                 say it without colour). Shift+I shows the details of one in view,",
+		"                 in the Chat tab, the drawer or what a person said (1-9 picks one",
+		"                 when several), with how it compares with what you wear. To link",
+		"                 one: in your character view (C) L puts the item under the cursor",
+		"                 into the chat line, opening it; Ctrl+Y adds another while it is",
+		"                 open (Up / Down move the cursor). A line holds up to 5",
 		"Bubbles          what a character in view says (say only) shows by it for",
 		"                 about 4 seconds, cut at 24 characters; the log has the line",
 		"Panel            the bottom panel has tabs: Events, Chat, Party. [ and ] turn",
