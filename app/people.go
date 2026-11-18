@@ -200,7 +200,7 @@ func (a *App) overviewKey(k string, m *model.Model) Action {
 			return Action{Note: "move the cursor with the arrow keys first, then X marks it as your destination"}
 		}
 		return Action{Kind: SetDestination, X: a.mouse.cursor.GetX(), Y: a.mouse.cursor.GetY()}
-	case "ctrl+d":
+	case "X":
 		return Action{Kind: ClearDestination}
 	case "+", "=":
 		return Action{Kind: ZoomMap, Count: 1}
@@ -245,7 +245,7 @@ func (a *App) dirsKey(k string, m *model.Model) Action {
 		a.dirs, a.talk = nil, &screen.Talk{NPC: d.NPC}
 	case up(k) || down(k):
 		d.Sel = step(d.Sel, k, n)
-	case k == "ctrl+d":
+	case k == "X":
 		return Action{Kind: ClearDestination}
 	case enter(k):
 		if n == 0 {

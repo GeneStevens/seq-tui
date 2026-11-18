@@ -86,7 +86,7 @@ func dirsLines(m *model.Model, d *Dirs, w, h int, st Styler) []string {
 		rows = append(rows, strings.Repeat(" ", w))
 	}
 	rows = append(rows, help(" {Up} / {Down} choose · {Enter} marks it on your map · {Esc} back", w, st))
-	rows = append(rows, help(" The way there is on your map and in the You panel; {Ctrl+D} clears it.", w, st))
+	rows = append(rows, help(" The way there is on your map and in the You panel; {Shift+X} clears it.", w, st))
 	return pad(rows[:min(len(rows), h)], w, h)
 }
 

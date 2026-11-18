@@ -246,7 +246,7 @@ func common(key string) Action {
 		return Action{Kind: PanelTab, Count: 1}
 	case "ctrl+l":
 		return Action{Kind: OpenSessions}
-	case "ctrl+d":
+	case "X":
 		return Action{Kind: ClearDestination}
 	}
 	return Action{}

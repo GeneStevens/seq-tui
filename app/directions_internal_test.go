@@ -85,7 +85,7 @@ func TestTheTalkScreenOffersDirectionsAndAChoiceSendsTheEntry(t *testing.T) {
 // Clearing is a key anywhere, and on the large map X marks the cursor's spot.
 func TestClearAndSetDestinationKeys(t *testing.T) {
 	a, m := guardWorld()
-	if act := Plan("ctrl+d", m); act.Kind != ClearDestination {
+	if act := Plan("X", m); act.Kind != ClearDestination {
 		t.Errorf("ctrl+d: %+v", act)
 	}
 	if act := a.overviewKey("x", m); act.Kind != None || act.Note == "" {

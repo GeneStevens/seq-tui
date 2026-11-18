@@ -773,7 +773,7 @@ func (a *App) send(act Action) tea.Cmd {
 		case act.Kind == ChooseDirection:
 			return resultMsg{note: "destination marked: " + act.Note, talk: act.NPC} // the guard's answer is on the talk screen
 		case act.Kind == SetDestination:
-			return resultMsg{note: "destination marked; Ctrl+D clears it"}
+			return resultMsg{note: "destination marked; Shift+X clears it"}
 		case act.Kind == QuestDismiss:
 			return resultMsg{note: "quest chain dismissed for good; it will not be offered again"}
 		case !hadTarget && act.For == "" && act.ID == "" && (act.Kind == Attack && act.On || act.Kind == UseAbility):
