@@ -108,10 +108,26 @@ func New(t *testing.T, o testserver.Options) *World {
 	return NewWithWalkTimeout(t, o, WalkTimeoutMs)
 }
 
+// parallel lets the scenario t run beside the others: each has its own server
+// and clock, so the suite takes the time of its slowest few, not of their sum.
+// A scenario that starts a second world is parallel once.
+func parallel(t *testing.T) {
+	if _, again := inParallel.LoadOrStore(t, true); !again {
+		t.Parallel()
+	}
+}
+
+var inParallel sync.Map
+
+// Serial keeps the scenario t out of the parallel run: a scenario that reads
+// what an earlier one left (the runs of a determinism check) calls it first.
+func Serial(t *testing.T) { inParallel.Store(t, true) }
+
 // NewWithWalkTimeout is New with the zones' heading-walk timeout set to ms (0: the
 // server's own, 500 ms, unless the zone sets one).
 func NewWithWalkTimeout(t *testing.T, o testserver.Options, ms int) *World {
 	t.Helper()
+	parallel(t)
 	if len(o.Packs) == 0 && usesWorld(o.Zones) {
 		o.Packs = []string{WorldPacks(t)}
 	}
