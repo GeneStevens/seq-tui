@@ -154,6 +154,17 @@ func start(t *testing.T, flags []string, dbURL string) *server {
 	case <-time.After(60 * time.Second):
 		t.Fatalf("seqd gave no token:\n%s", s.log)
 	}
+	// The token is printed before the listener is up: wait until it takes a connection.
+	for deadline := time.Now().Add(30 * time.Second); ; time.Sleep(20 * time.Millisecond) {
+		c, err := net.DialTimeout("tcp", s.addr, time.Second)
+		if err == nil {
+			_ = c.Close()
+			break
+		}
+		if time.Now().After(deadline) {
+			t.Fatalf("seqd does not listen on %s:\n%s", s.addr, s.log)
+		}
+	}
 	return s
 }
 
