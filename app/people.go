@@ -30,6 +30,18 @@ func (a *App) people(ctx context.Context, act Action) (what, id string, err erro
 	case Talk:
 		what = "talk to " + act.Note
 		id, err = a.sess.Talk(ctx, act.NPC)
+	case OpenDirections:
+		what = "ask " + act.Note + " the way"
+		id, err = a.sess.Directions(ctx, act.NPC, "")
+	case ChooseDirection:
+		what = "ask the way to " + act.Note
+		id, err = a.sess.Directions(ctx, act.NPC, act.ID)
+	case SetDestination:
+		what = "set the destination"
+		id, err = a.sess.SetDestination(ctx, act.X, act.Y)
+	case ClearDestination:
+		what = "clear the destination"
+		id, err = a.sess.ClearDestination(ctx)
 	case ContractAccept:
 		what = "take " + act.Note
 		id, err = a.sess.ContractAccept(ctx, act.NPC, act.ID)
@@ -94,6 +106,8 @@ func (a *App) option(m *model.Model, npc string, o *pb.DialogueOption) Action {
 		return Action{Kind: OpenBoard, NPC: npc, Count: 1}
 	case "companion_role":
 		return Action{Kind: OpenRole, NPC: npc}
+	case model.DirectionsOption:
+		return Action{Kind: OpenDirections, NPC: npc, Note: m.NPCName(npc)}
 	}
 	return Action{Note: fmt.Sprintf("%s has nothing for you to do here yet", m.NPCName(npc))}
 }
@@ -180,6 +194,14 @@ func (a *App) overviewKey(k string, m *model.Model) Action {
 	case "esc", "m", "q":
 		a.overview = false
 		a.mouse.cursor = nil
+	case "x":
+		// The keyboard's way to Shift-click: the cursor's spot becomes the destination.
+		if a.mouse.cursor == nil {
+			return Action{Note: "move the cursor with the arrow keys first, then X marks it as your destination"}
+		}
+		return Action{Kind: SetDestination, X: a.mouse.cursor.GetX(), Y: a.mouse.cursor.GetY()}
+	case "ctrl+d":
+		return Action{Kind: ClearDestination}
 	case "+", "=":
 		return Action{Kind: ZoomMap, Count: 1}
 	case "-", "_":
@@ -207,4 +229,31 @@ func tradersAt(m *model.Model, npc string) int {
 		}
 	}
 	return -1
+}
+
+// dirsKey handles a key on the Directions screen: the arrows choose an entry of
+// the guard's list, in the server's order, and Enter asks the way to it.
+func (a *App) dirsKey(k string, m *model.Model) Action {
+	d := a.dirs
+	entries := screen.DirectionEntries(m, d.NPC)
+	n := len(entries)
+	d.Sel = max(min(d.Sel, n-1), 0)
+	switch {
+	case k == "ctrl+c":
+		return Action{Kind: Quit}
+	case k == "esc" || k == "q":
+		a.dirs, a.talk = nil, &screen.Talk{NPC: d.NPC}
+	case up(k) || down(k):
+		d.Sel = step(d.Sel, k, n)
+	case k == "ctrl+d":
+		return Action{Kind: ClearDestination}
+	case enter(k):
+		if n == 0 {
+			return Action{Note: "there is nothing to point you to"}
+		}
+		e := entries[d.Sel]
+		a.dirs = nil
+		return Action{Kind: ChooseDirection, NPC: d.NPC, ID: e.GetId(), Note: e.GetName()}
+	}
+	return Action{}
 }

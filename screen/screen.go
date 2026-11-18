@@ -99,6 +99,7 @@ type View struct {
 	// KeysToDuo says the companion keys talk to it rather than to the house
 	// companion (when the character has both).
 	Role      *Role
+	Dirs      *Dirs // the guard's list of directions, nil when closed (D203)
 	Duo       *DuoView
 	KeysToDuo bool
 
@@ -219,6 +220,8 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 		takeover("Social: "+tabNames[v.Social.Tab], func(w, h int) []string { return socialScreenLines(m, v.Social, w, h, st) })
 	case v.Slots != nil:
 		takeover("Ability slots", func(w, h int) []string { return slotScreenLines(m, v, w, h, st) })
+	case v.Dirs != nil:
+		takeover("Directions", func(w, h int) []string { return dirsLines(m, v.Dirs, w, h, st) })
 	case v.Role != nil:
 		takeover("Recruit's role", func(w, h int) []string { return roleLines(m, v.Role, w, h, st) })
 	case v.Char:

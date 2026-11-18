@@ -1,6 +1,6 @@
 ┌─ Help: The map and its legend ───────────────────────────────────────────────┐
 │ Legend                                                                       │
-│   You       @ you  % scout marker  + plan end  ◄ objective                   │
+│   You       @ you  % scout marker  + plan end  ◄ objective  ◉ destination    │
 │   People    p player  T trainer  $ vendor  B banker  H binder  g guard       │
 │             Q quest person  & board  D door  “ said, for 4 s                 │
 │             » chat names you                                                 │

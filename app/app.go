@@ -53,6 +53,7 @@ type App struct {
 	board      *screen.Board
 	cons       *screen.ContractsUI
 	role       *screen.Role       // the choice of the recruit's role, nil when closed
+	dirs       *screen.Dirs       // the guard's list of directions, nil when closed (D203)
 	duo        *client.Duo        // the second character on a stance, nil when there is none
 	toDuo      bool               // the helper keys talk to it, not to the house companion
 	focus      bool               // directing the second character: the keys and the screen are its (D56)
@@ -333,7 +334,7 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			msg.after(a)
 		}
 		if msg.talk != "" {
-			a.talk = &screen.Talk{NPC: msg.talk}
+			a.talk, a.dirs = &screen.Talk{NPC: msg.talk}, nil
 		}
 		if msg.planSent && msg.planRound == a.draft.Round && msg.planVer == a.draft.Ver {
 			a.draft.Sent = true
@@ -412,6 +413,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = a.boardKey(k, m)
 		case a.role != nil:
 			act = a.roleKey(k, m)
+		case a.dirs != nil:
+			act = a.dirsKey(k, m)
 		case a.quest != nil:
 			act = a.questKey(k, m)
 		case a.cons != nil:
@@ -548,6 +551,10 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 	case SessionsDo:
 		return a, a.sessionsDo(act)
 	case SocialDo:
+		a.inflight++
+		return a, a.send(act)
+	case OpenDirections:
+		a.talk, a.dirs = nil, &screen.Dirs{NPC: act.NPC}
 		a.inflight++
 		return a, a.send(act)
 	case OpenRole:
@@ -721,7 +728,7 @@ func (a *App) send(act Action) tea.Cmd {
 		case PlanSubmit:
 			what = "plan"
 			id, err = a.sess.SubmitPlan(ctx, act.Steps...)
-		case Talk, ContractAccept, ContractTurnIn, ContractAbandon:
+		case Talk, ContractAccept, ContractTurnIn, ContractAbandon, OpenDirections, ChooseDirection, SetDestination, ClearDestination:
 			what, id, err = a.people(ctx, act)
 		case CompanionSummon, CompanionDismiss, CompanionStance, CompanionRole, CompanionOrder:
 			what, id, err = a.companion(ctx, act)
@@ -736,15 +743,21 @@ func (a *App) send(act Action) tea.Cmd {
 			}
 			return resultMsg{note: "logging out…"}
 		}
+		// A refused ask for directions leaves the list for the guard's talk screen,
+		// with the reason on it.
+		back := ""
+		if act.Kind == OpenDirections || act.Kind == ChooseDirection {
+			back = act.NPC
+		}
 		if err != nil {
-			return resultMsg{note: what + " not sent: " + err.Error(), bad: true}
+			return resultMsg{note: what + " not sent: " + err.Error(), bad: true, talk: back}
 		}
 		st, err := a.sess.Result(ctx, id)
 		switch {
 		case err != nil:
-			return resultMsg{note: what + ": " + err.Error(), bad: true}
+			return resultMsg{note: what + ": " + err.Error(), bad: true, talk: back}
 		case st.State == model.IntentDenied:
-			return resultMsg{note: deniedWords(st), bad: true} // the server's line, with no internal prefix
+			return resultMsg{note: deniedWords(st), bad: true, talk: back} // the server's line, with no internal prefix
 		case st.Unknown && act.Kind == PlanSubmit:
 			return resultMsg{note: "plan: already applied (result unknown)", planSent: true, planRound: act.Round, planVer: act.Ver}
 		case st.Unknown:
@@ -755,6 +768,12 @@ func (a *App) send(act Action) tea.Cmd {
 			return resultMsg{note: "instance requested; the log says when it is open"}
 		case act.Kind == Talk:
 			return resultMsg{note: what + " ok", talk: act.NPC}
+		case act.Kind == OpenDirections:
+			return resultMsg{quiet: true} // the list is on the screen
+		case act.Kind == ChooseDirection:
+			return resultMsg{note: "destination marked: " + act.Note, talk: act.NPC} // the guard's answer is on the talk screen
+		case act.Kind == SetDestination:
+			return resultMsg{note: "destination marked; Ctrl+D clears it"}
 		case act.Kind == QuestDismiss:
 			return resultMsg{note: "quest chain dismissed for good; it will not be offered again"}
 		case !hadTarget && act.For == "" && act.ID == "" && (act.Kind == Attack && act.On || act.Kind == UseAbility):
@@ -778,7 +797,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	var out string
 	v.Menu, v.Slots, v.Create, v.Picker, v.Now = a.menu, a.slots, a.create, a.picker, a.now()
 	v.Char, v.Traders, v.Trade = a.char, a.traders, a.trade
-	v.Talk, v.Board, v.Contracts, v.Overview, v.Role = a.talk, a.board, a.cons, a.overview, a.role
+	v.Talk, v.Board, v.Contracts, v.Overview, v.Role, v.Dirs = a.talk, a.board, a.cons, a.overview, a.role, a.dirs
 	v.Line, v.Social, v.Sessions, v.Quest = a.line, a.soc, a.ses, a.quest
 	a.chatView(&v)
 	a.mouseView(&v)

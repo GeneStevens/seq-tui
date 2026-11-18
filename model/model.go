@@ -200,10 +200,12 @@ type Model struct {
 	// Talks counts them; WorldEvents are the last announcement of each timed
 	// event of the zone; Seen is what the character has seen of each space
 	// (its NPCs and where mobs first stood), remembered for the map.
-	Dialogues   map[string]*Dialogue
-	Talks       int
-	WorldEvents map[string]*WorldEventState
-	Seen        map[string]*Place
+	Dialogues map[string]*Dialogue
+	// DirectionLists are the lists the guards gave, by NPC id (D203).
+	DirectionLists map[string]*pb.DirectionsList
+	Talks          int
+	WorldEvents    map[string]*WorldEventState
+	Seen           map[string]*Place
 
 	// Social is playing together (M9): chat, the party, who and friends.
 	Social Social
@@ -682,6 +684,8 @@ func (m *Model) apply(e *pb.Event) {
 		}
 	case *pb.Event_Dialogue:
 		m.applyDialogue(b.Dialogue)
+	case *pb.Event_Directions:
+		m.applyDirections(b.Directions)
 	case *pb.Event_WorldEvent:
 		m.applyWorldEvent(b.WorldEvent, e.GetGameTimeMs())
 	case *pb.Event_InstanceOpened, *pb.Event_InstanceEnded, *pb.Event_RoundStarted, *pb.Event_RoundResolved:
