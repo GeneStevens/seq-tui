@@ -41,6 +41,7 @@ const (
 	glyphWall      = '#'
 	glyphBounds    = '░' // the edge of the zone: where walking ends
 	glyphPlan      = '+' // where the plan being built ends
+	glyphDest      = '◉' // the destination a guard marked, or you did (D203): gold, and not any role's glyph
 	// The ground (D53). Each says what it is without colour, and none is a
 	// glyph above; a building is a solid block like a wall, a road a dotted
 	// band, a forest a stand of quotes, water waves, a ford its stepping
@@ -75,6 +76,7 @@ const (
 	kMarkGrey // a quest in progress (D76)
 	kMarkGold // something new, or ready to hand in; the board that has it
 	kNextDoor // the next door on the way to the objective
+	kDest     // the character's destination (D203): over the person or place it marks
 	kCharacter
 	kMob
 	kQuestMob // a mob that counts for a held contract
@@ -264,6 +266,7 @@ func mapRows(m *model.Model, v View, cw, ch int, st Styler) []string {
 	g := gridFor(v.Hits, newScale(zoomed(m.Map.GetViewRadiusMm(), v.Zoom), ch), cw, ch, m.Self.Pos)
 	paintWorld(g, m, v, false)
 	g.pointToObjective(m)
+	g.pointToDestination(m)
 	g.put(int64(cw/2), int64(ch/2), glyphSelf, kSelf)
 	v.Hits.setGrid(g)
 	paintOverlays(g, m, v)
@@ -778,6 +781,10 @@ func paintWorld(g *grid, m *model.Model, v View, overview bool) {
 		gl, k := npcMark(m, n)
 		g.put(c, r, gl, k)
 	}
+	if d := m.DestinationWaypoint(); d.GetPos() != nil {
+		c, r := g.cellOf(d.GetPos())
+		g.put(c, r, glyphDest, kDest)
+	}
 	for _, k := range m.Self.Contracts {
 		if p := m.Marker(k); p != nil {
 			c, r := g.cellOf(p)
@@ -874,7 +881,7 @@ func cellStyle(k cellKind, area model.AreaKind, st Styler) func(string) string {
 		return st.Dim
 	case kDoor:
 		return st.Cyan
-	case kMarkGold, kNextDoor, kPointer, kRare:
+	case kMarkGold, kNextDoor, kPointer, kRare, kDest:
 		return func(s string) string { return st.Yellow(st.Bold(s)) }
 	case kQuestMob, kPlan:
 		return st.Yellow
@@ -909,7 +916,8 @@ func groundStyle(k model.AreaKind, st Styler) func(string) string {
 
 // pointToObjective draws the arrow to the objective's next waypoint at the edge
 // of the map when it lies off it (D76): "◄ Gorran 23m". The label is the
-// objective's name, short, and the distance in metres.
+// objective's name, short, and the distance in metres. When the destination lies
+// beyond the same edge, only the destination's arrow is drawn (D203.4).
 func (g *grid) pointToObjective(m *model.Model) {
 	h := m.Waypoint()
 	if h == nil {
@@ -918,6 +926,37 @@ func (g *grid) pointToObjective(m *model.Model) {
 	if h == nil || h.GetPos() == nil {
 		return
 	}
+	if d := m.DestinationWaypoint(); d.GetPos() != nil && g.beyond(h.GetPos()) == g.beyond(d.GetPos()) {
+		return
+	}
+	g.pointAt(m, h, "", pointerLabel(m, h), kPointer)
+}
+
+// pointToDestination draws the destination's arrow at the edge of the map when it
+// lies off it (D203): "◄◉ Ottilie 24m". In another zone it points at the door.
+func (g *grid) pointToDestination(m *model.Model) {
+	d := m.DestinationWaypoint()
+	if d.GetPos() == nil {
+		return
+	}
+	label := d.GetLabel()
+	if m.Destination().GetZone() != "" {
+		label = model.DoorName(d) // the way there is the door
+	}
+	g.pointAt(m, d, string(glyphDest), strings.TrimSpace(fit(label, 16)), kDest)
+}
+
+// beyond is the side or corner of the map a position lies beyond, "" for on it.
+func (g *grid) beyond(p *pb.Pos) string {
+	c, r := g.cellOf(p)
+	west, east := c < 0, c >= int64(g.cw)
+	north, south := r < 0, r >= int64(g.ch)
+	return fmt.Sprint(west, east, north, south)
+}
+
+// pointAt draws the arrow to h at the edge of the map, if h lies off it: the
+// arrow, then lead (a mark of its own), the label and the distance.
+func (g *grid) pointAt(m *model.Model, h *pb.Hint, lead, label string, k cellKind) {
 	c, r := g.cellOf(h.GetPos())
 	west, east := c < 0, c >= int64(g.cw)
 	north, south := r < 0, r >= int64(g.ch)
@@ -926,12 +965,12 @@ func (g *grid) pointToObjective(m *model.Model) {
 	}
 	arrow := pointerGlyph(west, east, north, south)
 	ec, er := min(max(c, 0), int64(g.cw-1)), min(max(r, 0), int64(g.ch-1))
-	label := fmt.Sprintf("%s %dm", pointerLabel(m, h), dist64(h.GetPos(), m.Self.Pos)/1000)
-	s := string(arrow) + " " + label
+	label = fmt.Sprintf("%s %dm", label, dist64(h.GetPos(), m.Self.Pos)/1000)
+	s := string(arrow) + lead + " " + label
 	start := int64(0)
 	switch {
 	case east && !west:
-		s = label + " " + string(arrow)
+		s = label + " " + lead + string(arrow)
 		start = int64(g.cw) - int64(width(s))
 	case west:
 	default: // above or below: centred on the column the objective lies in
@@ -939,7 +978,7 @@ func (g *grid) pointToObjective(m *model.Model) {
 	}
 	start = min(max(start, 0), max(int64(g.cw)-int64(width(s)), 0))
 	for i, rn := range []rune(s) {
-		g.put(start+int64(i), er, rn, kPointer)
+		g.put(start+int64(i), er, rn, k)
 	}
 }
 

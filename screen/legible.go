@@ -24,7 +24,7 @@ const momentWindowMs = 20_000
 // anyScreen says a screen or menu is open over the map.
 func (v View) anyScreen() bool {
 	return v.Help || v.Sessions != nil || v.Quest != nil || v.Create != nil || v.Picker != nil || v.Social != nil || v.Slots != nil ||
-		v.Traders != nil || v.Trade != nil || v.Talk != nil || v.Board != nil || v.Role != nil ||
+		v.Traders != nil || v.Trade != nil || v.Talk != nil || v.Board != nil || v.Role != nil || v.Dirs != nil ||
 		v.Contracts != nil || v.Overview || v.Menu != nil || v.Char
 }
 

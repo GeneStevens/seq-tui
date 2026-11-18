@@ -19,6 +19,7 @@ type mouseState struct {
 	hits    screen.Hits
 	hover   *screen.Pt
 	alt     bool // a mouse event came with Alt held
+	shift   bool // a mouse event came with Shift held
 	labels  bool // the toggle that stands in for Alt
 	zoom    int  // the map's zoom
 	bigZoom int  // the large map's zoom
@@ -101,7 +102,7 @@ func (a *App) moveCursor(k string) {
 // sideShown says a character sidebar is beside the screen that is open.
 func (a *App) sideShown() bool {
 	return (a.traders != nil || a.talk != nil || a.board != nil) && !a.char && a.trade == nil && a.cons == nil &&
-		!a.overview && a.slots == nil && a.role == nil && a.quest == nil && a.menu == nil && a.soc == nil && a.ses == nil && !a.view.Help
+		!a.overview && a.slots == nil && a.role == nil && a.dirs == nil && a.quest == nil && a.menu == nil && a.soc == nil && a.ses == nil && !a.view.Help
 }
 
 // sideKey handles the keys of the sidebar (D78): C turns to the next tab (and, in
@@ -164,7 +165,7 @@ func (a *App) onMouse(msg tea.MouseMsg) (tea.Model, tea.Cmd) {
 	if a.replay != nil {
 		return a, nil // a recording is drawn: nothing on it is the game
 	}
-	ms.alt = mo.Mod.Contains(tea.ModAlt)
+	ms.alt, ms.shift = mo.Mod.Contains(tea.ModAlt), mo.Mod.Contains(tea.ModShift)
 	switch msg.(type) {
 	case tea.MouseMotionMsg:
 		ms.hover = &screen.Pt{X: mo.X, Y: mo.Y}
@@ -239,6 +240,11 @@ func (a *App) click(x, y int) (tea.Model, tea.Cmd) {
 	a.focusSess().View(func(m *model.Model) {
 		pick, ok := h.PickAt(m, x, y)
 		if !ok {
+			return
+		}
+		if a.mouse.shift && pick.Kind != screen.PickSelf && pick.Pos != nil {
+			// Shift-click marks the spot as the destination (D203), whatever is on it.
+			act = Action{Kind: SetDestination, X: pick.Pos.GetX(), Y: pick.Pos.GetY()}
 			return
 		}
 		act = a.clickAction(m, pick, a.mouse.alt)

@@ -28,7 +28,7 @@ type legendGroup struct {
 var legendGroups = []legendGroup{
 	{"You", []legendItem{
 		{glyphSelf, kSelf, "", "you"}, {glyphMarker, kPlan, "", "scout marker"}, {glyphPlan, kPlan, "", "plan end"},
-		{'◄', kPointer, "", "objective"},
+		{'◄', kPointer, "", "objective"}, {glyphDest, kDest, "", "destination"},
 	}},
 	{"People", []legendItem{
 		{glyphCharacter, kCharacter, "", "player"}, {glyphTrainer, kDoor, "", "trainer"}, {glyphTrader, kDoor, "", "vendor"},

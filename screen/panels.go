@@ -175,7 +175,7 @@ func youLines(m *model.Model, v View, w int, st Styler) []string {
 	if !s.Dead && v.roomy {
 		rows = append(rows, retaliateLine(s, w))
 	}
-	return withAttackers(m, withStatus(m, rows, w, st), w, st)
+	return withAttackers(m, withDestination(m, withStatus(m, rows, w, st), w, st), w, st)
 }
 
 // withAttackers adds the line that names what is attacking the character (D75).

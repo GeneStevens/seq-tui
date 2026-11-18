@@ -284,6 +284,22 @@ func (s *Session) Talk(ctx context.Context, npc string) (string, error) {
 	return s.intent(ctx, "talk", agentkit.Talk(npc))
 }
 
+// Directions asks the NPC for its list of directions (entry empty), or chooses an
+// entry of it, which sets the destination (D203).
+func (s *Session) Directions(ctx context.Context, npc, entry string) (string, error) {
+	return s.intent(ctx, "directions", agentkit.Directions(npc, entry))
+}
+
+// SetDestination marks a spot of this zone as the destination (D203).
+func (s *Session) SetDestination(ctx context.Context, x, y int64) (string, error) {
+	return s.intent(ctx, "set_destination", agentkit.SetDestination(x, y))
+}
+
+// ClearDestination clears the destination (D203).
+func (s *Session) ClearDestination(ctx context.Context) (string, error) {
+	return s.intent(ctx, "clear_destination", agentkit.ClearDestination())
+}
+
 // ContractAccept takes a contract the board offers now.
 func (s *Session) ContractAccept(ctx context.Context, npc, contract string) (string, error) {
 	return s.intent(ctx, "contract_accept", agentkit.ContractAccept(npc, contract))

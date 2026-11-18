@@ -35,7 +35,7 @@ var Bindings = []Binding{
 	{Keys: []string{"m"}, Show: "M", What: "the large map: Option-click a spot to walk there (arrows and Enter do too)", Group: "Moving"},
 	{Keys: []string{"+", "=", "-", "_"}, Show: "+ / -", What: "zoom the map in and out (the scroll wheel does too)", Group: "Moving"},
 	{Keys: []string{"W"}, Show: "Shift+W", What: "walk to the mob, person or drop last clicked, else your target, else the spot last clicked (what Option-click does, for a terminal that sends none)", Group: "Moving"},
-	{Keys: []string{"ctrl+a"}, Show: "Ctrl+A", What: "name everything on the map, on or off (holding Alt over the map does too)", Group: "Moving"},
+	{Keys: []string{"ctrl+a", "X"}, Show: "Ctrl+A, Shift+X", What: "name everything on the map, on or off (Alt does too); Shift+X clears your destination", Group: "Moving"},
 	{Keys: []string{"tab"}, Show: "Tab", What: "choose the next target", Group: "Fighting"},
 	{Keys: []string{"esc"}, Show: "Esc", What: "clear the target", Group: "Fighting"},
 	{Keys: []string{"f", "space"}, Show: "F, Space", What: "auto-attack on or off (none targeted: what attacks you)", Group: "Fighting"},
@@ -152,7 +152,7 @@ func mapPage(m *model.Model, _ View, w int, st Styler) []string {
 	for _, p := range []string{
 		"Gold is the quest's alone. A gold ! is somebody with something new for you; a gold ? is a hand-in that is ready, a grey ? a quest in progress. A board that has something to take or hand in is gold. Mobs that count for a contract you hold are gold, and the next door on your way is a gold D. Shape says it as well as colour.",
 		"World events and scouting have their own marks. The scout points (;) are gold, as your own scout marker (%) is. A world event's raiders appear at a purple v and head for a purple ◆. Hover over any of them for its name, or Option-click to walk there; Nearby lists the named ones.",
-		"When your objective is off the map an arrow at the edge points to it, with its name and distance (◄ Gorran 23m); the status line names it too. Nearby lists what matters to your quest first, tagged [step 2] or [2/3].",
+		"When your objective is off the map an arrow at the edge points to it, with its name and distance (◄ Gorran 23m); the status line names it too. A guard's directions mark a gold ◉ the same way (Shift+X clears it). Nearby lists what matters to your quest first, tagged [step 2] or [2/3].",
 		"The zone edge is the ░ line: walking ends there. Beside it, a zone line is a door (D).",
 		"A figure's glyph never changes with its gear. The Target panel says what the target wears (\"Wears: …\"); {Shift+L} opens a card with the full look of the person or mob nearest you, or nearest the large map's cursor. Hovering over a person names their class and level.",
 		"The line under the log changes with what you stand next to: the door, the person, the drop, the mobs in view.",

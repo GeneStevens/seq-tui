@@ -149,7 +149,7 @@ func kitLines(m *model.Model, v View, w int, st Styler) []string {
 	if !s.Dead && v.roomy {
 		rows = append(rows, retaliateLine(s, w))
 	}
-	return withAttackers(m, withStatus(m, rows, w, st), w, st)
+	return withAttackers(m, withDestination(m, withStatus(m, rows, w, st), w, st), w, st)
 }
 
 // slotStatus says in a word whether the slot can be used now.

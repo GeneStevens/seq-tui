@@ -97,6 +97,13 @@ func (m *Model) logEvent(e *pb.Event) {
 		kind, quiet = "objective_hints", true
 	case *pb.Event_LevelUp:
 		kind = "level_up"
+	case *pb.Event_Directions:
+		kind, quiet = "directions", true // the Directions screen shows the list
+	case *pb.Event_DestinationEnded:
+		kind = "destination_ended" // the server's line: reached, cleared or lost (D203)
+		if t := b.DestinationEnded.GetText(); t != "" && e.GetText() == "" {
+			text = t
+		}
 	case *pb.Event_HandIn:
 		kind, quiet = "hand_in", true // the board panel shows it, and the hand-in's reward line is in the log
 	}

@@ -73,45 +73,49 @@ const (
 	OpenRole        // the screen for choosing the recruit's role at the quest giver NPC
 	CompanionSummon
 	CompanionDismiss
-	CompanionStance // set the companion's stance to ID
-	CompanionRole   // the quest giver NPC makes the recruit's role ID
-	CompanionOrder  // order the companion: ID is "attack" (Target), "move" (X, Y), "stop" or "clear"
-	HelperNext      // the companion keys talk to the other helper
-	DuoSummon       // bring the second character into play
-	DuoDismiss      // log the second character out
-	DuoStance       // set the second character's stance to ID
-	DuoOrder        // order the second character, as CompanionOrder
-	Focus           // switch the keys and the screen between the two characters (D56)
-	OpenLine        // the command line for chat and the social commands
-	OpenSessions    // the sessions view (D64)
-	SessionsDo      // a request of the sessions view: ID is the verb, Note the session
-	SocialDo        // a request about playing together: ID is the verb, Note its argument
-	OpenQuest       // the quest chain screen (D62)
-	QuestDismiss    // give the quest chain up for good
-	SellJunk        // sell every junk item to the trader NPC (D78)
-	ZoomMap         // zoom the map by Count steps (D77)
-	ToggleLabels    // label everything on the map, in place of holding Alt (D77)
-	CloseCard       // close the info card
-	Look            // open the look card of figure ID: what it wears and holds (D197.10)
-	SelectSide      // pick the sidebar tab Count (D78)
-	ScrollSide      // scroll the sidebar by Count rows
-	ScrollLog       // scroll the bottom panel back by Count rows (negative: forward); Note "pgup", "pgdown", "home" or "end" for a page, the oldest line and live
-	MoveCursor      // move the large map's cursor a cell: Note is the key
-	AutoRetaliate   // turn auto-retaliate On (D85)
-	WalkKey         // a movement key went down: Note is the key (hold-to-walk)
-	ToggleDrawer    // lift the chat over the map, or drop it (D101)
-	PanelTab        // the bottom panel's next (Count 1) or previous (-1) tab
-	SelectPanel     // the bottom panel's tab Count
-	ReplyLine       // open the command line to answer the last tell
-	OpenPerson      // open the card of the character Note (a click or Enter on a name in the chat)
-	NameStep        // select the next (Count 1) or previous (-1) name in the chat; Count 0 leaves the selection
-	PersonDo        // carry out action Count of the open character card
-	PersonClose     // close the character card
-	Approach        // walk up to the thing ID (a PickKind in Count) at X, Y, and act on it (D109)
-	WalkTo          // walk to the thing last clicked, the target or the spot last clicked (D109)
-	UseItem         // use the consumable ID (D115)
-	BankExpand      // buy tier Count of bank slots at the banker NPC
-	Travel          // buy passage on route ID at the ferry NPC
+	CompanionStance  // set the companion's stance to ID
+	CompanionRole    // the quest giver NPC makes the recruit's role ID
+	CompanionOrder   // order the companion: ID is "attack" (Target), "move" (X, Y), "stop" or "clear"
+	HelperNext       // the companion keys talk to the other helper
+	DuoSummon        // bring the second character into play
+	DuoDismiss       // log the second character out
+	DuoStance        // set the second character's stance to ID
+	DuoOrder         // order the second character, as CompanionOrder
+	Focus            // switch the keys and the screen between the two characters (D56)
+	OpenLine         // the command line for chat and the social commands
+	OpenSessions     // the sessions view (D64)
+	SessionsDo       // a request of the sessions view: ID is the verb, Note the session
+	SocialDo         // a request about playing together: ID is the verb, Note its argument
+	OpenQuest        // the quest chain screen (D62)
+	QuestDismiss     // give the quest chain up for good
+	SellJunk         // sell every junk item to the trader NPC (D78)
+	ZoomMap          // zoom the map by Count steps (D77)
+	ToggleLabels     // label everything on the map, in place of holding Alt (D77)
+	CloseCard        // close the info card
+	Look             // open the look card of figure ID: what it wears and holds (D197.10)
+	SelectSide       // pick the sidebar tab Count (D78)
+	ScrollSide       // scroll the sidebar by Count rows
+	ScrollLog        // scroll the bottom panel back by Count rows (negative: forward); Note "pgup", "pgdown", "home" or "end" for a page, the oldest line and live
+	MoveCursor       // move the large map's cursor a cell: Note is the key
+	AutoRetaliate    // turn auto-retaliate On (D85)
+	WalkKey          // a movement key went down: Note is the key (hold-to-walk)
+	ToggleDrawer     // lift the chat over the map, or drop it (D101)
+	PanelTab         // the bottom panel's next (Count 1) or previous (-1) tab
+	SelectPanel      // the bottom panel's tab Count
+	ReplyLine        // open the command line to answer the last tell
+	OpenPerson       // open the card of the character Note (a click or Enter on a name in the chat)
+	NameStep         // select the next (Count 1) or previous (-1) name in the chat; Count 0 leaves the selection
+	PersonDo         // carry out action Count of the open character card
+	PersonClose      // close the character card
+	Approach         // walk up to the thing ID (a PickKind in Count) at X, Y, and act on it (D109)
+	WalkTo           // walk to the thing last clicked, the target or the spot last clicked (D109)
+	UseItem          // use the consumable ID (D115)
+	BankExpand       // buy tier Count of bank slots at the banker NPC
+	Travel           // buy passage on route ID at the ferry NPC
+	OpenDirections   // open the guard NPC's list of directions, and ask for it (D203)
+	ChooseDirection  // choose the entry ID of the list the guard NPC gave: it becomes the destination (Note is its name)
+	SetDestination   // mark the spot X, Y of this zone as the destination
+	ClearDestination // clear the destination
 )
 
 // Action is a key's meaning, with the choice it needs already made.
@@ -242,6 +246,8 @@ func common(key string) Action {
 		return Action{Kind: PanelTab, Count: 1}
 	case "ctrl+l":
 		return Action{Kind: OpenSessions}
+	case "X":
+		return Action{Kind: ClearDestination}
 	}
 	return Action{}
 }
