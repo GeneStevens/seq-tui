@@ -51,7 +51,7 @@ var Bindings = []Binding{
 	{Keys: []string{"c", "H"}, Show: "C, Shift+H", What: "your character: gear, bags, stats; Enter wears, U uses an item. Shift+H: a healing draught, anywhere", Group: "People and things"},
 	{Keys: []string{"t"}, Show: "T", What: "trade with a character in reach", Group: "People and things"},
 	{Keys: []string{"i"}, Show: "I", What: "this zone's instance menu (Enter opens one)", Group: "People and things"},
-	{Keys: []string{"I"}, Show: "Shift+I", What: "the details of an item linked in the chat or in what a person said, with how it compares with what you wear (1-9 picks one when several; in your character view, L links the item under the cursor into the chat line)", Group: "People and things"},
+	{Keys: []string{"I"}, Show: "Shift+I", What: "an item linked in the chat or in what a person said: its details and how it compares with what you wear (1-9 picks one); L in C links one", Group: "People and things"},
 	{Keys: []string{"/"}, Show: "/", What: "the command line: chat, parties, /quest, /dismiss (Backspace on the slash, or Tab, makes it a chat line)", Group: "Screens"},
 	{Keys: []string{"pgup", "pgdown", "home", "end"}, Show: "PgUp, PgDn", What: "scroll the Events, Chat or Party panel back (the wheel over it too); Home: oldest line, End: back to live", Group: "Screens"},
 	{Keys: []string{"C"}, Show: "Shift+C", What: "the chat drawer over the map: PgUp / PgDn, wheel, End scroll (arrows still walk), Tab filters, Esc drops it", Group: "Screens"},
