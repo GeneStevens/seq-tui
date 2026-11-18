@@ -111,12 +111,22 @@ func New(t *testing.T, o testserver.Options) *World {
 
 // parallel lets the scenario t run beside the others: each has its own server
 // and clock, so the suite takes the time of its slowest few, not of their sum.
-// A scenario that starts a second world is parallel once.
+// Only a few run at once (parallelism), so that a scenario held to MaxScenario
+// is not slowed by the dozens waiting beside it. A scenario that starts a
+// second world is parallel once.
 func parallel(t *testing.T) {
-	if _, again := inParallel.LoadOrStore(t, true); !again {
-		t.Parallel()
+	if _, again := inParallel.LoadOrStore(t, true); again {
+		return
 	}
+	t.Parallel()
+	slots <- struct{}{}
+	t.Cleanup(func() { <-slots })
 }
+
+// parallelism is how many scenarios run at once.
+const parallelism = 4
+
+var slots = make(chan struct{}, parallelism)
 
 var inParallel sync.Map
 
