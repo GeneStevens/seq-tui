@@ -209,6 +209,9 @@ func SelfLabel(m *model.Model) string {
 	if m.Self.HasDestination && m.Self.Destination != nil {
 		s += fmt.Sprintf(", walking to %d,%d m", m.Self.Destination.GetX()/1000, m.Self.Destination.GetY()/1000)
 	}
+	if m.Self.AFK {
+		s += ", AFK"
+	}
 	return s
 }
 
@@ -472,7 +475,7 @@ func CardLines(m *model.Model, id string) []string {
 			e = m.Group[id].Entity
 		}
 		if e.GetKind() != pb.EntityKind_ENTITY_KIND_MOB {
-			return []string{e.GetName(), fmt.Sprintf("Level %d, %s", e.GetLevel(), away(e.GetPos()))}
+			return []string{e.GetName() + afkTag(e), fmt.Sprintf("Level %d, %s", e.GetLevel(), away(e.GetPos()))}
 		}
 		lvl := fmt.Sprintf("Level %d", e.GetLevel())
 		if e.GetCon() != "" && !e.GetDead() {

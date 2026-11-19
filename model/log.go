@@ -104,6 +104,8 @@ func (m *Model) logEvent(e *pb.Event) {
 		if t := b.DestinationEnded.GetText(); t != "" && e.GetText() == "" {
 			text = t
 		}
+	case *pb.Event_AfkChanged:
+		quiet = e.GetText() == "" // the server's two lines are told to the character itself; another's change is noise in the short log
 	case *pb.Event_HandIn:
 		kind, quiet = "hand_in", true // the board panel shows it, and the hand-in's reward line is in the log
 	}
@@ -219,6 +221,11 @@ func describe(e *pb.Event, label, ability func(string) string) (kind, text, reas
 			return "auto_attack_changed", fmt.Sprintf("%s began attacking %s", label(a.GetActor()), label(a.GetTarget())), ""
 		}
 		return "auto_attack_changed", label(a.GetActor()) + " stopped attacking", ""
+	case *pb.Event_AfkChanged:
+		if b.AfkChanged.GetOn() {
+			return "afk_changed", label(b.AfkChanged.GetActor()) + " is AFK", ""
+		}
+		return "afk_changed", label(b.AfkChanged.GetActor()) + " is no longer AFK", ""
 	case *pb.Event_AutoRetaliateChanged:
 		if b.AutoRetaliateChanged.GetOn() {
 			return "auto_retaliate_changed", "Auto-retaliate on: you fight back when attacked", ""

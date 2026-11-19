@@ -127,6 +127,18 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 		ann.Eventually("hale is back", func(m *model.Model) bool { return m.Status == "" })
 		command(ann, "/status sleeping")
 		notice(t, ann, "usage: /status", true)
+
+		command(ann, "/afk")
+		ann.Eventually("hale is AFK", func(m *model.Model) bool { return m.Self.AFK })
+		bob.Eventually("bram sees hale AFK", func(m *model.Model) bool {
+			g := m.Group["hale"]
+			return g != nil && g.Entity.GetAfk()
+		})
+		if scr := ann.Screen(140, 45); !strings.Contains(scr, "You are AFK.") {
+			t.Errorf("hale's You panel lacks the AFK line:\n%s", scr)
+		}
+		saysLine(ann, "back") // any action clears it
+		ann.Eventually("hale is back", func(m *model.Model) bool { return !m.Self.AFK })
 	})
 
 	w.Step("a replacement takes the slot bob leaves", func() {

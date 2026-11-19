@@ -138,7 +138,7 @@ func onOff(b bool) string {
 
 func youLines(m *model.Model, v View, w int, st Styler) []string {
 	if m.HasKit() {
-		return kitLines(m, v, w, st)
+		return withAfk(m, kitLines(m, v, w, st), w, st)
 	}
 	s := m.Self
 	name := s.Name
@@ -175,7 +175,7 @@ func youLines(m *model.Model, v View, w int, st Styler) []string {
 	if !s.Dead && v.roomy {
 		rows = append(rows, retaliateLine(s, w))
 	}
-	return withAttackers(m, withDestination(m, withStatus(m, rows, w, st), w, st), w, st)
+	return withAttackers(m, withDestination(m, withStatus(m, withAfk(m, rows, w, st), w, st), w, st), w, st)
 }
 
 // withAttackers adds the line that names what is attacking the character (D75).
@@ -225,6 +225,9 @@ func nearbyList(m *model.Model) []nearby {
 		}
 		if model.IsRare(e) && !e.GetDead() {
 			n.note = strings.TrimSpace(n.note + " RARE")
+		}
+		if e.GetAfk() {
+			n.note = strings.TrimSpace(n.note + " AFK")
 		}
 		out = append(out, n)
 	}
@@ -466,6 +469,22 @@ func bandWord(e *pb.EntityState) string {
 		return ""
 	}
 	return e.GetCon() + ", "
+}
+
+// afkTag marks a character the server flags AFK (D208), beside its name.
+func afkTag(e *pb.EntityState) string {
+	if e.GetAfk() {
+		return " AFK"
+	}
+	return ""
+}
+
+// withAfk adds the You panel's line when the character itself is AFK.
+func withAfk(m *model.Model, rows []string, w int, st Styler) []string {
+	if !m.Self.AFK {
+		return rows
+	}
+	return append(rows, st.Bold(fit(" You are AFK.", w)))
 }
 
 // rareTag marks a roaming rare in the Target panel.

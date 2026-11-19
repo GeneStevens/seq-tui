@@ -49,6 +49,11 @@ func (s *Session) AutoRetaliate(ctx context.Context, on bool) (string, error) {
 	})
 }
 
+// Afk flags the character AFK at once (D208, /afk); any other action clears it.
+func (s *Session) Afk(ctx context.Context) (string, error) {
+	return s.intent(ctx, "afk", func(i *pb.Intent) { i.Body = &pb.Intent_Afk{Afk: &pb.Afk{}} })
+}
+
 // Loot takes the item from a drop.
 func (s *Session) Loot(ctx context.Context, drop string) (string, error) {
 	return s.intent(ctx, "loot", func(i *pb.Intent) { i.Body = &pb.Intent_Loot{Loot: &pb.Loot{Drop: drop}} })

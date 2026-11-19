@@ -110,6 +110,14 @@ func withStatus(m *model.Model, rows []string, w int, st Styler) []string {
 	return append(rows, fit(" Status: "+model.StatusWords(m.Status), w))
 }
 
+// afkWho is the AFK tag after a Who row (D208), "" for a character that is not.
+func afkWho(e *pb.WhoEntry) string {
+	if e.GetAfk() {
+		return " AFK"
+	}
+	return ""
+}
+
 // statusTag is a name's status as it follows it in a list ("" for none).
 func statusTag(status string) string {
 	if status == "" {
