@@ -18,9 +18,9 @@ func TestNoteNewsRows(t *testing.T) {
 		at     int
 	}{
 		{"latest", 0, &pb.ReleaseLogReply{Total: 2, Entries: []*pb.ReleaseLogEntry{entry}}, "",
-			[]string{"What's new, 2026-11-17:", "  - Boats no longer sink.", "  - Gates[31m open at dawn."}, 0},
+			[]string{"What's new, 2026-11-18:", "  - Boats no longer sink.", "  - Gates[31m open at dawn."}, 0},
 		{"older", 1, &pb.ReleaseLogReply{Total: 2, Entries: []*pb.ReleaseLogEntry{entry}}, "",
-			[]string{"What's new, 2026-11-17:", "  - Boats no longer sink.", "  - Gates[31m open at dawn."}, 1},
+			[]string{"What's new, 2026-11-18:", "  - Boats no longer sink.", "  - Gates[31m open at dawn."}, 1},
 		{"none yet", 0, &pb.ReleaseLogReply{}, "Nothing yet.", nil, 0},
 		{"past the end", 2, &pb.ReleaseLogReply{Total: 2}, "No older release notes.", nil, 0},
 		{"refused", 0, &pb.ReleaseLogReply{Refused: "unavailable"}, "the release notes are not available now", nil, 0},
