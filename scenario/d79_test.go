@@ -129,6 +129,7 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 		notice(t, ann, "usage: /status", true)
 
 		command(ann, "/afk")
+		w.Advance(time.Second) // the server applies /afk when the space steps
 		ann.Eventually("hale is AFK", func(m *model.Model) bool { return m.Self.AFK })
 		bob.Eventually("bram sees hale AFK", func(m *model.Model) bool {
 			for _, g := range m.Group {
@@ -142,6 +143,7 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 			t.Errorf("hale's You panel lacks the AFK line:\n%s", scr)
 		}
 		saysLine(ann, "back") // any action clears it
+		w.Advance(time.Second)
 		ann.Eventually("hale is back", func(m *model.Model) bool { return !m.Self.AFK })
 	})
 

@@ -101,3 +101,23 @@ func TestExplicitLookNamesTheBody(t *testing.T) {
 		}
 	}
 }
+
+// A held cleaver whose look carries the Chieftain's Cleaver detail is said with
+// agentkit's phrase (D209); a plain cleaver reads as it did.
+func TestLookSaysTheChieftainsCleaver(t *testing.T) {
+	held := &pb.HeldForms{Main: &pb.ItemForm{Family: "cleaver"}}
+	for _, c := range []struct {
+		name   string
+		detail pb.LookDetail
+		want   string
+	}{
+		{"chieftain's cleaver", pb.LookDetail_LOOK_DETAIL_CHIEFTAIN_CLEAVER, "a broad square-ended cleaver braced with pale bone"},
+		{"plain cleaver", pb.LookDetail_LOOK_DETAIL_PLAIN, "a cleaver"},
+	} {
+		g := &pb.VisibleGear{Main: &pb.ItemLook{Detail: c.detail}}
+		e := &pb.EntityState{Name: "Aria", Kind: pb.EntityKind_ENTITY_KIND_CHARACTER, VisibleGear: g, Held: held}
+		if got := WearsLine(e); !strings.Contains(got, c.want) {
+			t.Errorf("%s: %q lacks %q", c.name, got, c.want)
+		}
+	}
+}
