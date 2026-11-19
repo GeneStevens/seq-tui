@@ -138,3 +138,9 @@ func (s *Session) Report(ctx context.Context, name, reason string) (*pb.SocialRe
 func (s *Session) Bug(ctx context.Context, text, kind string) (*pb.SocialResult, error) {
 	return s.Social(ctx, func(m *pb.Social) { m.Body = &pb.Social_Bug{Bug: &pb.Bug{Text: text, Client: kind}} })
 }
+
+// Feedback sends feedback to the game masters, as Bug does a bug; the server's
+// words, with the short id, come as a notice.
+func (s *Session) Feedback(ctx context.Context, text, kind string) (*pb.SocialResult, error) {
+	return s.Social(ctx, func(m *pb.Social) { m.Body = &pb.Social_Feedback{Feedback: &pb.Feedback{Text: text, Client: kind}} })
+}
