@@ -3,6 +3,7 @@ package screen
 import (
 	"fmt"
 	"math"
+	"slices"
 	"sort"
 	"strings"
 
@@ -479,12 +480,13 @@ func afkTag(e *pb.EntityState) string {
 	return ""
 }
 
-// withAfk adds the You panel's line when the character itself is AFK.
+// withAfk adds the You panel's line when the character itself is AFK, under the
+// health row so a short panel keeps it.
 func withAfk(m *model.Model, rows []string, w int, st Styler) []string {
-	if !m.Self.AFK {
+	if !m.Self.AFK || len(rows) < 2 {
 		return rows
 	}
-	return append(rows, st.Bold(fit(" You are AFK.", w)))
+	return slices.Insert(rows, 2, st.Bold(fit(" You are AFK.", w)))
 }
 
 // rareTag marks a roaming rare in the Target panel.
