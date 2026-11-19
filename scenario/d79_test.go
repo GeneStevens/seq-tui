@@ -193,9 +193,9 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 		bob.Eventually("refused: bob is on an expedition", func(m *model.Model) bool {
 			return m.Refusal != nil && strings.Contains(m.Refusal.Text, "already on an expedition")
 		})
-		// His mana regenerates and the screen shows the last update his client
-		// received, so wait for the full pool before the golden is taken.
-		w.Advance(time.Minute)
+		// The screen shows the last vitals his client received, and his mana
+		// is full by now on the server, so wait for that update to arrive.
+		w.Advance(time.Second)
 		bob.Eventually("his mana is full", func(m *model.Model) bool {
 			return m.Self.MaxMana > 0 && m.Self.Mana == m.Self.MaxMana
 		})
