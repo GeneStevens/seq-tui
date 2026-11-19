@@ -61,6 +61,7 @@ type Self struct {
 	Target         string
 	AutoAttack     bool
 	AutoRetaliate  bool // the auto-retaliate setting (D85), on by default
+	AFK            bool // the server's flag that nobody is deciding for the character (D208)
 	HasDestination bool
 	Destination    *pb.Pos
 	Stats          *pb.Stats
@@ -445,7 +446,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	m.Self = Self{
 		ID: e.GetId(), Name: e.GetName(), Level: e.GetLevel(), HP: e.GetHp(), MaxHP: e.GetMaxHp(), Dead: e.GetDead(),
-		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(), AutoRetaliate: self.GetAutoRetaliate(),
+		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(), AutoRetaliate: self.GetAutoRetaliate(), AFK: e.GetAfk(),
 		HasDestination: self.GetHasDestination(), Destination: clonePos(self.GetDestination()),
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
 		Ground: self.GetGround(), SpeedPct: self.GetSpeedPct(), EffectiveSpeedMmS: self.GetEffectiveSpeedMmS(),
@@ -653,6 +654,13 @@ func (m *Model) apply(e *pb.Event) {
 		if a := b.AutoRetaliateChanged; a.GetActor() == m.Self.ID {
 			m.Self.AutoRetaliate = a.GetOn()
 		}
+	case *pb.Event_AfkChanged:
+		a := b.AfkChanged
+		if a.GetActor() == m.Self.ID {
+			m.Self.AFK = a.GetOn()
+		} else if en := m.entity(a.GetActor()); en != nil {
+			en.Afk = a.GetOn()
+		}
 	case *pb.Event_LootDropped:
 		d := b.LootDropped
 		m.Drops[d.GetDrop()] = &pb.LootDropState{Id: d.GetDrop(), Item: d.GetItem(), Pos: d.GetPos(), CanLoot: d.GetCanLoot(), Crowns: d.GetCrowns()}
@@ -771,7 +779,7 @@ func clonePos(p *pb.Pos) *pb.Pos { return &pb.Pos{X: p.GetX(), Y: p.GetY(), Z: p
 func cloneEntity(e *pb.EntityState) *pb.EntityState {
 	return &pb.EntityState{Id: e.GetId(), Kind: e.GetKind(), Name: e.GetName(), Pos: clonePos(e.GetPos()),
 		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare(), Owner: e.GetOwner(), Target: e.GetTarget(), Con: e.GetCon(),
-		Class: e.GetClass(), Appearance: e.GetAppearance(), Held: cloneHeld(e.GetHeld()), VisibleGear: cloneGear(e.GetVisibleGear())}
+		Class: e.GetClass(), Appearance: e.GetAppearance(), Held: cloneHeld(e.GetHeld()), VisibleGear: cloneGear(e.GetVisibleGear()), Afk: e.GetAfk()}
 }
 
 // cloneHeld and cloneGear copy what a figure holds and wears. A nil stays nil: an

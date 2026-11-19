@@ -127,6 +127,24 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 		ann.Eventually("hale is back", func(m *model.Model) bool { return m.Status == "" })
 		command(ann, "/status sleeping")
 		notice(t, ann, "usage: /status", true)
+
+		command(ann, "/afk")
+		w.Advance(time.Second) // the server applies /afk when the space steps
+		ann.Eventually("hale is AFK", func(m *model.Model) bool { return m.Self.AFK })
+		bob.Eventually("bram sees hale AFK", func(m *model.Model) bool {
+			for _, g := range m.Group {
+				if g.Entity.GetAfk() {
+					return true
+				}
+			}
+			return false
+		})
+		if scr := ann.Screen(140, 45); !strings.Contains(scr, "You are AFK.") {
+			t.Errorf("hale's You panel lacks the AFK line:\n%s", scr)
+		}
+		saysLine(ann, "back") // any action clears it
+		w.Advance(time.Second)
+		ann.Eventually("hale is back", func(m *model.Model) bool { return !m.Self.AFK })
 	})
 
 	w.Step("a replacement takes the slot bob leaves", func() {
@@ -174,6 +192,12 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 		openPreset(t, bob, "venture-warren", true)
 		bob.Eventually("refused: bob is on an expedition", func(m *model.Model) bool {
 			return m.Refusal != nil && strings.Contains(m.Refusal.Text, "already on an expedition")
+		})
+		// The screen shows the last vitals his client received, and his mana
+		// is full by now on the server, so wait for that update to arrive.
+		w.Advance(time.Second)
+		bob.Eventually("his mana is full", func(m *model.Model) bool {
+			return m.Self.MaxMana > 0 && m.Self.Mana == m.Self.MaxMana
 		})
 		bob.Golden("d79_refused_expedition")
 	})

@@ -101,3 +101,52 @@ func TestExplicitLookNamesTheBody(t *testing.T) {
 		}
 	}
 }
+
+// A held cleaver whose look carries the Chieftain's Cleaver detail is said with
+// agentkit's phrase (D209); a plain cleaver reads as it did.
+func TestLookSaysTheChieftainsCleaver(t *testing.T) {
+	held := &pb.HeldForms{Main: &pb.ItemForm{Family: "cleaver"}}
+	for _, c := range []struct {
+		name   string
+		detail pb.LookDetail
+		want   string
+	}{
+		{"chieftain's cleaver", pb.LookDetail_LOOK_DETAIL_CHIEFTAIN_CLEAVER, "a broad square-ended cleaver braced with pale bone"},
+		{"plain cleaver", pb.LookDetail_LOOK_DETAIL_PLAIN, "a cleaver"},
+	} {
+		g := &pb.VisibleGear{Main: &pb.ItemLook{Detail: c.detail}}
+		e := &pb.EntityState{Name: "Aria", Kind: pb.EntityKind_ENTITY_KIND_CHARACTER, VisibleGear: g, Held: held}
+		if got := WearsLine(e); !strings.Contains(got, c.want) {
+			t.Errorf("%s: %q lacks %q", c.name, got, c.want)
+		}
+	}
+}
+
+// Each rare and named weapon's detail word is said with its full phrase from
+// agentkit's table, in the hand that holds it (D209).
+func TestLookSaysTheRareHeldItems(t *testing.T) {
+	for _, c := range []struct {
+		name   string
+		family string
+		off    bool
+		detail pb.LookDetail
+		want   string
+	}{
+		{"warcaller's cleaver", "cleaver", false, pb.LookDetail_LOOK_DETAIL_WARCALLER_CLEAVER, "an iron cleaver with a short beard and a pale cord collar"},
+		{"pate-cleaver", "cleaver", false, pb.LookDetail_LOOK_DETAIL_PATE_CLEAVER, "a dark cleaver with a bright edge and a thick stepped back"},
+		{"warden's bulwark", "shield", true, pb.LookDetail_LOOK_DETAIL_WARDENS_BULWARK, "a dark round shield rimmed in pale bone"},
+		{"grimtusk's tuskblade", "sword", false, pb.LookDetail_LOOK_DETAIL_GRIMTUSK_TUSKBLADE, "a sword with a guard of two curved boar tusks"},
+		{"deserter's blade", "sword", false, pb.LookDetail_LOOK_DETAIL_DESERTERS_BLADE, "a plain soldier's sword with a ring guard and a grey-wrapped grip"},
+	} {
+		form := &pb.ItemForm{Family: c.family}
+		look := &pb.ItemLook{Detail: c.detail}
+		held, gear := &pb.HeldForms{Main: form}, &pb.VisibleGear{Main: look}
+		if c.off {
+			held, gear = &pb.HeldForms{Off: form}, &pb.VisibleGear{Off: look}
+		}
+		e := &pb.EntityState{Name: "Aria", Kind: pb.EntityKind_ENTITY_KIND_CHARACTER, VisibleGear: gear, Held: held}
+		if got := WearsLine(e); !strings.Contains(got, c.want) {
+			t.Errorf("%s: %q lacks %q", c.name, got, c.want)
+		}
+	}
+}

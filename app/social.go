@@ -428,6 +428,11 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			return resultMsg{note: name + " is a friend now"}
 		}
 		return resultMsg{note: name + " is not a friend any more"}
+	case "afk":
+		if _, err := a.sess.Afk(ctx); err != nil {
+			return bad("afk: " + err.Error())
+		}
+		return resultMsg{} // the server's line says it
 	case "anon":
 		on := strings.EqualFold(name, "on")
 		if !on && !strings.EqualFold(name, "off") {
@@ -497,7 +502,7 @@ func lineVerb(cmd string) string {
 		return "unmute"
 	case "invite", "inv":
 		return "invite"
-	case "accept", "decline", "kick", "leave", "who", "status", "friends", "friend", "anon", "chat", "help", "quest", "dismiss":
+	case "accept", "decline", "kick", "leave", "who", "status", "friends", "friend", "anon", "chat", "help", "quest", "dismiss", "afk":
 		return cmd
 	}
 	return "?"

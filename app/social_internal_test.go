@@ -40,3 +40,9 @@ func TestWhoFilters(t *testing.T) {
 		t.Fatal("a bare word is no filter")
 	}
 }
+
+func TestAfkIsACommand(t *testing.T) {
+	if got := lineVerb("afk"); got != "afk" {
+		t.Errorf("/afk: %q, want afk", got)
+	}
+}
