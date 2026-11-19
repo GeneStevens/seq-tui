@@ -268,7 +268,7 @@ func keyPress(k string) tea.KeyPressMsg {
 }
 
 func TestTheCommandWordsOfOOCAndReports(t *testing.T) {
-	for cmd, want := range map[string]string{"ooc": "ooc", "oocsay": "oocsay", "report": "report", "whois": "whois", "bug": "bug", "feedback": "feedback", "ignore": "mute", "tell": "tell", "oo": "?"} {
+	for cmd, want := range map[string]string{"ooc": "ooc", "oocsay": "oocsay", "report": "report", "whois": "whois", "bug": "bug", "feedback": "feedback", "news": "news", "ignore": "mute", "tell": "tell", "oo": "?"} {
 		if got := lineVerb(cmd); got != want {
 			t.Errorf("/%s is %q, want %q", cmd, got, want)
 		}

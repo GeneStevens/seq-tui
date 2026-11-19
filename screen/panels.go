@@ -230,6 +230,9 @@ func nearbyList(m *model.Model) []nearby {
 		if e.GetAfk() {
 			n.note = strings.TrimSpace(n.note + " AFK")
 		}
+		if e.GetHidden() {
+			n.note = strings.TrimSpace(n.note + " (hidden)")
+		}
 		out = append(out, n)
 	}
 	for _, id := range m.GroupIDs() {
@@ -476,6 +479,15 @@ func bandWord(e *pb.EntityState) string {
 func afkTag(e *pb.EntityState) string {
 	if e.GetAfk() {
 		return " AFK"
+	}
+	return ""
+}
+
+// hiddenTag marks a game master hidden from the players (D211), beside its name; only a game
+// master is ever told of one.
+func hiddenTag(e *pb.EntityState) string {
+	if e.GetHidden() {
+		return " (hidden)"
 	}
 	return ""
 }

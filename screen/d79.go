@@ -110,6 +110,14 @@ func withStatus(m *model.Model, rows []string, w int, st Styler) []string {
 	return append(rows, fit(" Status: "+model.StatusWords(m.Status), w))
 }
 
+// hiddenWho is the tag after a Who row for a game master hidden from the players (D211).
+func hiddenWho(e *pb.WhoEntry) string {
+	if e.GetHidden() {
+		return " (hidden)"
+	}
+	return ""
+}
+
 // afkWho is the AFK tag after a Who row (D208), "" for a character that is not.
 func afkWho(e *pb.WhoEntry) string {
 	if e.GetAfk() {

@@ -240,7 +240,7 @@ func whoRows(ui *SocialUI, w, h int, st Styler) []string {
 		if zone == "" {
 			zone = "(hidden)"
 		}
-		lines = append(lines, fmt.Sprintf("%-16s %-10s %3d  %s%s", e.GetName(), e.GetClassId(), e.GetLevel(), zone, statusTag(e.GetStatus())+afkWho(e)))
+		lines = append(lines, fmt.Sprintf("%-16s %-10s %3d  %s%s", e.GetName(), e.GetClassId(), e.GetLevel(), zone, statusTag(e.GetStatus())+afkWho(e)+hiddenWho(e)))
 	}
 	ui.Sel = max(min(ui.Sel, len(lines)-1), 0)
 	head := fmt.Sprintf("  %-16s %-10s %3s  %s", "Name", "Class", "Lv", "Zone")
@@ -347,6 +347,10 @@ func socialHelp() []string {
 		"                 D removes, I invites; the log says who logs in or out",
 		"AFK              /afk flags you AFK at once; any action clears it. AFK shows",
 		"                 beside your name in who, nearby and on the map",
+		"News             /news shows the latest release notes; /news more the next",
+		"                 older one, and again for older still",
+		"Hidden           a game master hidden from players shows \"Hidden\" on the",
+		"                 status line, and \"(hidden)\" in who and nearby for other GMs",
 		"Anonymous        /anon on hides your zone from who and friends; /anon off",
 		"Logs             Ctrl+L: sessions. Every session is recorded under its id in",
 		"                 seq-tui/sessions in your data dir (-log-dir, -no-record)",

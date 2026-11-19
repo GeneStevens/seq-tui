@@ -62,6 +62,7 @@ type Self struct {
 	AutoAttack     bool
 	AutoRetaliate  bool // the auto-retaliate setting (D85), on by default
 	AFK            bool // the server's flag that nobody is deciding for the character (D208)
+	Hidden         bool // a game master hidden from the players (D211)
 	HasDestination bool
 	Destination    *pb.Pos
 	Stats          *pb.Stats
@@ -194,6 +195,8 @@ type Model struct {
 	// LinkFacts are the comparisons the server gave for linked items (D206), by
 	// item id: what Fact answers for an item the character's own list lacks.
 	LinkFacts map[string]*pb.ItemFact
+	// NewsAt is the release-log entry /news showed last (D211): 0 the latest.
+	NewsAt int
 	// Lessons are the abilities the trainers in view teach, as they described
 	// them (D52): the names and words of abilities the character does not know.
 	Lessons map[string]*pb.AbilityInfo
@@ -446,7 +449,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 	}
 	m.Self = Self{
 		ID: e.GetId(), Name: e.GetName(), Level: e.GetLevel(), HP: e.GetHp(), MaxHP: e.GetMaxHp(), Dead: e.GetDead(),
-		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(), AutoRetaliate: self.GetAutoRetaliate(), AFK: e.GetAfk(),
+		XP: self.GetXp(), Pos: clonePos(e.GetPos()), Target: self.GetTarget(), AutoAttack: self.GetAutoAttack(), AutoRetaliate: self.GetAutoRetaliate(), AFK: e.GetAfk(), Hidden: e.GetHidden(),
 		HasDestination: self.GetHasDestination(), Destination: clonePos(self.GetDestination()),
 		Stats: self.GetStats(), Inventory: slices.Clone(self.GetInventory()),
 		Ground: self.GetGround(), SpeedPct: self.GetSpeedPct(), EffectiveSpeedMmS: self.GetEffectiveSpeedMmS(),
@@ -661,6 +664,13 @@ func (m *Model) apply(e *pb.Event) {
 		} else if en := m.entity(a.GetActor()); en != nil {
 			en.Afk = a.GetOn()
 		}
+	case *pb.Event_HiddenChanged:
+		a := b.HiddenChanged
+		if a.GetActor() == m.Self.ID {
+			m.Self.Hidden = a.GetOn()
+		} else if en := m.entity(a.GetActor()); en != nil {
+			en.Hidden = a.GetOn()
+		}
 	case *pb.Event_LootDropped:
 		d := b.LootDropped
 		m.Drops[d.GetDrop()] = &pb.LootDropState{Id: d.GetDrop(), Item: d.GetItem(), Pos: d.GetPos(), CanLoot: d.GetCanLoot(), Crowns: d.GetCrowns()}
@@ -779,7 +789,7 @@ func clonePos(p *pb.Pos) *pb.Pos { return &pb.Pos{X: p.GetX(), Y: p.GetY(), Z: p
 func cloneEntity(e *pb.EntityState) *pb.EntityState {
 	return &pb.EntityState{Id: e.GetId(), Kind: e.GetKind(), Name: e.GetName(), Pos: clonePos(e.GetPos()),
 		Hp: e.GetHp(), MaxHp: e.GetMaxHp(), Level: e.GetLevel(), Dead: e.GetDead(), Rare: e.GetRare(), Owner: e.GetOwner(), Target: e.GetTarget(), Con: e.GetCon(),
-		Class: e.GetClass(), Appearance: e.GetAppearance(), Held: cloneHeld(e.GetHeld()), VisibleGear: cloneGear(e.GetVisibleGear()), Afk: e.GetAfk()}
+		Class: e.GetClass(), Appearance: e.GetAppearance(), Held: cloneHeld(e.GetHeld()), VisibleGear: cloneGear(e.GetVisibleGear()), Afk: e.GetAfk(), Hidden: e.GetHidden()}
 }
 
 // cloneHeld and cloneGear copy what a figure holds and wears. A nil stays nil: an

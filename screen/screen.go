@@ -432,6 +432,9 @@ func statusLine(m *model.Model, v View, w int, st Styler) string {
 	if n := v.Read.Mail(m); n > 0 {
 		lead += fmt.Sprintf(" | ✉ %d", n)
 	}
+	if m.Self.Hidden {
+		lead += " | Hidden" // a game master hidden from the players (D211)
+	}
 	quest := ""
 	if q := m.Quest(); q != nil {
 		quest = fmt.Sprintf("%s %d/%d", q.GetName(), q.GetStep(), q.GetSteps())
