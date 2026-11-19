@@ -98,7 +98,7 @@ If the saved sign-in has run out (it lasts 90 days) or is refused, the program s
 
 The server has a normal public certificate, which the program checks against the system's trusted certificates; do not use `-insecure`.
 
-**Found a bug?** Type `/bug` and what went wrong (`/bug the ferry sign has a typo`), in the terminal or the browser. It goes to the game masters with where you were; the log answers "bug N".
+**Found a bug?** Type `/bug` and what went wrong (`/bug the ferry sign has a typo`), in the terminal or the browser. It goes to the game masters with where you were; the log answers with its id (`BUG-0042`). `/feedback` is for an idea or how something feels, and answers `FB-0042`.
 
 **Gene: publishing the Mac download.** `make release-mac` (or `make release-mac VERSION=v0.1.0`) builds both architectures and writes `dist/release/seq-tui-<version>-darwin-{arm64,amd64}.tar.gz` and `dist/release/SHA256SUMS`. It publishes nothing. Check the files, then create the release yourself:
 

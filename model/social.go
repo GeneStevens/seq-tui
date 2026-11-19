@@ -125,6 +125,8 @@ type Social struct {
 	ReportLimitText string
 	// BugAck counts the server's acknowledgements of a /bug seen.
 	BugAck int
+	// FeedbackAck counts the server's acknowledgements of a /feedback seen.
+	FeedbackAck int
 	// ReportAck counts the server's acknowledgements of a /report seen.
 	ReportAck int
 	invites   int
@@ -290,6 +292,9 @@ func (m *Model) applyNotice(n *pb.SocialNotice) {
 	case "bug_filed":
 		s.BugAck++
 		text = firstText(text, "your bug was filed with the game masters")
+	case "feedback_filed":
+		s.FeedbackAck++
+		text = firstText(text, "your feedback was sent to the game masters")
 	case "bug_limit":
 		text = firstText(text, "You've filed several bugs recently. A GM will review them.")
 	case "report_filed":

@@ -22,10 +22,22 @@ func TestBugCommandFilesAndShowsTheId(t *testing.T) {
 
 	command(ann, "bug the ferry sign has a typo")
 	w.Settle()
-	notice(t, ann, "bug 1", false)
+	notice(t, ann, "BUG-0001", false)
 	ann.Model(func(m *model.Model) {
 		if m.Social.BugAck != 1 {
 			t.Errorf("BugAck = %d, want 1", m.Social.BugAck)
+		}
+	})
+
+	command(ann, "feedback")
+	notice(t, ann, "usage: /feedback", true)
+
+	command(ann, "feedback the lamps could be warmer")
+	w.Settle()
+	notice(t, ann, "FB-0002", false)
+	ann.Model(func(m *model.Model) {
+		if m.Social.FeedbackAck != 1 {
+			t.Errorf("FeedbackAck = %d, want 1", m.Social.FeedbackAck)
 		}
 	})
 }
