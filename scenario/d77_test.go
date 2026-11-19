@@ -187,90 +187,82 @@ func TestMouseNPCAndTheLargeMap(t *testing.T) {
 	p := w.Login("ann", "hale")
 	p.Resize(140, 45)
 
-	var s string
-	var x, y int
+	tamsin := npcNamed(t, p, "Tamsin Hale")
+	x, y := at(t, p, tamsin.GetPos())
+	p.Hover(x, y, false)
+	if s := mapOf(p.Screen(140, 45)); !strings.Contains(s, model.NPCLabel(tamsin)) {
+		t.Errorf("hovering a person names them with their title:\n%s", s)
+	}
+	p.Click(x, y)
+	if _, _, card, _, _, _ := p.Mouse(); card != tamsin.GetId() {
+		t.Errorf("the card is %q, want Tamsin's", card)
+	}
+	s := p.Screen(140, 45)
+	for _, want := range []string{"Offers:", "new for you", "Click again or G: talk"} {
+		if !strings.Contains(mapOf(s), want) {
+			t.Errorf("the NPC card lacks %q:\n%s", want, s)
+		}
+	}
+	if strings.Contains(s, "Talking") {
+		t.Error("a first click talked")
+	}
+	p.Golden("mouse_npc_card")
+	p.Click(x, y)
+	if s := p.Screen(140, 45); !strings.Contains(s, "Talking") {
+		t.Errorf("the second click does not open the conversation:\n%s", s)
+	}
+	p.Press("esc")
+
+	// M opens the large map: the legend, the places' names, the vitals strip.
+	p.Press("m")
+	s = p.Screen(140, 45)
+	for _, want := range []string{"Zone overview", "Hawthorn Square", "T trainer", "HP "} {
+		if !strings.Contains(s, want) {
+			t.Errorf("the large map lacks %q:\n%s", want, s)
+		}
+	}
+	p.Golden("large_map")
+
+	// Click a spot on it: the character walks there.
 	var from *pb.Pos
-	w.Step("a click on a person opens the card, a second talks", func() {
-		tamsin := npcNamed(t, p, "Tamsin Hale")
-		x, y = at(t, p, tamsin.GetPos())
-		p.Hover(x, y, false)
-		if s := mapOf(p.Screen(140, 45)); !strings.Contains(s, model.NPCLabel(tamsin)) {
-			t.Errorf("hovering a person names them with their title:\n%s", s)
+	p.Model(func(m *model.Model) { from = m.Self.Pos })
+	dest := &pb.Pos{X: from.GetX() - 9000, Y: from.GetY()}
+	x, y = at(t, p, dest)
+	p.AltClick(x, y)
+	notice(t, p, "move ok", false)
+	for range 6 {
+		w.Advance(time.Second)
+	}
+	p.Model(func(m *model.Model) {
+		if m.Self.Pos.GetX() > from.GetX()-6000 {
+			t.Errorf("the click on the large map did not walk west: %v to %v", from, m.Self.Pos)
 		}
-		p.Click(x, y)
-		if _, _, card, _, _, _ := p.Mouse(); card != tamsin.GetId() {
-			t.Errorf("the card is %q, want Tamsin's", card)
-		}
-		s = p.Screen(140, 45)
-		for _, want := range []string{"Offers:", "new for you", "Click again or G: talk"} {
-			if !strings.Contains(mapOf(s), want) {
-				t.Errorf("the NPC card lacks %q:\n%s", want, s)
-			}
-		}
-		if strings.Contains(s, "Talking") {
-			t.Error("a first click talked")
-		}
-		p.Golden("mouse_npc_card")
-		p.Click(x, y)
-		if s := p.Screen(140, 45); !strings.Contains(s, "Talking") {
-			t.Errorf("the second click does not open the conversation:\n%s", s)
-		}
-		p.Press("esc")
+		from = m.Self.Pos
 	})
-
-	w.Step("the large map and a click on it walks west", func() {
-		// M opens the large map: the legend, the places' names, the vitals strip.
-		p.Press("m")
-		s = p.Screen(140, 45)
-		for _, want := range []string{"Zone overview", "Hawthorn Square", "T trainer", "HP "} {
-			if !strings.Contains(s, want) {
-				t.Errorf("the large map lacks %q:\n%s", want, s)
-			}
-		}
-		p.Golden("large_map")
-
-		// Click a spot on it: the character walks there.
-		p.Model(func(m *model.Model) { from = m.Self.Pos })
-		dest := &pb.Pos{X: from.GetX() - 9000, Y: from.GetY()}
-		x, y = at(t, p, dest)
-		p.AltClick(x, y)
-		notice(t, p, "move ok", false)
-		for range 6 {
-			w.Advance(time.Second)
-		}
-		p.Model(func(m *model.Model) {
-			if m.Self.Pos.GetX() > from.GetX()-6000 {
-				t.Errorf("the click on the large map did not walk west: %v to %v", from, m.Self.Pos)
-			}
-			from = m.Self.Pos
-		})
-	})
-	w.Step("the keyboard walks east, the wheel zooms, M closes", func() {
-		// The same with the keyboard: the cursor moves a cell at a time, Enter walks.
-		p.Press("right", "right", "right", "right", "right", "right", "right", "right")
-		if s := p.Screen(140, 45); !strings.Contains(s, "+") {
-			t.Error("the cursor is not shown")
-		}
-		p.Press("enter")
-		notice(t, p, "move ok", false)
-		for range 6 {
-			w.Advance(time.Second)
-		}
-		p.Model(func(m *model.Model) {
-			if m.Self.Pos.GetX() <= from.GetX()+3000 {
-				t.Errorf("the cursor and Enter did not walk east: %v to %v", from, m.Self.Pos)
-			}
-		})
-		// The wheel zooms the large map in on the character.
-		p.Wheel(x, y, true)
-		if _, z, _, _, _, _ := p.Mouse(); z != 1 {
-			t.Errorf("the large map's zoom is %d, want 1", z)
-		}
-		p.Press("m")
-		if s := p.Screen(140, 45); strings.Contains(s, "Zone overview") {
-			t.Error("M did not close the large map")
+	// The same with the keyboard: the cursor moves a cell at a time, Enter walks.
+	p.Press("right", "right", "right", "right", "right", "right", "right", "right")
+	if s := p.Screen(140, 45); !strings.Contains(s, "+") {
+		t.Error("the cursor is not shown")
+	}
+	p.Press("enter")
+	notice(t, p, "move ok", false)
+	for range 6 {
+		w.Advance(time.Second)
+	}
+	p.Model(func(m *model.Model) {
+		if m.Self.Pos.GetX() <= from.GetX()+3000 {
+			t.Errorf("the cursor and Enter did not walk east: %v to %v", from, m.Self.Pos)
 		}
 	})
+	// The wheel zooms the large map in on the character.
+	p.Wheel(x, y, true)
+	if _, z, _, _, _, _ := p.Mouse(); z != 1 {
+		t.Errorf("the large map's zoom is %d, want 1", z)
+	}
+	p.Press("m")
+	if s := p.Screen(140, 45); strings.Contains(s, "Zone overview") {
+		t.Error("M did not close the large map")
+	}
 }
 
 // Click loot: one click on a drop takes everything within reach, and the log says
