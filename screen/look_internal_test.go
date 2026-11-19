@@ -150,3 +150,37 @@ func TestLookSaysTheRareHeldItems(t *testing.T) {
 		}
 	}
 }
+
+// Each rare and named worn detail replaces the whole description of its piece
+// with agentkit's phrase (D210); the Target panel's look line says it.
+func TestLookSaysTheRareWornGear(t *testing.T) {
+	for _, c := range []struct {
+		name   string
+		head   bool
+		family pb.LookFamily
+		detail pb.LookDetail
+		want   string
+	}{
+		{"greycoat", false, pb.LookFamily_LOOK_FAMILY_COAT, pb.LookDetail_LOOK_DETAIL_GREYCOAT, "long grey soldier's coat with a dark shoulder cape"},
+		{"grimtusk's mantle", false, pb.LookFamily_LOOK_FAMILY_WRAP, pb.LookDetail_LOOK_DETAIL_GRIMTUSK_MANTLE, "boar-hide mantle with a ridge of dark bristles and tusk clasps"},
+		{"chief's mantle", false, pb.LookFamily_LOOK_FAMILY_WRAP, pb.LookDetail_LOOK_DETAIL_CHIEFS_MANTLE, "dark hide mantle hung with strings of pale beads"},
+		{"deepdweller hauberk", false, pb.LookFamily_LOOK_FAMILY_HAUBERK, pb.LookDetail_LOOK_DETAIL_DEEPDWELLER_HAUBERK, "dark hide hauberk with bone plates on the shoulders"},
+		{"moundhide hauberk", false, pb.LookFamily_LOOK_FAMILY_HAUBERK, pb.LookDetail_LOOK_DETAIL_MOUNDHIDE_HAUBERK, "rust hide hauberk with dark studded shoulder flaps"},
+		{"lichen cowl", true, pb.LookFamily_LOOK_FAMILY_HOOD, pb.LookDetail_LOOK_DETAIL_LICHEN_COWL, "hood ringed with tufts of pale lichen"},
+	} {
+		look := &pb.ItemLook{
+			Family: c.family, Material: pb.LookMaterial_LOOK_MATERIAL_HIDE, Colour: pb.LookColour_LOOK_COLOUR_BROWN, Detail: c.detail,
+		}
+		g := &pb.VisibleGear{Chest: look}
+		if c.head {
+			g = &pb.VisibleGear{Head: look}
+		}
+		m := model.New()
+		m.Self.Target = "p1"
+		m.Entities["p1"] = &pb.EntityState{Id: "p1", Name: "Aria", Kind: pb.EntityKind_ENTITY_KIND_CHARACTER, Level: 3, Pos: &pb.Pos{}, VisibleGear: g}
+		lines := targetLines(m, 120, Plain())
+		if len(lines) != 4 || !strings.Contains(lines[3], "Wears: "+c.want+";") {
+			t.Errorf("%s: target lines %q lack %q", c.name, lines, c.want)
+		}
+	}
+}
