@@ -83,6 +83,7 @@ func TestTwoAccountsPlayTheSameEveryRun(t *testing.T) {
 	var first string
 	for i := range determinismRuns {
 		t.Run(fmt.Sprint(i), func(t *testing.T) { // each run is a scenario, held to the limit
+			scenario.Serial(t) // run i is compared with run 0
 			got := twoAccountsPlay(t)
 			switch {
 			case i == 0:

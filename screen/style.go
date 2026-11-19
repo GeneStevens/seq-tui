@@ -33,9 +33,35 @@ type ChatPalette struct {
 	Say, Party, Tell, OOC, Server func(string) string // the channels
 	Me, Player, NPC, GM, Neutral  func(string) string // the names (a GM is styled as the server's lines)
 	Mention                       func(string) string // a line that names the character
-	// Item is the slot for an item link, by tier when item links arrive (D101 §8):
-	// the server sends none yet, so nothing is drawn in it.
+	// Item is the style of an item link whose tier is not known, Tier the style
+	// by tier (D206): common, fine, rare or named. The brackets round the name
+	// carry the link without colour.
 	Item func(string) string
+	Tier func(tier string) func(string) string
+}
+
+// ItemStyle is the style of an item link of the tier.
+func (p ChatPalette) ItemStyle(tier string) func(string) string {
+	if p.Tier != nil {
+		if fn := p.Tier(tier); fn != nil {
+			return fn
+		}
+	}
+	return p.Item
+}
+
+// tierColour is the colour of an item's rarity on a terminal: common as plain
+// text, fine green, rare blue, named bold magenta.
+func tierColour(tier string) func(string) string {
+	switch tier {
+	case "fine":
+		return sgr("32")
+	case "rare":
+		return sgr("94")
+	case "named":
+		return sgr("1;35")
+	}
+	return ident
 }
 
 func ident(s string) string { return s }
@@ -69,7 +95,7 @@ func ANSI() Styler {
 		Chat: ChatPalette{
 			Say: ident, Party: sgr("36"), Tell: sgr("33"), OOC: sgr("90"), Server: sgr("1;33"),
 			Me: sgr("1;32"), Player: sgr("94"), NPC: sgr("35"), GM: sgr("1;33"), Neutral: ident,
-			Mention: sgr("1"), Item: ident,
+			Mention: sgr("1"), Item: ident, Tier: tierColour,
 		}}
 }
 

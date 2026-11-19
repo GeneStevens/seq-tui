@@ -48,7 +48,9 @@ type Hits struct {
 	// on one opens that character's card, and the keyboard steps through them.
 	// Card is the character card's block and CardActs where its actions were
 	// drawn (Tab is the action's number); W is 0 when there is no card.
-	Names    []NameHit
+	Names []NameHit
+	// Items are the item links in the chat as drawn, top to bottom (D206).
+	Items    []ItemHit
 	Card     Rect
 	CardActs []Tab
 	nameN    int
@@ -68,7 +70,7 @@ func (h *Hits) begin() {
 	}
 	h.Map, h.Side, h.Tabs, h.g = Rect{}, Rect{}, h.Tabs[:0], nil
 	h.Panel, h.Drawer, h.Log = h.Panel[:0], Rect{}, Rect{}
-	h.Names, h.Card, h.CardActs, h.nameN = h.Names[:0], Rect{}, h.CardActs[:0], 0
+	h.Names, h.Items, h.Card, h.CardActs, h.nameN = h.Names[:0], h.Items[:0], Rect{}, h.CardActs[:0], 0
 	h.Seen = Marks{}
 }
 

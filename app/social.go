@@ -42,7 +42,18 @@ func (a *App) lineKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 		}
 		a.view.Notice, a.view.NoticeBad = "", false
 		a.inflight++
-		return a, a.send(Action{Kind: SocialDo, ID: "line", Note: text})
+		return a, a.send(Action{Kind: SocialDo, ID: "line", Note: text, Links: l.Links})
+	case "up", "down", "ctrl+y":
+		if a.char { // the character view under the line: the cursor moves, Ctrl+Y links another item
+			a.sess.View(func(m *model.Model) {
+				sb := &a.mouse.charTab
+				if k == "ctrl+y" {
+					a.view.Notice, a.view.NoticeBad = a.linkItem(m, a.linkKey(m).ID)
+					return
+				}
+				sb.Cur[sb.Tab] = step(sb.Cur[sb.Tab], k, screen.CharRows(m, sb.Tab))
+			})
+		}
 	case "backspace":
 		if r := []rune(l.Text); len(r) > 0 {
 			l.Text = string(r[:len(r)-1])
@@ -227,13 +238,13 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 	name, rest := firstWord(arg)
 	switch verb {
 	case "say":
-		res, err := a.sess.Say(ctx, arg)
+		res, err := a.sess.Say(ctx, arg, linkSpans(arg, act.Links)...)
 		if r, no := refused("say", res, err); no {
 			return r
 		}
 		return resultMsg{}
 	case "party":
-		res, err := a.sess.PartyChat(ctx, arg)
+		res, err := a.sess.PartyChat(ctx, arg, linkSpans(arg, act.Links)...)
 		if r, no := refused("party chat", res, err); no {
 			return r
 		}
@@ -259,7 +270,7 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			}
 			return resultMsg{note: "ooc is on: you hear it, and what you say on it goes to everyone who has it on"}
 		}
-		res, err := a.sess.OOC(ctx, arg)
+		res, err := a.sess.OOC(ctx, arg, linkSpans(arg, act.Links)...)
 		if r, no := refused("ooc", res, err); no {
 			return r
 		}
@@ -299,6 +310,15 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			return r
 		}
 		return resultMsg{note: a.bugAck(ctx, before)}
+	case "itemdetails":
+		why, err := a.sess.ItemDetails(ctx, arg)
+		switch {
+		case err != nil:
+			return resultMsg{note: "item details: " + err.Error(), bad: true, after: func(a *App) { a.items = nil }}
+		case why != "":
+			return resultMsg{note: why, bad: true, after: func(a *App) { a.items = nil }}
+		}
+		return resultMsg{quiet: true}
 	case "whois", "whoisask":
 		if name == "" {
 			return bad("usage: /whois NAME")
@@ -323,7 +343,7 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 		if to == "" || text == "" {
 			return bad("usage: /tell NAME text (/r text answers the last tell)")
 		}
-		res, err := a.sess.Tell(ctx, to, text)
+		res, err := a.sess.Tell(ctx, to, text, linkSpans(text, act.Links)...)
 		if r, no := refused("tell "+to, res, err); no {
 			return r
 		}

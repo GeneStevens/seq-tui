@@ -48,7 +48,7 @@ const (
 	KindNPC    = "npc"
 	KindGM     = "gm"
 	KindServer = "server"
-	KindItem   = "item" // an item link: later, the server does not send it yet
+	KindItem   = "item" // an item link (D206)
 )
 
 // ChatPart is one span of a line of chat: plain text (Kind ""), a character
@@ -56,6 +56,8 @@ const (
 // what is written, the name for a reference.
 type ChatPart struct {
 	Text, ID, Kind string
+	// Tier is an item link's tier (common, fine, rare or named), for its colour.
+	Tier string
 }
 
 // Structured says the server sent the line's parts.
@@ -67,7 +69,10 @@ func (p ChatPart) IsRef() bool {
 }
 
 // partsOf reads the parts of a line, leaving out a span it does not know.
-func partsOf(ps []*pb.ChatPart) []ChatPart {
+func partsOf(ps []*pb.ChatPart) []ChatPart { return PartsOf(ps) }
+
+// PartsOf reads the parts of a line of chat or of an NPC's speech.
+func PartsOf(ps []*pb.ChatPart) []ChatPart {
 	var out []ChatPart
 	for _, p := range ps {
 		switch b := p.GetBody().(type) {
@@ -78,7 +83,7 @@ func partsOf(ps []*pb.ChatPart) []ChatPart {
 		case *pb.ChatPart_Character:
 			out = append(out, ChatPart{Text: b.Character.GetName(), ID: b.Character.GetId(), Kind: firstText(b.Character.GetKind(), KindPlayer)})
 		case *pb.ChatPart_Item:
-			out = append(out, ChatPart{Text: b.Item.GetName(), ID: b.Item.GetId(), Kind: KindItem})
+			out = append(out, ChatPart{Text: b.Item.GetName(), ID: b.Item.GetId(), Kind: KindItem, Tier: b.Item.GetTier()})
 		}
 	}
 	return out
@@ -604,4 +609,17 @@ func (m *Model) PosOfName(name string) *pb.Pos {
 		}
 	}
 	return nil
+}
+
+// LinkedItem is the link to the item as the chat last wrote it (with its tier),
+// else as the item is known; the name is the id for an item never described.
+func (m *Model) LinkedItem(id string) ChatPart {
+	for i := len(m.Social.Chat) - 1; i >= 0; i-- {
+		for _, p := range m.Social.Chat[i].Parts {
+			if p.Kind == KindItem && p.ID == id {
+				return p
+			}
+		}
+	}
+	return ChatPart{Text: m.ItemName(id), ID: id, Kind: KindItem, Tier: m.Item(id).GetTier()}
 }

@@ -305,6 +305,15 @@ func (w styledWord) width() int {
 // chatRow is a row of chat as its runs, drawn when it is known where it lands.
 type chatRow struct{ segs []cseg }
 
+// itemLink leads the link of a run that is an item link (D206), then the item's id.
+const itemLink = "item:"
+
+// ItemHit is where an item link in the chat was drawn: the item's id.
+type ItemHit struct {
+	Rect Rect
+	ID   string
+}
+
 // NameHit is where a name in the chat was drawn, and the character a click on it
 // opens.
 type NameHit struct {
@@ -340,7 +349,9 @@ func (p *namePlace) paint(rows []chatRow, first int, st Styler) []string {
 		var b strings.Builder
 		for _, s := range r.segs {
 			fn := s.fn
-			if s.link != "" && p != nil {
+			if strings.HasPrefix(s.link, itemLink) && p != nil {
+				p.h.Items = append(p.h.Items, ItemHit{Rect{x, p.y + first + i, width(s.s), 1}, strings.TrimPrefix(s.link, itemLink)})
+			} else if s.link != "" && p != nil {
 				n := p.h.nameN
 				p.h.nameN++
 				p.h.Names = append(p.h.Names, NameHit{Rect{x, p.y + first + i, width(s.s), 1}, s.link})
@@ -515,7 +526,7 @@ func chatWords(m *model.Model, l model.ChatLine, st Styler) []styledWord {
 				fn, link := refStyle(m, st, p.Text, p.ID, p.Kind)
 				b.add(clean(p.Text), fn, link)
 			case p.Kind == model.KindItem:
-				b.add(clean(p.Text), st.Chat.Item, "")
+				b.add("["+clean(p.Text)+"]", st.Chat.ItemStyle(p.Tier), itemLink+p.ID)
 			default:
 				b.text(p.Text, base)
 			}

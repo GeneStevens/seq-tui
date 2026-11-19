@@ -66,7 +66,33 @@ func (m *Model) Stacks(list []string) []Stack {
 
 // Fact is what the server says wearing the item would change for this
 // character; nil when it said nothing (a trade good it has no definition for).
-func (m *Model) Fact(inst string) *pb.ItemFact { return m.Self.Facts[ItemID(inst)] }
+func (m *Model) Fact(inst string) *pb.ItemFact {
+	if f := m.Self.Facts[ItemID(inst)]; f != nil {
+		return f
+	}
+	return m.LinkFacts[ItemID(inst)]
+}
+
+// NoteItemDetails keeps the answer to a request for a linked item's details
+// (D206): the definition, as the bags show it, and the comparison with what the
+// character wears. It returns the refusal in words, "" when the item came.
+func (m *Model) NoteItemDetails(d *pb.ItemDetails) string {
+	switch d.GetRefused() {
+	case "":
+	case "unknown_item":
+		return "the server knows no such item"
+	default:
+		return "item details are not available now"
+	}
+	m.noteItem(d.GetItem())
+	if id := d.GetItem().GetId(); id != "" && d.GetFact() != nil {
+		if m.LinkFacts == nil {
+			m.LinkFacts = map[string]*pb.ItemFact{}
+		}
+		m.LinkFacts[id] = d.GetFact()
+	}
+	return ""
+}
 
 // Mark is the shape that says an item against what is worn in its slot: ▲
 // upgrade, ▼ downgrade, = sidegrade, x not usable by this character; "" for what

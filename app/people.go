@@ -78,6 +78,8 @@ func (a *App) talkKey(k string, m *model.Model) Action {
 		a.talk = nil
 	case k == "g":
 		return Action{Kind: Talk, NPC: t.NPC, Note: m.NPCName(t.NPC)}
+	case k == "I":
+		return Action{Kind: ShowItems}
 	case up(k) || down(k):
 		t.Sel = step(t.Sel, k, n)
 	case enter(k):

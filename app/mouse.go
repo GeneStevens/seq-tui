@@ -102,7 +102,7 @@ func (a *App) moveCursor(k string) {
 // sideShown says a character sidebar is beside the screen that is open.
 func (a *App) sideShown() bool {
 	return (a.traders != nil || a.talk != nil || a.board != nil) && !a.char && a.trade == nil && a.cons == nil &&
-		!a.overview && a.slots == nil && a.role == nil && a.dirs == nil && a.quest == nil && a.menu == nil && a.soc == nil && a.ses == nil && !a.view.Help
+		!a.overview && a.slots == nil && a.role == nil && a.dirs == nil && a.items == nil && a.quest == nil && a.menu == nil && a.soc == nil && a.ses == nil && !a.view.Help
 }
 
 // sideKey handles the keys of the sidebar (D78): C turns to the next tab (and, in

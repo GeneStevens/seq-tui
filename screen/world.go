@@ -72,8 +72,12 @@ func talkLines(m *model.Model, v View, t *Talk, w, h int, st Styler) []string {
 		add(" …")
 		return pad(rows, w, h)
 	}
-	for _, l := range d.Lines {
-		rows = append(rows, wrapped("“"+l+"”", w, " ")...)
+	for i, l := range d.Lines {
+		var parts []model.ChatPart
+		if i < len(d.LinesParts) {
+			parts = d.LinesParts[i]
+		}
+		rows = append(rows, speechRows(l, parts, w, st)...)
 	}
 	add("")
 	if len(d.Options) == 0 {
@@ -99,7 +103,11 @@ func talkLines(m *model.Model, v View, t *Talk, w, h int, st Styler) []string {
 	for len(rows) < h-2 {
 		rows = append(rows, strings.Repeat(" ", w))
 	}
-	rows = append(rows, help(" {1}-{9} or {Up} / {Down} choose · {Enter} does it · {Esc} closes · {G} talks again", w, st))
+	again := ""
+	if len(model.DialogueLinks(d)) > 0 {
+		again = " · {I} shows an item they name"
+	}
+	rows = append(rows, help(" {1}-{9} or {Up} / {Down} choose · {Enter} does it · {Esc} closes · {G} talks again"+again, w, st))
 	rows = append(rows, help(" The answer is on the status line; every refusal says why.", w, st))
 	return pad(rows[:min(len(rows), h)], w, h)
 }

@@ -22,6 +22,9 @@ type Dialogue struct {
 	Lines   []string
 	Options []*pb.DialogueOption
 	Talks   int
+	// LinesParts is each line's spans when any line links an item (D206): one
+	// entry for each of Lines, empty for a line with no links; nil when none does.
+	LinesParts [][]ChatPart
 }
 
 // WorldEventState is the last announcement of a timed world event in the zone:
@@ -218,7 +221,11 @@ func (m *Model) applyDialogue(d *pb.Dialogue) {
 	if m.Companion() == nil && len(m.questOrder) == 0 { // the house companion is shelved (D56): its option leads nowhere
 		opts = slices.DeleteFunc(slices.Clone(opts), func(o *pb.DialogueOption) bool { return o.GetAction() == "companion_role" })
 	}
-	m.Dialogues[d.GetNpc()] = &Dialogue{NPC: d.GetNpc(), Lines: d.GetLines(), Options: opts, Talks: m.Talks}
+	var parts [][]ChatPart
+	for _, lp := range d.GetLinesParts() {
+		parts = append(parts, PartsOf(lp.GetParts()))
+	}
+	m.Dialogues[d.GetNpc()] = &Dialogue{NPC: d.GetNpc(), Lines: d.GetLines(), Options: opts, Talks: m.Talks, LinesParts: parts}
 }
 
 // applyWorldEvent keeps the last announcement of a world event.
@@ -523,4 +530,18 @@ func (m *Model) BoardOffers(n *pb.NpcInfo) []*pb.ContractOffer {
 // words the server uses for a contract_level refusal.
 func OpensAtWords(level int64) string {
 	return fmt.Sprintf("This contract opens at level %d.", level)
+}
+
+// DialogueLinks are the distinct items an NPC's last words link (D206), in the
+// order they are said.
+func DialogueLinks(d *Dialogue) []ChatPart {
+	var out []ChatPart
+	for _, line := range d.LinesParts {
+		for _, p := range line {
+			if p.Kind == KindItem && !slices.ContainsFunc(out, func(o ChatPart) bool { return o.ID == p.ID }) {
+				out = append(out, p)
+			}
+		}
+	}
+	return out
 }

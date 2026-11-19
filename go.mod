@@ -4,7 +4,7 @@ go 1.27.2
 
 require (
 	charm.land/bubbletea/v2 v2.1.0
-	github.com/GeneStevens/seq v0.0.0-20261118201634-61385a11a8a1
+	github.com/GeneStevens/seq v0.0.0-20261118211234-52380d9ab49c
 	github.com/charmbracelet/colorprofile v0.4.3
 	github.com/coder/websocket v1.8.15
 	google.golang.org/protobuf v1.36.12

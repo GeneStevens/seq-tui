@@ -1,10 +1,10 @@
 package screen
 
 import (
+	"cmp"
 	"fmt"
 	"math"
 	"slices"
-	"sort"
 	"strings"
 	"sync"
 
@@ -463,14 +463,7 @@ func (g *grid) nameAll(m *model.Model, cands []int, group map[string][]string) [
 			w := width(text)
 			halfC := max(p.DX/g.sc.col/2, 2) + int64(w)/2 + searchMoreCols
 			halfR := max(p.DY/g.sc.row/2, 0) + 1 + searchMoreRows
-			type spot struct{ dc, dr, cost int64 }
-			var spots []spot
-			for dr := -halfR; dr <= halfR; dr++ {
-				for dc := -halfC; dc <= halfC; dc++ {
-					spots = append(spots, spot{dc, dr, dc*dc + 4*dr*dr})
-				}
-			}
-			sort.SliceStable(spots, func(i, j int) bool { return spots[i].cost < spots[j].cost })
+			spots := spotsAround(halfC, halfR)
 			done := false
 			for _, s := range spots {
 				c0, row := c+s.dc-int64(w/2), r+s.dr
@@ -495,6 +488,31 @@ func (g *grid) nameAll(m *model.Model, cands []int, group map[string][]string) [
 		}
 	}
 	return out
+}
+
+type spot struct{ dc, dr, cost int64 }
+
+// spotCache holds spotsAround's lists by (halfC, halfR): the order depends on
+// nothing else, and the same few sizes recur for every place on every frame.
+var spotCache sync.Map // [2]int64 -> []spot
+
+// spotsAround is the offsets within halfC columns and halfR rows of a place,
+// nearest first (a row counts double); equal costs keep the row-major order.
+// The slice is shared: callers do not change it.
+func spotsAround(halfC, halfR int64) []spot {
+	key := [2]int64{halfC, halfR}
+	if v, ok := spotCache.Load(key); ok {
+		return v.([]spot)
+	}
+	spots := make([]spot, 0, (2*halfC+1)*(2*halfR+1))
+	for dr := -halfR; dr <= halfR; dr++ {
+		for dc := -halfC; dc <= halfC; dc++ {
+			spots = append(spots, spot{dc, dr, dc*dc + 4*dr*dr})
+		}
+	}
+	slices.SortStableFunc(spots, func(a, b spot) int { return cmp.Compare(a.cost, b.cost) })
+	spotCache.Store(key, spots)
+	return spots
 }
 
 // nameAt says the cell holds a letter of a place's name: the next name keeps a

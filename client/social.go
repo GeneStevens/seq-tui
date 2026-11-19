@@ -26,16 +26,44 @@ func (s *Session) Social(ctx context.Context, req agentkit.SocialRequest) (*pb.S
 
 // Say speaks to the characters near this one; PartyChat to the party; Tell to
 // one online character by name.
-func (s *Session) Say(ctx context.Context, text string) (*pb.SocialResult, error) {
-	return s.Social(ctx, agentkit.ChatSay(text))
+// Each takes the item links of the line (D206): an id and the span of text it
+// stands for, never markup.
+func (s *Session) Say(ctx context.Context, text string, links ...*pb.ItemLink) (*pb.SocialResult, error) {
+	return s.Social(ctx, linked(agentkit.ChatSay(text), links))
 }
 
-func (s *Session) PartyChat(ctx context.Context, text string) (*pb.SocialResult, error) {
-	return s.Social(ctx, agentkit.ChatParty(text))
+func (s *Session) PartyChat(ctx context.Context, text string, links ...*pb.ItemLink) (*pb.SocialResult, error) {
+	return s.Social(ctx, linked(agentkit.ChatParty(text), links))
 }
 
-func (s *Session) Tell(ctx context.Context, to, text string) (*pb.SocialResult, error) {
-	return s.Social(ctx, agentkit.ChatTell(to, text))
+func (s *Session) Tell(ctx context.Context, to, text string, links ...*pb.ItemLink) (*pb.SocialResult, error) {
+	return s.Social(ctx, linked(agentkit.ChatTell(to, text), links))
+}
+
+// linked adds the links to a chat request; a line with none is sent as it was.
+func linked(req agentkit.SocialRequest, links []*pb.ItemLink) agentkit.SocialRequest {
+	if len(links) == 0 {
+		return req
+	}
+	return agentkit.WithLinks(req, links...)
+}
+
+// ItemDetails asks for a linked item's details by id (D206) and keeps the
+// answer in the model; the refusal, in words, is "" when the item came.
+func (s *Session) ItemDetails(ctx context.Context, item string) (string, error) {
+	c := s.client()
+	if c == nil {
+		return "", errors.New("not connected")
+	}
+	d, err := c.ItemDetails(ctx, item)
+	if err != nil {
+		return "", err
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	why := s.m.NoteItemDetails(d)
+	s.wake()
+	return why, nil
 }
 
 // Party runs a party command: invite, accept, decline, kick, leave or list.
@@ -79,8 +107,8 @@ func (s *Session) Friends(ctx context.Context, action, name string) (*pb.FriendL
 }
 
 // OOC speaks on the server-wide out-of-character channel (D101).
-func (s *Session) OOC(ctx context.Context, text string) (*pb.SocialResult, error) {
-	return s.Social(ctx, agentkit.ChatOOC(text))
+func (s *Session) OOC(ctx context.Context, text string, links ...*pb.ItemLink) (*pb.SocialResult, error) {
+	return s.Social(ctx, linked(agentkit.ChatOOC(text), links))
 }
 
 // SetOOC switches hearing and speaking on the ooc channel on or off; the server

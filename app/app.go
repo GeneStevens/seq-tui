@@ -54,6 +54,7 @@ type App struct {
 	cons       *screen.ContractsUI
 	role       *screen.Role       // the choice of the recruit's role, nil when closed
 	dirs       *screen.Dirs       // the guard's list of directions, nil when closed (D203)
+	items      *screen.ItemUI     // a linked item's details, or the links to choose from, nil when closed (D206)
 	duo        *client.Duo        // the second character on a stance, nil when there is none
 	toDuo      bool               // the helper keys talk to it, not to the house companion
 	focus      bool               // directing the second character: the keys and the screen are its (D56)
@@ -396,6 +397,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = Action{Kind: ToggleHelp} // the help opens over every view
 		case a.replay != nil:
 			act = a.replayKey(k)
+		case a.items != nil:
+			act = a.itemKey(k, m)
 		case a.chat.card != nil:
 			act = a.personKey(k)
 		case a.ses != nil:
@@ -544,6 +547,21 @@ func (a *App) do(act Action) (tea.Model, tea.Cmd) {
 		a.quest = &screen.QuestUI{}
 	case OpenLine:
 		a.line = &screen.Line{Text: "/"}
+	case ShowItems:
+		id := act.ID
+		if id == "" {
+			var note string
+			a.refresh() // the links drawn in the chat, before the model is held
+			a.sess.View(func(m *model.Model) { id, note = a.showItems(m) })
+			if id == "" {
+				a.view.Notice = note
+				return a, nil
+			}
+		}
+		a.inflight++
+		return a, a.send(Action{Kind: SocialDo, ID: "itemdetails", Note: id})
+	case LinkItem:
+		a.sess.View(func(m *model.Model) { a.view.Notice, a.view.NoticeBad = a.linkItem(m, act.ID) })
 	case ToggleDrawer, PanelTab, SelectPanel, ReplyLine, NameStep, OpenPerson, PersonDo, PersonClose:
 		return a.chatDo(act)
 	case OpenSessions:
@@ -797,7 +815,7 @@ func (a *App) render(w, h int, since time.Duration, st screen.Styler) string {
 	var out string
 	v.Menu, v.Slots, v.Create, v.Picker, v.Now = a.menu, a.slots, a.create, a.picker, a.now()
 	v.Char, v.Traders, v.Trade = a.char, a.traders, a.trade
-	v.Talk, v.Board, v.Contracts, v.Overview, v.Role, v.Dirs = a.talk, a.board, a.cons, a.overview, a.role, a.dirs
+	v.Talk, v.Board, v.Contracts, v.Overview, v.Role, v.Dirs, v.Item = a.talk, a.board, a.cons, a.overview, a.role, a.dirs, a.items
 	v.Line, v.Social, v.Sessions, v.Quest = a.line, a.soc, a.ses, a.quest
 	a.chatView(&v)
 	a.mouseView(&v)

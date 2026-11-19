@@ -36,6 +36,7 @@ import (
 	"github.com/GeneStevens/seq-tui/record"
 	"github.com/GeneStevens/seq-tui/sessionlog"
 	"github.com/GeneStevens/seq/agentkit"
+	"github.com/GeneStevens/seq/content"
 	"github.com/GeneStevens/seq/core"
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 	"github.com/GeneStevens/seq/server"
@@ -108,10 +109,36 @@ func New(t *testing.T, o testserver.Options) *World {
 	return NewWithWalkTimeout(t, o, WalkTimeoutMs)
 }
 
+// parallel lets the scenario t run beside the others: each has its own server
+// and clock, so the suite takes the time of its slowest few, not of their sum.
+// Only a few run at once (parallelism), so that a scenario held to MaxScenario
+// is not slowed by the dozens waiting beside it. A scenario that starts a
+// second world is parallel once.
+func parallel(t *testing.T) {
+	if _, again := inParallel.LoadOrStore(t, true); again {
+		return
+	}
+	t.Parallel()
+	slots <- struct{}{}
+	t.Cleanup(func() { <-slots })
+}
+
+// parallelism is how many scenarios run at once.
+const parallelism = 4
+
+var slots = make(chan struct{}, parallelism)
+
+var inParallel sync.Map
+
+// Serial keeps the scenario t out of the parallel run: a scenario that reads
+// what an earlier one left (the runs of a determinism check) calls it first.
+func Serial(t *testing.T) { inParallel.Store(t, true) }
+
 // NewWithWalkTimeout is New with the zones' heading-walk timeout set to ms (0: the
 // server's own, 500 ms, unless the zone sets one).
 func NewWithWalkTimeout(t *testing.T, o testserver.Options, ms int) *World {
 	t.Helper()
+	parallel(t)
 	if len(o.Packs) == 0 && usesWorld(o.Zones) {
 		o.Packs = []string{WorldPacks(t)}
 	}
@@ -199,14 +226,22 @@ func usesWorld(zones []string) bool {
 // one.
 func WorldPacks(t testing.TB) string {
 	t.Helper()
+	dir, err := worldPacks()
+	if err != nil {
+		t.Fatal(err)
+	}
+	return dir
+}
+
+func worldPacks() (string, error) {
 	if d := os.Getenv(EnvWorld); d != "" {
-		return d
+		return d, nil
 	}
 	out, err := exec.Command("go", "list", "-m", "-f", "{{.Dir}}", "github.com/GeneStevens/seq-world").Output()
 	if err != nil || len(strings.TrimSpace(string(out))) == 0 {
-		t.Fatalf("seq-world is not in the module cache (go list: %v)", err)
+		return "", fmt.Errorf("seq-world is not in the module cache (go list: %v)", err)
 	}
-	return filepath.Join(strings.TrimSpace(string(out)), "packs")
+	return filepath.Join(strings.TrimSpace(string(out)), "packs"), nil
 }
 
 // Fixture says the first player of this world is recorded to the named log in
@@ -1142,6 +1177,15 @@ func note(name string, took time.Duration) {
 // time and holds the whole suite to MaxSuite.
 func Main(m *testing.M) {
 	model.FixClock() // lines carry the time they came: a golden needs it fixed (D121)
+	// The world's packs are loaded once, before any scenario: a scenario that
+	// reads a zone before it starts a server (content.Zone) finds it, whatever
+	// ran first, and the scenarios that run beside each other load nothing twice.
+	if dir, err := worldPacks(); err == nil {
+		if _, err := content.UsePacks(dir); err != nil {
+			fmt.Println("FAIL: the world's packs:", err)
+			os.Exit(1)
+		}
+	}
 	began := time.Now()
 	code := m.Run()
 	total := time.Since(began)
