@@ -120,6 +120,7 @@ Chat, parties, who and friends are the server's *social* requests, not intents (
 | `/invite NAME`, `/accept`, `/decline`, `/leave`, `/kick NAME`, `/party` | parties; the leader invites and kicks |
 | `/status away`, `/status autopilot`, `/status clear` | your status (D79): a word beside your name in who, the party and the You panel; it has no reward effect |
 | `/afk` | flag yourself AFK at once (D208); any action clears it. The server flags a character after 5 minutes with no action; AFK shows beside its name in who, nearby and on the map, and "You are AFK." in the sidebar |
+| `/news`, `/news more` | the latest release notes in the log (D211), then the next older one, and older again each time you repeat it; "Nothing yet." when there are none |
 | `/who zone=NAME class=ID 3-7`, `/friends`, `/friend add NAME`, `/friend remove NAME`, `/anon on` | the who list (every filter optional), the friends list, hiding your zone |
 | `/chat` | the Social screen on the scrollback |
 

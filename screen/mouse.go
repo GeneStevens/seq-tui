@@ -475,7 +475,7 @@ func CardLines(m *model.Model, id string) []string {
 			e = m.Group[id].Entity
 		}
 		if e.GetKind() != pb.EntityKind_ENTITY_KIND_MOB {
-			return []string{e.GetName() + afkTag(e), fmt.Sprintf("Level %d, %s", e.GetLevel(), away(e.GetPos()))}
+			return []string{e.GetName() + afkTag(e) + hiddenTag(e), fmt.Sprintf("Level %d, %s", e.GetLevel(), away(e.GetPos()))}
 		}
 		lvl := fmt.Sprintf("Level %d", e.GetLevel())
 		if e.GetCon() != "" && !e.GetDead() {

@@ -53,5 +53,5 @@ func playerLabel(m *model.Model, e *pb.EntityState) string {
 	if c := classWord(m, e); c != "" {
 		label += " " + c
 	}
-	return label + afkTag(e)
+	return label + afkTag(e) + hiddenTag(e)
 }

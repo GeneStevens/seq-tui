@@ -323,6 +323,18 @@ func (a *App) socialSend(ctx context.Context, act Action) resultMsg {
 			return resultMsg{note: why, bad: true, after: func(a *App) { a.items = nil }}
 		}
 		return resultMsg{quiet: true}
+	case "news":
+		if arg != "" && !strings.EqualFold(arg, "more") {
+			return bad("usage: /news (the latest release notes) or /news more (the next older)")
+		}
+		why, err := a.sess.News(ctx, arg != "")
+		switch {
+		case err != nil:
+			return bad("news: " + err.Error())
+		case why != "":
+			return resultMsg{note: why}
+		}
+		return resultMsg{quiet: true}
 	case "whois", "whoisask":
 		if name == "" {
 			return bad("usage: /whois NAME")
@@ -498,7 +510,7 @@ func lineVerb(cmd string) string {
 		return "reply"
 	case "ooc":
 		return "ooc"
-	case "oocsay", "report", "whois", "bug", "feedback":
+	case "oocsay", "report", "whois", "bug", "feedback", "news":
 		return cmd
 	case "mute", "ignore":
 		return "mute"

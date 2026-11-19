@@ -66,6 +66,28 @@ func (s *Session) ItemDetails(ctx context.Context, item string) (string, error) 
 	return why, nil
 }
 
+// News asks for one entry of the release log (D211), the latest or, with more,
+// the next older one than the log last showed, and puts it in the log. The words
+// are "" when it came, else why nothing was shown.
+func (s *Session) News(ctx context.Context, more bool) (string, error) {
+	c := s.client()
+	if c == nil {
+		return "", errors.New("not connected")
+	}
+	s.mu.Lock()
+	offset := s.m.NewsOffset(more)
+	s.mu.Unlock()
+	r, err := c.ReleaseLog(ctx, 1, offset)
+	if err != nil {
+		return "", err
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	why := s.m.NoteNews(offset, r)
+	s.wake()
+	return why, nil
+}
+
 // Party runs a party command: invite, accept, decline, kick, leave or list.
 func (s *Session) Party(ctx context.Context, action, name string) (*pb.SocialResult, error) {
 	return s.Social(ctx, agentkit.PartyDo(action, name))
