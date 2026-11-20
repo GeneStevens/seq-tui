@@ -638,6 +638,8 @@ func (m *Model) apply(e *pb.Event) {
 			m.Self.Target = t.GetTarget()
 		} else if g := m.Group[t.GetActor()]; g != nil {
 			g.Target = t.GetTarget()
+		} else if en := m.Entities[t.GetActor()]; en != nil {
+			en.Target = t.GetTarget() // a mob picks its mark (D213)
 		}
 	case *pb.Event_TargetCleared:
 		t := b.TargetCleared
@@ -645,6 +647,8 @@ func (m *Model) apply(e *pb.Event) {
 			m.Self.Target = ""
 		} else if g := m.Group[t.GetActor()]; g != nil {
 			g.Target = ""
+		} else if en := m.Entities[t.GetActor()]; en != nil {
+			en.Target = ""
 		}
 	case *pb.Event_AutoAttackChanged:
 		a := b.AutoAttackChanged
