@@ -54,11 +54,7 @@ func TestTheHelpOpensAndClosesFromEveryView(t *testing.T) {
 		w.Step(v.name, func() {
 			p.Press(v.open...)
 			view(v.title)
-			key := "?"
-			if v.name == "talking" || v.name == "sessions" {
-				key = "f1" // the other way in
-			}
-			p.Press(key)
+			p.Press("?")
 			helpOpen(true)
 			p.Press("esc") // Esc closes the help, not the view under it
 			helpOpen(false)
@@ -72,11 +68,9 @@ func TestTheHelpOpensAndClosesFromEveryView(t *testing.T) {
 		})
 	}
 
-	// The command line takes ? as a letter: F1 is its key to the help.
+	// The command line takes ? as a letter and the function keys do nothing in it.
 	p.Press("/")
-	p.Press("f1")
-	helpOpen(true)
-	p.Press("esc")
+	p.Press("f1", "f2")
 	helpOpen(false)
 	p.Press("esc")
 
@@ -119,7 +113,7 @@ func TestTheHelpSaysWhatAPlayerNeeds(t *testing.T) {
 		"trivial, easy, even, hard or deadly", "breaks off the hexer's bolt", "heals the mob it fights beside", // D70
 		"runs for home once", "joins the fight",
 		"Logs and replay", "Ctrl+L", // D64
-		"Ctrl+K", "? or F1", "Arrows, W A S D",
+		"Ctrl+K", "F1-F6", "Arrows, W A S D",
 	} {
 		if !strings.Contains(text, want) {
 			t.Errorf("the help does not say %q", want)

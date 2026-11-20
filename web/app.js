@@ -8,8 +8,8 @@ const $ = (id) => document.getElementById(id);
 const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
 
 // intercepted is keys.json's list, the keys of the game that the browser also
-// uses (Ctrl+R reloads, Ctrl+L focuses the address bar, F1 opens help, ...).
-let intercepted = new Set(["ctrl+a", "ctrl+k", "ctrl+l", "ctrl+r", "ctrl+u", "f1"]);
+// uses (Ctrl+R reloads, Ctrl+L focuses the address bar, F5 reloads, ...).
+let intercepted = new Set(["ctrl+a", "ctrl+k", "ctrl+l", "ctrl+r", "ctrl+u", "f1", "f2", "f3", "f4", "f5", "f6"]);
 
 // keyName names a key event as the game's key table does.
 function keyName(e) {

@@ -29,6 +29,14 @@ type Tab struct {
 	Tab  int
 }
 
+// PartyHit is a line of the Party panel: the member it is of and the entity to
+// target (ID is "" for one not in view). Rect is where it was drawn.
+type PartyHit struct {
+	Rect Rect
+	Name string
+	ID   string
+}
+
 // Hits is what the last drawing laid down: the map's block and the grid behind
 // it, and the sidebar's tabs. The program keeps one and the drawing fills it.
 type Hits struct {
@@ -49,6 +57,10 @@ type Hits struct {
 	// Card is the character card's block and CardActs where its actions were
 	// drawn (Tab is the action's number); W is 0 when there is no card.
 	Names []NameHit
+	// Party are the lines of the Party panel as drawn: a click on one targets
+	// that member. col is where the right column's top left is.
+	Party []PartyHit
+	col   Pt
 	// Items are the item links in the chat as drawn, top to bottom (D206).
 	Items    []ItemHit
 	Card     Rect
@@ -70,6 +82,7 @@ func (h *Hits) begin() {
 	}
 	h.Map, h.Side, h.Tabs, h.g = Rect{}, Rect{}, h.Tabs[:0], nil
 	h.Panel, h.Drawer, h.Log = h.Panel[:0], Rect{}, Rect{}
+	h.Party = h.Party[:0]
 	h.Names, h.Items, h.Card, h.CardActs, h.nameN = h.Names[:0], h.Items[:0], Rect{}, h.CardActs[:0], 0
 	h.Seen = Marks{}
 }
@@ -518,4 +531,32 @@ func CardLines(m *model.Model, id string) []string {
 		return out
 	}
 	return nil
+}
+
+// column notes where the right column is drawn: x its first cell, y its top row.
+func (h *Hits) column(x, y int) {
+	if h != nil {
+		h.col = Pt{x, y}
+	}
+}
+
+// addParty notes the lines of a Party panel (owner, line by line) whose box is
+// rw wide and whose first inner line is row inside the column.
+func (h *Hits) addParty(owner []PartyHit, rw, row int) {
+	if h == nil {
+		return
+	}
+	for i, o := range owner {
+		if o.Name != "" {
+			o.Rect = Rect{h.col.X + 1, h.col.Y + row + i, rw - 2, 1}
+			h.Party = append(h.Party, o)
+		}
+	}
+}
+
+// noParty forgets the Party lines: the column they were in was not drawn.
+func (h *Hits) noParty() {
+	if h != nil {
+		h.Party = h.Party[:0]
+	}
 }

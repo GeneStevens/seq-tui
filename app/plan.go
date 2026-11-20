@@ -205,6 +205,9 @@ func Plan(key string, m *model.Model) Action {
 	if n := slotKey(key); n > 0 {
 		return Action{Kind: UseAbility, Slot: n, Note: slotLabel(m, n)}
 	}
+	if n := partyKey(key); n >= 0 {
+		return targetPartyAction(m, n)
+	}
 	return common(key)
 }
 
@@ -215,7 +218,7 @@ func common(key string) Action {
 		return Action{Kind: Logout}
 	case "q", "ctrl+c":
 		return Action{Kind: Quit}
-	case "?", "f1":
+	case "?":
 		return Action{Kind: ToggleHelp}
 	case "ctrl+k":
 		return Action{Kind: OpenQuest}

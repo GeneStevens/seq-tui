@@ -393,7 +393,7 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		switch {
 		case a.view.Help:
 			act = a.helpKey(k, m)
-		case k == "?" || k == "f1":
+		case k == "?":
 			act = Action{Kind: ToggleHelp} // the help opens over every view
 		case a.replay != nil:
 			act = a.replayKey(k)
@@ -449,6 +449,8 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 			act = lookAction(m, a.mouse.cursor)
 		case m.Social.Invite != nil && (k == "y" || k == "n"):
 			act = Action{Kind: SocialDo, ID: map[bool]string{true: "accept", false: "decline"}[k == "y"], Note: m.Social.Invite.From}
+		case partyKey(k) >= 0:
+			act = inPlan(m, targetPartyAction(m, partyKey(k)))
 		case k == "x":
 			act = a.focusAction()
 		case helperKey(k):
@@ -899,7 +901,7 @@ func (a *App) helpKey(k string, m *model.Model) Action {
 		v.HelpScroll = 0
 	case "end":
 		v.HelpScroll = maxScroll
-	case "esc", "q", "f1":
+	case "esc", "q":
 		v.Help = false
 	case "ctrl+c":
 		return Action{Kind: Quit}

@@ -32,7 +32,7 @@ Both need Go and Node. `make web` prints each file's size. At the time of writin
 - Connects to `wss://<the page's host>/seq/v1`. Open the page as
   `…/?url=wss://other/seq/v1` to name another server (development: the server
   checks the browser's `Origin`, so another host is refused unless it is the page's).
-- Keeps Ctrl+A, Ctrl+K, Ctrl+L, Ctrl+R, Ctrl+U and F1 from the browser
+- Keeps Ctrl+A, Ctrl+K, Ctrl+L, Ctrl+R, Ctrl+U and F1 to F6 from the browser
   (`preventDefault`), so they reach the game. The list is `web/keys.json`;
   `go test ./web` holds it to the help's binding table, so a new Ctrl+letter or
   function-key binding that is not listed fails. Ctrl+W, Ctrl+T and Ctrl+N cannot

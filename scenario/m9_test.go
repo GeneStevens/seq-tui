@@ -218,6 +218,13 @@ func TestPartiesAcrossAccounts(t *testing.T) {
 	})
 	bob.Golden("party_formed")
 
+	// F2 targets ann, the first in the Party panel; F1 targets bob himself.
+	bob.Press("f2")
+	bob.Eventually("ann targeted by F2", func(m *model.Model) bool { return m.Self.Target != "" && m.NameOf(m.Self.Target) == "ann1" })
+	bob.Golden("party_target_f2")
+	bob.Press("f1")
+	bob.Eventually("himself targeted by F1", func(m *model.Model) bool { return m.Self.Target == m.Self.ID })
+
 	// Party chat: cy, far off and in no party, hears nothing of it.
 	command(bob, "/p ready when you are")
 	w.Settle()

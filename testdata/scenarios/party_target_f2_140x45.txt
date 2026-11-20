@@ -1,0 +1,45 @@
+┌─ Testgrounds, at 100,89 m, north up ───────────────────────────────────────────────────────────┐┌─ You ──────────────────────────────────┐
+│                                                                                                ││ bob1  Lv 1  XP 0             | 0 crowns│
+│                                                                                                ││ HP 100/100 ########################### │
+│                                                                                                ││ Target: ann1                           │
+│                                                                                                ││ Auto-attack: off                       │
+│                                                                                                ││ Auto-retaliate: ON  (Ctrl+R)           │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Party, led by ann1 ───────────────────┐
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░││ F2 *ann1  Lv 1                         │
+│                                                                                                ││   HP 100/100 ########                  │
+│                                                                                                │└────────────────────────────────────────┘
+│                                                                                                │┌─ Target ───────────────────────────────┐
+│                                                                                                ││ P ann1  Lv 1                           │
+│                                                                                                ││ HP 100/100 ##################### 1m S  │
+│                                                                                                ││ not in a fight                         │
+│                                                @                                               ││ Wears: plain clothes; empty hands      │
+│                                                P                                               │└────────────────────────────────────────┘
+│                                                                                                │┌─ Nearby ───────────────────────────────┐
+│                                                                                                ││ ! Testgrounds Recruiter   85m SW [new] │
+│                                                                                                ││ & Testgrounds Contract Bo… 88m W [new] │
+│                                                                                                ││ P ann1                    1m S 100/100 │
+│                                                                                                ││ D Gate North               1m N (shut) │
+│                                                                                          c     ││ ◆ Tester's Fa… 70m S raiders head here │
+│                                                                                                ││ H Eastern Binder                 72m S │
+│                                                                                                ││ T Druid Trainer                  83m W │
+│                                                                                                ││ T Paladin Trainer                85m W │
+│                                                                                                ││ v Brigands' Hol… 86m SE raiders gather │
+│                                                                                                ││ Q Testgrounds Captain <Quest Gi… 86m W │
+│                                                                                                ││ +10 more                               │
+└────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────────────────────────────────────────────────────────────────┐
+│   16:04:03.2 ann1 invites you to a party                                                                                                 │
+│   16:04:03.2 ann1 invites you to a party                                                                                                 │
+│   16:04:03.2 You target ann1                                                                                                             │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+│                                                                                                                                          │
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────────────────────────────────────────────────────────────────┘
+ Gate North is shut: no expedition is open beyond it. Start one first.                                                                      
+ ONLINE | Testgrounds | heard N.Ns ago | target ok                                                                            ? help  q quit

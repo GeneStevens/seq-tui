@@ -335,7 +335,11 @@ func (m *Model) IsLeader() bool {
 // state says of it (zone, level, health, mana), or, for the character itself,
 // what the character knows of itself.
 type Mate struct {
-	Name          string
+	Name string
+	// ID is the entity to target: the character's own, or the member's when in
+	// view; "" for one that is not (another zone, out of range, away).
+	ID            string
+	Elsewhere     bool // the member is in another zone than the character
 	Leader        bool
 	Online        bool
 	Me            bool
@@ -356,16 +360,40 @@ func (m *Model) Mates() []Mate {
 			mt.Status = m.Status
 		}
 		if Key(pm.GetName()) == Key(m.Self.Name) {
-			mt.Me, mt.Level = true, m.Self.Level
+			mt.Me, mt.Level, mt.ID = true, m.Self.Level, m.Self.ID
 			mt.HP, mt.MaxHP, mt.Mana, mt.MaxMana, mt.Dead = m.Self.HP, m.Self.MaxHP, m.Self.Mana, m.Self.MaxMana, m.Self.Dead
 		} else if mt.Online {
 			mt.Zone, mt.Level = pm.GetZone(), int64(pm.GetLevel())
+			mt.Elsewhere = mt.Zone != "" && !m.inZone(mt.Zone)
 			mt.HP, mt.MaxHP, mt.Mana, mt.MaxMana = int64(pm.GetHp()), int64(pm.GetMaxHp()), int64(pm.GetMana()), int64(pm.GetMaxMana())
 			mt.Dead = mt.MaxHP > 0 && mt.HP <= 0
+		}
+		if !mt.Me {
+			mt.ID = m.playerID(mt.Name)
 		}
 		out = append(out, mt)
 	}
 	return out
+}
+
+// inZone says zone is the one the character is in: the map's name or the space.
+func (m *Model) inZone(zone string) bool {
+	return Key(zone) == Key(m.Space) || m.Map != nil && Key(zone) == Key(m.Map.GetName())
+}
+
+// playerID is the id of the character called name when it is in view, else "".
+func (m *Model) playerID(name string) string {
+	for id, g := range m.Group {
+		if Key(g.Entity.GetName()) == Key(name) {
+			return id
+		}
+	}
+	for id, e := range m.Entities {
+		if e.GetKind() == pb.EntityKind_ENTITY_KIND_CHARACTER && Key(e.GetName()) == Key(name) {
+			return id
+		}
+	}
+	return ""
 }
 
 // String is a line of chat as one string, for a log and a plain-text screen.

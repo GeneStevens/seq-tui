@@ -525,7 +525,7 @@ func (p *Player) Fresh() {
 
 var keyBytes = map[string]string{
 	"enter": "\r", "backspace": "\x7f", "esc": "\x1b", "tab": "\t", "space": " ",
-	"ctrl+l": "\x0c", "ctrl+k": "\x0b", "ctrl+a": "\x01", "ctrl+r": "\x12", "f1": "\x1bOP", "home": "\x1b[H", "end": "\x1b[F", "up": "\x1b[A", "down": "\x1b[B", "right": "\x1b[C", "left": "\x1b[D",
+	"ctrl+l": "\x0c", "ctrl+k": "\x0b", "ctrl+a": "\x01", "ctrl+r": "\x12", "f1": "\x1bOP", "f2": "\x1bOQ", "f3": "\x1bOR", "f4": "\x1bOS", "f5": "\x1b[15~", "f6": "\x1b[17~", "home": "\x1b[H", "end": "\x1b[F", "up": "\x1b[A", "down": "\x1b[B", "right": "\x1b[C", "left": "\x1b[D",
 }
 
 // Press presses the keys, one after another, waiting after each until the

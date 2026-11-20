@@ -32,8 +32,6 @@ func (a *App) lineKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 	switch k := msg.String(); k {
 	case "esc", "ctrl+c":
 		a.line = nil
-	case "f1":
-		a.view.Help, a.view.HelpPage, a.view.HelpScroll = true, 0, 0 // ? is a letter here
 	case "enter":
 		text := lineWire(l)
 		a.line = nil
@@ -645,4 +643,52 @@ func (a *App) whoisCard(ctx context.Context, name string) *screen.CharCard {
 	}
 	return &screen.CharCard{Name: firstNonEmpty(reply.GetName(), name), State: screen.CardFound, Kind: reply.GetKind(), Class: reply.GetClassId(),
 		Level: reply.GetLevel(), Zone: reply.GetZone(), Online: reply.GetOnline(), Status: reply.GetStatus()}
+}
+
+// partyKey is the party member a function key names: 0 for F1 (you), 1 to 5
+// for F2 to F6 (the Party panel's order), -1 for any other key.
+func partyKey(k string) int {
+	if len(k) == 2 && k[0] == 'f' && k[1] >= '1' && k[1] <= '6' {
+		return int(k[1] - '1')
+	}
+	return -1
+}
+
+// targetPartyAction targets the n-th of you and your party (partyKey), as the
+// Party panel lists them; a member who is not in view is said, not targeted.
+func targetPartyAction(m *model.Model, n int) Action {
+	if n == 0 {
+		return targetMate(m, m.Self.Name, m.Self.ID)
+	}
+	i := 0
+	for _, mt := range m.Mates() {
+		if mt.Me {
+			continue
+		}
+		if i++; i == n {
+			return targetMate(m, mt.Name, mt.ID)
+		}
+	}
+	return Action{Note: "no party member for " + screen.PartyKey(n-1)}
+}
+
+// targetMate targets the character called name, whose entity is id ("" when it
+// is not in view).
+func targetMate(m *model.Model, name, id string) Action {
+	switch {
+	case id == "":
+		return Action{Note: name + " is not in view"}
+	case m.Self.Target == id:
+		return Action{Note: name + " is already your target"}
+	}
+	return Action{Kind: Target, ID: id}
+}
+
+// inPlan makes a target a step of the plan in a turn-based round, as a click does.
+func inPlan(m *model.Model, act Action) Action {
+	if m.TurnBased() && act.Kind == Target {
+		step := act
+		return Action{Kind: PlanAdd, Step: &step}
+	}
+	return act
 }
