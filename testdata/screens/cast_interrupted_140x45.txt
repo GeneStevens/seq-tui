@@ -19,7 +19,7 @@
 │                                        ░                                             #         │┌─ Nearby ───────────────────────────────┐
 │                                        ░                                             #         ││ & Testgrounds Contract B… 14m NE [new] │
 │                                        ░                                             #         ││ ! Testgrounds Recruiter    16m E [new] │
-│                                        ░                                             #         ││ M Plain Scuttler     2m E 339/400 even │
+│                                        ░                                             #         ││ M Plain Scutt… → you 2m E 339/400 even │
 │                                        ░                                             #         ││ $ Testgrounds Vendor             9m NE │
 │                                        ░                                             #         ││ +16 more                               │
 └────────────────────────────────────────────────────────────────────────────────────────────────┘└────────────────────────────────────────┘

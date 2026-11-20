@@ -199,6 +199,7 @@ type nearby struct {
 	tag    string // what the objective hints say of it: "[step 2]", "[2/3]", "[new]"
 	quest  bool   // it matters to the quest or a held contract: Nearby lists it first
 	title  string // an NPC's title, shown beside the name
+	on     string // a living mob's mark: "→ you" or "→ <party member>" (D213)
 	shut   bool   // a door the server says cannot be used: dim, "(shut)"
 }
 
@@ -232,6 +233,9 @@ func nearbyList(m *model.Model) []nearby {
 		}
 		if e.GetHidden() {
 			n.note = strings.TrimSpace(n.note + " (hidden)")
+		}
+		if e.GetKind() == pb.EntityKind_ENTITY_KIND_MOB && !e.GetDead() {
+			n.on = attackMark(m, e.GetTarget())
 		}
 		out = append(out, n)
 	}
@@ -316,6 +320,20 @@ func nearbyList(m *model.Model) []nearby {
 	return out
 }
 
+// attackMark is "→ you" for a mob on the character, "→ <name>" for one on a
+// party member, and "" for anyone else.
+func attackMark(m *model.Model, target string) string {
+	switch {
+	case target == "":
+		return ""
+	case target == m.Self.ID:
+		return "→ you"
+	case m.Group[target] != nil:
+		return "→ " + m.Group[target].Entity.GetName()
+	}
+	return ""
+}
+
 func nearbyLines(m *model.Model, w, h int, st Styler) []string {
 	rows := make([]string, 0, h)
 	if m.Self.Pos == nil {
@@ -375,8 +393,18 @@ func nearbyRow(n nearby, g rune, right string, w int, st Styler) string {
 			title = strings.TrimRight(fit(full, left), " ")
 		}
 	}
+	mark := n.on
+	if mark != "" {
+		if width(mark) > room/2 {
+			mark = strings.TrimRight(fit(mark, max(room/2, 1)), " ")
+		}
+		room = max(room-width(mark)-1, 1) // the name gives way to the mark
+	}
 	name = strings.TrimRight(fit(name, min(room, width(name))), " ")
 	used := width(name)
+	if mark != "" {
+		used += 1 + width(mark)
+	}
 	if title != "" {
 		used += 1 + width(title)
 	}
@@ -387,6 +415,13 @@ func nearbyRow(n nearby, g rune, right string, w int, st Styler) string {
 			line += " " + title
 		} else {
 			line += " " + st.Dim(title)
+		}
+	}
+	if mark != "" {
+		if n.target {
+			line += " " + mark
+		} else {
+			line += " " + st.Red(mark)
 		}
 	}
 	line += gap + right
