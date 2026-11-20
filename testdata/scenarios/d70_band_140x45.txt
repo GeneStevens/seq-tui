@@ -12,7 +12,7 @@
 │                                                                                                │└────────────────────────────────────────┘
 │                                         M      @                                               │┌─ Nearby ───────────────────────────────┐
 │                                                                                                ││ ! Wulfric Dunn <Sergean… 125m SW [new] │
-│                                               ##########                                       ││ M Goblin Scrapper    6m W 160/160 easy │
+│                                               ##########                                       ││ M Goblin Scra… → you 6m W 160/160 easy │
 │                                               ##########                                       ││ ; Goblin Lookout   41m SW scout marker │
 │                                               ##########                                       ││ ; Highlow          104m N scout marker │
 │                                               ##########                                       ││ ; Millrace Ford   107m SW scout marker │

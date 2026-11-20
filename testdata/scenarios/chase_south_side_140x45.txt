@@ -13,7 +13,7 @@
 │                                             M  @ ;                        ········   ######### │┌─ Nearby ───────────────────────────────┐
 │                                                                           ········   ######### ││ Q Hew Wickett <Miller>           1m NE │
 │              """"""""""""""""""""""                                       ········   """"""""""││ ; Wickett Mill      2m SE scout marker │
-│              """"""""""""""""""""""                                       ····;···   """"""""""││ M Meadow Wolf          2m W 26/45 even │
+│              """"""""""""""""""""""                                       ····;···   """"""""""││ M Meadow Wolf → you    2m W 26/45 even │
 │                                                                           ········             ││ Q Tobias Hatch <Headman of Barl… 20m E │
 │                                                                           ········             ││ ◆ Barleycross  27m E raiders head here │
 │                                                                           ········             ││ ; Barleycross       27m E scout marker │

@@ -11,7 +11,7 @@
 │       ░                                                                           ··········   ││ even, fighting you                     │
 │       ░                                                                           ··········   │└────────────────────────────────────────┘
 │       ░                                        @    M                              ·········   │┌─ Nearby ───────────────────────────────┐
-│       ░                                                                            ·········   ││ M Meadow Wolf          4m E 45/45 even │
+│       ░                                                                            ·········   ││ M Meadow Wolf → you    4m E 45/45 even │
 │       ░                                                                            ··········  ││ Q Hew Wickett <Miller>           22m S │
 │       ░                                                                            ··········  ││ ; Wickett Mill     25m SE scout marker │
 │       ░                                             ############                   ··········  ││ Q Tobias Hatch <Headman of Bar… 33m SE │

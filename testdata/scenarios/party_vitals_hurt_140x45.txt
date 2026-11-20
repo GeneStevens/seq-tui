@@ -23,7 +23,7 @@
 │                    ░                                                       #                   ││ ! Testgrounds Recruiter     6m N [new] │
 │                    ░                                                       #                   ││ & Testgrounds Contract Boa… 8m N [new] │
 │                    ░                                                       #                   ││ p ann1                     1m S 98/100 │
-│                    ░                                                       #                   ││ m Plain Scuttler       2m E 34/40 even │
+│                    ░                                                       #                   ││ m Plain Scuttl… → ann1 2m E 34/40 even │
 │                    ░                                                       #                   ││ Q Testgrounds Captain <Quest Giv… 8m N │
 │                    ░                                                       #                   ││ H Testgrounds Binder             9m NW │
 │                    ░                                                       #                   ││ +15 more                               │

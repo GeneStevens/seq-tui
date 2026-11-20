@@ -27,12 +27,12 @@ func TestNearbyMarksWhomAMobAttacks(t *testing.T) {
 				ent("m2", "Snake", mob, 11100, "cora"),
 				ent("m3", "Wolf", mob, 11200, "stranger"),
 				ent("m4", "Bat", mob, 11300, ""),
-				ent("m5", "Ancient Cave Spider Matriarch", mob, 11400, "hale"),
+				ent("m5", "Ancient Cave Spider Matriarch", mob, 10200, "hale"),
 			}}}})
 	rows := func() map[string]string {
 		out := map[string]string{}
 		for _, l := range strings.Split(screen.Render(m, screen.View{Conn: screen.ConnOnline}, 100, 45, screen.Plain()), "\n") {
-			for _, n := range []string{"Rat", "Snake", "Wolf", "Bat", "Ancient"} {
+			for _, n := range []string{"Rat", "Snake", "Wolf", "Bat", "Ancien"} {
 				if strings.Contains(l, n) && strings.Contains(l, "m ") {
 					out[n] = l
 				}
@@ -40,10 +40,10 @@ func TestNearbyMarksWhomAMobAttacks(t *testing.T) {
 		}
 		return out
 	}
-	for name, want := range map[string]string{"Rat": "→ you", "Snake": "→ Cora", "Wolf": "", "Bat": "", "Ancient": "→ you"} {
+	for name, want := range map[string]string{"Rat": "→ you", "Snake": "→ Cora", "Wolf": "", "Bat": "", "Ancien": "→ you"} {
 		l := rows()[name]
 		if l == "" || strings.Contains(l, "→") != (want != "") || !strings.Contains(l, want) {
-			t.Errorf("%s: want %q in %q", name, want, l)
+			t.Errorf("%s: want %q in %q\n%s", name, want, l, screen.Render(m, screen.View{Conn: screen.ConnOnline}, 100, 45, screen.Plain()))
 		}
 	}
 	apply(m, event(2, func(e *pb.Event) {
