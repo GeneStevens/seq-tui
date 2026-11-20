@@ -231,6 +231,9 @@ func (a *App) click(x, y int) (tea.Model, tea.Cmd) {
 	if a.chat.drawer != nil && h.Drawer.W > 0 && h.Drawer.In(x, y) {
 		return a, nil // the drawer is over the map: a click on it walks nowhere
 	}
+	if act, ok := a.partyClick(x, y); ok {
+		return a.do(act)
+	}
 	for _, t := range h.Tabs {
 		if t.Rect.In(x, y) {
 			return a.do(Action{Kind: SelectSide, Count: t.Tab})
@@ -250,6 +253,17 @@ func (a *App) click(x, y int) (tea.Model, tea.Cmd) {
 		act = a.clickAction(m, pick, a.mouse.alt)
 	})
 	return a.do(act)
+}
+
+// partyClick is the target a click on a line of the Party panel means.
+func (a *App) partyClick(x, y int) (act Action, ok bool) {
+	for _, p := range a.mouse.hits.Party {
+		if p.Rect.In(x, y) {
+			a.focusSess().View(func(m *model.Model) { act = inPlan(m, targetMate(m, p.Name, p.ID)) })
+			return act, true
+		}
+	}
+	return Action{}, false
 }
 
 // clickAction is what a click on a pick means (D77, D109). A plain click never

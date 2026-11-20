@@ -61,7 +61,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		if h < 3 {
 			break
 		}
-		helpers, left = append(helpers, panel{hp.title, hp.lines[:min(len(hp.lines), h-2)]}), left-h
+		helpers, left = append(helpers, panel{hp.title, hp.lines[:min(len(hp.lines), h-2)], hp.owner[:min(len(hp.owner), h-2)]}), left-h
 	}
 	// The Target panel gives up its last line (the fight) when one row is short.
 	target := left >= targetRows-1
@@ -101,6 +101,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		rows = append(rows, box(roundTitle(m, v), rw, round, roundLines(m, v, iw, round-2, st), st)...)
 	}
 	for _, hp := range helpers {
+		v.Hits.addParty(hp.owner, rw, len(rows)+1)
 		rows = append(rows, box(hp.title, rw, len(hp.lines)+2, hp.lines, st)...)
 	}
 	if target {

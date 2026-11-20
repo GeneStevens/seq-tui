@@ -52,51 +52,74 @@ type SocialUI struct {
 // NextTab moves to the next tab.
 func (s *SocialUI) NextTab() { s.Tab, s.Sel = (s.Tab+1)%tabs, 0 }
 
-// partyPanel is the Party panel: the party's other members with their health,
-// mana, level and zone. It is nil outside a party.
+// PartyKeys is how many of the party's other members have a key: F2 to F6.
+const PartyKeys = 5
+
+// PartyKey is the key name of the n-th other member (0 is F2).
+func PartyKey(n int) string { return fmt.Sprintf("F%d", n+2) }
+
+// partyPanel is the Party panel: the party's other members with their key (F2
+// to F6), health, mana, level and, in another zone, the zone. It is nil outside
+// a party. owner says, line by line, whose line it is (Name "" for none), for a
+// click on it to target them.
 func partyPanel(m *model.Model, iw int, st Styler) *panel {
 	slots := slotRows(m, iw, st)
 	if !m.InParty() && len(slots) == 0 {
 		return nil
 	}
 	rows := slots
+	owner := make([]PartyHit, len(slots))
+	add := func(own PartyHit, rs ...string) {
+		for _, r := range rs {
+			rows, owner = append(rows, r), append(owner, own)
+		}
+	}
+	n := 0
 	for _, mt := range m.Mates() {
 		if mt.Me {
 			continue
 		}
+		own := PartyHit{Name: mt.Name, ID: mt.ID}
+		key := "   "
+		if n < PartyKeys {
+			key = PartyKey(n) + " "
+		}
+		n++
 		mark := " "
 		if mt.Leader {
 			mark = "*"
 		}
-		head := fmt.Sprintf("%s%s", mark, mt.Name) + statusTag(mt.Status)
+		head := fmt.Sprintf(" %s%s%s", key, mark, mt.Name) + statusTag(mt.Status)
 		if mt.Level > 0 {
 			head += fmt.Sprintf("  Lv %d", mt.Level)
 		}
 		if !mt.Online {
-			rows = append(rows, st.Dim(fit(" "+head+"  away", iw)))
+			add(own, st.Dim(fit(head+"  away", iw)))
 			continue
 		}
-		rows = append(rows, fit(" "+head, iw))
-		if mt.Zone != "" && (iw >= 30 || mt.Dead) {
-			rows[len(rows)-1] = fit(" "+head+"  "+mt.Zone, iw)
+		if mt.Elsewhere {
+			head += "  " + mt.Zone
 		}
+		head = fit(head, iw)
 		if mt.Dead {
-			rows = append(rows, st.Red(fit("   DEAD", iw)))
+			add(own, head, st.Red(fit("   DEAD", iw)))
 			continue
 		}
 		hp := fmt.Sprintf("   HP %d/%d ", mt.HP, mt.MaxHP)
-		line := hp + bar(mt.HP, mt.MaxHP, max(min(iw-width(hp)-8, 8), 0))
+		mp := ""
 		if mt.MaxMana > 0 {
-			line += fmt.Sprintf(" MP %d", mt.Mana)
+			mp = fmt.Sprintf(" MP %d/%d", mt.Mana, mt.MaxMana)
 		}
+		line := hp + bar(mt.HP, mt.MaxHP, max(min(iw-width(hp)-width(mp)-1, 8), 0)) + mp
 		row := fit(line, iw)
 		if mt.MaxHP > 0 && mt.HP*4 <= mt.MaxHP {
 			row = st.Red(row)
 		}
-		rows = append(rows, row)
+		add(own, head, row)
 	}
 	if len(rows) == 0 {
 		rows = append(rows, st.Dim(fit(" just you so far", iw)))
+		owner = append(owner, PartyHit{})
 	}
 	title := "Party, led by " + m.Social.Party.GetLeader()
 	switch {
@@ -105,7 +128,7 @@ func partyPanel(m *model.Model, iw int, st Styler) *panel {
 	case m.IsLeader():
 		title = "Party, you lead"
 	}
-	return &panel{title, rows}
+	return &panel{title, rows, owner}
 }
 
 // inviteBanner is the one-row prompt for a party invitation waiting for an

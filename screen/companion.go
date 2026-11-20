@@ -61,6 +61,7 @@ func manaRow(x manaOf, w int) []string {
 type panel struct {
 	title string
 	lines []string
+	owner []PartyHit // the Party panel's: whose line each is (Name "" for none)
 }
 
 // helperPanels are the Companion, Party and Quest panels the character has now,
@@ -68,7 +69,7 @@ type panel struct {
 func helperPanels(m *model.Model, v View, iw int, st Styler) []panel {
 	var out []panel
 	if q := m.Quest(); q != nil {
-		out = append(out, panel{"Quest chain (Ctrl+K)", chainLines(m, q, iw, st)})
+		out = append(out, panel{title: "Quest chain (Ctrl+K)", lines: chainLines(m, q, iw, st)})
 	}
 	both := companionShown(m) && v.Duo != nil
 	if companionShown(m) {
@@ -76,20 +77,20 @@ func helperPanels(m *model.Model, v View, iw int, st Styler) []panel {
 		if both && !v.KeysToDuo {
 			title += " [keys]"
 		}
-		out = append(out, panel{title, companionLines(m, iw, st)})
+		out = append(out, panel{title: title, lines: companionLines(m, iw, st)})
 	}
 	if v.Duo != nil {
 		title := "Party, 2nd character"
 		if both && v.KeysToDuo {
 			title += " [keys]"
 		}
-		out = append(out, panel{title, duoLines(m, v.Duo, iw, st)})
+		out = append(out, panel{title: title, lines: duoLines(m, v.Duo, iw, st)})
 	}
 	if pp := partyPanel(m, iw, st); pp != nil {
 		out = append(out, *pp)
 	}
 	if m.QuestShown() {
-		out = append(out, panel{"Quest", questLines(m, iw, st)})
+		out = append(out, panel{title: "Quest", lines: questLines(m, iw, st)})
 	}
 	return out
 }

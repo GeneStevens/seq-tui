@@ -254,9 +254,11 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 			// Nearby panels stay beside them, and the log below.
 			mp := boxA(title, mapW, th, lines, st, alarmed(m))
 			mp = withPerson(mp, m, v, mapW, len(rows), st)
+			v.Hits.column(mapW, len(rows))
 			right := rightColumn(m, v, rw, th, st)
 			if sidebarOpen(v) {
 				right = sidebarColumn(m, v, rw, th, mapW, len(rows), st)
+				v.Hits.noParty() // the sidebar took the column's place
 			}
 			for i := range mp {
 				rows = append(rows, mp[i]+right[i])
@@ -272,6 +274,7 @@ func Render(m *model.Model, v View, w, h int, st Styler) string {
 				mp = withDrawer(mp, m, v, mapW, h, len(rows), st)
 			}
 			mp = withPerson(mp, m, v, mapW, len(rows), st)
+			v.Hits.column(mapW, len(rows))
 			right := rightColumn(m, v, rw, th, st)
 			for i := range mp {
 				rows = append(rows, mp[i]+right[i])
