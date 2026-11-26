@@ -44,7 +44,7 @@ func TestTargetWearsLine(t *testing.T) {
 	m := model.New()
 	m.Self.Target = "p1"
 	m.Entities["p1"] = &pb.EntityState{Id: "p1", Name: "Aria", Kind: pb.EntityKind_ENTITY_KIND_CHARACTER, Level: 3, Pos: &pb.Pos{}, VisibleGear: &pb.VisibleGear{}}
-	lines := targetLines(m, 20, Plain())
+	lines := targetLines(m, View{}, 20, Plain())
 	if len(lines) != 4 || !strings.HasPrefix(lines[3], " Wears: plain cloth") || !strings.Contains(lines[3], "…") {
 		t.Errorf("target lines %q", lines)
 	}
@@ -52,7 +52,7 @@ func TestTargetWearsLine(t *testing.T) {
 		t.Errorf("look card %q", card)
 	}
 	m.Entities["p1"].VisibleGear = nil
-	if lines := targetLines(m, 20, Plain()); len(lines) != 3 {
+	if lines := targetLines(m, View{}, 20, Plain()); len(lines) != 3 {
 		t.Errorf("an old server's target has no Wears line: %q", lines)
 	}
 }
@@ -178,7 +178,7 @@ func TestLookSaysTheRareWornGear(t *testing.T) {
 		m := model.New()
 		m.Self.Target = "p1"
 		m.Entities["p1"] = &pb.EntityState{Id: "p1", Name: "Aria", Kind: pb.EntityKind_ENTITY_KIND_CHARACTER, Level: 3, Pos: &pb.Pos{}, VisibleGear: g}
-		lines := targetLines(m, 120, Plain())
+		lines := targetLines(m, View{}, 120, Plain())
 		if len(lines) != 4 || !strings.Contains(lines[3], "Wears: "+c.want+";") {
 			t.Errorf("%s: target lines %q lack %q", c.name, lines, c.want)
 		}

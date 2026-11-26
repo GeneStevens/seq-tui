@@ -1,0 +1,24 @@
+┌─ Hollow Warren, at 10,10 m, north up ────────────┐┌─ You ────────────────────┐
+│                                                  ││ Rex  Lv 3  XP 0     | 0cr│
+│                                                  ││ HP 101/120 ##########--- │
+│                                                  ││ Target: Warren Chief     │
+│                                                  ││ Atk off | Retaliate off  │
+│                                                  │└──────────────────────────┘
+│                                                  │┌─ Target ─────────────────┐
+│                                                  ││ M Warren Chief  Lv 7     │
+│                         @M                       ││ HP 300/300 ####### 2m E  │
+│                                                  ││ Brow Breaker STUNNED     │
+│           ###############                        │└──────────────────────────┘
+│                                                  │┌─ Nearby ─────────────────┐
+│                                                  ││ M Warren C… 2m E 300/300 │
+│                                                  ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
+│   16:04:03.2 Warren Chief begins casting Brow Breaker on you                 │
+│   16:04:03.2 Rex used Paladin Judgment on Warren Chief                       │
+│   16:04:03.2 Paladin Judgment: stun on Warren Chief for 2 s                  │
+│   16:04:03.2 your Paladin Judgment breaks off Warren Chief's Brow Breaker    │
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
+ F: attack · Tab: next target                                                   
+ ONLINE | warren | heard 0.4s ago                                 ? help  q quit

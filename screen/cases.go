@@ -131,6 +131,15 @@ var Cases = []Case{
 	{Name: "levelup", Log: "levelup.jsonl", Mark: "levelup", Notice: "key 2 Frost Bolt ok"},
 	{Name: "turn_cast_plan", Log: "turn_cast.jsonl", Mark: "turn_cast_plan", Left: 20 * time.Second, Plan: []string{"target Plain Scuttler", "use Frost Bolt (key 2)"}},
 	{Name: "turn_cast_round", Log: "turn_cast.jsonl", Mark: "turn_cast_round", Left: 20 * time.Second, Notice: "plan accepted, counts even if you disconnect"},
+	// The castable Chief's cast cue on the Target panel (presentation A3): Brow
+	// Breaker mid-cast with the character in reach, then out of it (a prediction),
+	// and each of the four endings (castable_chief.jsonl, from cmd/mkfixtures).
+	{Name: "chief_cast", Log: "castable_chief.jsonl", Upto: 5},
+	{Name: "chief_cast_outside", Log: "castable_chief.jsonl", Upto: 6},
+	{Name: "chief_landed", Log: "castable_chief.jsonl", Upto: 10},
+	{Name: "chief_interrupted", Log: "castable_chief.jsonl", Upto: 13},
+	{Name: "chief_stunned", Log: "castable_chief.jsonl", Upto: 17},
+	{Name: "chief_out_of_reach", Log: "castable_chief.jsonl", Upto: 20},
 	// SEQ-040 and SEQ-042 (TUI-010): the class menu the server sent, looting and
 	// gear, the traders, a trade, the Peril menu, effects seen on login, and a
 	// slot changed by the plan.

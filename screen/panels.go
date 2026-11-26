@@ -66,8 +66,16 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	// The Target panel gives up its last line (the fight) when one row is short.
 	target := left >= targetRows-1
 	targetH := min(targetRows, left)
-	if target && targetH == targetRows && left >= targetRows+1+5 && targetWears(m) != "" {
-		targetH++ // a row more for "Wears:", while Nearby keeps 5 rows
+	if target && targetH == targetRows {
+		// Rows more for the cast cue and for "Wears:", while Nearby keeps 5 rows.
+		extra := 0
+		if targetEntity(m) != nil {
+			extra = len(castCueLines(m, v, m.Self.Target, iw, st))
+		}
+		if targetWears(m) != "" {
+			extra++
+		}
+		targetH += max(0, min(extra, left-targetRows-5))
 	}
 	if target {
 		left -= targetH
@@ -105,7 +113,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		rows = append(rows, box(hp.title, rw, len(hp.lines)+2, hp.lines, st)...)
 	}
 	if target {
-		tl := targetLines(m, iw, st)
+		tl := targetLines(m, v, iw, st)
 		rows = append(rows, box("Target", rw, targetH, pad(tl[:min(len(tl), targetH-2)], iw, targetH-2), st)...)
 	}
 	if consH > 0 {
@@ -460,7 +468,7 @@ func targetWears(m *model.Model) string {
 	return ""
 }
 
-func targetLines(m *model.Model, w int, st Styler) []string {
+func targetLines(m *model.Model, v View, w int, st Styler) []string {
 	id := m.Self.Target
 	e := targetEntity(m)
 	if e == nil {
@@ -494,8 +502,9 @@ func targetLines(m *model.Model, w int, st Styler) []string {
 	out := []string{
 		st.Bold(fit(fmt.Sprintf(" %c %s  Lv %d%s", g, e.GetName(), e.GetLevel(), rareTag(e)), w)),
 		fit(" "+state+bar(e.GetHp(), e.GetMaxHp(), max(w-width(state)-width(right)-4, 0))+" "+right, w),
-		fit(" "+bandWord(e)+fight, w),
 	}
+	out = append(out, castCueLines(m, v, id, w, st)...) // the cast comes before the fight: a short panel keeps it
+	out = append(out, fit(" "+bandWord(e)+fight, w))
 	if wears := WearsLine(e); wears != "" {
 		out = append(out, fit(" "+wears, w))
 	}

@@ -1,0 +1,20 @@
+{"welcome":{"protocol_version":1,"min_protocol_version":1,"tick_ms":100,"limits":{"max_message_bytes":65536,"max_intents_per_second":20}}}
+{"snapshot":{"seq":"80","game_time_ms":"8000","tick":"80","space":"warren","self":{"entity":{"id":"char-rex","kind":"ENTITY_KIND_CHARACTER","name":"Rex","pos":{"x":"10000","y":"10000"},"hp":"120","max_hp":"120","level":"3"},"stats":{"level":"3","max_hp":"120","speed_mm_s":"4500","melee_range_mm":"2500"}},"entities":[{"id":"mob-chief-1","kind":"ENTITY_KIND_MOB","name":"Warren Chief","pos":{"x":"11800","y":"10000"},"hp":"300","max_hp":"300","level":"7"}]}}
+{"zone_map":{"space":"warren","name":"Hollow Warren","bounds":{"min_x":"-50000","min_y":"-50000","max_x":"50000","max_y":"50000"},"walls":[{"a":{"x":"-10000","y":"5000"},"b":{"x":"10000","y":"5000"}}],"view_radius_mm":"20000"}}
+{"event":{"seq":"81","game_time_ms":"8100","target_changed":{"actor":"char-rex","target":"mob-chief-1"}}}
+{"event":{"seq":"82","game_time_ms":"8200","text":"Warren Chief begins casting Brow Breaker on you","cast_started":{"actor":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker","cast_ms":"2000"}}}
+{"event":{"seq":"83","game_time_ms":"8600","entity_moved":{"id":"char-rex","pos":{"x":"6900","y":"10000"}}}}
+{"event":{"seq":"84","game_time_ms":"9000","entity_moved":{"id":"char-rex","pos":{"x":"10000","y":"10000"}}}}
+{"event":{"seq":"85","game_time_ms":"10200","ability_used":{"actor":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker"}}}
+{"event":{"seq":"86","game_time_ms":"10200","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-chief-1","target":"char-rex","amount":"19","ability":"chief-brow-breaker","school":"physical"}}}
+{"event":{"seq":"87","game_time_ms":"10200","effect_applied":{"source":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker","kind":"stun","duration_ms":"2000"}}}
+{"event":{"seq":"88","game_time_ms":"20800","text":"Warren Chief begins casting Brow Breaker on you","cast_started":{"actor":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker","cast_ms":"2000"}}}
+{"event":{"seq":"89","game_time_ms":"21100","ability_used":{"actor":"char-rex","target":"mob-chief-1","ability":"rogue-kick"}}}
+{"event":{"seq":"90","game_time_ms":"21100","cast_interrupted":{"actor":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker","reason":"interrupt"}}}
+{"event":{"seq":"91","game_time_ms":"30000","text":"Warren Chief begins casting Brow Breaker on you","cast_started":{"actor":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker","cast_ms":"2000"}}}
+{"event":{"seq":"92","game_time_ms":"30100","ability_used":{"actor":"char-rex","target":"mob-chief-1","ability":"paladin-judgment"}}}
+{"event":{"seq":"93","game_time_ms":"30100","effect_applied":{"source":"char-rex","target":"mob-chief-1","ability":"paladin-judgment","kind":"stun","duration_ms":"1500"}}}
+{"event":{"seq":"94","game_time_ms":"30100","cast_cancelled":{"actor":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker","reason":"stunned"}}}
+{"event":{"seq":"95","game_time_ms":"40000","text":"Warren Chief begins casting Brow Breaker on you","cast_started":{"actor":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker","cast_ms":"2000"}}}
+{"event":{"seq":"96","game_time_ms":"40500","entity_moved":{"id":"char-rex","pos":{"x":"6900","y":"10000"}}}}
+{"event":{"seq":"97","game_time_ms":"42000","cast_cancelled":{"actor":"mob-chief-1","target":"char-rex","ability":"chief-brow-breaker","reason":"out_of_range"}}}

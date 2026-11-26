@@ -25,10 +25,11 @@ func main() {
 		os.Exit(2)
 	}
 	for name, msgs := range map[string][]msg{
-		"fight_loot.jsonl":  fightLoot(),
-		"kill_steal.jsonl":  killSteal(),
-		"crossing.jsonl":    crossing(),
-		"drop_resume.jsonl": dropResume(),
+		"fight_loot.jsonl":     fightLoot(),
+		"kill_steal.jsonl":     killSteal(),
+		"crossing.jsonl":       crossing(),
+		"drop_resume.jsonl":    dropResume(),
+		"castable_chief.jsonl": castableChief(),
 	} {
 		f, err := os.Create(filepath.Join(os.Args[1], name))
 		if err != nil {
@@ -201,5 +202,89 @@ func dropResume() []msg {
 		hit(53, me, mob, 6),
 		result("tui-2", ""),
 		hit(54, me, mob, 4),
+	}
+}
+
+// castableChief: rex faces a Warren Chief that casts Brow Breaker (2 s) four times,
+// each ending its own way, as seq's castable-chief wire records have it: the
+// cast that lands (rex steps out of reach and back in on the way), one that rex
+// interrupts with a Kick, one a stun breaks, and one that rex is out of reach of
+// at the deadline. The screens are drawn at the messages the cases name
+// (screen.Cases chief_*), so the order of these is the order of the cases.
+func castableChief() []msg {
+	const me, chief = "char-rex", "mob-chief-1"
+	at := func(ms int64, f func(*pb.Event)) msg {
+		e := &pb.Event{GameTimeMs: ms}
+		f(e)
+		return &pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: e}}
+	}
+	seq := uint64(80)
+	next := func(ms int64, f func(*pb.Event)) msg {
+		seq++
+		return at(ms, func(e *pb.Event) { e.Seq = seq; f(e) })
+	}
+	started := func(ms int64) msg {
+		return next(ms, func(e *pb.Event) {
+			e.Text = "Warren Chief begins casting Brow Breaker on you"
+			e.Body = &pb.Event_CastStarted{CastStarted: &pb.CastStarted{Actor: chief, Target: me, Ability: "chief-brow-breaker", CastMs: 2000}}
+		})
+	}
+	moved := func(ms, x int64) msg {
+		return next(ms, func(e *pb.Event) {
+			e.Body = &pb.Event_EntityMoved{EntityMoved: &pb.EntityMoved{Id: me, Pos: pos(x, 10000)}}
+		})
+	}
+	used := func(ms int64, actor, target, ability string) msg {
+		return next(ms, func(e *pb.Event) {
+			e.Body = &pb.Event_AbilityUsed{AbilityUsed: &pb.AbilityUsed{Actor: actor, Target: target, Ability: ability}}
+		})
+	}
+	stun := func(ms int64, source, target, ability string, dur int64) msg {
+		return next(ms, func(e *pb.Event) {
+			e.Body = &pb.Event_EffectApplied{EffectApplied: &pb.EffectApplied{Source: source, Target: target, Ability: ability, Kind: "stun", DurationMs: dur}}
+		})
+	}
+	ended := func(ms int64, interrupted bool, reason string) msg {
+		return next(ms, func(e *pb.Event) {
+			o := &pb.CastEnded{Actor: chief, Target: me, Ability: "chief-brow-breaker", Reason: reason}
+			if interrupted {
+				e.Body = &pb.Event_CastInterrupted{CastInterrupted: o}
+			} else {
+				e.Body = &pb.Event_CastCancelled{CastCancelled: o}
+			}
+		})
+	}
+	self := char(me, "Rex", pos(10000, 10000), 120)
+	boss := &pb.EntityState{Id: chief, Kind: pb.EntityKind_ENTITY_KIND_MOB, Name: "Warren Chief", Pos: pos(11800, 10000), Hp: 300, MaxHp: 300, Level: 7}
+	snap := snapshot(80, "warren", self, 0, boss)
+	return []msg{
+		welcome(),
+		snap,
+		zoneMap("warren", "Hollow Warren"),
+		next(8100, func(e *pb.Event) {
+			e.Body = &pb.Event_TargetChanged{TargetChanged: &pb.TargetChanged{Actor: me, Target: chief}}
+		}),
+		// lands: cast_started at 8200, rex out of reach for a while, back in at the deadline
+		started(8200),
+		moved(8600, 6900),
+		moved(9000, 10000),
+		used(10200, chief, me, "chief-brow-breaker"),
+		next(10200, func(e *pb.Event) {
+			e.Body = &pb.Event_Combat{Combat: &pb.Combat{Kind: pb.CombatKind_COMBAT_KIND_HIT, Attacker: chief, Target: me, Amount: 19, Ability: "chief-brow-breaker", School: "physical"}}
+		}),
+		stun(10200, chief, me, "chief-brow-breaker", 2000),
+		// kicked
+		started(20800),
+		used(21100, me, chief, "rogue-kick"),
+		ended(21100, true, "interrupt"),
+		// stunned
+		started(30000),
+		used(30100, me, chief, "paladin-judgment"),
+		stun(30100, me, chief, "paladin-judgment", 1500),
+		ended(30100, false, "stunned"),
+		// stepped out
+		started(40000),
+		moved(40500, 6900),
+		ended(42000, false, "out_of_range"),
 	}
 }
