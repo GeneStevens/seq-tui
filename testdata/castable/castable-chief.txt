@@ -1,0 +1,21 @@
+## lands (cast_started at game time 8200 ms)
++0 ms {"gameTimeMs":"8200","text":"Warren Chief begins casting Brow Breaker on you","castStarted":{"actor":"mob-chief-1","target":"rex1","ability":"chief-brow-breaker","castMs":"2000"}}
++2000 ms {"gameTimeMs":"10200","text":"Warren Chief uses Brow Breaker on you","abilityUsed":{"actor":"mob-chief-1","target":"rex1","ability":"chief-brow-breaker"}}
++2000 ms {"gameTimeMs":"10200","text":"Warren Chief hits you with Brow Breaker for 19 physical damage","combat":{"kind":"COMBAT_KIND_HIT","attacker":"mob-chief-1","target":"rex1","amount":"19","ability":"chief-brow-breaker","school":"physical"}}
++2000 ms {"gameTimeMs":"10200","text":"You are affected by Brow Breaker","effectApplied":{"source":"mob-chief-1","target":"rex1","ability":"chief-brow-breaker","kind":"stun","durationMs":"2000"}}
+
+## kicked (cast_started at game time 20800 ms)
++0 ms {"gameTimeMs":"20800","text":"Warren Chief begins casting Brow Breaker on you","castStarted":{"actor":"mob-chief-1","target":"rex1","ability":"chief-brow-breaker","castMs":"2000"}}
++300 ms {"gameTimeMs":"21100","text":"You use Kick on Warren Chief","abilityUsed":{"actor":"rex1","target":"mob-chief-1","ability":"rogue-kick","slot":5}}
++300 ms {"gameTimeMs":"21100","text":"Warren Chief's Brow Breaker is interrupted","castInterrupted":{"actor":"mob-chief-1","target":"rex1","ability":"chief-brow-breaker","reason":"interrupt"}}
+
+## stepped out (cast_started at game time 19500 ms)
++0 ms {"gameTimeMs":"19500","text":"Warren Chief begins casting Brow Breaker on you","castStarted":{"actor":"mob-chief-1","target":"pat1","ability":"chief-brow-breaker","castMs":"2000"}}
++2000 ms {"gameTimeMs":"21500","text":"Warren Chief's Brow Breaker is cancelled: the target is out of reach","castCancelled":{"actor":"mob-chief-1","target":"pat1","ability":"chief-brow-breaker","reason":"out_of_range"}}
+
+## stunned (cast_started at game time 6200 ms)
++0 ms {"gameTimeMs":"6200","text":"Warren Chief begins casting Brow Breaker on you","castStarted":{"actor":"mob-chief-1","target":"pat1","ability":"chief-brow-breaker","castMs":"2000"}}
++100 ms {"gameTimeMs":"6300","text":"You use Judgment on Warren Chief","abilityUsed":{"actor":"pat1","target":"mob-chief-1","ability":"paladin-judgment","slot":6}}
++100 ms {"gameTimeMs":"6300","text":"Warren Chief is affected by Judgment","effectApplied":{"source":"pat1","target":"mob-chief-1","ability":"paladin-judgment","kind":"stun","durationMs":"1500"}}
++100 ms {"gameTimeMs":"6300","text":"Warren Chief's Brow Breaker is cancelled: the caster is stunned","castCancelled":{"actor":"mob-chief-1","target":"pat1","ability":"chief-brow-breaker","reason":"stunned"}}
+

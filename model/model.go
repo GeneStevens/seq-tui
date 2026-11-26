@@ -270,8 +270,12 @@ type Model struct {
 	tipped bool
 	run    *lootRun
 
-	mobs  mobTrack          // what mobs did, for the lines about them (D70)
-	names map[string]string // id to name, for every entity ever seen, so the log can name those that left
+	mobs mobTrack // what mobs did, for the lines about them (D70)
+	// casts and castEnds are the casts of others in progress and how the last of
+	// each ended, by caster, for the cast cue (castcue.go).
+	casts    map[string]*OtherCast
+	castEnds map[string]*CastEndInfo
+	names    map[string]string // id to name, for every entity ever seen, so the log can name those that left
 	// npcNames and contractNames are the names of the NPCs and contracts the
 	// snapshots told, kept after they leave view.
 	npcNames      map[string]string
@@ -486,6 +490,7 @@ func (m *Model) applySnapshot(s *pb.Snapshot) {
 		m.noteEffects(en, s.GetGameTimeMs())
 		m.Entities[en.GetId()] = cloneEntity(en)
 	}
+	m.pruneCasts()
 	for _, d := range s.GetDrops() {
 		m.Drops[d.GetId()] = d
 	}
@@ -539,6 +544,7 @@ func (m *Model) apply(e *pb.Event) {
 		m.logEvent(e)
 	}
 	m.noteWalkStop(e)
+	m.noteCasts(e)
 	switch b := e.GetBody().(type) {
 	case *pb.Event_SpaceChanged:
 		// The snapshot of the new space follows and replaces this view.

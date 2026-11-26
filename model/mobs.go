@@ -213,5 +213,14 @@ func (m *Model) mobCastBroken(kind string, o *pb.CastEnded, at int64) (string, s
 		}
 		return kind, fmt.Sprintf("%s %s breaks off %s", who, m.abilityOf(u.ability), cast), o.GetReason(), true
 	}
+	// The endings read the structured reason, never the server's words (they change).
+	switch o.GetReason() {
+	case "out_of_range":
+		return kind, fmt.Sprintf("%s fell short: its target was out of reach", cast), o.GetReason(), true
+	case "stunned":
+		return kind, fmt.Sprintf("%s is broken off: the caster was stunned", cast), o.GetReason(), true
+	case "interrupt":
+		return kind, fmt.Sprintf("%s is broken off: interrupted", cast), o.GetReason(), true
+	}
 	return kind, fmt.Sprintf("%s is broken off: %s", cast, castWhy(o.GetReason())), o.GetReason(), true
 }
