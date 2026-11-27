@@ -4,6 +4,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/GeneStevens/seq-tui/model"
 	"github.com/GeneStevens/seq-tui/record"
@@ -229,6 +230,63 @@ func TestWords(t *testing.T) {
 		}
 		if !strings.Contains(got, want) || !strings.HasSuffix(got, "("+code+")") {
 			t.Errorf("%s: %q", code, got)
+		}
+	}
+}
+
+// instanceEvent applies e as event seq of the stream.
+func instanceEvent(m *model.Model, seq uint64, e *pb.Event) {
+	e.Seq = seq
+	m.Apply(&pb.ServerMessage{Body: &pb.ServerMessage_Event{Event: e}})
+}
+
+func TestTheCountdownRunsFromInstanceClosingAndClearsOnClosed(t *testing.T) {
+	m := model.New()
+	instanceEvent(m, 1, &pb.Event{Body: &pb.Event_InstanceClosing{InstanceClosing: &pb.InstanceClosing{Instance: "inst-1", Name: "Solo Trial", Seconds: 60}}})
+	if m.Closing == nil || m.Closing.Seconds != 60 || m.Closing.Name != "Solo Trial" {
+		t.Fatalf("closing %+v", m.Closing)
+	}
+	now := time.Date(2026, 11, 27, 12, 0, 0, 0, time.UTC)
+	if got := m.Closing.Left(now); got != 60*time.Second {
+		t.Errorf("before it is stamped the countdown reads %v, want 60 s", got)
+	}
+	m.SetClosingAt(now)
+	for _, c := range []struct{ after, left time.Duration }{{0, 60 * time.Second}, {18 * time.Second, 42 * time.Second}, {2 * time.Minute, 0}} {
+		if got := m.Closing.Left(now.Add(c.after)); got != c.left {
+			t.Errorf("%v in: %v left, want %v", c.after, got, c.left)
+		}
+	}
+	instanceEvent(m, 2, &pb.Event{Body: &pb.Event_InstanceEnded{InstanceEnded: &pb.InstanceEnded{Instance: "inst-1", Reason: "closed"}}})
+	if m.Closing != nil || m.Ended == nil || m.Ended.Reason != "closed" {
+		t.Errorf("closing %+v, ended %+v", m.Closing, m.Ended)
+	}
+}
+
+func TestTheReplaceLineNamesWhatTheOpenDoes(t *testing.T) {
+	for _, c := range []struct {
+		in   model.Replacing
+		want string
+	}{
+		{model.Replacing{}, ""},
+		{model.Replacing{Instance: "inst-1", Name: "Solo Trial", Replace: "close"}, "Opening this closes Solo Trial: everyone inside is taken to the entrance after a 60 s countdown"},
+		{model.Replacing{Instance: "inst-1", Name: "Solo Trial", Replace: "leave"}, "Opening this leaves Solo Trial: you give up your place in it"},
+	} {
+		if got := c.in.ReplaceLine("Opening this"); got != c.want {
+			t.Errorf("%+v: %q, want %q", c.in, got, c.want)
+		}
+	}
+	m := model.New()
+	instanceEvent(m, 1, &pb.Event{Body: &pb.Event_InstanceCurrent{InstanceCurrent: &pb.InstanceCurrent{Instance: "inst-1", Name: "Solo Trial", Replace: "leave"}}})
+	if m.ReplacingN() != 1 || m.Replacing.Replace != "leave" {
+		t.Errorf("answer %+v after %d", m.Replacing, m.ReplacingN())
+	}
+}
+
+func TestRefusalsOfLeaveAndCloseAreInPlainWords(t *testing.T) {
+	for _, code := range []string{"not_in_instance", "not_leader"} {
+		got := model.Words(code)
+		if got == code || strings.Contains(got, "fail") || strings.Contains(got, "copy") || strings.Contains(got, "refund") {
+			t.Errorf("%s reads %q", code, got)
 		}
 	}
 }

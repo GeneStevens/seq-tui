@@ -93,6 +93,8 @@ func (m *Model) logEvent(e *pb.Event) {
 		kind = "attack_began"
 	case *pb.Event_PlaceChanged:
 		kind, quiet = "place_changed", true
+	case *pb.Event_InstanceCurrent:
+		quiet = true // the answer to a dry run: the menu shows it
 	case *pb.Event_ObjectiveHints:
 		kind, quiet = "objective_hints", true
 	case *pb.Event_LevelUp:

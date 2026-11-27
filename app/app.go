@@ -39,6 +39,7 @@ type App struct {
 	retrying   bool
 	pings      int
 	menu       *screen.Menu   // the instance menu, nil when closed
+	askSeq     int            // numbers the menu's asks, so a late answer to an old one is dropped
 	slots      *screen.Slots  // the slot screen, nil when closed
 	create     *screen.Create // character creation, nil once a character is chosen
 	picker     *screen.Picker // the character picker, nil once a character is chosen or made
@@ -264,6 +265,7 @@ func (a *App) update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		a.sess.View(a.watchBanner)
 		a.sess.View(a.watchChat)
 		a.sess.View(func(m *model.Model) {
+			m.SetClosingAt(a.now()) // a close's countdown runs on the clock the screen reads
 			a.walkedAway(m)
 			if a.ring(m) {
 				cmds = append(cmds, tea.Raw("\a"))
@@ -652,24 +654,50 @@ func (a *App) menuKey(k string, m *model.Model) Action {
 	n := len(m.Presets)
 	switch k {
 	case "up", "w", "k":
-		a.menu.Sel = max(a.menu.Sel-1, 0)
+		a.menu.Sel, a.menu.Asking, a.menu.Confirm = max(a.menu.Sel-1, 0), false, ""
 	case "down", "s", "j":
-		a.menu.Sel = min(a.menu.Sel+1, max(n-1, 0))
+		a.menu.Sel, a.menu.Asking, a.menu.Confirm = min(a.menu.Sel+1, max(n-1, 0)), false, ""
 	case "esc", "i", "q":
+		if a.menu.Asking || a.menu.Confirm != "" {
+			a.menu.Asking, a.menu.Confirm = false, "" // takes the open back; the menu stays
+			return Action{}
+		}
 		a.menu = nil
 	case "ctrl+c":
 		return Action{Kind: Quit}
+	case "l":
+		if !m.HoldsPlace() {
+			return Action{Note: "you hold no place in an instance"}
+		}
+		a.menu = nil
+		return Action{Kind: LeaveInstance}
+	case "c":
+		switch {
+		case m.CanClose():
+			a.menu = nil
+			return Action{Kind: CloseInstance}
+		case m.HoldsPlace():
+			return Action{Note: "only your group's leader can close the instance"}
+		}
+		return Action{Note: "you hold no place in an instance"}
 	case "enter", "space", " ":
-		if a.menu.Sel < n {
+		switch {
+		case a.menu.Sel >= n:
+			return Action{Note: "this zone offers no instances"}
+		case a.menu.Confirm != "": // the line was read: open it
 			id := m.Presets[a.menu.Sel].GetId()
 			a.menu = nil
 			return Action{Kind: OpenInstance, ID: id}
+		case a.menu.Asking:
+			return Action{}
 		}
-		return Action{Note: "this zone offers no instances"}
+		a.menu.Asking = true
+		a.askSeq++
+		return Action{Kind: AskReplace, ID: m.Presets[a.menu.Sel].GetId(), Count: a.askSeq}
 	default:
 		if len(k) == 1 && k[0] >= '1' && k[0] <= '9' {
 			if i := int(k[0] - '1'); i < n {
-				a.menu.Sel = i
+				a.menu.Sel, a.menu.Asking, a.menu.Confirm = i, false, ""
 			}
 		}
 	}
@@ -742,9 +770,23 @@ func (a *App) send(act Action) tea.Cmd {
 		case Stop:
 			what = "stop"
 			id, err = a.sess.Stop(ctx)
+		case AskReplace:
+			// A dry run first: when the player holds an instance, the menu says what
+			// opening this would do to it, and Enter then opens it. With none, it opens.
+			if msg, ok := a.askOpen(ctx, act); ok {
+				return msg
+			}
+			act.Kind = OpenInstance
+			fallthrough
 		case OpenInstance:
 			what = "open instance"
 			id, err = a.sess.OpenInstance(ctx, act.ID)
+		case LeaveInstance:
+			what = "leave instance"
+			id, err = a.sess.LeaveInstance(ctx)
+		case CloseInstance:
+			what = "close instance"
+			id, err = a.sess.CloseInstance(ctx)
 		case PlanSubmit:
 			what = "plan"
 			id, err = a.sess.SubmitPlan(ctx, act.Steps...)
@@ -785,7 +827,11 @@ func (a *App) send(act Action) tea.Cmd {
 		case act.Kind == PlanSubmit:
 			return resultMsg{note: "plan accepted, counts even if you disconnect", planSent: true, planRound: act.Round, planVer: act.Ver}
 		case act.Kind == OpenInstance:
-			return resultMsg{note: "instance requested; the log says when it is open"}
+			return resultMsg{note: "instance requested; the log says when it is open", after: func(a *App) { a.menu = nil }}
+		case act.Kind == LeaveInstance:
+			return resultMsg{note: "you gave up your place in the instance", after: func(a *App) { a.sess.View(func(m *model.Model) { m.GaveUpPlace() }) }}
+		case act.Kind == CloseInstance:
+			return resultMsg{note: "closing the instance: a 60 s countdown has started"}
 		case act.Kind == Talk:
 			return resultMsg{note: what + " ok", talk: act.NPC}
 		case act.Kind == OpenDirections:
@@ -993,4 +1039,52 @@ func (a *App) walkedAway(m *model.Model) {
 		return
 	}
 	a.view.Notice, a.view.NoticeBad = fmt.Sprintf("You walked away from %s, so the %s closed", m.NPCName(npc), what), false
+}
+
+// askOpen sends the dry run for opening act.ID and waits for the answer. It
+// returns the message to show and true when the open must not go ahead now: the
+// menu shows what it would replace (SW-011), or the ask was refused.
+func (a *App) askOpen(ctx context.Context, act Action) (resultMsg, bool) {
+	stop := func(a *App) { a.stopAsking(act.Count) }
+	rep, bad := a.askReplace(ctx, act.ID)
+	if bad != "" {
+		return resultMsg{note: bad, bad: true, after: stop}, true
+	}
+	line := rep.ReplaceLine("Opening this")
+	if line == "" {
+		return resultMsg{}, false
+	}
+	return resultMsg{after: func(a *App) {
+		if a.menu != nil && a.menu.Asking && a.askSeq == act.Count {
+			a.menu.Asking, a.menu.Confirm = false, line
+		}
+	}}, true
+}
+
+// stopAsking ends the menu's wait for the ask numbered n.
+func (a *App) stopAsking(n int) {
+	if a.menu != nil && a.askSeq == n {
+		a.menu.Asking = false
+	}
+}
+
+// askReplace sends a dry-run open and returns the server's answer, or the words
+// of why there is none.
+func (a *App) askReplace(ctx context.Context, preset string) (*model.Replacing, string) {
+	id, before, err := a.sess.AskReplace(ctx, preset)
+	if err != nil {
+		return nil, "instance not asked: " + err.Error()
+	}
+	st, err := a.sess.Result(ctx, id)
+	switch {
+	case err != nil:
+		return nil, "instance: " + err.Error()
+	case st.State == model.IntentDenied:
+		return nil, deniedWords(st)
+	}
+	rep, err := a.sess.AwaitReplacing(ctx, before)
+	if err != nil {
+		return nil, "the server did not say what this would replace"
+	}
+	return rep, ""
 }

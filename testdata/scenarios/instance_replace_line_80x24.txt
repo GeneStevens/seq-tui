@@ -1,0 +1,24 @@
+┌─ Instances ──────────────────────────────────────────────────────────────────┐
+│ A private instance of this zone for your group; then press E at its door.    │
+│                                                                              │
+│ > 1  Scuttler Skirmish  (skirmish), door gate-north                          │
+│      real-time                                                               │
+│      party 2; normal; Venture                                                │
+│   2  Solo Trial  (solo-trial), door gate-north                               │
+│      real-time                                                               │
+│      party 1; normal; Venture                                                │
+│   3  Venture Den  (venture-den), door gate-north                             │
+│      real-time                                                               │
+│      party 2; normal; Venture                                                │
+│   4  Peril Den  (peril-den), door gate-north                                 │
+│      real-time                                                               │
+│      party 2; heroic; Peril: entry fee 50 crowns, taken when it opens        │
+│                                                                              │
+│                                                                              │
+│ Showing 1 to 4 of 7.                                                         │
+│ Opening this closes Solo Trial: everyone inside is taken to the entrance aft…│
+│ Up / Down or the number choose; Enter opens it; Esc closes the menu.         │
+│ L leaves your instance; C closes it for everyone inside (60 s countdown).    │
+└──────────────────────────────────────────────────────────────────────────────┘
+ HP 100/100 | Target: none                                                      
+ ONLINE | Testgrounds | heard N.Ns ago                            ? help  q quit

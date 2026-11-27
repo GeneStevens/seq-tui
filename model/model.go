@@ -170,7 +170,12 @@ type Model struct {
 	// a real-time space.
 	Opened *Opened
 	Ended  *Ended
-	Round  *Round
+	// Closing is the countdown of an instance its leader closed, until it ends.
+	// Replacing is the last answer to a dry-run open, and replacingN counts them.
+	Closing    *Closing
+	Replacing  *Replacing
+	replacingN int
+	Round      *Round
 	// TargetEffects are the effects on the other entities in view, as the
 	// events told (the snapshot lists only the character's own).
 	TargetEffects map[string][]Effect
@@ -719,7 +724,7 @@ func (m *Model) apply(e *pb.Event) {
 		m.applyDirections(b.Directions)
 	case *pb.Event_WorldEvent:
 		m.applyWorldEvent(b.WorldEvent, e.GetGameTimeMs())
-	case *pb.Event_InstanceOpened, *pb.Event_InstanceEnded, *pb.Event_RoundStarted, *pb.Event_RoundResolved:
+	case *pb.Event_InstanceOpened, *pb.Event_InstanceEnded, *pb.Event_InstanceClosing, *pb.Event_InstanceCurrent, *pb.Event_RoundStarted, *pb.Event_RoundResolved:
 		m.applyInstanceEvent(e)
 	case *pb.Event_CharacterSheet, *pb.Event_ItemFacts:
 		m.applySheetEvent(e)

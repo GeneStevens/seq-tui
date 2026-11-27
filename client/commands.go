@@ -174,6 +174,52 @@ func (s *Session) OpenInstance(ctx context.Context, preset string) (string, erro
 	return s.intent(ctx, "instance_open", agentkit.InstanceOpen(preset))
 }
 
+// LeaveInstance gives up the character's place in its instance; inside, the
+// character is taken to the entrance (SW-011). Refused not_in_instance when it
+// holds none.
+func (s *Session) LeaveInstance(ctx context.Context) (string, error) {
+	return s.intent(ctx, "instance_leave", agentkit.InstanceLeave())
+}
+
+// CloseInstance closes the character's instance for everyone: instance_closing
+// follows, and it ends 60 s later (SW-011). Refused not_leader to anyone but
+// the group's leader.
+func (s *Session) CloseInstance(ctx context.Context) (string, error) {
+	return s.intent(ctx, "instance_close", agentkit.InstanceClose())
+}
+
+// AskReplace sends a dry-run open of the preset ("" for a join): nothing opens
+// and nothing is paid, and the instance_current event says what the instance
+// the player holds would become. It returns the intent's id and how many such
+// answers the model had before it, for AwaitReplacing.
+func (s *Session) AskReplace(ctx context.Context, preset string) (id string, before int, err error) {
+	s.View(func(m *model.Model) { before = m.ReplacingN() })
+	id, err = s.intent(ctx, "instance_open", agentkit.InstanceDryRun(preset))
+	return id, before, err
+}
+
+// AwaitReplacing waits for the instance_current answer after the one counted by
+// before, and returns it.
+func (s *Session) AwaitReplacing(ctx context.Context, before int) (*model.Replacing, error) {
+	for {
+		ch := s.Changed()
+		var r *model.Replacing
+		s.View(func(m *model.Model) {
+			if m.ReplacingN() > before {
+				r = m.Replacing
+			}
+		})
+		if r != nil {
+			return r, nil
+		}
+		select {
+		case <-ch:
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		}
+	}
+}
+
 // SubmitPlan sends the plan for the next round of a turn-based instance (D30).
 // The intent's result is the plan's durable receipt (D37). A human session
 // never marks a plan as a stand-in.

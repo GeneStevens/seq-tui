@@ -2,6 +2,7 @@ package model
 
 import (
 	"slices"
+	"time"
 
 	pb "github.com/GeneStevens/seq/protocol/seqv1"
 )
@@ -19,11 +20,59 @@ type Opened struct {
 	Slots     int64
 }
 
+// Closing is the countdown of an instance its leader closed (instance_closing,
+// SW-011): it ends Seconds after At, the client's clock when the event came,
+// and instance_ended "closed" clears it. The model does not read a clock of its
+// own: the program stamps At with the one the screen reads (SetClosingAt), and
+// until it has, the countdown reads its full length.
+type Closing struct {
+	Space   string
+	Name    string
+	Seconds int64
+	At      time.Time
+}
+
+// Left is how long the countdown has still to run at now; never negative.
+func (c *Closing) Left(now time.Time) time.Duration {
+	if c == nil {
+		return 0
+	}
+	if c.At.IsZero() {
+		return time.Duration(c.Seconds) * time.Second
+	}
+	return max(time.Duration(c.Seconds)*time.Second-now.Sub(c.At), 0)
+}
+
+// Replacing is the answer to a dry-run open (instance_current): the instance the
+// player holds a place in ("" for none) and what opening or joining another
+// would do to it, "close" or "leave".
+type Replacing struct {
+	Instance string
+	Name     string
+	Replace  string
+}
+
+// ReplaceLine is the one line that says what doing (as "Opening this" or
+// "Going in") does to the instance the player is in, "" when it does nothing.
+func (r *Replacing) ReplaceLine(doing string) string {
+	if r == nil || r.Instance == "" {
+		return ""
+	}
+	name := r.Name
+	if name == "" {
+		name = "your current instance"
+	}
+	if r.Replace == "close" {
+		return doing + " closes " + name + ": everyone inside is taken to the entrance after a 60 s countdown"
+	}
+	return doing + " leaves " + name + ": you give up your place in it"
+}
+
 // Ended is the last instance that ended and why (instance_ended).
 type Ended struct {
 	Space  string
 	Preset string // "" if the model never saw it opened
-	Reason string // "cleared", "abandoned" or "expired"
+	Reason string // "cleared", "abandoned", "expired" or "closed"
 }
 
 // Round is a turn-based instance's round as the character was told (D30): game
@@ -136,9 +185,18 @@ func (m *Model) applyInstanceEvent(e *pb.Event) {
 			end.Preset, m.Opened = m.Opened.Preset, nil
 		}
 		m.Ended, m.stirs = end, nil
+		if m.Closing != nil && (m.Closing.Space == o.GetInstance() || o.GetReason() == "closed") {
+			m.Closing = nil
+		}
 		if m.Space == o.GetInstance() {
 			m.Round = nil
 		}
+	case *pb.Event_InstanceClosing:
+		o := b.InstanceClosing
+		m.Closing = &Closing{Space: o.GetInstance(), Name: o.GetName(), Seconds: o.GetSeconds()}
+	case *pb.Event_InstanceCurrent:
+		o := b.InstanceCurrent
+		m.Replacing, m.replacingN = &Replacing{Instance: o.GetInstance(), Name: o.GetName(), Replace: o.GetReplace()}, m.replacingN+1
 	case *pb.Event_RoundStarted:
 		o := b.RoundStarted
 		var prev *Round
@@ -166,3 +224,36 @@ func (m *Model) applyInstanceEvent(e *pb.Event) {
 		m.Round.Resolved, m.Round.ResolvedBy, m.Round.ResolvedSubmitted = o.GetRound(), o.GetReason(), slices.Clone(o.GetSubmitted())
 	}
 }
+
+// ReplacingN counts the instance_current answers received: a client that sent a
+// dry run waits for it to rise.
+func (m *Model) ReplacingN() int { return m.replacingN }
+
+// SetClosingAt stamps a countdown that has no start yet with now.
+func (m *Model) SetClosingAt(now time.Time) {
+	if m.Closing != nil && m.Closing.At.IsZero() {
+		m.Closing.At = now
+	}
+}
+
+// HoldsPlace says whether the player holds a place in an instance as far as the
+// client knows: inside one, or its group's is open and not yet ended. The
+// server decides (not_in_instance).
+func (m *Model) HoldsPlace() bool { return m.InInstance() || m.Opened != nil }
+
+// CanClose says whether Close is offered: the party's leader, or the opener
+// when playing alone, holding a place. The server decides (not_leader).
+func (m *Model) CanClose() bool {
+	if !m.HoldsPlace() {
+		return false
+	}
+	if m.InParty() {
+		return m.IsLeader()
+	}
+	return true
+}
+
+// GaveUpPlace forgets the instance the group opened and its countdown once the
+// player left it (SW-011): the place is released, and the server tells those
+// who left nothing more of that instance.
+func (m *Model) GaveUpPlace() { m.Opened, m.Closing = nil, nil }

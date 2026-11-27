@@ -22,6 +22,8 @@ var reasons = map[string]string{
 	"party_full":             "the instance is full",
 	"no_instance":            "no instance is open at this entrance; open one first (I)",
 	"instance_closing":       "the instance is closing",
+	"not_in_instance":        "you hold no place in an instance",
+	"not_leader":             "only your group's leader can close the instance",
 	"no_such_door":           "there is no such door here",
 	"out_of_reach":           "you are too far from the door; walk to it first",
 	"door_unavailable":       "the door leads nowhere right now",
@@ -121,6 +123,8 @@ func endedWords(reason string) string {
 		return "abandoned: nobody was inside for too long"
 	case "expired":
 		return "expired: it outlived its time limit"
+	case "closed":
+		return "closed: its leader closed it"
 	}
 	return reason
 }
@@ -153,6 +157,10 @@ func (m *Model) describeInstance(e *pb.Event) (kind, text, reason string, ok boo
 	case *pb.Event_InstanceEnded:
 		o := b.InstanceEnded
 		return "instance_ended", "instance ended, " + endedWords(o.GetReason()), o.GetReason(), true
+	case *pb.Event_InstanceClosing:
+		return "instance_closing", closeLine(b.InstanceClosing), "", true
+	case *pb.Event_InstanceCurrent:
+		return "instance_current", "", "", true
 	case *pb.Event_RoundStarted:
 		o := b.RoundStarted
 		who := "none yet"
@@ -218,4 +226,13 @@ func (m *Model) playsWords(o *pb.RoundResolved) string {
 		}
 	}
 	return strings.Join(out, "; ")
+}
+
+// closeLine is the log line of an instance its leader closed.
+func closeLine(o *pb.InstanceClosing) string {
+	name := o.GetName()
+	if name == "" {
+		name = "The instance"
+	}
+	return fmt.Sprintf("%s closes in %d s: everyone inside is taken to the entrance", name, o.GetSeconds())
 }

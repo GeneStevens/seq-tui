@@ -40,9 +40,12 @@ const (
 	PlanClear  // remove every step
 	PlanSubmit // send the plan
 	OpenInstance
-	UseAbility // use the ability in Slot (1 to 8); ID is a target, "" the current one
-	SetSlot    // put the ability ID in Slot ("" empties it)
-	OpenSlots  // the slot screen
+	AskReplace    // ask what opening the preset ID (Note "open") would replace; Count numbers the ask
+	LeaveInstance // give up the place in the instance
+	CloseInstance // close the instance for everyone (leader)
+	UseAbility    // use the ability in Slot (1 to 8); ID is a target, "" the current one
+	SetSlot       // put the ability ID in Slot ("" empties it)
+	OpenSlots     // the slot screen
 	CreateCharacter
 	PickCharacter // choose the character ID on the picker
 	ChangeBody    // the owner's one free change of the character ID to Body
