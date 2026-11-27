@@ -153,8 +153,6 @@ type Action struct {
 	Quiet bool
 	// Links are the items a chat line holds (D206): SocialDo "line" sends their ids.
 	Links []screen.LineLink
-	// Ask: UseDoor first asks what going in would replace (SW-011).
-	Ask bool
 }
 
 // Plan decides what a key does against the model. It is pure.
@@ -191,7 +189,7 @@ func Plan(key string, m *model.Model) Action {
 		return lookAction(m, nil)
 	case "e", "enter":
 		if id := nearestDoor(m); id != "" {
-			return Action{Kind: UseDoor, ID: id, Ask: joinAsks(m, id)}
+			return Action{Kind: UseDoor, ID: id}
 		}
 		return Action{Note: "no door on this map"}
 	case "r":
@@ -428,20 +426,4 @@ func lookAction(m *model.Model, at *pb.Pos) Action {
 		return Action{Kind: Look, ID: id}
 	}
 	return Action{Note: "no one in view to look at"}
-}
-
-// joinAsks says whether going in at the door may replace an instance the player
-// holds a place in: an instance entrance, from outside any instance, for a
-// player in a party (the door leads to the group's instance, which another
-// member may have opened). A solo player's door leads to its own.
-func joinAsks(m *model.Model, door string) bool {
-	if m.InInstance() || !m.InParty() {
-		return false
-	}
-	for _, d := range m.Map.GetDoors() {
-		if d.GetId() == door {
-			return d.GetKind() == pb.DoorKind_DOOR_KIND_INSTANCE_ENTRANCE
-		}
-	}
-	return false
 }

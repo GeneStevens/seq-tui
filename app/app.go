@@ -40,7 +40,6 @@ type App struct {
 	pings      int
 	menu       *screen.Menu   // the instance menu, nil when closed
 	askSeq     int            // numbers the menu's asks, so a late answer to an old one is dropped
-	joinOK     string         // the door whose replace line was shown: E again goes in
 	slots      *screen.Slots  // the slot screen, nil when closed
 	create     *screen.Create // character creation, nil once a character is chosen
 	picker     *screen.Picker // the character picker, nil once a character is chosen or made
@@ -389,8 +388,6 @@ func (a *App) sync(m *model.Model) {
 
 func (a *App) key(k string) (tea.Model, tea.Cmd) {
 	var act Action
-	joinOK := a.joinOK // E again, at the door whose line was shown, goes in
-	a.joinOK = ""
 	a.checkFocus()
 	a.sess.View(func(m *model.Model) { m.ClearBanner() }) // a key dismisses a server announcement
 	a.focusSess().View(func(m *model.Model) {
@@ -469,9 +466,6 @@ func (a *App) key(k string) (tea.Model, tea.Cmd) {
 		}
 		if act.Kind == WalkTo {
 			act = a.walkToAction(m)
-		}
-		if act.Kind == UseDoor && act.Ask && joinOK == act.ID {
-			act.Ask = false
 		}
 	})
 	return a.do(act)
@@ -748,11 +742,6 @@ func (a *App) send(act Action) tea.Cmd {
 			what = "loot"
 			id, err = a.sess.Loot(ctx, act.ID)
 		case UseDoor:
-			if act.Ask {
-				if msg, ok := a.askJoin(ctx, act); ok {
-					return msg
-				}
-			}
 			what = "use door"
 			id, err = a.sess.UseDoor(ctx, act.ID)
 			if err == nil && a.duo != nil && act.For == "" {
@@ -1077,30 +1066,6 @@ func (a *App) stopAsking(n int) {
 	if a.menu != nil && a.askSeq == n {
 		a.menu.Asking = false
 	}
-}
-
-// askJoin asks what going in at the door would replace. It returns the line for
-// the status line and true when the player holds another instance, or the
-// refusal; E again then goes in.
-func (a *App) askJoin(ctx context.Context, act Action) (resultMsg, bool) {
-	rep, bad := a.askReplace(ctx, "")
-	if bad != "" {
-		return resultMsg{note: bad, bad: true}, true
-	}
-	var own string
-	a.sess.View(func(m *model.Model) {
-		if m.Opened != nil {
-			own = m.Opened.Space
-		}
-	})
-	if rep.Instance == own { // the group's own instance: nothing is given up
-		return resultMsg{}, false
-	}
-	line := rep.ReplaceLine("Going in")
-	if line == "" {
-		return resultMsg{}, false
-	}
-	return resultMsg{note: line + ". Press E again to go in", after: func(a *App) { a.joinOK = act.ID }}, true
 }
 
 // askReplace sends a dry-run open and returns the server's answer, or the words

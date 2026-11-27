@@ -51,7 +51,7 @@ var Bindings = []Binding{
 	{Keys: []string{"n"}, Show: "N", What: "traders: buy, sell, train, bind, bank, sail", Group: "People and things"},
 	{Keys: []string{"c", "H"}, Show: "C, Shift+H", What: "your character: gear, bags, stats; Enter wears, U uses an item. Shift+H: a healing draught, anywhere", Group: "People and things"},
 	{Keys: []string{"t"}, Show: "T", What: "trade with a character in reach", Group: "People and things"},
-	{Keys: []string{"i"}, Show: "I", What: "this zone's instance menu (Enter opens one)", Group: "People and things"},
+	{Keys: []string{"i"}, Show: "I", What: "this zone's instance menu (Enter opens one; L leaves yours, C closes it for everyone if you lead)", Group: "People and things"},
 	{Keys: []string{"I"}, Show: "Shift+I", What: "details of an item linked in chat or speech, against what you wear (1-9 picks); L in C links one", Group: "People and things"},
 	{Keys: []string{"/"}, Show: "/", What: "the command line: chat, parties, /quest, /dismiss (Backspace on the slash, or Tab, makes it a chat line)", Group: "Screens"},
 	{Keys: []string{"pgup", "pgdown", "home", "end"}, Show: "PgUp, PgDn", What: "scroll the Events, Chat or Party panel back (the wheel over it too); Home: oldest line, End: back to live", Group: "Screens"},
