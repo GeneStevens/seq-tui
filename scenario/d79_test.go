@@ -190,6 +190,7 @@ func TestTheGroupTierStirSlotsStatusAndEntitlements(t *testing.T) {
 
 	w.Step("one expedition for each account", func() {
 		openPreset(t, bob, "venture-warren", true)
+		w.Advance(time.Second)
 		bob.Eventually("refused: bob is on an expedition", func(m *model.Model) bool {
 			return m.Refusal != nil && strings.Contains(m.Refusal.Text, "already on an expedition")
 		})

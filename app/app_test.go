@@ -71,12 +71,12 @@ func TestInstanceMenuOpensChoosesAndCloses(t *testing.T) {
 	press(a, "i")
 	press(a, "down")
 	press(a, "down")
-	cmd := press(a, "enter") // chooses the third
-	if cmd == nil || strings.Contains(screenOf(a), "Instances") {
-		t.Fatal("enter should close the menu and send the request")
+	cmd := press(a, "enter") // chooses the third: the dry run goes first (SW-011)
+	if s := screenOf(a); cmd == nil || !strings.Contains(s, "Instances") || !strings.Contains(s, "Asking the server") {
+		t.Fatalf("enter should send the dry run and keep the menu:\n%s", s)
 	}
-	a.Update(cmd()) // no server: the answer is the notice
-	if s := screenOf(a); !strings.Contains(s, "open instance not sent") {
+	a.Update(cmd()) // no server: the answer is the notice, and the menu stops waiting
+	if s := screenOf(a); !strings.Contains(s, "instance not asked") || strings.Contains(s, "Asking the server") {
 		t.Errorf("no notice:\n%s", s)
 	}
 }

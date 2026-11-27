@@ -1,0 +1,24 @@
+┌─ Testgrounds (Solo Trial), at 100,90 m, north … ─┐┌─ You ────────────────────┐
+│                                                  ││ aria  Lv 1  XP 0    | 0cr│
+│                                                  ││ HP 100/100 ############# │
+│                                                  ││ Target: none             │
+│                                                  ││ Atk off | Retaliate ON   │
+│░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
+│                                                  │┌─ Instance ───────────────┐
+│                                                  ││ Solo Trial               │
+│                         @                        ││ Closes in 40 s           │
+│                                                  ││ everyone is taken out    │
+│                                                  ││ real-time | inside       │
+│                                                  ││ party up to 1 | normal   │
+│                                                  ││                          │
+│                       m                          ││                          │
+│                                                  ││                          │
+└──────────────────────────────────────────────────┘└──────────────────────────┘
+┌─ [Events: short · v: all]  Chat  Party ──────────────────────────────────────┐
+│                with E                                                        │
+│   16:04:03.2 entered Testgrounds (Solo Trial)                                │
+│   16:04:03.2 Solo Trial closes in 60 s: everyone inside is taken to the      │
+│                entrance                                                      │
+└─ wheel · PgUp/PgDn · Home/End: scroll back ──────────────────────────────────┘
+ E: enter Gate North  ·  Tab: target · F: attack                                
+ ONLINE | heard N.Ns ago | closing the instance: a 60 s countdown has started   

@@ -37,6 +37,7 @@ func TestLeaveFromTheMenuGivesUpTheInstance(t *testing.T) {
 		t.Fatalf("the menu does not offer Leave and Close to the opener:\n%s", p.Screen(100, 30))
 	}
 	p.Press("l")
+	w.Advance(time.Second)
 	notice(t, p, "you gave up your place in the instance", false)
 	p.Eventually("handed back, the empty instance ended", back)
 	p.Model(func(m *model.Model) {
@@ -53,6 +54,7 @@ func TestCloseFromTheMenuRunsTheCountdownAndHandsBack(t *testing.T) {
 	p.Press("e")
 	p.Eventually("the instance", inside)
 	p.Press("i", "c")
+	w.Advance(time.Second)
 	notice(t, p, "closing the instance", false)
 	p.Eventually("the countdown", func(m *model.Model) bool { return m.Closing != nil && m.Closing.Seconds == 60 })
 	w.Advance(20 * time.Second)
@@ -96,8 +98,8 @@ func TestTheReplaceLineAsksBeforeOpeningAnotherInstance(t *testing.T) {
 
 	// Another open: the line names what happens to the first, and Esc keeps it.
 	p.Press("i", "1", "enter")
+	w.Advance(100 * time.Millisecond)
 	p.Eventually("the line", func(m *model.Model) bool { return m.Replacing != nil && m.Replacing.Instance == first })
-	p.Press() // let the program read the answer
 	w.Advance(100 * time.Millisecond)
 	scr := p.Screen(140, 45)
 	if !strings.Contains(scr, "Opening this closes Solo Trial") || !strings.Contains(scr, "Enter to go on") {
@@ -116,17 +118,13 @@ func TestTheReplaceLineAsksBeforeOpeningAnotherInstance(t *testing.T) {
 
 	// Asked again and confirmed: the first is closed and the second opens.
 	p.Press("enter")
-	p.Eventually("the line again", func(m *model.Model) bool { return m.ReplacingN() == 3 })
 	w.Advance(100 * time.Millisecond)
+	p.Eventually("the line again", func(m *model.Model) bool { return m.ReplacingN() == 3 })
 	p.Press("enter")
 	w.Advance(time.Second)
 	notice(t, p, "instance requested", false)
-	p.Eventually("the second instance", func(m *model.Model) bool { return m.Opened != nil && m.Opened.Space != first })
-	w.Advance(70 * time.Second)
-	p.Model(func(m *model.Model) {
-		if m.Ended == nil || m.Ended.Space != first || m.Ended.Reason != "closed" {
-			t.Fatalf("the first instance: ended %+v, want closed", m.Ended)
-		}
+	p.Eventually("the first instance closed and the second open", func(m *model.Model) bool {
+		return m.Opened != nil && m.Opened.Space != first && m.Ended != nil && m.Ended.Space == first && m.Ended.Reason == "closed"
 	})
 }
 

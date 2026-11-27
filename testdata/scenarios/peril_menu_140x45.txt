@@ -1,5 +1,5 @@
 ┌─ Instances ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ A private copy of this zone for your group; then press E at its door.                                                                    │
+│ A private instance of this zone for your group; then press E at its door.                                                                │
 │                                                                                                                                          │
 │   1  Scuttler Skirmish  (skirmish), door gate-north                                                                                      │
 │      real-time                                                                                                                           │
@@ -39,7 +39,7 @@
 │                                                                                                                                          │
 │                                                                                                                                          │
 │ Up / Down or the number choose; Enter opens it; Esc closes the menu.                                                                     │
-│ Denied inside an instance, and when your group already has one open.                                                                     │
+│                                                                                                                                          │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
  HP 100/100 | Target: none                                                                                                                  
  ONLINE | Testgrounds | heard N.Ns ago                                                                                        ? help  q quit
