@@ -27,7 +27,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 	left := th - len(rows)
 	inst, round := 0, 0
 	if instanceShown(m) {
-		inst = max(instanceRows(m, iw-1), 2) + 2
+		inst = max(instanceRows(m, v, iw-1), 2) + 2
 	}
 	turn := m.TurnBased()
 	if turn {
@@ -103,7 +103,7 @@ func rightColumn(m *model.Model, v View, rw, th int, st Styler) []string {
 		targetH += left
 	}
 	if inst > 0 {
-		rows = append(rows, box("Instance", rw, inst, instanceLines(m, iw, inst-2, st), st)...)
+		rows = append(rows, box("Instance", rw, inst, instanceLines(m, v, iw, inst-2, st), st)...)
 	}
 	if turn && round > 0 {
 		rows = append(rows, box(roundTitle(m, v), rw, round, roundLines(m, v, iw, round-2, st), st)...)

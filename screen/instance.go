@@ -14,7 +14,14 @@ import (
 const MaxPlanSteps = 16
 
 // Menu is the instance menu, when it is open: Sel is the preset the cursor is on.
-type Menu struct{ Sel int }
+type Menu struct {
+	Sel int
+	// Asking: a dry-run open is out for the preset at Sel, and the menu waits
+	// for what the server says it would replace. Confirm is that answer as one
+	// line, shown until Enter opens it anyway or Esc takes it back.
+	Asking  bool
+	Confirm string
+}
 
 // Plan is the plan being built for the open round, as lines of words. The
 // plan itself belongs to the app; the screen only shows it.
@@ -87,7 +94,7 @@ func perilWords(p *pb.InstancePreset) string {
 func menuLines(m *model.Model, v View, w, h int, st Styler) []string {
 	var rows []string
 	add := func(s string) { rows = append(rows, fit(s, w)) }
-	add(" A private copy of this zone for your group; then press E at its door.")
+	add(" A private instance of this zone for your group; then press E at its door.")
 	add("")
 	if len(m.Presets) == 0 {
 		add(" This zone offers no instances (or its map has not arrived).")
@@ -117,20 +124,40 @@ func menuLines(m *model.Model, v View, w, h int, st Styler) []string {
 	for len(rows) < h-3 {
 		rows = append(rows, strings.Repeat(" ", w))
 	}
-	rows = rows[:h-3]
+	rows = rows[:h-4]
 	if len(m.Presets) > to-from {
 		add(fmt.Sprintf(" Showing %d to %d of %d.", from+1, to, len(m.Presets)))
 	} else {
 		add("")
 	}
+	switch {
+	case v.Menu.Confirm != "":
+		rows = append(rows, st.Bold(fit(" "+v.Menu.Confirm+": Enter to go on, Esc to keep it", w)))
+	case v.Menu.Asking:
+		add(" Asking the server what this would replace…")
+	default:
+		add("")
+	}
 	add(" Up / Down or the number choose; Enter opens it; Esc closes the menu.")
-	add(" Denied inside an instance, and when your group already has one open.")
+	add(placeKeys(m))
 	return rows[:h]
+}
+
+// placeKeys says the keys of the instance you hold a place in: Leave, and for
+// its leader Close.
+func placeKeys(m *model.Model) string {
+	switch {
+	case m.CanClose():
+		return " L leaves your instance; C closes it for everyone inside (60 s countdown)."
+	case m.HoldsPlace():
+		return " L leaves your instance. Only your group's leader can close it."
+	}
+	return ""
 }
 
 // instanceShown says whether the Instance panel has anything to say.
 func instanceShown(m *model.Model) bool {
-	return m.InInstance() || m.Opened != nil || m.Ended != nil || m.Refusal != nil
+	return m.InInstance() || m.Opened != nil || m.Ended != nil || m.Refusal != nil || m.Closing != nil
 }
 
 func presetName(m *model.Model, id string) string {
@@ -159,7 +186,7 @@ func sleepWords(ms int64) string {
 
 // instanceInfoLines are the rows of the Instance panel: what the server says
 // the instance is, not what its space is called (D49).
-func instanceInfoLines(m *model.Model, w int) []string {
+func instanceInfoLines(m *model.Model, v View, w int) []string {
 	var rows []string
 	switch {
 	case m.Instance != nil:
@@ -190,6 +217,11 @@ func instanceInfoLines(m *model.Model, w int) []string {
 	default: // only a refusal to say
 		rows = []string{"No expedition"}
 	}
+	// The countdown of a close comes right after the name too: two short rows,
+	// so the panel keeps its height as the seconds run down.
+	if m.Closing != nil {
+		rows = append(rows[:1], append([]string{"Closes in " + duration(m.Closing.Left(v.Now)), "everyone is taken out"}, rows[1:]...)...)
+	}
 	// The group rules come right after the name, where a short window still
 	// shows them.
 	if g := groupLines(m, w); len(g) > 0 {
@@ -199,11 +231,11 @@ func instanceInfoLines(m *model.Model, w int) []string {
 }
 
 // instanceRows is how many rows of text the Instance panel has to show.
-func instanceRows(m *model.Model, w int) int { return len(instanceInfoLines(m, w)) }
+func instanceRows(m *model.Model, v View, w int) int { return len(instanceInfoLines(m, v, w)) }
 
-func instanceLines(m *model.Model, w, h int, st Styler) []string {
+func instanceLines(m *model.Model, v View, w, h int, st Styler) []string {
 	var rows []string
-	for i, l := range instanceInfoLines(m, w-1) {
+	for i, l := range instanceInfoLines(m, v, w-1) {
 		l = fit(" "+l, w)
 		if i == 0 {
 			l = st.Bold(l)
