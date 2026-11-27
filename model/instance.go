@@ -252,3 +252,8 @@ func (m *Model) CanClose() bool {
 	}
 	return true
 }
+
+// GaveUpPlace forgets the instance the group opened and its countdown once the
+// player left it (SW-011): the place is released, and the server tells those
+// who left nothing more of that instance.
+func (m *Model) GaveUpPlace() { m.Opened, m.Closing = nil, nil }

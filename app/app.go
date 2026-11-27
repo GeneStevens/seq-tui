@@ -840,7 +840,7 @@ func (a *App) send(act Action) tea.Cmd {
 		case act.Kind == OpenInstance:
 			return resultMsg{note: "instance requested; the log says when it is open", after: func(a *App) { a.menu = nil }}
 		case act.Kind == LeaveInstance:
-			return resultMsg{note: "you gave up your place in the instance"}
+			return resultMsg{note: "you gave up your place in the instance", after: func(a *App) { a.sess.View(func(m *model.Model) { m.GaveUpPlace() }) }}
 		case act.Kind == CloseInstance:
 			return resultMsg{note: "closing the instance: a 60 s countdown has started"}
 		case act.Kind == Talk:

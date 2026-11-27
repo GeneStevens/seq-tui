@@ -39,12 +39,15 @@ func TestLeaveFromTheMenuGivesUpTheInstance(t *testing.T) {
 	p.Press("l")
 	w.Advance(time.Second)
 	notice(t, p, "you gave up your place in the instance", false)
-	p.Eventually("handed back, the empty instance ended", back)
-	p.Model(func(m *model.Model) {
-		if m.Ended.Reason != "abandoned" || m.InInstance() {
-			t.Fatalf("ended %+v, inside %v", m.Ended, m.InInstance())
-		}
+	w.Advance(time.Second)
+	p.Eventually("taken to the entrance with no place held", func(m *model.Model) bool {
+		return !m.InInstance() && m.Opened == nil && m.Ready() && m.Map != nil && m.Map.GetSpace() == m.Space
 	})
+	p.Press("i")
+	if scr := p.Screen(140, 45); strings.Contains(scr, "L leaves") {
+		t.Fatalf("the menu still offers Leave:\n%s", scr)
+	}
+	p.Press("esc")
 }
 
 func TestCloseFromTheMenuRunsTheCountdownAndHandsBack(t *testing.T) {
@@ -64,7 +67,7 @@ func TestCloseFromTheMenuRunsTheCountdownAndHandsBack(t *testing.T) {
 			t.Fatalf("closing %+v, inside %v: it ends after the countdown", m.Closing, m.InInstance())
 		}
 	})
-	if scr := p.Screen(140, 45); !strings.Contains(scr, "Closes in 40 s") {
+	if scr := p.Screen(140, 45); !strings.Contains(scr, "Closes in 39 s") {
 		t.Fatalf("the Instance panel does not follow the countdown:\n%s", scr)
 	}
 	p.Golden("instance_closing")

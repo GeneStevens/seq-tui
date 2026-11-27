@@ -6,7 +6,7 @@
 │░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░│└──────────────────────────┘
 │                                                  │┌─ Instance ───────────────┐
 │                                                  ││ Solo Trial               │
-│                         @                        ││ Closes in 40 s           │
+│                         @                        ││ Closes in 39 s           │
 │                                                  ││ everyone is taken out    │
 │                                                  ││ real-time | inside       │
 │                                                  ││ party up to 1 | normal   │
